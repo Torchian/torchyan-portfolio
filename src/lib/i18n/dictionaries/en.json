@@ -1,0 +1,15 @@
+{
+  "common": {
+    "siteName": "Stepan Torchyan",
+    "nav": {
+      "home": "Home",
+      "projects": "Projects",
+      "blog": "Blog",
+      "about": "About",
+      "consulting": "Consulting"
+    },
+    "footer": {
+      "copyright": "All rights reserved."
+    }
+  }
+}
