@@ -28,3 +28,20 @@ export const transparents = {
   transparent4: 'rgba(255, 255, 255, 0.04)',
   transparent25: 'rgba(255, 255, 255, 0.25)',
 } as const;
+
+export const glass = {
+  bg: 'rgba(0, 0, 0, 0.004)',
+  bgMedium: 'rgba(0, 0, 0, 0.55)',
+  border: 'rgba(255, 255, 255, 0.06)',
+  borderSubtle: 'rgba(255, 255, 255, 0.04)',
+  shadow: 'rgba(0, 0, 0, 0.3)',
+  textHover: 'rgba(246, 246, 246, 0.7)',
+} as const;
+
+export const blur = {
+  xxs: '0.5px',
+  xs: '1px',
+  sm: '1.5px',
+  md: '2px',
+  lg: '2.5px',
+} as const;

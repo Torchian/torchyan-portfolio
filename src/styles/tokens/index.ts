@@ -1,4 +1,4 @@
-export { neutrals, palette, accents, transparents } from './colors';
+export { neutrals, palette, accents, transparents, glass, blur } from './colors';
 export { fontFamily, fontWeight, fontSize, lineHeight, letterSpacing } from './typography';
 export { spacing } from './spacing';
 export type { SpacingKey } from './spacing';

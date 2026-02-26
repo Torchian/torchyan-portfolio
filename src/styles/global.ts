@@ -4,7 +4,10 @@ import { createGlobalStyle } from 'styled-components';
 import { darkTheme } from './themes/dark';
 import { lightTheme } from './themes/light';
 import { generateCSSVariables } from './css-vars';
-import { fontFamily } from './tokens/typography';
+import { fontFamily, fontWeight } from './tokens/typography';
+import { spacing } from './tokens/spacing';
+import { border } from './tokens/border';
+import { zIndex } from './tokens/z-index';
 
 export const GlobalStyle = createGlobalStyle`
   [data-theme='dark'] {
@@ -28,6 +31,7 @@ export const GlobalStyle = createGlobalStyle`
     -moz-text-size-adjust: 100%;
     text-size-adjust: 100%;
     scroll-behavior: smooth;
+    scroll-padding-top: ${spacing[1000]}px;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -79,8 +83,8 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-border-focus);
-    outline-offset: 2px;
+    outline: ${border.thick}px solid var(--color-border-focus);
+    outline-offset: ${spacing[25]}px;
   }
 
   ::selection {
@@ -95,7 +99,7 @@ export const GlobalStyle = createGlobalStyle`
     width: 1px;
     height: 1px;
     overflow: hidden;
-    z-index: 9999;
+    z-index: ${zIndex.tooltip};
 
     &:focus {
       position: fixed;
@@ -103,10 +107,10 @@ export const GlobalStyle = createGlobalStyle`
       left: 0;
       width: auto;
       height: auto;
-      padding: 8px 16px;
+      padding: ${spacing[100]}px ${spacing[200]}px;
       background: var(--color-accent-primary);
       color: var(--color-text-inverse);
-      font-weight: 600;
+      font-weight: ${fontWeight.semibold};
     }
   }
 `;

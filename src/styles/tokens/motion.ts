@@ -1,8 +1,8 @@
 export const duration = {
   instant: '0ms',
   fast: '150ms',
-  normal: '250ms',
-  slow: '400ms',
+  normal: '300ms',
+  slow: '450ms',
   slower: '600ms',
 } as const;
 
