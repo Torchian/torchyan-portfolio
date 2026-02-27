@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# large assets (use CDN or compress before committing)
+public/vectors/background.png
+public/hero/character_color.png
+public/hero/character_negative.png
