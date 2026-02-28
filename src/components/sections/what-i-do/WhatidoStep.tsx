@@ -1,5 +1,6 @@
 'use client';
 
+import { forwardRef } from 'react';
 import styled from 'styled-components';
 import { fontSize, lineHeight, fontWeight, fontFamily } from '@/styles/tokens/typography';
 import { spacing } from '@/styles/tokens/spacing';
@@ -11,7 +12,7 @@ interface WhatidoStepProps {
   description: string;
 }
 
-const STEP_HEIGHT = 960;
+export const STEP_HEIGHT = 960;
 
 const Wrapper = styled.div`
   display: flex;
@@ -20,7 +21,6 @@ const Wrapper = styled.div`
   align-items: flex-start;
   justify-content: center;
   height: ${STEP_HEIGHT}px;
-  padding-top: ${spacing[2000]}px;
 
   ${media.down('l')} {
     height: auto;
@@ -65,11 +65,13 @@ const Description = styled.p`
   }
 `;
 
-export function WhatidoStep({ title, description }: WhatidoStepProps) {
-  return (
-    <Wrapper>
-      <Title>{title}</Title>
-      <Description>{description}</Description>
-    </Wrapper>
-  );
-}
+export const WhatidoStep = forwardRef<HTMLDivElement, WhatidoStepProps>(
+  function WhatidoStep({ title, description }, ref) {
+    return (
+      <Wrapper ref={ref}>
+        <Title>{title}</Title>
+        <Description>{description}</Description>
+      </Wrapper>
+    );
+  },
+);

@@ -2,7 +2,6 @@
 
 import styled from 'styled-components';
 import { Button } from '@/components/primitives';
-import { Character } from '@/components/composites';
 import { spacing } from '@/styles/tokens/spacing';
 import {
   fontFamily,
@@ -38,28 +37,6 @@ const Section = styled.section`
   ${media.down('m')} {
     padding: ${spacing[1000]}px ${spacing[200]}px ${spacing[300]}px;
   }
-`;
-
-const CharacterBg = styled.div`
-  position: absolute;
-  inset: 0;
-  z-index: ${zIndex.behind};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  pointer-events: none;
-  overflow: hidden;
-`;
-
-const HeroVectorBg = styled.img`
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  opacity: 0.2;
-  z-index: ${zIndex.behind};
 `;
 
 const HeroBody = styled.div`
@@ -188,10 +165,6 @@ const Separator = styled(FooterItem)``;
 export function HeroSection() {
   return (
     <Section>
-      <CharacterBg>
-        <HeroVectorBg src="/hero/Vector.svg" alt="" aria-hidden />
-        <Character />
-      </CharacterBg>
 
       <HeroBody>
         <HeroHeading>

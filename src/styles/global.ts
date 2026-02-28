@@ -92,6 +92,12 @@ export const GlobalStyle = createGlobalStyle`
     color: var(--color-text-inverse);
   }
 
+  #main-content {
+    display: flex;
+    flex-direction: column;
+    gap: ${spacing[2000]}px;
+  }
+
   #skip-to-content {
     position: absolute;
     left: -9999px;
