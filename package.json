@@ -9,7 +9,8 @@
     "lint": "eslint",
     "tokens": "tsx scripts/generate-tokens.ts",
     "push": "git -c http.postBuffer=524288000 push",
-    "optimize:hero": "tsx scripts/optimize-hero-images.ts"
+    "optimize:hero": "tsx scripts/optimize-hero-images.ts",
+    "optimize:images": "tsx scripts/optimize-images.ts"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",

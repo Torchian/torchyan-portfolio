@@ -10,6 +10,7 @@ export interface SectionHeadingProps {
   title: string;
   subtitle?: string;
   $align?: 'center' | 'left';
+  className?: string;
 }
 
 const Wrapper = styled.div<{ $align?: 'center' | 'left' }>`
@@ -52,9 +53,9 @@ const Subtitle = styled(Text).attrs({
   $color: 'var(--color-text-secondary)',
 })``;
 
-export function SectionHeading({ title, subtitle, $align }: SectionHeadingProps) {
+export function SectionHeading({ title, subtitle, $align, className }: SectionHeadingProps) {
   return (
-    <Wrapper $align={$align}>
+    <Wrapper $align={$align} className={className}>
       <Title $size="xl">{title}</Title>
       {subtitle && <Subtitle>{subtitle}</Subtitle>}
     </Wrapper>

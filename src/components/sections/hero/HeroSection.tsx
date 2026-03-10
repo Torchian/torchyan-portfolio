@@ -35,7 +35,7 @@ const Section = styled.section`
   overflow: hidden;
 
   ${media.down('m')} {
-    padding: ${spacing[1000]}px ${spacing[200]}px ${spacing[300]}px;
+    padding: ${spacing[1000]}px ${spacing[300]}px ${spacing[300]}px;
   }
 `;
 

@@ -15,7 +15,7 @@ import { duration, easing } from '@/styles/tokens/motion';
 import { neutrals, accents, glass, blur } from '@/styles/tokens/colors';
 import { border } from '@/styles/tokens/border';
 
-type ButtonVariant = 'primary' | 'secondary';
+type ButtonVariant = 'primary' | 'secondary' | 'tertiary';
 
 export interface ButtonProps extends React.HTMLAttributes<HTMLElement> {
   $variant?: ButtonVariant;
@@ -32,9 +32,11 @@ const TRANSITION = `${duration.fast} ${easing.linear}`;
 const primaryStyles = css`
   padding: ${spacing[150]}px ${spacing[400]}px;
   min-width: 140px;
-  background: ${glass.bg};
+  height: ${spacing[600]}px;
   border: ${border.medium}px solid ${glass.border};
   border-radius: ${radius.round}px;
+  backdrop-filter: blur(${blur.glassSmall});
+  -webkit-backdrop-filter: blur(${blur.glassSmall});
   isolation: isolate;
   overflow: hidden;
 
@@ -119,24 +121,139 @@ const primaryStyles = css`
   }
 `;
 
-const secondaryStyles = css`
+/* Tertiary: same as primary but pink (secondary) accent */
+const tertiaryStyles = css`
   padding: ${spacing[150]}px ${spacing[400]}px;
   min-width: 140px;
-  height: ${spacing[600]}px;
-  background: ${accents.primary};
-  border: none;
+  background: ${glass.bg};
+  border: ${border.medium}px solid ${glass.border};
   border-radius: ${radius.round}px;
   isolation: isolate;
+  overflow: hidden;
 
   font-size: ${fontSize.body.l}px;
   line-height: ${lineHeight.body.l}px;
   letter-spacing: ${letterSpacing.m}px;
   color: ${neutrals[100]};
-  transition: background ${TRANSITION};
+  transition: color ${TRANSITION};
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: -3px;
+    width: 0;
+    height: 0;
+    border-left: calc(var(--btn-width, 0px) / 4) solid transparent;
+    border-right: calc(var(--btn-width, 0px) / 4) solid transparent;
+    border-top: ${spacing[50]}px solid ${neutrals[100]};
+    filter: blur(${blur.sm});
+    transform: translateX(-50%);
+    pointer-events: none;
+    transition:
+      transform ${TRANSITION},
+      top ${TRANSITION},
+      filter ${TRANSITION},
+      border ${TRANSITION};
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -3px;
+    width: 0;
+    height: 0;
+    border-left: calc(var(--btn-width, 0px) / 4) solid transparent;
+    border-right: calc(var(--btn-width, 0px) / 4) solid transparent;
+    border-bottom: ${spacing[50]}px solid ${neutrals[100]};
+    transform: translateX(-50%);
+    filter: blur(${blur.sm});
+    pointer-events: none;
+    transition:
+      transform ${TRANSITION},
+      bottom ${TRANSITION},
+      filter ${TRANSITION},
+      border ${TRANSITION};
+  }
 
   @media (hover: hover) and (pointer: fine) {
     &:hover:not(:disabled) {
-      background: ${accents.primaryDark};
+      color: ${accents.secondary};
+
+      &::before {
+        filter: blur(${blur.md});
+        top: -2px;
+        border-top: ${spacing[75]}px solid ${accents.secondary};
+        transform: translateX(-50%) scaleX(1.5);
+      }
+
+      &::after {
+        filter: blur(${blur.md});
+        bottom: -2px;
+        border-bottom: ${spacing[75]}px solid ${accents.secondary};
+        transform: translateX(-50%) scaleX(1.5);
+      }
+    }
+  }
+
+  &:focus, &:active {
+    &::before {
+      filter: blur(${blur.sm});
+      top: -1px;
+      border-top: ${spacing[100]}px solid ${accents.secondary};
+    }
+
+    &::after {
+      filter: blur(${blur.sm});
+      bottom: -1px;
+      border-bottom: ${spacing[100]}px solid ${accents.secondary};
+    }
+  }
+`;
+
+const secondaryStyles = css`
+  padding: ${spacing[150]}px ${spacing[500]}px;
+  min-width: 140px;
+  height: 64px;
+  background: transparent;
+  border: none;
+  border-radius: ${radius.round}px;
+  isolation: isolate;
+  overflow: visible;
+  z-index: 1;
+
+  font-size: ${fontSize.heading.s}px;
+  line-height: ${lineHeight.heading.s}px;
+  font-weight: ${fontWeight.semibold};
+  letter-spacing: 0;
+  color: ${neutrals[100]};
+  text-align: center;
+  transition: background ${TRANSITION};
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: ${glass.bg};
+    border-radius: ${radius.round}px;
+    z-index: -1;
+    transition: left ${TRANSITION}, right ${TRANSITION}, top ${TRANSITION}, bottom ${TRANSITION};
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover:not(:disabled) {
+      background: ${accents.primary};
+
+      &::before {
+        left: -12px;
+        right: -12px;
+        top: -11px;
+        bottom: -11px;
+      }
     }
   }
 
@@ -159,7 +276,12 @@ const StyledButton = styled.button<{ $variant?: ButtonVariant }>`
   white-space: nowrap;
   user-select: none;
 
-  ${(p) => (p.$variant === 'secondary' ? secondaryStyles : primaryStyles)}
+  ${(p) =>
+    p.$variant === 'secondary'
+      ? secondaryStyles
+      : p.$variant === 'tertiary'
+        ? tertiaryStyles
+        : primaryStyles}
 
   &:disabled {
     opacity: 0.5;

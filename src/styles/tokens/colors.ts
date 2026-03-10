@@ -3,8 +3,8 @@
 export const neutrals = {
   900: '#0b0915',
   800: '#1f1a38',
-  500: '#bebebe',
   700: '#a3a3a3',
+  500: '#bebebe',
   100: '#f6f6f6',
 } as const;
 
@@ -30,8 +30,8 @@ export const transparents = {
 } as const;
 
 export const glass = {
-  bg: 'rgba(0, 0, 0, 0.004)',
-  bgMedium: 'rgba(0, 0, 0, 0.55)',
+  bg: 'rgba(0, 0, 0, 0.04)',
+  bgMedium: 'rgba(0, 0, 0, 0.5)',
   border: 'rgba(255, 255, 255, 0.06)',
   borderSubtle: 'rgba(255, 255, 255, 0.04)',
   shadow: 'rgba(0, 0, 0, 0.3)',
@@ -44,4 +44,8 @@ export const blur = {
   sm: '1.5px',
   md: '2px',
   lg: '2.5px',
+  xl: '4px',
+  glassSmall: '8px',
+  glassMedium: '16px',
+  glassLarge: '24px',
 } as const;

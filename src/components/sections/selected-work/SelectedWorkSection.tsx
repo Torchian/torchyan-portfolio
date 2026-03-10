@@ -7,9 +7,7 @@ import { ProjectStickyCard } from './ProjectStickyCard';
 import { PROJECTS } from './projectsConfig';
 import { spacing } from '@/styles/tokens/spacing';
 
-const Section = styled.section`
-  padding: ${spacing[1000]}px 0;
-`;
+const Section = styled.section``;
 
 const ProjectsStack = styled.div`
   display: flex;

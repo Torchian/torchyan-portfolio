@@ -65,13 +65,7 @@ const ContentGrid = styled.div`
   }
 `;
 
-const StepsColumn = styled.div`
-  padding-left: ${spacing[800]}px;
-
-  ${media.down('l')} {
-    padding-left: 0;
-  }
-`;
+const StepsColumn = styled.div``;
 
 /** Figma: whatido_sticky_image - right section container */
 const VisualsColumn = styled.div`

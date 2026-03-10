@@ -3,7 +3,7 @@
 import styled from 'styled-components';
 import Image from 'next/image';
 import { radius } from '@/styles/tokens/radius';
-import { fontSize, lineHeight, fontWeight, letterSpacing } from '@/styles/tokens/typography';
+import { fontSize, lineHeight, fontWeight, letterSpacing, fontFamily } from '@/styles/tokens/typography';
 import { spacing } from '@/styles/tokens/spacing';
 import { neutrals, glass, transparents } from '@/styles/tokens/colors';
 import { grid } from '@/styles/tokens/grid';
@@ -48,7 +48,7 @@ const ProjectContainer = styled.div`
 `;
 
 const ProjectHeader = styled(ProjectContainer)`
-  padding-top: ${spacing[1000]}px;
+  padding-top: ${spacing[2000]}px;
   padding-bottom: ${spacing[300]}px;
 `;
 
@@ -72,18 +72,21 @@ const ProjectHeading = styled.div`
 `;
 
 const ProjectCompany = styled.h2`
-  font-family: var(--font-gilroy), sans-serif;
-  font-weight: ${fontWeight.black};
-  font-size: ${fontSize.display.xl}px;
-  line-height: ${lineHeight.display.xl}px;
-  letter-spacing: ${letterSpacing.xxs}px;
-  text-transform: uppercase;
+  font-family: ${fontFamily.display};
+  font-weight: ${fontWeight.heading};
+  font-size: ${fontSize.display.m}px;
+  line-height: ${lineHeight.display.m}px;
   color: ${neutrals[100]};
   margin: 0;
 
+  ${media.down('l')} {
+    font-size: ${fontSize.display.s}px;
+    line-height: ${lineHeight.display.s}px;
+  }
+
   ${media.down('m')} {
-    font-size: ${fontSize.display.m}px;
-    line-height: ${lineHeight.display.m}px;
+    font-size: ${fontSize.heading.l}px;
+    line-height: ${lineHeight.heading.l}px;
   }
 `;
 
@@ -127,8 +130,8 @@ const ProjectCard = styled.div`
   background: transparent;
 `;
 
-const GridWrapper = styled.div`
-  transform: rotate(45deg);
+const GridWrapper = styled.div<{ $rotation: number }>`
+  transform: rotate(${(p) => p.$rotation}deg) scale(1.2);
   transform-origin: center center;
   width: 100%;
 `;
@@ -144,7 +147,7 @@ const MasonryColumnTrack = styled.div`
   flex-direction: column;
   gap: ${spacing[300]}px;
   transform: translateY(0);
-  transition: transform ${duration.slowest} ${easing.bouncing};
+  transition: transform ${duration.slowest} ${easing.inOut};
 `;
 
 const MasonryGrid = styled.div`
@@ -153,17 +156,11 @@ const MasonryGrid = styled.div`
   width: 100%;
   overflow: hidden;
 
-  &:hover ${MasonryColumn}:nth-child(1) ${MasonryColumnTrack} {
+  &:hover ${MasonryColumn}:nth-child(odd) ${MasonryColumnTrack} {
     transform: translateY(-8%);
   }
-  &:hover ${MasonryColumn}:nth-child(2) ${MasonryColumnTrack} {
-    transform: translateY(18%);
-  }
-  &:hover ${MasonryColumn}:nth-child(3) ${MasonryColumnTrack} {
-    transform: translateY(-12%);
-  }
-  &:hover ${MasonryColumn}:nth-child(4) ${MasonryColumnTrack} {
-    transform: translateY(6%);
+  &:hover ${MasonryColumn}:nth-child(even) ${MasonryColumnTrack} {
+    transform: translateY(12%);
   }
 `;
 
@@ -335,17 +332,33 @@ export function ProjectStickyCard({ project }: ProjectStickyCardProps) {
 
       {hasImages ? (
         <ProjectCard>
-          <GridWrapper>
+          <GridWrapper $rotation={project.masonryRotation ?? 45}>
             <MasonryGrid>
-              {[0, 1, 2, 3].map((colIndex) => {
-                const columnImages = project.images.filter((_, i) => i % 4 === colIndex);
+              {(project.masonryColumnImages ?? (() => {
+                const cols = project.masonryColumns ?? 4;
+                const order = project.masonryColumnOrder ?? Array.from({ length: cols }, (_, i) => i);
+                return Array.from({ length: cols }, (_, displayIndex) => {
+                  const colIndex = order[displayIndex] ?? displayIndex;
+                  return project.images.filter((_, i) => i % cols === colIndex);
+                });
+              })()).map((columnImages, displayIndex) => {
+                const cols = project.masonryColumns ?? 4;
+                const imgWidth = cols >= 5 ? 1600 : 1200;
                 return (
-                  <MasonryColumn key={colIndex}>
+                  <MasonryColumn key={displayIndex}>
                     <MasonryColumnTrack>
                       {[...columnImages, ...columnImages].map((img, i) => (
                         <MasonryItem key={i}>
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img src={img.src} alt={img.alt} loading="lazy" />
+                          <Image
+                            src={img.src}
+                            alt={img.alt}
+                            width={imgWidth}
+                            height={Math.round(imgWidth * 0.75)}
+                            quality={95}
+                            sizes={`(max-width: 768px) 100vw, ${100 / cols}vw`}
+                            loading="lazy"
+                            style={{ width: '100%', height: 'auto', display: 'block' }}
+                          />
                         </MasonryItem>
                       ))}
                     </MasonryColumnTrack>

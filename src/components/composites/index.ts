@@ -14,6 +14,8 @@ export { HeroTagline } from './HeroTagline';
 export type { HeroTaglineProps } from './HeroTagline';
 export { WorldMapSVG } from './WorldMapSVG';
 export type { WorldMapSVGProps, MapLocation } from './WorldMapSVG';
+export { MapDot } from './MapDot';
+export type { MapDotProps } from './MapDot';
 export { Character } from './Character';
 export { PageBackground } from './PageBackground';
 export { SideCharacters } from './SideCharacters';
