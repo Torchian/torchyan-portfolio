@@ -3,7 +3,7 @@
 import styled from 'styled-components';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Display, Text, Button } from '@/components/primitives';
+import { Display, Reveal, Text, Button } from '@/components/primitives';
 import { spacing } from '@/styles/tokens/spacing';
 import {
   fontFamily,
@@ -219,16 +219,20 @@ export function AboutHeroSection() {
   return (
     <Section id="about">
       <HeroSectionContainer>
-        <HeroTitle as="h1">
-          I design systems that live longer than trends
-        </HeroTitle>
-        <BottomRow>
-          <Label>Based in Armenia</Label>
-          <Button as={Link} href="/#work" $variant="secondary">
-            View selected work
-          </Button>
-          <Label>Working globally</Label>
-        </BottomRow>
+        <Reveal>
+          <>
+            <HeroTitle as="h1">
+              I design systems that live longer than trends
+            </HeroTitle>
+            <BottomRow>
+              <Label>Based in Armenia</Label>
+              <Button as={Link} href="/#work" $variant="secondary">
+                View selected work
+              </Button>
+              <Label>Working globally</Label>
+            </BottomRow>
+          </>
+        </Reveal>
         <HeroImageWrapper>
           <HeroImageSharp>
             <Image
@@ -242,31 +246,35 @@ export function AboutHeroSection() {
         </HeroImageWrapper>
       </HeroSectionContainer>
       <PositioningContainer>
-        <PositioningText>
-          <ShortDescription as="p">
-            I&apos;m <NameHighlight>Stepan Torchyan</NameHighlight> — a Design
-            Engineer working between UI architecture, product design, and frontend
-            engineering. Since 2016, I&apos;ve helped teams turn complex ideas
-            into scalable, accessible interfaces. Most teams separate design and
-            implementation. I build the bridge.
-          </ShortDescription>
-          <ShortDescription as="p">
-            From defining interaction logic and component structure to shipping
-            accessible, multilingual, production-grade UI — I ensure ideas
-            don&apos;t degrade during execution.
-          </ShortDescription>
-          <ShortDescription as="p">
-            Because good design is fragile. Systems make it resilient.
-          </ShortDescription>
-        </PositioningText>
-        <PositioningCards>
-          {POSITIONING_CARDS.map((title) => (
-            <Card key={title}>
-              <CardImage aria-hidden />
-              <CardTitle as="p">{title}</CardTitle>
-            </Card>
-          ))}
-        </PositioningCards>
+        <Reveal delay={0.1}>
+          <PositioningText>
+            <ShortDescription as="p">
+              I&apos;m <NameHighlight>Stepan Torchyan</NameHighlight> — a Design
+              Engineer working between UI architecture, product design, and frontend
+              engineering. Since 2016, I&apos;ve helped teams turn complex ideas
+              into scalable, accessible interfaces. Most teams separate design and
+              implementation. I build the bridge.
+            </ShortDescription>
+            <ShortDescription as="p">
+              From defining interaction logic and component structure to shipping
+              accessible, multilingual, production-grade UI — I ensure ideas
+              don&apos;t degrade during execution.
+            </ShortDescription>
+            <ShortDescription as="p">
+              Because good design is fragile. Systems make it resilient.
+            </ShortDescription>
+          </PositioningText>
+        </Reveal>
+        <Reveal delay={0.15}>
+          <PositioningCards>
+            {POSITIONING_CARDS.map((title) => (
+              <Card key={title}>
+                <CardImage aria-hidden />
+                <CardTitle as="p">{title}</CardTitle>
+              </Card>
+            ))}
+          </PositioningCards>
+        </Reveal>
       </PositioningContainer>
     </Section>
   );

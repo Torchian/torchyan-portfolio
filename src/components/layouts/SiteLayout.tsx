@@ -2,7 +2,9 @@
 
 import { usePathname } from 'next/navigation';
 import styled from 'styled-components';
+import { AnimatePresence } from 'framer-motion';
 import { NavBar } from './NavBar';
+import { PageTransition } from './PageTransition';
 import { Footer } from '@/components/sections/footer/Footer';
 import { SideCharacters } from '@/components/composites';
 
@@ -20,7 +22,13 @@ export function SiteLayout({ children }: { children: React.ReactNode }) {
     <>
       {isHomepage && <SideCharacters />}
       <NavBar />
-      <Main>{children}</Main>
+      <Main>
+        <AnimatePresence mode="wait">
+          <PageTransition key={pathname}>
+            {children}
+          </PageTransition>
+        </AnimatePresence>
+      </Main>
       <Footer />
     </>
   );

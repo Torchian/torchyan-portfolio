@@ -1,6 +1,7 @@
 'use client';
 
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 import { Button } from '@/components/primitives';
 import { spacing } from '@/styles/tokens/spacing';
 import {
@@ -14,6 +15,7 @@ import { fluidFontSize, fluidLineHeight } from '@/styles/fluid';
 import { accents, neutrals } from '@/styles/tokens/colors';
 import { zIndex } from '@/styles/tokens/z-index';
 import { media } from '@/styles/media';
+import { useReducedMotion } from '@/hooks/use-reduced-motion';
 
 const SKILLS = [
   'Product Design',
@@ -22,6 +24,23 @@ const SKILLS = [
   'Design Systems',
   'Experiments',
 ];
+
+const EASE = [0.25, 0.1, 0.25, 1] as const;
+
+const stagger = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.2 } },
+};
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } },
+};
+
+const footerFade = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.6, ease: EASE, delay: 1.0 } },
+};
 
 const Section = styled.section`
   position: relative;
@@ -40,7 +59,7 @@ const Section = styled.section`
   }
 `;
 
-const HeroBody = styled.div`
+const HeroBody = styled(motion.div)`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -55,7 +74,7 @@ const HeroBody = styled.div`
   }
 `;
 
-const HeroHeading = styled.div`
+const HeroHeading = styled(motion.div)`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -67,7 +86,7 @@ const HeroHeading = styled.div`
   }
 `;
 
-const Title = styled.h2`
+const Eyebrow = styled(motion.p)`
   font-family: ${fontFamily.display};
   font-weight: ${fontWeight.heading};
   font-size: ${fluidFontSize.display.m};
@@ -87,7 +106,7 @@ const Title = styled.h2`
   }
 `;
 
-const Subtitle = styled.h1`
+const Headline = styled(motion.h1)`
   font-family: ${fontFamily.display};
   font-weight: ${fontWeight.black};
   font-size: ${fluidFontSize.display.xl};
@@ -114,7 +133,7 @@ const Subtitle = styled.h1`
   }
 `;
 
-const Description = styled.p`
+const Description = styled(motion.p)`
   font-family: ${fontFamily.body};
   font-weight: ${fontWeight.semibold};
   font-size: ${fluidFontSize.heading.s};
@@ -131,7 +150,9 @@ const Description = styled.p`
   }
 `;
 
-const HeroFooter = styled.div`
+const MotionButton = styled(motion.div)``;
+
+const HeroFooter = styled(motion.div)`
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -164,25 +185,30 @@ const FooterItem = styled.span`
 const Separator = styled(FooterItem)``;
 
 export function HeroSection() {
+  const prefersReduced = useReducedMotion();
+  const animate = prefersReduced ? undefined : 'visible';
+  const initial = prefersReduced ? undefined : 'hidden';
+
   return (
     <Section>
-
-      <HeroBody>
-        <HeroHeading>
-          <Title>Design Engineer</Title>
-          <Subtitle>Stepan Torchyan</Subtitle>
-          <Description>
+      <HeroBody variants={stagger} initial={initial} animate={animate}>
+        <HeroHeading variants={stagger}>
+          <Eyebrow variants={fadeUp}>Design Engineer</Eyebrow>
+          <Headline variants={fadeUp}>Stepan Torchyan</Headline>
+          <Description variants={fadeUp}>
             I work between design and engineering, connecting product thinking,
             UI architecture, and front-end execution into one coherent process.
           </Description>
         </HeroHeading>
 
-        <Button as="a" href="#contact" $variant="primary">
-          Contact
-        </Button>
+        <MotionButton variants={fadeUp}>
+          <Button as="a" href="#contact" $variant="primary">
+            Contact
+          </Button>
+        </MotionButton>
       </HeroBody>
 
-      <HeroFooter>
+      <HeroFooter variants={footerFade} initial={initial} animate={animate}>
         {SKILLS.map((skill, i) => (
           <span key={skill} style={{ display: 'contents' }}>
             <FooterItem>{skill}</FooterItem>

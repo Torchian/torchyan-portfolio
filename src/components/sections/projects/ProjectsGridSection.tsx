@@ -2,14 +2,15 @@
 
 import Image from 'next/image';
 import styled from 'styled-components';
-import { Button, Text } from '@/components/primitives';
+import { Button, Text, Reveal } from '@/components/primitives';
 import { PROJECTS } from '@/components/sections/selected-work/projectsConfig';
 import { spacing } from '@/styles/tokens/spacing';
 import { fontFamily, fontWeight, fontSize, lineHeight } from '@/styles/tokens/typography';
 import { fluidFontSize, fluidLineHeight } from '@/styles/fluid';
-import { accents, neutrals } from '@/styles/tokens/colors';
+import { accents, neutrals, elevation } from '@/styles/tokens/colors';
 import { radius } from '@/styles/tokens/radius';
 import { border } from '@/styles/tokens/border';
+import { duration, easing } from '@/styles/tokens/motion';
 import { media } from '@/styles/media';
 
 const Section = styled.section`
@@ -21,8 +22,19 @@ const Card = styled.article<{ $reverse?: boolean }>`
   display: grid;
   grid-template-columns: 1fr 1fr;
   min-height: 640px;
+  border-radius: ${radius.xxl}px;
+  overflow: hidden;
+  transition: transform ${duration.normal} ${easing.out},
+    box-shadow ${duration.normal} ${easing.out};
 
   ${(p) => p.$reverse && 'direction: rtl;'}
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: ${elevation.medium};
+    }
+  }
 
   ${media.down('l')} {
     grid-template-columns: 1fr;
@@ -110,7 +122,8 @@ export function ProjectsGridSection() {
     <Section>
       {ordered.map((project, index) =>
         project ? (
-          <Card key={`${project.slug}-${index}`} $reverse={index % 2 === 1}>
+          <Reveal key={`${project.slug}-${index}`} delay={index * 0.05}>
+          <Card $reverse={index % 2 === 1}>
             <Info>
               <Title>{project.company === 'Picsart' ? 'Picsart Marketplace' : project.company}</Title>
               <Roles>
@@ -141,6 +154,7 @@ export function ProjectsGridSection() {
               />
             </CardMedia>
           </Card>
+          </Reveal>
         ) : null
       )}
     </Section>

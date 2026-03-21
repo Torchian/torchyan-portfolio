@@ -5,7 +5,8 @@ import { Heading, Text } from '@/components/primitives';
 import { spacing } from '@/styles/tokens/spacing';
 import { radius } from '@/styles/tokens/radius';
 import { border } from '@/styles/tokens/border';
-import { accents, neutrals } from '@/styles/tokens/colors';
+import { accents, neutrals, elevation } from '@/styles/tokens/colors';
+import { duration, easing } from '@/styles/tokens/motion';
 
 type CardVariant = 'dark' | 'accent';
 
@@ -25,6 +26,15 @@ const Card = styled.article<{ $variant: CardVariant }>`
   border-radius: ${radius.xl}px;
   overflow: hidden;
   min-height: 320px;
+  transition: transform ${duration.normal} ${easing.out},
+    box-shadow ${duration.normal} ${easing.out};
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: ${elevation.medium};
+    }
+  }
 
   ${(p) =>
     p.$variant === 'accent'

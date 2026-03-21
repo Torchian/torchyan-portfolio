@@ -22,3 +22,7 @@ export type { CompanyLogoProps } from './CompanyLogo';
 export { RatingDots } from './RatingDots';
 export type { RatingDotsProps } from './RatingDots';
 export { Ticker } from './Ticker';
+export { Reveal } from './Reveal';
+export type { RevealProps } from './Reveal';
+export { StaggerReveal, staggerItemVariants } from './StaggerReveal';
+export type { StaggerRevealProps } from './StaggerReveal';

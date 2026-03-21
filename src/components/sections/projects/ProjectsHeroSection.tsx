@@ -1,7 +1,7 @@
 'use client';
 
 import styled from 'styled-components';
-import { Container, Text } from '@/components/primitives';
+import { Container, Reveal, Text } from '@/components/primitives';
 import { spacing } from '@/styles/tokens/spacing';
 import {
   fontFamily,
@@ -82,20 +82,26 @@ export function ProjectsHeroSection() {
   return (
     <Section>
       <HeroContainer>
-        <Title>Projects As Structured Systems</Title>
-        <Description as="p">
-          I don&apos;t treat projects as isolated deliverables. Each one is a layered
-          product architecture—where research, interaction logic, visual systems, and
-          engineering constraints are resolved into a scalable interface.
-        </Description>
-        <Footer>
-          {HERO_ITEMS.map((item, index) => (
-            <span key={item} style={{ display: 'contents' }}>
-              <FooterItem as="span">{item}</FooterItem>
-              {index < HERO_ITEMS.length - 1 && <FooterItem as="span">×</FooterItem>}
-            </span>
-          ))}
-        </Footer>
+        <Reveal>
+          <>
+            <Title>Projects As Structured Systems</Title>
+            <Description as="p">
+              I don&apos;t treat projects as isolated deliverables. Each one is a layered
+              product architecture—where research, interaction logic, visual systems, and
+              engineering constraints are resolved into a scalable interface.
+            </Description>
+          </>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <Footer>
+            {HERO_ITEMS.map((item, index) => (
+              <span key={item} style={{ display: 'contents' }}>
+                <FooterItem as="span">{item}</FooterItem>
+                {index < HERO_ITEMS.length - 1 && <FooterItem as="span">×</FooterItem>}
+              </span>
+            ))}
+          </Footer>
+        </Reveal>
       </HeroContainer>
     </Section>
   );

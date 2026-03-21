@@ -2,7 +2,7 @@
 
 import styled from 'styled-components';
 import Link from 'next/link';
-import { Container } from '@/components/primitives';
+import { Container, Reveal } from '@/components/primitives';
 import { SectionHeading } from '@/components/composites';
 import { Button } from '@/components/primitives';
 import { spacing } from '@/styles/tokens/spacing';
@@ -199,26 +199,30 @@ export function CapabilitiesSection() {
   return (
     <Section id="capabilities">
       <HeadingContainer $padding={false}>
-        <SectionHeading
-          title="Capabilities"
-          subtitle="I design, engineer, and ship digital products where structure, performance, and clarity matter."
-        />
+        <Reveal>
+          <SectionHeading
+            title="Capabilities"
+            subtitle="I design, engineer, and ship digital products where structure, performance, and clarity matter."
+          />
+        </Reveal>
       </HeadingContainer>
 
       <ContentContainer $padding={false}>
-        <CardsGrid>
-          {CAPABILITIES.map((cap) => (
-            <CapabilityCard key={cap.title}>
-              <CapabilityCardBody>
-                <CapabilityTitle>{cap.title}</CapabilityTitle>
-                <CapabilityText>{cap.mainText}</CapabilityText>
-                <CapabilityTextContainer>
-                  <CapabilityText $size="small">{cap.secondaryText}</CapabilityText>
-                </CapabilityTextContainer>
-              </CapabilityCardBody>
-            </CapabilityCard>
-          ))}
-        </CardsGrid>
+        <Reveal delay={0.1}>
+          <CardsGrid>
+            {CAPABILITIES.map((cap) => (
+              <CapabilityCard key={cap.title}>
+                <CapabilityCardBody>
+                  <CapabilityTitle>{cap.title}</CapabilityTitle>
+                  <CapabilityText>{cap.mainText}</CapabilityText>
+                  <CapabilityTextContainer>
+                    <CapabilityText $size="small">{cap.secondaryText}</CapabilityText>
+                  </CapabilityTextContainer>
+                </CapabilityCardBody>
+              </CapabilityCard>
+            ))}
+          </CardsGrid>
+        </Reveal>
 
         <CTAWrapper>
           <Button as={Link} href="#contact" $variant="tertiary">

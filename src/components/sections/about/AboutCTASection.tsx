@@ -2,7 +2,7 @@
 
 import styled from 'styled-components';
 import Link from 'next/link';
-import { Button, Container, Text } from '@/components/primitives';
+import { Button, Container, Reveal, Text } from '@/components/primitives';
 import { spacing } from '@/styles/tokens/spacing';
 import { fontFamily, fontWeight } from '@/styles/tokens/typography';
 import { fluidFontSize, fluidLineHeight } from '@/styles/fluid';
@@ -105,22 +105,25 @@ export function AboutCTASection() {
   return (
     <Section>
       <Inner>
-        <Intro>
-          <IntroParagraph as="p">
-            I stay relentlessly current - not by consuming trends, but by testing them in production.
-          </IntroParagraph>
-          <IntroParagraph as="p">
-            Every day I work with modern design systems, evolving frontend architectures, and AI-driven creative tools that accelerate research, media generation, and development workflows.
-          </IntroParagraph>
-          <IntroParagraph as="p">
-            From Figma ecosystems to code editors, performance tooling, and generative systems - I treat technology as a thinking partner, not just an instrument.
-          </IntroParagraph>
-          <IntroParagraph as="p">
-            The result is simple: clarity in complexity, structure in chaos, and products that are ready for what’s next.
-          </IntroParagraph>
-        </Intro>
+        <Reveal>
+          <Intro>
+            <IntroParagraph as="p">
+              I stay relentlessly current - not by consuming trends, but by testing them in production.
+            </IntroParagraph>
+            <IntroParagraph as="p">
+              Every day I work with modern design systems, evolving frontend architectures, and AI-driven creative tools that accelerate research, media generation, and development workflows.
+            </IntroParagraph>
+            <IntroParagraph as="p">
+              From Figma ecosystems to code editors, performance tooling, and generative systems - I treat technology as a thinking partner, not just an instrument.
+            </IntroParagraph>
+            <IntroParagraph as="p">
+              The result is simple: clarity in complexity, structure in chaos, and products that are ready for what’s next.
+            </IntroParagraph>
+          </Intro>
+        </Reveal>
 
-        <CardsRow>
+        <Reveal delay={0.1}>
+          <CardsRow>
           <Card $bg="green">
             <CardTitle as="h3" $accent="green">
               Let&apos;s Build Something That Scales
@@ -151,6 +154,7 @@ export function AboutCTASection() {
             </CardFooter>
           </Card>
         </CardsRow>
+        </Reveal>
 
         <BottomLine as="p">
           Currently exploring advanced UI systems, AI-assisted workflows, and

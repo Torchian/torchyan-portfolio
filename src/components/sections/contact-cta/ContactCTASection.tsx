@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import styled from 'styled-components';
-import { Container, TextInput } from '@/components/primitives';
+import { Container, Reveal, TextInput } from '@/components/primitives';
 import { SectionHeading } from '@/components/composites';
 import { spacing } from '@/styles/tokens/spacing';
 import { fontSize, lineHeight, fontWeight, fontFamily, letterSpacing } from '@/styles/tokens/typography';
@@ -159,9 +159,9 @@ const SubmitButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 12px 40px;
+  padding: ${spacing[150]}px ${spacing[500]}px;
   min-width: 140px;
-  height: 48px;
+  height: ${spacing[600]}px;
   font-family: ${fontFamily.display};
   font-weight: ${fontWeight.semibold};
   font-size: 18px;
@@ -202,18 +202,22 @@ export function ContactCTASection() {
       <Container $padding={false}>
         <TwoColumn>
           <HeadingColumn>
-            <SectionHeading
-              title="Let's Talk About What You're Building"
-              $align="left"
-            />
+            <Reveal>
+              <SectionHeading
+                title="Let's Talk About What You're Building"
+                $align="left"
+              />
+            </Reveal>
           </HeadingColumn>
 
           <FormColumn>
-            <IntroText>
-              A short conversation to understand the problem, scope, and whether we&apos;re a good fit.
-            </IntroText>
+            <Reveal delay={0.1}>
+              <>
+                <IntroText>
+                  A short conversation to understand the problem, scope, and whether we&apos;re a good fit.
+                </IntroText>
 
-            <Form onSubmit={(e) => e.preventDefault()}>
+                <Form onSubmit={(e) => e.preventDefault()}>
               <FormGroup>
                 <FormLabel>Select Your Intent</FormLabel>
                 <ChipGroup>
@@ -296,6 +300,8 @@ export function ContactCTASection() {
 
               <SubmitButton type="submit">Contact</SubmitButton>
             </Form>
+              </>
+            </Reveal>
           </FormColumn>
         </TwoColumn>
       </Container>

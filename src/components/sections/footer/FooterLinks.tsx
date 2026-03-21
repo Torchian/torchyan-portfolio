@@ -52,7 +52,8 @@ const bracketLinkStyles = css`
   line-height: ${fluidLineHeight.heading.s};
   color: ${neutrals[100]};
   text-decoration: none;
-  padding: 0 ${spacing[100]}px;
+  padding: ${spacing[100]}px ${spacing[100]}px;
+  min-height: 44px;
 
   &::before {
     content: '[';

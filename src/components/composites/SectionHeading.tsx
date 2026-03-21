@@ -11,6 +11,7 @@ export interface SectionHeadingProps {
   title: string;
   subtitle?: string;
   $align?: 'center' | 'left';
+  as?: 'h1' | 'h2' | 'h3' | 'h4';
   className?: string;
 }
 
@@ -54,10 +55,10 @@ const Subtitle = styled(Text).attrs({
   $color: 'var(--color-text-secondary)',
 })``;
 
-export function SectionHeading({ title, subtitle, $align, className }: SectionHeadingProps) {
+export function SectionHeading({ title, subtitle, $align, as: headingAs = 'h2', className }: SectionHeadingProps) {
   return (
     <Wrapper $align={$align} className={className}>
-      <Title $size="xl">{title}</Title>
+      <Title as={headingAs} $size="xl">{title}</Title>
       {subtitle && <Subtitle>{subtitle}</Subtitle>}
     </Wrapper>
   );

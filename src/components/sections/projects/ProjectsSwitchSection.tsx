@@ -1,7 +1,7 @@
 'use client';
 
 import styled from 'styled-components';
-import { Container, Text } from '@/components/primitives';
+import { Container, Reveal, Text } from '@/components/primitives';
 import { spacing } from '@/styles/tokens/spacing';
 import { fontFamily, fontWeight, fontSize, lineHeight, letterSpacing } from '@/styles/tokens/typography';
 import { fluidFontSize, fluidLineHeight } from '@/styles/fluid';
@@ -101,21 +101,27 @@ export function ProjectsSwitchSection() {
   return (
     <Section>
       <Content>
-        <Intro>
-          <Heading>Switch Perspective</Heading>
-          <Subtitle as="p">
-            Each project can be explored through multiple lenses:
-          </Subtitle>
-        </Intro>
-        <Cards>
-          {SWITCH_MODE_CARDS.map((card) => (
-            <Card key={card.title}>
-              <CardTitle $accent={card.accent}>{card.title}</CardTitle>
-              <CardBody as="p">{card.body}</CardBody>
-            </Card>
-          ))}
-        </Cards>
-        <ProjectsEcosystemBlock />
+        <Reveal>
+          <Intro>
+            <Heading>Switch Perspective</Heading>
+            <Subtitle as="p">
+              Each project can be explored through multiple lenses:
+            </Subtitle>
+          </Intro>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <Cards>
+            {SWITCH_MODE_CARDS.map((card) => (
+              <Card key={card.title}>
+                <CardTitle $accent={card.accent}>{card.title}</CardTitle>
+                <CardBody as="p">{card.body}</CardBody>
+              </Card>
+            ))}
+          </Cards>
+        </Reveal>
+        <Reveal delay={0.15}>
+          <ProjectsEcosystemBlock />
+        </Reveal>
       </Content>
     </Section>
   );

@@ -1,7 +1,7 @@
 'use client';
 
 import styled from 'styled-components';
-import { Button, Container, Text } from '@/components/primitives';
+import { Button, Container, Reveal, Text } from '@/components/primitives';
 import { spacing } from '@/styles/tokens/spacing';
 import { fontFamily, fontWeight } from '@/styles/tokens/typography';
 import { fluidFontSize, fluidLineHeight } from '@/styles/fluid';
@@ -87,12 +87,17 @@ export function ProjectsBuildSection() {
   return (
     <Section>
       <Container>
-        <Title>Build With Structural Intent</Title>
-        <Subtitle as="p">
-          If your product demands clarity between design vision and engineering execution,
-          the next step should be deliberate—not improvised.
-        </Subtitle>
-        <Cards>
+        <Reveal>
+          <>
+            <Title>Build With Structural Intent</Title>
+            <Subtitle as="p">
+              If your product demands clarity between design vision and engineering execution,
+              the next step should be deliberate—not improvised.
+            </Subtitle>
+          </>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <Cards>
           <Card $bg="#0D1816">
             <CardHeading $color={accents.primary}>
               Initiate a System-Level Collaboration
@@ -123,6 +128,7 @@ export function ProjectsBuildSection() {
             </CardFooter>
           </Card>
         </Cards>
+        </Reveal>
       </Container>
     </Section>
   );
