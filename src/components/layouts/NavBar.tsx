@@ -249,7 +249,7 @@ export function NavBar() {
       </NavCenter>
 
       <CTAWrapper>
-        <Button as="a" href="/#contact" $variant="primary">
+        <Button as={Link} href="/#contact" $variant="primary">
           Contact Me
         </Button>
       </CTAWrapper>

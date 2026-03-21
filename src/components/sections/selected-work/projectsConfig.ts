@@ -4,6 +4,7 @@
  */
 
 export interface ProjectConfig {
+  slug: string;
   company: string;
   roles: string[];
   title: string;
@@ -104,6 +105,7 @@ function souloneColumnImages(): { src: string; alt: string }[][] {
 
 export const PROJECTS: ProjectConfig[] = [
   {
+    slug: 'picsart',
     company: 'Picsart',
     roles: ['Product Design', 'Frontend', 'Design System'],
     title: 'Creative Platform',
@@ -114,9 +116,10 @@ export const PROJECTS: ProjectConfig[] = [
     images: toImages('picsart', PICSART_IMAGES, 'Picsart'),
     masonryColumns: 4,
     masonryRotation: 45,
-    href: '#',
+    href: '/projects/picsart',
   },
   {
+    slug: 'smartbet',
     company: 'Smartbet',
     roles: ['Product Design', 'Frontend', 'Backend'],
     title: 'Sports & Gaming Platform',
@@ -128,9 +131,10 @@ export const PROJECTS: ProjectConfig[] = [
     masonryColumns: 3,
     masonryRotation: -45,
     masonryColumnOrder: [1, 0, 2],
-    href: '#',
+    href: '/projects/smartbet',
   },
   {
+    slug: 'soulone',
     company: 'Soulone',
     roles: ['Design Lead', 'Full-stack'],
     title: 'Product Suite',
@@ -142,6 +146,10 @@ export const PROJECTS: ProjectConfig[] = [
     masonryColumns: 5,
     masonryRotation: 45,
     masonryColumnImages: souloneColumnImages(),
-    href: '#',
+    href: '/projects/soulone',
   },
 ];
+
+export function getProjectBySlug(slug: string): ProjectConfig | undefined {
+  return PROJECTS.find((p) => p.slug === slug);
+}
