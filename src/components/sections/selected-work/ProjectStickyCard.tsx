@@ -1,6 +1,7 @@
 'use client';
 
 import styled from 'styled-components';
+import Link from 'next/link';
 import Image from 'next/image';
 import { radius } from '@/styles/tokens/radius';
 import { fontSize, lineHeight, fontWeight, letterSpacing, fontFamily } from '@/styles/tokens/typography';
@@ -220,7 +221,7 @@ const IsometricCard = styled.div`
   }
 `;
 
-const PlaceholderCTA = styled.a`
+const PlaceholderCTA = styled(Link)`
   position: absolute;
   left: 50%;
   top: 50%;
@@ -291,6 +292,23 @@ const ProjectField = styled.span`
   line-height: ${lineHeight.body.l}px;
   letter-spacing: ${letterSpacing.m}px;
   color: ${neutrals[100]};
+`;
+
+const CaseStudyLink = styled(Link)`
+  font-family: var(--font-gilroy), sans-serif;
+  font-weight: ${fontWeight.semibold};
+  font-size: ${fontSize.body.xl}px;
+  line-height: ${lineHeight.body.xl}px;
+  color: ${neutrals[100]};
+  text-decoration: none;
+  margin-top: ${spacing[200]}px;
+  display: inline-flex;
+  align-items: center;
+  transition: opacity ${duration.normal} ${easing.inOut};
+
+  &:hover {
+    opacity: 0.85;
+  }
 `;
 
 const PlaceholderCard = styled.div`
@@ -395,7 +413,7 @@ export function ProjectStickyCard({ project }: ProjectStickyCardProps) {
             </IsometricRow>
           </IsometricGrid>
           {project.href && (
-            <PlaceholderCTA href={project.href}>View Case</PlaceholderCTA>
+            <PlaceholderCTA href={`/projects/${project.slug}`}>View Case</PlaceholderCTA>
           )}
         </ProjectVisuals>
       )}
@@ -407,6 +425,9 @@ export function ProjectStickyCard({ project }: ProjectStickyCardProps) {
             <ProjectDescription>{project.description}</ProjectDescription>
           </ProjectInfo>
           <ProjectField>{project.field} · {project.year}</ProjectField>
+          <CaseStudyLink href={`/projects/${project.slug}`}>
+            View case study →
+          </CaseStudyLink>
         </ProjectBody>
       </ProjectFooter>
     </CardWrapper>

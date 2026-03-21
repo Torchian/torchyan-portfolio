@@ -1,9 +1,10 @@
 'use client';
 
+import { usePathname } from 'next/navigation';
 import styled from 'styled-components';
 import { NavBar } from './NavBar';
 import { Footer } from '@/components/sections/footer/Footer';
-import { PageBackground, SideCharacters } from '@/components/composites';
+import { SideCharacters } from '@/components/composites';
 
 const Main = styled.div`
   position: relative;
@@ -12,10 +13,12 @@ const Main = styled.div`
 `;
 
 export function SiteLayout({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+  const isHomepage = pathname === '/';
+
   return (
     <>
-      <PageBackground />
-      <SideCharacters />
+      {isHomepage && <SideCharacters />}
       <NavBar />
       <Main>{children}</Main>
       <Footer />
