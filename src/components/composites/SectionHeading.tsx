@@ -3,7 +3,8 @@
 import styled from 'styled-components';
 import { Display, Text } from '@/components/primitives';
 import { spacing } from '@/styles/tokens/spacing';
-import { fontSize, lineHeight, fontWeight, letterSpacing } from '@/styles/tokens/typography';
+import { fontWeight, letterSpacing } from '@/styles/tokens/typography';
+import { fluidFontSize, fluidLineHeight } from '@/styles/fluid';
 import { media } from '@/styles/media';
 
 export interface SectionHeadingProps {
@@ -23,22 +24,22 @@ const Wrapper = styled.div<{ $align?: 'center' | 'left' }>`
 
 const Title = styled(Display)`
   /* Mobile: 58px, 600, title case */
-  font-size: ${fontSize.display.s}px;
-  line-height: ${lineHeight.display.s}px;
+  font-size: ${fluidFontSize.display.s};
+  line-height: ${fluidLineHeight.display.s};
   font-weight: ${fontWeight.semibold};
   text-transform: capitalize;
 
   /* Tablet: 72px, 700, title case */
   ${media.up('m')} {
-    font-size: ${fontSize.display.m}px;
-    line-height: ${lineHeight.display.m}px;
+    font-size: ${fluidFontSize.display.m};
+    line-height: ${fluidLineHeight.display.m};
     font-weight: ${fontWeight.heading};
   }
 
   /* Desktop: 96px, 900, uppercase */
   ${media.up('l')} {
-    font-size: ${fontSize.display.xl}px;
-    line-height: ${lineHeight.display.xl}px;
+    font-size: ${fluidFontSize.display.xl};
+    line-height: ${fluidLineHeight.display.xl};
     font-weight: ${fontWeight.black};
     text-transform: uppercase;
     letter-spacing: ${letterSpacing.xxs}px;

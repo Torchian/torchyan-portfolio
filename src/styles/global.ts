@@ -3,13 +3,17 @@
 import { createGlobalStyle } from 'styled-components';
 import { darkTheme } from './themes/dark';
 import { lightTheme } from './themes/light';
-import { generateCSSVariables } from './css-vars';
+import { generateCSSVariables, generateStaticCSSVariables } from './css-vars';
 import { fontFamily, fontWeight } from './tokens/typography';
 import { spacing } from './tokens/spacing';
 import { border } from './tokens/border';
 import { zIndex } from './tokens/z-index';
 
 export const GlobalStyle = createGlobalStyle`
+  :root {
+    ${generateStaticCSSVariables()}
+  }
+
   [data-theme='dark'] {
     ${generateCSSVariables(darkTheme)}
     color-scheme: dark;

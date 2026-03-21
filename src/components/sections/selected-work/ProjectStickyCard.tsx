@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { radius } from '@/styles/tokens/radius';
 import { fontSize, lineHeight, fontWeight, letterSpacing, fontFamily } from '@/styles/tokens/typography';
+import { fluidFontSize, fluidLineHeight } from '@/styles/fluid';
 import { spacing } from '@/styles/tokens/spacing';
 import { neutrals, glass, transparents } from '@/styles/tokens/colors';
 import { grid } from '@/styles/tokens/grid';
@@ -75,19 +76,19 @@ const ProjectHeading = styled.div`
 const ProjectCompany = styled.h2`
   font-family: ${fontFamily.display};
   font-weight: ${fontWeight.heading};
-  font-size: ${fontSize.display.m}px;
-  line-height: ${lineHeight.display.m}px;
+  font-size: ${fluidFontSize.display.m};
+  line-height: ${fluidLineHeight.display.m};
   color: ${neutrals[100]};
   margin: 0;
 
   ${media.down('l')} {
-    font-size: ${fontSize.display.s}px;
-    line-height: ${lineHeight.display.s}px;
+    font-size: ${fluidFontSize.display.s};
+    line-height: ${fluidLineHeight.display.s};
   }
 
   ${media.down('m')} {
-    font-size: ${fontSize.heading.l}px;
-    line-height: ${lineHeight.heading.l}px;
+    font-size: ${fluidFontSize.heading.l};
+    line-height: ${fluidLineHeight.heading.l};
   }
 `;
 
@@ -234,8 +235,8 @@ const PlaceholderCTA = styled(Link)`
   border-radius: ${radius.round}px;
   font-family: var(--font-gilroy), sans-serif;
   font-weight: ${fontWeight.semibold};
-  font-size: ${fontSize.heading.s}px;
-  line-height: ${lineHeight.heading.s}px;
+  font-size: ${fluidFontSize.heading.s};
+  line-height: ${fluidLineHeight.heading.s};
   color: ${neutrals[100]};
   text-decoration: none;
   z-index: 2;
@@ -269,8 +270,8 @@ const ProjectInfo = styled.div`
 const ProjectTitle = styled.h3`
   font-family: var(--font-gilroy), sans-serif;
   font-weight: ${fontWeight.medium};
-  font-size: ${fontSize.heading.m}px;
-  line-height: ${lineHeight.heading.m}px;
+  font-size: ${fluidFontSize.heading.m};
+  line-height: ${fluidLineHeight.heading.m};
   color: ${neutrals[100]};
   margin: 0;
 `;

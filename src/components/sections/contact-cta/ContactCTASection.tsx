@@ -6,6 +6,7 @@ import { Container, TextInput } from '@/components/primitives';
 import { SectionHeading } from '@/components/composites';
 import { spacing } from '@/styles/tokens/spacing';
 import { fontSize, lineHeight, fontWeight, fontFamily, letterSpacing } from '@/styles/tokens/typography';
+import { fluidFontSize, fluidLineHeight } from '@/styles/fluid';
 import { neutrals, accents, glass, blur } from '@/styles/tokens/colors';
 import { radius } from '@/styles/tokens/radius';
 import { grid } from '@/styles/tokens/grid';
@@ -58,8 +59,8 @@ const FormColumn = styled.div`
 const IntroText = styled.p`
   font-family: ${fontFamily.heading};
   font-weight: ${fontWeight.medium};
-  font-size: ${fontSize.heading.s}px;
-  line-height: ${lineHeight.heading.s}px;
+  font-size: ${fluidFontSize.heading.s};
+  line-height: ${fluidLineHeight.heading.s};
   color: ${neutrals[100]};
 `;
 

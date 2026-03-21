@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Container, Text } from '@/components/primitives';
 import { spacing } from '@/styles/tokens/spacing';
 import { fontFamily, fontWeight, fontSize, lineHeight, letterSpacing } from '@/styles/tokens/typography';
+import { fluidFontSize, fluidLineHeight } from '@/styles/fluid';
 import { accents, neutrals } from '@/styles/tokens/colors';
 import { radius } from '@/styles/tokens/radius';
 import { grid } from '@/styles/tokens/grid';
@@ -38,15 +39,15 @@ const Title = styled.h2`
   margin: 0;
   font-family: ${fontFamily.display};
   font-weight: ${fontWeight.black};
-  font-size: ${fontSize.display.m}px;
-  line-height: ${lineHeight.display.m}px;
+  font-size: ${fluidFontSize.display.m};
+  line-height: ${fluidLineHeight.display.m};
   letter-spacing: ${letterSpacing.xxs}px;
   text-transform: uppercase;
   color: ${neutrals[100]};
 
   ${media.down('m')} {
-    font-size: ${fontSize.display.s}px;
-    line-height: ${lineHeight.display.s}px;
+    font-size: ${fluidFontSize.display.s};
+    line-height: ${fluidLineHeight.display.s};
   }
 `;
 
@@ -95,8 +96,8 @@ const TextBlock = styled.div`
 const RowNumber = styled.span`
   font-family: ${fontFamily.display};
   font-weight: ${fontWeight.black};
-  font-size: ${fontSize.display.s}px;
-  line-height: ${lineHeight.display.s}px;
+  font-size: ${fluidFontSize.display.s};
+  line-height: ${fluidLineHeight.display.s};
   color: ${accents.primary};
 `;
 
@@ -104,8 +105,8 @@ const RowTitle = styled.h3`
   margin: 0;
   font-family: ${fontFamily.heading};
   font-weight: ${fontWeight.semibold};
-  font-size: ${fontSize.heading.l}px;
-  line-height: ${lineHeight.heading.l}px;
+  font-size: ${fluidFontSize.heading.l};
+  line-height: ${fluidLineHeight.heading.l};
   color: ${neutrals[100]};
 `;
 

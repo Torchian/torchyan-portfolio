@@ -10,6 +10,7 @@ import {
   lineHeight,
   letterSpacing,
 } from '@/styles/tokens/typography';
+import { fluidFontSize, fluidLineHeight } from '@/styles/fluid';
 import { accents, neutrals } from '@/styles/tokens/colors';
 import { zIndex } from '@/styles/tokens/z-index';
 import { media } from '@/styles/media';
@@ -69,28 +70,28 @@ const HeroHeading = styled.div`
 const Title = styled.h2`
   font-family: ${fontFamily.display};
   font-weight: ${fontWeight.heading};
-  font-size: ${fontSize.display.m}px;
-  line-height: ${lineHeight.display.m}px;
+  font-size: ${fluidFontSize.display.m};
+  line-height: ${fluidLineHeight.display.m};
   text-align: center;
   color: ${accents.primary};
   margin: 0;
 
   ${media.down('m')} {
-    font-size: ${fontSize.display.s}px;
-    line-height: ${lineHeight.display.s}px;
+    font-size: ${fluidFontSize.display.s};
+    line-height: ${fluidLineHeight.display.s};
   }
 
   ${media.down('s')} {
-    font-size: ${fontSize.heading.l}px;
-    line-height: ${lineHeight.heading.l}px;
+    font-size: ${fluidFontSize.heading.l};
+    line-height: ${fluidLineHeight.heading.l};
   }
 `;
 
 const Subtitle = styled.h1`
   font-family: ${fontFamily.display};
   font-weight: ${fontWeight.black};
-  font-size: ${fontSize.display.xl}px;
-  line-height: ${lineHeight.display.xl}px;
+  font-size: ${fluidFontSize.display.xl};
+  line-height: ${fluidLineHeight.display.xl};
   text-align: center;
   letter-spacing: ${letterSpacing.xxs}px;
   text-transform: uppercase;
@@ -98,26 +99,26 @@ const Subtitle = styled.h1`
   margin: 0;
 
   ${media.down('l')} {
-    font-size: ${fontSize.display.l}px;
-    line-height: ${lineHeight.display.l}px;
+    font-size: ${fluidFontSize.display.l};
+    line-height: ${fluidLineHeight.display.l};
   }
 
   ${media.down('m')} {
-    font-size: ${fontSize.display.s}px;
-    line-height: ${lineHeight.display.s}px;
+    font-size: ${fluidFontSize.display.s};
+    line-height: ${fluidLineHeight.display.s};
   }
 
   ${media.down('s')} {
-    font-size: ${fontSize.heading.l}px;
-    line-height: ${lineHeight.heading.l}px;
+    font-size: ${fluidFontSize.heading.l};
+    line-height: ${fluidLineHeight.heading.l};
   }
 `;
 
 const Description = styled.p`
   font-family: ${fontFamily.body};
   font-weight: ${fontWeight.semibold};
-  font-size: ${fontSize.heading.s}px;
-  line-height: ${lineHeight.heading.s}px;
+  font-size: ${fluidFontSize.heading.s};
+  line-height: ${fluidLineHeight.heading.s};
   text-align: center;
   color: ${neutrals[500]};
   margin: 0;

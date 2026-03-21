@@ -8,22 +8,13 @@ import { fluidFontSize, fluidLineHeight } from '@/styles/fluid';
 import { accents, neutrals } from '@/styles/tokens/colors';
 import { radius } from '@/styles/tokens/radius';
 import { media } from '@/styles/media';
-import type { ProjectConfig } from '@/components/sections/selected-work/projectsConfig';
 
 const Section = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: ${spacing[800]}px;
-  padding: ${spacing[2000]}px 0;
-  width: 100%;
-`;
-
-const ClosingInner = styled(Container)`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: ${spacing[800]}px;
+  padding-bottom: ${spacing[2000]}px;
 `;
 
 const Title = styled.h2`
@@ -39,7 +30,7 @@ const Title = styled.h2`
 const Subtitle = styled(Text)`
   margin: 0;
   color: ${neutrals[500]};
-  max-width: 720px;
+  max-width: 980px;
   text-align: center;
   font-family: ${fontFamily.heading};
   font-size: ${fluidFontSize.heading.s};
@@ -51,8 +42,6 @@ const Cards = styled.div`
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: ${spacing[800]}px;
-  max-width: 960px;
-  margin: 0 auto;
 
   ${media.down('m')} {
     grid-template-columns: 1fr;
@@ -68,7 +57,7 @@ const Card = styled.div<{ $bg: string }>`
   gap: ${spacing[600]}px;
 `;
 
-const CardTitle = styled.h3<{ $color: string }>`
+const CardHeading = styled.h3<{ $color: string }>`
   margin: 0;
   color: ${(p) => p.$color};
   text-align: center;
@@ -94,44 +83,47 @@ const CardFooter = styled.div`
   width: 100%;
 `;
 
-export interface CaseStudyClosingSectionProps {
-  project: ProjectConfig;
-}
-
-export function CaseStudyClosingSection({ project }: CaseStudyClosingSectionProps) {
+export function ProjectsBuildSection() {
   return (
-    <Section id="case-study-cta" aria-labelledby="case-study-closing-title">
-      <ClosingInner>
-        <Title id="case-study-closing-title">Build With Structural Intent</Title>
+    <Section>
+      <Container>
+        <Title>Build With Structural Intent</Title>
         <Subtitle as="p">
-          If your product demands clarity between design vision and engineering execution, the next
-          step should be deliberate—not improvised.
+          If your product demands clarity between design vision and engineering execution,
+          the next step should be deliberate—not improvised.
         </Subtitle>
         <Cards>
           <Card $bg="#0D1816">
-            <CardTitle $color={accents.primary}>Continue exploring</CardTitle>
+            <CardHeading $color={accents.primary}>
+              Initiate a System-Level Collaboration
+            </CardHeading>
             <CardBody as="p">
-              See more structured work and how systems scale in production environments.
+              For products requiring scalable UI governance, architectural consistency,
+              and measurable performance improvements—let&apos;s define the foundation first.
             </CardBody>
             <CardFooter>
-              <Button as="a" href="/projects" $variant="secondary">
-                View all projects
+              <Button as="a" href="/#contact" $variant="secondary">
+                Start a Project Discussion
               </Button>
             </CardFooter>
           </Card>
           <Card $bg="#1C0B27">
-            <CardTitle $color={accents.secondary}>This case study</CardTitle>
+            <CardHeading $color={accents.secondary}>
+              Analyze Case Studies
+            </CardHeading>
             <CardBody as="p">
-              Revisit the narrative for {project.company} or jump into another selected project.
+              Explore projects where interface systems, frontend architecture,
+              accessibility integration, and performance refinement were developed under
+              real production constraints.
             </CardBody>
             <CardFooter>
-              <Button as="a" href="/case-studies" $variant="secondaryPink">
-                Browse case studies
+              <Button as="a" href="/projects/picsart" $variant="secondaryPink">
+                View Random Case
               </Button>
             </CardFooter>
           </Card>
         </Cards>
-      </ClosingInner>
+      </Container>
     </Section>
   );
 }

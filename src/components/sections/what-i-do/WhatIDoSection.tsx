@@ -75,8 +75,8 @@ const VisualsColumn = styled.div`
   align-items: flex-start;
   padding: 0;
   isolation: isolate;
-  width: ${WHATIDO_WIDTH}px;
-  min-width: ${WHATIDO_WIDTH}px;
+  width: 100%;
+  max-width: ${WHATIDO_WIDTH}px;
   height: ${WHATIDO_HEIGHT}px;
   flex: none;
   align-self: stretch;
@@ -178,24 +178,6 @@ const StickyCharacterWrapper2 = styled.div`
   }
 `;
 
-/** Invert overlay for Bg2 - extra overlays (beyond ::before/::after) */
-// const Bg2InvertOverlay = styled.div<{
-//   $top: string;
-//   $left: string;
-//   $width: string;
-//   $height: string;
-// }>`
-//   position: absolute;
-//   top: ${(p) => p.$top};
-//   left: ${(p) => p.$left};
-//   transform: translate(-50%, -50%);
-//   width: ${(p) => p.$width};
-//   height: ${(p) => p.$height};
-//   backdrop-filter: invert(1);
-//   z-index: ${zIndex.whatidoBgForeground};
-//   pointer-events: none;
-// `;
-
 /** Figma: whatido_bg_2 */
 const Bg2 = styled.div`
   position: absolute;
@@ -207,30 +189,6 @@ const Bg2 = styled.div`
   flex-grow: 0;
   z-index: ${zIndex.whatidoBgForeground};
   pointer-events: none;
-
-  // &::before {
-  //   content: '';
-  //   position: absolute;
-  //   top: 14.3%;
-  //   left: 29.2%;
-  //   transform: translate(-50%, -50%);
-  //   width: 25.2%;
-  //   height: 10.2%;
-  //   backdrop-filter: invert(1);
-  //   z-index: ${zIndex.whatidoBgForeground};
-  // }
-
-  // &::after {
-  //   content: '';
-  //   position: absolute;
-  //   top: 5.5%;
-  //   left: 69.7%;
-  //   transform: translate(-50%, -50%);
-  //   width: 31.1%;
-  //   height: 8.3%;
-  //   backdrop-filter: invert(1);
-  //   z-index: ${zIndex.whatidoBgForeground};
-  // }
 
   img {
     width: 100%;
@@ -357,8 +315,6 @@ export function WhatIDoSection() {
               <img src={STEP_BACKGROUNDS[0]} alt="" />
             </Bg1>
             <Bg2>
-              {/* <Bg2InvertOverlay $top="23.2%" $left="90%" $width="14%" $height="21.5%" />
-              <Bg2InvertOverlay $top="61%" $left="49.6%" $width="79.6%" $height="62.7%" /> */}
               <img src={STEP_BACKGROUNDS[1]} alt="" />
             </Bg2>
             <Bg3>

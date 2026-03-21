@@ -4,12 +4,8 @@ import styled from 'styled-components';
 import Link from 'next/link';
 import { Button, Container, Text } from '@/components/primitives';
 import { spacing } from '@/styles/tokens/spacing';
-import {
-  fontFamily,
-  fontWeight,
-  fontSize,
-  lineHeight,
-} from '@/styles/tokens/typography';
+import { fontFamily, fontWeight } from '@/styles/tokens/typography';
+import { fluidFontSize, fluidLineHeight } from '@/styles/fluid';
 import { accents, neutrals } from '@/styles/tokens/colors';
 import { radius } from '@/styles/tokens/radius';
 import { media } from '@/styles/media';
@@ -40,8 +36,8 @@ const Intro = styled.div`
 const IntroParagraph = styled(Text)`
   font-family: ${fontFamily.body};
   font-weight: ${fontWeight.regular};
-  font-size: ${fontSize.heading.m}px;
-  line-height: ${lineHeight.heading.m}px;
+  font-size: ${fluidFontSize.heading.m};
+  line-height: ${fluidLineHeight.heading.m};
   color: ${neutrals[500]};
   text-align: center;
 `;
@@ -74,8 +70,8 @@ const Card = styled.div<{ $bg: 'green' | 'purple' }>`
 const CardTitle = styled(Text)<{ $accent: 'green' | 'pink' }>`
   font-family: ${fontFamily.heading};
   font-weight: ${fontWeight.semibold};
-  font-size: ${fontSize.heading.l}px;
-  line-height: ${lineHeight.heading.l}px;
+  font-size: ${fluidFontSize.heading.l};
+  line-height: ${fluidLineHeight.heading.l};
   text-align: center;
   color: ${(p) => (p.$accent === 'green' ? accents.primary : accents.secondary)};
 `;
@@ -83,8 +79,8 @@ const CardTitle = styled(Text)<{ $accent: 'green' | 'pink' }>`
 const CardBody = styled(Text)`
   font-family: ${fontFamily.body};
   font-weight: ${fontWeight.medium};
-  font-size: ${fontSize.heading.s}px;
-  line-height: ${lineHeight.heading.s}px;
+  font-size: ${fluidFontSize.heading.s};
+  line-height: ${fluidLineHeight.heading.s};
   text-align: center;
 `;
 
@@ -99,8 +95,8 @@ const CardFooter = styled.div`
 const BottomLine = styled(Text)`
   font-family: ${fontFamily.body};
   font-weight: ${fontWeight.medium};
-  font-size: ${fontSize.heading.l}px;
-  line-height: ${lineHeight.heading.l}px;
+  font-size: ${fluidFontSize.heading.l};
+  line-height: ${fluidLineHeight.heading.l};
   color: ${neutrals[500]};
   text-align: center;
 `;

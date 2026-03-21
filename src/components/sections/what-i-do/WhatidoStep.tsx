@@ -2,7 +2,8 @@
 
 import { forwardRef } from 'react';
 import styled from 'styled-components';
-import { fontSize, lineHeight, fontWeight, fontFamily } from '@/styles/tokens/typography';
+import { fontWeight, fontFamily } from '@/styles/tokens/typography';
+import { fluidFontSize, fluidLineHeight } from '@/styles/fluid';
 import { spacing } from '@/styles/tokens/spacing';
 import { media } from '@/styles/media';
 
@@ -36,32 +37,32 @@ const Wrapper = styled.div`
 
 const Title = styled.h3`
   font-family: ${fontFamily.display};
-  font-size: ${fontSize.display.m}px;
-  line-height: ${lineHeight.display.m}px;
+  font-size: ${fluidFontSize.display.m};
+  line-height: ${fluidLineHeight.display.m};
   font-weight: ${fontWeight.heading};
   color: var(--color-accent-primary);
 
   ${media.down('l')} {
-    font-size: ${fontSize.display.s}px;
-    line-height: ${lineHeight.display.s}px;
+    font-size: ${fluidFontSize.display.s};
+    line-height: ${fluidLineHeight.display.s};
   }
 
   ${media.down('m')} {
-    font-size: ${fontSize.heading.l}px;
-    line-height: ${lineHeight.heading.l}px;
+    font-size: ${fluidFontSize.heading.l};
+    line-height: ${fluidLineHeight.heading.l};
   }
 `;
 
 const Description = styled.p`
   font-family: ${fontFamily.heading};
-  font-size: ${fontSize.heading.m}px;
-  line-height: ${lineHeight.heading.m}px;
+  font-size: ${fluidFontSize.heading.m};
+  line-height: ${fluidLineHeight.heading.m};
   font-weight: ${fontWeight.medium};
   color: var(--color-text-secondary);
 
   ${media.down('l')} {
-    font-size: ${fontSize.heading.s}px;
-    line-height: ${lineHeight.heading.s}px;
+    font-size: ${fluidFontSize.heading.s};
+    line-height: ${fluidLineHeight.heading.s};
   }
 `;
 

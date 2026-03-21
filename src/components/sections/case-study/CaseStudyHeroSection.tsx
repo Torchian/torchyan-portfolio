@@ -11,6 +11,7 @@ import {
   lineHeight,
   letterSpacing,
 } from '@/styles/tokens/typography';
+import { fluidFontSize, fluidLineHeight } from '@/styles/fluid';
 import { accents, neutrals } from '@/styles/tokens/colors';
 import { radius } from '@/styles/tokens/radius';
 import { media } from '@/styles/media';
@@ -51,19 +52,19 @@ const Title = styled.h1`
   margin: 0;
   font-family: ${fontFamily.display};
   font-weight: ${fontWeight.black};
-  font-size: ${fontSize.display.xl}px;
-  line-height: ${lineHeight.display.xl}px;
+  font-size: ${fluidFontSize.display.xl};
+  line-height: ${fluidLineHeight.display.xl};
   letter-spacing: ${letterSpacing.xxs}px;
   text-transform: uppercase;
   color: ${accents.primary};
 
   ${media.down('l')} {
-    font-size: ${fontSize.display.m}px;
-    line-height: ${lineHeight.display.m}px;
+    font-size: ${fluidFontSize.display.m};
+    line-height: ${fluidLineHeight.display.m};
   }
   ${media.down('m')} {
-    font-size: ${fontSize.display.s}px;
-    line-height: ${lineHeight.display.s}px;
+    font-size: ${fluidFontSize.display.s};
+    line-height: ${fluidLineHeight.display.s};
   }
 `;
 
@@ -71,8 +72,8 @@ const Tagline = styled(Text)`
   margin: 0;
   font-family: ${fontFamily.heading};
   font-weight: ${fontWeight.semibold};
-  font-size: ${fontSize.heading.m}px;
-  line-height: ${lineHeight.heading.m}px;
+  font-size: ${fluidFontSize.heading.m};
+  line-height: ${fluidLineHeight.heading.m};
   color: ${neutrals[100]};
 `;
 

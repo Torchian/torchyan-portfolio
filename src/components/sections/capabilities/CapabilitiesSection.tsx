@@ -7,6 +7,7 @@ import { SectionHeading } from '@/components/composites';
 import { Button } from '@/components/primitives';
 import { spacing } from '@/styles/tokens/spacing';
 import { fontSize, lineHeight, fontWeight, letterSpacing, fontFamily } from '@/styles/tokens/typography';
+import { fluidFontSize, fluidLineHeight } from '@/styles/fluid';
 import { neutrals, accents, transparents } from '@/styles/tokens/colors';
 import { radius } from '@/styles/tokens/radius';
 import { grid } from '@/styles/tokens/grid';
@@ -99,8 +100,8 @@ const CapabilityCardBody = styled.div`
 const CapabilityTitle = styled.h3`
   font-family: ${fontFamily.display};
   font-weight: ${fontWeight.semibold};
-  font-size: ${fontSize.heading.l}px;
-  line-height: ${lineHeight.heading.l}px;
+  font-size: ${fluidFontSize.heading.l};
+  line-height: ${fluidLineHeight.heading.l};
   color: ${accents.primary};
   margin: 0;
 `;
@@ -108,8 +109,10 @@ const CapabilityTitle = styled.h3`
 const CapabilityText = styled.p<{ $size?: 'large' | 'small' }>`
   font-family: ${fontFamily.display};
   font-weight: ${fontWeight.semibold};
-  font-size: ${(p) => (p.$size === 'small' ? fontSize.body.xl : fontSize.heading.s)}px;
-  line-height: ${(p) => (p.$size === 'small' ? lineHeight.body.xl : lineHeight.heading.s)}px;
+  font-size: ${(p) =>
+    p.$size === 'small' ? `${fontSize.body.xl}px` : fluidFontSize.heading.s};
+  line-height: ${(p) =>
+    p.$size === 'small' ? `${lineHeight.body.xl}px` : fluidLineHeight.heading.s};
   letter-spacing: ${(p) => (p.$size === 'small' ? letterSpacing.s : 0)}px;
   text-align: left;
   color: ${neutrals[100]};

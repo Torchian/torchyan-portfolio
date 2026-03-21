@@ -12,6 +12,7 @@ import {
   lineHeight,
   letterSpacing,
 } from '@/styles/tokens/typography';
+import { fluidFontSize, fluidLineHeight } from '@/styles/fluid';
 import { accents, neutrals } from '@/styles/tokens/colors';
 import { radius } from '@/styles/tokens/radius';
 import { grid } from '@/styles/tokens/grid';
@@ -36,8 +37,8 @@ const HeroSectionContainer = styled(SectionContainer)`
 const HeroTitle = styled(Display)`
   font-family: ${fontFamily.display};
   font-weight: ${fontWeight.black};
-  font-size: ${fontSize.display.xl}px;
-  line-height: ${lineHeight.display.xl}px;
+  font-size: ${fluidFontSize.display.xl};
+  line-height: ${fluidLineHeight.display.xl};
   text-align: center;
   letter-spacing: ${letterSpacing.xxs}px;
   text-transform: uppercase;
@@ -45,13 +46,13 @@ const HeroTitle = styled(Display)`
   border-radius: ${radius.xl}px;
 
   ${media.down('l')} {
-    font-size: ${fontSize.display.m}px;
-    line-height: ${lineHeight.display.m}px;
+    font-size: ${fluidFontSize.display.m};
+    line-height: ${fluidLineHeight.display.m};
   }
 
   ${media.down('m')} {
-    font-size: ${fontSize.display.s}px;
-    line-height: ${lineHeight.display.s}px;
+    font-size: ${fluidFontSize.display.s};
+    line-height: ${fluidLineHeight.display.s};
   }
 `;
 
@@ -133,8 +134,8 @@ const ShortDescription = styled(Text)`
   font-family: ${fontFamily.heading};
   font-style: normal;
   font-weight: ${fontWeight.semibold};
-  font-size: ${fontSize.heading.l}px;
-  line-height: ${lineHeight.heading.l}px;
+  font-size: ${fluidFontSize.heading.l};
+  line-height: ${fluidLineHeight.heading.l};
   text-align: center;
   color: ${neutrals[500]};
   margin: 0;
@@ -196,8 +197,8 @@ const CardTitle = styled(Text)`
   font-family: ${fontFamily.heading};
   font-style: normal;
   font-weight: ${fontWeight.medium};
-  font-size: ${fontSize.heading.m}px;
-  line-height: ${lineHeight.heading.m}px;
+  font-size: ${fluidFontSize.heading.m};
+  line-height: ${fluidLineHeight.heading.m};
   text-align: center;
   color: ${neutrals[500]};
   margin: 0;
