@@ -29,12 +29,17 @@ const Header = styled.header`
   top: 0;
   left: 0;
   right: 0;
-  z-index: ${zIndex.sticky};
+  z-index: ${zIndex.toast};
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   height: ${spacing[1000]}px;
   padding: 0 ${spacing[400]}px;
+  /* Full-width bar so page content never shows through logo / sides (was mistaken for “nav text”) */
+  background: ${neutrals[900]}e6;
+  backdrop-filter: blur(${blur.glassSmall});
+  -webkit-backdrop-filter: blur(${blur.glassSmall});
+  border-bottom: ${border.medium}px solid ${glass.borderSubtle};
 
   ${media.down('m')} {
     padding: 0 ${spacing[300]}px;

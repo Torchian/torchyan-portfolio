@@ -1,7 +1,11 @@
 import { notFound } from 'next/navigation';
 import { getProjectBySlug, PROJECTS } from '@/components/sections/selected-work/projectsConfig';
 import { CaseStudyHeroSection } from '@/components/sections/case-study/CaseStudyHeroSection';
-import { CaseStudyBodySection } from '@/components/sections/case-study/CaseStudyBodySection';
+import { CaseStudyProjectInfoSection } from '@/components/sections/case-study/CaseStudyProjectInfoSection';
+import { CaseStudyBlueprintSection } from '@/components/sections/case-study/CaseStudyBlueprintSection';
+import { CaseStudyVisualArchitectureSection } from '@/components/sections/case-study/CaseStudyVisualArchitectureSection';
+import { CaseStudyClosingSection } from '@/components/sections/case-study/CaseStudyClosingSection';
+import { getCaseStudyContent } from '@/components/sections/case-study/caseStudyContent';
 import { ContactCTASection } from '@/components/sections/contact-cta/ContactCTASection';
 import type { Metadata } from 'next';
 
@@ -37,10 +41,17 @@ export default async function ProjectPage({ params }: PageProps) {
     notFound();
   }
 
+  const study = getCaseStudyContent(project);
+
   return (
     <main id="main-content">
       <CaseStudyHeroSection project={project} />
-      <CaseStudyBodySection project={project} />
+      <CaseStudyProjectInfoSection project={project} />
+      {study.blueprint ? <CaseStudyBlueprintSection content={study.blueprint} /> : null}
+      {study.visualArchitecture ? (
+        <CaseStudyVisualArchitectureSection project={project} content={study.visualArchitecture} />
+      ) : null}
+      <CaseStudyClosingSection project={project} />
       <ContactCTASection />
     </main>
   );
