@@ -15,7 +15,7 @@ import { duration, easing } from '@/styles/tokens/motion';
 import { neutrals, accents, glass, blur } from '@/styles/tokens/colors';
 import { border } from '@/styles/tokens/border';
 
-type ButtonVariant = 'primary' | 'secondary' | 'tertiary';
+type ButtonVariant = 'primary' | 'secondary' | 'secondaryPink' | 'tertiary';
 
 export interface ButtonProps extends React.HTMLAttributes<HTMLElement> {
   $variant?: ButtonVariant;
@@ -212,54 +212,120 @@ const tertiaryStyles = css`
   }
 `;
 
+/* State=Secondary / cta_body + cta_text (typography/title/large) */
 const secondaryStyles = css`
-  padding: ${spacing[150]}px ${spacing[500]}px;
-  min-width: 140px;
-  height: 64px;
-  background: transparent;
-  border: none;
-  border-radius: ${radius.round}px;
+  position: relative;
   isolation: isolate;
   overflow: visible;
-  z-index: 1;
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: ${spacing[150]}px ${spacing[500]}px;
+  gap: ${spacing[100]}px;
+  min-width: 140px;
+  width: fit-content;
+  max-width: 100%;
+  box-sizing: border-box;
+  height: ${spacing[600]}px;
+  background: ${accents.primary};
+  border: none;
+  border-radius: ${radius.round}px;
+  flex: none;
+  flex-grow: 0;
 
-  font-size: ${fontSize.heading.s}px;
-  line-height: ${lineHeight.heading.s}px;
+  font-family: ${fontFamily.body};
+  font-style: normal;
   font-weight: ${fontWeight.semibold};
-  letter-spacing: 0;
+  font-size: ${fontSize.body.xl}px;
+  line-height: ${lineHeight.body.xl}px;
+  letter-spacing: ${letterSpacing.s}px;
   color: ${neutrals[100]};
   text-align: center;
-  transition: background ${TRANSITION};
+  transition: opacity ${TRANSITION}, background ${TRANSITION};
 
   &::before {
     content: '';
     position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
+    inset: -8px;
     background: ${glass.bg};
+    border: ${border.medium}px solid ${glass.border};
     border-radius: ${radius.round}px;
     z-index: -1;
-    transition: left ${TRANSITION}, right ${TRANSITION}, top ${TRANSITION}, bottom ${TRANSITION};
+    transition: inset ${duration.normal} ${easing.out};
   }
 
   @media (hover: hover) and (pointer: fine) {
     &:hover:not(:disabled) {
-      background: ${accents.primary};
+      background: ${accents.primaryDark};
 
       &::before {
-        left: -12px;
-        right: -12px;
-        top: -11px;
-        bottom: -11px;
+        inset: -12px;
       }
     }
   }
 
   &:focus-visible {
     outline: ${border.thick}px solid ${accents.primary};
-    outline-offset: 3px;
+    outline-offset: 2px;
+  }
+`;
+
+const secondaryPinkStyles = css`
+  position: relative;
+  isolation: isolate;
+  overflow: visible;
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: ${spacing[150]}px ${spacing[500]}px;
+  gap: ${spacing[100]}px;
+  min-width: 140px;
+  width: fit-content;
+  max-width: 100%;
+  box-sizing: border-box;
+  height: ${spacing[600]}px;
+  background: ${accents.secondary};
+  border: none;
+  border-radius: ${radius.round}px;
+  flex: none;
+  flex-grow: 0;
+
+  font-family: ${fontFamily.body};
+  font-style: normal;
+  font-weight: ${fontWeight.semibold};
+  font-size: ${fontSize.body.xl}px;
+  line-height: ${lineHeight.body.xl}px;
+  letter-spacing: ${letterSpacing.s}px;
+  color: ${neutrals[100]};
+  text-align: center;
+  transition: opacity ${TRANSITION}, background ${TRANSITION};
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    background: ${glass.bg};
+    border: ${border.medium}px solid ${glass.border};
+    border-radius: ${radius.round}px;
+    z-index: -1;
+    transition: inset ${duration.normal} ${easing.out};
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover:not(:disabled) {
+      background: ${accents.secondaryDark};
+
+      &::before {
+        inset: -12px;
+      }
+    }
+  }
+
+  &:focus-visible {
+    outline: ${border.thick}px solid ${accents.secondary};
+    outline-offset: 2px;
   }
 `;
 
@@ -279,9 +345,11 @@ const StyledButton = styled.button<{ $variant?: ButtonVariant }>`
   ${(p) =>
     p.$variant === 'secondary'
       ? secondaryStyles
-      : p.$variant === 'tertiary'
-        ? tertiaryStyles
-        : primaryStyles}
+      : p.$variant === 'secondaryPink'
+        ? secondaryPinkStyles
+        : p.$variant === 'tertiary'
+          ? tertiaryStyles
+          : primaryStyles}
 
   &:disabled {
     opacity: 0.5;
