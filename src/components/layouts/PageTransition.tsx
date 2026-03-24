@@ -15,7 +15,7 @@ export function PageTransition({ children }: { children: ReactNode }) {
   return (
     <motion.div
       variants={variants}
-      initial="initial"
+      initial={false}
       animate="enter"
       exit="exit"
     >

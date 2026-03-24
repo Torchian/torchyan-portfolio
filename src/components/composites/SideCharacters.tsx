@@ -1,6 +1,7 @@
 'use client';
 
 import styled from 'styled-components';
+import { media } from '@/styles/media';
 import { zIndex } from '@/styles/tokens/z-index';
 
 const HEIGHT = '90vmin'; // Responsive to screen (smaller of vw/vh)
@@ -10,6 +11,7 @@ const Wrapper = styled.div`
   inset: 0;
   pointer-events: none;
   z-index: ${zIndex.base};
+  overflow: hidden;
 `;
 
 const VectorBg = styled.img`
@@ -23,59 +25,139 @@ const VectorBg = styled.img`
   z-index: ${zIndex.behind};
 `;
 
-const SideCharacter = styled.div<{ $side: 'left' | 'right' }>`
+const CharacterSlot = styled.div<{ $side?: 'left' | 'right'; $center?: boolean }>`
   position: absolute;
-  ${(p) => (p.$side === 'left' ? 'left: 0' : 'right: 0')};
+  ${(p) => (p.$center ? 'left: 50%; transform: translateX(-50%);' : p.$side === 'left' ? 'left: 0;' : 'right: 0;')}
   bottom: 0;
-  height: ${HEIGHT};
   display: flex;
   align-items: center;
-  justify-content: ${(p) => (p.$side === 'left' ? 'flex-start' : 'flex-end')};
+  justify-content: ${(p) => (p.$center ? 'center' : p.$side === 'left' ? 'flex-start' : 'flex-end')};
   z-index: 1;
 
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 200px;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    mask-image: linear-gradient(to bottom, transparent 0%, black 100%);
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 100%);
-    pointer-events: none;
+  ${media.down('s')} {
+    width: 100%;
   }
 `;
 
-const Img = styled.img<{ $objectPosition: string; $margin: string }>`
-  height: 100%;
+const FrostedEdge = styled.div`
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 200px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 100%);
+  pointer-events: none;
+`;
+
+const DesktopPair = styled.div`
+  position: absolute;
+  inset: 0;
+
+  ${media.down('l')} {
+    display: none;
+  }
+`;
+
+const TabletPair = styled.div`
+  position: absolute;
+  inset: 0;
+  display: none;
+
+  ${media.between('s', 'l')} {
+    display: block;
+  }
+`;
+
+const TabletCharacterSlot = styled(CharacterSlot)<{ $side: 'left' | 'right' }>`
+  top: 50%;
+  bottom: auto;
+  transform: translateY(-50%);
+`;
+
+const MobileSingle = styled.div`
+  position: absolute;
+  inset: 0;
+  display: none;
+
+  ${media.down('s')} {
+    display: block;
+  }
+`;
+
+const Img = styled.img<{ $objectPosition: string; $margin: string; $height: string; $grayTone?: boolean }>`
+  height: ${(p) => p.$height};
   width: auto;
   object-fit: contain;
   object-position: ${(p) => p.$objectPosition};
   margin: ${(p) => p.$margin};
+  filter: ${(p) => (p.$grayTone ? 'grayscale(1) contrast(1.05) brightness(0.95)' : 'none')};
 `;
 
 export function SideCharacters() {
   return (
     <Wrapper aria-hidden>
       <VectorBg src="/hero/Vector.svg" alt="" />
-      <SideCharacter $side="left">
-        <Img
-          src="/hero/character_color.png"
-          alt=""
-          $objectPosition="right center"
-          $margin="0 0 0 -50%"
-        />
-      </SideCharacter>
-      <SideCharacter $side="right">
-        <Img
-          src="/hero/character_negative.png"
-          alt=""
-          $objectPosition="left center"
-          $margin="0 -50% 0 0"
-        />
-      </SideCharacter>
+
+      <DesktopPair>
+        <CharacterSlot $side="left">
+          <Img
+            src="/hero/character_color.png"
+            alt=""
+            $height={HEIGHT}
+            $objectPosition="right center"
+            $margin="0 0 0 -50%"
+          />
+        </CharacterSlot>
+        <CharacterSlot $side="right">
+          <Img
+            src="/hero/character_negative.png"
+            alt=""
+            $height={HEIGHT}
+            $objectPosition="left center"
+            $margin="0 -50% 0 0"
+          />
+        </CharacterSlot>
+        <FrostedEdge />
+      </DesktopPair>
+
+      <TabletPair>
+        <TabletCharacterSlot $side="left">
+          <Img
+            src="/hero/character_head.png"
+            alt=""
+            $height="78vmin"
+            $objectPosition="right center"
+            $margin="0 0 0 -50%"
+          />
+        </TabletCharacterSlot>
+        <TabletCharacterSlot $side="right">
+          <Img
+            src="/hero/character_head.png"
+            alt=""
+            $height="78vmin"
+            $objectPosition="left center"
+            $margin="0 -50% 0 0"
+            $grayTone
+          />
+        </TabletCharacterSlot>
+        <FrostedEdge />
+      </TabletPair>
+
+      <MobileSingle>
+        <CharacterSlot $center>
+          <Img
+            src="/hero/character_color.png"
+            alt=""
+            $height="auto"
+            $objectPosition="center bottom"
+            $margin="0"
+          />
+        </CharacterSlot>
+        <FrostedEdge />
+      </MobileSingle>
     </Wrapper>
   );
 }

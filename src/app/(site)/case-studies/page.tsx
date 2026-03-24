@@ -9,7 +9,9 @@ export const metadata = {
 export default function CaseStudiesPage() {
   return (
     <main id="main-content">
-      <CapabilitiesSection />
+      <div style={{ paddingTop: '80px' }}>
+        <CapabilitiesSection />
+      </div>
       <ContactCTASection />
     </main>
   );

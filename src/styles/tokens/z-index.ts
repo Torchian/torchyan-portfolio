@@ -6,6 +6,8 @@ export const zIndex = {
   overlay: 300,
   modal: 400,
   toast: 500,
+  /** Full-screen cold-load overlay (above nav) */
+  loading: 550,
   tooltip: 600,
   /** What I Do section: grid (back) < characters < all Bg images (front) */
   whatidoGrid: 1,

@@ -4,9 +4,11 @@ import { usePathname } from 'next/navigation';
 import styled from 'styled-components';
 import { AnimatePresence } from 'framer-motion';
 import { NavBar } from './NavBar';
+import { SiteLoadingOverlay } from './SiteLoadingOverlay';
 import { PageTransition } from './PageTransition';
 import { Footer } from '@/components/sections/footer/Footer';
 import { SideCharacters } from '@/components/composites';
+import { ContentRevealProvider, useContentReveal } from '@/contexts/ContentRevealContext';
 
 const Main = styled.div`
   position: relative;
@@ -14,12 +16,14 @@ const Main = styled.div`
   z-index: 0;
 `;
 
-export function SiteLayout({ children }: { children: React.ReactNode }) {
+function SiteLayoutInner({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isHomepage = pathname === '/';
+  const { markContentRevealed } = useContentReveal();
 
   return (
     <>
+      <SiteLoadingOverlay onFadeComplete={markContentRevealed} />
       {isHomepage && <SideCharacters />}
       <NavBar />
       <Main>
@@ -31,5 +35,13 @@ export function SiteLayout({ children }: { children: React.ReactNode }) {
       </Main>
       <Footer />
     </>
+  );
+}
+
+export function SiteLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <ContentRevealProvider>
+      <SiteLayoutInner>{children}</SiteLayoutInner>
+    </ContentRevealProvider>
   );
 }

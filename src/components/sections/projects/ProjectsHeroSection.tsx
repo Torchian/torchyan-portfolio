@@ -15,7 +15,7 @@ import { accents, neutrals } from '@/styles/tokens/colors';
 import { media } from '@/styles/media';
 
 const Section = styled.section`
-  padding-top: ${spacing[1000]}px;
+  padding-top: calc(${spacing[1000]}px + ${spacing[1000]}px);
 `;
 
 const HeroContainer = styled(Container)`

@@ -31,6 +31,11 @@ const HeroSectionContainer = styled(SectionContainer)`
   position: relative;
   flex: 1;
   min-height: 100vh;
+  padding-top: calc(${spacing[1000]}px + ${spacing[1000]}px);
+
+  ${media.down('m')} {
+    padding-top: calc(${spacing[800]}px + ${spacing[1000]}px);
+  }
 ` as typeof SectionContainer;
 
 /* hero_title: typography/display/large, dark/background/primary */

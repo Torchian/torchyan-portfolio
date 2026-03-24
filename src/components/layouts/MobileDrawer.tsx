@@ -20,30 +20,54 @@ const NAV_HEIGHT = spacing[1000];
 
 export const HamburgerButton = styled.button<{ $open: boolean }>`
   display: none;
-  width: 44px;
-  height: 44px;
+  width: 56px;
+  height: 56px;
   align-items: center;
   justify-content: center;
   justify-self: end;
-  background: none;
-  border: none;
+  grid-column: 5;
+  background: ${glass.shadow};
+  border: ${border.medium}px solid ${glass.border};
+  border-radius: ${radius.round}px;
   cursor: pointer;
   padding: 0;
   -webkit-tap-highlight-color: transparent;
   z-index: ${zIndex.tooltip};
+  backdrop-filter: blur(${blur.glassMedium});
+  -webkit-backdrop-filter: blur(${blur.glassMedium});
+  transition: background ${duration.fast} ${easing.out};
 
-  ${media.down('m')} {
+  ${media.down('l')} {
     display: inline-flex;
+  }
+
+  ${media.down('l')} {
+    width: 54px;
+    height: 54px;
+  }
+
+  ${media.down('s')} {
+    width: 50px;
+    height: 50px;
+  }
+
+  &:focus-visible {
+    outline: ${border.thick}px solid ${accents.primary};
+    outline-offset: 2px;
+  }
+
+  ${media.reducedMotion} {
+    transition: none;
   }
 `;
 
 export const HamburgerBar = styled.span<{ $open: boolean }>`
   display: block;
   position: relative;
-  width: 24px;
-  height: 2px;
+  width: 22px;
+  height: 2.5px;
   background: ${(p) => (p.$open ? 'transparent' : neutrals[100])};
-  border-radius: 2px;
+  border-radius: ${radius.round}px;
   transition: background ${duration.fast} ${easing.out};
 
   &::before,
@@ -51,20 +75,20 @@ export const HamburgerBar = styled.span<{ $open: boolean }>`
     content: '';
     position: absolute;
     left: 0;
-    width: 24px;
-    height: 2px;
+    width: 22px;
+    height: 2.5px;
     background: ${neutrals[100]};
-    border-radius: 2px;
+    border-radius: ${radius.round}px;
     transition: transform ${duration.normal} ${easing.out};
   }
 
   &::before {
-    top: ${(p) => (p.$open ? '0' : '-7px')};
+    top: ${(p) => (p.$open ? '0' : '-8px')};
     transform: ${(p) => (p.$open ? 'rotate(45deg)' : 'none')};
   }
 
   &::after {
-    top: ${(p) => (p.$open ? '0' : '7px')};
+    top: ${(p) => (p.$open ? '0' : '8px')};
     transform: ${(p) => (p.$open ? 'rotate(-45deg)' : 'none')};
   }
 `;
@@ -83,8 +107,12 @@ const Overlay = styled.div<{ $open: boolean }>`
   transition: opacity ${duration.normal} ${easing.out};
   display: none;
 
-  ${media.down('m')} {
+  ${media.down('l')} {
     display: block;
+  }
+
+  ${media.reducedMotion} {
+    transition: none;
   }
 `;
 
@@ -106,8 +134,12 @@ const DrawerNav = styled.nav<{ $open: boolean }>`
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 
-  ${media.up('m')} {
+  ${media.up('l')} {
     display: none;
+  }
+
+  ${media.reducedMotion} {
+    transition: none;
   }
 `;
 
@@ -130,6 +162,11 @@ const DrawerLink = styled(Link)<{ $active?: boolean }>`
   &:active {
     background: ${glass.borderSubtle};
   }
+
+  &:focus-visible {
+    outline: ${border.thick}px solid ${accents.primary};
+    outline-offset: 2px;
+  }
 `;
 
 const DrawerCTA = styled.div`
@@ -149,9 +186,16 @@ interface MobileDrawerProps {
   onClose: () => void;
   pathname: string;
   links: NavLinkItem[];
+  drawerId: string;
 }
 
-export function MobileDrawer({ open, onClose, pathname, links }: MobileDrawerProps) {
+export function MobileDrawer({
+  open,
+  onClose,
+  pathname,
+  links,
+  drawerId,
+}: MobileDrawerProps) {
   const drawerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -210,6 +254,7 @@ export function MobileDrawer({ open, onClose, pathname, links }: MobileDrawerPro
 
       <DrawerNav
         ref={drawerRef}
+        id={drawerId}
         $open={open}
         aria-label="Mobile navigation"
         role="dialog"
@@ -221,6 +266,7 @@ export function MobileDrawer({ open, onClose, pathname, links }: MobileDrawerPro
             href={link.href}
             $active={link.href === pathname || (link.href !== '/' && pathname.startsWith(link.href.split('#')[0]))}
             onClick={onClose}
+            aria-current={link.href === pathname || (link.href !== '/' && pathname.startsWith(link.href.split('#')[0])) ? 'page' : undefined}
           >
             {link.label}
           </DrawerLink>

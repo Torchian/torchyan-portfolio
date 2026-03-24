@@ -32,10 +32,10 @@ const Top = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: ${spacing[2000]}px ${spacing[400]}px ${spacing[1000]}px;
+  padding: calc(${spacing[2000]}px + ${spacing[1000]}px) ${spacing[400]}px ${spacing[1000]}px;
 
   ${media.down('m')} {
-    padding: ${spacing[1000]}px ${spacing[300]}px ${spacing[600]}px;
+    padding: calc(${spacing[1000]}px + ${spacing[1000]}px) ${spacing[300]}px ${spacing[600]}px;
   }
 `;
 
