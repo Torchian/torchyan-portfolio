@@ -99,8 +99,8 @@ const Headline = styled.h1`
   }
 
   ${media.down('s')} {
-    font-size: ${fluidFontSize.heading.l};
-    line-height: ${fluidLineHeight.heading.l};
+    font-size: ${fluidFontSize.display.s};
+    line-height: ${fluidLineHeight.display.s};
   }
 `;
 
@@ -114,9 +114,15 @@ const Description = styled.p`
   margin: 0;
   max-width: 624px;
 
-  ${media.down('s')} {
+  ${media.between('s', 'l')} {
     font-size: ${fontSize.body.xl}px;
     line-height: ${lineHeight.body.xl}px;
+    max-width: 100%;
+  }
+
+  ${media.down('s')} {
+    font-size: ${fontSize.body.m}px;
+    line-height: ${lineHeight.body.m}px;
     max-width: 100%;
   }
 `;
@@ -133,8 +139,12 @@ const HeroFooter = styled.div`
   flex-wrap: wrap;
   z-index: ${zIndex.base};
 
+  ${media.down('l')} {
+    gap: ${spacing[200]}px;
+  }
+
   ${media.down('s')} {
-    gap: ${spacing[200]}px ${spacing[150]}px;
+    gap: ${spacing[150]}px;
   }
 `;
 
@@ -164,9 +174,15 @@ const HeroBody = styled.div`
   width: 100%;
   z-index: ${zIndex.base};
 
+  ${media.down('l')} {
+    max-width: min(480px, 100%);
+    gap: ${spacing[600]}px;
+    padding: ${spacing[1000]}px 0;
+  }
+
   ${media.down('s')} {
-    gap: ${spacing[1000]}px;
-    padding: ${spacing[300]}px 0;
+    gap: ${spacing[500]}px;
+    padding: ${spacing[500]}px 0 0;
   }
 `;
 
@@ -177,8 +193,12 @@ const HeroHeading = styled.div`
   gap: ${spacing[1000]}px;
   width: 100%;
 
-  ${media.down('s')} {
+  ${media.down('l')} {
     gap: ${spacing[600]}px;
+  }
+
+  ${media.down('s')} {
+    gap: ${spacing[300]}px;
   }
 `;
 
@@ -193,9 +213,16 @@ const Section = styled.section<{ $revealed: boolean }>`
   min-height: 100svh;
   margin: 0 auto;
   overflow: hidden;
+  z-index: 1;
+
+  ${media.down('l')} {
+    gap: ${spacing[800]}px;
+    padding: ${spacing[1000]}px ${spacing[500]}px ${spacing[600]}px;
+  }
 
   ${media.down('s')} {
-    padding: calc(${spacing[1000]}px + ${spacing[1000]}px) ${spacing[300]}px ${spacing[300]}px;
+    gap: ${spacing[600]}px;
+    padding: ${spacing[1000]}px ${spacing[300]}px ${spacing[300]}px;
   }
 
   ${(p) =>

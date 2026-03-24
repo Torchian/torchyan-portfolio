@@ -241,7 +241,7 @@ export function AboutHeroSection() {
         <HeroImageWrapper>
           <HeroImageSharp>
             <Image
-              src="/hero/character_color.webp"
+              src="/hero/character_container.webp"
               alt=""
               fill
               priority

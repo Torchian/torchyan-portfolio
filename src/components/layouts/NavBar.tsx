@@ -26,7 +26,7 @@ export function NavBar() {
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
-  const pathname = usePathname();
+  const pathname = usePathname() ?? '/';
   const headerHidden = useScrollDirection();
 
   const routeIndex = NAV_LINKS.findIndex(

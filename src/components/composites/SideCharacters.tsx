@@ -5,17 +5,25 @@ import { media } from '@/styles/media';
 import { zIndex } from '@/styles/tokens/z-index';
 import { easing } from '@/styles/tokens/motion';
 import { useContentReveal } from '@/contexts/ContentRevealContext';
+import { spacing } from '@/styles/tokens/spacing';
 
 const HEIGHT = '90vmin';
+/** Half-cut bust — desktop (large) only */
+const CHARACTER_HALF_SRC = '/hero/character_container.webp';
+const TABLET_HEAD_SRC = '/hero/character_head.webp';
+const MOBILE_COLOR_SRC = '/hero/character_color.webp';
 
 const Wrapper = styled.div<{ $visible: boolean }>`
   position: absolute;
   inset: 0;
   pointer-events: none;
   z-index: ${zIndex.base};
-  overflow: hidden;
   opacity: ${(p) => (p.$visible ? 1 : 0)};
   transition: opacity 400ms ${easing.out};
+
+  ${media.down('s')} {
+    bottom: -${spacing[600]}px;
+  }
 `;
 
 const VectorBg = styled.img`
@@ -49,6 +57,7 @@ const FrostedEdge = styled.div`
   right: 0;
   bottom: 0;
   height: 200px;
+  z-index: 2;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   mask-image: linear-gradient(to bottom, transparent 0%, black 100%);
@@ -63,6 +72,11 @@ const DesktopPair = styled.div`
   ${media.down('l')} {
     display: none;
   }
+`;
+
+/** Sit half-cut busts slightly lower on large screens */
+const DesktopCharacterSlot = styled(CharacterSlot)<{ $side: 'left' | 'right' }>`
+  bottom: -60px;
 `;
 
 const TabletPair = styled.div`
@@ -91,14 +105,20 @@ const MobileSingle = styled.div`
   }
 `;
 
-const Img = styled.img<{ $objectPosition: string; $margin: string; $height: string; $grayTone?: boolean }>`
+const Img = styled.img<{
+  $objectPosition: string;
+  $margin: string;
+  $height: string;
+  $grayTone?: boolean;
+  $mirrored?: boolean;
+}>`
   height: ${(p) => p.$height};
   width: auto;
   object-fit: contain;
   object-position: ${(p) => p.$objectPosition};
   margin: ${(p) => p.$margin};
+  transform: ${(p) => (p.$mirrored ? 'scaleX(-1)' : 'none')};
   filter: ${(p) => (p.$grayTone ? 'grayscale(1) contrast(1.05) brightness(0.95)' : 'none')};
-  content-visibility: auto;
 `;
 
 export function SideCharacters() {
@@ -109,35 +129,37 @@ export function SideCharacters() {
       <VectorBg src="/hero/Vector.svg" alt="" loading="lazy" decoding="async" fetchPriority="low" />
 
       <DesktopPair>
-        <CharacterSlot $side="left">
+        <DesktopCharacterSlot $side="left">
           <Img
-            src="/hero/character_color.webp"
+            src={CHARACTER_HALF_SRC}
             alt=""
             decoding="async"
             fetchPriority="low"
             $height={HEIGHT}
             $objectPosition="right center"
-            $margin="0 0 0 -50%"
+            $margin="0 0 0 -1%"
           />
-        </CharacterSlot>
-        <CharacterSlot $side="right">
+        </DesktopCharacterSlot>
+        <DesktopCharacterSlot $side="right">
           <Img
-            src="/hero/character_negative.webp"
+            src={CHARACTER_HALF_SRC}
             alt=""
             decoding="async"
             fetchPriority="low"
             $height={HEIGHT}
             $objectPosition="left center"
-            $margin="0 -50% 0 0"
+            $margin="0 -1% 0 0"
+            $grayTone
+            $mirrored
           />
-        </CharacterSlot>
+        </DesktopCharacterSlot>
         <FrostedEdge />
       </DesktopPair>
 
       <TabletPair>
         <TabletCharacterSlot $side="left">
           <Img
-            src="/hero/character_head.webp"
+            src={TABLET_HEAD_SRC}
             alt=""
             decoding="async"
             fetchPriority="low"
@@ -148,7 +170,7 @@ export function SideCharacters() {
         </TabletCharacterSlot>
         <TabletCharacterSlot $side="right">
           <Img
-            src="/hero/character_head.webp"
+            src={TABLET_HEAD_SRC}
             alt=""
             decoding="async"
             fetchPriority="low"
@@ -164,7 +186,7 @@ export function SideCharacters() {
       <MobileSingle>
         <CharacterSlot $center>
           <Img
-            src="/hero/character_color.webp"
+            src={MOBILE_COLOR_SRC}
             alt=""
             decoding="async"
             fetchPriority="low"

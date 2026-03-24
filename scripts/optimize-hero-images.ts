@@ -6,6 +6,8 @@ import fs from 'fs';
 const HERO_DIR = join(process.cwd(), 'public/hero');
 const BACKUP_DIR = join(HERO_DIR, '.backup');
 const MAX_DIMENSION = 768; // Sufficient for hero display, reduces file size
+/** Keep full resolution; WebP is generated separately for production */
+const SKIP_PNG_RESIZE = new Set(['character_container.png', 'character_color.png']);
 
 async function optimize() {
   const files = await readdir(HERO_DIR);
@@ -25,7 +27,8 @@ async function optimize() {
     const meta = await sharp(inputPath).metadata();
     const inSize = fs.statSync(inputPath).size;
     const needsResize =
-      (meta.width ?? 0) > MAX_DIMENSION || (meta.height ?? 0) > MAX_DIMENSION;
+      !SKIP_PNG_RESIZE.has(file) &&
+      ((meta.width ?? 0) > MAX_DIMENSION || (meta.height ?? 0) > MAX_DIMENSION);
 
     let pipeline = sharp(inputPath);
     if (needsResize) {
@@ -55,4 +58,54 @@ async function optimize() {
   }
 }
 
-optimize().catch(console.error);
+/** WebP sidecar for desktop half-cut bust (alpha, tuned for size vs quality) */
+async function encodeCharacterContainerWebp() {
+  const src = join(HERO_DIR, 'character_container.png');
+  const dest = join(HERO_DIR, 'character_container.webp');
+  if (!fs.existsSync(src)) {
+    console.log('encodeCharacterContainerWebp: skip (no character_container.png)');
+    return;
+  }
+
+  await sharp(src)
+    .webp({
+      quality: 80,
+      alphaQuality: 82,
+      effort: 6,
+      smartSubsample: true,
+    })
+    .toFile(dest);
+
+  const kb = fs.statSync(dest).size / 1024;
+  console.log(`character_container.webp: ${kb.toFixed(1)}KB`);
+}
+
+/** WebP for mobile hero side characters (alpha) */
+async function encodeCharacterColorWebp() {
+  const src = join(HERO_DIR, 'character_color.png');
+  const dest = join(HERO_DIR, 'character_color.webp');
+  if (!fs.existsSync(src)) {
+    console.log('encodeCharacterColorWebp: skip (no character_color.png)');
+    return;
+  }
+
+  await sharp(src)
+    .webp({
+      quality: 80,
+      alphaQuality: 82,
+      effort: 6,
+      smartSubsample: true,
+    })
+    .toFile(dest);
+
+  const kb = fs.statSync(dest).size / 1024;
+  console.log(`character_color.webp: ${kb.toFixed(1)}KB`);
+}
+
+async function main() {
+  await optimize();
+  await encodeCharacterContainerWebp();
+  await encodeCharacterColorWebp();
+}
+
+main().catch(console.error);
