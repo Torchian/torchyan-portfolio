@@ -7,7 +7,7 @@ import { accents, neutrals } from '@/styles/tokens/colors';
 import { media } from '@/styles/media';
 import { easing } from '@/styles/tokens/motion';
 
-const MIN_VISIBLE_MS = 500;
+const MIN_VISIBLE_MS = 0;
 const FADE_OUT_MS = 380;
 const FADE_COMPLETE_FALLBACK_MS = FADE_OUT_MS + 80;
 
@@ -89,12 +89,14 @@ const Label = styled.span`
 `;
 
 export interface SiteLoadingOverlayProps {
+  onFadeStart?: () => void;
   onFadeComplete?: () => void;
 }
 
-export function SiteLoadingOverlay({ onFadeComplete }: SiteLoadingOverlayProps) {
+export function SiteLoadingOverlay({ onFadeStart, onFadeComplete }: SiteLoadingOverlayProps) {
   const [phase, setPhase] = useState<'loading' | 'fade' | 'unmounted'>('loading');
   const fadeCompleteFired = useRef(false);
+  const fadeStartFired = useRef(false);
 
   const fireFadeComplete = useCallback(() => {
     if (fadeCompleteFired.current) return;
@@ -105,12 +107,14 @@ export function SiteLoadingOverlay({ onFadeComplete }: SiteLoadingOverlayProps) 
   const dismiss = useCallback(() => {
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reducedMotion) {
+      if (!fadeStartFired.current) { fadeStartFired.current = true; onFadeStart?.(); }
       fireFadeComplete();
       setPhase('unmounted');
       return;
     }
+    if (!fadeStartFired.current) { fadeStartFired.current = true; onFadeStart?.(); }
     setPhase((p) => (p === 'loading' ? 'fade' : p));
-  }, [fireFadeComplete]);
+  }, [fireFadeComplete, onFadeStart]);
 
   useEffect(() => {
     let cancelled = false;
@@ -120,12 +124,9 @@ export function SiteLoadingOverlay({ onFadeComplete }: SiteLoadingOverlayProps) 
       const minMs = reducedMotion ? 0 : MIN_VISIBLE_MS;
       const started = performance.now();
 
-      await Promise.all([
+      await Promise.race([
         document.fonts.ready.catch(() => undefined),
-        new Promise<void>((resolve) => {
-          if (document.readyState === 'complete') resolve();
-          else window.addEventListener('load', () => resolve(), { once: true });
-        }),
+        new Promise((r) => setTimeout(r, 1500)),
       ]);
 
       const elapsed = performance.now() - started;

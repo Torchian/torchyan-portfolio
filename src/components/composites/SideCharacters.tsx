@@ -3,15 +3,19 @@
 import styled from 'styled-components';
 import { media } from '@/styles/media';
 import { zIndex } from '@/styles/tokens/z-index';
+import { easing } from '@/styles/tokens/motion';
+import { useContentReveal } from '@/contexts/ContentRevealContext';
 
-const HEIGHT = '90vmin'; // Responsive to screen (smaller of vw/vh)
+const HEIGHT = '90vmin';
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ $visible: boolean }>`
   position: absolute;
   inset: 0;
   pointer-events: none;
   z-index: ${zIndex.base};
   overflow: hidden;
+  opacity: ${(p) => (p.$visible ? 1 : 0)};
+  transition: opacity 400ms ${easing.out};
 `;
 
 const VectorBg = styled.img`
@@ -94,18 +98,23 @@ const Img = styled.img<{ $objectPosition: string; $margin: string; $height: stri
   object-position: ${(p) => p.$objectPosition};
   margin: ${(p) => p.$margin};
   filter: ${(p) => (p.$grayTone ? 'grayscale(1) contrast(1.05) brightness(0.95)' : 'none')};
+  content-visibility: auto;
 `;
 
 export function SideCharacters() {
+  const { contentRevealed } = useContentReveal();
+
   return (
-    <Wrapper aria-hidden>
-      <VectorBg src="/hero/Vector.svg" alt="" />
+    <Wrapper aria-hidden $visible={contentRevealed}>
+      <VectorBg src="/hero/Vector.svg" alt="" loading="lazy" decoding="async" fetchPriority="low" />
 
       <DesktopPair>
         <CharacterSlot $side="left">
           <Img
-            src="/hero/character_color.png"
+            src="/hero/character_color.webp"
             alt=""
+            decoding="async"
+            fetchPriority="low"
             $height={HEIGHT}
             $objectPosition="right center"
             $margin="0 0 0 -50%"
@@ -113,8 +122,10 @@ export function SideCharacters() {
         </CharacterSlot>
         <CharacterSlot $side="right">
           <Img
-            src="/hero/character_negative.png"
+            src="/hero/character_negative.webp"
             alt=""
+            decoding="async"
+            fetchPriority="low"
             $height={HEIGHT}
             $objectPosition="left center"
             $margin="0 -50% 0 0"
@@ -126,8 +137,10 @@ export function SideCharacters() {
       <TabletPair>
         <TabletCharacterSlot $side="left">
           <Img
-            src="/hero/character_head.png"
+            src="/hero/character_head.webp"
             alt=""
+            decoding="async"
+            fetchPriority="low"
             $height="78vmin"
             $objectPosition="right center"
             $margin="0 0 0 -50%"
@@ -135,8 +148,10 @@ export function SideCharacters() {
         </TabletCharacterSlot>
         <TabletCharacterSlot $side="right">
           <Img
-            src="/hero/character_head.png"
+            src="/hero/character_head.webp"
             alt=""
+            decoding="async"
+            fetchPriority="low"
             $height="78vmin"
             $objectPosition="left center"
             $margin="0 -50% 0 0"
@@ -149,8 +164,10 @@ export function SideCharacters() {
       <MobileSingle>
         <CharacterSlot $center>
           <Img
-            src="/hero/character_color.png"
+            src="/hero/character_color.webp"
             alt=""
+            decoding="async"
+            fetchPriority="low"
             $height="auto"
             $objectPosition="center bottom"
             $margin="0"

@@ -1,14 +1,18 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { usePathname } from 'next/navigation';
 import styled from 'styled-components';
 import { AnimatePresence } from 'framer-motion';
 import { NavBar } from './NavBar';
 import { SiteLoadingOverlay } from './SiteLoadingOverlay';
 import { PageTransition } from './PageTransition';
-import { Footer } from '@/components/sections/footer/Footer';
-import { SideCharacters } from '@/components/composites';
+import { SideCharacters } from '@/components/composites/SideCharacters';
 import { ContentRevealProvider, useContentReveal } from '@/contexts/ContentRevealContext';
+
+const Footer = dynamic(
+  () => import('@/components/sections/footer/Footer').then((m) => ({ default: m.Footer })),
+);
 
 const Main = styled.div`
   position: relative;
@@ -23,7 +27,7 @@ function SiteLayoutInner({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      <SiteLoadingOverlay onFadeComplete={markContentRevealed} />
+      <SiteLoadingOverlay onFadeStart={markContentRevealed} />
       {isHomepage && <SideCharacters />}
       <NavBar />
       <Main>

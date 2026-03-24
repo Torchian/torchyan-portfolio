@@ -7,13 +7,10 @@ import { themeScript } from '@/lib/theme-script';
 
 const gilroy = localFont({
   src: [
-    { path: '../../public/fonts/gilroy-thin.woff2', weight: '100' },
-    { path: '../../public/fonts/gilroy-ultralight.woff2', weight: '200' },
     { path: '../../public/fonts/gilroy-regular.woff2', weight: '400' },
     { path: '../../public/fonts/gilroy-medium.woff2', weight: '500' },
     { path: '../../public/fonts/gilroy-semibold.woff2', weight: '600' },
     { path: '../../public/fonts/gilroy-bold.woff2', weight: '700' },
-    { path: '../../public/fonts/gilroy-heavy.woff2', weight: '800' },
     { path: '../../public/fonts/gilroy-black.woff2', weight: '900' },
   ],
   variable: '--font-gilroy',
@@ -43,6 +40,10 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://mc.yandex.ru" />
+        <link rel="dns-prefetch" href="https://mc.yandex.ru" />
       </head>
       <body className={gilroy.variable}>
         <a id="skip-to-content" href="#main-content">

@@ -60,7 +60,7 @@ export function AnalyticsProvider() {
               clickmap:true,
               trackLinks:true,
               accurateTrackBounce:true,
-              webvisor:true
+              webvisor:false
             });
           `}
         </Script>

@@ -1,7 +1,21 @@
+import dynamic from 'next/dynamic';
 import { AboutHeroSection } from '@/components/sections/about/AboutHeroSection';
-import { AboutTimelineSection } from '@/components/sections/about/AboutTimelineSection';
-import { AboutSkillsCirclesSection } from '@/components/sections/about/AboutSkillsCirclesSection';
-import { AboutCTASection } from '@/components/sections/about/AboutCTASection';
+
+const AboutTimelineSection = dynamic(() =>
+  import('@/components/sections/about/AboutTimelineSection').then((m) => ({
+    default: m.AboutTimelineSection,
+  })),
+);
+const AboutSkillsCirclesSection = dynamic(() =>
+  import('@/components/sections/about/AboutSkillsCirclesSection').then((m) => ({
+    default: m.AboutSkillsCirclesSection,
+  })),
+);
+const AboutCTASection = dynamic(() =>
+  import('@/components/sections/about/AboutCTASection').then((m) => ({
+    default: m.AboutCTASection,
+  })),
+);
 
 export const metadata = {
   title: 'About',

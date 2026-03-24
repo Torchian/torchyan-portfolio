@@ -88,16 +88,14 @@ const VisualsColumn = styled.div`
   }
 `;
 
-/** Figma: Ellipse 17 - green glow at bottom */
+/** Figma: Ellipse 17 - green glow at bottom (radial gradient instead of blur for GPU perf) */
 const EllipseGlow = styled.div`
   position: absolute;
   width: 580px;
   height: 580px;
-  left: calc(50% - 580px / 2 - 0px);
+  left: calc(50% - 580px / 2);
   bottom: 118px;
-  background: #0caf0a;
-  filter: blur(320px);
-  transform: rotate(90deg);
+  background: radial-gradient(circle, rgba(12, 175, 10, 0.35) 0%, transparent 70%);
   flex: none;
   flex-grow: 0;
   z-index: 0;
@@ -219,16 +217,7 @@ const Bg3 = styled.div`
     height: 57%;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     z-index: ${zIndex.whatidoBgForeground};
-    animation: sepiaToInvert 1000ms ${easing.linear} infinite alternate;
-  }
-
-  @keyframes sepiaToInvert {
-    from {
-      backdrop-filter: sepia(1) invert(1) saturate(0%);
-    }
-    to {
-      backdrop-filter: sepia(0) invert(0) saturate(8000%);
-    }
+    backdrop-filter: saturate(200%);
   }
 
   img {

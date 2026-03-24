@@ -63,31 +63,39 @@ export function NavBar() {
   useEffect(() => {
     if (pathname !== '/') return;
 
+    let rafId = 0;
     const handleScroll = () => {
-      const scrollY = window.scrollY + 120;
+      if (rafId) return;
+      rafId = requestAnimationFrame(() => {
+        rafId = 0;
+        const scrollY = window.scrollY + 120;
 
-      if (scrollY < 200) {
-        setActiveIndex((prev) => (prev === 0 ? prev : 0));
-        return;
-      }
+        if (scrollY < 200) {
+          setActiveIndex((prev) => (prev === 0 ? prev : 0));
+          return;
+        }
 
-      for (let i = NAV_LINKS.length - 1; i >= 0; i--) {
-        const href = NAV_LINKS[i].href;
-        const hashPart = href.includes('#') ? href.split('#')[1] : null;
-        if (hashPart) {
-          const el = document.getElementById(hashPart);
-          if (el && el.offsetTop <= scrollY) {
-            setActiveIndex((prev) => (prev === i ? prev : i));
-            return;
+        for (let i = NAV_LINKS.length - 1; i >= 0; i--) {
+          const href = NAV_LINKS[i].href;
+          const hashPart = href.includes('#') ? href.split('#')[1] : null;
+          if (hashPart) {
+            const el = document.getElementById(hashPart);
+            if (el && el.offsetTop <= scrollY) {
+              setActiveIndex((prev) => (prev === i ? prev : i));
+              return;
+            }
           }
         }
-      }
-      setActiveIndex((prev) => (prev === 0 ? prev : 0));
+        setActiveIndex((prev) => (prev === 0 ? prev : 0));
+      });
     };
 
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
   }, [pathname]);
 
   return (

@@ -53,13 +53,21 @@ export function useWhatIDoScroll(
   }, [stepRefs, stepCount]);
 
   useEffect(() => {
-    const rafId = requestAnimationFrame(() => update());
-    window.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update);
+    let rafId = 0;
+    const onScroll = () => {
+      if (rafId) return;
+      rafId = requestAnimationFrame(() => {
+        rafId = 0;
+        update();
+      });
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
     return () => {
-      cancelAnimationFrame(rafId);
-      window.removeEventListener('scroll', update);
-      window.removeEventListener('resize', update);
+      if (rafId) cancelAnimationFrame(rafId);
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
     };
   }, [update]);
 

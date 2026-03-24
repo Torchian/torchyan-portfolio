@@ -67,11 +67,6 @@ const footerEntrance = css`
   }
 `;
 
-const heroHidden = css`
-  opacity: 0;
-  transform: translateY(20px);
-`;
-
 const Eyebrow = styled.p`
   font-family: ${fontFamily.display};
   font-weight: ${fontWeight.heading};
@@ -202,18 +197,6 @@ const Section = styled.section<{ $revealed: boolean }>`
   ${media.down('s')} {
     padding: calc(${spacing[1000]}px + ${spacing[1000]}px) ${spacing[300]}px ${spacing[300]}px;
   }
-
-  ${(p) =>
-    !p.$revealed &&
-    css`
-      ${Eyebrow}, ${Headline}, ${Description}, ${ButtonWrap} {
-        ${heroHidden};
-      }
-
-      ${HeroFooter} {
-        opacity: 0;
-      }
-    `}
 
   ${(p) =>
     p.$revealed &&
