@@ -77,6 +77,7 @@ const Title = styled(Heading)<{ $variant: CardVariant }>`
 const Description = styled(Text)<{ $variant: CardVariant }>`
   position: relative;
   z-index: 1;
+  max-width: 65ch;
   color: ${(p) => (p.$variant === 'accent' ? neutrals[900] : 'var(--color-text-secondary)')};
 `;
 

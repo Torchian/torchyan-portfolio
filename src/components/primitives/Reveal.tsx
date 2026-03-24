@@ -33,7 +33,6 @@ export interface RevealProps {
   variant?: keyof typeof VARIANT_MAP;
   delay?: number;
   className?: string;
-  as?: keyof React.JSX.IntrinsicElements;
   threshold?: number;
 }
 
@@ -42,20 +41,17 @@ export function Reveal({
   variant = 'fade-up',
   delay = 0,
   className,
-  as: As = 'div',
   threshold = 0.15,
 }: RevealProps) {
   const prefersReduced = useReducedMotion();
   const variants = VARIANT_MAP[variant];
 
   if (prefersReduced) {
-    return React.createElement(As, { className }, children);
+    return <div className={className}>{children}</div>;
   }
 
-  const MotionComponent = motion.create(As);
-
   return (
-    <MotionComponent
+    <motion.div
       className={className}
       variants={variants}
       initial="hidden"
@@ -64,6 +60,6 @@ export function Reveal({
       transition={{ delay }}
     >
       {children}
-    </MotionComponent>
+    </motion.div>
   );
 }

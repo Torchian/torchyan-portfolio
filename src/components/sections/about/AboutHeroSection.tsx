@@ -239,6 +239,7 @@ export function AboutHeroSection() {
               src="/hero/character_color.png"
               alt=""
               fill
+              priority
               sizes="(max-width: 768px) 320px, 720px"
               style={{ objectFit: 'contain' }}
             />

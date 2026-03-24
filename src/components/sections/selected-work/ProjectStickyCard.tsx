@@ -394,7 +394,7 @@ export function ProjectStickyCard({ project }: ProjectStickyCardProps) {
               {images.slice(0, 3).map((img, i) => (
                 <IsometricCard key={i}>
                   {img.src ? (
-                    <Image src={img.src} alt={img.alt} width={280} height={196} />
+                    <Image src={img.src} alt={img.alt} width={280} height={196} sizes="(max-width: 768px) 50vw, 280px" />
                   ) : (
                     <PlaceholderCard>Preview</PlaceholderCard>
                   )}
@@ -405,7 +405,7 @@ export function ProjectStickyCard({ project }: ProjectStickyCardProps) {
               {images.slice(3, 6).map((img, i) => (
                 <IsometricCard key={i}>
                   {img.src ? (
-                    <Image src={img.src} alt={img.alt} width={280} height={196} />
+                    <Image src={img.src} alt={img.alt} width={280} height={196} sizes="(max-width: 768px) 50vw, 280px" />
                   ) : (
                     <PlaceholderCard>Preview</PlaceholderCard>
                   )}

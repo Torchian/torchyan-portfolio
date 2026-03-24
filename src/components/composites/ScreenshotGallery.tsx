@@ -64,7 +64,7 @@ export function ScreenshotGallery({ images }: ScreenshotGalleryProps) {
         {items.map((img, i) =>
           img.src ? (
             <Screenshot key={i}>
-              <Image src={img.src} alt={img.alt} width={400} height={300} />
+              <Image src={img.src} alt={img.alt} width={400} height={300} sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw" />
             </Screenshot>
           ) : (
             <Placeholder key={i} />

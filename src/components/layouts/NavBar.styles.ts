@@ -21,12 +21,8 @@ export const Header = styled.header<{ $hidden: boolean }>`
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  height: ${NAV_HEIGHT}px;
-  padding: 0 ${spacing[400]}px;
-  background: ${neutrals[900]}e6;
-  backdrop-filter: blur(${blur.glassSmall});
-  -webkit-backdrop-filter: blur(${blur.glassSmall});
-  border-bottom: ${border.medium}px solid ${glass.borderSubtle};
+  height: calc(${NAV_HEIGHT}px + env(safe-area-inset-top, 0px));
+  padding: env(safe-area-inset-top, 0px) max(${spacing[400]}px, env(safe-area-inset-right, 0px)) 0 max(${spacing[400]}px, env(safe-area-inset-left, 0px));
   transform: translateY(${(p) => (p.$hidden ? '-100%' : '0')});
   transition: transform ${duration.normal} ${easing.out};
 

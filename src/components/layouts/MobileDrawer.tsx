@@ -155,19 +155,21 @@ export function MobileDrawer({ open, onClose, pathname, links }: MobileDrawerPro
   const drawerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    if (open) {
-      document.body.style.overflow = 'hidden';
-
-      const onKeyDown = (e: KeyboardEvent) => {
-        if (e.key === 'Escape') onClose();
-      };
-      document.addEventListener('keydown', onKeyDown);
-      return () => {
-        document.body.style.overflow = '';
-        document.removeEventListener('keydown', onKeyDown);
-      };
+    if (!open) {
+      document.body.style.overflow = '';
+      return;
     }
-    document.body.style.overflow = '';
+
+    document.body.style.overflow = 'hidden';
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.body.style.overflow = '';
+      document.removeEventListener('keydown', onKeyDown);
+    };
   }, [open, onClose]);
 
   useEffect(() => {

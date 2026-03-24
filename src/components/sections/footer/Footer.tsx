@@ -13,13 +13,13 @@ const FooterEl = styled.footer`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: ${spacing[1000]}px 0;
+  padding: ${spacing[1000]}px 0 calc(${spacing[1000]}px + env(safe-area-inset-bottom, 0px));
   background: ${neutrals[900]};
   position: relative;
   overflow: hidden;
 
   ${media.down('m')} {
-    padding: ${spacing[800]}px 0;
+    padding: ${spacing[800]}px 0 calc(${spacing[800]}px + env(safe-area-inset-bottom, 0px));
     gap: ${spacing[500]}px;
   }
 `;

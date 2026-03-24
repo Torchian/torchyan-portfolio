@@ -10,7 +10,7 @@ import {
   lineHeight,
   letterSpacing,
 } from '@/styles/tokens/typography';
-import { accents, neutrals, transparents, blur } from '@/styles/tokens/colors';
+import { accents, neutrals, transparents } from '@/styles/tokens/colors';
 import { radius } from '@/styles/tokens/radius';
 import { duration, easing } from '@/styles/tokens/motion';
 import { media } from '@/styles/media';

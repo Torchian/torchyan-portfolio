@@ -1,7 +1,7 @@
 'use client';
 
 import styled from 'styled-components';
-import { Container, Text } from '@/components/primitives';
+import { Container } from '@/components/primitives';
 import { SectionHeading } from '@/components/composites';
 import { CompanyLogo } from '@/components/primitives';
 import { spacing } from '@/styles/tokens/spacing';
@@ -37,17 +37,6 @@ const LogosWrapper = styled.div`
   margin-left: auto;
   margin-right: auto;
   padding: 0 ${spacing[400]}px;
-`;
-
-const Blurb = styled(Text).attrs({
-  as: 'p',
-  $scale: 'body',
-  $size: 'l',
-  $color: 'var(--color-text-secondary)',
-  $align: 'center',
-})`
-  max-width: 600px;
-  margin: ${spacing[400]}px auto 0;
 `;
 
 const LogoGrid = styled.div`

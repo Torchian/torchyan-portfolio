@@ -50,7 +50,7 @@ const Section = styled.section`
   align-items: center;
   padding: ${spacing[1000]}px ${spacing[400]}px ${spacing[400]}px;
   max-width: 1440px;
-  min-height: 100vh;
+  min-height: 100svh;
   margin: 0 auto;
   overflow: hidden;
 

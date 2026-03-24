@@ -89,10 +89,6 @@ export function NavBar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [pathname]);
 
-  useEffect(() => {
-    setDrawerOpen(false);
-  }, [pathname]);
-
   return (
     <>
       <Header $hidden={headerHidden && !drawerOpen}>

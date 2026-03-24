@@ -59,6 +59,10 @@ export const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    padding-left: env(safe-area-inset-left, 0px);
+    padding-right: env(safe-area-inset-right, 0px);
   }
 
   img, picture, video, canvas, svg {
@@ -94,6 +98,10 @@ export const GlobalStyle = createGlobalStyle`
   ::selection {
     background-color: var(--color-accent-primary);
     color: var(--color-text-inverse);
+  }
+
+  p, li, dd, blockquote {
+    max-width: 75ch;
   }
 
   #main-content {

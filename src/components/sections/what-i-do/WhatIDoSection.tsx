@@ -7,14 +7,14 @@ import { Container } from '@/components/primitives';
 import { spacing } from '@/styles/tokens/spacing';
 import { media } from '@/styles/media';
 import { zIndex } from '@/styles/tokens/z-index';
-import { useWhatIDoScroll } from '@/hooks';
+import { useWhatIDoScroll } from '@/hooks/useWhatIDoScroll';
 import { SectionHeading } from '@/components/composites';
 import { WhatidoStep } from './WhatidoStep';
 import { WhatIDoCharacter } from './WhatIDoCharacter';
 import { WhatIDoCharacterWaiting } from './WhatIDoCharacterWaiting';
 import { Bg4Glass } from './Bg4Glass';
 import { WHATIDO_GRID, STEP_BACKGROUNDS } from './config';
-import { easing } from '@/styles/tokens';
+import { easing } from '@/styles/tokens/motion';
 
 const STEPS = [
   {
@@ -309,16 +309,16 @@ export function WhatIDoSection() {
 
             <EllipseGlow />
             <GridBackground>
-              <img src={WHATIDO_GRID} alt="" />
+              <img src={WHATIDO_GRID} alt="" loading="lazy" />
             </GridBackground>
             <Bg1>
-              <img src={STEP_BACKGROUNDS[0]} alt="" />
+              <img src={STEP_BACKGROUNDS[0]} alt="" loading="lazy" />
             </Bg1>
             <Bg2>
-              <img src={STEP_BACKGROUNDS[1]} alt="" />
+              <img src={STEP_BACKGROUNDS[1]} alt="" loading="lazy" />
             </Bg2>
             <Bg3>
-              <img src={STEP_BACKGROUNDS[2]} alt="" />
+              <img src={STEP_BACKGROUNDS[2]} alt="" loading="lazy" />
             </Bg3>
             <Bg4Glass />
           </VisualsColumn>

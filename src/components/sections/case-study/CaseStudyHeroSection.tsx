@@ -212,6 +212,7 @@ export function CaseStudyHeroSection({ project }: CaseStudyHeroSectionProps) {
                   src={img.src}
                   alt=""
                   fill
+                  priority={i < 2}
                   sizes="(max-width: 768px) 20vw, 10vw"
                   style={{ objectFit: 'cover' }}
                 />

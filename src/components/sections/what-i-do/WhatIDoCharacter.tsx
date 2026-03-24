@@ -41,7 +41,7 @@ export function WhatIDoCharacter({
   const grayscale = getGrayscale(activeStepIndex, scrollProgress);
   return (
     <Wrapper aria-hidden $grayscale={grayscale}>
-      <img src="/character/character_head.svg" alt="" />
+      <img src="/character/character_head.svg" alt="" loading="lazy" width={421} height={573} />
     </Wrapper>
   );
 }

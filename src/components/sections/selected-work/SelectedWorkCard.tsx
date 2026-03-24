@@ -1,7 +1,6 @@
 'use client';
 
 import styled from 'styled-components';
-import { Text } from '@/components/primitives';
 import { ProjectMeta } from '@/components/composites/ProjectMeta';
 import { ScreenshotGallery } from '@/components/composites/ScreenshotGallery';
 import { spacing } from '@/styles/tokens/spacing';

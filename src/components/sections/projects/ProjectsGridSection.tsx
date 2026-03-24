@@ -102,13 +102,9 @@ const Badge = styled.span`
 
 const CardMedia = styled.div`
   position: relative;
-  min-height: 640px;
+  aspect-ratio: 16 / 10;
   border-radius: ${radius.xxl}px;
   overflow: hidden;
-
-  ${media.down('l')} {
-    min-height: 420px;
-  }
 `;
 
 const STACK_BADGES = ['React', 'JSS', 'Styled Components', 'Localization', 'WCAG Compliance'] as const;

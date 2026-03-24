@@ -59,6 +59,7 @@ const Description = styled.p`
   line-height: ${fluidLineHeight.heading.m};
   font-weight: ${fontWeight.medium};
   color: var(--color-text-secondary);
+  max-width: 65ch;
 
   ${media.down('l')} {
     font-size: ${fluidFontSize.heading.s};
