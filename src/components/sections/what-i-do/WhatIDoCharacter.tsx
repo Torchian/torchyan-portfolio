@@ -2,6 +2,7 @@
 
 /* eslint-disable @next/next/no-img-element */
 import styled from 'styled-components';
+import type { CSSProperties } from 'react';
 
 /** Engineer the experience = step index 3 */
 export const EXIT_STEP_INDEX = 3;
@@ -12,12 +13,16 @@ export function getGrayscale(activeStepIndex: number, scrollProgress: number): n
   return 1 - scrollProgress;
 }
 
-const Wrapper = styled.div<{ $grayscale: number }>`
+// Static class — grayscale is driven by the --grayscale CSS variable set via
+// inline style below, not by a styled-components prop interpolation. That
+// keeps every scroll-driven update to a plain style-attribute write instead
+// of styled-components recomputing/injecting a new class each frame.
+const Wrapper = styled.div`
   position: relative;
   width: 100%;
   max-width: 420px;
   aspect-ratio: 421 / 573;
-  filter: grayscale(${(p) => p.$grayscale});
+  filter: grayscale(var(--grayscale, 1));
   transition: filter 0.4s ease-out;
 
   img {
@@ -40,7 +45,7 @@ export function WhatIDoCharacter({
 }: WhatIDoCharacterProps) {
   const grayscale = getGrayscale(activeStepIndex, scrollProgress);
   return (
-    <Wrapper aria-hidden $grayscale={grayscale}>
+    <Wrapper aria-hidden style={{ '--grayscale': grayscale } as CSSProperties}>
       <img src="/character/character_head.svg" alt="" />
     </Wrapper>
   );

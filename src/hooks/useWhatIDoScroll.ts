@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useCallback, type RefObject } from 'react';
+import { useEffect, useState, useCallback, useRef, type RefObject } from 'react';
 
 export interface UseWhatIDoScrollResult {
   activeStepIndex: number;
@@ -17,6 +17,7 @@ export function useWhatIDoScroll(
 ): UseWhatIDoScrollResult {
   const [activeStepIndex, setActiveStepIndex] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const tickingRef = useRef(false);
 
   const update = useCallback(() => {
     const viewportCenter = window.innerHeight / 2;
@@ -53,13 +54,24 @@ export function useWhatIDoScroll(
   }, [stepRefs, stepCount]);
 
   useEffect(() => {
-    const rafId = requestAnimationFrame(() => update());
-    window.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update);
+    // Batch reads to at most once per animation frame — a bare 'scroll' listener
+    // can fire dozens of times per frame and each call here does several
+    // getBoundingClientRect() reads, which forces a synchronous layout each time.
+    const requestUpdate = () => {
+      if (tickingRef.current) return;
+      tickingRef.current = true;
+      requestAnimationFrame(() => {
+        update();
+        tickingRef.current = false;
+      });
+    };
+
+    requestUpdate();
+    window.addEventListener('scroll', requestUpdate, { passive: true });
+    window.addEventListener('resize', requestUpdate);
     return () => {
-      cancelAnimationFrame(rafId);
-      window.removeEventListener('scroll', update);
-      window.removeEventListener('resize', update);
+      window.removeEventListener('scroll', requestUpdate);
+      window.removeEventListener('resize', requestUpdate);
     };
   }, [update]);
 

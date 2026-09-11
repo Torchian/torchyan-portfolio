@@ -1,6 +1,7 @@
 'use client';
 
 import styled from 'styled-components';
+import type { CSSProperties } from 'react';
 import { getGrayscale } from './WhatIDoCharacter';
 
 /** Design with intent = step index 2 */
@@ -29,22 +30,28 @@ const INITIAL_PART_INDICES = [6, 3, 1, 4];
 /** Progress threshold: reveal starts after REVEAL_OFFSET_PX of scroll */
 const REVEAL_PROGRESS_THRESHOLD = REVEAL_OFFSET_PX / STEP_HEIGHT;
 
-/** Same dimensions as WhatIDoCharacter for alignment */
-const Wrapper = styled.div<{ $grayscale: number }>`
+/**
+ * Same dimensions as WhatIDoCharacter for alignment.
+ * Grayscale is driven by the --grayscale CSS variable (inline style) rather
+ * than a styled-components prop, so continuous scroll updates are a plain
+ * style-attribute write instead of a new injected class per frame.
+ */
+const Wrapper = styled.div`
   position: relative;
   width: 100%;
   max-width: 420px;
   aspect-ratio: 421 / 573;
-  filter: grayscale(${(p) => p.$grayscale});
+  filter: grayscale(var(--grayscale, 1));
   transition: filter 0.4s ease-out;
 `;
 
+/** left/top/width/zIndex are static per part; only opacity changes on scroll,
+ *  so it's set via the --opacity CSS variable instead of a styled prop. */
 const Part = styled.img<{
   $left: number;
   $top: number;
   $width: number;
   $zIndex: number;
-  $opacity: number;
 }>`
   position: absolute;
   left: ${(p) => p.$left}%;
@@ -54,7 +61,7 @@ const Part = styled.img<{
   object-fit: contain;
   object-position: left top;
   z-index: ${(p) => p.$zIndex};
-  opacity: ${(p) => p.$opacity};
+  opacity: var(--opacity, 1);
   transition: opacity 0.5s ease-out;
   pointer-events: none;
 `;
@@ -86,7 +93,7 @@ export function WhatIDoCharacterWaiting({
   const grayscale = getGrayscale(activeStepIndex, scrollProgress);
 
   return (
-    <Wrapper aria-hidden $grayscale={grayscale}>
+    <Wrapper aria-hidden style={{ '--grayscale': grayscale } as CSSProperties}>
       {ALL_PARTS.map((part, i) => {
         const isInitial = INITIAL_PART_INDICES.includes(i);
         const opacity = isInitial ? 1 : revealProgress;
@@ -99,7 +106,7 @@ export function WhatIDoCharacterWaiting({
             $top={part.top}
             $width={part.width}
             $zIndex={part.zIndex}
-            $opacity={opacity}
+            style={{ '--opacity': opacity } as CSSProperties}
           />
         );
       })}

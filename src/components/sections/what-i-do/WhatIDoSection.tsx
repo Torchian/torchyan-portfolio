@@ -251,6 +251,12 @@ const Bg3 = styled.div`
   flex-grow: 0;
   z-index: ${zIndex.whatidoBgForeground};
   pointer-events: none;
+  /* This box contains an infinite backdrop-filter animation, which is
+     expensive on every frame it's rendered. content-visibility lets the
+     browser skip that work entirely while it's off-screen, instead of
+     running it for the whole time the page is open. */
+  content-visibility: auto;
+  contain-intrinsic-size: 800px 700px;
 
   &::before {
     content: '';

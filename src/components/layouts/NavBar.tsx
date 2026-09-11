@@ -214,9 +214,21 @@ export function NavBar() {
       setActiveIndex(0);
     };
 
+    // Batch to at most once per animation frame — a bare 'scroll' listener can
+    // fire far more often than that, and offsetTop reads force a layout each time.
+    let ticking = false;
+    const requestHandleScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        handleScroll();
+        ticking = false;
+      });
+    };
+
     handleScroll();
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', requestHandleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', requestHandleScroll);
   }, [pathname]);
 
   return (

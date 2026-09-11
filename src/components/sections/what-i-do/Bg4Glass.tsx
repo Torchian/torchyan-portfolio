@@ -21,6 +21,11 @@ const Wrapper = styled.div`
   border-radius: ${radius.xl}px;
   overflow: hidden;
   pointer-events: none;
+  /* backdrop-filter here is expensive (blur + heavy saturate); skip it
+     entirely while off-screen instead of paying the cost the whole time
+     it's mounted. */
+  content-visibility: auto;
+  contain-intrinsic-size: 600px 600px;
 
   ${media.down('l')} {
     display: none;
