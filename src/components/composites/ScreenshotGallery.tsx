@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { radius } from '@/styles/tokens/radius';
 import { spacing } from '@/styles/tokens/spacing';
 import { border } from '@/styles/tokens/border';
-import { glass } from '@/styles/tokens/colors';
+import { glass } from '@/styles/tokens/effects';
 import { media } from '@/styles/media';
 
 const Wrapper = styled.div`

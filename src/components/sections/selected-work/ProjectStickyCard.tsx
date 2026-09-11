@@ -1,12 +1,13 @@
 'use client';
 
 import styled from 'styled-components';
-import Link from 'next/link';
 import Image from 'next/image';
+import { CTASecondary } from '@/components/primitives';
 import { radius } from '@/styles/tokens/radius';
 import { fontSize, lineHeight, fontWeight, letterSpacing, fontFamily } from '@/styles/tokens/typography';
 import { spacing } from '@/styles/tokens/spacing';
-import { neutrals, glass, transparents } from '@/styles/tokens/colors';
+import { neutrals, accents, transparents } from '@/styles/tokens/colors';
+import { glass } from '@/styles/tokens/effects';
 import { grid } from '@/styles/tokens/grid';
 import { breakpoints } from '@/styles/tokens/breakpoints';
 import { duration, easing } from '@/styles/tokens/motion';
@@ -49,15 +50,28 @@ const ProjectContainer = styled.div`
 `;
 
 const ProjectHeader = styled(ProjectContainer)`
-  padding-top: ${spacing[2000]}px;
+  padding-top: ${spacing[1000]}px;
   padding-bottom: ${spacing[300]}px;
+
+  ${media.down('m')} {
+    padding-top: ${spacing[500]}px;
+  }
 `;
 
 const ProjectFooter = styled(ProjectContainer)`
   padding-top: ${spacing[300]}px;
   padding-bottom: ${spacing[1000]}px;
+
+  ${media.down('m')} {
+    padding-bottom: ${spacing[500]}px;
+  }
 `;
 
+/**
+ * Desktop puts the company name on the left with roles pushed right.
+ * Tablet/mobile stack them with the roles ABOVE the name (Figma 2650:4268 /
+ * 2653:4958) — column-reverse keeps the h2 first in the DOM for reading order.
+ */
 const ProjectHeading = styled.div`
   display: flex;
   flex-direction: row;
@@ -66,26 +80,36 @@ const ProjectHeading = styled.div`
   gap: ${spacing[600]}px;
   width: 100%;
 
-  ${media.down('m')} {
-    flex-direction: column;
+  ${media.down('l')} {
+    flex-direction: column-reverse;
     align-items: flex-start;
+    justify-content: center;
+    gap: ${spacing[100]}px;
   }
 `;
 
 const ProjectCompany = styled.h2`
   font-family: ${fontFamily.display};
-  font-weight: ${fontWeight.heading};
-  font-size: ${fontSize.display.m}px;
-  line-height: ${lineHeight.display.m}px;
+  font-weight: ${fontWeight.black};
+  font-size: ${fontSize.display.xl}px;
+  line-height: ${lineHeight.display.xl}px;
+  letter-spacing: ${letterSpacing.xxs}px;
+  text-transform: uppercase;
   color: ${neutrals[100]};
   margin: 0;
 
+  /* Tablet: 72px Bold, as typed (no uppercase) */
   ${media.down('l')} {
-    font-size: ${fontSize.display.s}px;
-    line-height: ${lineHeight.display.s}px;
+    font-weight: ${fontWeight.heading};
+    font-size: ${fontSize.display.m}px;
+    line-height: ${lineHeight.display.m}px;
+    letter-spacing: ${letterSpacing.xs}px;
+    text-transform: none;
   }
 
+  /* Mobile: 36px SemiBold */
   ${media.down('m')} {
+    font-weight: ${fontWeight.semibold};
     font-size: ${fontSize.heading.l}px;
     line-height: ${lineHeight.heading.l}px;
   }
@@ -131,8 +155,16 @@ const ProjectCard = styled.div`
   background: transparent;
 `;
 
+/**
+ * `--card-progress` (0 → 1) is written per card by the Selected Work scroll
+ * hook and tracks how far that card has been scrolled through. Folding it into
+ * the existing scale gives a gentle, organic push-in as the card is traversed.
+ * It scales the imagery *inside* the media frame (which clips), so it can
+ * never change layout or affect the sticky card around it.
+ */
 const GridWrapper = styled.div<{ $rotation: number }>`
-  transform: rotate(${(p) => p.$rotation}deg) scale(1.2);
+  transform: rotate(${(p) => p.$rotation}deg)
+    scale(calc(1.2 + 0.14 * var(--card-progress, 0)));
   transform-origin: center center;
   width: 100%;
 `;
@@ -221,29 +253,13 @@ const IsometricCard = styled.div`
   }
 `;
 
-const PlaceholderCTA = styled(Link)`
+/** Figma: CTA Secondary (2585:1296), centered over the project media. */
+const ViewCaseCTA = styled(CTASecondary)`
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: ${spacing[300]}px ${spacing[500]}px;
-  background: ${glass.shadow};
-  border-radius: ${radius.round}px;
-  font-family: var(--font-gilroy), sans-serif;
-  font-weight: ${fontWeight.semibold};
-  font-size: ${fontSize.heading.s}px;
-  line-height: ${lineHeight.heading.s}px;
-  color: ${neutrals[100]};
-  text-decoration: none;
   z-index: 2;
-  transition: background ${duration.fast} ease;
-
-  &:hover {
-    background: ${glass.bgMedium};
-  }
 `;
 
 const ProjectBody = styled.div`
@@ -294,23 +310,6 @@ const ProjectField = styled.span`
   color: ${neutrals[100]};
 `;
 
-const CaseStudyLink = styled(Link)`
-  font-family: var(--font-gilroy), sans-serif;
-  font-weight: ${fontWeight.semibold};
-  font-size: ${fontSize.body.xl}px;
-  line-height: ${lineHeight.body.xl}px;
-  color: ${neutrals[100]};
-  text-decoration: none;
-  margin-top: ${spacing[200]}px;
-  display: inline-flex;
-  align-items: center;
-  transition: opacity ${duration.normal} ${easing.inOut};
-
-  &:hover {
-    opacity: 0.85;
-  }
-`;
-
 const PlaceholderCard = styled.div`
   width: 100%;
   height: 100%;
@@ -333,7 +332,7 @@ export function ProjectStickyCard({ project }: ProjectStickyCardProps) {
     : Array.from({ length: 6 }, (_, i) => ({ src: '', alt: `Preview ${i + 1}` }));
 
   return (
-    <CardWrapper>
+    <CardWrapper data-project-card>
       <ProjectBackground $gradient={project.gradient} />
       <ProjectHeader as="header">
         <ProjectHeading>
@@ -349,7 +348,7 @@ export function ProjectStickyCard({ project }: ProjectStickyCardProps) {
       </ProjectHeader>
 
       {hasImages ? (
-        <ProjectCard>
+        <ProjectCard data-cta-trigger>
           <GridWrapper $rotation={project.masonryRotation ?? 45}>
             <MasonryGrid>
               {(project.masonryColumnImages ?? (() => {
@@ -372,7 +371,7 @@ export function ProjectStickyCard({ project }: ProjectStickyCardProps) {
                             alt={img.alt}
                             width={imgWidth}
                             height={Math.round(imgWidth * 0.75)}
-                            quality={95}
+                            quality={75}
                             sizes={`(max-width: 768px) 100vw, ${100 / cols}vw`}
                             loading="lazy"
                             style={{ width: '100%', height: 'auto', display: 'block' }}
@@ -385,9 +384,10 @@ export function ProjectStickyCard({ project }: ProjectStickyCardProps) {
               })}
             </MasonryGrid>
           </GridWrapper>
+          <ViewCaseCTA href={`/projects/${project.slug}`}>View Case</ViewCaseCTA>
         </ProjectCard>
       ) : (
-        <ProjectVisuals>
+        <ProjectVisuals data-cta-trigger>
           <IsometricGrid>
             <IsometricRow>
               {images.slice(0, 3).map((img, i) => (
@@ -412,9 +412,7 @@ export function ProjectStickyCard({ project }: ProjectStickyCardProps) {
               ))}
             </IsometricRow>
           </IsometricGrid>
-          {project.href && (
-            <PlaceholderCTA href={`/projects/${project.slug}`}>View Case</PlaceholderCTA>
-          )}
+          <ViewCaseCTA href={`/projects/${project.slug}`}>View Case</ViewCaseCTA>
         </ProjectVisuals>
       )}
 
@@ -425,9 +423,6 @@ export function ProjectStickyCard({ project }: ProjectStickyCardProps) {
             <ProjectDescription>{project.description}</ProjectDescription>
           </ProjectInfo>
           <ProjectField>{project.field} · {project.year}</ProjectField>
-          <CaseStudyLink href={`/projects/${project.slug}`}>
-            View case study →
-          </CaseStudyLink>
         </ProjectBody>
       </ProjectFooter>
     </CardWrapper>

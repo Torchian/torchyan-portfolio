@@ -2,16 +2,13 @@
 
 import { useState } from 'react';
 import styled from 'styled-components';
-import { Container, TextInput } from '@/components/primitives';
+import { Container, TextInput, RadioInput, Button } from '@/components/primitives';
 import { SectionHeading } from '@/components/composites';
 import { spacing } from '@/styles/tokens/spacing';
 import { fontSize, lineHeight, fontWeight, fontFamily, letterSpacing } from '@/styles/tokens/typography';
-import { neutrals, accents, glass, blur } from '@/styles/tokens/colors';
-import { radius } from '@/styles/tokens/radius';
+import { neutrals } from '@/styles/tokens/colors';
 import { grid } from '@/styles/tokens/grid';
 import { media } from '@/styles/media';
-import { border } from '@/styles/tokens/border';
-import { duration, easing } from '@/styles/tokens/motion';
 
 const Section = styled.section`
   padding: ${spacing[1000]}px 0;
@@ -58,8 +55,8 @@ const FormColumn = styled.div`
 const IntroText = styled.p`
   font-family: ${fontFamily.heading};
   font-weight: ${fontWeight.medium};
-  font-size: ${fontSize.heading.s}px;
-  line-height: ${lineHeight.heading.s}px;
+  font-size: ${fontSize.heading.m}px;
+  line-height: ${lineHeight.heading.m}px;
   color: ${neutrals[100]};
 `;
 
@@ -78,63 +75,19 @@ const FormGroup = styled.div`
 `;
 
 const FormLabel = styled.label`
-  font-family: ${fontFamily.display};
+  font-family: ${fontFamily.heading};
   font-weight: ${fontWeight.semibold};
-  font-size: ${fontSize.body.l}px;
-  line-height: ${lineHeight.body.l}px;
+  font-size: ${fontSize.heading.s}px;
+  line-height: ${lineHeight.heading.s}px;
   letter-spacing: ${letterSpacing.xs}px;
-  color: ${neutrals[700]};
+  color: ${neutrals[100]};
 `;
 
 const ChipGroup = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: ${spacing[200]}px;
+  gap: ${spacing[300]}px;
   align-items: center;
-`;
-
-const ChipDot = styled.span<{ $selected?: boolean }>`
-  width: ${spacing[150]}px;
-  height: ${spacing[150]}px;
-  border-radius: ${radius.round}px;
-  background: ${(p) => (p.$selected ? accents.primary : neutrals[700])};
-  filter: blur(${(r) => (r.$selected ? 0 : blur.xl)});
-  flex-shrink: 0;
-  transition: background-color ${duration.normal} ${easing.inOut},
-    filter ${duration.normal} ${easing.inOut};
-`;
-
-const Chip = styled.label<{ $selected?: boolean }>`
-  display: flex;
-  align-items: center;
-  gap: ${spacing[200]}px;
-  padding: ${spacing[75]}px ${spacing[250]}px;
-  height: ${spacing[600]}px;
-  background: ${glass.bg};
-  border: ${border.medium}px solid ${(p) => (p.$selected ? accents.primary : glass.border)};
-  border-radius: ${radius.round}px;
-  font-family: ${fontFamily.body};
-  font-weight: ${fontWeight.medium};
-  font-size: ${fontSize.body.l}px;
-  line-height: ${lineHeight.body.l}px;
-  color: ${(r) => (r.$selected ? accents.primary : neutrals[700])};
-  cursor: pointer;
-  transition: background-color ${duration.normal} ${easing.inOut},
-    border-color ${duration.normal} ${easing.inOut},
-    color ${duration.normal} ${easing.inOut};
-
-  input {
-    display: none;
-  }
-
-  &:hover {
-    color: ${accents.primary};
-  }
-
-  &:hover ${ChipDot} {
-    background: ${accents.primary};
-    filter: blur(${(r) => (r.$selected ? 0 : blur.sm)});
-  }
 `;
 
 const InputRow = styled.div`
@@ -152,31 +105,6 @@ const InputField = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${spacing[200]}px;
-`;
-
-const SubmitButton = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 12px 40px;
-  min-width: 140px;
-  height: 48px;
-  font-family: ${fontFamily.display};
-  font-weight: ${fontWeight.semibold};
-  font-size: 18px;
-  line-height: 24px;
-  letter-spacing: 0.1px;
-  color: ${neutrals[100]};
-  background: ${accents.primary};
-  border: none;
-  border-radius: ${radius.round}px;
-  cursor: pointer;
-  transition: opacity 0.2s ease;
-  width: 100%;
-
-  &:hover {
-    opacity: 0.9;
-  }
 `;
 
 const INTENT_OPTIONS = [
@@ -217,17 +145,14 @@ export function ContactCTASection() {
                 <FormLabel>Select Your Intent</FormLabel>
                 <ChipGroup>
                   {INTENT_OPTIONS.map((opt) => (
-                    <Chip key={opt} $selected={intent === opt}>
-                      <input
-                        type="radio"
-                        name="intent"
-                        value={opt}
-                        checked={intent === opt}
-                        onChange={() => setIntent(opt)}
-                      />
-                      <ChipDot $selected={intent === opt} />
-                      {opt}
-                    </Chip>
+                    <RadioInput
+                      key={opt}
+                      label={opt}
+                      name="intent"
+                      value={opt}
+                      checked={intent === opt}
+                      onChange={() => setIntent(opt)}
+                    />
                   ))}
                 </ChipGroup>
               </FormGroup>
@@ -259,17 +184,14 @@ export function ContactCTASection() {
                 <FormLabel>Project Stage</FormLabel>
                 <ChipGroup>
                   {STAGE_OPTIONS.map((opt) => (
-                    <Chip key={opt} $selected={stage === opt}>
-                      <input
-                        type="radio"
-                        name="stage"
-                        value={opt}
-                        checked={stage === opt}
-                        onChange={() => setStage(opt)}
-                      />
-                      <ChipDot $selected={stage === opt} />
-                      {opt}
-                    </Chip>
+                    <RadioInput
+                      key={opt}
+                      label={opt}
+                      name="stage"
+                      value={opt}
+                      checked={stage === opt}
+                      onChange={() => setStage(opt)}
+                    />
                   ))}
                 </ChipGroup>
               </FormGroup>
@@ -278,22 +200,21 @@ export function ContactCTASection() {
                 <FormLabel>Timeline</FormLabel>
                 <ChipGroup>
                   {TIMELINE_OPTIONS.map((opt) => (
-                    <Chip key={opt} $selected={timeline === opt}>
-                      <input
-                        type="radio"
-                        name="timeline"
-                        value={opt}
-                        checked={timeline === opt}
-                        onChange={() => setTimeline(opt)}
-                      />
-                      <ChipDot $selected={timeline === opt} />
-                      {opt}
-                    </Chip>
+                    <RadioInput
+                      key={opt}
+                      label={opt}
+                      name="timeline"
+                      value={opt}
+                      checked={timeline === opt}
+                      onChange={() => setTimeline(opt)}
+                    />
                   ))}
                 </ChipGroup>
               </FormGroup>
 
-              <SubmitButton type="submit">Contact</SubmitButton>
+              <Button as="button" type="submit" $variant="secondary" style={{ width: '100%' }}>
+                Contact
+              </Button>
             </Form>
           </FormColumn>
         </TwoColumn>

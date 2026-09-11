@@ -8,6 +8,7 @@ const HEIGHT = '90vmin'; // Responsive to screen (smaller of vw/vh)
 const Wrapper = styled.div`
   position: absolute;
   inset: 0;
+  overflow: hidden;
   pointer-events: none;
   z-index: ${zIndex.base};
 `;
@@ -32,28 +33,22 @@ const SideCharacter = styled.div<{ $side: 'left' | 'right' }>`
   align-items: center;
   justify-content: ${(p) => (p.$side === 'left' ? 'flex-start' : 'flex-end')};
   z-index: 1;
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 200px;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    mask-image: linear-gradient(to bottom, transparent 0%, black 100%);
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 100%);
-    pointer-events: none;
-  }
 `;
 
+/**
+ * Fades the character's own pixels to transparent near the bottom, instead
+ * of blurring a fixed-height band on top of it (which left the image's own
+ * edge fully opaque and hard-cut once the blur band ran out). This also
+ * drops two more backdrop-filter layers from the page.
+ */
 const Img = styled.img<{ $objectPosition: string; $margin: string }>`
   height: 100%;
   width: auto;
   object-fit: contain;
   object-position: ${(p) => p.$objectPosition};
   margin: ${(p) => p.$margin};
+  mask-image: linear-gradient(to bottom, black 0%, black 55%, transparent 96%);
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 55%, transparent 96%);
 `;
 
 export function SideCharacters() {

@@ -22,13 +22,12 @@ const Wrapper = styled.div<{ $align?: 'center' | 'left' }>`
 `;
 
 const Title = styled(Display)`
-  /* Mobile: 58px, 600, title case */
+  /* Mobile: 58px, 600, as-typed (no forced transform) */
   font-size: ${fontSize.display.s}px;
   line-height: ${lineHeight.display.s}px;
   font-weight: ${fontWeight.semibold};
-  text-transform: capitalize;
 
-  /* Tablet: 72px, 700, title case */
+  /* Tablet: 72px, 700, as-typed (no forced transform) */
   ${media.up('m')} {
     font-size: ${fontSize.display.m}px;
     line-height: ${lineHeight.display.m}px;

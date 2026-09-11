@@ -12,7 +12,8 @@ import { fontWeight, fontSize, lineHeight, letterSpacing, fontFamily } from '@/s
 import { spacing } from '@/styles/tokens/spacing';
 import { radius } from '@/styles/tokens/radius';
 import { duration, easing } from '@/styles/tokens/motion';
-import { neutrals, accents, glass, blur } from '@/styles/tokens/colors';
+import { neutrals, accents } from '@/styles/tokens/colors';
+import { glass, blur } from '@/styles/tokens/effects';
 import { border } from '@/styles/tokens/border';
 
 type ButtonVariant = 'primary' | 'secondary' | 'secondaryPink' | 'tertiary';

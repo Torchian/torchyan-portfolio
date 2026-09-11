@@ -8,7 +8,8 @@ import { zIndex } from '@/styles/tokens/z-index';
 import { duration, easing } from '@/styles/tokens/motion';
 import { spacing } from '@/styles/tokens/spacing';
 import { fontSize, lineHeight, letterSpacing, fontWeight, fontFamily } from '@/styles/tokens/typography';
-import { accents, neutrals, glass, blur } from '@/styles/tokens/colors';
+import { accents, neutrals } from '@/styles/tokens/colors';
+import { glass, blur } from '@/styles/tokens/effects';
 import { radius } from '@/styles/tokens/radius';
 import { media } from '@/styles/media';
 import { Button } from '@/components/primitives';
@@ -18,7 +19,6 @@ const NAV_LINKS = [
   { label: 'Home', href: '/' },
   { label: 'Projects', href: '/projects' },
   { label: 'Case Studies', href: '/case-studies' },
-  { label: 'Playground', href: '/#what-i-build' },
   { label: 'About Me', href: '/about' },
 ];
 
@@ -153,7 +153,6 @@ const CTAWrapper = styled.div`
 export function NavBar() {
   const navRef = useRef<HTMLElement>(null);
   const linkRefs = useRef<(HTMLAnchorElement | null)[]>([]);
-  const [activeIndex, setActiveIndex] = useState(0);
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
 
   const pathname = usePathname();
@@ -177,7 +176,11 @@ export function NavBar() {
     nav.style.setProperty('--nav-line-visible', width > 0 ? '1' : '0');
   }, []);
 
-  const displayIndex = hoverIndex ?? (pathname !== '/' && routeIndex >= 0 ? routeIndex : activeIndex);
+  // Every nav item other than Home is now a standalone route (Projects,
+  // Case Studies, About Me), not an in-page anchor, so the active link is
+  // determined by the current route — Home (index 0) whenever none of the
+  // other routes match, e.g. while on '/'.
+  const displayIndex = hoverIndex ?? (routeIndex >= 0 ? routeIndex : 0);
 
   useLayoutEffect(() => {
     applyLinePosition(displayIndex);
@@ -188,48 +191,6 @@ export function NavBar() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, [displayIndex, applyLinePosition]);
-
-  useEffect(() => {
-    if (pathname !== '/') return;
-
-    const handleScroll = () => {
-      const scrollY = window.scrollY + 120;
-
-      if (scrollY < 200) {
-        setActiveIndex(0);
-        return;
-      }
-
-      for (let i = NAV_LINKS.length - 1; i >= 0; i--) {
-        const href = NAV_LINKS[i].href;
-        const hashPart = href.includes('#') ? href.split('#')[1] : null;
-        if (hashPart) {
-          const el = document.getElementById(hashPart);
-          if (el && el.offsetTop <= scrollY) {
-            setActiveIndex(i);
-            return;
-          }
-        }
-      }
-      setActiveIndex(0);
-    };
-
-    // Batch to at most once per animation frame — a bare 'scroll' listener can
-    // fire far more often than that, and offsetTop reads force a layout each time.
-    let ticking = false;
-    const requestHandleScroll = () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        handleScroll();
-        ticking = false;
-      });
-    };
-
-    handleScroll();
-    window.addEventListener('scroll', requestHandleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', requestHandleScroll);
-  }, [pathname]);
 
   return (
     <Header>
@@ -251,7 +212,7 @@ export function NavBar() {
           <NavItem
             key={link.label}
             href={link.href}
-            $active={(pathname !== '/' && routeIndex === i) || (pathname === '/' && activeIndex === i)}
+            $active={routeIndex >= 0 ? routeIndex === i : i === 0}
             ref={(el) => { linkRefs.current[i] = el; }}
             onMouseEnter={() => setHoverIndex(i)}
           >

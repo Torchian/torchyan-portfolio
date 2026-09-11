@@ -176,8 +176,8 @@ export function HeroSection() {
           </Description>
         </HeroHeading>
 
-        <Button as="a" href="#contact" $variant="primary">
-          Contact
+        <Button as="a" href="#work" $variant="primary">
+          See My Work
         </Button>
       </HeroBody>
 

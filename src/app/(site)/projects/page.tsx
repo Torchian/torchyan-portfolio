@@ -11,7 +11,8 @@ import {
   lineHeight,
   letterSpacing,
 } from '@/styles/tokens/typography';
-import { accents, neutrals, glass } from '@/styles/tokens/colors';
+import { accents, neutrals } from '@/styles/tokens/colors';
+import { glass } from '@/styles/tokens/effects';
 import { radius } from '@/styles/tokens/radius';
 import { border } from '@/styles/tokens/border';
 import { media } from '@/styles/media';
