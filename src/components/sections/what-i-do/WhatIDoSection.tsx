@@ -256,7 +256,10 @@ const Bg3 = styled.div`
      browser skip that work entirely while it's off-screen, instead of
      running it for the whole time the page is open. */
   content-visibility: auto;
-  contain-intrinsic-size: 800px 700px;
+  /* auto: once rendered, keep reporting the real size while skipped instead of
+     the placeholder — the beard's fade measures this box, and the placeholder
+     would make its reveal line jump on the frame the box un-skips. */
+  contain-intrinsic-size: auto 800px 700px;
 
   &::before {
     content: '';
@@ -267,15 +270,15 @@ const Bg3 = styled.div`
     height: 57%;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     z-index: ${zIndex.whatidoBgForeground};
-    animation: sepiaToInvert 1000ms ${easing.linear} infinite alternate;
+    animation: sepiaToInvert 100ms ${easing.linear} infinite alternate;
   }
 
   @keyframes sepiaToInvert {
-    from {
-      backdrop-filter: sepia(1) invert(1) saturate(0%);
+    0% {
+      backdrop-filter: sepia(0) invert(0) saturate(0%);
     }
-    to {
-      backdrop-filter: sepia(0) invert(0) saturate(8000%);
+    10% {
+      backdrop-filter: sepia(1) invert(1) saturate(200%);
     }
   }
 
@@ -316,7 +319,14 @@ export function WhatIDoSection() {
     () => [stepRef0, stepRef1, stepRef2, stepRef3, stepRef4],
     [],
   );
-  const { activeStepIndex, scrollProgress } = useWhatIDoScroll(stepRefs, STEPS.length);
+  // Common ancestor of both characters: the scroll-driven --grayscale and
+  // --reveal variables are written here and inherited down.
+  const visualsRef = useRef<HTMLDivElement>(null);
+  useWhatIDoScroll(visualsRef, stepRefs);
+  // Bg1 is the framed "board"; its bottom line drives the head's pencil→color cut.
+  const boardRef = useRef<HTMLDivElement>(null);
+  // Bg3 is the "Design with intent" square; its bottom line gates the beard's hard reveal.
+  const squareRef = useRef<HTMLDivElement>(null);
 
   return (
     <Section id="about">
@@ -337,29 +347,23 @@ export function WhatIDoSection() {
               />
             ))}
           </StepsColumn>
-          <VisualsColumn>
+          <VisualsColumn ref={visualsRef}>
             <StickySpacerTop />
             {/* Sticky character - first in flow so it sticks when section scrolls into view */}
             <StickyCharacterWrapper>
-              <WhatIDoCharacter
-                activeStepIndex={activeStepIndex}
-                scrollProgress={scrollProgress}
-              />
+              <WhatIDoCharacter boardRef={boardRef} />
             </StickyCharacterWrapper>
 
             <StickySpacer />
             <StickyCharacterWrapper2>
-              <WhatIDoCharacterWaiting
-                activeStepIndex={activeStepIndex}
-                scrollProgress={scrollProgress}
-              />
+              <WhatIDoCharacterWaiting squareRef={squareRef} />
             </StickyCharacterWrapper2>
 
             <EllipseGlow />
             <GridBackground>
               <img src={WHATIDO_GRID} alt="" />
             </GridBackground>
-            <Bg1>
+            <Bg1 ref={boardRef}>
               <img src={STEP_BACKGROUNDS[0]} alt="" />
             </Bg1>
             <Bg2>
@@ -367,7 +371,7 @@ export function WhatIDoSection() {
               <Bg2InvertOverlay $top="61%" $left="49.6%" $width="79.6%" $height="62.7%" /> */}
               <img src={STEP_BACKGROUNDS[1]} alt="" />
             </Bg2>
-            <Bg3>
+            <Bg3 ref={squareRef}>
               <img src={STEP_BACKGROUNDS[2]} alt="" />
             </Bg3>
             <Bg4Glass />

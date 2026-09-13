@@ -9,6 +9,9 @@ const Wrapper = styled.div`
   z-index: ${zIndex.behind};
   pointer-events: none;
   overflow: hidden;
+  /* Full-viewport fixed layer: keep it on its own compositor layer so the
+     background is rasterised once, not repainted as the page scrolls past it. */
+  will-change: transform;
 
   &::before {
     content: '';

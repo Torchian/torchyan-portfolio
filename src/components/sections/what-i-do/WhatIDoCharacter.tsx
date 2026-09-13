@@ -2,30 +2,24 @@
 
 /* eslint-disable @next/next/no-img-element */
 import styled from 'styled-components';
-import type { CSSProperties } from 'react';
+import { useRef, type RefObject } from 'react';
+import { useBoardClip } from './useBoardClip';
 
-/** Engineer the experience = step index 3 */
-export const EXIT_STEP_INDEX = 3;
-
-export function getGrayscale(activeStepIndex: number, scrollProgress: number): number {
-  if (activeStepIndex < EXIT_STEP_INDEX) return 1;
-  if (activeStepIndex > EXIT_STEP_INDEX) return 0;
-  return 1 - scrollProgress;
-}
-
-// Static class — grayscale is driven by the --grayscale CSS variable set via
-// inline style below, not by a styled-components prop interpolation. That
-// keeps every scroll-driven update to a plain style-attribute write instead
-// of styled-components recomputing/injecting a new class each frame.
+// Static class — grayscale comes from the --grayscale CSS variable, which
+// useWhatIDoScroll writes onto the visuals column and this wrapper inherits.
+// No React props or styled-components interpolation are involved, so a scroll
+// update never re-renders this component or injects a new class.
 const Wrapper = styled.div`
   position: relative;
   width: 100%;
   max-width: 420px;
   aspect-ratio: 421 / 573;
-  filter: grayscale(var(--grayscale, 1));
+  filter: sepia(0.2) grayscale(var(--grayscale, 1));
   transition: filter 0.4s ease-out;
 
   img {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: contain;
@@ -34,19 +28,42 @@ const Wrapper = styled.div`
   }
 `;
 
+/**
+ * Pencil layer, stacked above the colored one. It's clipped to only show the
+ * portion ABOVE the board's bottom line — the clip inset is driven per-frame by
+ * the scroll handler. No transition: the edge is a hard cut that moves with the
+ * board line, so the drawing "can't pass through the board" — anything below the
+ * line is the colored image underneath.
+ */
+const PencilLayer = styled.img`
+  clip-path: inset(0 0 var(--clip-below, 100%) 0);
+`;
+
+/**
+ * Colored layer gets the INVERSE clip — hidden above the line, visible only
+ * below it. This isn't just relying on the pencil layer opaquely covering it:
+ * the pencil source has real transparent gaps (cut-out eyes/eyebrows), so
+ * without its own clip the colored image would show through those gaps while
+ * still inside the board. Explicitly clipping both layers to the same line
+ * keeps them mutually exclusive regardless of either asset's transparency.
+ */
+const ColorLayer = styled.img`
+  clip-path: inset(var(--clip-above, 0px) 0 0 0);
+`;
+
 export interface WhatIDoCharacterProps {
-  activeStepIndex?: number;
-  scrollProgress?: number;
+  /** Ref to the board element (Bg1) whose bottom line drives the pencil clip. */
+  boardRef?: RefObject<HTMLDivElement | null>;
 }
 
-export function WhatIDoCharacter({
-  activeStepIndex = 0,
-  scrollProgress = 0,
-}: WhatIDoCharacterProps) {
-  const grayscale = getGrayscale(activeStepIndex, scrollProgress);
+export function WhatIDoCharacter({ boardRef }: WhatIDoCharacterProps) {
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  useBoardClip(wrapperRef, boardRef);
+
   return (
-    <Wrapper aria-hidden style={{ '--grayscale': grayscale } as CSSProperties}>
-      <img src="/character/character_head.svg" alt="" />
+    <Wrapper ref={wrapperRef} aria-hidden>
+      <ColorLayer src="/character/character_head.svg" alt="" />
+      <PencilLayer src="/character/character_head_sketch.webp" alt="" />
     </Wrapper>
   );
 }

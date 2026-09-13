@@ -35,8 +35,8 @@ const Wrapper = styled.div`
 const GlassPane = styled.div`
   position: absolute;
   inset: 0;
-  backdrop-filter: blur(10px) saturate(5000%);
-  -webkit-backdrop-filter: blur(10px) saturate(5000%);
+  backdrop-filter: saturate(10000%);
+  -webkit-backdrop-filter: saturate(10000%);
 `;
 
 export function Bg4Glass() {

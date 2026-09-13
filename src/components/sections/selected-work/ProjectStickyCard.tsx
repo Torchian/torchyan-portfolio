@@ -22,6 +22,10 @@ const CardWrapper = styled.article`
   display: grid;
   grid-template-rows: auto 1fr auto;
   isolation: isolate;
+  /* Already clipped (overflow: hidden) and its own stacking context; this makes
+     that explicit to the browser, so layout and paint inside one card can never
+     spill into work on the cards stacked around it. */
+  contain: layout paint;
 `;
 
 const ProjectBackground = styled.div<{ $gradient: string }>`
@@ -167,6 +171,15 @@ const GridWrapper = styled.div<{ $rotation: number }>`
     scale(calc(1.2 + 0.14 * var(--card-progress, 0)));
   transform-origin: center center;
   width: 100%;
+
+  /* Promote the image grid to its own layer only while its card is actually
+     being traversed (the scroll hook sets data-magnifying), so the changing
+     scale is a compositor transform instead of a repaint of every image.
+     Never on all three cards at once — that would just trade the repaint cost
+     for layer memory. */
+  [data-magnifying] & {
+    will-change: transform;
+  }
 `;
 
 const MasonryColumn = styled.div`
