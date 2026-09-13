@@ -4,7 +4,17 @@ import { usePathname } from 'next/navigation';
 import styled from 'styled-components';
 import { NavBar } from './NavBar';
 import { Footer } from '@/components/sections/footer/Footer';
-import { PageBackground, SideCharacters } from '@/components/composites';
+import { LowerPageBackground, PageBackground, SideCharacters } from '@/components/composites';
+
+/**
+ * Page content plus footer: the positioning context for LowerPageBackground,
+ * which has to span from a section inside the page to the end of the footer.
+ * Isolated so the glow's negative z-index stays above the fixed PageBackground.
+ */
+const Page = styled.div`
+  position: relative;
+  isolation: isolate;
+`;
 
 const Main = styled.div`
   position: relative;
@@ -21,8 +31,11 @@ export function SiteLayout({ children }: { children: React.ReactNode }) {
       <PageBackground />
       {isHomepage && <SideCharacters />}
       <NavBar />
-      <Main>{children}</Main>
-      <Footer />
+      <Page>
+        <LowerPageBackground />
+        <Main>{children}</Main>
+        <Footer />
+      </Page>
     </>
   );
 }

@@ -18,4 +18,6 @@ export { MapDot } from './MapDot';
 export type { MapDotProps } from './MapDot';
 export { Character } from './Character';
 export { PageBackground } from './PageBackground';
+export { LowerPageBackground } from './LowerPageBackground';
+export type { LowerPageBackgroundProps } from './LowerPageBackground';
 export { SideCharacters } from './SideCharacters';
