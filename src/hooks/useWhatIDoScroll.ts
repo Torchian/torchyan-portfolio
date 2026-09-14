@@ -2,6 +2,7 @@
 
 import { useEffect, type RefObject } from 'react';
 import { createInViewGate, subscribeScroll } from '@/lib/scroll-driver';
+import { STEP_HEIGHT } from '@/components/sections/what-i-do/config';
 
 /** "Design with intent" = step index 2 — the remaining character parts reveal on the way into it. */
 const REVEAL_AT_STEP_INDEX = 2;
@@ -9,9 +10,7 @@ const REVEAL_AT_STEP_INDEX = 2;
 /** Scroll offset (px) into the preceding step before the reveal starts. */
 const REVEAL_OFFSET_PX = 200;
 
-/** Step height used to turn REVEAL_OFFSET_PX into a progress fraction. */
-const STEP_HEIGHT = 960;
-
+/** REVEAL_OFFSET_PX as a fraction of a step's progress. */
 const REVEAL_PROGRESS_THRESHOLD = REVEAL_OFFSET_PX / STEP_HEIGHT;
 
 /** "Engineer the experience" = step index 3 — the character colours in across it. */

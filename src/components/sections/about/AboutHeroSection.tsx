@@ -147,7 +147,7 @@ const NameHighlight = styled.span`
 `;
 
 /* positioning_cards */
-const PositioningCards = styled.div`
+const PositioningCards = styled.ul`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -166,7 +166,7 @@ const PositioningCards = styled.div`
 `;
 
 /* Positioning Card */
-const Card = styled.article`
+const Card = styled.li`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -234,7 +234,7 @@ export function AboutHeroSection() {
               src="/hero/character_color.png"
               alt=""
               fill
-              sizes="(max-width: 768px) 320px, 720px"
+              sizes="(max-width: 480px) 320px, 720px"
               style={{ objectFit: 'contain' }}
             />
           </HeroImageSharp>

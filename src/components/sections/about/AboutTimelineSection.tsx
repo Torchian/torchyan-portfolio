@@ -384,7 +384,7 @@ export function AboutTimelineSection() {
             >
               <CardContent>
                 <CardHeading>
-                  <CompanyName as="p">{entry.company}</CompanyName>
+                  <CompanyName as="h3">{entry.company}</CompanyName>
                   <Role as="p">{entry.role}</Role>
                 </CardHeading>
                 <Block>
@@ -415,7 +415,7 @@ export function AboutTimelineSection() {
                   src={img.src}
                   alt={img.alt}
                   fill
-                  sizes="(max-width: 1024px) 25vw, 120px"
+                  sizes="(max-width: 768px) 25vw, 120px"
                   style={{ objectFit: 'cover' }}
                 />
               </GridImageWrapper>

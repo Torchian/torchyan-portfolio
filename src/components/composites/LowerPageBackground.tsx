@@ -5,45 +5,44 @@ import { usePathname } from 'next/navigation';
 import styled from 'styled-components';
 import { zIndex } from '@/styles/tokens/z-index';
 
-/**
- * One soft coloured glow. Position and size are percentages of the layer, so
- * the composition stretches with the page from the Capabilities section down
- * to the bottom of the footer (Figma: page background, node 2670:10784).
- */
-interface Glow {
-  /** Centre. */
-  x: string;
-  y: string;
-  /** Horizontal / vertical radius. */
-  rx: string;
-  ry: string;
-  /** Colour as `r, g, b`, and its opacity at the centre. */
-  rgb: string;
-  alpha: number;
+/** How far an artwork reaches past its span: fractions of the span's height (top, bottom) and width (sides). */
+export interface GlowBleed {
+  top: number;
+  right: number;
+  bottom: number;
+  left: number;
 }
 
-/** Top to bottom, as in the Figma frame. */
-const GLOWS: Glow[] = [
-  // Neutral haze behind the Capabilities heading area.
-  { x: '30%', y: '6%', rx: '32%', ry: '8%', rgb: '200, 200, 180', alpha: 0.12 },
-  // Indigo top of the large purple glow.
-  { x: '55%', y: '26%', rx: '42%', ry: '11%', rgb: '96, 48, 176', alpha: 0.16 },
-  // Magenta body of the large purple glow, around Trusted By.
-  { x: '48%', y: '40%', rx: '46%', ry: '17%', rgb: '190, 20, 140', alpha: 0.2 },
-  // Amber glow under the map.
-  { x: '57%', y: '67%', rx: '32%', ry: '9%', rgb: '247, 150, 40', alpha: 0.1 },
-  // Olive glow behind the contact form.
-  { x: '38%', y: '79%', rx: '32%', ry: '9%', rgb: '190, 200, 40', alpha: 0.1 },
-  // Magenta ember at the bottom right, by the footer.
-  { x: '78%', y: '94%', rx: '26%', ry: '7%', rgb: '190, 20, 140', alpha: 0.14 },
-];
+export interface GlowArtwork {
+  /** The span starts at the top of this element and runs to the bottom of the page. */
+  startSelector: string;
+  src: string;
+  bleed: GlowBleed;
+}
 
-/** A soft falloff (roughly Gaussian) instead of a linear cone. */
-const glowGradient = ({ x, y, rx, ry, rgb, alpha }: Glow) =>
-  `radial-gradient(${rx} ${ry} at ${x} ${y}, ` +
-  `rgba(${rgb}, ${alpha}) 0%, ` +
-  `rgba(${rgb}, ${(alpha * 0.55).toFixed(3)}) 40%, ` +
-  `rgba(${rgb}, 0) 100%)`;
+/**
+ * Figma page backgrounds: large blurred ellipses behind the content.
+ *  - Homepage "Background" (2670:10784): from the Capabilities section to the bottom of the footer.
+ *  - Projects page "Background" (3155:9814): the whole page.
+ *
+ * Neither artwork is clipped to its span in Figma. Each bleeds past it, so it
+ * does here too, and is only clipped at the page sides and bottom (where
+ * nothing is visible to cut). The blurs are hundreds of units wide, so a
+ * 1/8-scale raster looks identical to the vector and costs nothing to paint on
+ * scroll, unlike live SVG blur filters.
+ */
+export const GLOW_ARTWORKS: GlowArtwork[] = [
+  {
+    startSelector: '#capabilities',
+    src: '/backgrounds/lower-page-glow.webp',
+    bleed: { top: 0.0871, right: 0.4583, bottom: 0.1278, left: 0.4238 },
+  },
+  {
+    startSelector: '#projects-hero',
+    src: '/backgrounds/projects-page-glow.webp',
+    bleed: { top: 0.0592, right: 0.4583, bottom: 0.0869, left: 0.4583 },
+  },
+];
 
 const Layer = styled.div`
   position: absolute;
@@ -52,27 +51,32 @@ const Layer = styled.div`
   bottom: 0;
   left: 0;
   z-index: ${zIndex.behind};
+  overflow: hidden;
   pointer-events: none;
-  /* Plain gradients rather than blurred shapes: painted once, nothing to
-     re-filter while the page scrolls. No base colour, so there's no seam where
-     the layer starts. */
-  background-image: ${GLOWS.map(glowGradient).join(', ')};
+`;
+
+/** The artwork, sized and offset against its span through CSS variables written by the effect. */
+const Artwork = styled.div`
+  position: absolute;
+  top: 0;
+  left: calc(var(--glow-bleed-left, 0) * -100%);
+  width: calc((1 + var(--glow-bleed-left, 0) + var(--glow-bleed-right, 0)) * 100%);
+  height: calc(var(--glow-span, 100%) * (1 + var(--glow-bleed-top, 0) + var(--glow-bleed-bottom, 0)));
+  background: var(--glow-image, none) 0 0 / 100% 100% no-repeat;
 `;
 
 export interface LowerPageBackgroundProps {
-  /** The layer starts at the top of this element; it's hidden on pages without one. */
-  startSelector?: string;
+  /** The first artwork whose start element is on the page is shown; none, and the layer stays hidden. */
+  artworks?: GlowArtwork[];
 }
 
 /**
- * Glow background for the lower part of the page. Render it as a direct child
- * of a `position: relative` wrapper that contains both the page content and
- * the footer — it runs from the top of `startSelector` to the bottom of that
- * wrapper. The start offset is re-measured whenever the wrapper changes size
- * (content above the start growing or shrinking changes the wrapper's height
- * too) and on client-side navigation.
+ * Render as a direct child of a `position: relative` wrapper that contains
+ * both the page content and the footer. Re-measured whenever the wrapper
+ * changes size (content above the start growing or shrinking changes the
+ * wrapper's height too) and on client-side navigation.
  */
-export function LowerPageBackground({ startSelector = '#capabilities' }: LowerPageBackgroundProps) {
+export function LowerPageBackground({ artworks = GLOW_ARTWORKS }: LowerPageBackgroundProps) {
   const layerRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
 
@@ -82,19 +86,42 @@ export function LowerPageBackground({ startSelector = '#capabilities' }: LowerPa
     if (!layer || !scope) return;
 
     const update = () => {
-      const start = scope.querySelector<HTMLElement>(startSelector);
-      layer.hidden = !start;
-      if (!start) return;
-      const top = start.getBoundingClientRect().top - scope.getBoundingClientRect().top;
-      layer.style.top = `${Math.round(top)}px`;
+      let artwork: GlowArtwork | undefined;
+      let start: HTMLElement | null = null;
+      for (const candidate of artworks) {
+        start = scope.querySelector<HTMLElement>(candidate.startSelector);
+        if (start) {
+          artwork = candidate;
+          break;
+        }
+      }
+      layer.hidden = !artwork;
+      if (!artwork || !start) return;
+
+      const scopeRect = scope.getBoundingClientRect();
+      const spanTop = start.getBoundingClientRect().top - scopeRect.top;
+      const span = scopeRect.height - spanTop;
+      const { bleed } = artwork;
+      // The layer starts where the artwork does; the artwork keeps its designed position against the span.
+      layer.style.top = `${Math.round(spanTop - span * bleed.top)}px`;
+      layer.style.setProperty('--glow-span', `${Math.round(span)}px`);
+      layer.style.setProperty('--glow-image', `url('${artwork.src}')`);
+      layer.style.setProperty('--glow-bleed-top', String(bleed.top));
+      layer.style.setProperty('--glow-bleed-right', String(bleed.right));
+      layer.style.setProperty('--glow-bleed-bottom', String(bleed.bottom));
+      layer.style.setProperty('--glow-bleed-left', String(bleed.left));
     };
 
     update();
     const observer = new ResizeObserver(update);
     observer.observe(scope);
     return () => observer.disconnect();
-  }, [pathname, startSelector]);
+  }, [pathname, artworks]);
 
   // Hidden until measured, so it never flashes in at the top of the page.
-  return <Layer ref={layerRef} aria-hidden hidden />;
+  return (
+    <Layer ref={layerRef} aria-hidden hidden>
+      <Artwork />
+    </Layer>
+  );
 }

@@ -2,6 +2,7 @@
 
 import styled from 'styled-components';
 import { zIndex } from '@/styles/tokens/z-index';
+import { media } from '@/styles/media';
 
 const HEIGHT = '90vmin'; // Responsive to screen (smaller of vw/vh)
 
@@ -33,6 +34,11 @@ const SideCharacter = styled.div<{ $side: 'left' | 'right' }>`
   align-items: center;
   justify-content: ${(p) => (p.$side === 'left' ? 'flex-start' : 'flex-end')};
   z-index: 1;
+
+  /* In the 768 frame and below, the hero shows a single centred portrait instead. */
+  ${media.down('l')} {
+    display: none;
+  }
 `;
 
 /**
@@ -54,7 +60,7 @@ const Img = styled.img<{ $objectPosition: string; $margin: string }>`
 export function SideCharacters() {
   return (
     <Wrapper aria-hidden>
-      <VectorBg src="/hero/Vector.svg" alt="" />
+      <VectorBg src="/hero/grid-lines.webp" alt="" />
       <SideCharacter $side="left">
         <Img
           src="/hero/character_color.png"

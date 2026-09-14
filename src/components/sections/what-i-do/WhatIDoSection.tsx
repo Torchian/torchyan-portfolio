@@ -50,7 +50,10 @@ const WHATIDO_HEIGHT = 4800;
 
 const Section = styled.section`
   position: relative;
-  /* overflow: hidden breaks position: sticky - body has overflow-x: hidden for horizontal clip */
+  /* The glow and the boards reach past the screen edges; clip them sideways so
+     they don't widen the page. clip, not hidden: hidden makes a scroll
+     container and breaks the sticky characters. */
+  overflow-x: clip;
   padding: ${spacing[1000]}px 0;
 `;
 
@@ -65,7 +68,8 @@ const ContentGrid = styled.div`
   }
 `;
 
-const StepsColumn = styled.div``;
+/** The steps are a sequence, so an ordered list. */
+const StepsColumn = styled.ol``;
 
 /** Figma: whatido_sticky_image - right section container */
 const VisualsColumn = styled.div`
@@ -88,18 +92,30 @@ const VisualsColumn = styled.div`
   }
 `;
 
-/** Figma: Ellipse 17 - green glow at bottom */
+/**
+ * Figma: Ellipse 17 - green glow at bottom: a 580px #0caf0a square under
+ * blur(320px). Drawn as the radial gradient that blur produces instead (same
+ * centre; pixel-diffed against the blur at max 4/255 per channel), so there's
+ * no 2400px live filter to repaint behind the sticky characters.
+ */
 const EllipseGlow = styled.div`
   position: absolute;
-  width: 580px;
-  height: 580px;
-  left: calc(50% - 580px / 2 - 0px);
-  bottom: 118px;
-  background: #0caf0a;
-  filter: blur(320px);
-  transform: rotate(90deg);
-  flex: none;
-  flex-grow: 0;
+  width: 2400px;
+  height: 2400px;
+  left: calc(50% - 1200px);
+  bottom: calc(118px + 290px - 1200px);
+  background: radial-gradient(
+    circle closest-side,
+    rgba(12, 175, 10, 0.403) 0%,
+    rgba(12, 175, 10, 0.371) 12.5%,
+    rgba(12, 175, 10, 0.289) 25%,
+    rgba(12, 175, 10, 0.19) 37.5%,
+    rgba(12, 175, 10, 0.105) 50%,
+    rgba(12, 175, 10, 0.048) 62.5%,
+    rgba(12, 175, 10, 0.018) 75%,
+    rgba(12, 175, 10, 0.006) 87.5%,
+    transparent 100%
+  );
   z-index: 0;
   pointer-events: none;
 `;
@@ -178,24 +194,6 @@ const StickyCharacterWrapper2 = styled.div`
   }
 `;
 
-/** Invert overlay for Bg2 - extra overlays (beyond ::before/::after) */
-// const Bg2InvertOverlay = styled.div<{
-//   $top: string;
-//   $left: string;
-//   $width: string;
-//   $height: string;
-// }>`
-//   position: absolute;
-//   top: ${(p) => p.$top};
-//   left: ${(p) => p.$left};
-//   transform: translate(-50%, -50%);
-//   width: ${(p) => p.$width};
-//   height: ${(p) => p.$height};
-//   backdrop-filter: invert(1);
-//   z-index: ${zIndex.whatidoBgForeground};
-//   pointer-events: none;
-// `;
-
 /** Figma: whatido_bg_2 */
 const Bg2 = styled.div`
   position: absolute;
@@ -207,30 +205,6 @@ const Bg2 = styled.div`
   flex-grow: 0;
   z-index: ${zIndex.whatidoBgForeground};
   pointer-events: none;
-
-  // &::before {
-  //   content: '';
-  //   position: absolute;
-  //   top: 14.3%;
-  //   left: 29.2%;
-  //   transform: translate(-50%, -50%);
-  //   width: 25.2%;
-  //   height: 10.2%;
-  //   backdrop-filter: invert(1);
-  //   z-index: ${zIndex.whatidoBgForeground};
-  // }
-
-  // &::after {
-  //   content: '';
-  //   position: absolute;
-  //   top: 5.5%;
-  //   left: 69.7%;
-  //   transform: translate(-50%, -50%);
-  //   width: 31.1%;
-  //   height: 8.3%;
-  //   backdrop-filter: invert(1);
-  //   z-index: ${zIndex.whatidoBgForeground};
-  // }
 
   img {
     width: 100%;
@@ -266,19 +240,27 @@ const Bg3 = styled.div`
     position: absolute;
     inset: 50%;
     transform: translate(-50%, -63%);
-    width: 67%;
-    height: 57%;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    width: 66%;
+    height: 56.7%;
     z-index: ${zIndex.whatidoBgForeground};
-    animation: sepiaToInvert 100ms ${easing.linear} infinite alternate;
+    animation: sepiaToInvert 800ms ${easing.linear} infinite alternate;
   }
 
   @keyframes sepiaToInvert {
     0% {
-      backdrop-filter: sepia(0) invert(0) saturate(0%);
+      backdrop-filter: sepia(0) invert(1) saturate(100%);
     }
-    10% {
-      backdrop-filter: sepia(1) invert(1) saturate(200%);
+    25% {
+      backdrop-filter: sepia(1) invert(0) saturate(4000%);
+    }
+    50% {
+      backdrop-filter: sepia(0.6) invert(1) saturate(1000%);
+    }
+    75% {
+      backdrop-filter: sepia(0) invert(0) saturate(5000%);
+    }
+    100% {
+      backdrop-filter: sepia(0.6) invert(1) saturate(2000%);
     }
   }
 
@@ -310,11 +292,11 @@ const StickyCharacterWrapper = styled.div`
 `;
 
 export function WhatIDoSection() {
-  const stepRef0 = useRef<HTMLDivElement>(null);
-  const stepRef1 = useRef<HTMLDivElement>(null);
-  const stepRef2 = useRef<HTMLDivElement>(null);
-  const stepRef3 = useRef<HTMLDivElement>(null);
-  const stepRef4 = useRef<HTMLDivElement>(null);
+  const stepRef0 = useRef<HTMLLIElement>(null);
+  const stepRef1 = useRef<HTMLLIElement>(null);
+  const stepRef2 = useRef<HTMLLIElement>(null);
+  const stepRef3 = useRef<HTMLLIElement>(null);
+  const stepRef4 = useRef<HTMLLIElement>(null);
   const stepRefs = useMemo(
     () => [stepRef0, stepRef1, stepRef2, stepRef3, stepRef4],
     [],
@@ -325,7 +307,7 @@ export function WhatIDoSection() {
   useWhatIDoScroll(visualsRef, stepRefs);
   // Bg1 is the framed "board"; its bottom line drives the head's pencil→color cut.
   const boardRef = useRef<HTMLDivElement>(null);
-  // Bg3 is the "Design with intent" square; its bottom line gates the beard's hard reveal.
+  // Bg3 is the "Design with intent" square; a line across it gates the beard's fade-in.
   const squareRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -341,7 +323,6 @@ export function WhatIDoSection() {
               <WhatidoStep
                 key={step.title}
                 ref={stepRefs[i]}
-                index={i + 1}
                 title={step.title}
                 description={step.description}
               />
@@ -367,8 +348,6 @@ export function WhatIDoSection() {
               <img src={STEP_BACKGROUNDS[0]} alt="" />
             </Bg1>
             <Bg2>
-              {/* <Bg2InvertOverlay $top="23.2%" $left="90%" $width="14%" $height="21.5%" />
-              <Bg2InvertOverlay $top="61%" $left="49.6%" $width="79.6%" $height="62.7%" /> */}
               <img src={STEP_BACKGROUNDS[1]} alt="" />
             </Bg2>
             <Bg3 ref={squareRef}>

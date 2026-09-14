@@ -1,0 +1,12 @@
+<svg preserveAspectRatio="none" width="484" height="22" viewBox="0 0 484 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Rectangle 3" filter="url(#filter0_f_0_4)">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M242 8L8 14H476L242 8Z" fill="#0CAF0A"/>
+</g>
+<defs>
+<filter id="filter0_f_0_4" x="0" y="0" width="484" height="22" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="4" result="effect1_foregroundBlur_0_4"/>
+</filter>
+</defs>
+</svg>

@@ -1,7 +1,7 @@
 export { SectionHeading } from './SectionHeading';
 export type { SectionHeadingProps } from './SectionHeading';
-export { CompanyLogoMarquee } from './CompanyLogoMarquee';
-export type { CompanyLogoMarqueeProps } from './CompanyLogoMarquee';
+export { PartnersCarousel, PARTNERS } from './PartnersCarousel';
+export type { PartnersCarouselProps, PartnerLogo, CarouselDirection } from './PartnersCarousel';
 export { YearMarker } from './YearMarker';
 export type { YearMarkerProps } from './YearMarker';
 export { CapabilityListItem } from './CapabilityListItem';

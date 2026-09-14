@@ -4,10 +4,10 @@ import styled from 'styled-components';
 import { useEffect, useRef, type RefObject } from 'react';
 import { createInViewGate, subscribeScroll } from '@/lib/scroll-driver';
 
-/** Fraction of whatido_bg_3.svg's (1074×1210) height at which the visible
- *  bottom bracket line of the "Design with intent" square sits - measured by
- *  pixel-scanning the rendered SVG (bottom line at ~y=860 of 1210). */
-const BG3_SQUARE_BOTTOM_FRACTION = 0.2;
+/** Where the beard's reveal line crosses Bg3 (whatido_bg_3, 1074×1210 in Figma), as
+ *  a fraction of its height: 20% down the box, tuned by eye. It is not the
+ *  square's bottom bracket line — that sits lower, at ~860 of 1210 (≈0.71). */
+const BEARD_REVEAL_LINE_FRACTION = 0.2;
 
 /** Character parts - no head (excluded from second container) */
 const ALL_PARTS = [
@@ -24,7 +24,7 @@ const ALL_PARTS = [
 const INITIAL_PART_INDICES = [3, 1, 4];
 
 /** Beard - fades in (0 to 1 opacity) over BEARD_FADE_DISTANCE_PX of scroll
- *  once the square's bottom line reaches it, instead of following the other
+ *  once the reveal line across Bg3 reaches it, instead of following the other
  *  parts' step-based reveal. */
 const BEARD_INDEX = 6;
 
@@ -82,7 +82,7 @@ const Part = styled.img<{
 `;
 
 export interface WhatIDoCharacterWaitingProps {
-  /** Ref to Bg3 (the "Design with intent" square) - its bottom bracket line
+  /** Ref to Bg3 (the "Design with intent" square) - a line across it
    *  gates the beard's fade. */
   squareRef?: RefObject<HTMLDivElement | null>;
 }
@@ -94,8 +94,8 @@ export interface WhatIDoCharacterWaitingProps {
 export function WhatIDoCharacterWaiting({ squareRef }: WhatIDoCharacterWaitingProps) {
   const beardRef = useRef<HTMLImageElement>(null);
 
-  // Beard: fades in over BEARD_FADE_DISTANCE_PX of scroll once the square's
-  // bottom bracket line rises to/past the beard's own (fixed, sticky) position.
+  // Beard: fades in over BEARD_FADE_DISTANCE_PX of scroll once the reveal line
+  // across Bg3 rises to/past the beard's own (fixed, sticky) position.
   useEffect(() => {
     const beard = beardRef.current;
     if (!beard) return;
@@ -118,7 +118,7 @@ export function WhatIDoCharacterWaiting({ squareRef }: WhatIDoCharacterWaitingPr
         if (!square) return null;
         const b = frame.rect(beard);
         const s = frame.rect(square);
-        const lineY = s.top + s.height * BG3_SQUARE_BOTTOM_FRACTION;
+        const lineY = s.top + s.height * BEARD_REVEAL_LINE_FRACTION;
         // 0 while the line hasn't reached the beard's top yet; ramps to 1 over
         // the next BEARD_FADE_DISTANCE_PX of scroll past that point.
         return Math.min(1, Math.max(0, (b.top - lineY) / BEARD_FADE_DISTANCE_PX));

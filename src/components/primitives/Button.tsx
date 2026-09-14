@@ -256,13 +256,20 @@ const secondaryStyles = css`
     transition: inset ${duration.normal} ${easing.out};
   }
 
+  /* Figma CTA Primary "Secondary Hover": darker body, ring unchanged. */
   @media (hover: hover) and (pointer: fine) {
     &:hover:not(:disabled) {
       background: ${accents.primaryDark};
+    }
+  }
 
-      &::before {
-        inset: -12px;
-      }
+  /* "Secondary Focus": darker body and the ring opens out to 12px. */
+  &:focus-visible,
+  &:active:not(:disabled) {
+    background: ${accents.primaryDark};
+
+    &::before {
+      inset: -12px;
     }
   }
 

@@ -1,5 +1,6 @@
 'use client';
 
+/* eslint-disable @next/next/no-img-element */
 import { useLayoutEffect, useRef } from 'react';
 import styled, { css } from 'styled-components';
 import Link from 'next/link';
@@ -9,7 +10,7 @@ import { neutrals, accents } from '@/styles/tokens/colors';
 import { fontSize, lineHeight, fontWeight, letterSpacing, fontFamily } from '@/styles/tokens/typography';
 import { breakpoints } from '@/styles/tokens/breakpoints';
 import { grid } from '@/styles/tokens/grid';
-import { media } from '@/styles/media';
+import { media, mediaQueries } from '@/styles/media';
 import { duration, easing } from '@/styles/tokens/motion';
 
 /*
@@ -18,49 +19,48 @@ import { duration, easing } from '@/styles/tokens/motion';
  * Mobile 320 (2670:12704).
  *
  * Two arrangements of the same elements:
- *  - ≥1024: the name runs vertically on the left, each word exactly as tall as
- *    the link column beside it; the portrait sits in the bottom-right corner.
- *  - <1024: links, then "Designer × Engineer", STEPAN and TORCHYAN each exactly
- *    as wide as the container, then the copyright. The portrait sits behind the
- *    links and ends where STEPAN begins.
+ *  - 1024 frame and up (from 769px): the name runs vertically on the left, as tall as the link column
+ *    beside it; the portrait sits in the bottom-right corner.
+ *  - 768 frame and below (up to 768px): links, then "Designer × Engineer", STEPAN and TORCHYAN at the
+ *    container's full width, then the copyright; the portrait sits behind the
+ *    links with its bottom edge on top of STEPAN.
  */
-
-const LINK_TRANSITION = `${duration.slower} ${easing.spring}`;
-
-/**
- * Ink bounds of each word at font-size 100 in Gilroy (canvas `measureText`
- * actualBoundingBox*): `start`/`end` are where the ink begins and ends along
- * the baseline, `ascent`/`descent` how far it reaches above and below it. The
- * SVG viewBox is cropped to exactly this box, so a word can be sized to a
- * length and still line up with its neighbours ink-to-ink, as in the design.
- * Re-measure if the font files or weights change.
- */
-const NAME_WORDS = {
-  stepan: { text: 'STEPAN', weight: fontWeight.black, start: 1.8, end: 346.2, ascent: 71.5, descent: 1.5 },
-  torchyan: { text: 'TORCHYAN', weight: fontWeight.black, start: 1, end: 513.1, ascent: 71.5, descent: 1.5 },
-  role: { text: 'Designer × Engineer', weight: fontWeight.medium, start: 7.5, end: 903.2, ascent: 70.8, descent: 21.3 },
-} as const;
-
-type NameWordMetrics = (typeof NAME_WORDS)[keyof typeof NAME_WORDS];
 
 /** Word length on desktop — the link column's height, written by useNameLength. */
-const NAME_LENGTH = 'var(--footer-name-length, 622px)';
+const NAME_LENGTH = 'var(--footer-name-length, 624px)';
 
-/** Portrait master: public/footer/stepan-wireframe.webp (trimmed @2x export). */
-const PORTRAIT = { src: '/footer/stepan-wireframe.webp', width: 1379, height: 1433 } as const;
+/**
+ * The name artwork is Figma's outlined lettering. Every dimension is a fixed
+ * fraction of the words' shared length (the same at all six frames):
+ * STEPAN 160.013 / 752 thick, a 22.698 / 752 gap, TORCHYAN 107.567 / 752.
+ */
+const NAME_ART = {
+  stepan: { src: '/footer/name-stepan.svg', width: 752, height: 160.013 },
+  torchyan: { src: '/footer/name-torchyan.svg', width: 751.996, height: 107.567 },
+  role: { src: '/footer/name-designer-engineer.svg', width: 77.0202, height: 752 },
+} as const;
+const NAME_GAP = 22.698 / 752;
+const NAME_GROUP_THICKNESS = (160.013 + 22.698 + 107.567) / 752;
+
+/**
+ * Portrait: the hero's colour character, so the site uses one portrait
+ * everywhere. Positioned by its square, as in each frame.
+ */
+const PORTRAIT = { src: '/hero/character_color.png', size: 768 } as const;
+
+const LINK_TRANSITION = `${duration.slower} ${easing.spring}`;
 
 const PRIMARY_LINKS = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
   { label: 'Projects', href: '/projects' },
   { label: 'Case Studies', href: '/case-studies' },
-  { label: 'Playground', href: '/#what-i-build' },
   { label: 'Contact', href: '/#contact' },
 ];
 
 const SOCIAL_LINKS = [
-  { label: 'Instagram', href: 'https://instagram.com' },
-  { label: 'Linkedin', href: 'https://linkedin.com' },
+  { label: 'Instagram', href: 'https://www.instagram.com/torchian_/' },
+  { label: 'Linkedin', href: 'https://www.linkedin.com/in/torchian/' },
 ];
 
 const CONTACT_LINKS = [
@@ -73,8 +73,10 @@ const CONTACT_LINKS = [
 const FooterEl = styled.footer`
   position: relative;
   overflow: hidden;
-  /* Transparent so the lower-page glow (LowerPageBackground) runs to the bottom of the footer. */
-  background: transparent;
+  /* Query container: the desktop portrait interpolates between frames on the footer's width. */
+  container-type: inline-size;
+  /* Figma: dark/background/dark. Solid, so the lower-page glow stops at the footer's top edge. */
+  background: ${neutrals[900]};
   padding: ${spacing[1000]}px 0;
 
   ${media.down('l')} {
@@ -91,129 +93,174 @@ const Inner = styled.div`
   isolation: isolate;
   display: flex;
   flex-direction: column;
+  gap: ${spacing[1000]}px;
   max-width: ${grid.maxWidth}px;
   margin: 0 auto;
   padding: 0 ${spacing[400]}px;
+
+  ${media.down('s')} {
+    gap: ${spacing[500]}px;
+  }
 
   ${media.up('l')} {
     flex-direction: row;
     align-items: flex-start;
   }
+
+  ${media.up('xxl')} {
+    gap: ${spacing[2000]}px;
+  }
 `;
 
-/** Desktop: the three vertical words side by side. Below 1024 its children join the stacked flow. */
 const NameBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${spacing[400]}px;
+  order: 2;
+
+  ${media.down('s')} {
+    gap: ${spacing[200]}px;
+  }
+
+  ${media.up('l')} {
+    flex: none;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 53px;
+    order: 0;
+    /* Zero height so the words (sized from the column's height) never feed back into it. */
+    height: 0;
+  }
+`;
+
+/** STEPAN + TORCHYAN. On desktop the pair is laid out horizontally, then turned to read bottom-to-top. */
+const NameGroup = styled.div`
+  order: 2;
+
+  ${media.down('l')} {
+    /* Anchor for the portrait on tablet / mobile. */
+    position: relative;
+  }
+
   ${media.up('l')} {
     display: flex;
     flex: none;
-    align-items: flex-start;
-    /* Zero height so the words (sized from the column's height) never feed back into it. */
-    height: 0;
-    margin-right: ${spacing[1000]}px;
-  }
-
-  ${media.up('xxl')} {
-    margin-right: ${spacing[2000]}px;
-  }
-
-  ${media.down('l')} {
-    display: contents;
+    align-items: center;
+    justify-content: center;
+    order: 0;
+    width: calc(${NAME_LENGTH} * ${NAME_GROUP_THICKNESS.toFixed(6)});
+    height: ${NAME_LENGTH};
   }
 `;
 
-const WordSlot = styled.div`
-  display: flex;
-  flex: none;
-`;
-
-const StepanSlot = styled(WordSlot)`
-  color: ${accents.primary};
-
-  ${media.down('l')} {
-    order: 3;
-    margin-top: 35px;
+const NameGroupArt = styled.div`
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
   }
 
-  ${media.down('s')} {
-    margin-top: 19px;
+  img + img {
+    /* Percentage margins resolve against the width — the words' length. */
+    margin-top: ${(NAME_GAP * 100).toFixed(4)}%;
   }
-`;
-
-const TorchyanSlot = styled(WordSlot)`
-  color: ${accents.primary};
-
-  /* The STEPAN→TORCHYAN gap grows with the words. */
-  ${media.up('l')} {
-    margin-left: calc(${spacing[100]}px + ${NAME_LENGTH} * 0.023);
-  }
-
-  ${media.down('l')} {
-    order: 4;
-    /* A vertical percentage margin resolves against the container's width — the word length. */
-    margin-top: calc(${spacing[100]}px + 2.3%);
-  }
-`;
-
-const RoleSlot = styled(WordSlot)`
-  color: ${neutrals[500]};
 
   ${media.up('l')} {
-    margin-left: 56px;
+    flex: none;
+    width: ${NAME_LENGTH};
+    transform: rotate(-90deg);
+  }
+`;
+
+/** "Designer × Engineer" — exported vertical; turned upright on tablet / mobile. */
+const RoleSlot = styled.div`
+  order: 1;
+
+  img {
+    display: block;
   }
 
   ${media.down('l')} {
-    /* Containing block for the portrait on tablet / mobile. */
     position: relative;
-    order: 2;
-    margin-top: ${spacing[1000]}px;
-  }
+    aspect-ratio: ${NAME_ART.role.height} / ${NAME_ART.role.width};
+    container-type: inline-size;
 
-  ${media.down('s')} {
-    margin-top: ${spacing[500]}px;
+    img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: auto;
+      max-width: none;
+      height: 100cqw;
+      transform: translate(-50%, -50%) rotate(90deg);
+    }
   }
-`;
-
-const HorizontalWord = styled.svg`
-  display: block;
-  width: 100%;
-  height: auto;
-  overflow: visible;
-  fill: currentColor;
-  font-family: ${fontFamily.display};
 
   ${media.up('l')} {
-    display: none;
+    flex: none;
+
+    img {
+      width: auto;
+      height: ${NAME_LENGTH};
+    }
   }
 `;
 
-const VerticalWord = styled.svg`
-  display: block;
-  width: auto;
-  height: ${NAME_LENGTH};
-  overflow: visible;
-  fill: currentColor;
-  font-family: ${fontFamily.display};
+const Portrait = styled(Image)`
+  position: absolute;
+  z-index: -1;
+  /* Wider than its container by design; override the global img max-width. */
+  max-width: none;
+  height: auto;
+  pointer-events: none;
+  user-select: none;
 
-  ${media.down('l')} {
-    display: none;
+  /* Tablet / mobile (percentages = container width): bottom edge on top of STEPAN.
+     The 768 frame (481–768px). */
+  bottom: 100%;
+  width: 603px;
+  right: -106px;
+
+  /* The 480 frame (321–480px). */
+  ${media.down('m')} {
+    right: -209px;
+  }
+
+  /* The 320 frame (its container is 256px), scaled with the container below 320px. */
+  ${media.down('s')} {
+    width: calc(384px + (100% - 256px) * 1.36875);
+    right: calc(-145px - (100% - 256px) * 0.4);
+  }
+
+  /* Desktop (cqw = footer width): anchored to the footer's bottom-right. The 1024 frame (769–1024px). */
+  ${media.up('l')} {
+    bottom: -4.89px;
+    width: 603px;
+    right: -165px;
+  }
+
+  /* The 1280 frame's position up to 1280px, then interpolated towards the 1920 frame's and held beyond it. */
+  ${media.up('xl')} {
+    bottom: max(-46px, min(-15.25px, calc(-15.25px - (100cqw - ${breakpoints.xl}px) * 0.048047)));
+    width: min(832px, max(603px, calc(603px + (100cqw - ${breakpoints.xl}px) * 0.357813)));
+    right: max(-133px, min(-63px, calc(-63px - (100cqw - ${breakpoints.xl}px) * 0.109375)));
   }
 `;
 
 const Column = styled.div`
+  display: contents;
+
   ${media.up('l')} {
     display: flex;
     flex: 1;
     flex-direction: column;
     gap: ${spacing[600]}px;
     min-width: 0;
+    padding-left: ${spacing[150]}px;
   }
 
   ${media.up('xxl')} {
     gap: ${spacing[1000]}px;
-  }
-
-  ${media.down('l')} {
-    display: contents;
   }
 `;
 
@@ -221,23 +268,23 @@ const Groups = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${spacing[600]}px;
-
-  ${media.up('xxl')} {
-    gap: ${spacing[1000]}px;
-  }
-
-  ${media.down('l')} {
-    order: 1;
-  }
+  order: 1;
+  padding-left: ${spacing[150]}px;
 
   ${media.down('s')} {
     gap: ${spacing[400]}px;
+  }
+
+  /* Desktop: the groups join the column's own gap, alongside the copyright. */
+  ${media.up('l')} {
+    display: contents;
   }
 `;
 
 const Group = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: ${spacing[200]}px;
   /* Reset for the <address> variant. */
   font-style: normal;
@@ -249,18 +296,17 @@ const Group = styled.div`
 
 const GroupTitle = styled.h2`
   margin: 0;
-  padding-left: ${spacing[150]}px;
   font-family: ${fontFamily.heading};
   font-weight: ${fontWeight.semibold};
   font-size: ${fontSize.body.l}px;
   line-height: ${lineHeight.body.l}px;
-  letter-spacing: ${letterSpacing.xs}px;
+  letter-spacing: ${letterSpacing.m}px;
   color: ${neutrals[100]};
 
   ${media.down('s')} {
-    font-weight: ${fontWeight.medium};
     font-size: ${fontSize.body.xl}px;
     line-height: ${lineHeight.body.xl}px;
+    letter-spacing: ${letterSpacing.s}px;
     color: ${neutrals[500]};
   }
 `;
@@ -270,7 +316,7 @@ const LinkList = styled.ul<{ $stacked?: boolean }>`
   flex-direction: ${(p) => (p.$stacked ? 'column' : 'row')};
   flex-wrap: wrap;
   align-items: flex-start;
-  gap: ${spacing[200]}px ${spacing[500]}px;
+  gap: ${spacing[200]}px ${spacing[800]}px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -281,15 +327,18 @@ const LinkList = styled.ul<{ $stacked?: boolean }>`
   }
 
   ${media.down('s')} {
-    column-gap: ${spacing[300]}px;
+    column-gap: ${spacing[500]}px;
   }
 `;
 
+/** Figma "Navigation Link": the word, with brackets hanging outside it. */
 const bracketLink = css`
+  --bracket-offset: 7.5px;
+  position: relative;
   display: inline-flex;
-  align-items: baseline;
-  font-family: ${fontFamily.body};
-  font-weight: ${fontWeight.regular};
+  align-items: center;
+  font-family: ${fontFamily.heading};
+  font-weight: ${fontWeight.medium};
   font-size: ${fontSize.heading.m}px;
   line-height: ${lineHeight.heading.m}px;
   letter-spacing: ${letterSpacing.xs}px;
@@ -300,18 +349,22 @@ const bracketLink = css`
 
   &::before,
   &::after {
-    display: inline-block;
+    /* Decorative — empty alt text keeps screen readers from announcing the brackets. */
+    content: '[' / '';
+    position: absolute;
+    top: 0;
     transition: transform ${LINK_TRANSITION};
   }
 
   &::before {
-    content: '[';
-    margin-right: 0.15em;
+    left: calc(-1 * var(--bracket-offset));
+    transform: translateX(-50%);
   }
 
+  /* The closing bracket is the opening one mirrored, as in the design. */
   &::after {
-    content: ']';
-    margin-left: 0.15em;
+    right: calc(-1 * var(--bracket-offset));
+    transform: translateX(50%) scaleX(-1);
   }
 
   &:focus-visible {
@@ -325,23 +378,27 @@ const bracketLink = css`
       color: ${accents.primary};
 
       &::before {
-        transform: translateX(-50%);
+        transform: translateX(calc(-50% - 4px));
       }
 
       &::after {
-        transform: translateX(50%);
+        transform: translateX(calc(50% + 4px)) scaleX(-1);
       }
     }
   }
 
   ${media.down('l')} {
+    --bracket-offset: 8px;
+    font-weight: ${fontWeight.semibold};
     font-size: ${fontSize.heading.s}px;
     line-height: ${lineHeight.heading.s}px;
   }
 
   ${media.down('s')} {
+    --bracket-offset: 5.5px;
     font-size: ${fontSize.body.l}px;
     line-height: ${lineHeight.body.l}px;
+    letter-spacing: ${letterSpacing.m}px;
   }
 `;
 
@@ -358,28 +415,27 @@ const Location = styled.p`
   align-items: center;
   gap: ${spacing[300]}px;
   margin: 0;
-  padding-left: ${spacing[150]}px;
-  font-family: ${fontFamily.body};
-  font-weight: ${fontWeight.regular};
+  font-family: ${fontFamily.heading};
+  font-weight: ${fontWeight.medium};
   font-size: ${fontSize.heading.m}px;
   line-height: ${lineHeight.heading.m}px;
+  letter-spacing: ${letterSpacing.xs}px;
   color: ${neutrals[100]};
 
   img {
     flex: none;
-    width: 15px;
-    height: 26px;
+    /* A 13×24 slot; the pin's stroke bleeds 0.6px past it, as in the design. */
+    width: 14.2px;
+    height: 25.2px;
+    margin: -0.6px;
   }
 
   ${media.down('s')} {
     gap: ${spacing[150]}px;
+    font-weight: ${fontWeight.semibold};
     font-size: ${fontSize.body.xl}px;
     line-height: ${lineHeight.body.xl}px;
-
-    img {
-      width: 12px;
-      height: 21px;
-    }
+    letter-spacing: ${letterSpacing.s}px;
   }
 `;
 
@@ -387,75 +443,25 @@ const Copyright = styled.div`
   display: flex;
   justify-content: space-between;
   gap: ${spacing[300]}px;
+  order: 3;
   font-family: ${fontFamily.heading};
   font-weight: ${fontWeight.semibold};
   font-size: ${fontSize.body.xl}px;
   line-height: ${lineHeight.body.xl}px;
-  letter-spacing: ${letterSpacing.xs}px;
+  letter-spacing: ${letterSpacing.s}px;
   color: ${neutrals[100]};
 
   p {
     margin: 0;
-  }
-
-  ${media.up('l')} {
-    padding-left: ${spacing[150]}px;
-  }
-
-  ${media.down('l')} {
-    order: 5;
-    margin-top: ${spacing[1000]}px;
+    white-space: nowrap;
   }
 
   ${media.down('s')} {
     flex-direction: column;
     gap: ${spacing[150]}px;
-    margin-top: ${spacing[500]}px;
-    font-weight: ${fontWeight.medium};
     font-size: ${fontSize.body.m}px;
     line-height: ${lineHeight.body.m}px;
     color: ${neutrals[500]};
-  }
-`;
-
-const Portrait = styled(Image)`
-  position: absolute;
-  z-index: -1;
-  /* The global img reset caps images at their container; this one is meant to spill past it. */
-  max-width: none;
-  height: auto;
-  pointer-events: none;
-  user-select: none;
-
-  /* Desktop: anchored to the footer's bottom-right corner. */
-  ${media.up('l')} {
-    bottom: 0;
-    width: 501px;
-    /* 1024 → 1280 frames: from 69px past the edge to 34px inside it. */
-    right: calc((100% - ${breakpoints.l}px) * 0.4023 - 69px);
-  }
-
-  ${media.up('xxl')} {
-    width: 690px;
-    right: 0;
-  }
-
-  /* Tablet / mobile: positioned against the "Designer × Engineer" slot, ending where STEPAN begins. */
-  ${media.down('l')} {
-    bottom: -35px;
-    width: 501px;
-    right: -10px;
-  }
-
-  ${media.down('m')} {
-    /* 480 → 768 frames (container 416 → 704px wide): from 113px past the container's edge to 10px. */
-    right: calc((100% - 416px) * 0.3583 - 113px);
-  }
-
-  ${media.down('s')} {
-    bottom: -19px;
-    width: 316px;
-    right: -82px;
   }
 `;
 
@@ -469,29 +475,7 @@ const VisuallyHiddenText = styled.p`
   white-space: nowrap;
 `;
 
-/* ─── Pieces ─────────────────────────────────────────────────────────────── */
-
-function NameWord({ word }: { word: NameWordMetrics }) {
-  const { text, weight, start, end, ascent, descent } = word;
-  const length = end - start;
-  const thickness = ascent + descent;
-
-  return (
-    <>
-      <HorizontalWord viewBox={`${start} ${-ascent} ${length} ${thickness}`} aria-hidden focusable="false">
-        <text fontSize={100} fontWeight={weight}>
-          {text}
-        </text>
-      </HorizontalWord>
-      {/* Rotated to read bottom-to-top, letter tops facing left. */}
-      <VerticalWord viewBox={`${-ascent} ${-end} ${thickness} ${length}`} aria-hidden focusable="false">
-        <text fontSize={100} fontWeight={weight} transform="rotate(-90)">
-          {text}
-        </text>
-      </VerticalWord>
-    </>
-  );
-}
+/* ─── Behaviour ──────────────────────────────────────────────────────────── */
 
 /**
  * Desktop: makes the vertical name exactly as tall as the link column by
@@ -508,7 +492,7 @@ function useNameLength(
     const inner = innerRef.current;
     const column = columnRef.current;
     if (!inner || !column) return;
-    const desktop = window.matchMedia(`(min-width: ${breakpoints.l}px)`);
+    const desktop = window.matchMedia(mediaQueries.up('l'));
     let width = 0;
     let seen: number[] = [];
 
@@ -547,24 +531,24 @@ export function Footer() {
       <Inner ref={innerRef}>
         <VisuallyHiddenText>Stepan Torchyan — Designer × Engineer</VisuallyHiddenText>
 
-        <NameBlock>
-          <StepanSlot>
-            <NameWord word={NAME_WORDS.stepan} />
-          </StepanSlot>
-          <TorchyanSlot>
-            <NameWord word={NAME_WORDS.torchyan} />
-          </TorchyanSlot>
-          <RoleSlot>
-            <NameWord word={NAME_WORDS.role} />
+        <NameBlock aria-hidden>
+          <NameGroup>
+            <NameGroupArt>
+              <img {...NAME_ART.stepan} alt="" />
+              <img {...NAME_ART.torchyan} alt="" />
+            </NameGroupArt>
             <Portrait
               src={PORTRAIT.src}
-              width={PORTRAIT.width}
-              height={PORTRAIT.height}
+              width={PORTRAIT.size}
+              height={PORTRAIT.size}
               alt=""
-              sizes="(min-width: 1440px) 690px, (min-width: 480px) 501px, 316px"
+              sizes="(min-width: 1281px) 832px, (min-width: 321px) 603px, 480px"
               loading="lazy"
               draggable={false}
             />
+          </NameGroup>
+          <RoleSlot>
+            <img {...NAME_ART.role} alt="" />
           </RoleSlot>
         </NameBlock>
 
@@ -606,8 +590,7 @@ export function Footer() {
             </Group>
 
             <Location>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/vectors/location.svg" alt="" aria-hidden />
+              <img src="/footer/location-pin.svg" alt="" aria-hidden />
               <span>Yerevan, Armenia</span>
             </Location>
           </Groups>

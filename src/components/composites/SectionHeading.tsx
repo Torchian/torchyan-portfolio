@@ -1,14 +1,18 @@
 'use client';
 
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Display, Text } from '@/components/primitives';
 import { spacing } from '@/styles/tokens/spacing';
 import { fontSize, lineHeight, fontWeight, letterSpacing } from '@/styles/tokens/typography';
 import { media } from '@/styles/media';
 
+/** Figma Section Heading: large is Black 96 uppercase on desktop, medium is Bold 72 as typed. */
+export type SectionHeadingSize = 'large' | 'medium';
+
 export interface SectionHeadingProps {
   title: string;
   subtitle?: string;
+  size?: SectionHeadingSize;
   $align?: 'center' | 'left';
   className?: string;
 }
@@ -21,7 +25,7 @@ const Wrapper = styled.div<{ $align?: 'center' | 'left' }>`
   text-align: ${(p) => p.$align ?? 'center'};
 `;
 
-const Title = styled(Display)`
+const Title = styled(Display)<{ $heading: SectionHeadingSize }>`
   /* Mobile: 58px, 600, as-typed (no forced transform) */
   font-size: ${fontSize.display.s}px;
   line-height: ${lineHeight.display.s}px;
@@ -34,13 +38,17 @@ const Title = styled(Display)`
     font-weight: ${fontWeight.heading};
   }
 
-  /* Desktop: 96px, 900, uppercase */
+  /* Desktop: large is 96px, 900, uppercase; medium keeps the tablet size. */
   ${media.up('l')} {
-    font-size: ${fontSize.display.xl}px;
-    line-height: ${lineHeight.display.xl}px;
-    font-weight: ${fontWeight.black};
-    text-transform: uppercase;
-    letter-spacing: ${letterSpacing.xxs}px;
+    ${(p) =>
+      p.$heading === 'large' &&
+      css`
+        font-size: ${fontSize.display.xl}px;
+        line-height: ${lineHeight.display.xl}px;
+        font-weight: ${fontWeight.black};
+        text-transform: uppercase;
+        letter-spacing: ${letterSpacing.xxs}px;
+      `}
   }
 `;
 
@@ -52,10 +60,12 @@ const Subtitle = styled(Text).attrs({
   $color: 'var(--color-text-secondary)',
 })``;
 
-export function SectionHeading({ title, subtitle, $align, className }: SectionHeadingProps) {
+export function SectionHeading({ title, subtitle, size = 'large', $align, className }: SectionHeadingProps) {
   return (
     <Wrapper $align={$align} className={className}>
-      <Title $size="xl">{title}</Title>
+      <Title as="h2" $size="xl" $heading={size}>
+        {title}
+      </Title>
       {subtitle && <Subtitle>{subtitle}</Subtitle>}
     </Wrapper>
   );

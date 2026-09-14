@@ -4,17 +4,12 @@ import styled from 'styled-components';
 import { Container } from '@/components/primitives';
 import { WorldMapSVG, SectionHeading, type MapLocation } from '@/components/composites';
 import { spacing } from '@/styles/tokens/spacing';
-import { media } from '@/styles/media';
 
 const Section = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: ${spacing[1000]}px 0;
-
-  ${media.down('m')} {
-    padding: ${spacing[1000]}px 0;
-  }
 `;
 
 const Content = styled.div`

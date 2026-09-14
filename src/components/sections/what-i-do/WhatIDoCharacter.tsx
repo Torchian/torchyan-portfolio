@@ -1,6 +1,5 @@
 'use client';
 
-/* eslint-disable @next/next/no-img-element */
 import styled from 'styled-components';
 import { useRef, type RefObject } from 'react';
 import { useBoardClip } from './useBoardClip';

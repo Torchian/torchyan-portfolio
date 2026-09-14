@@ -75,10 +75,10 @@ export function CaseStudyHeroSection({ project }: CaseStudyHeroSectionProps) {
           description={project.title}
           tags={project.roles}
         />
-        <Title>{project.description}</Title>
+        <Title as="p">{project.description}</Title>
         <MetaRow>
           <span>{project.field}</span>
-          <span>·</span>
+          <span aria-hidden>·</span>
           <span>{project.year}</span>
         </MetaRow>
       </Content>

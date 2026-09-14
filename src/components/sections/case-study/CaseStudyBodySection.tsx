@@ -79,7 +79,7 @@ export function CaseStudyBodySection({ project }: CaseStudyBodySectionProps) {
                   src={img.src}
                   alt={img.alt}
                   fill
-                  sizes="(max-width: 768px) 100vw, 33vw"
+                  sizes="(max-width: 480px) 100vw, 33vw"
                   style={{ objectFit: 'cover' }}
                 />
               </ImageWrapper>

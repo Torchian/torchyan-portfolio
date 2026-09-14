@@ -4,8 +4,8 @@ import { useEffect, type RefObject } from 'react';
 import { createInViewGate, subscribeScroll } from '@/lib/scroll-driver';
 
 /**
- * Fraction of the board SVG's (whatido_bg_1.svg, 1213×1158) height at which the
- * visible BOTTOM double-line sits — measured by pixel-scanning the rendered SVG
+ * Fraction of the board artwork's (whatido_bg_1, 1213×1158 in Figma) height at which the
+ * visible BOTTOM double-line sits — measured by pixel-scanning the rendered artwork
  * (bottom line pair at ~0.883/0.891). This is the "cut line": inside the board
  * (above it) the head is pencil; below it the normal colored render shows.
  */

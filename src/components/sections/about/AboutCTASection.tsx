@@ -126,7 +126,7 @@ export function AboutCTASection() {
 
         <CardsRow>
           <Card $bg="green">
-            <CardTitle as="h3" $accent="green">
+            <CardTitle as="h2" $accent="green">
               Let&apos;s Build Something That Scales
             </CardTitle>
             <CardBody as="p">
@@ -141,7 +141,7 @@ export function AboutCTASection() {
           </Card>
 
           <Card $bg="purple">
-            <CardTitle as="h3" $accent="pink">
+            <CardTitle as="h2" $accent="pink">
               See How I Think in Practice
             </CardTitle>
             <CardBody as="p">

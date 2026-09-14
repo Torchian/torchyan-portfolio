@@ -1,210 +1,179 @@
 'use client';
 
-import { forwardRef, useRef, useEffect, useCallback } from 'react';
+/* eslint-disable @next/next/no-img-element -- tiny decorative SVGs; next/image adds nothing here */
+import { forwardRef } from 'react';
 import styled, { css } from 'styled-components';
-import {
-  fontWeight,
-  fontSize,
-  lineHeight,
-  letterSpacing,
-  fontFamily,
-} from '@/styles/tokens/typography';
+import { fontWeight, fontSize, lineHeight, letterSpacing, fontFamily } from '@/styles/tokens/typography';
 import { spacing } from '@/styles/tokens/spacing';
 import { radius } from '@/styles/tokens/radius';
 import { duration, easing } from '@/styles/tokens/motion';
 import { neutrals, accents } from '@/styles/tokens/colors';
-import { glass, blur } from '@/styles/tokens/effects';
+import { glass } from '@/styles/tokens/effects';
 import { border } from '@/styles/tokens/border';
+import { media } from '@/styles/media';
 
+/*
+ * Figma: Text Input (2484:6150) — Default / Hover / Active; multiline variant
+ * from the Contact section ("What are you building?").
+ *
+ * A 56px pill (multiline: 120px tall, 32px radius) with a thin blurred wedge of
+ * light along its top and bottom edges. The wedges sit outside the field and
+ * the field clips them, so only their soft inner edge shows. They move in as
+ * the state changes — 14px out (Default) → 5px (Hover) → 2px (Active, focused)
+ * — and turn green when focused. The text follows: grey → white → green.
+ */
+
+const EFFECT_OFFSET = { default: 14, hover: 5, active: 2 } as const;
 const TRANSITION = `${duration.fast} ${easing.linear}`;
+/** The multiline placeholder is a touch lighter than the single-line one in the design. */
+const MULTILINE_PLACEHOLDER = '#c5c5c5';
 
-const primaryInputStyles = css`
-  min-width: 140px;
+const Wrapper = styled.div<{ $multiline: boolean }>`
+  --effect-offset: ${EFFECT_OFFSET.default}px;
+  --placeholder-color: ${(p) => (p.$multiline ? MULTILINE_PLACEHOLDER : neutrals[700])};
+  --value-color: ${neutrals[100]};
+  position: relative;
+  display: flex;
+  align-items: ${(p) => (p.$multiline ? 'flex-start' : 'center')};
+  width: 100%;
+  height: ${(p) => (p.$multiline ? 120 : 56)}px;
+  padding: ${(p) =>
+    p.$multiline ? `${spacing[200]}px ${spacing[400]}px` : `${spacing[75]}px ${spacing[400]}px`};
   border: ${border.medium}px solid ${glass.border};
-  border-radius: ${radius.xxl}px;
-  backdrop-filter: blur(${blur.glassSmall});
-  -webkit-backdrop-filter: blur(${blur.glassSmall});
-  isolation: isolate;
+  border-radius: ${(p) => (p.$multiline ? radius.xxl : radius.round)}px;
   overflow: hidden;
-  
-  font-family: ${fontFamily.body};
-  font-size: ${fontSize.body.l}px;
-  font-weight: ${fontWeight.medium};
-  line-height: ${lineHeight.body.l}px;
-  letter-spacing: ${letterSpacing.m}px;
-  color: ${neutrals[100]};
-  transition: color ${TRANSITION};
+  cursor: text;
 
-  &::before {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: -3px;
-    width: 0;
-    height: 0;
-    border-left: calc(var(--input-width, 0px) / 4) solid transparent;
-    border-right: calc(var(--input-width, 0px) / 4) solid transparent;
-    border-top: ${spacing[50]}px solid ${neutrals[100]};
-    filter: blur(${blur.sm});
-    transform: translateX(-50%);
-    pointer-events: none;
-    transition:
-      transform ${TRANSITION},
-      top ${TRANSITION},
-      filter ${TRANSITION},
-      border ${TRANSITION};
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    bottom: -3px;
-    width: 0;
-    height: 0;
-    border-left: calc(var(--input-width, 0px) / 4) solid transparent;
-    border-right: calc(var(--input-width, 0px) / 4) solid transparent;
-    border-bottom: ${spacing[50]}px solid ${neutrals[100]};
-    transform: translateX(-50%);
-    filter: blur(${blur.sm});
-    pointer-events: none;
-    transition:
-      transform ${TRANSITION},
-      bottom ${TRANSITION},
-      filter ${TRANSITION},
-      border ${TRANSITION};
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    &:hover {
-      color: ${accents.primary};
-
-      &::before {
-        filter: blur(${blur.md});
-        top: -2px;
-        border-top: ${spacing[75]}px solid ${accents.primary};
-        transform: translateX(-50%) scaleX(1.5);
-      }
-
-      &::after {
-        filter: blur(${blur.md});
-        bottom: -2px;
-        border-bottom: ${spacing[75]}px solid ${accents.primary};
-        transform: translateX(-50%) scaleX(1.5);
-      }
+  ${media.hover} {
+    &:hover:not(:focus-within) {
+      --effect-offset: ${EFFECT_OFFSET.hover}px;
+      --placeholder-color: ${neutrals[100]};
     }
   }
 
   &:focus-within {
-    color: ${accents.primary};
-
-    &::before {
-      filter: blur(${blur.md});
-      top: -1px;
-      border-top: ${spacing[75]}px solid ${accents.primary};
-      transform: translateX(-50%) scaleX(1.5);
-    }
-
-    &::after {
-      filter: blur(${blur.md});
-      bottom: -1px;
-      border-bottom: ${spacing[75]}px solid ${accents.primary};
-      transform: translateX(-50%) scaleX(1.5);
-    }
+    --effect-offset: ${EFFECT_OFFSET.active}px;
+    --placeholder-color: ${accents.primary};
+    --value-color: ${accents.primary};
   }
 `;
 
-const Wrapper = styled.div<{ $multiline?: boolean }>`
+const Effect = styled.span`
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(-1 * var(--effect-offset));
+  bottom: calc(-1 * var(--effect-offset));
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  pointer-events: none;
+  transition:
+    top ${TRANSITION},
+    bottom ${TRANSITION};
+`;
+
+/** One 6px line; its wedge artwork is 22px tall and a little wider than the field, bleeding past it. */
+const Line = styled.span<{ $flip?: boolean; $multiline: boolean }>`
   position: relative;
-  display: inline-flex;
-  align-items: ${(p) => (p.$multiline ? 'flex-start' : 'center')};
-  padding: ${({ $multiline }) => ($multiline ? `${spacing[200]}px ${spacing[400]}px` : `${spacing[75]}px ${spacing[400]}px`)};
-  height: ${({ $multiline }) => ($multiline ? 'auto' : `${spacing[600]}px`)};
-  width: 100%;
-  cursor: text;
+  height: 6px;
+  ${(p) => p.$flip && 'transform: scaleY(-1);'}
 
-  ${primaryInputStyles}
-`;
+  img {
+    position: absolute;
+    top: -8px;
+    left: ${(p) => (p.$multiline ? -0.97 : -1.71)}%;
+    width: ${(p) => (p.$multiline ? 101.94 : 103.42)}%;
+    max-width: none;
+    height: 22px;
+    transition: opacity ${TRANSITION};
+  }
 
-const StyledInput = styled.input`
-  flex: 1;
-  min-width: 0;
-  background: transparent;
-  border: none;
-  outline: none;
-  font: inherit;
-  color: inherit;
-  letter-spacing: inherit;
+  img:last-child {
+    opacity: 0;
+  }
 
-  &::placeholder {
-    color: ${neutrals[700]};
+  ${Wrapper}:focus-within & {
+    img:first-child {
+      opacity: 0;
+    }
+
+    img:last-child {
+      opacity: 1;
+    }
   }
 `;
 
-const StyledTextArea = styled.textarea`
+const fieldStyles = css`
+  position: relative;
   flex: 1;
   min-width: 0;
-  min-height: 72px;
+  margin: 0;
   padding: 0;
   background: transparent;
   border: none;
   outline: none;
-  font: inherit;
-  color: inherit;
-  letter-spacing: inherit;
-  resize: vertical;
+  font-family: ${fontFamily.heading};
+  font-weight: ${fontWeight.semibold};
+  font-size: ${fontSize.body.xl}px;
+  line-height: ${lineHeight.body.xl}px;
+  letter-spacing: ${letterSpacing.s}px;
+  color: var(--value-color);
+  transition: color ${TRANSITION};
 
   &::placeholder {
-    color: ${neutrals[700]};
+    color: var(--placeholder-color);
+    opacity: 1;
+    transition: color ${TRANSITION};
   }
+`;
+
+const StyledInput = styled.input`
+  ${fieldStyles}
+`;
+
+const StyledTextArea = styled.textarea`
+  ${fieldStyles}
+  height: 100%;
+  overflow-y: auto;
+  resize: none;
 `;
 
 export interface TextInputProps
   extends Omit<
-    React.InputHTMLAttributes<HTMLInputElement> &
-      React.TextareaHTMLAttributes<HTMLTextAreaElement>,
+    React.InputHTMLAttributes<HTMLInputElement> & React.TextareaHTMLAttributes<HTMLTextAreaElement>,
     'size'
   > {
   as?: 'input' | 'textarea';
 }
 
-export const TextInput = forwardRef<
-  HTMLInputElement | HTMLTextAreaElement,
-  TextInputProps
->(function TextInput({ as = 'input', ...props }, ref) {
-  const wrapperRef = useRef<HTMLDivElement>(null);
+export const TextInput = forwardRef<HTMLInputElement | HTMLTextAreaElement, TextInputProps>(
+  function TextInput({ as = 'input', className, ...props }, ref) {
+    const multiline = as === 'textarea';
+    const lightWedge = multiline ? '/icons/text-input/effect-default-wide.svg' : '/icons/text-input/effect-default.svg';
 
-  const measure = useCallback(() => {
-    const el = wrapperRef.current;
-    if (!el) return;
-    const width = el.getBoundingClientRect().width;
-    el.style.setProperty('--input-width', `${width}px`);
-  }, []);
-
-  useEffect(() => {
-    measure();
-    const el = wrapperRef.current;
-    if (!el) return;
-    const observer = new ResizeObserver(measure);
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [measure]);
-
-  const isTextarea = as === 'textarea';
-
-  return (
-    <Wrapper ref={wrapperRef} $multiline={isTextarea}>
-      {isTextarea ? (
-        <StyledTextArea
-          ref={ref as React.Ref<HTMLTextAreaElement>}
-          {...(props as React.TextareaHTMLAttributes<HTMLTextAreaElement>)}
-        />
-      ) : (
-        <StyledInput
-          ref={ref as React.Ref<HTMLInputElement>}
-          {...(props as React.InputHTMLAttributes<HTMLInputElement>)}
-        />
-      )}
-    </Wrapper>
-  );
-});
+    return (
+      <Wrapper $multiline={multiline} className={className}>
+        <Effect aria-hidden>
+          {[true, false].map((flip) => (
+            <Line key={String(flip)} $flip={flip} $multiline={multiline}>
+              <img src={lightWedge} alt="" />
+              <img src="/icons/text-input/effect-active.svg" alt="" />
+            </Line>
+          ))}
+        </Effect>
+        {multiline ? (
+          <StyledTextArea
+            ref={ref as React.Ref<HTMLTextAreaElement>}
+            {...(props as React.TextareaHTMLAttributes<HTMLTextAreaElement>)}
+          />
+        ) : (
+          <StyledInput
+            ref={ref as React.Ref<HTMLInputElement>}
+            {...(props as React.InputHTMLAttributes<HTMLInputElement>)}
+          />
+        )}
+      </Wrapper>
+    );
+  },
+);

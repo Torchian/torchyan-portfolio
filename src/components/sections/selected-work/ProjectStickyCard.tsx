@@ -6,7 +6,7 @@ import { CTASecondary } from '@/components/primitives';
 import { radius } from '@/styles/tokens/radius';
 import { fontSize, lineHeight, fontWeight, letterSpacing, fontFamily } from '@/styles/tokens/typography';
 import { spacing } from '@/styles/tokens/spacing';
-import { neutrals, accents, transparents } from '@/styles/tokens/colors';
+import { neutrals, transparents } from '@/styles/tokens/colors';
 import { glass } from '@/styles/tokens/effects';
 import { grid } from '@/styles/tokens/grid';
 import { breakpoints } from '@/styles/tokens/breakpoints';
@@ -74,7 +74,7 @@ const ProjectFooter = styled(ProjectContainer)`
 /**
  * Desktop puts the company name on the left with roles pushed right.
  * Tablet/mobile stack them with the roles ABOVE the name (Figma 2650:4268 /
- * 2653:4958) — column-reverse keeps the h2 first in the DOM for reading order.
+ * 2653:4958) — column-reverse keeps the h3 first in the DOM for reading order.
  */
 const ProjectHeading = styled.div`
   display: flex;
@@ -92,7 +92,7 @@ const ProjectHeading = styled.div`
   }
 `;
 
-const ProjectCompany = styled.h2`
+const ProjectCompany = styled.h3`
   font-family: ${fontFamily.display};
   font-weight: ${fontWeight.black};
   font-size: ${fontSize.display.xl}px;
@@ -295,7 +295,7 @@ const ProjectInfo = styled.div`
   gap: ${spacing[200]}px;
 `;
 
-const ProjectTitle = styled.h3`
+const ProjectTitle = styled.h4`
   font-family: var(--font-gilroy), sans-serif;
   font-weight: ${fontWeight.medium};
   font-size: ${fontSize.heading.m}px;
@@ -354,7 +354,7 @@ export function ProjectStickyCard({ project }: ProjectStickyCardProps) {
             {project.roles.flatMap((role, i) =>
               i === 0
                 ? [<ProjectRole key={i}>{role}</ProjectRole>]
-                : [<span key={`sep-${i}`}> × </span>, <ProjectRole key={i}>{role}</ProjectRole>]
+                : [<span key={`sep-${i}`} aria-hidden> × </span>, <ProjectRole key={i}>{role}</ProjectRole>]
             )}
           </ProjectRoles>
         </ProjectHeading>

@@ -1,7 +1,7 @@
 'use client';
 
 import styled from 'styled-components';
-import { Text, Container } from '@/components/primitives';
+import { Text, Container, VisuallyHidden } from '@/components/primitives';
 import { spacing } from '@/styles/tokens/spacing';
 import {
   fontFamily,
@@ -11,7 +11,6 @@ import {
   letterSpacing,
 } from '@/styles/tokens/typography';
 import { accents, neutrals, transparents } from '@/styles/tokens/colors';
-import { blur } from '@/styles/tokens/effects';
 import { radius } from '@/styles/tokens/radius';
 import { duration, easing } from '@/styles/tokens/motion';
 import { media } from '@/styles/media';
@@ -61,7 +60,7 @@ const Inner = styled(Container)`
   gap: ${spacing[1000]}px;
 `;
 
-const CirclesGrid = styled.div`
+const CirclesGrid = styled.ul`
   width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -74,7 +73,7 @@ const CirclesGrid = styled.div`
   }
 `;
 
-const CircleRoot = styled.div`
+const CircleRoot = styled.li`
   position: relative;
   width: 156px;
   height: 156px;
@@ -171,7 +170,11 @@ const Caption = styled(Text)`
 
 export function AboutSkillsCirclesSection() {
   return (
-    <Section>
+    <Section aria-labelledby="about-skills-title">
+      {/* The design has no visible title here; this names the section for screen readers. */}
+      <VisuallyHidden as="h2" id="about-skills-title">
+        Skills
+      </VisuallyHidden>
       <Inner>
         <Caption as="p">
           The circles below map the areas where I&apos;ve repeatedly designed, shipped,

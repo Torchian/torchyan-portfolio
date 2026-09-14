@@ -1,7 +1,7 @@
 'use client';
 
 import styled from 'styled-components';
-import { Container, Text } from '@/components/primitives';
+import { Container } from '@/components/primitives';
 import { SectionHeading } from '@/components/composites';
 import { CompanyLogo } from '@/components/primitives';
 import { spacing } from '@/styles/tokens/spacing';
@@ -39,24 +39,13 @@ const LogosWrapper = styled.div`
   padding: 0 ${spacing[400]}px;
 `;
 
-const Blurb = styled(Text).attrs({
-  as: 'p',
-  $scale: 'body',
-  $size: 'l',
-  $color: 'var(--color-text-secondary)',
-  $align: 'center',
-})`
-  max-width: 600px;
-  margin: ${spacing[400]}px auto 0;
-`;
-
 const LogoGrid = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${spacing[800]}px;
 `;
 
-const LogoRow = styled.div<{ $align?: 'start' | 'center' | 'end' }>`
+const LogoRow = styled.ul`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -126,29 +115,29 @@ export function TrustedBySection() {
       </HeadingContainer>
       <LogosWrapper>
         <LogoGrid>
-          <LogoRow $align="center">
+          <LogoRow>
             {ROW_1.map((logo) => (
-              <CompanyLogo key={logo.alt} {...logo} />
+              <CompanyLogo key={logo.alt} {...logo} as="li" />
             ))}
           </LogoRow>
-          <LogoRow $align="center">
+          <LogoRow>
             {ROW_2.map((logo) => (
-              <CompanyLogo key={logo.alt} {...logo} />
+              <CompanyLogo key={logo.alt} {...logo} as="li" />
             ))}
           </LogoRow>
-          <LogoRow $align="center">
+          <LogoRow>
             {ROW_3.map((logo) => (
-              <CompanyLogo key={logo.alt} {...logo} />
+              <CompanyLogo key={logo.alt} {...logo} as="li" />
             ))}
           </LogoRow>
-          <LogoRow $align="center">
+          <LogoRow>
             {ROW_4.map((logo) => (
-              <CompanyLogo key={logo.alt} {...logo} />
+              <CompanyLogo key={logo.alt} {...logo} as="li" />
             ))}
           </LogoRow>
-          <LogoRow $align="center">
+          <LogoRow>
             {ROW_5.map((logo) => (
-              <CompanyLogo key={logo.alt} {...logo} />
+              <CompanyLogo key={logo.alt} {...logo} as="li" />
             ))}
           </LogoRow>
         </LogoGrid>

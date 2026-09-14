@@ -5,16 +5,15 @@ import styled from 'styled-components';
 import { fontSize, lineHeight, fontWeight, fontFamily } from '@/styles/tokens/typography';
 import { spacing } from '@/styles/tokens/spacing';
 import { media } from '@/styles/media';
+import { STEP_HEIGHT } from './config';
 
 interface WhatidoStepProps {
-  index: number;
   title: string;
   description: string;
 }
 
-export const STEP_HEIGHT = 960;
-
-const Wrapper = styled.div`
+/** One step of the What I Do sequence — an item of the section's ordered list. */
+const Wrapper = styled.li`
   display: flex;
   flex-direction: column;
   gap: ${spacing[600]}px;
@@ -65,7 +64,7 @@ const Description = styled.p`
   }
 `;
 
-export const WhatidoStep = forwardRef<HTMLDivElement, WhatidoStepProps>(
+export const WhatidoStep = forwardRef<HTMLLIElement, WhatidoStepProps>(
   function WhatidoStep({ title, description }, ref) {
     return (
       <Wrapper ref={ref}>

@@ -7,8 +7,7 @@ import { spacing } from '@/styles/tokens/spacing';
 import { fontSize, lineHeight, fontWeight, letterSpacing, fontFamily } from '@/styles/tokens/typography';
 import { neutrals, accents } from '@/styles/tokens/colors';
 import { radius } from '@/styles/tokens/radius';
-import { breakpoints } from '@/styles/tokens/breakpoints';
-import { media } from '@/styles/media';
+import { media, mediaQueries } from '@/styles/media';
 import { CAPABILITIES } from './capabilitiesConfig';
 import { ACTIVE_CARD, CapabilityCard, HOVER_TRANSITION, gradientEdge, scaled } from './CapabilityCard';
 import { notchedCardShape, type NotchCorner } from './notchedCardShape';
@@ -184,11 +183,15 @@ function useCapabilityGeometry(
     if (!section || !grid) return;
     const cards = Array.from(grid.querySelectorAll<HTMLElement>('[data-capability]'));
     if (cards.length !== NOTCHES.length) return;
-    const desktop = window.matchMedia(`(min-width: ${breakpoints.l}px)`);
+    const desktop = window.matchMedia(mediaQueries.up('l'));
 
     const update = () => {
       if (!desktop.matches) {
+        // Leaving the desktop layout (a resize or rotation): drop everything it
+        // measured, or the hidden title box stays where the circle was and widens the page.
         section.style.removeProperty('--capabilities-scale');
+        grid.style.removeProperty('--capabilities-cx');
+        grid.style.removeProperty('--capabilities-cy');
         return;
       }
 
@@ -248,10 +251,8 @@ export function CapabilitiesSection() {
     <Section ref={sectionRef} id="capabilities" aria-labelledby={TITLE_ID}>
       <Frame>
         <Grid ref={gridRef}>
-          {CAPABILITIES.map((capability, i) => (
-            <CapabilityCard key={capability.title} capability={capability} index={i} notch={NOTCHES[i]} />
-          ))}
-
+          {/* First in the DOM so the section title comes before the cards' titles;
+              it's absolutely positioned, so the order doesn't affect layout. */}
           <Center>
             <CenterPanel data-center-panel="default">
               <CenterTitle id={TITLE_ID}>What I Build</CenterTitle>
@@ -267,6 +268,10 @@ export function CapabilitiesSection() {
               </CenterPanel>
             ))}
           </Center>
+
+          {CAPABILITIES.map((capability, i) => (
+            <CapabilityCard key={capability.title} capability={capability} index={i} notch={NOTCHES[i]} />
+          ))}
         </Grid>
       </Frame>
     </Section>

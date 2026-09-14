@@ -1,22 +1,22 @@
-<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="184" height="94" viewBox="0 0 184 94" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg preserveAspectRatio="none" width="184" height="94" viewBox="0 0 184 94" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g id="Effect">
-<g id="Rectangle 3" filter="url(#filter0_f_0_10)">
+<g id="Rectangle 3" filter="url(#filter0_f_0_13)">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M92 14L8 8H176L92 14Z" fill="#F6F6F6"/>
 </g>
-<g id="Rectangle 4" filter="url(#filter1_f_0_10)">
+<g id="Rectangle 4" filter="url(#filter1_f_0_13)">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M92 80L8 86H176L92 80Z" fill="#F6F6F6"/>
 </g>
 </g>
 <defs>
-<filter id="filter0_f_0_10" x="0" y="0" width="184" height="22" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<filter id="filter0_f_0_13" x="0" y="0" width="184" height="22" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>
 <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
-<feGaussianBlur stdDeviation="4" result="effect1_foregroundBlur_0_10"/>
+<feGaussianBlur stdDeviation="4" result="effect1_foregroundBlur_0_13"/>
 </filter>
-<filter id="filter1_f_0_10" x="0" y="72" width="184" height="22" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<filter id="filter1_f_0_13" x="0" y="72" width="184" height="22" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>
 <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
-<feGaussianBlur stdDeviation="4" result="effect1_foregroundBlur_0_10"/>
+<feGaussianBlur stdDeviation="4" result="effect1_foregroundBlur_0_13"/>
 </filter>
 </defs>
 </svg>

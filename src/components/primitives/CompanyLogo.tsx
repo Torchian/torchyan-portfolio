@@ -27,11 +27,13 @@ export interface CompanyLogoProps {
   width?: number;
   height?: number;
   $hoverScale?: number;
+  /** Render as a list item when the logos form a list. */
+  as?: 'span' | 'li';
 }
 
-export function CompanyLogo({ src, alt, width = 120, height = 32, $hoverScale }: CompanyLogoProps) {
+export function CompanyLogo({ src, alt, width = 120, height = 32, $hoverScale, as }: CompanyLogoProps) {
   return (
-    <Wrapper $hoverScale={$hoverScale}>
+    <Wrapper as={as} $hoverScale={$hoverScale}>
       <Image src={src} alt={alt} width={width} height={height} style={{ objectFit: 'contain' }} />
     </Wrapper>
   );
