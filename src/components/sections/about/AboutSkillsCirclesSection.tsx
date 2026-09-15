@@ -14,33 +14,7 @@ import { accents, neutrals, transparents } from '@/styles/tokens/colors';
 import { radius } from '@/styles/tokens/radius';
 import { duration, easing } from '@/styles/tokens/motion';
 import { media } from '@/styles/media';
-
-const SKILL_CIRCLES = [
-  'Information Architecture',
-  'UI Pattern Libraries',
-  'Dark Mode',
-  'WCAG Standards',
-  'React Components',
-  'Component Abstraction',
-  'Data Mapping',
-  'Mobile Optimization',
-  'UX Heuristics',
-  'Agile Collaboration',
-  'Design Tokens',
-  'Responsive Layouts',
-  'Multilingual Interfaces',
-  'Component Reusability',
-  'Performance Tuning',
-  'Design Handoff',
-  'System Migration',
-  'Web Performance',
-  'Frontend Architecture',
-  'Interaction Design',
-  'Grid Systems',
-  'Semantic HTML',
-  'CSS Architecture',
-  'Design Systems',
-] as const;
+import { useTranslations } from 'next-intl';
 
 const Section = styled.section`
   padding: ${spacing[2000]}px 0;
@@ -169,20 +143,19 @@ const Caption = styled(Text)`
 `;
 
 export function AboutSkillsCirclesSection() {
+  const t = useTranslations('about.skills');
+  const circles = t.raw('circles') as string[];
+
   return (
     <Section aria-labelledby="about-skills-title">
       {/* The design has no visible title here; this names the section for screen readers. */}
       <VisuallyHidden as="h2" id="about-skills-title">
-        Skills
+        {t('title')}
       </VisuallyHidden>
       <Inner>
-        <Caption as="p">
-          The circles below map the areas where I&apos;ve repeatedly designed, shipped,
-          and stress-tested interface systems—from architecture and interaction design
-          to performance, accessibility, and front-of-stack engineering.
-        </Caption>
+        <Caption as="p">{t('caption')}</Caption>
         <CirclesGrid>
-          {SKILL_CIRCLES.map((label) => (
+          {circles.map((label) => (
             <Circle key={label} label={label} />
           ))}
         </CirclesGrid>

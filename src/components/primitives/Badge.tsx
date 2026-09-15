@@ -13,21 +13,21 @@ export type BadgeVariant = 'light' | 'primary' | 'secondary';
 const sizeStyles: Record<BadgeSize, ReturnType<typeof css>> = {
   small: css`
     height: 22px;
-    padding: ${spacing[50]}px ${spacing[100]}px;
+    padding: ${spacing[50]}px ${spacing[150]}px;
     font-size: ${fontSize.body.m}px;
     line-height: ${lineHeight.body.m}px;
     letter-spacing: ${letterSpacing.s}px;
   `,
   medium: css`
     height: 24px;
-    padding: ${spacing[50]}px ${spacing[150]}px;
+    padding: ${spacing[50]}px ${spacing[200]}px;
     font-size: ${fontSize.body.l}px;
     line-height: ${lineHeight.body.l}px;
     letter-spacing: ${letterSpacing.m}px;
   `,
   large: css`
     height: 28px;
-    padding: ${spacing[50]}px ${spacing[200]}px;
+    padding: ${spacing[50]}px ${spacing[250]}px;
     font-size: ${fontSize.body.xl}px;
     line-height: ${lineHeight.body.xl}px;
     letter-spacing: ${letterSpacing.s}px;

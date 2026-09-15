@@ -3,9 +3,10 @@
 import styled from 'styled-components';
 import { Container } from '@/components/primitives';
 import { SectionHeading } from '@/components/composites';
-import { ProjectStickyCard } from './ProjectStickyCard';
+import { AllProjectsStickyCard, ProjectStickyCard } from './ProjectStickyCard';
 import { PROJECTS } from './projectsConfig';
 import { spacing } from '@/styles/tokens/spacing';
+import { useTranslations } from 'next-intl';
 import { useEffect, useRef } from 'react';
 import {
   beginProgrammaticScroll,
@@ -180,18 +181,21 @@ function useMagneticStack(
 }
 
 export function SelectedWorkSection() {
+  const t = useTranslations('selectedWork');
   const stackRef = useRef<HTMLDivElement>(null);
-  useMagneticStack(stackRef, PROJECTS.length);
+  // The case studies, then the all-projects card.
+  useMagneticStack(stackRef, PROJECTS.length + 1);
 
   return (
     <Section id="work">
       <Container>
-        <SectionHeading title="Selected Work" subtitle="Projects that shaped my craft" />
+        <SectionHeading title={t('title')} subtitle={t('subtitle')} />
       </Container>
       <ProjectsStack ref={stackRef}>
-        {PROJECTS.map((project, i) => (
-          <ProjectStickyCard key={i} project={project} />
+        {PROJECTS.map((project) => (
+          <ProjectStickyCard key={project.slug} project={project} />
         ))}
+        <AllProjectsStickyCard />
       </ProjectsStack>
     </Section>
   );

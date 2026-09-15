@@ -1,0 +1,529 @@
+{
+  "meta": {
+    "siteName": "Stepan Torchyan",
+    "titleTemplate": "%s | Stepan Torchyan",
+    "defaultTitle": "Stepan Torchyan — Design Engineer",
+    "description": "Design engineering portfolio of Stepan Torchyan.",
+    "jobTitle": "Design Engineer",
+    "about": {
+      "title": "About",
+      "description": "About Stepan Torchyan — Designer × Engineer."
+    },
+    "projects": {
+      "title": "Projects",
+      "description": "Selected work and projects by Stepan Torchyan."
+    },
+    "caseStudies": {
+      "title": "Case Studies",
+      "description": "Design and engineering case studies by Stepan Torchyan."
+    },
+    "projectNotFound": "Project Not Found"
+  },
+  "common": {
+    "skipToContent": "Skip to content",
+    "loading": "Loading"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "The page you’re looking for doesn’t exist or has moved.",
+    "home": "Back to home"
+  },
+  "nav": {
+    "home": "Home",
+    "projects": "Projects",
+    "caseStudies": "Case Studies",
+    "about": "About",
+    "contactMe": "Contact Me",
+    "mainLabel": "Main",
+    "menuLabel": "Menu",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "sound": "Sound",
+    "language": "Language"
+  },
+  "sound": {
+    "label": "Sound"
+  },
+  "language": {
+    "label": "Language: {language}",
+    "names": {
+      "en": "English",
+      "ru": "Russian",
+      "hy": "Armenian"
+    }
+  },
+  "hero": {
+    "name": "Stepan Torchyan",
+    "role": "Design Engineer",
+    "description": "I work between design and engineering, connecting product thinking, UI architecture, and front-end execution into one coherent process.",
+    "cta": "See My Work",
+    "skillsLabel": "Disciplines",
+    "skills": [
+      "Product Design",
+      "Design Engineering",
+      "UI Architecture",
+      "Design Systems",
+      "Experiments"
+    ]
+  },
+  "whatIDo": {
+    "title": "What I Do",
+    "subtitle": "Design strategy & full-stack development",
+    "steps": [
+      {
+        "title": "Frame the problem",
+        "description": "Start by understanding the real problem — not just the symptom. Use the context, goals and constraints to frame it."
+      },
+      {
+        "title": "Architect the system",
+        "description": "Design the structural foundation of the product so it can grow without losing clarity or coherence."
+      },
+      {
+        "title": "Design with intent",
+        "description": "Turn ideas into crisp, precise interfaces where every decision serves usability and meaning."
+      },
+      {
+        "title": "Engineer the experience",
+        "description": "Turn designs into pixel-perfect production ready code that's scalable and maintainable."
+      },
+      {
+        "title": "Refine and evolve",
+        "description": "Improve the product through iteration, feedback, and mindful, data-driven decisions."
+      }
+    ]
+  },
+  "selectedWork": {
+    "title": "Selected Work",
+    "subtitle": "Projects that shaped my craft",
+    "viewCase": "View Case",
+    "viewAllCases": "View All Cases",
+    "allProjects": {
+      "company": "All Projects",
+      "roles": [
+        "UI/UX Design",
+        "Web Development",
+        "Dashboards"
+      ],
+      "title": "Websites, E-commerce & Dashboards",
+      "description": "A selection of client work — booking and e-commerce websites, company sites and admin dashboards.",
+      "field": "Websites · Web Apps"
+    }
+  },
+  "projects": {
+    "picsart": {
+      "roles": [
+        "Product Design",
+        "Frontend",
+        "Design System"
+      ],
+      "title": "Creative Platform",
+      "description": "End-to-end product design and frontend development for the world's largest creative platform.",
+      "field": "Design · Development"
+    },
+    "smartbet": {
+      "roles": [
+        "Product Design",
+        "Frontend",
+        "Backend"
+      ],
+      "title": "Sports & Gaming Platform",
+      "description": "Design engineering for a B2B sports betting and gaming platform.",
+      "field": "Fintech · Gaming"
+    },
+    "soulone": {
+      "roles": [
+        "Design Lead",
+        "Full-stack"
+      ],
+      "title": "Product Suite",
+      "description": "Brand identity and product design for a tech startup.",
+      "field": "SaaS · Branding"
+    }
+  },
+  "capabilities": {
+    "heading": "Capabilities",
+    "subtitle": "I design, engineer, and ship digital products where structure, performance, and clarity matter.",
+    "cta": "Contact",
+    "title": "What I Build",
+    "skillsLabel": "{title} skills",
+    "items": [
+      {
+        "title": "Product UI Architecture",
+        "text": "Designing the structural foundation of a product - how screens, components, and interactions relate and scale.",
+        "footnote": "A UI that feels intentional, consistent, and future-proof.",
+        "skills": [
+          "Figma",
+          "UX heuristics",
+          "Cross-team alignment",
+          "Information Architecture",
+          "Component logic & states",
+          "Accessibility & WCAG",
+          "Design systems",
+          "User flows"
+        ]
+      },
+      {
+        "title": "Experimental & Systems Work",
+        "text": "Exploring new interaction models, logic systems, and ideas beyond standard UI patterns.",
+        "footnote": "I design interface structures that scale - from navigation logic to component ecosystems.",
+        "skills": [
+          "Logic-driven UI",
+          "Concept validation",
+          "Playground experiments",
+          "Creative coding concepts",
+          "Sound interaction (Howler.js)",
+          "Rapid iteration workflows",
+          "Interactive prototypes",
+          "State machines"
+        ]
+      },
+      {
+        "title": "Frontend Engineering",
+        "text": "Turning design intent into production-ready interfaces that are accessible, performant, and maintainable.",
+        "footnote": "Interfaces that look right, feel right, and hold up in production.",
+        "skills": [
+          "Semantic HTML5",
+          "Accessibility & WCAG",
+          "CSS / SCSS architecture",
+          "Styled Components / JSS",
+          "Performance optimization",
+          "Git-based workflows",
+          "Responsive layouts",
+          "React & Next.js"
+        ]
+      },
+      {
+        "title": "Motion & Interaction",
+        "text": {
+          "lead": "What clients get",
+          "items": [
+            "Better user orientation",
+            "Clear feedback and transitions",
+            "More intuitive interactions",
+            "Motion that supports, not distracts"
+          ]
+        },
+        "footnote": "Using motion and interaction to guide attention, communicate state, and improve usability.",
+        "skills": [
+          "CSS animations",
+          "Page transitions",
+          "Microinteractions",
+          "GPU-friendly animation",
+          "Interaction feedback systems",
+          "Timing & easing curves",
+          "Motion hierarchy",
+          "Framer Motion"
+        ]
+      }
+    ]
+  },
+  "trustedBy": {
+    "title": "Trusted by teams",
+    "subtitle": "Over the years, I’ve worked with product teams in fintech, media, and platform companies - helping turn complex interfaces into scalable, production-ready systems."
+  },
+  "yearsMap": {
+    "title": "Years of Work, Mapped",
+    "mapAlt": "World map",
+    "locations": {
+      "sanFrancisco": "San Francisco, USA",
+      "newYork": "New York, USA",
+      "miami": "Miami, USA",
+      "sweden": "Sweden",
+      "berlin": "Berlin, Germany",
+      "switzerland": "Switzerland",
+      "moscow": "Moscow, Russia",
+      "yerevan": "Yerevan, Armenia",
+      "cyprus": "Cyprus",
+      "sydney": "Sydney, Australia"
+    }
+  },
+  "contact": {
+    "heading": "Let’s talk about what you’re building",
+    "intentLabel": "Select Your Intent",
+    "intentOptions": [
+      "Product UI / Design System",
+      "Frontend / UI Engineering",
+      "Design × Engineering",
+      "Consultation / Audit",
+      "Something experimental"
+    ],
+    "nameLabel": "Name",
+    "namePlaceholder": "Your Name",
+    "emailLabel": "Email",
+    "emailPlaceholder": "Your Email",
+    "buildingLabel": "What are you building?",
+    "buildingPlaceholder": "Product, idea, or problem in a few lines",
+    "stageLabel": "Project Stage",
+    "stageOptions": [
+      "Idea",
+      "In Progress",
+      "Scaling",
+      "Fixing"
+    ],
+    "timelineLabel": "Timeline",
+    "timelineOptions": [
+      "ASAP",
+      "1-2 months",
+      "Flexible"
+    ],
+    "submit": "Contact"
+  },
+  "footer": {
+    "srName": "Stepan Torchyan — Designer × Engineer",
+    "primary": "Primary",
+    "social": "Social",
+    "contacts": "Contacts",
+    "location": "Yerevan, Armenia",
+    "copyright": "© Copyright {year} Torchyan",
+    "rights": "All Rights Reserved",
+    "links": {
+      "home": "Home",
+      "about": "About",
+      "projects": "Projects",
+      "caseStudies": "Case Studies",
+      "contact": "Contact"
+    }
+  },
+  "partners": {
+    "label": "Partners"
+  },
+  "projectsPage": {
+    "listLabel": "Projects",
+    "hero": {
+      "title": "Projects as Structured Systems",
+      "lead": "I don’t treat projects as isolated deliverables.",
+      "body": "Each one is a layered product architecture - where research, interaction logic, visual systems, and engineering constraints are resolved into a scalable interface.",
+      "points": [
+        "Deconstructing ambiguity into structure",
+        "Translating business goals into user flows",
+        "Architecting component ecosystems",
+        "Aligning visual language with engineering reality",
+        "Optimizing for accessibility, performance, and long-term maintainability"
+      ]
+    },
+    "showcase": {
+      "rolesLabel": "Roles",
+      "stackLabel": "Tech stack",
+      "cta": "View Case Story",
+      "description": [
+        "A large-scale digital ecosystem where multiple teams build and ship UI features across the Marketplace and Discovery surfaces.",
+        "The product required a unified system that could handle diverse modules, maintain accessibility compliance, support multilingual contexts, and improve rendering performance — all without slowing engineering velocity."
+      ],
+      "stack": [
+        "React",
+        "JSS",
+        "Styled Components",
+        "Localization",
+        "WCAG Compliance"
+      ],
+      "items": {
+        "picsart": {
+          "title": "Picsart Marketplace",
+          "roles": [
+            "UI Architect",
+            "Frontend Engineer"
+          ]
+        },
+        "soulone": {
+          "title": "SoulOne",
+          "roles": [
+            "Product Designer",
+            "Project Manager"
+          ]
+        },
+        "smartbet": {
+          "title": "Smartbet",
+          "roles": [
+            "UI Engineer"
+          ]
+        },
+        "worldEducation": {
+          "title": "World Education",
+          "roles": [
+            "UI Engineer",
+            "Frontend Developer"
+          ]
+        }
+      }
+    },
+    "perspective": {
+      "title": "Switch Perspective",
+      "subtitle": "Each project can be explored through multiple lenses:",
+      "modes": [
+        {
+          "title": "Design Mode",
+          "body": "Focus on system clarity, visual hierarchy, interaction patterns, and design governance."
+        },
+        {
+          "title": "Engineering Mode",
+          "body": "Focus on component abstraction, state management, rendering optimization, and scalability planning."
+        },
+        {
+          "title": "Full-System Mode",
+          "body": "Understand how design and engineering converge into a cohesive product architecture."
+        }
+      ],
+      "ecosystemsLabel": "I leverage modern ecosystems daily:",
+      "ecosystems": [
+        "Figma variable systems",
+        "Token-driven design architectures",
+        "React-based component libraries",
+        "CSS-in-JS systems",
+        "Performance auditing frameworks",
+        "Accessibility validation tools",
+        "AI-assisted research and prototyping workflows"
+      ]
+    },
+    "collaboration": {
+      "title": "Build With Structural Intent",
+      "subtitle": "If your product demands clarity between design vision and engineering execution, the next step should be deliberate - not improvised.",
+      "initiate": {
+        "title": "Initiate a System-Level Collaboration",
+        "body": "For products requiring scalable UI governance, architectural consistency, and measurable performance improvements - let’s define the foundation before expanding the surface.",
+        "cta": "Start a Project Discussion"
+      },
+      "analyze": {
+        "title": "Analyze Case Studies",
+        "body": "Explore projects where interface systems, frontend architecture, accessibility integration, and performance refinement were developed under real production constraints.",
+        "cta": "View Random Case"
+      }
+    }
+  },
+  "about": {
+    "hero": {
+      "title": "I design systems that live longer than trends",
+      "basedIn": "Based in Armenia",
+      "workingGlobally": "Working globally",
+      "cta": "View selected work",
+      "intro": "I'm <name>Stepan Torchyan</name> — a Design Engineer working between UI architecture, product design, and frontend engineering. Since 2016, I've helped teams turn complex ideas into scalable, accessible interfaces. Most teams separate design and implementation. I build the bridge.",
+      "execution": "From defining interaction logic and component structure to shipping accessible, multilingual, production-grade UI — I ensure ideas don't degrade during execution.",
+      "resilience": "Because good design is fragile. Systems make it resilient.",
+      "cards": [
+        "UI architecture & design systems",
+        "Product interface design",
+        "Frontend implementation",
+        "Accessibility & performance",
+        "Long-term scalability"
+      ]
+    },
+    "timeline": {
+      "title": "Building interface systems since 2016",
+      "subtitle": "I work at the intersection where design decisions meet technical reality. My role is to connect intent, system logic, and execution — without losing quality along the way.",
+      "focus": "Focus",
+      "impact": "Impact",
+      "entries": {
+        "apricode": {
+          "stickyContent": "Foundation &\nStructural\nDiscipline",
+          "role": "Web UI Developer / Web Designer",
+          "focus": "HTML5 / CSS3 / LESS / front-end implementation. UI development from Photoshop mockups. Shopware (8+ projects) ecosystems. Admin dashboards with charts and timelines. Collaboration with PHP backend teams.",
+          "impact": "Built scalable UI foundations for e-commerce platforms. Developed strong responsive and cross-browser standards. Established early discipline in semantic structure and modular styling.",
+          "coreGrowth": [
+            "Precision",
+            "Structure",
+            "Systematic CSS architecture"
+          ]
+        },
+        "tco": {
+          "stickyContent": "Precision &\nStructure",
+          "role": "UI Developer",
+          "focus": "HTML5 / CSS3 / LESS / front-end implementation. UI development from Photoshop mockups. Shopware ecosystems. Admin dashboards. Collaboration with PHP backend teams.",
+          "impact": "Built scalable UI foundations for e-commerce platforms. Developed strong responsive and cross-browser standards. Established early discipline in semantic structure and modular styling.",
+          "coreGrowth": [
+            "Precision",
+            "Structure"
+          ]
+        },
+        "volo": {
+          "stickyContent": "Scale &\nConsistency",
+          "role": "Frontend Developer",
+          "focus": "Component-based UI. Design systems. Cross-team collaboration. Performance and accessibility.",
+          "impact": "Shipped production-grade frontend applications. Improved code reuse and consistency across products.",
+          "coreGrowth": [
+            "Precision",
+            "Structure"
+          ]
+        },
+        "softconstruct": {
+          "stickyContent": "Systems &\nLeadership",
+          "role": "Frontend Engineer (Lead)",
+          "focus": "Leading frontend architecture. Design systems. Mentorship. Complex product UIs.",
+          "impact": "Scaled UI foundations. Established patterns for responsive and accessible interfaces.",
+          "coreGrowth": [
+            "Precision",
+            "Structure",
+            "Systematic CSS architecture"
+          ]
+        },
+        "picsart": {
+          "stickyContent": "Platform &\nCollaboration",
+          "role": "Senior UI Engineer",
+          "focus": "Design systems. Creative tooling UI. Cross-organizational alignment. Performance and consistency.",
+          "impact": "Improved page rendering performance. Improved consistency. Increased cross-organizational collaboration. Enhanced engineering efficiency.",
+          "coreGrowth": [
+            "Precision",
+            "Structure",
+            "Systematic CSS architecture"
+          ]
+        },
+        "armenianCodeAcademy": {
+          "stickyContent": "Teaching &\nStructured Knowledge",
+          "role": "UI Lecturer",
+          "focus": "Teaching UI development. Workshops. Structured curriculum.",
+          "impact": "Trained developers in modern frontend and design-system practices.",
+          "coreGrowth": [
+            "From raw workshop to pure structured knowledge"
+          ]
+        }
+      }
+    },
+    "skills": {
+      "title": "Skills",
+      "caption": "The circles below map the areas where I've repeatedly designed, shipped, and stress-tested interface systems—from architecture and interaction design to performance, accessibility, and front-of-stack engineering.",
+      "circles": [
+        "Information Architecture",
+        "UI Pattern Libraries",
+        "Dark Mode",
+        "WCAG Standards",
+        "React Components",
+        "Component Abstraction",
+        "Data Mapping",
+        "Mobile Optimization",
+        "UX Heuristics",
+        "Agile Collaboration",
+        "Design Tokens",
+        "Responsive Layouts",
+        "Multilingual Interfaces",
+        "Component Reusability",
+        "Performance Tuning",
+        "Design Handoff",
+        "System Migration",
+        "Web Performance",
+        "Frontend Architecture",
+        "Interaction Design",
+        "Grid Systems",
+        "Semantic HTML",
+        "CSS Architecture",
+        "Design Systems"
+      ]
+    },
+    "cta": {
+      "intro": [
+        "I stay relentlessly current - not by consuming trends, but by testing them in production.",
+        "Every day I work with modern design systems, evolving frontend architectures, and AI-driven creative tools that accelerate research, media generation, and development workflows.",
+        "From Figma ecosystems to code editors, performance tooling, and generative systems - I treat technology as a thinking partner, not just an instrument.",
+        "The result is simple: clarity in complexity, structure in chaos, and products that are ready for what’s next."
+      ],
+      "build": {
+        "title": "Let's Build Something That Scales",
+        "body": "If you're building a product that requires system thinking, precision, and long-term architectural clarity—let's talk.",
+        "cta": "Start a conversation"
+      },
+      "practice": {
+        "title": "See How I Think in Practice",
+        "body": "Explore selected case studies, architecture decisions, and real-world implementations.",
+        "cta": "View selected work"
+      },
+      "bottomLine": "Currently exploring advanced UI systems, AI-assisted workflows, and performance-first interfaces."
+    }
+  }
+}

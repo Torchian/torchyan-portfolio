@@ -2,6 +2,7 @@
 
 /* eslint-disable @next/next/no-img-element */
 import { useRef, useMemo } from 'react';
+import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 import { Container } from '@/components/primitives';
 import { spacing } from '@/styles/tokens/spacing';
@@ -16,33 +17,6 @@ import { Bg4Glass } from './Bg4Glass';
 import { WHATIDO_GRID, STEP_BACKGROUNDS } from './config';
 import { easing } from '@/styles/tokens';
 
-const STEPS = [
-  {
-    title: 'Frame the problem',
-    description:
-      'Start by understanding the real problem — not just the symptom. Use the context, goals and constraints to frame it.',
-  },
-  {
-    title: 'Architect the system',
-    description:
-      'Design the structural foundation of the product so it can grow without losing clarity or coherence.',
-  },
-  {
-    title: 'Design with intent',
-    description:
-      'Turn ideas into crisp, precise interfaces where every decision serves usability and meaning.',
-  },
-  {
-    title: 'Engineer the experience',
-    description:
-      'Turn designs into pixel-perfect production ready code that\'s scalable and maintainable.',
-  },
-  {
-    title: 'Refine and evolve',
-    description:
-      'Improve the product through iteration, feedback, and mindful, data-driven decisions.',
-  },
-] as const;
 
 /** Figma: whatido_sticky_image - main container */
 const WHATIDO_WIDTH = 720;
@@ -292,6 +266,8 @@ const StickyCharacterWrapper = styled.div`
 `;
 
 export function WhatIDoSection() {
+  const t = useTranslations('whatIDo');
+  const steps = t.raw('steps') as { title: string; description: string }[];
   const stepRef0 = useRef<HTMLLIElement>(null);
   const stepRef1 = useRef<HTMLLIElement>(null);
   const stepRef2 = useRef<HTMLLIElement>(null);
@@ -314,12 +290,12 @@ export function WhatIDoSection() {
     <Section id="about">
       <Container>
         <SectionHeading
-          title="What I Do"
-          subtitle="Design strategy & full-stack development"
+          title={t('title')}
+          subtitle={t('subtitle')}
         />
         <ContentGrid>
           <StepsColumn>
-            {STEPS.map((step, i) => (
+            {steps.map((step, i) => (
               <WhatidoStep
                 key={step.title}
                 ref={stepRefs[i]}

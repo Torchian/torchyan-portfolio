@@ -17,14 +17,14 @@ import { border } from '@/styles/tokens/border';
  * past it, then clipped by the pill:
  *  - glow lines: the pill's width + 4.76% each side; 94 / 72 / 68px tall
  *    (the lines sit closer to the pill as it goes Default → Hover → Active);
- *  - dot: a 14px slot holding 38 / 38 / 22px artwork (the active dot is sharper).
+ *  - dot: a 14px slot holding 38 / 30 / 22px artwork (it sharpens as it goes Default → Hover → Active).
  * Hover and checked are pure CSS (:hover, :has()) — no JS state.
  */
 
 type VisualState = 'default' | 'hover' | 'active';
 
 const EFFECT_HEIGHT: Record<VisualState, number> = { default: 94, hover: 72, active: 68 };
-const DOT_SIZE: Record<VisualState, number> = { default: 38, hover: 38, active: 22 };
+const DOT_SIZE: Record<VisualState, number> = { default: 38, hover: 30, active: 22 };
 const STATES: VisualState[] = ['default', 'hover', 'active'];
 
 const TRANSITION = `opacity ${duration.fast} ${easing.linear}, color ${duration.fast} ${easing.linear}`;
@@ -120,7 +120,7 @@ const Label = styled.span`
   transition: ${TRANSITION};
 
   ${HOVER} & {
-    color: ${neutrals[100]};
+    color: ${accents.primaryDark};
   }
 
   ${ACTIVE} & {

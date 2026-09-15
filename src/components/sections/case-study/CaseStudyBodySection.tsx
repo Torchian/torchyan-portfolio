@@ -1,5 +1,6 @@
 'use client';
 
+import { useMessages } from 'next-intl';
 import styled from 'styled-components';
 import Image from 'next/image';
 import { Container } from '@/components/primitives';
@@ -66,6 +67,7 @@ export interface CaseStudyBodySectionProps {
 }
 
 export function CaseStudyBodySection({ project }: CaseStudyBodySectionProps) {
+  const content = useMessages().projects[project.slug];
   const images = project.images.slice(0, 9);
 
   return (
@@ -86,7 +88,7 @@ export function CaseStudyBodySection({ project }: CaseStudyBodySectionProps) {
             ))}
           </ImagesGrid>
         )}
-        <Caption>{project.description}</Caption>
+        <Caption>{content.description}</Caption>
       </Content>
     </Section>
   );

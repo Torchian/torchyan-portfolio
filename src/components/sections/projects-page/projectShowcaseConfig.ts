@@ -3,7 +3,8 @@
  * collages beside them.
  *
  * Content mirrors the Figma frame as it is today, where several rows still share
- * copy and artwork; swap in each project's real content here.
+ * copy and artwork; swap in each project's real content here. The copy itself
+ * lives in messages/*.json under projectsPage.showcase.
  */
 
 export interface CollageImage {
@@ -35,12 +36,12 @@ export interface Collage {
   stacks: CollageStack[];
 }
 
+/** Which copy a row shows, from messages/*.json under projectsPage.showcase.items. */
+export type ShowcaseContentKey = 'picsart' | 'soulone' | 'smartbet' | 'worldEducation';
+
 export interface ShowcaseProject {
   id: string;
-  title: string;
-  roles: string[];
-  description: string[];
-  stack: string[];
+  content: ShowcaseContentKey;
   href: string;
   collage: Collage;
 }
@@ -182,86 +183,55 @@ const WEBSITES: Collage = {
   ],
 };
 
-const DESCRIPTION = [
-  'A large-scale digital ecosystem where multiple teams build and ship UI features across the Marketplace and Discovery surfaces.',
-  'The product required a unified system that could handle diverse modules, maintain accessibility compliance, support multilingual contexts, and improve rendering performance — all without slowing engineering velocity.',
-];
-
-const STACK = ['React', 'JSS', 'Styled Components', 'Localization', 'WCAG Compliance'];
-
 /** World Education has no case study page yet, so its CTA opens the case studies list. */
 const NO_CASE_PAGE = '/case-studies';
 
 export const SHOWCASE_PROJECTS: ShowcaseProject[] = [
   {
     id: 'picsart-marketplace',
-    title: 'Picsart Marketplace',
-    roles: ['UI Architect', 'Frontend Engineer'],
-    description: DESCRIPTION,
-    stack: STACK,
+    content: 'picsart',
     href: '/projects/picsart',
     collage: PICSART,
   },
   {
     id: 'soulone',
-    title: 'SoulOne',
-    roles: ['Product Designer', 'Project Manager'],
-    description: DESCRIPTION,
-    stack: STACK,
+    content: 'soulone',
     href: '/projects/soulone',
     collage: SOULONE,
   },
   {
     id: 'smartbet',
-    title: 'Smartbet',
-    roles: ['UI Engineer'],
-    description: DESCRIPTION,
-    stack: STACK,
+    content: 'smartbet',
     href: '/projects/smartbet',
     collage: SMARTBET,
   },
   {
     id: 'world-education',
-    title: 'World Education',
-    roles: ['UI Engineer', 'Frontend Developer'],
-    description: DESCRIPTION,
-    stack: STACK,
+    content: 'worldEducation',
     href: NO_CASE_PAGE,
     collage: PICSART,
   },
   {
     id: 'smartbet-2',
-    title: 'Smartbet',
-    roles: ['UI Engineer'],
-    description: DESCRIPTION,
-    stack: STACK,
+    content: 'smartbet',
     href: '/projects/smartbet',
     collage: SOULONE,
   },
   {
     id: 'world-education-2',
-    title: 'World Education',
-    roles: ['UI Engineer', 'Frontend Developer'],
-    description: DESCRIPTION,
-    stack: STACK,
+    content: 'worldEducation',
     href: NO_CASE_PAGE,
     collage: WEBSITES,
   },
   {
     id: 'smartbet-3',
-    title: 'Smartbet',
-    roles: ['UI Engineer'],
-    description: DESCRIPTION,
-    stack: STACK,
+    content: 'smartbet',
     href: '/projects/smartbet',
     collage: SOULONE,
   },
   {
     id: 'world-education-3',
-    title: 'World Education',
-    roles: ['UI Engineer', 'Frontend Developer'],
-    description: DESCRIPTION,
-    stack: STACK,
+    content: 'worldEducation',
     href: NO_CASE_PAGE,
     collage: PICSART,
   },

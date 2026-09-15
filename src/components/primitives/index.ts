@@ -1,5 +1,11 @@
 export { Button } from './Button';
 export type { ButtonProps } from './Button';
+export { SoundToggle } from './SoundToggle';
+export { LanguageSwitcher } from './LanguageSwitcher';
+export { LogoMark } from './LogoMark';
+export type { LogoMarkProps } from './LogoMark';
+export type { LanguageSwitcherProps } from './LanguageSwitcher';
+export type { SoundToggleProps } from './SoundToggle';
 export { TextInput } from './TextInput';
 export type { TextInputProps } from './TextInput';
 export { RadioInput } from './RadioInput';

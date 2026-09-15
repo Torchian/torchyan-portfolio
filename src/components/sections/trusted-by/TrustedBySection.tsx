@@ -1,147 +1,229 @@
 'use client';
 
-import styled from 'styled-components';
-import { Container } from '@/components/primitives';
+/* eslint-disable @next/next/no-img-element -- monochrome SVG logos; next/image adds nothing */
+import { useTranslations } from 'next-intl';
+import styled, { css } from 'styled-components';
 import { SectionHeading } from '@/components/composites';
-import { CompanyLogo } from '@/components/primitives';
 import { spacing } from '@/styles/tokens/spacing';
 import { grid } from '@/styles/tokens/grid';
 import { media } from '@/styles/media';
 
-const Section = styled.section`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: ${spacing[1000]}px 0 0;
-  gap: ${spacing[1000]}px;
-  isolation: isolate;
-  position: relative;
-`;
+/*
+ * Figma: Credibility — Desktop 1920 (2670:10613), 1440 (2670:10970), Tablet 1024 (2670:11664),
+ * Mobile 480 (2670:12308).
+ *
+ *  - Desktop (from 1025px): six rows, each spread edge to edge inside its own side inset.
+ *    Logos are 48px tall (Ginosi 42, Picsart 60); most sit in a 68px slot with 10px side padding.
+ *  - Tablet and mobile: one centred wrap of 40px / 24px logos; mobile reorders a few to balance the lines.
+ */
 
-const HeadingContainer = styled(Container)`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: ${spacing[0]}px ${spacing[400]}px;
-  max-width: ${grid.maxWidth}px;
+interface TrustedLogo {
+  name: string;
+  src: string;
+  /** Desktop height in px. */
+  height: number;
+  /** In a 68px slot with 10px side padding, or straight in the row. */
+  boxed: boolean;
+  /** Position in the mobile wrap. */
+  mobileOrder: number;
+}
+
+const logo = (
+  name: string,
+  file: string,
+  mobileOrder: number,
+  options: Partial<Pick<TrustedLogo, 'height' | 'boxed'>> = {},
+): TrustedLogo => ({ name, src: `/logo/companies/${file}.svg`, height: 48, boxed: true, mobileOrder, ...options });
+
+/** Desktop rows, each with its side inset in px. */
+const ROWS: { inset: number; logos: TrustedLogo[] }[] = [
+  {
+    inset: 20,
+    logos: [logo('SoftConstruct', 'SoftConstruct', 0), logo('Volo', 'Volo', 1), logo('Fortinet', 'Fortinet', 2)],
+  },
+  {
+    inset: 120,
+    logos: [
+      logo('InfinitiRings', 'InfinitiRings', 4),
+      logo('Ginosi', 'Ginosi', 3, { height: 42 }),
+      logo('by robynblair', 'byRobinblair', 5),
+      logo('IT365', 'IT365', 6),
+    ],
+  },
+  {
+    inset: 0,
+    logos: [
+      logo('Smartbet', 'Smartbet', 7),
+      logo('Picsart', 'Picsart', 8, { height: 60 }),
+      logo('Brainstorm', 'Brainstorm', 9),
+    ],
+  },
+  {
+    inset: 60,
+    logos: [
+      logo('Adrasheg', 'Adrasheg', 15),
+      logo('World Education', 'WorldEdu', 10),
+      logo('SoulOne', 'SoulOne', 11),
+      logo('Armenian Code Academy', 'ArmenianCodeAcademy', 13),
+    ],
+  },
+  {
+    inset: 160,
+    logos: [logo('Benzeen', 'Benzeen', 12), logo('BrainRocket', 'BrainRocket', 14), logo('Scunci', 'Scunci', 16)],
+  },
+  {
+    inset: 30,
+    logos: [
+      logo('PlayEngine', 'PlayEngine', 17, { boxed: false }),
+      logo('Rostelecom', 'Rostelecom', 18, { boxed: false }),
+      logo('Inlogic', 'Inlogic', 19, { boxed: false }),
+      logo('2288 Vet', '2288Vet', 20),
+      logo('TCO', 'TCO', 21, { boxed: false }),
+    ],
+  },
+];
+
+const TITLE_ID = 'trusted-by-title';
+
+const Section = styled.section`
+  position: relative;
+  padding: ${spacing[1000]}px 0;
 
   ${media.down('m')} {
-    padding: ${spacing[0]}px ${spacing[300]}px;
+    padding: ${spacing[600]}px 0;
   }
 `;
 
-const LogosWrapper = styled.div`
-  margin-top: ${spacing[800]}px;
-  width: 100%;
-  max-width: ${grid.maxWidth}px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0 ${spacing[400]}px;
-`;
-
-const LogoGrid = styled.div`
+const Inner = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${spacing[800]}px;
+  align-items: center;
+  gap: ${spacing[1000]}px;
+  /* 1440px of content in the 1920 frame; 32px sides in the 1440 frame. */
+  max-width: ${grid.maxWidth + 2 * spacing[400]}px;
+  margin: 0 auto;
+  padding: ${spacing[300]}px ${spacing[400]}px;
+
+  ${media.down('xl')} {
+    padding: ${spacing[300]}px;
+  }
+
+  ${media.down('m')} {
+    gap: ${spacing[600]}px;
+    padding: ${spacing[300]}px ${spacing[200]}px;
+  }
 `;
 
-const LogoRow = styled.ul`
+const HeadingFrame = styled.div`
+  width: 100%;
+  padding: ${spacing[1000]}px ${spacing[400]}px;
+
+  ${media.down('xl')} {
+    padding: 0;
+  }
+`;
+
+const Logos = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${spacing[600]}px;
+  width: 100%;
+  opacity: 0.8;
+
+  ${media.down('xl')} {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: ${spacing[600]}px ${spacing[1000]}px;
+  }
+
+  ${media.down('m')} {
+    gap: ${spacing[400]}px;
+  }
+`;
+
+const Row = styled.div<{ $inset: number }>`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
+  row-gap: ${spacing[600]}px;
+  padding-inline: ${(p) => p.$inset}px;
+  mix-blend-mode: difference;
 
-  &:first-child {
-    padding-inline: ${spacing[400]}px;
-  }
-    
-  &:last-child {
-    padding-inline: ${spacing[200]}px;
-  }
-
-  ${media.down('m')} {
-    justify-content: center;
-    gap: ${spacing[600]}px ${spacing[800]}px;
+  /* Tablet and mobile: the rows dissolve into one wrap. */
+  ${media.down('xl')} {
+    display: contents;
   }
 `;
 
-const LOGO_SIZE = { width: 160, height: 40, $hoverScale: 1.1 };
+const Logo = styled.div<{ $height: number; $boxed: boolean; $mobileOrder: number }>`
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
 
-const ROW_1 = [
-  { src: '/logo/companies/SoftConstruct.svg', alt: 'SoftConstruct', ...LOGO_SIZE },
-  { src: '/logo/companies/Volo.svg', alt: 'Volo', ...LOGO_SIZE },
-  { src: '/logo/companies/Fortinet.svg', alt: 'Fortinet', ...LOGO_SIZE },
-  { src: '/logo/companies/byRobinblair.svg', alt: 'by robynblair', ...LOGO_SIZE },
-];
+  ${(p) =>
+    p.$boxed &&
+    css`
+      height: 68px;
+      padding: 0 10px;
+    `}
 
-const ROW_2 = [
-  { src: '/logo/companies/InfinitiRings.svg', alt: 'InfinitiRings', ...LOGO_SIZE },
-  { src: '/logo/companies/Ginosi.svg', alt: 'Ginosi', ...LOGO_SIZE },
-  { src: '/logo/companies/ArmenianCodeAcademy.svg', alt: 'Armenian Code Academy', ...LOGO_SIZE },
-  { src: '/logo/companies/Picsart.svg', alt: 'Picsart', ...LOGO_SIZE },
-  { src: '/logo/companies/IT365.svg', alt: 'IT365', ...LOGO_SIZE },
-];
+  img {
+    display: block;
+    width: auto;
+    max-width: none;
+    height: ${(p) => p.$height}px;
+  }
 
-const ROW_3 = [
-  { src: '/logo/companies/SoulOne.svg', alt: 'SoulOne', ...LOGO_SIZE },
-  { src: '/logo/companies/Brainstorm.svg', alt: 'Brainstorm', ...LOGO_SIZE },
-  { src: '/logo/companies/Smartbet.svg', alt: 'smartbet', ...LOGO_SIZE },
-  { src: '/logo/companies/Benzeen.svg', alt: 'Benzeen', ...LOGO_SIZE },
-];
+  ${media.down('xl')} {
+    height: auto;
+    padding: 0;
 
-const ROW_4 = [
-  { src: '/logo/companies/PlayEngine.svg', alt: 'PlayEngine', ...LOGO_SIZE },
-  { src: '/logo/companies/WorldEdu.svg', alt: 'World Education', ...LOGO_SIZE },
-  { src: '/logo/companies/Adrasheg.svg', alt: 'Adrasheg', ...LOGO_SIZE },
-  { src: '/logo/companies/BrainRocket.svg', alt: 'BRO BrainRocket', ...LOGO_SIZE },
-  { src: '/logo/companies/Inlogic.svg', alt: 'Inlogic', ...LOGO_SIZE },
-];
+    img {
+      height: 40px;
+    }
+  }
 
-const ROW_5 = [
-  { src: '/logo/companies/Gemmed.svg', alt: 'Gemmed', ...LOGO_SIZE },
-  { src: '/logo/companies/TCO.svg', alt: 'TCO', ...LOGO_SIZE },
-  { src: '/logo/companies/Scunci.svg', alt: 'Scunci', ...LOGO_SIZE },
-  { src: '/logo/companies/Rostelecom.svg', alt: 'Rostelecom', ...LOGO_SIZE },
-];
+  ${media.down('m')} {
+    order: ${(p) => p.$mobileOrder};
+
+    img {
+      height: 24px;
+    }
+  }
+`;
 
 export function TrustedBySection() {
+  const t = useTranslations('trustedBy');
+
   return (
-    <Section id="trusted-by">
-      <HeadingContainer $padding={false}>
-        <SectionHeading
-          title="Trusted by Teams"
-          subtitle="I've worked with companies from early-stage startups to enterprise — always shipping real products."
-        />
-      </HeadingContainer>
-      <LogosWrapper>
-        <LogoGrid>
-          <LogoRow>
-            {ROW_1.map((logo) => (
-              <CompanyLogo key={logo.alt} {...logo} as="li" />
-            ))}
-          </LogoRow>
-          <LogoRow>
-            {ROW_2.map((logo) => (
-              <CompanyLogo key={logo.alt} {...logo} as="li" />
-            ))}
-          </LogoRow>
-          <LogoRow>
-            {ROW_3.map((logo) => (
-              <CompanyLogo key={logo.alt} {...logo} as="li" />
-            ))}
-          </LogoRow>
-          <LogoRow>
-            {ROW_4.map((logo) => (
-              <CompanyLogo key={logo.alt} {...logo} as="li" />
-            ))}
-          </LogoRow>
-          <LogoRow>
-            {ROW_5.map((logo) => (
-              <CompanyLogo key={logo.alt} {...logo} as="li" />
-            ))}
-          </LogoRow>
-        </LogoGrid>
-      </LogosWrapper>
+    <Section id="trusted-by" aria-labelledby={TITLE_ID}>
+      <Inner>
+        <HeadingFrame>
+          <SectionHeading id={TITLE_ID} title={t('title')} subtitle={t('subtitle')} />
+        </HeadingFrame>
+
+        <Logos role="list">
+          {ROWS.map((row, i) => (
+            <Row key={i} $inset={row.inset}>
+              {row.logos.map((item) => (
+                <Logo
+                  key={item.name}
+                  role="listitem"
+                  $height={item.height}
+                  $boxed={item.boxed}
+                  $mobileOrder={item.mobileOrder}
+                >
+                  <img src={item.src} alt={item.name} loading="lazy" />
+                </Logo>
+              ))}
+            </Row>
+          ))}
+        </Logos>
+      </Inner>
     </Section>
   );
 }

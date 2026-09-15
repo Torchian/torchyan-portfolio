@@ -1,6 +1,6 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
+import { usePathname } from '@/i18n/navigation';
 import styled from 'styled-components';
 import { NavBar } from './NavBar';
 import { Footer } from '@/components/sections/footer/Footer';

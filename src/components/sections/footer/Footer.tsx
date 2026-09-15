@@ -3,7 +3,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { useLayoutEffect, useRef } from 'react';
 import styled, { css } from 'styled-components';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import Image from 'next/image';
 import { spacing } from '@/styles/tokens/spacing';
 import { neutrals, accents } from '@/styles/tokens/colors';
@@ -12,6 +12,7 @@ import { breakpoints } from '@/styles/tokens/breakpoints';
 import { grid } from '@/styles/tokens/grid';
 import { media, mediaQueries } from '@/styles/media';
 import { duration, easing } from '@/styles/tokens/motion';
+import { useTranslations } from 'next-intl';
 
 /*
  * Figma: Footer — Desktop 1920 (2670:10716), Desktop 1280 (2670:11420),
@@ -20,10 +21,10 @@ import { duration, easing } from '@/styles/tokens/motion';
  *
  * Two arrangements of the same elements:
  *  - 1024 frame and up (from 769px): the name runs vertically on the left, as tall as the link column
- *    beside it; the portrait sits in the bottom-right corner.
- *  - 768 frame and below (up to 768px): links, then "Designer × Engineer", STEPAN and TORCHYAN at the
- *    container's full width, then the copyright; the portrait sits behind the
- *    links with its bottom edge on top of STEPAN.
+ *    beside it.
+ *  - 768 frame and below (up to 768px): "Designer × Engineer", STEPAN and TORCHYAN at the container's
+ *    full width, then the links, then the copyright.
+ * The wireframe portrait sits in the footer's bottom corner at 30%, hard-light blended, behind the text.
  */
 
 /** Word length on desktop — the link column's height, written by useNameLength. */
@@ -42,21 +43,18 @@ const NAME_ART = {
 const NAME_GAP = 22.698 / 752;
 const NAME_GROUP_THICKNESS = (160.013 + 22.698 + 107.567) / 752;
 
-/**
- * Portrait: the hero's colour character, so the site uses one portrait
- * everywhere. Positioned by its square, as in each frame.
- */
-const PORTRAIT = { src: '/hero/character_color.png', size: 768 } as const;
+/** Portrait: Figma's grey wireframe character. Positioned by its square, from the footer's bottom-right, as in each frame. */
+const PORTRAIT = { src: '/footer/portrait-mesh.webp', size: 1024 } as const;
 
 const LINK_TRANSITION = `${duration.slower} ${easing.spring}`;
 
 const PRIMARY_LINKS = [
-  { label: 'Home', href: '/' },
-  { label: 'About', href: '/about' },
-  { label: 'Projects', href: '/projects' },
-  { label: 'Case Studies', href: '/case-studies' },
-  { label: 'Contact', href: '/#contact' },
-];
+  { key: 'home', href: '/' },
+  { key: 'about', href: '/about' },
+  { key: 'projects', href: '/projects' },
+  { key: 'caseStudies', href: '/case-studies' },
+  { key: 'contact', href: '/#contact' },
+] as const;
 
 const SOCIAL_LINKS = [
   { label: 'Instagram', href: 'https://www.instagram.com/torchian_/' },
@@ -73,38 +71,49 @@ const CONTACT_LINKS = [
 const FooterEl = styled.footer`
   position: relative;
   overflow: hidden;
+  /* Stacking context with the background in it: the portrait blends with the footer and stays behind the text. */
+  isolation: isolate;
   /* Query container: the desktop portrait interpolates between frames on the footer's width. */
   container-type: inline-size;
   /* Figma: dark/background/dark. Solid, so the lower-page glow stops at the footer's top edge. */
   background: ${neutrals[900]};
   padding: ${spacing[1000]}px 0;
 
+  ${media.between('l', 'xl')} {
+    padding: ${spacing[800]}px 0;
+  }
+
   ${media.down('l')} {
-    padding-bottom: ${spacing[300]}px;
+    padding: ${spacing[800]}px 0 ${spacing[400]}px;
   }
 
   ${media.down('m')} {
-    padding-top: ${spacing[500]}px;
+    padding-bottom: ${spacing[300]}px;
   }
 `;
 
 const Inner = styled.div`
-  /* Own stacking context: the portrait's negative z-index keeps it behind the text. */
-  isolation: isolate;
   display: flex;
   flex-direction: column;
-  gap: ${spacing[1000]}px;
-  max-width: ${grid.maxWidth}px;
+  gap: ${spacing[800]}px;
+  /* 1440px of content in the 1920 frame; 32px sides in the 1440 frame. */
+  max-width: ${grid.maxWidth + 2 * spacing[400]}px;
   margin: 0 auto;
   padding: 0 ${spacing[400]}px;
 
-  ${media.down('s')} {
+  ${media.between('l', 'xl')} {
+    padding: 0 ${spacing[300]}px;
+  }
+
+  ${media.down('m')} {
     gap: ${spacing[500]}px;
+    padding: 0 ${spacing[200]}px;
   }
 
   ${media.up('l')} {
     flex-direction: row;
     align-items: flex-start;
+    gap: ${spacing[1000]}px;
   }
 
   ${media.up('xxl')} {
@@ -116,31 +125,28 @@ const NameBlock = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${spacing[400]}px;
-  order: 2;
 
-  ${media.down('s')} {
-    gap: ${spacing[200]}px;
+  ${media.down('m')} {
+    gap: ${spacing[300]}px;
   }
 
   ${media.up('l')} {
     flex: none;
     flex-direction: row;
     align-items: flex-start;
-    gap: 53px;
-    order: 0;
+    gap: ${spacing[500]}px;
     /* Zero height so the words (sized from the column's height) never feed back into it. */
     height: 0;
+  }
+
+  ${media.up('xl')} {
+    gap: ${spacing[800]}px;
   }
 `;
 
 /** STEPAN + TORCHYAN. On desktop the pair is laid out horizontally, then turned to read bottom-to-top. */
 const NameGroup = styled.div`
   order: 2;
-
-  ${media.down('l')} {
-    /* Anchor for the portrait on tablet / mobile. */
-    position: relative;
-  }
 
   ${media.up('l')} {
     display: flex;
@@ -209,41 +215,43 @@ const RoleSlot = styled.div`
 const Portrait = styled(Image)`
   position: absolute;
   z-index: -1;
-  /* Wider than its container by design; override the global img max-width. */
+  /* Wider than the footer in places by design; override the global img max-width. */
   max-width: none;
   height: auto;
+  opacity: 0.3;
+  mix-blend-mode: hard-light;
   pointer-events: none;
   user-select: none;
 
-  /* Tablet / mobile (percentages = container width): bottom edge on top of STEPAN.
-     The 768 frame (481–768px). */
-  bottom: 100%;
+  /* The 768 frame (481–768px). */
+  right: -94px;
+  bottom: -62.66px;
   width: 603px;
-  right: -106px;
 
-  /* The 480 frame (321–480px). */
+  /* The 480 frame (up to 480px). */
   ${media.down('m')} {
-    right: -209px;
+    right: -149px;
+    bottom: -19.63px;
+    width: 527px;
   }
 
-  /* The 320 frame (its container is 256px), scaled with the container below 320px. */
-  ${media.down('s')} {
-    width: calc(384px + (100% - 256px) * 1.36875);
-    right: calc(-145px - (100% - 256px) * 0.4);
-  }
-
-  /* Desktop (cqw = footer width): anchored to the footer's bottom-right. The 1024 frame (769–1024px). */
+  /* The 1024 frame (769–1024px). */
   ${media.up('l')} {
-    bottom: -4.89px;
-    width: 603px;
     right: -165px;
+    bottom: -68.89px;
   }
 
-  /* The 1280 frame's position up to 1280px, then interpolated towards the 1920 frame's and held beyond it. */
+  /* The 1440 frame (1025–1440px). */
   ${media.up('xl')} {
-    bottom: max(-46px, min(-15.25px, calc(-15.25px - (100cqw - ${breakpoints.xl}px) * 0.048047)));
-    width: min(832px, max(603px, calc(603px + (100cqw - ${breakpoints.xl}px) * 0.357813)));
-    right: max(-133px, min(-63px, calc(-63px - (100cqw - ${breakpoints.xl}px) * 0.109375)));
+    right: -158px;
+    bottom: -23.5px;
+  }
+
+  /* Interpolated from the 1440 frame to the 1920 frame (cqw = footer width), then held. */
+  ${media.up('xxxl')} {
+    right: max(-163px, min(-158px, calc(-158px - (100cqw - ${breakpoints.xxl}px) * 0.010417)));
+    bottom: max(-88.5px, min(-23.5px, calc(-23.5px - (100cqw - ${breakpoints.xxl}px) * 0.135417)));
+    width: min(699px, max(603px, calc(603px + (100cqw - ${breakpoints.xxl}px) * 0.2)));
   }
 `;
 
@@ -254,26 +262,18 @@ const Column = styled.div`
     display: flex;
     flex: 1;
     flex-direction: column;
-    gap: ${spacing[600]}px;
+    gap: ${spacing[500]}px;
     min-width: 0;
     padding-left: ${spacing[150]}px;
-  }
-
-  ${media.up('xxl')} {
-    gap: ${spacing[1000]}px;
   }
 `;
 
 const Groups = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${spacing[600]}px;
+  gap: ${spacing[500]}px;
   order: 1;
   padding-left: ${spacing[150]}px;
-
-  ${media.down('s')} {
-    gap: ${spacing[400]}px;
-  }
 
   /* Desktop: the groups join the column's own gap, alongside the copyright. */
   ${media.up('l')} {
@@ -288,10 +288,6 @@ const Group = styled.div`
   gap: ${spacing[200]}px;
   /* Reset for the <address> variant. */
   font-style: normal;
-
-  ${media.down('s')} {
-    gap: ${spacing[150]}px;
-  }
 `;
 
 const GroupTitle = styled.h2`
@@ -302,13 +298,6 @@ const GroupTitle = styled.h2`
   line-height: ${lineHeight.body.l}px;
   letter-spacing: ${letterSpacing.m}px;
   color: ${neutrals[100]};
-
-  ${media.down('s')} {
-    font-size: ${fontSize.body.xl}px;
-    line-height: ${lineHeight.body.xl}px;
-    letter-spacing: ${letterSpacing.s}px;
-    color: ${neutrals[500]};
-  }
 `;
 
 const LinkList = styled.ul<{ $stacked?: boolean }>`
@@ -325,13 +314,25 @@ const LinkList = styled.ul<{ $stacked?: boolean }>`
   li {
     display: flex;
   }
+`;
 
-  ${media.down('s')} {
-    column-gap: ${spacing[500]}px;
+/** Figma Navigation Link Hover / Active Tablet: the word stays, the brackets turn green and open out by 6px. */
+const bracketsOpen = css`
+  &::before,
+  &::after {
+    color: ${accents.primary};
+  }
+
+  &::before {
+    transform: translateX(calc(-50% - 6px));
+  }
+
+  &::after {
+    transform: translateX(calc(50% + 6px)) scaleX(-1);
   }
 `;
 
-/** Figma "Navigation Link": the word, with brackets hanging outside it. */
+/** Figma "Navigation Link" (2510:1115): the word, with brackets hanging outside it. */
 const bracketLink = css`
   --bracket-offset: 7.5px;
   position: relative;
@@ -353,7 +354,9 @@ const bracketLink = css`
     content: '[' / '';
     position: absolute;
     top: 0;
-    transition: transform ${LINK_TRANSITION};
+    transition:
+      transform ${LINK_TRANSITION},
+      color ${duration.normal} ${easing.out};
   }
 
   &::before {
@@ -367,24 +370,22 @@ const bracketLink = css`
     transform: translateX(50%) scaleX(-1);
   }
 
+  ${media.hover} {
+    &:hover {
+      ${bracketsOpen}
+    }
+  }
+
+  /* Pressed (the tablet "Active" state) and keyboard focus show the same open brackets. */
+  &:active {
+    ${bracketsOpen}
+  }
+
   &:focus-visible {
     outline: 2px solid ${accents.primary};
     outline-offset: 4px;
     border-radius: 4px;
-  }
-
-  ${media.hover} {
-    &:hover {
-      color: ${accents.primary};
-
-      &::before {
-        transform: translateX(calc(-50% - 4px));
-      }
-
-      &::after {
-        transform: translateX(calc(50% + 4px)) scaleX(-1);
-      }
-    }
+    ${bracketsOpen}
   }
 
   ${media.down('l')} {
@@ -392,13 +393,6 @@ const bracketLink = css`
     font-weight: ${fontWeight.semibold};
     font-size: ${fontSize.heading.s}px;
     line-height: ${lineHeight.heading.s}px;
-  }
-
-  ${media.down('s')} {
-    --bracket-offset: 5.5px;
-    font-size: ${fontSize.body.l}px;
-    line-height: ${lineHeight.body.l}px;
-    letter-spacing: ${letterSpacing.m}px;
   }
 `;
 
@@ -430,12 +424,11 @@ const Location = styled.p`
     margin: -0.6px;
   }
 
-  ${media.down('s')} {
-    gap: ${spacing[150]}px;
+  ${media.down('m')} {
+    gap: ${spacing[200]}px;
     font-weight: ${fontWeight.semibold};
-    font-size: ${fontSize.body.xl}px;
-    line-height: ${lineHeight.body.xl}px;
-    letter-spacing: ${letterSpacing.s}px;
+    font-size: ${fontSize.heading.s}px;
+    line-height: ${lineHeight.heading.s}px;
   }
 `;
 
@@ -456,12 +449,9 @@ const Copyright = styled.div`
     white-space: nowrap;
   }
 
-  ${media.down('s')} {
-    flex-direction: column;
-    gap: ${spacing[150]}px;
-    font-size: ${fontSize.body.m}px;
-    line-height: ${lineHeight.body.m}px;
-    color: ${neutrals[500]};
+  ${media.up('l')} {
+    justify-content: flex-start;
+    gap: ${spacing[800]}px;
   }
 `;
 
@@ -525,11 +515,13 @@ export function Footer() {
   const innerRef = useRef<HTMLDivElement>(null);
   const columnRef = useRef<HTMLDivElement>(null);
   useNameLength(innerRef, columnRef);
+  const t = useTranslations('footer');
+  const tLinks = useTranslations('footer.links');
 
   return (
     <FooterEl id="site-footer">
       <Inner ref={innerRef}>
-        <VisuallyHiddenText>Stepan Torchyan — Designer × Engineer</VisuallyHiddenText>
+        <VisuallyHiddenText>{t('srName')}</VisuallyHiddenText>
 
         <NameBlock aria-hidden>
           <NameGroup>
@@ -542,7 +534,7 @@ export function Footer() {
               width={PORTRAIT.size}
               height={PORTRAIT.size}
               alt=""
-              sizes="(min-width: 1281px) 832px, (min-width: 321px) 603px, 480px"
+              sizes="(min-width: 1441px) 699px, (min-width: 481px) 603px, 527px"
               loading="lazy"
               draggable={false}
             />
@@ -555,18 +547,18 @@ export function Footer() {
         <Column ref={columnRef}>
           <Groups>
             <Group as="nav" aria-labelledby="footer-primary">
-              <GroupTitle id="footer-primary">Primary</GroupTitle>
+              <GroupTitle id="footer-primary">{t('primary')}</GroupTitle>
               <LinkList>
                 {PRIMARY_LINKS.map((item) => (
-                  <li key={item.label}>
-                    <InternalLink href={item.href}>{item.label}</InternalLink>
+                  <li key={item.key}>
+                    <InternalLink href={item.href}>{tLinks(item.key)}</InternalLink>
                   </li>
                 ))}
               </LinkList>
             </Group>
 
             <Group as="nav" aria-labelledby="footer-social">
-              <GroupTitle id="footer-social">Social</GroupTitle>
+              <GroupTitle id="footer-social">{t('social')}</GroupTitle>
               <LinkList $stacked>
                 {SOCIAL_LINKS.map((item) => (
                   <li key={item.label}>
@@ -579,7 +571,7 @@ export function Footer() {
             </Group>
 
             <Group as="address">
-              <GroupTitle as="p">Contacts</GroupTitle>
+              <GroupTitle as="p">{t('contacts')}</GroupTitle>
               <LinkList $stacked>
                 {CONTACT_LINKS.map((item) => (
                   <li key={item.label}>
@@ -591,13 +583,13 @@ export function Footer() {
 
             <Location>
               <img src="/footer/location-pin.svg" alt="" aria-hidden />
-              <span>Yerevan, Armenia</span>
+              <span>{t('location')}</span>
             </Location>
           </Groups>
 
           <Copyright>
-            <p>© Copyright {new Date().getFullYear()} Torchyan</p>
-            <p>All Rights Reserved</p>
+            <p>{t('copyright', { year: String(new Date().getFullYear()) })}</p>
+            <p>{t('rights')}</p>
           </Copyright>
         </Column>
       </Inner>

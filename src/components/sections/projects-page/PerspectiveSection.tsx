@@ -8,33 +8,9 @@ import { fontFamily, fontWeight, fontSize, lineHeight, letterSpacing } from '@/s
 import { accents, neutrals, transparents } from '@/styles/tokens/colors';
 import { radius } from '@/styles/tokens/radius';
 import { grid } from '@/styles/tokens/grid';
+import { useTranslations } from 'next-intl';
 
 /* Figma: Positioning / Role Definition — "Switch Perspective" (3155:9825). Desktop only for now. */
-
-const MODES = [
-  {
-    title: 'Design Mode',
-    body: 'Focus on system clarity, visual hierarchy, interaction patterns, and design governance.',
-  },
-  {
-    title: 'Engineering Mode',
-    body: 'Focus on component abstraction, state management, rendering optimization, and scalability planning.',
-  },
-  {
-    title: 'Full-System Mode',
-    body: 'Understand how design and engineering converge into a cohesive product architecture.',
-  },
-];
-
-const ECOSYSTEMS = [
-  'Figma variable systems',
-  'Token-driven design architectures',
-  'React-based component libraries',
-  'CSS-in-JS systems',
-  'Performance auditing frameworks',
-  'Accessibility validation tools',
-  'AI-assisted research and prototyping workflows',
-];
 
 const Section = styled.section`
   display: flex;
@@ -129,12 +105,16 @@ const EcosystemList = styled.ul`
 `;
 
 export function PerspectiveSection() {
+  const t = useTranslations('projectsPage.perspective');
+  const modes = t.raw('modes') as { title: string; body: string }[];
+  const ecosystems = t.raw('ecosystems') as string[];
+
   return (
     <Section>
       <Container>
-        <SectionHeading title="Switch Perspective" subtitle="Each project can be explored through multiple lenses:" />
+        <SectionHeading title={t('title')} subtitle={t('subtitle')} />
         <Cards>
-          {MODES.map((mode) => (
+          {modes.map((mode) => (
             <Card key={mode.title}>
               <CardTitle>{mode.title}</CardTitle>
               <CardBody>{mode.body}</CardBody>
@@ -142,9 +122,9 @@ export function PerspectiveSection() {
           ))}
         </Cards>
         <Ecosystems>
-          <EcosystemsLabel>I leverage modern ecosystems daily:</EcosystemsLabel>
+          <EcosystemsLabel>{t('ecosystemsLabel')}</EcosystemsLabel>
           <EcosystemList>
-            {ECOSYSTEMS.map((item) => (
+            {ecosystems.map((item) => (
               <li key={item}>
                 <Badge $size="large">{item}</Badge>
               </li>

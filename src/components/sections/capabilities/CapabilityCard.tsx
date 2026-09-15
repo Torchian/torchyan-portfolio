@@ -8,6 +8,7 @@ import { neutrals, accents, transparents } from '@/styles/tokens/colors';
 import { radius } from '@/styles/tokens/radius';
 import { border } from '@/styles/tokens/border';
 import { media } from '@/styles/media';
+import { useTranslations } from 'next-intl';
 import type { Capability } from './capabilitiesConfig';
 import { notchedCardShape, type NotchCorner } from './notchedCardShape';
 
@@ -65,7 +66,7 @@ const Card = styled.article<{ $alignEnd: boolean }>`
   border-radius: ${radius.xl}px;
   outline: none;
 
-  ${media.up('l')} {
+  ${media.up('xl')} {
     align-items: ${(p) => (p.$alignEnd ? 'flex-end' : 'flex-start')};
     text-align: ${(p) => (p.$alignEnd ? 'right' : 'left')};
     /* The painted shape is the hit area, so the cut-out and the ring around the
@@ -73,7 +74,7 @@ const Card = styled.article<{ $alignEnd: boolean }>`
     pointer-events: none;
   }
 
-  ${media.down('l')} {
+  ${media.down('xl')} {
     background: ${transparents.transparent4};
     ${gradientEdge}
   }
@@ -101,7 +102,7 @@ const Shape = styled.svg`
     fill: ${accents.primaryDark};
   }
 
-  ${media.down('l')} {
+  ${media.down('xl')} {
     display: none;
   }
 `;
@@ -115,7 +116,7 @@ const Body = styled.div`
   gap: ${scaled(spacing[300])};
   width: 100%;
 
-  ${media.between('m', 'l')} {
+  ${media.between('m', 'xl')} {
     gap: ${spacing[400]}px;
   }
 `;
@@ -130,7 +131,7 @@ const Title = styled.h3`
   color: ${accents.primary};
   pointer-events: auto;
 
-  ${media.up('l')} {
+  ${media.up('xl')} {
     transition: color ${HOVER_TRANSITION};
 
     ${ACTIVE_CARD} & {
@@ -171,12 +172,12 @@ const MainText = styled.div<{ $besideNotch: boolean }>`
   ${(p) =>
     p.$besideNotch &&
     css`
-      ${media.up('l')} {
+      ${media.up('xl')} {
         max-width: ${BESIDE_NOTCH};
       }
     `}
 
-  ${media.between('m', 'l')} {
+  ${media.between('m', 'xl')} {
     font-weight: ${fontWeight.medium};
     font-size: ${fontSize.heading.m}px;
     line-height: ${lineHeight.heading.m}px;
@@ -211,7 +212,7 @@ const Skills = styled.ul`
   list-style: none;
 
   /* Desktop shows these in the centre circle instead; keep them for screen readers. */
-  ${media.up('l')} {
+  ${media.up('xl')} {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -220,7 +221,7 @@ const Skills = styled.ul`
     white-space: nowrap;
   }
 
-  ${media.down('l')} {
+  ${media.down('xl')} {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -241,11 +242,12 @@ const Skills = styled.ul`
 `;
 
 const Skill = styled.li`
-  ${media.down('l')} {
+  ${media.down('xl')} {
     display: flex;
     align-items: center;
     gap: ${spacing[200]}px;
-    white-space: nowrap;
+    /* No nowrap: a skill only wraps inside itself when it's wider than the whole row
+       (long Russian and Armenian skills at 320px); shorter ones still move down whole. */
 
     &:not(:last-child)::after {
       /* Decorative separator — empty alt text keeps screen readers from announcing "times". */
@@ -274,12 +276,12 @@ const Footnote = styled.p<{ $besideNotch: boolean }>`
   ${(p) =>
     p.$besideNotch &&
     css`
-      ${media.up('l')} {
+      ${media.up('xl')} {
         max-width: ${BESIDE_NOTCH};
       }
     `}
 
-  ${media.down('l')} {
+  ${media.down('xl')} {
     font-family: ${fontFamily.body};
     font-weight: ${fontWeight.regular};
     letter-spacing: ${letterSpacing.xs}px;
@@ -294,6 +296,7 @@ export interface CapabilityCardProps {
 
 export function CapabilityCard({ capability, index, notch }: CapabilityCardProps) {
   const edgeId = useId();
+  const t = useTranslations('capabilities');
   const { title, text, footnote, skills } = capability;
   const notchOnTop = notch.startsWith('top');
   const initialShape = notchedCardShape({
@@ -340,7 +343,7 @@ export function CapabilityCard({ capability, index, notch }: CapabilityCardProps
           </ListText>
         )}
         <Footer>
-          <Skills aria-label={`${title} skills`}>
+          <Skills aria-label={t('skillsLabel', { title })}>
             {skills.map((skill) => (
               <Skill key={skill}>{skill}</Skill>
             ))}

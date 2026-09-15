@@ -16,6 +16,7 @@ import { accents, neutrals } from '@/styles/tokens/colors';
 import { radius } from '@/styles/tokens/radius';
 import { grid } from '@/styles/tokens/grid';
 import { media } from '@/styles/media';
+import { useMessages, useTranslations } from 'next-intl';
 import { TIMELINE_ENTRIES } from './timelineConfig';
 import { PROJECTS } from '@/components/sections/selected-work/projectsConfig';
 
@@ -76,6 +77,15 @@ const SectionTitle = styled(Text)`
   ${media.down('m')} {
     font-size: ${fontSize.display.s}px;
     line-height: ${lineHeight.display.s}px;
+  }
+
+  /* Russian and Armenian words don't fit the 320 frame at 58px. */
+  ${media.down('s')} {
+    :lang(ru) &,
+    :lang(hy) & {
+      font-size: ${fontSize.heading.l}px;
+      line-height: ${lineHeight.heading.l}px;
+    }
   }
 `;
 
@@ -319,6 +329,9 @@ const GridImageWrapper = styled.div`
 `;
 
 export function AboutTimelineSection() {
+  const t = useTranslations('about.timeline');
+  const entryContent = useMessages().about.timeline.entries;
+  const entries = TIMELINE_ENTRIES.map((entry) => ({ ...entry, ...entryContent[entry.id] }));
   const gridImages = PROJECTS.flatMap((p) => p.images.slice(0, 4)).slice(0, 16);
   const [activeIndex, setActiveIndex] = useState(0);
   const cardRefs = useRef<(HTMLElement | null)[]>([]);
@@ -350,20 +363,14 @@ export function AboutTimelineSection() {
     return () => observer.disconnect();
   }, []);
 
-  const activeEntry = TIMELINE_ENTRIES[activeIndex] ?? TIMELINE_ENTRIES[0];
+  const activeEntry = entries[activeIndex] ?? entries[0];
 
   return (
     <Section id="timeline">
       <Container>
         <SectionHeading>
-          <SectionTitle as="h2">
-            Building interface systems since 2016
-          </SectionTitle>
-          <SectionSubtitle as="p">
-            I work at the intersection where design decisions meet technical
-            reality. My role is to connect intent, system logic, and execution —
-            without losing quality along the way.
-          </SectionSubtitle>
+          <SectionTitle as="h2">{t('title')}</SectionTitle>
+          <SectionSubtitle as="p">{t('subtitle')}</SectionSubtitle>
         </SectionHeading>
       </Container>
       <ThreeColumn>
@@ -377,7 +384,7 @@ export function AboutTimelineSection() {
           </StickyDateInner>
         </StickyDateWrapper>
         <TimelineList>
-          {TIMELINE_ENTRIES.map((entry, index) => (
+          {entries.map((entry, index) => (
             <TimelineCard
               key={`${entry.company}-${entry.role}`}
               ref={(el) => { cardRefs.current[index] = el; }}
@@ -388,11 +395,11 @@ export function AboutTimelineSection() {
                   <Role as="p">{entry.role}</Role>
                 </CardHeading>
                 <Block>
-                  <BlockLabel as="p">Focus</BlockLabel>
+                  <BlockLabel as="p">{t('focus')}</BlockLabel>
                   <BlockBody as="p">{entry.focus}</BlockBody>
                 </Block>
                 <Block>
-                  <BlockLabel as="p">Impact</BlockLabel>
+                  <BlockLabel as="p">{t('impact')}</BlockLabel>
                   <BlockBody as="p">{entry.impact}</BlockBody>
                 </Block>
                 <CoreGrowth>

@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import styled, { css } from 'styled-components';
 import { Button } from '@/components/primitives';
 import { SectionHeading } from '@/components/composites';
@@ -9,6 +9,7 @@ import { fontFamily, fontWeight, fontSize, lineHeight, letterSpacing } from '@/s
 import { accents, neutrals } from '@/styles/tokens/colors';
 import { radius } from '@/styles/tokens/radius';
 import { grid } from '@/styles/tokens/grid';
+import { useTranslations } from 'next-intl';
 
 /* Figma: Positioning / Role Definition — "Build With Structural Intent" (3155:9848). Desktop only for now. */
 
@@ -100,39 +101,35 @@ const FixedCta = styled.div`
 `;
 
 export function CollaborationSection() {
+  const t = useTranslations('projectsPage.collaboration');
+
   return (
     <Section>
       <Container>
         <SectionHeading
           size="medium"
-          title="Build With Structural Intent"
-          subtitle="If your product demands clarity between design vision and engineering execution, the next step should be deliberate - not improvised."
+          title={t('title')}
+          subtitle={t('subtitle')}
         />
         <Cards>
           <Card $tone="green">
             <CardText>
-              <CardTitle $tone="green">Initiate a System-Level Collaboration</CardTitle>
-              <CardBody>
-                For products requiring scalable UI governance, architectural consistency, and measurable performance
-                improvements - let’s define the foundation before expanding the surface.
-              </CardBody>
+              <CardTitle $tone="green">{t('initiate.title')}</CardTitle>
+              <CardBody>{t('initiate.body')}</CardBody>
             </CardText>
             <Button as={Link} href="/#contact" $variant="secondary">
-              Start a Project Discussion
+              {t('initiate.cta')}
             </Button>
           </Card>
 
           <Card $tone="pink">
             <CardText>
-              <CardTitle $tone="pink">Analyze Case Studies</CardTitle>
-              <CardBody>
-                Explore projects where interface systems, frontend architecture, accessibility integration, and
-                performance refinement were developed under real production constraints.
-              </CardBody>
+              <CardTitle $tone="pink">{t('analyze.title')}</CardTitle>
+              <CardBody>{t('analyze.body')}</CardBody>
             </CardText>
             <FixedCta>
               <Button as={Link} href="/projects/picsart" $variant="secondaryPink">
-                View Random Case
+                {t('analyze.cta')}
               </Button>
             </FixedCta>
           </Card>

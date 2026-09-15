@@ -5,16 +5,9 @@ import { spacing } from '@/styles/tokens/spacing';
 import { fontFamily, fontWeight, fontSize, lineHeight, letterSpacing } from '@/styles/tokens/typography';
 import { accents, neutrals } from '@/styles/tokens/colors';
 import { grid } from '@/styles/tokens/grid';
+import { useTranslations } from 'next-intl';
 
 /* Figma: hero_section (3155:9791). Desktop only for now. */
-
-const POINTS = [
-  'Deconstructing ambiguity into structure',
-  'Translating business goals into user flows',
-  'Architecting component ecosystems',
-  'Aligning visual language with engineering reality',
-  'Optimizing for accessibility, performance, and long-term maintainability',
-];
 
 const Section = styled.section`
   display: flex;
@@ -92,19 +85,19 @@ const Points = styled.ul`
 `;
 
 export function ProjectsHeroSection() {
+  const t = useTranslations('projectsPage.hero');
+  const points = t.raw('points') as string[];
+
   return (
     <Section id="projects-hero" aria-labelledby="projects-title">
       <Container>
-        <Title id="projects-title">Projects as Structured Systems</Title>
+        <Title id="projects-title">{t('title')}</Title>
         <Description>
-          <p>I don’t treat projects as isolated deliverables.</p>
-          <p>
-            Each one is a layered product architecture - where research, interaction logic, visual systems, and
-            engineering constraints are resolved into a scalable interface.
-          </p>
+          <p>{t('lead')}</p>
+          <p>{t('body')}</p>
         </Description>
         <Points>
-          {POINTS.map((point) => (
+          {points.map((point) => (
             <li key={point}>{point}</li>
           ))}
         </Points>

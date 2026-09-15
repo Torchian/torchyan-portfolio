@@ -4,6 +4,7 @@
 import styled, { css, keyframes } from 'styled-components';
 import { spacing } from '@/styles/tokens/spacing';
 import { neutrals } from '@/styles/tokens/colors';
+import { useTranslations } from 'next-intl';
 
 /*
  * Figma: Partners Carousel LTR (3053:13727). A 148px strip of partner logos,
@@ -121,6 +122,7 @@ export interface PartnersCarouselProps {
 }
 
 export function PartnersCarousel({ direction = 'ltr', seconds = 80, logos = PARTNERS }: PartnersCarouselProps) {
+  const t = useTranslations('partners');
   const row = (copy: boolean) => (
     <Row aria-hidden={copy || undefined}>
       {logos.map((partner) => (
@@ -132,7 +134,7 @@ export function PartnersCarousel({ direction = 'ltr', seconds = 80, logos = PART
   );
 
   return (
-    <Strip aria-label="Partners">
+    <Strip aria-label={t('label')}>
       <Track $direction={direction} $seconds={seconds}>
         {row(false)}
         {row(true)}

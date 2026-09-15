@@ -2,7 +2,7 @@
 
 import styled from 'styled-components';
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import { Display, Text, Button } from '@/components/primitives';
 import { spacing } from '@/styles/tokens/spacing';
 import {
@@ -18,6 +18,7 @@ import { grid } from '@/styles/tokens/grid';
 import { media } from '@/styles/media';
 import { SectionContainer } from '@/components/layouts';
 import { zIndex } from '@/styles/tokens/z-index';
+import { useTranslations } from 'next-intl';
 
 const Section = styled.section`
   display: flex;
@@ -140,6 +141,19 @@ const ShortDescription = styled(Text)`
   margin: 0;
   width: 100%;
   align-self: stretch;
+
+  /* Russian and Armenian words don't fit the 320 frame at 36px. */
+  ${media.down('s')} {
+    :lang(ru) & {
+      font-size: ${fontSize.heading.m}px;
+      line-height: ${lineHeight.heading.m}px;
+    }
+
+    :lang(hy) & {
+      font-size: ${fontSize.heading.s}px;
+      line-height: ${lineHeight.heading.s}px;
+    }
+  }
 `;
 
 const NameHighlight = styled.span`
@@ -206,27 +220,20 @@ const CardTitle = styled(Text)`
   flex: none;
 `;
 
-const POSITIONING_CARDS = [
-  'UI architecture & design systems',
-  'Product interface design',
-  'Frontend implementation',
-  'Accessibility & performance',
-  'Long-term scalability',
-] as const;
-
 export function AboutHeroSection() {
+  const t = useTranslations('about.hero');
+  const cards = t.raw('cards') as string[];
+
   return (
     <Section id="about">
       <HeroSectionContainer>
-        <HeroTitle as="h1">
-          I design systems that live longer than trends
-        </HeroTitle>
+        <HeroTitle as="h1">{t('title')}</HeroTitle>
         <BottomRow>
-          <Label>Based in Armenia</Label>
+          <Label>{t('basedIn')}</Label>
           <Button as={Link} href="/#work" $variant="secondary">
-            View selected work
+            {t('cta')}
           </Button>
-          <Label>Working globally</Label>
+          <Label>{t('workingGlobally')}</Label>
         </BottomRow>
         <HeroImageWrapper>
           <HeroImageSharp>
@@ -243,23 +250,13 @@ export function AboutHeroSection() {
       <PositioningContainer>
         <PositioningText>
           <ShortDescription as="p">
-            I&apos;m <NameHighlight>Stepan Torchyan</NameHighlight> — a Design
-            Engineer working between UI architecture, product design, and frontend
-            engineering. Since 2016, I&apos;ve helped teams turn complex ideas
-            into scalable, accessible interfaces. Most teams separate design and
-            implementation. I build the bridge.
+            {t.rich('intro', { name: (chunks) => <NameHighlight>{chunks}</NameHighlight> })}
           </ShortDescription>
-          <ShortDescription as="p">
-            From defining interaction logic and component structure to shipping
-            accessible, multilingual, production-grade UI — I ensure ideas
-            don&apos;t degrade during execution.
-          </ShortDescription>
-          <ShortDescription as="p">
-            Because good design is fragile. Systems make it resilient.
-          </ShortDescription>
+          <ShortDescription as="p">{t('execution')}</ShortDescription>
+          <ShortDescription as="p">{t('resilience')}</ShortDescription>
         </PositioningText>
         <PositioningCards>
-          {POSITIONING_CARDS.map((title) => (
+          {cards.map((title) => (
             <Card key={title}>
               <CardImage aria-hidden />
               <CardTitle as="p">{title}</CardTitle>

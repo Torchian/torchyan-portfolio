@@ -8,6 +8,7 @@ import { fontFamily, fontWeight, fontSize, lineHeight, letterSpacing } from '@/s
 import { accents, neutrals } from '@/styles/tokens/colors';
 import { grid } from '@/styles/tokens/grid';
 import { media } from '@/styles/media';
+import { useTranslations } from 'next-intl';
 
 /*
  * Figma: hero_section — 1920 (3285:8498), 1440 (2670:10805), 1280 (2670:11152),
@@ -23,8 +24,6 @@ import { media } from '@/styles/media';
  * From the 1024 frame up, the lines background and both side portraits are
  * SideCharacters (SiteLayout); below it SideCharacters keeps only the lines.
  */
-
-const SKILLS = ['Product Design', 'Design Engineering', 'UI Architecture', 'Design Systems', 'Experiments'];
 
 const PORTRAIT = { width: 768, height: 768 } as const;
 
@@ -291,21 +290,21 @@ const Skills = styled.ul`
 `;
 
 export function HeroSection() {
+  const t = useTranslations('hero');
+  const skills = t.raw('skills') as string[];
+
   return (
     <Section aria-labelledby="hero-name">
       <Glow aria-hidden />
 
       <Container>
         <Body>
-          <Name id="hero-name">Stepan Torchyan</Name>
-          <Role>Design Engineer</Role>
-          <Description>
-            I work between design and engineering, connecting product thinking, UI architecture, and front-end
-            execution into one coherent process.
-          </Description>
+          <Name id="hero-name">{t('name')}</Name>
+          <Role>{t('role')}</Role>
+          <Description>{t('description')}</Description>
           <CtaSlot>
             <Button as="a" href="#work" $variant="primary">
-              See My Work
+              {t('cta')}
             </Button>
           </CtaSlot>
           <CenterPortrait aria-hidden>
@@ -320,8 +319,8 @@ export function HeroSection() {
           </CenterPortrait>
         </Body>
 
-        <Skills aria-label="Disciplines">
-          {SKILLS.map((skill) => (
+        <Skills aria-label={t('skillsLabel')}>
+          {skills.map((skill) => (
             <li key={skill}>{skill}</li>
           ))}
         </Skills>

@@ -7,6 +7,7 @@ import { spacing } from '@/styles/tokens/spacing';
 import { fontSize, lineHeight, fontWeight, fontFamily } from '@/styles/tokens/typography';
 import { neutrals } from '@/styles/tokens/colors';
 import { media } from '@/styles/media';
+import { useMessages } from 'next-intl';
 import type { ProjectConfig } from '@/components/sections/selected-work/projectsConfig';
 
 const Section = styled.section<{ $gradient: string }>`
@@ -67,17 +68,19 @@ export interface CaseStudyHeroSectionProps {
 }
 
 export function CaseStudyHeroSection({ project }: CaseStudyHeroSectionProps) {
+  const content = useMessages().projects[project.slug];
+
   return (
     <Section $gradient={project.gradient}>
       <Content>
         <ProjectMeta
           company={project.company}
-          description={project.title}
-          tags={project.roles}
+          description={content.title}
+          tags={content.roles}
         />
-        <Title as="p">{project.description}</Title>
+        <Title as="p">{content.description}</Title>
         <MetaRow>
-          <span>{project.field}</span>
+          <span>{content.field}</span>
           <span aria-hidden>·</span>
           <span>{project.year}</span>
         </MetaRow>

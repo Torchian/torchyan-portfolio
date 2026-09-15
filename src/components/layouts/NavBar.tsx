@@ -1,8 +1,8 @@
 'use client';
 
 import { useRef, useState, useEffect, useLayoutEffect, useCallback, useId } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { Link } from '@/i18n/navigation';
+import { usePathname } from '@/i18n/navigation';
 import styled, { css } from 'styled-components';
 import { zIndex } from '@/styles/tokens/z-index';
 import { duration, easing } from '@/styles/tokens/motion';
@@ -12,7 +12,9 @@ import { accents, neutrals } from '@/styles/tokens/colors';
 import { glass, blur } from '@/styles/tokens/effects';
 import { radius } from '@/styles/tokens/radius';
 import { media, mediaQueries } from '@/styles/media';
-import { Button } from '@/components/primitives';
+import { Button, LanguageSwitcher, LogoMark, SoundToggle } from '@/components/primitives';
+import { playSound } from '@/lib/sound';
+import { useTranslations } from 'next-intl';
 import { border } from '@/styles/tokens/border';
 
 /*
@@ -21,17 +23,22 @@ import { border } from '@/styles/tokens/border';
  *  - 480–1024 frames (321–1024px): logo · Contact Me · menu button (CTA, 2562:2297).
  *  - 320 frame (up to 320px): logo · menu button.
  * The link pill marks the current page green with a green glow above it; the
- * glow follows the pointer while hovering the pill.
+ * glow follows the pointer while hovering the pill, with a swoosh.
+ * Language switcher and sound toggle (provisional, not in Figma yet): flanking the link pill
+ * from 1025px — language on the left, sound on the right — and rows at the bottom of the menu
+ * panel below that.
  */
 
 const NAV_LINKS = [
-  { label: 'Home', href: '/' },
-  { label: 'Projects', href: '/projects' },
-  { label: 'Case Studies', href: '/case-studies' },
-  { label: 'About', href: '/about' },
-];
+  { key: 'home', href: '/' },
+  { key: 'projects', href: '/projects' },
+  { key: 'caseStudies', href: '/case-studies' },
+  { key: 'about', href: '/about' },
+] as const;
 
 const TRANSITION = `${duration.slowest} ${easing.spring}`;
+/** How long the pointer can be between links before the glow heads back to the current page's link. */
+const LINE_RETURN_DELAY_MS = 120;
 const FAST = `${duration.normal} ${easing.out}`;
 
 /** Index of the link for the current route; Home when nothing else matches. */
@@ -57,7 +64,7 @@ const Header = styled.header`
   }
 `;
 
-/** Figma Logo (2562:4479): 64px on desktop, 48px on tablet, 24px on mobile. */
+/** Figma Logo (2562:4479): 48px on desktop and tablet, 24px on mobile. */
 const LogoLink = styled(Link)`
   display: flex;
   align-items: center;
@@ -65,15 +72,8 @@ const LogoLink = styled(Link)`
   text-decoration: none;
 
   svg {
-    width: 64px;
-    height: 64px;
-  }
-
-  ${media.down('xl')} {
-    svg {
-      width: 48px;
-      height: 48px;
-    }
+    width: 48px;
+    height: 48px;
   }
 
   ${media.down('m')} {
@@ -84,11 +84,40 @@ const LogoLink = styled(Link)`
   }
 `;
 
-const NavCenter = styled.nav`
+/**
+ * Desktop (from 1025px): the language switcher, the link pill and the sound toggle as one
+ * centred row. The side columns are equal, so the pill stays exactly centred even though the
+ * switcher (94px) is wider than the toggle (48px).
+ */
+const NavCluster = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
   display: none;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: ${spacing[150]}px;
+  /* Its own content width: positioned from the middle, it would otherwise be squeezed into
+     half the header and the link pill would shrink under its links. */
+  width: max-content;
+  transform: translate(-50%, -50%);
+
+  > :first-child {
+    justify-self: end;
+  }
+
+  > :last-child {
+    justify-self: start;
+  }
+
+  ${media.up('xl')} {
+    display: grid;
+  }
+`;
+
+const NavCenter = styled.nav`
+  position: relative;
+  display: flex;
   align-items: center;
   gap: ${spacing[800]}px;
   height: ${spacing[600]}px;
@@ -99,11 +128,6 @@ const NavCenter = styled.nav`
   border-radius: ${radius.round}px;
   backdrop-filter: blur(${blur.glassMedium});
   -webkit-backdrop-filter: blur(${blur.glassMedium});
-  transform: translate(-50%, -50%);
-
-  ${media.up('xl')} {
-    display: flex;
-  }
 `;
 
 const LineContainer = styled.div`
@@ -176,8 +200,12 @@ const NavItem = styled(Link)<{ $active?: boolean }>`
   }
 `;
 
-const ContactButton = styled.div`
+/** Contact Me (not in the 320 frame). */
+const HeaderActions = styled.div`
+  display: flex;
   flex-shrink: 0;
+  align-items: center;
+  gap: ${spacing[150]}px;
 
   ${media.down('s')} {
     display: none;
@@ -309,12 +337,35 @@ const MenuItem = styled(Link)<{ $active?: boolean }>`
   }
 `;
 
+/* Provisional, like the panel: the language and sound settings under the links, behind one divider. */
+const MenuSetting = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: ${spacing[100]}px;
+  padding-top: ${spacing[200]}px;
+  border-top: ${border.medium}px solid ${glass.border};
+
+  & + & {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+  }
+  font-family: ${fontFamily.heading};
+  font-weight: ${fontWeight.semibold};
+  font-size: ${fontSize.heading.s}px;
+  line-height: ${lineHeight.heading.s}px;
+  letter-spacing: ${letterSpacing.xs}px;
+  color: ${neutrals[100]};
+`;
+
 export function NavBar() {
   const headerRef = useRef<HTMLElement>(null);
   const navRef = useRef<HTMLElement>(null);
   const linkRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
   const menuId = useId();
+  const t = useTranslations('nav');
 
   const pathname = usePathname();
   const activeIndex = activeIndexFor(pathname);
@@ -324,6 +375,29 @@ export function NavBar() {
   const [menuOpenOn, setMenuOpenOn] = useState<string | null>(null);
   const menuOpen = menuOpenOn === pathname;
   const closeMenu = useCallback(() => setMenuOpenOn(null), []);
+  const soundLabelId = useId();
+
+  const lineReturnTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
+
+  // The glow slides to the hovered link, and back to the current page's link once the pointer is off
+  // the links — in the gaps between them too, not only outside the pill. The short delay lets the
+  // pointer cross from one link to the next without the glow bouncing home in between.
+  // Links come from the event: reading linkRefs here, during render, makes the React Compiler skip the component.
+  const moveLine = (index: number | null, link: Element | null) => {
+    if ((index ?? activeIndex) !== lineIndex) playSound('navLine', { origin: link });
+    setHoverIndex(index);
+  };
+
+  const enterLink = (index: number, link: Element) => {
+    clearTimeout(lineReturnTimer.current);
+    moveLine(index, link);
+  };
+
+  const leaveLink = (link: Element) => {
+    const current = link.parentElement?.querySelector('[aria-current="page"]') ?? null;
+    clearTimeout(lineReturnTimer.current);
+    lineReturnTimer.current = setTimeout(() => moveLine(null, current), LINE_RETURN_DELAY_MS);
+  };
 
   const applyLinePosition = useCallback((index: number) => {
     const nav = navRef.current;
@@ -374,45 +448,47 @@ export function NavBar() {
 
   return (
     <Header ref={headerRef}>
-      <LogoLink href="/" aria-label="Home">
-        <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-          <path d="M5.39297 14.2218C1.87677 19.4841 5.53299e-07 25.671 0 32V64H10.6667L10.6667 32C10.6667 27.7805 11.9168 23.6557 14.2611 20.1473C16.6053 16.6388 19.9373 13.9043 23.8357 12.2896C27.734 10.6748 32.0237 10.2524 36.1621 11.0755C40.3006 11.8987 44.102 13.9306 47.0857 16.9143C50.0694 19.898 52.1013 23.6994 52.9245 27.8379C53.7477 31.9763 53.3252 36.266 51.7104 40.1643C50.0957 44.0627 47.3612 47.3947 43.8527 49.7389C40.3443 52.0832 36.2195 53.3344 32 53.3344L21.3333 53.3333V64H32C38.329 64 44.5159 62.1232 49.7782 58.607C55.0406 55.0908 59.1421 50.0931 61.5641 44.2459C63.9861 38.3987 64.6198 31.9645 63.3851 25.7571C62.1504 19.5497 59.1027 13.8479 54.6274 9.3726C50.1521 4.89732 44.4503 1.84961 38.2429 0.614886C32.0355 -0.619842 25.6014 0.0138638 19.7541 2.43587C13.9069 4.85787 8.90918 8.95939 5.39297 14.2218Z" fill={neutrals[100]}/>
-          <path d="M41.0874 23.7692C42.673 23.1124 44.305 22.5859 45.9674 22.1927C47.3255 24.1269 48.2734 26.3314 48.7387 28.6705C48.9862 29.9146 49.0929 31.1758 49.0612 32.431C47.732 32.7027 46.4285 33.1012 45.169 33.6229C42.5806 34.6951 40.2287 36.2666 38.2476 38.2476C36.2665 40.2287 34.6951 42.5806 33.6229 45.169C33.1012 46.4285 32.7027 47.732 32.431 49.0612L21.619 49.0667C21.9871 46.3311 22.7083 43.6486 23.7692 41.0875C25.3773 37.2051 27.7344 33.6774 30.7059 30.7059C33.6774 27.7345 37.205 25.3773 41.0874 23.7692Z" fill={neutrals[100]}/>
-        </svg>
+      <LogoLink href="/" aria-label={t('home')}>
+        <LogoMark />
       </LogoLink>
 
-      <NavCenter ref={navRef} aria-label="Main" onMouseLeave={() => setHoverIndex(null)}>
-        <LineContainer aria-hidden>
-          <Line />
-        </LineContainer>
-        {NAV_LINKS.map((link, i) => (
-          <NavItem
-            key={link.label}
-            href={link.href}
-            $active={i === activeIndex}
-            aria-current={i === activeIndex ? 'page' : undefined}
-            ref={(el) => {
-              linkRefs.current[i] = el;
-            }}
-            onMouseEnter={() => setHoverIndex(i)}
-          >
-            {link.label}
-          </NavItem>
-        ))}
-      </NavCenter>
+      <NavCluster>
+        <LanguageSwitcher />
+        <NavCenter ref={navRef} aria-label={t('mainLabel')}>
+          <LineContainer aria-hidden>
+            <Line />
+          </LineContainer>
+          {NAV_LINKS.map((link, i) => (
+            <NavItem
+              key={link.key}
+              href={link.href}
+              $active={i === activeIndex}
+              aria-current={i === activeIndex ? 'page' : undefined}
+              ref={(el) => {
+                linkRefs.current[i] = el;
+              }}
+              onMouseEnter={(e) => enterLink(i, e.currentTarget)}
+              onMouseLeave={(e) => leaveLink(e.currentTarget)}
+            >
+              {t(link.key)}
+            </NavItem>
+          ))}
+        </NavCenter>
+        <SoundToggle />
+      </NavCluster>
 
-      <ContactButton>
+      <HeaderActions>
         <Button as={Link} href="/#contact" $variant="primary">
-          Contact Me
+          {t('contactMe')}
         </Button>
-      </ContactButton>
+      </HeaderActions>
 
       <MenuButton
         type="button"
         $open={menuOpen}
         aria-expanded={menuOpen}
         aria-controls={menuId}
-        aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+        aria-label={menuOpen ? t('closeMenu') : t('openMenu')}
         onClick={() => setMenuOpenOn(menuOpen ? null : pathname)}
       >
         <span />
@@ -420,21 +496,29 @@ export function NavBar() {
         <span />
       </MenuButton>
 
-      <MenuPanel id={menuId} $open={menuOpen} aria-label="Menu" inert={!menuOpen}>
+      <MenuPanel id={menuId} $open={menuOpen} aria-label={t('menuLabel')} inert={!menuOpen}>
         {NAV_LINKS.map((link, i) => (
           <MenuItem
-            key={link.label}
+            key={link.key}
             href={link.href}
             $active={i === activeIndex}
             aria-current={i === activeIndex ? 'page' : undefined}
             onClick={closeMenu}
           >
-            {link.label}
+            {t(link.key)}
           </MenuItem>
         ))}
         <MenuItem href="/#contact" onClick={closeMenu}>
-          Contact Me
+          {t('contactMe')}
         </MenuItem>
+        <MenuSetting>
+          <span>{t('language')}</span>
+          <LanguageSwitcher />
+        </MenuSetting>
+        <MenuSetting>
+          <span id={soundLabelId}>{t('sound')}</span>
+          <SoundToggle aria-labelledby={soundLabelId} />
+        </MenuSetting>
       </MenuPanel>
     </Header>
   );

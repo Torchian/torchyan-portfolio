@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { spacing } from '@/styles/tokens/spacing';
 import { ProjectShowcase } from './ProjectShowcase';
 import { SHOWCASE_PROJECTS } from './projectShowcaseConfig';
+import { useTranslations } from 'next-intl';
 
 /** Figma: Projects (3155:9805). The collage starts on the right and alternates row by row. */
 const Section = styled.section`
@@ -15,8 +16,10 @@ const Section = styled.section`
 `;
 
 export function ProjectsListSection() {
+  const t = useTranslations('projectsPage');
+
   return (
-    <Section aria-label="Projects">
+    <Section aria-label={t('listLabel')}>
       {SHOWCASE_PROJECTS.map((project, i) => (
         <ProjectShowcase key={project.id} project={project} mediaSide={i % 2 === 0 ? 'right' : 'left'} />
       ))}

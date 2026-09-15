@@ -5,16 +5,19 @@ Deferred items from the homepage review (2026-09-14). Numbers match the review.
 ## Waiting on design or assets
 
 - [ ] **(10) Years map locations popup** — design coming. The same work should make the locations reachable by keyboard and screen readers (the dots are `aria-hidden`, with hover-only titles).
-- [ ] **(9) Image alt text** — after the new image sets arrive. Collage and decorative images get `alt=""`, and duplicates are hidden from screen readers. Affects Selected Work (108 images, "Picsart" ×48), `/projects`, `/projects/[slug]` and the About timeline grid.
+- [ ] **(9) Image alt text** — after the new image sets arrive. Collage and decorative images get `alt=""`, and duplicates are hidden from screen readers. Affects `/projects`, `/projects/[slug]` and the About timeline grid.
 - [ ] **Mobile menu panel** — provisional; it isn't in the Figma file yet.
+- [ ] **Placement of the sound and language controls** — the components now follow Figma (Sound CTA 3690:10694, language_switcher 3690:10528), but where they sit in the header isn't designed yet. Right now they flank the link pill above 1024px (language on the left, sound on the right), and appear as "Language" / "Sound" rows in the menu panel at 1024px and below.
+- [ ] **Page loader** — provisional; it isn't in the Figma file yet. It's a full-screen logo with a green glint, shown on full page loads until the layout settles (`src/components/layouts/PageLoader.tsx`, see `docs/adr/0003-page-load-reveal.md`).
+- [ ] **More sounds** — hover, focus/active, fade-in/out and random-motion cues, once the assets arrive. Each one is a cue in `src/lib/sound/sounds.ts` plus a `soundTriggers(...)` attribute or a `playSound(...)` call (see `docs/adr/0001-sound-system.md`).
 
 ## Later
 
 - [ ] **(2) Contact form sends nothing** — submit only calls `preventDefault()`. To do: pick a service or endpoint, mark fields `required` and validate them, add success and error states, and call `gaEvents.contactFormSubmit`.
 - [ ] **(7) Selected Work snap on phones** — cards are `100vh` tall but the snap maths uses `innerHeight`. Snaps drift on browsers with a collapsing toolbar. Do this with the project components update.
-- [ ] **(8) Soulone card contrast** — white header text on `#8FAF52` is 2.3:1. It needs 4.5:1, or 3:1 for the large title.
+- [x] **(8) Soulone card contrast** — resolved 2026-09-15: every Selected Work card now has the dark background (Figma 2300:1687); the brand gradient is only on the resting CTA.
 - [ ] **(11) Analytics** — a bigger piece of work, planned for after the project coding is finished. Only applies when the GA / Yandex env vars are set. Yandex Webvisor records sessions, including typing in the contact form, and both trackers load without consent. Options: turn Webvisor off, exclude the form fields, or add a consent banner.
-- [ ] **ProjectStickyCard no-images fallback** (isometric grid) — unreachable with the current data. Review it with the project components update.
+- [x] **ProjectStickyCard no-images fallback** — removed 2026-09-15 with the grid rebuild (`docs/adr/0004-selected-work-grids.md`).
 
 ## Pending decision
 
@@ -39,3 +42,15 @@ Deferred items from the homepage review (2026-09-14). Numbers match the review.
 - [ ] **"View Random Case"** — links to `/projects/picsart` for now; decide whether it should pick a random case.
 - [ ] **Collage hover state** — each collage component in Figma has a hidden "CTA Secondary"; the hover state isn't built.
 - [ ] **SoulOne collage image quality** — Figma's export caps these tall screenshots at 4096px high, so they arrive only 142–455px wide and look soft on retina. Replace them with the original screenshots.
+
+## Localization (2026-09-15)
+
+English is the default; Russian and Armenian live under /ru and /hy. See `docs/adr/0002-localization.md`.
+
+- [ ] **Native review of the RU and HY copy** — `messages/ru.json` and `messages/hy.json` are drafts. Check tone and terminology before launch, then run `npm run check:messages`.
+- [ ] **Armenian typography** — Bainsley only has 400 and 700, so Medium and Black text on /hy renders Regular or Bold. Review the display headings, and add `:lang(hy)` letter-spacing overrides if Gilroy's tracking looks off.
+- [ ] **Footer name artwork is English only** — STEPAN, TORCHYAN and "Designer × Engineer" are SVG lettering. Decide whether /ru and /hy need their own.
+- [ ] **Country detection depends on the host** — `src/i18n/detection.ts` reads the Vercel, Cloudflare and CloudFront country headers. On a host without any of them, detection falls back to the browser language. Add that host's header if needed.
+- [ ] **All-projects card copy** — `selectedWork.allProjects` (company, roles, title, description, field) is a draft in all three languages; the Figma file only designs its grid (2350:656).
+- [ ] **Contact form values are localized** — the option groups submit the translated labels. When the form gets an endpoint (item 2), submit stable ids instead.
+

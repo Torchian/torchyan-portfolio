@@ -1,6 +1,7 @@
 'use client';
 
 import styled from 'styled-components';
+import { useTranslations } from 'next-intl';
 import { Container } from '@/components/primitives';
 import { WorldMapSVG, SectionHeading, type MapLocation } from '@/components/composites';
 import { spacing } from '@/styles/tokens/spacing';
@@ -34,28 +35,45 @@ const MapWrapper = styled.div`
   max-width: 1200px;
 `;
 
-const LOCATIONS: MapLocation[] = [
-  { label: 'San Francisco, USA', year: 2023, x: 9, y: 31 },
-  { label: 'New York, USA', year: 2022, x: 24, y: 23 },
-  { label: 'Miami, USA', year: 2021, x: 20, y: 37 },
-  { label: 'Sweden', year: 2024, x: 50, y: 16 },
-  { label: 'Berlin, Germany', year: 2022, x: 48, y: 21 },
-  { label: 'Switzerland', year: 2021, x: 49, y: 24 },
-  { label: 'Moscow, Russia', year: 2020, x: 58, y: 18 },
-  { label: 'Yerevan, Armenia', year: 2019, x: 59, y: 29 },
-  { label: 'Cyprus', year: 2021, x: 56, y: 33 },
-  { label: 'Sydney, Australia', year: 2023, x: 92, y: 84 },
+type LocationId =
+  | 'sanFrancisco'
+  | 'newYork'
+  | 'miami'
+  | 'sweden'
+  | 'berlin'
+  | 'switzerland'
+  | 'moscow'
+  | 'yerevan'
+  | 'cyprus'
+  | 'sydney';
+
+/** Place names live in messages/*.json under yearsMap.locations. */
+const LOCATIONS: (Omit<MapLocation, 'label'> & { id: LocationId })[] = [
+  { id: 'sanFrancisco', year: 2023, x: 9, y: 31 },
+  { id: 'newYork', year: 2022, x: 24, y: 23 },
+  { id: 'miami', year: 2021, x: 20, y: 37 },
+  { id: 'sweden', year: 2024, x: 50, y: 16 },
+  { id: 'berlin', year: 2022, x: 48, y: 21 },
+  { id: 'switzerland', year: 2021, x: 49, y: 24 },
+  { id: 'moscow', year: 2020, x: 58, y: 18 },
+  { id: 'yerevan', year: 2019, x: 59, y: 29 },
+  { id: 'cyprus', year: 2021, x: 56, y: 33 },
+  { id: 'sydney', year: 2023, x: 92, y: 84 },
 ];
 
 export function YearsMapSection() {
+  const t = useTranslations('yearsMap');
+  const tLocations = useTranslations('yearsMap.locations');
+  const locations = LOCATIONS.map((location) => ({ ...location, label: tLocations(location.id) }));
+
   return (
     <Section id="years-map">
       <Container>
         <Content>
           <MapWrapper>
-            <WorldMapSVG locations={LOCATIONS} />
+            <WorldMapSVG locations={locations} alt={t('mapAlt')} />
           </MapWrapper>
-          <StyledSectionHeading title="Years of Work, Mapped" />
+          <StyledSectionHeading title={t('title')} />
         </Content>
       </Container>
     </Section>

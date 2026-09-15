@@ -1,7 +1,7 @@
 'use client';
 
 import styled from 'styled-components';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import { Button, Container, Text } from '@/components/primitives';
 import { spacing } from '@/styles/tokens/spacing';
 import {
@@ -13,6 +13,7 @@ import {
 import { accents, neutrals } from '@/styles/tokens/colors';
 import { radius } from '@/styles/tokens/radius';
 import { media } from '@/styles/media';
+import { useTranslations } from 'next-intl';
 
 const Section = styled.section`
   padding: ${spacing[1000]}px 0;
@@ -106,59 +107,52 @@ const BottomLine = styled(Text)`
 `;
 
 export function AboutCTASection() {
+  const t = useTranslations('about.cta');
+  const intro = t.raw('intro') as string[];
+
   return (
     <Section>
       <Inner>
         <Intro>
-          <IntroParagraph as="p">
-            I stay relentlessly current - not by consuming trends, but by testing them in production.
-          </IntroParagraph>
-          <IntroParagraph as="p">
-            Every day I work with modern design systems, evolving frontend architectures, and AI-driven creative tools that accelerate research, media generation, and development workflows.
-          </IntroParagraph>
-          <IntroParagraph as="p">
-            From Figma ecosystems to code editors, performance tooling, and generative systems - I treat technology as a thinking partner, not just an instrument.
-          </IntroParagraph>
-          <IntroParagraph as="p">
-            The result is simple: clarity in complexity, structure in chaos, and products that are ready for what’s next.
-          </IntroParagraph>
+          {intro.map((paragraph) => (
+            <IntroParagraph as="p" key={paragraph}>
+              {paragraph}
+            </IntroParagraph>
+          ))}
         </Intro>
 
         <CardsRow>
           <Card $bg="green">
             <CardTitle as="h2" $accent="green">
-              Let&apos;s Build Something That Scales
+              {t('build.title')}
             </CardTitle>
             <CardBody as="p">
-              If you&apos;re building a product that requires system thinking, precision,
-              and long-term architectural clarity—let&apos;s talk.
+              {t('build.body')}
             </CardBody>
             <CardFooter>
               <Button as={Link} href="#contact" $variant="secondary">
-                Start a conversation
+                {t('build.cta')}
               </Button>
             </CardFooter>
           </Card>
 
           <Card $bg="purple">
             <CardTitle as="h2" $accent="pink">
-              See How I Think in Practice
+              {t('practice.title')}
             </CardTitle>
             <CardBody as="p">
-              Explore selected case studies, architecture decisions, and real-world
-              implementations.
+              {t('practice.body')}
             </CardBody>
             <CardFooter>
               <Button as={Link} href="/projects" $variant="secondaryPink">
-                View selected work
+                {t('practice.cta')}
               </Button>
             </CardFooter>
           </Card>
         </CardsRow>
 
         <BottomLine as="p">
-          Currently exploring advanced UI systems, AI-assisted workflows, and
-          performance-first interfaces.
+          {t('bottomLine')}
         </BottomLine>
       </Inner>
     </Section>

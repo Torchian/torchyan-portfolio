@@ -5,7 +5,6 @@ import type { UIStore, ThemeMode } from './types';
 
 export const useUIStore = create<UIStore>((set) => ({
   theme: 'dark',
-  soundEnabled: true,
   menuOpen: false,
   reducedMotion: false,
 
@@ -25,22 +24,6 @@ export const useUIStore = create<UIStore>((set) => ({
         localStorage.setItem('theme', next);
       }
       return { theme: next };
-    }),
-
-  setSoundEnabled: (enabled: boolean) => {
-    set({ soundEnabled: enabled });
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('soundEnabled', String(enabled));
-    }
-  },
-
-  toggleSound: () =>
-    set((state) => {
-      const next = !state.soundEnabled;
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('soundEnabled', String(next));
-      }
-      return { soundEnabled: next };
     }),
 
   setMenuOpen: (open: boolean) => set({ menuOpen: open }),

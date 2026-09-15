@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import styled, { css } from 'styled-components';
 import { Badge, Button } from '@/components/primitives';
 import { spacing } from '@/styles/tokens/spacing';
@@ -9,6 +9,7 @@ import { accents, neutrals } from '@/styles/tokens/colors';
 import { radius } from '@/styles/tokens/radius';
 import { grid } from '@/styles/tokens/grid';
 import { ProjectCollage } from './ProjectCollage';
+import { useMessages, useTranslations } from 'next-intl';
 import type { ShowcaseProject } from './projectShowcaseConfig';
 
 /*
@@ -24,8 +25,7 @@ const Row = styled.article`
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   align-items: center;
-  gap: ${spacing[300]}px;
-  height: 640px;
+  gap: ${spacing[200]}px;
 `;
 
 const Info = styled.div`
@@ -33,11 +33,11 @@ const Info = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  gap: ${spacing[600]}px;
+  gap: ${spacing[400]}px;
   min-width: 0;
   max-width: ${grid.maxWidth}px;
   height: 100%;
-  padding: ${spacing[500]}px ${spacing[800]}px;
+  padding: ${spacing[500]}px ${spacing[400]}px;
 `;
 
 const Heading = styled.div`
@@ -70,12 +70,14 @@ const Roles = styled.ul`
   line-height: ${lineHeight.heading.s}px;
   letter-spacing: ${letterSpacing.xs}px;
   color: ${accents.primary};
-  white-space: nowrap;
+  /* Roles move to a second line as a whole when they don't fit (longer Russian and Armenian titles). */
+  flex-wrap: wrap;
 
   li {
     display: flex;
     align-items: center;
     gap: ${spacing[150]}px;
+    white-space: nowrap;
   }
 
   li:not(:last-child)::after {
@@ -117,7 +119,7 @@ const TechStack = styled.ul`
 const Media = styled.div<{ $side: MediaSide }>`
   position: relative;
   min-width: 0;
-  height: 640px;
+  height: 560px;
   overflow: hidden;
   /* clip, not just hidden: nothing (focus, scrollIntoView) can scroll the collage inside its box. */
   overflow: clip;
@@ -139,31 +141,36 @@ export interface ProjectShowcaseProps {
 }
 
 export function ProjectShowcase({ project, mediaSide }: ProjectShowcaseProps) {
+  const t = useTranslations('projectsPage.showcase');
+  const content = useMessages().projectsPage.showcase.items[project.content];
+  const description = t.raw('description') as string[];
+  const stack = t.raw('stack') as string[];
+
   return (
     <Row>
       <Info>
         <Heading>
-          <Title>{project.title}</Title>
-          <Roles aria-label="Roles">
-            {project.roles.map((role) => (
+          <Title>{content.title}</Title>
+          <Roles aria-label={t('rolesLabel')}>
+            {content.roles.map((role) => (
               <li key={role}>{role}</li>
             ))}
           </Roles>
         </Heading>
         <Description>
-          {project.description.map((paragraph) => (
+          {description.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
           ))}
         </Description>
-        <TechStack aria-label="Tech stack">
-          {project.stack.map((item) => (
+        <TechStack aria-label={t('stackLabel')}>
+          {stack.map((item) => (
             <li key={item}>
               <Badge $size="medium">{item}</Badge>
             </li>
           ))}
         </TechStack>
         <Button as={Link} href={project.href} $variant="secondaryPink">
-          View Case Story
+          {t('cta')}
         </Button>
       </Info>
 

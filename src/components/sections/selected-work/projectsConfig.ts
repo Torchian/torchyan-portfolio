@@ -1,27 +1,32 @@
+import { PICSART_GRID, SMARTBET_GRID, SOULONE_GRID, type IsometricGrid } from './projectGrids';
+
 /**
- * Project config with company-specific gradients.
- * Each project has a full-screen 2-color gradient background.
+ * The case studies: company, gradient, the screenshots used around the site,
+ * and the grid on their Selected Work card (projectGrids.ts).
+ * Copy (roles, title, description, field) lives in messages/*.json under projects.<slug>.
  */
 
-export interface ProjectConfig {
-  slug: string;
-  company: string;
+export type ProjectSlug = 'picsart' | 'smartbet' | 'soulone';
+
+/** A project's copy, from messages/*.json under projects.<slug>. */
+export interface ProjectContent {
   roles: string[];
   title: string;
   description: string;
   field: string;
+}
+
+export interface ProjectConfig {
+  slug: ProjectSlug;
+  company: string;
   year: string;
   gradient: string;
   images: { src: string; alt: string }[];
   href?: string;
-  /** Masonry columns (default 4) */
-  masonryColumns?: number;
-  /** Grid rotation in degrees (default 45) */
-  masonryRotation?: number;
-  /** Column display order, e.g. [1, 0, 2] swaps first two columns */
-  masonryColumnOrder?: number[];
-  /** Custom images per column; when set, overrides default distribution */
-  masonryColumnImages?: { src: string; alt: string }[][];
+  /** The Selected Work card's screenshot grid. */
+  grid: IsometricGrid;
+  /** The card CTA's resting fill (Figma dark/gradient/brands/<slug>). */
+  ctaFill: string;
 }
 
 /** Picsart */
@@ -31,7 +36,7 @@ const PICSART_GRADIENT = 'linear-gradient(180deg, #920792 0%, #7F4AD9 100%)';
 const SMARTBET_GRADIENT = 'linear-gradient(180deg, #1C014A 0%, #30155E 100%)';
 
 /** Soulone */
-const SOULONE_GRADIENT = 'linear-gradient(180deg, #8FAF52 0%, #487A37 100%)';
+const SOULONE_GRADIENT = 'linear-gradient(180deg, #20520F 0%, #487A37 100%)';
 
 const PICSART_IMAGES = [
   'Screenshot 2025-11-05 at 17.24.23.png',
@@ -95,57 +100,35 @@ function toImages(folder: string, files: string[], alt: string) {
   return files.map((f) => ({ src: `/selected-work/${folder}/${f}`, alt }));
 }
 
-function souloneColumnImages(): { src: string; alt: string }[][] {
-  const imgs = toImages('soulone', SOULONE_IMAGES, 'Soulone');
-  // Col 1 & 5: largest (4.png), 2nd largest (0.png)
-  // Col 2 & 4: next longest (1.png, 2.png)
-  // Col 3: other (6.png)
-  return [[imgs[0]], [imgs[2]], [imgs[4]], [imgs[3]], [imgs[1]]];
-}
-
 export const PROJECTS: ProjectConfig[] = [
   {
     slug: 'picsart',
     company: 'Picsart',
-    roles: ['Product Design', 'Frontend', 'Design System'],
-    title: 'Creative Platform',
-    description: 'End-to-end product design and frontend development for the world\'s largest creative platform.',
-    field: 'Design · Development',
     year: '2024',
     gradient: PICSART_GRADIENT,
     images: toImages('picsart', PICSART_IMAGES, 'Picsart'),
-    masonryColumns: 4,
-    masonryRotation: 45,
+    grid: PICSART_GRID,
+    ctaFill: PICSART_GRADIENT,
     href: '/projects/picsart',
   },
   {
     slug: 'smartbet',
     company: 'Smartbet',
-    roles: ['Product Design', 'Frontend', 'Backend'],
-    title: 'Sports & Gaming Platform',
-    description: 'Design engineering for a B2B sports betting and gaming platform.',
-    field: 'Fintech · Gaming',
     year: '2024',
     gradient: SMARTBET_GRADIENT,
     images: toImages('smartbet', SMARTBET_IMAGES, 'Smartbet'),
-    masonryColumns: 3,
-    masonryRotation: -45,
-    masonryColumnOrder: [1, 0, 2],
+    grid: SMARTBET_GRID,
+    ctaFill: SMARTBET_GRADIENT,
     href: '/projects/smartbet',
   },
   {
     slug: 'soulone',
     company: 'Soulone',
-    roles: ['Design Lead', 'Full-stack'],
-    title: 'Product Suite',
-    description: 'Brand identity and product design for a tech startup.',
-    field: 'SaaS · Branding',
     year: '2024',
     gradient: SOULONE_GRADIENT,
     images: toImages('soulone', SOULONE_IMAGES, 'Soulone'),
-    masonryColumns: 5,
-    masonryRotation: 45,
-    masonryColumnImages: souloneColumnImages(),
+    grid: SOULONE_GRID,
+    ctaFill: SOULONE_GRADIENT,
     href: '/projects/soulone',
   },
 ];

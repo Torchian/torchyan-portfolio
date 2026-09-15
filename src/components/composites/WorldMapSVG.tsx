@@ -18,6 +18,8 @@ const MapImage = styled.img`
 `;
 
 export interface MapLocation {
+  /** Stable across languages: keys the dot and seeds its pulse timing. Falls back to the label. */
+  id?: string;
   label: string;
   year?: number | string;
   x: number;
@@ -26,6 +28,7 @@ export interface MapLocation {
 
 export interface WorldMapSVGProps {
   locations: MapLocation[];
+  alt: string;
 }
 
 function hash(str: string): number {
@@ -34,17 +37,18 @@ function hash(str: string): number {
   return Math.abs(h);
 }
 
-export function WorldMapSVG({ locations }: WorldMapSVGProps) {
+export function WorldMapSVG({ locations, alt }: WorldMapSVGProps) {
   return (
     <Wrapper>
-      <MapImage src="/vectors/map.svg" alt="World map" />
+      <MapImage src="/vectors/map.svg" alt={alt} />
       {locations.map((loc) => {
-        const h = hash(loc.label);
+        const id = loc.id ?? loc.label;
+        const h = hash(id);
         const delay = (h % 2000) / 1000;
         const duration = 1.1 + (h % 600) / 1000;
         return (
           <MapDot
-            key={loc.label}
+            key={id}
             x={loc.x}
             y={loc.y}
             title={`${loc.label}${loc.year ? ` (${loc.year})` : ''}`}

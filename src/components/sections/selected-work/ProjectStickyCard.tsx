@@ -1,109 +1,136 @@
 'use client';
 
-import styled from 'styled-components';
 import Image from 'next/image';
-import { CTASecondary } from '@/components/primitives';
-import { radius } from '@/styles/tokens/radius';
-import { fontSize, lineHeight, fontWeight, letterSpacing, fontFamily } from '@/styles/tokens/typography';
-import { spacing } from '@/styles/tokens/spacing';
-import { neutrals, transparents } from '@/styles/tokens/colors';
-import { glass } from '@/styles/tokens/effects';
-import { grid } from '@/styles/tokens/grid';
-import { breakpoints } from '@/styles/tokens/breakpoints';
+import { useMessages, useTranslations } from 'next-intl';
+import styled, { css, type RuleSet } from 'styled-components';
+import { CTASecondary, type CTASecondaryProps } from '@/components/primitives';
+import { media, mediaQueries } from '@/styles/media';
+import { neutrals } from '@/styles/tokens/colors';
+import { grid as gridTokens } from '@/styles/tokens/grid';
 import { duration, easing } from '@/styles/tokens/motion';
-import { media } from '@/styles/media';
+import { radius } from '@/styles/tokens/radius';
+import { spacing } from '@/styles/tokens/spacing';
+import { fontFamily, fontSize, fontWeight, letterSpacing, lineHeight } from '@/styles/tokens/typography';
+import {
+  ALL_PROJECTS_GRID,
+  FLAT_GAP_RATIO,
+  GRID_FRAMES,
+  ISOMETRIC_GAP,
+  type FlatColumn,
+  type FramePoint,
+  type GridImage,
+  type GridScreen,
+  type IsometricColumn,
+  type IsometricGrid,
+  type ProjectGrid,
+} from './projectGrids';
 import type { ProjectConfig } from './projectsConfig';
 
-const CardWrapper = styled.article`
+/*
+ * Figma: Single Project (2300:1687) — Desktop 2300:1686, Tablet 2650:4265, Mobile 2653:4955.
+ *
+ * A full-screen sticky card: company and roles, then a screenshot grid with its
+ * CTA taking the rest of the screen, then title, description and field.
+ *
+ * Each grid is laid out in its Figma frame (1440, 976 or 448 × 680, see
+ * projectGrids.ts) inside a stage, and the stage scales that frame to cover the
+ * media box: `--u` is one frame px. The composition holds at any viewport size,
+ * and every move is a transform.
+ */
+
+/** How far the grid pushes in as its card is scrolled through (`--card-progress` 0 → 1). */
+const MAGNIFY = 0.08;
+const SLIDE = `${duration.slowest} ${easing.inOut}`;
+
+const ONLY_ON: Record<GridScreen, string> = {
+  desktop: media.up('xl'),
+  tablet: media.between('m', 'xl'),
+  mobile: media.down('m'),
+};
+
+/** Desktop only (tablet and mobile have no hover design): while the media is hovered, or its CTA has focus. */
+const onDesktopHover = (styles: RuleSet) => css`
+  @media ${mediaQueries.up('xl')} and (hover: hover) and (pointer: fine) {
+    [data-cta-trigger]:hover & {
+      ${styles}
+    }
+  }
+
+  ${media.up('xl')} {
+    [data-cta-trigger]:focus-within & {
+      ${styles}
+    }
+  }
+`;
+
+/* ---------- Card ---------- */
+
+const CardWrapper = styled.article<{ $background?: string }>`
   position: sticky;
   top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   height: 100vh;
+  padding: ${spacing[1500]}px ${spacing[400]}px ${spacing[500]}px;
   overflow: hidden;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
+  background: ${(p) => p.$background ?? `linear-gradient(180deg, ${neutrals[900]} 0%, ${neutrals[800]} 100%)`};
   isolation: isolate;
   /* Already clipped (overflow: hidden) and its own stacking context; this makes
      that explicit to the browser, so layout and paint inside one card can never
      spill into work on the cards stacked around it. */
   contain: layout paint;
+
+  ${media.down('xl')} {
+    padding: ${spacing[1500]}px ${spacing[300]}px ${spacing[300]}px;
+  }
+
+  ${media.down('m')} {
+    padding: ${spacing[1250]}px ${spacing[200]}px ${spacing[200]}px;
+  }
 `;
 
-const ProjectBackground = styled.div<{ $gradient: string }>`
-  position: absolute;
-  inset: 0;
-  background: ${(p) => p.$gradient};
-  z-index: 0;
-`;
-
-const ProjectContainer = styled.div`
-  position: relative;
-  z-index: 1;
+const Container = styled.div`
   display: flex;
+  flex: 1 1 0;
   flex-direction: column;
-  align-items: flex-start;
   gap: ${spacing[300]}px;
   width: 100%;
-  max-width: ${grid.maxWidth}px;
-  margin: 0 auto;
-  padding: 0 ${spacing[400]}px;
+  max-width: ${gridTokens.maxWidth}px;
+  min-height: 0;
+  color: ${neutrals[100]};
 
-  ${media.down('m')} {
-    gap: ${spacing[400]}px;
-    padding: 0 ${spacing[300]}px;
+  ${media.down('xl')} {
+    gap: ${spacing[200]}px;
   }
 `;
 
-const ProjectHeader = styled(ProjectContainer)`
-  padding-top: ${spacing[1000]}px;
-  padding-bottom: ${spacing[300]}px;
-
-  ${media.down('m')} {
-    padding-top: ${spacing[500]}px;
-  }
-`;
-
-const ProjectFooter = styled(ProjectContainer)`
-  padding-top: ${spacing[300]}px;
-  padding-bottom: ${spacing[1000]}px;
-
-  ${media.down('m')} {
-    padding-bottom: ${spacing[500]}px;
-  }
-`;
-
-/**
- * Desktop puts the company name on the left with roles pushed right.
- * Tablet/mobile stack them with the roles ABOVE the name (Figma 2650:4268 /
- * 2653:4958) — column-reverse keeps the h3 first in the DOM for reading order.
- */
-const ProjectHeading = styled.div`
+/** Desktop: company left, roles pushed right on its baseline row. Tablet and mobile: stacked. */
+const Header = styled.header`
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+  align-items: flex-end;
   gap: ${spacing[600]}px;
-  width: 100%;
 
-  ${media.down('l')} {
-    flex-direction: column-reverse;
+  ${media.down('xl')} {
+    flex-direction: column;
     align-items: flex-start;
-    justify-content: center;
     gap: ${spacing[100]}px;
   }
 `;
 
-const ProjectCompany = styled.h3`
+const Company = styled.h3`
+  flex: 0 1 auto;
+  min-width: 0;
+  margin: 0;
   font-family: ${fontFamily.display};
   font-weight: ${fontWeight.black};
   font-size: ${fontSize.display.xl}px;
   line-height: ${lineHeight.display.xl}px;
   letter-spacing: ${letterSpacing.xxs}px;
   text-transform: uppercase;
-  color: ${neutrals[100]};
-  margin: 0;
 
-  /* Tablet: 72px Bold, as typed (no uppercase) */
-  ${media.down('l')} {
+  /* Tablet: 72px Bold, as typed */
+  ${media.down('xl')} {
     font-weight: ${fontWeight.heading};
     font-size: ${fontSize.display.m}px;
     line-height: ${lineHeight.display.m}px;
@@ -113,331 +140,399 @@ const ProjectCompany = styled.h3`
 
   /* Mobile: 36px SemiBold */
   ${media.down('m')} {
+    font-family: ${fontFamily.heading};
     font-weight: ${fontWeight.semibold};
     font-size: ${fontSize.heading.l}px;
     line-height: ${lineHeight.heading.l}px;
   }
 `;
 
-const ProjectRoles = styled.div`
+const Roles = styled.p`
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: ${spacing[300]}px;
-  flex-shrink: 0;
-`;
-
-const ProjectRole = styled.span`
-  font-family: var(--font-gilroy), sans-serif;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: ${spacing[100]}px ${spacing[300]}px;
+  margin: 0;
+  font-family: ${fontFamily.heading};
   font-weight: ${fontWeight.semibold};
   font-size: ${fontSize.body.xl}px;
   line-height: ${lineHeight.body.xl}px;
   letter-spacing: ${letterSpacing.s}px;
-  color: ${neutrals[100]};
+
+  ${media.down('xl')} {
+    flex: none;
+    justify-content: flex-start;
+  }
+
+  ${media.down('m')} {
+    gap: ${spacing[150]}px;
+    font-size: ${fontSize.body.l}px;
+    line-height: ${lineHeight.body.l}px;
+    letter-spacing: ${letterSpacing.m}px;
+  }
 `;
 
-const ProjectVisuals = styled.div`
-  position: relative;
-  width: 100%;
-  min-height: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/** A role with the × before it, so a wrapped line never starts on a lone ×. */
+const Role = styled.span`
+  white-space: nowrap;
 `;
 
-const ProjectCard = styled.div`
-  position: relative;
-  width: calc(100% - 2 * ${spacing[400]}px);
-  max-width: 100%;
-  margin: 0 auto;
-  min-height: 0;
+const Separator = styled.span`
+  margin-inline-end: ${spacing[300]}px;
+
+  ${media.down('m')} {
+    margin-inline-end: ${spacing[150]}px;
+  }
+`;
+
+const Body = styled.footer`
   display: flex;
-  justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  ${media.down('m')} {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: ${spacing[200]}px;
+  }
+`;
+
+const Info = styled.div`
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: ${spacing[150]}px;
+  min-width: 0;
+  padding-inline-end: ${spacing[300]}px;
+
+  ${media.down('m')} {
+    flex: none;
+    gap: ${spacing[100]}px;
+    width: 100%;
+  }
+`;
+
+const Title = styled.h4`
+  margin: 0;
+  font-family: ${fontFamily.heading};
+  font-weight: ${fontWeight.medium};
+  font-size: ${fontSize.heading.m}px;
+  line-height: ${lineHeight.heading.m}px;
+  letter-spacing: ${letterSpacing.xs}px;
+`;
+
+const Description = styled.p`
+  margin: 0;
+  font-family: ${fontFamily.body};
+  font-weight: ${fontWeight.regular};
+  font-size: ${fontSize.body.l}px;
+  line-height: ${lineHeight.body.l}px;
+  letter-spacing: ${letterSpacing.xs}px;
+`;
+
+const Field = styled.p`
+  flex-shrink: 0;
+  margin: 0;
+  font-family: ${fontFamily.heading};
+  font-weight: ${fontWeight.semibold};
+  font-size: ${fontSize.body.l}px;
+  line-height: ${lineHeight.body.l}px;
+  letter-spacing: ${letterSpacing.m}px;
+  white-space: nowrap;
+`;
+
+/* ---------- Grid ---------- */
+
+const MediaBox = styled.div`
+  position: relative;
+  flex: 1 1 0;
+  min-height: 0;
   overflow: hidden;
   border-radius: ${radius.xl}px;
-  background: transparent;
+  /* The stage measures this box through container units. */
+  container-type: size;
 `;
 
-/**
- * `--card-progress` (0 → 1) is written per card by the Selected Work scroll
- * hook and tracks how far that card has been scrolled through. Folding it into
- * the existing scale gives a gentle, organic push-in as the card is traversed.
- * It scales the imagery *inside* the media frame (which clips), so it can
- * never change layout or affect the sticky card around it.
- */
-const GridWrapper = styled.div<{ $rotation: number }>`
-  transform: rotate(${(p) => p.$rotation}deg)
-    scale(calc(1.2 + 0.14 * var(--card-progress, 0)));
-  transform-origin: center center;
-  width: 100%;
+const Stage = styled.div`
+  --frame-w: ${GRID_FRAMES.desktop.width};
+  --frame-h: ${GRID_FRAMES.desktop.height};
+  /* One frame px: the frame scaled to cover the media box. */
+  --u: max(100cqw / var(--frame-w), 100cqh / var(--frame-h));
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: calc(var(--frame-w) * var(--u));
+  height: calc(var(--frame-h) * var(--u));
+  transform: translate(-50%, -50%) scale(calc(1 + ${MAGNIFY} * var(--card-progress, 0)));
 
-  /* Promote the image grid to its own layer only while its card is actually
-     being traversed (the scroll hook sets data-magnifying), so the changing
-     scale is a compositor transform instead of a repaint of every image.
-     Never on all three cards at once — that would just trade the repaint cost
-     for layer memory. */
+  ${media.down('xl')} {
+    --frame-w: ${GRID_FRAMES.tablet.width};
+    --frame-h: ${GRID_FRAMES.tablet.height};
+  }
+
+  ${media.down('m')} {
+    --frame-w: ${GRID_FRAMES.mobile.width};
+    --frame-h: ${GRID_FRAMES.mobile.height};
+  }
+
+  /* A compositor layer only while its card is being scrolled through (the
+     Selected Work hook sets data-magnifying), never on every card at once. */
   [data-magnifying] & {
     will-change: transform;
   }
 `;
 
-const MasonryColumn = styled.div`
-  flex: 1;
-  overflow: hidden;
-  min-width: 0;
-`;
-
-const MasonryColumnTrack = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${spacing[300]}px;
-  transform: translateY(0);
-  transition: transform ${duration.slowest} ${easing.inOut};
-`;
-
-const MasonryGrid = styled.div`
-  display: flex;
-  gap: ${spacing[300]}px;
-  width: 100%;
-  overflow: hidden;
-
-  &:hover ${MasonryColumn}:nth-child(odd) ${MasonryColumnTrack} {
-    transform: translateY(-8%);
-  }
-  &:hover ${MasonryColumn}:nth-child(even) ${MasonryColumnTrack} {
-    transform: translateY(12%);
-  }
-`;
-
-const MasonryItem = styled.div`
-  overflow: hidden;
-  border-radius: ${radius.m}px;
-  flex-shrink: 0;
-  transition: transform ${duration.slower} ${easing.spring};
-
-  img {
-    width: 100%;
-    height: auto;
-    display: block;
-    vertical-align: bottom;
-  }
-`;
-
-const IsometricGrid = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: ${spacing[400]}px;
-  transform: perspective(${breakpoints.xl}px) rotateX(8deg) rotateY(-5deg);
-  transform-style: preserve-3d;
-
-  ${media.down('m')} {
-    transform: perspective(${breakpoints.l}px) rotateX(5deg);
-    gap: ${spacing[300]}px;
-  }
-`;
-
-const IsometricRow = styled.div`
-  display: flex;
-  gap: ${spacing[400]}px;
-  justify-content: center;
-  flex-wrap: wrap;
-`;
-
-const IsometricCard = styled.div`
-  width: ${spacing[2000] + spacing[500]}px;
-  height: ${spacing[1000] + spacing[600] + spacing[150]}px;
-  border-radius: ${radius.l}px;
-  overflow: hidden;
-  background: ${glass.shadow};
-  box-shadow: 0 ${spacing[250]}px ${spacing[500]}px ${glass.shadow};
-  transition: transform ${duration.normal} ease;
-
-  ${media.up('m')} {
-    width: ${spacing[2000] + spacing[1000] + spacing[500]}px;
-    height: ${spacing[1000] + spacing[800] + spacing[600] + spacing[50]}px;
-  }
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-`;
-
-/** Figma: CTA Secondary (2585:1296), centered over the project media. */
-const ViewCaseCTA = styled(CTASecondary)`
+const columnBase = css`
   position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
-`;
-
-const ProjectBody = styled.div`
+  top: 0;
+  left: 0;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: ${spacing[300]}px;
-  width: 100%;
+  flex-direction: column;
+  transition: transform ${SLIDE};
 
-  ${media.down('m')} {
-    flex-direction: column;
-    align-items: flex-start;
+  ${media.reducedMotion} {
+    transition: none;
   }
 `;
 
-const ProjectInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${spacing[200]}px;
+const columnSize = (width: number, gap: number) => css`
+  width: calc(${width} * var(--u));
+  gap: calc(${gap} * var(--u));
 `;
 
-const ProjectTitle = styled.h4`
-  font-family: var(--font-gilroy), sans-serif;
-  font-weight: ${fontWeight.medium};
-  font-size: ${fontSize.heading.m}px;
-  line-height: ${lineHeight.heading.m}px;
-  color: ${neutrals[100]};
-  margin: 0;
+const PROJECTION: Record<IsometricGrid['axis'], string> = {
+  'down-right': 'rotate(-30deg) skewX(30deg) scaleY(0.866)',
+  'down-left': 'rotate(30deg) skewX(-30deg) scaleY(0.866)',
+};
+
+/** Centre the column on a frame point, then project it. */
+const isometric = (axis: IsometricGrid['axis'], [x, y]: FramePoint) =>
+  `translate(calc(${x} * var(--u)), calc(${y} * var(--u))) translate(-50%, -50%) ${PROJECTION[axis]}`;
+
+const IsometricColumnBox = styled.div<{ $grid: IsometricGrid; $column: IsometricColumn }>`
+  ${columnBase}
+  ${({ $grid, $column }) => css`
+    ${columnSize($column.width * $grid.scale.desktop, ISOMETRIC_GAP * $grid.scale.desktop)}
+    transform: ${isometric($grid.axis, $column.center.desktop)};
+
+    ${onDesktopHover(css`
+      transform: ${isometric($grid.axis, $column.center.hover)};
+    `)}
+
+    ${media.down('xl')} {
+      ${columnSize($column.width * $grid.scale.tablet, ISOMETRIC_GAP * $grid.scale.tablet)}
+      transform: ${isometric($grid.axis, $column.center.tablet)};
+    }
+
+    ${media.down('m')} {
+      ${columnSize($column.width * $grid.scale.mobile, ISOMETRIC_GAP * $grid.scale.mobile)}
+      transform: ${isometric($grid.axis, $column.center.mobile)};
+    }
+  `}
 `;
 
-const ProjectDescription = styled.p`
-  font-family: var(--font-gilroy), sans-serif;
-  font-weight: ${fontWeight.regular};
-  font-size: ${fontSize.body.l}px;
-  line-height: ${lineHeight.body.l}px;
-  color: ${neutrals[100]};
-  margin: 0;
-  max-width: ${grid.maxWidth / 2 + grid.margin}px;
+const flat = (left: number, top: number) => `translate(calc(${left} * var(--u)), calc(${top} * var(--u)))`;
+
+const FlatColumnBox = styled.div<{ $column: FlatColumn }>`
+  ${columnBase}
+  ${({ $column: { frame, hoverTop } }) => css`
+    ${columnSize(frame.desktop.width, frame.desktop.width * FLAT_GAP_RATIO)}
+    transform: ${flat(frame.desktop.left, frame.desktop.top)};
+
+    ${onDesktopHover(css`
+      transform: ${flat(frame.desktop.left, hoverTop)};
+    `)}
+
+    ${media.down('xl')} {
+      ${columnSize(frame.tablet.width, frame.tablet.width * FLAT_GAP_RATIO)}
+      transform: ${flat(frame.tablet.left, frame.tablet.top)};
+    }
+
+    ${media.down('m')} {
+      ${columnSize(frame.mobile.width, frame.mobile.width * FLAT_GAP_RATIO)}
+      transform: ${flat(frame.mobile.left, frame.mobile.top)};
+    }
+  `}
 `;
 
-const ProjectField = styled.span`
-  font-family: var(--font-gilroy), sans-serif;
-  font-weight: ${fontWeight.semibold};
-  font-size: ${fontSize.body.l}px;
-  line-height: ${lineHeight.body.l}px;
-  letter-spacing: ${letterSpacing.m}px;
-  color: ${neutrals[100]};
-`;
-
-const PlaceholderCard = styled.div`
+const Tile = styled.div<{ $aspect: number; $only?: GridScreen }>`
+  position: relative;
+  flex-shrink: 0;
   width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, ${transparents.transparent25} 0%, ${transparents.transparent4} 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: ${fontSize.body.s}px;
-  color: ${neutrals[500]};
+  aspect-ratio: ${(p) => p.$aspect};
+  overflow: hidden;
+
+  ${(p) =>
+    p.$only &&
+    css`
+      display: none;
+
+      ${ONLY_ON[p.$only]} {
+        display: block;
+      }
+    `}
 `;
+
+/** Figma: CTA Secondary, centred on the media; 64px above its bottom on mobile. */
+const GridCTA = styled(CTASecondary)`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+
+  ${media.down('m')} {
+    top: auto;
+    bottom: ${spacing[800]}px;
+    transform: translateX(-50%);
+  }
+`;
+
+/** Tile widths per screen, for the image `sizes` hint. */
+function tileSizes(widths: Record<GridScreen, number>) {
+  const px = (width: number) => `${Math.ceil(width)}px`;
+  return `${mediaQueries.down('m')} ${px(widths.mobile)}, ${mediaQueries.down('xl')} ${px(widths.tablet)}, ${px(widths.desktop)}`;
+}
+
+function Tiles({ images, sizes }: { images: GridImage[]; sizes: string }) {
+  return images.map((image, i) => (
+    <Tile key={i} $aspect={image.aspect} $only={image.only}>
+      <Image
+        src={image.src}
+        alt=""
+        fill
+        sizes={sizes}
+        style={{ objectFit: 'cover', objectPosition: image.position }}
+      />
+    </Tile>
+  ));
+}
+
+function GridStage({ grid }: { grid: ProjectGrid }) {
+  return (
+    <Stage aria-hidden>
+      {grid.kind === 'isometric'
+        ? grid.columns.map((column, i) => (
+            <IsometricColumnBox key={i} $grid={grid} $column={column}>
+              <Tiles
+                images={column.images}
+                sizes={tileSizes({
+                  desktop: column.width * grid.scale.desktop,
+                  tablet: column.width * grid.scale.tablet,
+                  mobile: column.width * grid.scale.mobile,
+                })}
+              />
+            </IsometricColumnBox>
+          ))
+        : grid.columns.map((column, i) => (
+            <FlatColumnBox key={i} $column={column}>
+              <Tiles
+                images={column.images}
+                sizes={tileSizes({
+                  desktop: column.frame.desktop.width,
+                  tablet: column.frame.tablet.width,
+                  mobile: column.frame.mobile.width,
+                })}
+              />
+            </FlatColumnBox>
+          ))}
+    </Stage>
+  );
+}
+
+/* ---------- Components ---------- */
+
+interface StickyCardProps {
+  company: string;
+  roles: string[];
+  title: string;
+  description: string;
+  field: string;
+  /** Card background; the dark gradient when omitted. */
+  background?: string;
+  grid: ProjectGrid;
+  href: string;
+  cta: string;
+  ctaFill?: string;
+  ctaAppearance?: CTASecondaryProps['appearance'];
+}
+
+function StickyCard({ company, roles, title, description, field, background, grid, href, cta, ctaFill, ctaAppearance }: StickyCardProps) {
+  return (
+    <CardWrapper data-project-card $background={background}>
+      <Container>
+        <Header>
+          <Company>{company}</Company>
+          <Roles>
+            {roles.map((role, i) => (
+              <Role key={role}>
+                {i > 0 && <Separator aria-hidden>×</Separator>}
+                {role}
+              </Role>
+            ))}
+          </Roles>
+        </Header>
+
+        <MediaBox data-cta-trigger>
+          <GridStage grid={grid} />
+          <GridCTA href={href} fill={ctaFill} appearance={ctaAppearance} activeBelow="xl">
+            {cta}
+          </GridCTA>
+        </MediaBox>
+
+        <Body>
+          <Info>
+            <Title>{title}</Title>
+            <Description>{description}</Description>
+          </Info>
+          <Field>{field}</Field>
+        </Body>
+      </Container>
+    </CardWrapper>
+  );
+}
 
 export interface ProjectStickyCardProps {
   project: ProjectConfig;
 }
 
 export function ProjectStickyCard({ project }: ProjectStickyCardProps) {
-  const hasImages = project.images.length > 0;
-  const images = project.images.length > 0
-    ? project.images
-    : Array.from({ length: 6 }, (_, i) => ({ src: '', alt: `Preview ${i + 1}` }));
+  const t = useTranslations('selectedWork');
+  const content = useMessages().projects[project.slug];
 
   return (
-    <CardWrapper data-project-card>
-      <ProjectBackground $gradient={project.gradient} />
-      <ProjectHeader as="header">
-        <ProjectHeading>
-          <ProjectCompany>{project.company}</ProjectCompany>
-          <ProjectRoles>
-            {project.roles.flatMap((role, i) =>
-              i === 0
-                ? [<ProjectRole key={i}>{role}</ProjectRole>]
-                : [<span key={`sep-${i}`} aria-hidden> × </span>, <ProjectRole key={i}>{role}</ProjectRole>]
-            )}
-          </ProjectRoles>
-        </ProjectHeading>
-      </ProjectHeader>
+    <StickyCard
+      company={project.company}
+      roles={content.roles}
+      title={content.title}
+      description={content.description}
+      field={`${content.field} · ${project.year}`}
+      background={project.gradient}
+      grid={project.grid}
+      href={`/projects/${project.slug}`}
+      cta={t('viewCase')}
+      ctaFill={project.ctaFill}
+    />
+  );
+}
 
-      {hasImages ? (
-        <ProjectCard data-cta-trigger>
-          <GridWrapper $rotation={project.masonryRotation ?? 45}>
-            <MasonryGrid>
-              {(project.masonryColumnImages ?? (() => {
-                const cols = project.masonryColumns ?? 4;
-                const order = project.masonryColumnOrder ?? Array.from({ length: cols }, (_, i) => i);
-                return Array.from({ length: cols }, (_, displayIndex) => {
-                  const colIndex = order[displayIndex] ?? displayIndex;
-                  return project.images.filter((_, i) => i % cols === colIndex);
-                });
-              })()).map((columnImages, displayIndex) => {
-                const cols = project.masonryColumns ?? 4;
-                const imgWidth = cols >= 5 ? 1600 : 1200;
-                return (
-                  <MasonryColumn key={displayIndex}>
-                    <MasonryColumnTrack>
-                      {[...columnImages, ...columnImages].map((img, i) => (
-                        <MasonryItem key={i}>
-                          <Image
-                            src={img.src}
-                            alt={img.alt}
-                            width={imgWidth}
-                            height={Math.round(imgWidth * 0.75)}
-                            quality={75}
-                            sizes={`(max-width: 768px) 100vw, ${100 / cols}vw`}
-                            loading="lazy"
-                            style={{ width: '100%', height: 'auto', display: 'block' }}
-                          />
-                        </MasonryItem>
-                      ))}
-                    </MasonryColumnTrack>
-                  </MasonryColumn>
-                );
-              })}
-            </MasonryGrid>
-          </GridWrapper>
-          <ViewCaseCTA href={`/projects/${project.slug}`}>View Case</ViewCaseCTA>
-        </ProjectCard>
-      ) : (
-        <ProjectVisuals data-cta-trigger>
-          <IsometricGrid>
-            <IsometricRow>
-              {images.slice(0, 3).map((img, i) => (
-                <IsometricCard key={i}>
-                  {img.src ? (
-                    <Image src={img.src} alt={img.alt} width={280} height={196} />
-                  ) : (
-                    <PlaceholderCard>Preview</PlaceholderCard>
-                  )}
-                </IsometricCard>
-              ))}
-            </IsometricRow>
-            <IsometricRow>
-              {images.slice(3, 6).map((img, i) => (
-                <IsometricCard key={i}>
-                  {img.src ? (
-                    <Image src={img.src} alt={img.alt} width={280} height={196} />
-                  ) : (
-                    <PlaceholderCard>Preview</PlaceholderCard>
-                  )}
-                </IsometricCard>
-              ))}
-            </IsometricRow>
-          </IsometricGrid>
-          <ViewCaseCTA href={`/projects/${project.slug}`}>View Case</ViewCaseCTA>
-        </ProjectVisuals>
-      )}
+/** The last card: a sample of other client work, linking to every project. */
+export function AllProjectsStickyCard() {
+  const t = useTranslations('selectedWork');
+  const content = useMessages().selectedWork.allProjects;
 
-      <ProjectFooter as="footer">
-        <ProjectBody>
-          <ProjectInfo>
-            <ProjectTitle>{project.title}</ProjectTitle>
-            <ProjectDescription>{project.description}</ProjectDescription>
-          </ProjectInfo>
-          <ProjectField>{project.field} · {project.year}</ProjectField>
-        </ProjectBody>
-      </ProjectFooter>
-    </CardWrapper>
+  return (
+    <StickyCard
+      company={content.company}
+      roles={content.roles}
+      title={content.title}
+      description={content.description}
+      field={content.field}
+      grid={ALL_PROJECTS_GRID}
+      href="/projects"
+      cta={t('viewAllCases')}
+      ctaAppearance="dark"
+    />
   );
 }

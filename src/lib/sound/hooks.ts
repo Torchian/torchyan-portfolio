@@ -1,19 +1,10 @@
 'use client';
 
-import { useContext, useCallback } from 'react';
-import { SoundContext } from './context';
-import type { SoundId } from './sounds';
+import { useSyncExternalStore } from 'react';
+import { getServerSoundEnabled, getSoundEnabled, setSoundEnabled, subscribeSoundEnabled } from './engine';
 
-export function useSoundEngine() {
-  return useContext(SoundContext);
-}
-
-export function useSound(id: SoundId) {
-  const { play, enabled } = useContext(SoundContext);
-
-  const trigger = useCallback(() => {
-    play(id);
-  }, [play, id]);
-
-  return { play: trigger, enabled };
+/** The visitor's sound preference and its setter — call the setter from a click or key handler. */
+export function useSoundEnabled() {
+  const enabled = useSyncExternalStore(subscribeSoundEnabled, getSoundEnabled, getServerSoundEnabled);
+  return [enabled, setSoundEnabled] as const;
 }

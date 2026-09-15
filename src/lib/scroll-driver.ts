@@ -66,6 +66,7 @@ let lastY = 0;
 let direction: 1 | -1 = 1;
 let gesturing = false;
 let programmaticDepth = 0;
+let layoutObserver: ResizeObserver | undefined;
 
 function rect(el: Element): DOMRect {
   let r = rectCache.get(el);
@@ -189,6 +190,17 @@ function onResize() {
   armIdle();
 }
 
+/**
+ * Layout also changes without any scroll or resize: fonts swapping in, images
+ * loading, the browser restoring a reload's scroll position once the page is
+ * tall enough. Run a frame then too, so no effect keeps values it measured
+ * against a layout that no longer exists. (No idle timer: a late image
+ * shouldn't make Selected Work snap.)
+ */
+function onLayoutChange() {
+  requestScrollFrame();
+}
+
 function start() {
   started = true;
   lastY = window.scrollY;
@@ -202,6 +214,12 @@ function start() {
   window.addEventListener('keydown', onKeyDown);
   window.addEventListener('blur', onBlur);
   window.addEventListener('resize', onResize);
+  window.addEventListener('load', onLayoutChange);
+  document.fonts?.ready.then(() => {
+    if (started) requestScrollFrame();
+  });
+  layoutObserver = new ResizeObserver(onLayoutChange);
+  layoutObserver.observe(document.documentElement);
 }
 
 function stop() {
@@ -216,6 +234,9 @@ function stop() {
   window.removeEventListener('keydown', onKeyDown);
   window.removeEventListener('blur', onBlur);
   window.removeEventListener('resize', onResize);
+  window.removeEventListener('load', onLayoutChange);
+  layoutObserver?.disconnect();
+  layoutObserver = undefined;
   cancelAnimationFrame(rafId);
   rafId = 0;
   clearTimeout(idleTimer);

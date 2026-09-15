@@ -107,17 +107,31 @@ const primaryStyles = css`
     }
   }
 
-  &:focus, &:active {
+  /*
+   * Figma "Primary Focus": the wedges open to the full width, 8px deep, just inside the edges.
+   * :focus-visible, not :focus, so a mouse click on a link doesn't leave it stuck in this state.
+   */
+  &:focus-visible,
+  &:active:not(:disabled) {
+    outline: none;
+    color: ${accents.primary};
+
     &::before {
       filter: blur(${blur.sm});
       top: -1px;
+      border-left-width: calc(var(--btn-width, 0px) / 2);
+      border-right-width: calc(var(--btn-width, 0px) / 2);
       border-top: ${spacing[100]}px solid ${accents.primary};
+      transform: translateX(-50%);
     }
 
     &::after {
       filter: blur(${blur.sm});
       bottom: -1px;
+      border-left-width: calc(var(--btn-width, 0px) / 2);
+      border-right-width: calc(var(--btn-width, 0px) / 2);
       border-bottom: ${spacing[100]}px solid ${accents.primary};
+      transform: translateX(-50%);
     }
   }
 `;
@@ -198,17 +212,31 @@ const tertiaryStyles = css`
     }
   }
 
-  &:focus, &:active {
+  /*
+   * Figma "Primary Focus": the wedges open to the full width, 8px deep, just inside the edges.
+   * :focus-visible, not :focus, so a mouse click on a link doesn't leave it stuck in this state.
+   */
+  &:focus-visible,
+  &:active:not(:disabled) {
+    outline: none;
+    color: ${accents.secondary};
+
     &::before {
       filter: blur(${blur.sm});
       top: -1px;
+      border-left-width: calc(var(--btn-width, 0px) / 2);
+      border-right-width: calc(var(--btn-width, 0px) / 2);
       border-top: ${spacing[100]}px solid ${accents.secondary};
+      transform: translateX(-50%);
     }
 
     &::after {
       filter: blur(${blur.sm});
       bottom: -1px;
+      border-left-width: calc(var(--btn-width, 0px) / 2);
+      border-right-width: calc(var(--btn-width, 0px) / 2);
       border-bottom: ${spacing[100]}px solid ${accents.secondary};
+      transform: translateX(-50%);
     }
   }
 `;
@@ -321,13 +349,20 @@ const secondaryPinkStyles = css`
     transition: inset ${duration.normal} ${easing.out};
   }
 
+  /* Figma CTA Tertiary "Secondary Hover": darker body, ring unchanged. */
   @media (hover: hover) and (pointer: fine) {
     &:hover:not(:disabled) {
       background: ${accents.secondaryDark};
+    }
+  }
 
-      &::before {
-        inset: -12px;
-      }
+  /* "Secondary Focus": darker body and the ring opens out to 12px. */
+  &:focus-visible,
+  &:active:not(:disabled) {
+    background: ${accents.secondaryDark};
+
+    &::before {
+      inset: -12px;
     }
   }
 

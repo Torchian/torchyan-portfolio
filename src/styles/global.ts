@@ -98,6 +98,17 @@ export const GlobalStyle = createGlobalStyle`
     gap: ${spacing[2000]}px;
   }
 
+  /*
+   * Russian and Armenian words run long. A word wider than its box breaks as a last
+   * resort instead of pushing the page wider. break-word, not anywhere: anywhere also
+   * shrinks auto-sized grid and flex columns down to single letters. No automatic
+   * hyphenation either — it chopped words that fit. English keeps its current wrapping.
+   */
+  :lang(ru),
+  :lang(hy) {
+    overflow-wrap: break-word;
+  }
+
   #skip-to-content {
     position: absolute;
     left: -9999px;
