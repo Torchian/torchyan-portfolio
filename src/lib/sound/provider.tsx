@@ -6,8 +6,9 @@ import { installSoundTriggers } from './triggers';
 
 /**
  * Mount once, beside the app (not around it): it renders nothing and never
- * re-renders. The audio graph outlives unmounts, so Strict Mode's double
- * effect in development only re-attaches listeners.
+ * re-renders. Unmounting closes the audio graph, so Strict Mode's double effect
+ * and development's hot reloads can't leave an orphaned context playing. The
+ * context is only ever built on a gesture, so the extra cycle costs nothing.
  */
 export function SoundProvider() {
   useEffect(() => {

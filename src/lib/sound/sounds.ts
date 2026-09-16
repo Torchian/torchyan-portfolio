@@ -15,16 +15,25 @@ export type SoundChannel = 'hover' | 'interaction' | 'transition' | 'ambient';
 
 export const MASTER_LEVEL = 0.8;
 
+/**
+ * Every interface sound sits at the same level, −14 dBFS peak, so nothing in
+ * front jumps out; the bed sits 12 dB under it at −26. The cue files are all
+ * peak-normalised, so a shared channel level and a shared cue volume is all it
+ * takes: 0.9 × 0.4 × 0.7 × 0.8 = 0.20 (−13.9 dBFS).
+ */
 export const CHANNEL_LEVELS: Record<SoundChannel, number> = {
-  /** Pointer hovers: the most frequent, so the quietest in front. */
-  hover: 0.5,
+  /** Pointer hovers. */
+  hover: 0.7,
   /** Keyboard focus and presses (:focus-visible, :active). */
   interaction: 0.7,
   /** Things fading or sliding in and out. */
   transition: 0.7,
-  /** Idle and random motion: texture, never in front. */
+  /** Idle and random motion: the bed, well under everything else. */
   ambient: 0.35,
 };
+
+/** One level for every cue, so they balance by construction (see CHANNEL_LEVELS). */
+const CUE_VOLUME = 0.4;
 
 export interface SoundCue {
   src: string;
@@ -44,18 +53,66 @@ export interface SoundCue {
 }
 
 export const SOUND_CUES = {
-  /** Header link pill: the green glow sliding to the hovered link, and back to the current page's. */
-  navLine: {
-    src: '/sounds/swoosh.mp3',
+  /** Any link or button under the pointer: the site-wide hover cue (see triggers.ts). */
+  uiHover: {
+    src: '/sounds/ui-hover.wav',
     channel: 'hover',
-    volume: 0.6,
+    /* No detune or jitter: every link and button sounds exactly the same. */
+    volume: CUE_VOLUME,
     cooldownMs: 90,
     maxVoices: 2,
-    detune: 60,
-    volumeJitter: 0.15,
     spatial: true,
   },
+  /** Pressing a link, button, radio or select: the click itself, pointer or keyboard (see triggers.ts). */
+  uiPress: {
+    src: '/sounds/click.wav',
+    channel: 'interaction',
+    volume: CUE_VOLUME,
+    cooldownMs: 60,
+    maxVoices: 2,
+    spatial: true,
+  },
+  /** A form field taking focus: a radio, a text field or a select (see triggers.ts). */
+  fieldFocus: {
+    src: '/sounds/field.wav',
+    channel: 'interaction',
+    volume: CUE_VOLUME,
+    cooldownMs: 60,
+    maxVoices: 2,
+    spatial: true,
+  },
+  /** The language list opening under the switcher. */
+  languageOpen: {
+    src: '/sounds/language-open.wav',
+    channel: 'interaction',
+    volume: CUE_VOLUME,
+    cooldownMs: 120,
+    maxVoices: 1,
+  },
+  /** …and closing again. */
+  languageClose: {
+    src: '/sounds/language-close.wav',
+    channel: 'interaction',
+    volume: CUE_VOLUME,
+    cooldownMs: 120,
+    maxVoices: 1,
+  },
 } as const satisfies Record<string, SoundCue>;
+
+/**
+ * The background bed: one looping track under everything, low enough to leave
+ * every cue in front of it. The track keeps its own arrangement and level —
+ * only its silent head is trimmed, with a short fade in and out at the ends, so
+ * each pass round the loop eases rather than cuts. `loopSeconds` is that
+ * length, which keeps whatever the decoder pads on (AAC priming) out of it.
+ */
+export const MUSIC = {
+  src: '/sounds/ambient-theme.m4a',
+  channel: 'ambient',
+  /* −26 dBFS peak: 0.62 (the track's own peak) × 0.29 × 0.35 × 0.8. */
+  volume: 0.29,
+  loopSeconds: 45.124,
+} as const satisfies { src: string; channel: SoundChannel; volume: number; loopSeconds: number };
 
 export type SoundCueId = keyof typeof SOUND_CUES;
 

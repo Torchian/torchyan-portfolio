@@ -39,10 +39,14 @@
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
     "sound": "Sound",
+    "music": "Music",
     "language": "Language"
   },
   "sound": {
     "label": "Sound"
+  },
+  "music": {
+    "label": "Music"
   },
   "language": {
     "label": "Language: {language}",

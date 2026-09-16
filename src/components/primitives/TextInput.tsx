@@ -28,7 +28,9 @@ const TRANSITION = `${duration.fast} ${easing.linear}`;
 /** The multiline placeholder is a touch lighter than the single-line one in the design. */
 const MULTILINE_PLACEHOLDER = '#c5c5c5';
 
-const Wrapper = styled.div<{ $multiline: boolean }>`
+/* A label, not a div: a click anywhere inside it — the padding and the border,
+   not just the field — puts the caret in the field, with no handler of our own. */
+const Wrapper = styled.label<{ $multiline: boolean }>`
   --effect-offset: ${EFFECT_OFFSET.default}px;
   --placeholder-color: ${(p) => (p.$multiline ? MULTILINE_PLACEHOLDER : neutrals[700])};
   --value-color: ${neutrals[100]};

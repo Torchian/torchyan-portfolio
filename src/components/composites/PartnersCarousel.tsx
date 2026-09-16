@@ -46,10 +46,8 @@ export const PARTNERS: PartnerLogo[] = [
   logo('Benzeen', 'Benzeen'),
   logo('BrainRocket', 'BrainRocket'),
   logo('Scunci', 'Scunci'),
-  logo('PlayEngine', 'PlayEngine', { boxed: false }),
   logo('Rostelecom', 'Rostelecom', { boxed: false }),
   logo('Inlogic', 'Inlogic', { boxed: false }),
-  logo('2288 Vet', '2288Vet'),
   logo('TCO', 'TCO', { boxed: false }),
 ];
 

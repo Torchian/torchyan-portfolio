@@ -154,7 +154,9 @@ export const PICSART_GRID: IsometricGrid = {
         picsart('Screenshot 2026-01-26 at 20.11.32.png', 830 / 1806),
         picsart('Screenshot 2026-01-26 at 20.11.54.png', 830 / 1806),
       ],
-      center: { desktop: [546.39, 440.08], hover: [546.39, 440.08], tablet: [589.39, 267.14], mobile: [215.81, 336.71] },
+      /* Hover isn't in the Figma variant (it only moves the first column): 400px up-right, against the
+         outer columns like Smartbet and Soulone, short of where the column's lower end would show. */
+      center: { desktop: [546.39, 440.08], hover: [892.8, 240.08], tablet: [589.39, 267.14], mobile: [215.81, 336.71] },
     },
     {
       width: 640,
@@ -165,7 +167,9 @@ export const PICSART_GRID: IsometricGrid = {
         picsart('Screenshot 2026-01-26 at 19.24.48.png', PICSART_PAGE),
         picsart('Screenshot 2026-01-26 at 20.05.59.png', PICSART_PAGE),
       ],
-      center: { desktop: [1098.16, 558.65], hover: [1098.16, 558.65], tablet: [712.2, 567.96], mobile: [497.68, 469.03] },
+      /* Hover isn't in the Figma variant either: 220px down-left with the first column, short of where
+         its upper end would show. */
+      center: { desktop: [1098.16, 558.65], hover: [907.63, 668.65], tablet: [712.2, 567.96], mobile: [497.68, 469.03] },
     },
   ],
 };

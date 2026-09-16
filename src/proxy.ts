@@ -59,6 +59,6 @@ export default function proxy(request: NextRequest) {
 }
 
 export const config = {
-  // Pages only: not API routes, Next internals, the Sanity studio, or files with an extension.
-  matcher: ['/((?!api|_next|_vercel|studio|.*\\..*).*)'],
+  // Pages only: not API routes, Next internals, or files with an extension.
+  matcher: ['/((?!api|_next|_vercel|.*\\..*).*)'],
 };

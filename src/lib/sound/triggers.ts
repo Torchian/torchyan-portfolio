@@ -13,9 +13,16 @@ import { isSoundCue, type SoundCueId } from './sounds';
  * Four document listeners serve the whole site, and each returns at once while
  * sound can't play (switched off, or audio not unlocked yet).
  *
- *  - hover:     the mouse enters the element (a tap isn't a hover).
+ *  - hover:     the mouse enters the element (a tap isn't a hover). Every link and
+ *               button plays DEFAULT_HOVER without asking; an element only needs
+ *               the attribute to play something else.
  *  - focus:     keyboard focus lands on it — :focus-visible, like the visual state.
+ *               Form fields are the exception: a radio, text field or select
+ *               sounds whenever it takes focus, by pointer or by keyboard, since
+ *               that is the moment it answers you.
  *  - press:     a primary press, or Enter / Space, on it — the :active moment.
+ *               Like hover, every link and button plays DEFAULT_PRESS without
+ *               asking; the attribute is only for playing something else.
  *  - animation: a CSS animation starts on the element itself — fade-ins,
  *               fade-outs, random motion. Fires after any animation-delay.
  */
@@ -40,6 +47,26 @@ export function soundTriggers(cues: Partial<Record<SoundTrigger, SoundCueId>>): 
 
 const LISTENER_OPTIONS = { capture: true, passive: true } as const;
 
+/** Hovering or pressing anything interactive sounds, so no component has to repeat the cue. */
+const DEFAULT_HOVER: SoundCueId = 'uiHover';
+const DEFAULT_PRESS: SoundCueId = 'uiPress';
+const FIELD_CUE: SoundCueId = 'fieldFocus';
+
+/** What a press sounds on: the things you click to go somewhere or do something. */
+const PRESSABLE = 'a[href], button:not([disabled]), [role="button"], summary';
+
+/**
+ * Form fields have their own cue, on focus rather than on press: clicking one
+ * focuses it anyway, so focus catches the pointer and the keyboard both, and
+ * only once.
+ */
+const FIELD = 'input:not([type="hidden"]), textarea, select';
+/** The controls a key can act on; a text field is left out, or typing a space would sound. */
+const KEY_FIELD = 'input[type="radio"], input[type="checkbox"], select';
+
+/** Hover covers everything interactive, fields included. */
+const HOVERABLE = `${PRESSABLE}, ${FIELD}, label:has(input), label:has(textarea), label:has(select)`;
+
 function hostOf(target: EventTarget | null, attribute: string) {
   return target instanceof Element ? target.closest(`[${attribute}]`) : null;
 }
@@ -55,28 +82,49 @@ function playFrom(host: Element, attribute: string) {
 
 function onPointerOver(e: PointerEvent) {
   if (e.pointerType !== 'mouse' || !isSoundReady()) return;
-  const host = hostOf(e.target, ATTRIBUTES.hover);
+  const tagged = hostOf(e.target, ATTRIBUTES.hover);
+  const host = tagged ?? (e.target instanceof Element ? e.target.closest(HOVERABLE) : null);
   // Moving between the element's own children isn't entering it.
   if (!host || (e.relatedTarget instanceof Node && host.contains(e.relatedTarget))) return;
-  playFrom(host, ATTRIBUTES.hover);
+  if (tagged) playFrom(tagged, ATTRIBUTES.hover);
+  else playSound(DEFAULT_HOVER, { origin: host });
 }
 
 function onFocusIn(e: FocusEvent) {
-  if (!isSoundReady() || !(e.target instanceof Element) || !e.target.matches(':focus-visible')) return;
-  const host = hostOf(e.target, ATTRIBUTES.focus);
-  if (host) playFrom(host, ATTRIBUTES.focus);
+  if (!isSoundReady() || !(e.target instanceof Element)) return;
+  const tagged = hostOf(e.target, ATTRIBUTES.focus);
+  if (tagged) {
+    if (e.target.matches(':focus-visible')) playFrom(tagged, ATTRIBUTES.focus);
+    return;
+  }
+  // A field's own cue: however it was reached, this is the moment it opens up.
+  if (e.target.matches(FIELD)) playSound(FIELD_CUE, { origin: e.target });
 }
 
 function onPointerDown(e: PointerEvent) {
   if (e.button !== 0 || !isSoundReady()) return;
-  const host = hostOf(e.target, ATTRIBUTES.press);
-  if (host) playFrom(host, ATTRIBUTES.press);
+  playPress(e.target);
 }
 
 function onKeyDown(e: KeyboardEvent) {
   if (e.repeat || (e.key !== 'Enter' && e.key !== ' ') || !isSoundReady()) return;
-  const host = hostOf(e.target, ATTRIBUTES.press);
-  if (host) playFrom(host, ATTRIBUTES.press);
+  // Choosing a radio or an option with the keyboard: its own cue, not a press.
+  if (e.target instanceof Element && e.target.matches(KEY_FIELD)) {
+    playSound(FIELD_CUE, { origin: e.target });
+    return;
+  }
+  playPress(e.target);
+}
+
+/** The element's own press cue, or the site-wide one if it's a link or button. */
+function playPress(target: EventTarget | null) {
+  const tagged = hostOf(target, ATTRIBUTES.press);
+  if (tagged) {
+    playFrom(tagged, ATTRIBUTES.press);
+    return;
+  }
+  const host = target instanceof Element ? target.closest(PRESSABLE) : null;
+  if (host) playSound(DEFAULT_PRESS, { origin: host });
 }
 
 function onAnimationStart(e: AnimationEvent) {

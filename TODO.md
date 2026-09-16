@@ -9,6 +9,7 @@ Deferred items from the homepage review (2026-09-14). Numbers match the review.
 - [ ] **Mobile menu panel** — provisional; it isn't in the Figma file yet.
 - [ ] **Placement of the sound and language controls** — the components now follow Figma (Sound CTA 3690:10694, language_switcher 3690:10528), but where they sit in the header isn't designed yet. Right now they flank the link pill above 1024px (language on the left, sound on the right), and appear as "Language" / "Sound" rows in the menu panel at 1024px and below.
 - [ ] **Page loader** — provisional; it isn't in the Figma file yet. It's a full-screen logo with a green glint, shown on full page loads until the layout settles (`src/components/layouts/PageLoader.tsx`, see `docs/adr/0003-page-load-reveal.md`).
+- [ ] **Picsart grid hover, middle and right columns** — Figma's Hover variant (3662:2958) only moves the first column. In code the middle column slides 400px up-right and the right one 220px down-left, alternating like Smartbet and Soulone (`src/components/sections/selected-work/projectGrids.ts`). About 428px and 236px are the most they can travel before a column end shows. Update the variant, or confirm these values.
 - [ ] **More sounds** — hover, focus/active, fade-in/out and random-motion cues, once the assets arrive. Each one is a cue in `src/lib/sound/sounds.ts` plus a `soundTriggers(...)` attribute or a `playSound(...)` call (see `docs/adr/0001-sound-system.md`).
 
 ## Later
@@ -27,11 +28,9 @@ Deferred items from the homepage review (2026-09-14). Numbers match the review.
 
 ## Cleanup to verify
 
-- [ ] **Imported nowhere:**
-  - composites: `CapabilityListItem`, `HeroTagline`, `YearMarker`
-  - primitives: `Divider`, `NavIcon`, `NavLink`, `RatingDots`, `Stack`
-  - `sections/selected-work/SelectedWorkCard`
-  - hooks: `use-intersection`, `use-media-query`, `use-mounted`, `use-theme`
+- [x] **Imported nowhere** — deleted 2026-09-16: composites `CapabilityListItem`, `HeroTagline`, `YearMarker`; primitives `Divider`, `NavIcon`, `NavLink`, `RatingDots`, `CompanyLogo`; `sections/selected-work/SelectedWorkCard`; hooks `use-intersection`, `use-media-query`, `use-mounted`, `use-theme`; plus `utils/cn`, `utils/format`, `types/common`, `types/sanity` and the barrels that only re-exported them. `Stack` stayed — it is used.
+- [x] **Unused assets** — deleted 2026-09-16 (1.6 MB): `sounds/swoosh.mp3`, two Picsart "Untitled-Project" exports, Smartbet `thumb.png` and the broken-name `\.png`, `vectors/Line 15.svg`, `logo/companies/Gemmed.svg`.
+- [ ] **Sanity CMS removed 2026-09-16** — nothing imported it: `src/lib/cms`, the `sanity/` studio and schemas, `lib/seo/json-ld.tsx`, and the packages `@sanity/client`, `@sanity/image-url`, `next-sanity`, `gsap`, `three`, `@react-three/*`, `@types/three`. The `cdn.sanity.io` image host and the `/studio` exclusions in `robots.ts` and `proxy.ts` went with them. If a CMS is still planned: `git checkout HEAD -- sanity src/lib/cms src/lib/seo/json-ld.tsx` and reinstall those packages.
 - [ ] **Capabilities skill "Playground experiments"** — kept. It's a skill label, not the removed Playground page.
 
 ## Projects page (Figma 3155:9789)

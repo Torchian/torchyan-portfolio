@@ -12,8 +12,7 @@ import { accents, neutrals } from '@/styles/tokens/colors';
 import { glass, blur } from '@/styles/tokens/effects';
 import { radius } from '@/styles/tokens/radius';
 import { media, mediaQueries } from '@/styles/media';
-import { Button, LanguageSwitcher, LogoMark, SoundToggle } from '@/components/primitives';
-import { playSound } from '@/lib/sound';
+import { Button, LanguageSwitcher, LogoMark, MusicToggle, SoundToggle } from '@/components/primitives';
 import { useTranslations } from 'next-intl';
 import { border } from '@/styles/tokens/border';
 
@@ -23,10 +22,10 @@ import { border } from '@/styles/tokens/border';
  *  - 480–1024 frames (321–1024px): logo · Contact Me · menu button (CTA, 2562:2297).
  *  - 320 frame (up to 320px): logo · menu button.
  * The link pill marks the current page green with a green glow above it; the
- * glow follows the pointer while hovering the pill, with a swoosh.
- * Language switcher and sound toggle (provisional, not in Figma yet): flanking the link pill
- * from 1025px — language on the left, sound on the right — and rows at the bottom of the menu
- * panel below that.
+ * glow follows the pointer while hovering the pill.
+ * Language switcher, sound and music toggles (their placement is provisional, not in Figma yet):
+ * flanking the link pill from 1025px — language on the left, the two audio switches on the right —
+ * and rows at the bottom of the menu panel below that.
  */
 
 const NAV_LINKS = [
@@ -113,6 +112,13 @@ const NavCluster = styled.div`
   ${media.up('xl')} {
     display: grid;
   }
+`;
+
+/** The two audio switches sit together at the right of the cluster. */
+const AudioControls = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${spacing[150]}px;
 `;
 
 const NavCenter = styled.nav`
@@ -376,27 +382,22 @@ export function NavBar() {
   const menuOpen = menuOpenOn === pathname;
   const closeMenu = useCallback(() => setMenuOpenOn(null), []);
   const soundLabelId = useId();
+  const musicLabelId = useId();
 
   const lineReturnTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   // The glow slides to the hovered link, and back to the current page's link once the pointer is off
   // the links — in the gaps between them too, not only outside the pill. The short delay lets the
   // pointer cross from one link to the next without the glow bouncing home in between.
-  // Links come from the event: reading linkRefs here, during render, makes the React Compiler skip the component.
-  const moveLine = (index: number | null, link: Element | null) => {
-    if ((index ?? activeIndex) !== lineIndex) playSound('navLine', { origin: link });
+  // The hover sound is site-wide, on every link and button (src/lib/sound/triggers.ts).
+  const enterLink = (index: number) => {
+    clearTimeout(lineReturnTimer.current);
     setHoverIndex(index);
   };
 
-  const enterLink = (index: number, link: Element) => {
+  const leaveLink = () => {
     clearTimeout(lineReturnTimer.current);
-    moveLine(index, link);
-  };
-
-  const leaveLink = (link: Element) => {
-    const current = link.parentElement?.querySelector('[aria-current="page"]') ?? null;
-    clearTimeout(lineReturnTimer.current);
-    lineReturnTimer.current = setTimeout(() => moveLine(null, current), LINE_RETURN_DELAY_MS);
+    lineReturnTimer.current = setTimeout(() => setHoverIndex(null), LINE_RETURN_DELAY_MS);
   };
 
   const applyLinePosition = useCallback((index: number) => {
@@ -467,14 +468,17 @@ export function NavBar() {
               ref={(el) => {
                 linkRefs.current[i] = el;
               }}
-              onMouseEnter={(e) => enterLink(i, e.currentTarget)}
-              onMouseLeave={(e) => leaveLink(e.currentTarget)}
+              onMouseEnter={() => enterLink(i)}
+              onMouseLeave={() => leaveLink()}
             >
               {t(link.key)}
             </NavItem>
           ))}
         </NavCenter>
-        <SoundToggle />
+        <AudioControls>
+          <SoundToggle />
+          <MusicToggle />
+        </AudioControls>
       </NavCluster>
 
       <HeaderActions>
@@ -518,6 +522,10 @@ export function NavBar() {
         <MenuSetting>
           <span id={soundLabelId}>{t('sound')}</span>
           <SoundToggle aria-labelledby={soundLabelId} />
+        </MenuSetting>
+        <MenuSetting>
+          <span id={musicLabelId}>{t('music')}</span>
+          <MusicToggle aria-labelledby={musicLabelId} />
         </MenuSetting>
       </MenuPanel>
     </Header>

@@ -1,6 +1,7 @@
 'use client';
 
 import {
+  useCallback,
   useEffect,
   useId,
   useRef,
@@ -12,6 +13,7 @@ import {
 import styled, { css } from 'styled-components';
 import { useLocale, useTranslations } from 'next-intl';
 import { Link, usePathname } from '@/i18n/navigation';
+import { playSound } from '@/lib/sound';
 import { LANGUAGE_LABELS, LOCALE_COOKIE, LOCALE_COOKIE_MAX_AGE, routing, type Locale } from '@/i18n/routing';
 import { glassSurface } from '@/styles/mixins';
 import { media } from '@/styles/media';
@@ -33,6 +35,11 @@ import { zIndex } from '@/styles/tokens/z-index';
  */
 
 const FAST = `${duration.fast} ${easing.out}`;
+/** The list eases open and leaves a little quicker, so dismissing feels immediate. */
+const OPEN = `${duration.normal} ${easing.out}`;
+const CLOSE = `${duration.fast} ${easing.in}`;
+/** Each row follows the panel, one after the other. */
+const ROW_STAGGER_MS = 70;
 /** How long the pointer can be off the switcher before the list closes, so a diagonal move to it doesn't. */
 const HOVER_CLOSE_DELAY_MS = 150;
 const FLAG_SRC: Record<Locale, string> = {
@@ -107,10 +114,17 @@ const Options = styled.ul<{ $open: boolean }>`
   padding: ${spacing[150]}px ${spacing[250]}px;
   list-style: none;
   border-radius: ${radius.xl}px;
+  transform-origin: top center;
   transition:
-    opacity ${FAST},
-    transform ${FAST},
-    visibility ${FAST};
+    opacity ${CLOSE},
+    transform ${CLOSE},
+    visibility ${CLOSE};
+
+  li {
+    transition:
+      opacity ${CLOSE},
+      transform ${CLOSE};
+  }
 
   /* Bridges the 8px gap to the pill, so the pointer never leaves the switcher on its way down. */
   &::before {
@@ -128,17 +142,45 @@ const Options = styled.ul<{ $open: boolean }>`
           opacity: 1;
           transform: none;
           visibility: visible;
+          transition:
+            opacity ${OPEN},
+            transform ${OPEN},
+            visibility ${OPEN};
+
+          li {
+            opacity: 1;
+            transform: none;
+            transition:
+              opacity ${OPEN},
+              transform ${OPEN};
+          }
+
+          li:nth-child(2) {
+            transition-delay: ${ROW_STAGGER_MS}ms;
+          }
         `
       : css`
           opacity: 0;
-          transform: translateY(-${spacing[50]}px);
+          /* Lifted and slightly smaller: it grows out of the pill above it. */
+          transform: translateY(-${spacing[150]}px) scale(0.96);
           visibility: hidden;
+
+          li {
+            opacity: 0;
+            transform: translateY(-${spacing[100]}px);
+          }
         `}
 
   ${media.reducedMotion} {
+    transform: none;
     transition:
       opacity ${FAST},
       visibility ${FAST};
+
+    li {
+      transform: none;
+      transition: opacity ${FAST};
+    }
   }
 `;
 
@@ -189,21 +231,30 @@ export function LanguageSwitcher({ className }: LanguageSwitcherProps) {
   const listId = useId();
   const rootRef = useRef<HTMLDivElement>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
-  const hovered = useRef(false);
   const [open, setOpen] = useState(false);
+  // Mirrors `open` for the handlers that run outside render (timers, document listeners).
+  const openRef = useRef(false);
   // Opened from the keyboard (arrow keys): move focus into the list, onto its first option.
   const [focusFirst, setFocusFirst] = useState(false);
+
+  /** The one way the list opens or closes, so each move sounds exactly once. */
+  const changeOpen = useCallback((next: boolean) => {
+    if (openRef.current === next) return;
+    openRef.current = next;
+    playSound(next ? 'languageOpen' : 'languageClose');
+    setOpen(next);
+  }, []);
 
   // While open: a press anywhere outside closes the list.
   useEffect(() => {
     if (!open) return;
     const root = rootRef.current;
     const onPointerDown = (e: PointerEvent) => {
-      if (root && !root.contains(e.target as Node)) setOpen(false);
+      if (root && !root.contains(e.target as Node)) changeOpen(false);
     };
     document.addEventListener('pointerdown', onPointerDown);
     return () => document.removeEventListener('pointerdown', onPointerDown);
-  }, [open]);
+  }, [open, changeOpen]);
 
   useEffect(() => {
     if (!open || !focusFirst) return;
@@ -213,22 +264,20 @@ export function LanguageSwitcher({ className }: LanguageSwitcherProps) {
   // Mouse only: a finger's "hover" is the tap, which the click handler already covers.
   const onPointerEnter = (e: ReactPointerEvent<HTMLDivElement>) => {
     if (e.pointerType !== 'mouse') return;
-    hovered.current = true;
     clearTimeout(closeTimer.current);
-    setOpen(true);
+    changeOpen(true);
   };
 
   const onPointerLeave = (e: ReactPointerEvent<HTMLDivElement>) => {
     if (e.pointerType !== 'mouse') return;
-    hovered.current = false;
     clearTimeout(closeTimer.current);
-    closeTimer.current = setTimeout(() => setOpen(false), HOVER_CLOSE_DELAY_MS);
+    closeTimer.current = setTimeout(() => changeOpen(false), HOVER_CLOSE_DELAY_MS);
   };
 
   const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Escape' && open) {
       e.preventDefault();
-      setOpen(false);
+      changeOpen(false);
       e.currentTarget.querySelector('button')?.focus();
       return;
     }
@@ -236,7 +285,7 @@ export function LanguageSwitcher({ className }: LanguageSwitcherProps) {
     e.preventDefault();
     if (!open) {
       setFocusFirst(true);
-      setOpen(true);
+      changeOpen(true);
       return;
     }
     const links = [...e.currentTarget.querySelectorAll<HTMLAnchorElement>('a')];
@@ -247,7 +296,7 @@ export function LanguageSwitcher({ className }: LanguageSwitcherProps) {
 
   // Tabbing out of the switcher closes it.
   const onBlur = (e: FocusEvent<HTMLDivElement>) => {
-    if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setOpen(false);
+    if (!e.currentTarget.contains(e.relatedTarget as Node | null)) changeOpen(false);
   };
 
   return (
@@ -266,8 +315,8 @@ export function LanguageSwitcher({ className }: LanguageSwitcherProps) {
         aria-label={t('label', { language: tNames(locale) })}
         onClick={() => {
           setFocusFirst(false);
-          // Hovering already opened it: a click shouldn't snap it shut under the pointer.
-          setOpen((isOpen) => (hovered.current ? true : !isOpen));
+          // Always a toggle, hovered or not: a click that can't dismiss the list feels stuck.
+          changeOpen(!openRef.current);
         }}
       >
         <Flag src={FLAG_SRC[locale]} alt="" width={16} height={12} />
@@ -286,7 +335,7 @@ export function LanguageSwitcher({ className }: LanguageSwitcherProps) {
                 hrefLang={option}
                 onClick={() => {
                   rememberLocale(option);
-                  setOpen(false);
+                  changeOpen(false);
                 }}
               >
                 <Flag src={FLAG_SRC[option]} alt="" width={16} height={12} />

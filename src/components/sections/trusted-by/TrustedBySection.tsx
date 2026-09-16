@@ -5,6 +5,8 @@ import { useTranslations } from 'next-intl';
 import styled, { css } from 'styled-components';
 import { SectionHeading } from '@/components/composites';
 import { spacing } from '@/styles/tokens/spacing';
+import { accents } from '@/styles/tokens/colors';
+import { duration, easing } from '@/styles/tokens/motion';
 import { grid } from '@/styles/tokens/grid';
 import { media } from '@/styles/media';
 
@@ -15,6 +17,9 @@ import { media } from '@/styles/media';
  *  - Desktop (from 1025px): six rows, each spread edge to edge inside its own side inset.
  *    Logos are 48px tall (Ginosi 42, Picsart 60); most sit in a 68px slot with 10px side padding.
  *  - Tablet and mobile: one centred wrap of 40px / 24px logos; mobile reorders a few to balance the lines.
+ *
+ * Each logo rests at 90% and grows to full size under the pointer. Most link to
+ * the company, opening in a new tab; the few without a site stay plain marks.
  */
 
 interface TrustedLogo {
@@ -26,59 +31,67 @@ interface TrustedLogo {
   boxed: boolean;
   /** Position in the mobile wrap. */
   mobileOrder: number;
+  /** The company's site, where there is one to link to. */
+  href?: string;
 }
 
 const logo = (
   name: string,
   file: string,
   mobileOrder: number,
-  options: Partial<Pick<TrustedLogo, 'height' | 'boxed'>> = {},
+  options: Partial<Pick<TrustedLogo, 'height' | 'boxed' | 'href'>> = {},
 ): TrustedLogo => ({ name, src: `/logo/companies/${file}.svg`, height: 48, boxed: true, mobileOrder, ...options });
 
 /** Desktop rows, each with its side inset in px. */
 const ROWS: { inset: number; logos: TrustedLogo[] }[] = [
   {
     inset: 20,
-    logos: [logo('SoftConstruct', 'SoftConstruct', 0), logo('Volo', 'Volo', 1), logo('Fortinet', 'Fortinet', 2)],
+    logos: [
+      logo('SoftConstruct', 'SoftConstruct', 0, { href: 'https://www.softconstruct.com/' }),
+      logo('Volo', 'Volo', 1, { href: 'https://volo.global/' }),
+      logo('Fortinet', 'Fortinet', 2, { href: 'https://www.fortinet.com/' }),
+    ],
   },
   {
     inset: 120,
     logos: [
-      logo('InfinitiRings', 'InfinitiRings', 4),
-      logo('Ginosi', 'Ginosi', 3, { height: 42 }),
-      logo('by robynblair', 'byRobinblair', 5),
-      logo('IT365', 'IT365', 6),
+      logo('InfinitiRings', 'InfinitiRings', 4, { href: 'https://www.infinityrings.com.au/' }),
+      logo('Ginosi', 'Ginosi', 3, { height: 42, href: 'https://www.ginosi.com/' }),
+      logo('by robynblair', 'byRobinblair', 5, { href: 'https://byrobynblair.com/' }),
+      logo('IT365', 'IT365', 6, { href: 'https://www.it365.am/' }),
     ],
   },
   {
     inset: 0,
     logos: [
-      logo('Smartbet', 'Smartbet', 7),
-      logo('Picsart', 'Picsart', 8, { height: 60 }),
-      logo('Brainstorm', 'Brainstorm', 9),
+      logo('Smartbet', 'Smartbet', 7, { href: 'https://smartbet.am/' }),
+      logo('Picsart', 'Picsart', 8, { height: 60, href: 'https://picsart.com/' }),
+      logo('Brainstorm', 'Brainstorm', 9, { href: 'https://www.brainstormtech.io/' }),
     ],
   },
   {
     inset: 60,
     logos: [
       logo('Adrasheg', 'Adrasheg', 15),
-      logo('World Education', 'WorldEdu', 10),
+      logo('World Education', 'WorldEdu', 10, { href: 'https://worldedu.co.uk/' }),
       logo('SoulOne', 'SoulOne', 11),
-      logo('Armenian Code Academy', 'ArmenianCodeAcademy', 13),
+      logo('Armenian Code Academy', 'ArmenianCodeAcademy', 13, { href: 'https://bootcamps.aca.am/' }),
     ],
   },
   {
     inset: 160,
-    logos: [logo('Benzeen', 'Benzeen', 12), logo('BrainRocket', 'BrainRocket', 14), logo('Scunci', 'Scunci', 16)],
+    logos: [
+      logo('Benzeen', 'Benzeen', 12, { href: 'https://www.benzeenautoparts.com/' }),
+      logo('BrainRocket', 'BrainRocket', 14, { href: 'https://www.brainrocket.com/' }),
+      logo('Scunci', 'Scunci', 16, { href: 'https://www.scunci.com/' }),
+    ],
   },
   {
-    inset: 30,
+    inset: 120,
     logos: [
-      logo('PlayEngine', 'PlayEngine', 17, { boxed: false }),
-      logo('Rostelecom', 'Rostelecom', 18, { boxed: false }),
       logo('Inlogic', 'Inlogic', 19, { boxed: false }),
-      logo('2288 Vet', '2288Vet', 20),
-      logo('TCO', 'TCO', 21, { boxed: false }),
+      logo('Rostelecom', 'Rostelecom', 18, { boxed: false, href: 'https://www.company.rt.ru/en/' }),
+      logo('TCO', 'TCO', 21, { boxed: false, href: 'https://tco.am/en' }),
     ],
   },
 ];
@@ -158,11 +171,14 @@ const Row = styled.div<{ $inset: number }>`
   }
 `;
 
+/** A mark, or a link to the company when there is a site. */
 const Logo = styled.div<{ $height: number; $boxed: boolean; $mobileOrder: number }>`
   display: flex;
   flex: none;
   align-items: center;
   justify-content: center;
+  color: inherit;
+  text-decoration: none;
 
   ${(p) =>
     p.$boxed &&
@@ -176,6 +192,31 @@ const Logo = styled.div<{ $height: number; $boxed: boolean; $mobileOrder: number
     width: auto;
     max-width: none;
     height: ${(p) => p.$height}px;
+    /* Resting a touch small, so the pointer brings the mark up to full size. */
+    transform: scale(0.9);
+    transition: transform ${duration.normal} ${easing.out};
+  }
+
+  ${media.hover} {
+    &:hover img {
+      transform: none;
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${accents.primary};
+    outline-offset: 4px;
+    border-radius: 4px;
+
+    img {
+      transform: none;
+    }
+  }
+
+  ${media.reducedMotion} {
+    img {
+      transition: none;
+    }
   }
 
   ${media.down('xl')} {
@@ -212,6 +253,10 @@ export function TrustedBySection() {
               {row.logos.map((item) => (
                 <Logo
                   key={item.name}
+                  as={item.href ? 'a' : 'div'}
+                  href={item.href}
+                  target={item.href ? '_blank' : undefined}
+                  rel={item.href ? 'noreferrer' : undefined}
                   role="listitem"
                   $height={item.height}
                   $boxed={item.boxed}

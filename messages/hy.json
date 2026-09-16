@@ -39,10 +39,14 @@
     "openMenu": "Բացել մենյուն",
     "closeMenu": "Փակել մենյուն",
     "sound": "Ձայն",
+    "music": "Երաժշտություն",
     "language": "Լեզու"
   },
   "sound": {
     "label": "Ձայն"
+  },
+  "music": {
+    "label": "Երաժշտություն"
   },
   "language": {
     "label": "Լեզու՝ {language}",
