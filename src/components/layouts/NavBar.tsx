@@ -46,6 +46,9 @@ function activeIndexFor(pathname: string) {
   return index >= 0 ? index : 0;
 }
 
+/** The header's side padding, which page content lines up with (e.g. the Projects rows' text). */
+export const HEADER_INLINE = { base: spacing[400], mobile: spacing[300] } as const;
+
 const Header = styled.header`
   position: fixed;
   top: 0;
@@ -56,10 +59,26 @@ const Header = styled.header`
   align-items: center;
   justify-content: space-between;
   height: ${spacing[1000]}px;
-  padding: 0 ${spacing[400]}px;
+  padding: 0 ${HEADER_INLINE.base}px;
+
+  /* Darkens and softens whatever scrolls under it, fading out towards the
+     bottom. On a layer behind the contents rather than the header itself: a
+     backdrop-filter on the header would make it the backdrop for every glass
+     piece inside (the link pill, the language list hanging below it), and
+     they'd stop blurring the page. */
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0));
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
 
   ${media.down('m')} {
-    padding: 0 ${spacing[300]}px;
+    padding: 0 ${HEADER_INLINE.mobile}px;
   }
 `;
 
@@ -130,7 +149,6 @@ const NavCenter = styled.nav`
   padding: ${spacing[100]}px ${spacing[400]}px;
   overflow: hidden;
   background: ${glass.shadow};
-  border: ${border.medium}px solid ${glass.border};
   border-radius: ${radius.round}px;
   backdrop-filter: blur(${blur.glassMedium});
   -webkit-backdrop-filter: blur(${blur.glassMedium});

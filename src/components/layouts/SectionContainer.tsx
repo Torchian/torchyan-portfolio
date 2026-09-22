@@ -14,7 +14,7 @@ export const SectionContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: ${spacing[1000]}px ${spacing[400]}px ${spacing[400]}px;
+  padding: ${spacing[2000]}px ${spacing[400]}px ${spacing[400]}px;
   gap: ${spacing[600]}px;
   width: 100%;
   max-width: ${grid.maxWidth}px;

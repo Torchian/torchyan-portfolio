@@ -12,6 +12,10 @@ Deferred items from the homepage review (2026-09-14). Numbers match the review.
 - [ ] **Picsart grid hover, middle and right columns** — Figma's Hover variant (3662:2958) only moves the first column. In code the middle column slides 400px up-right and the right one 220px down-left, alternating like Smartbet and Soulone (`src/components/sections/selected-work/projectGrids.ts`). About 428px and 236px are the most they can travel before a column end shows. Update the variant, or confirm these values.
 - [ ] **More sounds** — hover, focus/active, fade-in/out and random-motion cues, once the assets arrive. Each one is a cue in `src/lib/sound/sounds.ts` plus a `soundTriggers(...)` attribute or a `playSound(...)` call (see `docs/adr/0001-sound-system.md`).
 
+- [x] **Hero character stills**: done 2026-09-22. Left: Big Lebowski, colour, no cap or glasses. Right: Matrix with the default glasses, black and white. Each is only its visible half, and the phone hero's portrait is the full left character. All three are baked with `scripts/bake-character.py`.
+- [ ] **Hero characters: blink / idle glance?** — they follow the mouse now (ADR 0005, "Hero motion"). An occasional blink, or a glance around when the pointer is idle, could be added with the same layers.
+- [ ] **Footer character still**: pick a combination, bake it, and swap it in for `public/footer/portrait-mesh.webp`. See `docs/adr/0005-character-component.md`.
+
 ## Later
 
 - [ ] **(2) Contact form sends nothing** — submit only calls `preventDefault()`. To do: pick a service or endpoint, mark fields `required` and validate them, add success and error states, and call `gaEvents.contactFormSubmit`.
@@ -35,12 +39,30 @@ Deferred items from the homepage review (2026-09-14). Numbers match the review.
 
 ## Projects page (Figma 3155:9789)
 
-- [ ] **Responsive design** — only the desktop frame exists; the page is built for desktop.
-- [ ] **Real content per project** — the Figma frame reuses the same copy, tech stack and artwork across rows (three "World Education" and three "Smartbet" rows). Content lives in `src/components/sections/projects-page/projectShowcaseConfig.ts`.
+- [x] **Responsive design** — done 2026-09-17 from the four frames in section 3155:8425 (1920 / 1440 / 1024 / 480). Section heights match Figma exactly at 1024; mobile rows run ~24px taller each because the placeholder description wraps further than the design's.
+- [ ] **Real content per project** — the ten rows now carry their real titles, but every one still shares one description, tech stack and a collage borrowed from the four existing sets. Roles are per project for the four that had them and the design's placeholder pair for the rest. Content lives in `src/components/sections/projects-page/projectShowcaseConfig.ts` and `messages/*.json` under `projectsPage.showcase`.
+- [ ] **Seven project rows link to pages that don't exist** — Ginosi, Brainstorm, Benzeen, World Education, Infinity Rings, Off My Case and By Robyn Blair point at `/projects/<slug>` as agreed, but only picsart, smartbet and soulone are in `PROJECTS`, so the rest 404 until their case pages exist.
 - [ ] **World Education "View Case Story"** — there's no case study page yet, so the CTA opens `/case-studies`.
 - [ ] **"View Random Case"** — links to `/projects/picsart` for now; decide whether it should pick a random case.
 - [ ] **Collage hover state** — each collage component in Figma has a hidden "CTA Secondary"; the hover state isn't built.
 - [ ] **SoulOne collage image quality** — Figma's export caps these tall screenshots at 4096px high, so they arrive only 142–455px wide and look soft on retina. Replace them with the original screenshots.
+
+## Projects page code review (2026-09-22)
+
+Found in the review of `/projects`. #1–#4 were confirmed in the browser; #5 needs a real iPhone.
+
+- [ ] **(1) Short phones cut off the text and hide the CTA** — the stacked full-screen layout (`ProjectShowcase.tsx`, `stageStacked`) sizes the text to fit and gives the grid whatever is left. In Armenian at 375×600 the text runs past the screen (to 642px), the grid is 0px tall and View Case Story sits off screen at 642–690px. In Russian at 375×667 the grid is 95px. Raise `STAGE_STACKED_QUERY`'s min-height, give the grid a minimum height, and tighten the stacked type.
+- [ ] **(2) The list is invisible without JavaScript** — the stage turns on from a CSS media query, but the project on screen is only chosen in JS (`active` starts at -1). With JS off, all ten rows are at opacity 0 inside a blank area nine screens tall. The same flashes up on a reload that restores the scroll position into the list. Turn the stage on from JS (a `data-staged` attribute) so the rows stack without it. The comment "server HTML already stages correctly" in `ProjectsListSection.tsx` is out of date.
+- [ ] **(3) Scroll listeners block scrolling across the whole page** — `useStageStepping.ts` adds non-passive `wheel` and `touchmove` listeners to `window` on mount, so every scroll anywhere on the page waits for the main thread. Attach them only while the list is on screen.
+- [ ] **(4) Pinch-zoom is blocked inside the list** — the touch handler cancels two-finger moves too. Ignore `e.touches.length > 1`.
+- [ ] **(5) iOS swipes may scroll freely** — `onTouchMove` returns early for moves under 4px without cancelling them, so Safari may start its own scroll and then ignore the later cancels. Cancel every move inside the list, then check on a device.
+- [ ] **(6) Desktop bottom padding** — `ProjectsListSection` lost its desktop `padding-bottom: 160px`; the comment still mentions it. Confirm whether that was intentional.
+- [ ] **(7) Background strip is a ten-screen layer** — the sliding gradient strip is a GPU layer ten screens tall (about 2880×18000 px on a retina 1440 screen). It's fine on desktop but heavy on weak phones. Render only the current and next project's background instead.
+- [ ] **(8) Unused collage images (~1.8 MB)** — `public/projects/collages/{smartbet,soulone,websites}` plus Picsart's `marketplace-home.webp` and `marketplace-checkout.webp`. Delete them, or keep them for the real project media.
+- [ ] **(9) Out-of-date comments** — the headers of `ProjectsListSection.tsx` and `ProjectShowcase.tsx` still describe the collage sliding to its page edge and the 240px phone band.
+- [ ] **(10) Naming** — `stage` is both a media-query string and a prop in `ProjectShowcase.tsx`, and the prop's `past`/`upcoming` values are no longer read by any CSS. Make it a boolean again.
+- [ ] **(11) Tests** — pull the gesture logic in `useStageStepping.ts` out into a pure function and unit-test the momentum, arrival and exit cases.
+- [ ] **Project dots placement** — provisional: the pill sits on the stage's right edge in line with Contact Me, side-by-side stage only (not on phones). It isn't placed in Figma yet.
 
 ## Localization (2026-09-15)
 

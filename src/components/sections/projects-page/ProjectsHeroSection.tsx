@@ -5,9 +5,15 @@ import { spacing } from '@/styles/tokens/spacing';
 import { fontFamily, fontWeight, fontSize, lineHeight, letterSpacing } from '@/styles/tokens/typography';
 import { accents, neutrals } from '@/styles/tokens/colors';
 import { grid } from '@/styles/tokens/grid';
+import { media } from '@/styles/media';
 import { useTranslations } from 'next-intl';
 
-/* Figma: hero_section (3155:9791). Desktop only for now. */
+/*
+ * Figma: hero_section — 1920 (3155:9791), 1440 (3753:11172), 1024 (3753:14693),
+ * 480 (3753:17720). The title shrinks a step at a time (96 → 72 → 58) and the
+ * line of practices under it drops to 11px on a phone, where it has to fit five
+ * unbreakable phrases into 448px.
+ */
 
 const Section = styled.section`
   display: flex;
@@ -24,6 +30,11 @@ const Container = styled.div`
   width: 100%;
   max-width: ${grid.maxWidth}px;
   padding: ${spacing[1000]}px ${spacing[400]}px ${spacing[400]}px;
+
+  ${media.down('m')} {
+    gap: ${spacing[600]}px;
+    padding: ${spacing[1000]}px ${spacing[200]}px ${spacing[400]}px;
+  }
 `;
 
 const Title = styled.h1`
@@ -37,6 +48,20 @@ const Title = styled.h1`
   text-align: center;
   text-transform: uppercase;
   color: ${accents.secondary};
+
+  /* Only the desktop frames shout; below that the title is set as typed. */
+  ${media.down('xl')} {
+    font-weight: ${fontWeight.heading};
+    font-size: ${fontSize.display.m}px;
+    line-height: ${lineHeight.display.m}px;
+    text-transform: none;
+  }
+
+  ${media.down('m')} {
+    font-weight: ${fontWeight.semibold};
+    font-size: ${fontSize.display.s}px;
+    line-height: ${lineHeight.display.s}px;
+  }
 `;
 
 const Description = styled.div`
@@ -52,6 +77,17 @@ const Description = styled.div`
 
   p {
     margin: 0;
+  }
+
+  ${media.down('xl')} {
+    width: 720px;
+    font-size: ${fontSize.body.l}px;
+    line-height: ${lineHeight.body.l}px;
+    letter-spacing: ${letterSpacing.m}px;
+  }
+
+  ${media.down('m')} {
+    width: 100%;
   }
 `;
 
@@ -81,6 +117,26 @@ const Points = styled.ul`
 
   li:not(:last-child)::after {
     content: '×' / '';
+  }
+
+  ${media.down('xl')} {
+    gap: ${spacing[100]}px ${spacing[300]}px;
+  }
+
+  /* Five phrases in 448px: the design drops them to 11px, which fits in English.
+     Armenian runs longer, so a phrase may wrap rather than push the page wider. */
+  ${media.down('m')} {
+    gap: ${spacing[50]}px ${spacing[100]}px;
+    font-weight: ${fontWeight.medium};
+    font-size: ${fontSize.body.xs}px;
+    line-height: ${lineHeight.body.s}px;
+    letter-spacing: ${letterSpacing.xxl}px;
+    white-space: normal;
+
+    li {
+      gap: ${spacing[100]}px;
+      text-align: center;
+    }
   }
 `;
 

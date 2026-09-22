@@ -9,9 +9,15 @@ import { fontFamily, fontWeight, fontSize, lineHeight, letterSpacing } from '@/s
 import { accents, neutrals } from '@/styles/tokens/colors';
 import { radius } from '@/styles/tokens/radius';
 import { grid } from '@/styles/tokens/grid';
+import { media } from '@/styles/media';
 import { useTranslations } from 'next-intl';
 
-/* Figma: Positioning / Role Definition — "Build With Structural Intent" (3155:9848). Desktop only for now. */
+/*
+ * Figma: Positioning / Role Definition — "Build With Structural Intent":
+ * 1920 (3155:9848), 1440 (3753:11221), 1024 (3753:14742), 480 (3753:17769).
+ * Two cards side by side, stacked on a phone, where the generous 160px page
+ * margins close up to 48.
+ */
 
 type Tone = 'green' | 'pink';
 
@@ -22,19 +28,44 @@ const Section = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: ${spacing[2000]}px 0;
+  padding: ${spacing[1000]}px 0;
   /* The page's section gap, before the footer. */
-  margin-bottom: ${spacing[2000]}px;
+  margin-bottom: ${spacing[1000]}px;
+
+  /* The 1920 frame breathes twice as much as the rest. */
+  ${media.up('xxxl')} {
+    padding: ${spacing[2000]}px 0;
+    margin-bottom: ${spacing[2000]}px;
+  }
+
+  ${media.down('m')} {
+    padding: ${spacing[600]}px 0;
+    margin-bottom: ${spacing[600]}px;
+  }
 `;
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: ${spacing[2000]}px;
+  gap: ${spacing[1000]}px;
   width: 100%;
   max-width: ${grid.maxWidth}px;
   padding: 0 ${spacing[400]}px;
+
+  ${media.up('xxxl')} {
+    gap: ${spacing[2000]}px;
+  }
+
+  ${media.down('xl')} {
+    gap: ${spacing[800]}px;
+    padding: 0 ${spacing[300]}px;
+  }
+
+  ${media.down('m')} {
+    gap: ${spacing[600]}px;
+    padding: 0 ${spacing[200]}px;
+  }
 `;
 
 const Cards = styled.div`
@@ -42,6 +73,14 @@ const Cards = styled.div`
   align-items: stretch;
   gap: ${spacing[800]}px;
   width: 100%;
+
+  ${media.down('xl')} {
+    gap: ${spacing[600]}px;
+  }
+
+  ${media.down('m')} {
+    flex-direction: column;
+  }
 `;
 
 const Card = styled.article<{ $tone: Tone }>`
@@ -80,6 +119,12 @@ const CardTitle = styled.h3<{ $tone: Tone }>`
   font-size: ${fontSize.heading.l}px;
   line-height: ${lineHeight.heading.l}px;
   color: ${(p) => (p.$tone === 'green' ? accents.primary : accents.secondary)};
+
+  ${media.down('m')} {
+    font-weight: ${fontWeight.medium};
+    font-size: ${fontSize.heading.m}px;
+    line-height: ${lineHeight.heading.m}px;
+  }
 `;
 
 const CardBody = styled.p`
@@ -87,6 +132,12 @@ const CardBody = styled.p`
   font-size: ${fontSize.heading.s}px;
   line-height: ${lineHeight.heading.s}px;
   color: ${neutrals[500]};
+
+  ${media.down('m')} {
+    font-size: ${fontSize.body.xl}px;
+    line-height: ${lineHeight.body.xl}px;
+    color: ${neutrals[100]};
+  }
 `;
 
 /** The second card's CTA is a fixed 250px wide in the design. */
@@ -97,6 +148,13 @@ const FixedCta = styled.div`
 
   && > a {
     width: 250px;
+  }
+
+  ${media.down('m')} {
+    && > a {
+      width: 100%;
+      max-width: 250px;
+    }
   }
 `;
 

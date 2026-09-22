@@ -28,3 +28,5 @@ export { VisuallyHidden } from './VisuallyHidden';
 export { GreenDot } from './GreenDot';
 export type { GreenDotProps } from './GreenDot';
 export { Ticker } from './Ticker';
+export { CarouselDots } from './CarouselDots';
+export type { CarouselDotsProps } from './CarouselDots';

@@ -1,7 +1,17 @@
 'use client';
 
+import Image from 'next/image';
 import styled from 'styled-components';
 import { useEffect, useRef, type RefObject } from 'react';
+import {
+  FACE_ASPECT,
+  glassesImage,
+  headImage,
+  partBox,
+  type HeadPart,
+  type PartImage,
+} from '@/components/composites/character/characterLayout';
+import { media } from '@/styles/media';
 import { createInViewGate, subscribeScroll } from '@/lib/scroll-driver';
 
 /** Where the beard's reveal line crosses Bg3 (whatido_bg_3, 1074×1210 in Figma), as
@@ -9,27 +19,32 @@ import { createInViewGate, subscribeScroll } from '@/lib/scroll-driver';
  *  square's bottom bracket line — that sits lower, at ~860 of 1210 (≈0.71). */
 const BEARD_REVEAL_LINE_FRACTION = 0.2;
 
-/** Character parts - no head (excluded from second container) */
-const ALL_PARTS = [
-  { src: '/character/character_right_ear.svg', zIndex: 0, left: 3.7, top: 44.5, width: 11 },
-  { src: '/character/character_left_ear.svg', zIndex: 0, left: 85, top: 44.3, width: 11 },
-  { src: '/character/character_right_eyebrow.svg', zIndex: 2, left: 15, top: 32.92, width: 27 },
-  { src: '/character/character_left_eyebrow.svg', zIndex: 2, left: 56.3, top: 32.3, width: 28.8 },
-  { src: '/character/character_right_eye.svg', zIndex: 1, left: 19.7, top: 41.4, width: 18.4 },
-  { src: '/character/character_left_eye.svg', zIndex: 1, left: 60.7, top: 41.3, width: 19.8 },
-  { src: '/character/character_beard.svg', zIndex: 4, left: 11, top: 62.5, width: 77.6 },
-] as const;
+/** Character parts - no face (that's the first container), bottom to top as in
+ *  the Figma head (glasses between the brows and the beard), placed in the face
+ *  frame from the shared Character layout. */
+const PARTS = [
+  'eye-left',
+  'eye-right',
+  'ear-right',
+  'ear-left',
+  'brow-left',
+  'brow-right',
+  'glasses',
+  'beard',
+] as const satisfies readonly (HeadPart | 'glasses')[];
 
-/** Initial "waiting" parts: left_eyebrow, left_ear, right_eye (indices 3, 1, 4). */
-const INITIAL_PART_INDICES = [3, 1, 4];
+const imageOf = (name: (typeof PARTS)[number]): PartImage =>
+  name === 'glasses' ? glassesImage('default') : headImage(name);
 
-/** Beard - fades in (0 to 1 opacity) over BEARD_FADE_DISTANCE_PX of scroll
- *  once the reveal line across Bg3 reaches it, instead of following the other
- *  parts' step-based reveal. */
-const BEARD_INDEX = 6;
+/** Shown from the start, "waiting" for the rest. */
+const INITIAL_PARTS: readonly string[] = ['brow-left', 'ear-left', 'eye-right'];
+
+/** Wrapper's max width (below), for each part's download size. */
+const MAX_WIDTH = 420;
 
 /** Scroll distance (px), past the moment the line reaches the beard's top,
- *  over which its opacity ramps from 0 to 1. */
+ *  over which the beard's opacity ramps from 0 to 1 — it fades in on its own
+ *  instead of following the other parts' step-based reveal. */
 const BEARD_FADE_DISTANCE_PX = 200;
 
 /**
@@ -40,8 +55,8 @@ const BEARD_FADE_DISTANCE_PX = 200;
 const Wrapper = styled.div`
   position: relative;
   width: 100%;
-  max-width: 420px;
-  aspect-ratio: 421 / 573;
+  max-width: ${MAX_WIDTH}px;
+  aspect-ratio: ${FACE_ASPECT};
   filter: sepia(0) grayscale(var(--grayscale, 1));
   transition: filter 0.4s ease-out;
 `;
@@ -51,34 +66,46 @@ const Wrapper = styled.div`
  *  - `static`: always visible.
  *  - `reveal`: the inherited --reveal variable (written by useWhatIDoScroll),
  *    eased by a CSS transition.
+ *  - `final` (the glasses): the inherited --final switch (written by
+ *    useWhatIDoScroll on "Refine and evolve"); they drop into place over the
+ *    eyes as they fade in, and lift off again on the way back up.
  *  - `scrollFade` (the beard): its own --opacity, written imperatively
  *    frame-by-frame by the effect below. No CSS transition - the ramp is
  *    already smooth (computed from scroll distance), so a transition on top
  *    would only add lag. Defaults hidden so nothing flashes before it runs.
  */
-type PartMode = 'static' | 'reveal' | 'scrollFade';
+type PartMode = 'static' | 'reveal' | 'final' | 'scrollFade';
 
-/** left/top/width/zIndex are static per part; only opacity changes on scroll,
- *  and it does so through CSS variables rather than styled-component props. */
-const Part = styled.img<{
-  $left: number;
-  $top: number;
-  $width: number;
-  $zIndex: number;
-  $mode: PartMode;
-}>`
+/** The box is static per part (inline style); only opacity changes on scroll,
+ *  and it does so through CSS variables rather than styled-component props.
+ *  Paint order is DOM order. */
+const OPACITY: Record<PartMode, string> = {
+  static: '1',
+  reveal: 'var(--reveal, 0)',
+  final: 'var(--final, 0)',
+  scrollFade: 'var(--opacity, 0)',
+};
+
+const Part = styled.div<{ $mode: PartMode }>`
   position: absolute;
-  left: ${(p) => p.$left}%;
-  top: ${(p) => p.$top}%;
-  width: ${(p) => p.$width}%;
-  height: auto;
-  object-fit: contain;
-  object-position: left top;
-  z-index: ${(p) => p.$zIndex};
-  opacity: ${(p) =>
-    p.$mode === 'static' ? '1' : p.$mode === 'reveal' ? 'var(--reveal, 0)' : 'var(--opacity, 0)'};
+  opacity: ${(p) => OPACITY[p.$mode]};
   transition: ${(p) => (p.$mode === 'reveal' ? 'opacity 0.5s ease-out' : 'none')};
   pointer-events: none;
+
+  &[data-mode='final'] {
+    /* Lowered from a little above the brow onto the nose as it fades in. */
+    transform: translateY(calc((1 - var(--final, 0)) * -24%));
+    transition:
+      opacity 0.4s ease-out,
+      transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  ${media.reducedMotion} {
+    &[data-mode='final'] {
+      transform: none;
+      transition: opacity 0.2s linear;
+    }
+  }
 `;
 
 export interface WhatIDoCharacterWaitingProps {
@@ -92,7 +119,7 @@ export interface WhatIDoCharacterWaitingProps {
  * "Design with intent". The reveal starts 200px of scroll into the transition.
  */
 export function WhatIDoCharacterWaiting({ squareRef }: WhatIDoCharacterWaitingProps) {
-  const beardRef = useRef<HTMLImageElement>(null);
+  const beardRef = useRef<HTMLDivElement>(null);
 
   // Beard: fades in over BEARD_FADE_DISTANCE_PX of scroll once the reveal line
   // across Bg3 rises to/past the beard's own (fixed, sticky) position.
@@ -138,25 +165,38 @@ export function WhatIDoCharacterWaiting({ squareRef }: WhatIDoCharacterWaitingPr
 
   return (
     <Wrapper aria-hidden>
-      {ALL_PARTS.map((part, i) => {
-        const isBeard = i === BEARD_INDEX;
+      {PARTS.map((name) => {
+        const image = imageOf(name);
+        const box = partBox(image, 'face');
+        const isBeard = name === 'beard';
         const mode: PartMode = isBeard
           ? 'scrollFade'
-          : INITIAL_PART_INDICES.includes(i)
-            ? 'static'
-            : 'reveal';
+          : name === 'glasses'
+            ? 'final'
+            : INITIAL_PARTS.includes(name)
+              ? 'static'
+              : 'reveal';
         return (
           <Part
-            key={i}
+            key={name}
             ref={isBeard ? beardRef : undefined}
-            src={part.src}
-            alt=""
-            $left={part.left}
-            $top={part.top}
-            $width={part.width}
-            $zIndex={part.zIndex}
             $mode={mode}
-          />
+            data-mode={mode}
+            style={{
+              left: `${box.left}%`,
+              top: `${box.top}%`,
+              width: `${box.width}%`,
+              height: `${box.height}%`,
+            }}
+          >
+            <Image
+              src={image.src}
+              alt=""
+              fill
+              sizes={`${Math.ceil((MAX_WIDTH * box.width) / 100)}px`}
+              draggable={false}
+            />
+          </Part>
         );
       })}
     </Wrapper>

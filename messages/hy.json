@@ -293,6 +293,7 @@
   },
   "projectsPage": {
     "listLabel": "Նախագծեր",
+    "dotsLabel": "Անցնել նախագծին",
     "hero": {
       "title": "Նախագծերը՝ որպես կառուցվածքային համակարգեր",
       "lead": "Նախագծերին չեմ վերաբերվում որպես առանձին արդյունքների։",
@@ -328,6 +329,12 @@
             "Ֆրոնտենդ ինժեներ"
           ]
         },
+        "smartbet": {
+          "title": "Smartbet",
+          "roles": [
+            "UI ինժեներ"
+          ]
+        },
         "soulone": {
           "title": "SoulOne",
           "roles": [
@@ -335,10 +342,25 @@
             "Նախագծի ղեկավար"
           ]
         },
-        "smartbet": {
-          "title": "Smartbet",
+        "ginosi": {
+          "title": "Ginosi",
           "roles": [
-            "UI ինժեներ"
+            "UI ճարտարապետ",
+            "Ֆրոնտենդ ինժեներ"
+          ]
+        },
+        "brainstorm": {
+          "title": "Brainstorm",
+          "roles": [
+            "UI ճարտարապետ",
+            "Ֆրոնտենդ ինժեներ"
+          ]
+        },
+        "benzeen": {
+          "title": "Benzeen Autoparts",
+          "roles": [
+            "UI ճարտարապետ",
+            "Ֆրոնտենդ ինժեներ"
           ]
         },
         "worldEducation": {
@@ -346,6 +368,27 @@
           "roles": [
             "UI ինժեներ",
             "Ֆրոնտենդ ծրագրավորող"
+          ]
+        },
+        "infinityRings": {
+          "title": "Infinity Rings",
+          "roles": [
+            "UI ճարտարապետ",
+            "Ֆրոնտենդ ինժեներ"
+          ]
+        },
+        "offMyCase": {
+          "title": "Off My Case",
+          "roles": [
+            "UI ճարտարապետ",
+            "Ֆրոնտենդ ինժեներ"
+          ]
+        },
+        "byRobynBlair": {
+          "title": "By Robyn Blair",
+          "roles": [
+            "UI ճարտարապետ",
+            "Ֆրոնտենդ ինժեներ"
           ]
         }
       }

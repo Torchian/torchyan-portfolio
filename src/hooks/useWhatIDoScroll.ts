@@ -16,6 +16,12 @@ const REVEAL_PROGRESS_THRESHOLD = REVEAL_OFFSET_PX / STEP_HEIGHT;
 /** "Engineer the experience" = step index 3 — the character colours in across it. */
 const EXIT_STEP_INDEX = 3;
 
+/** "Refine and evolve" = step index 4 — the finishing touch: the glasses go on. */
+const FINAL_STEP_INDEX = 4;
+
+/** How far (px) past the viewport centre that step's top scrolls before the glasses go on. */
+const FINAL_OFFSET_PX = 200;
+
 /**
  * Drives the What I Do visuals from scroll position, as CSS custom properties
  * written onto `hostRef` (a common ancestor of both characters, so they inherit):
@@ -24,6 +30,9 @@ const EXIT_STEP_INDEX = 3;
  *    "Engineer the experience".
  *  - `--reveal` (0 → 1): opacity of the character parts that appear on the way
  *    into "Design with intent".
+ *  - `--final` (0 | 1): the glasses, put on FINAL_OFFSET_PX of scroll after
+ *    "Refine and evolve" becomes the active step. A switch rather than a ramp (the last step has no next step
+ *    to measure progress to); the CSS transition does the easing.
  *
  * These used to be returned as React state. `scrollProgress` was a float that
  * changed every frame, so the whole section (both characters, all five steps,
@@ -44,8 +53,9 @@ export function useWhatIDoScroll(
     const gate = createInViewGate(host);
     let lastGrayscale = '';
     let lastReveal = '';
+    let lastFinal = '';
 
-    const unsubscribe = subscribeScroll<{ grayscale: string; reveal: string }>({
+    const unsubscribe = subscribeScroll<{ grayscale: string; reveal: string; final: string }>({
       active: () => gate.current,
       read: (frame) => {
         const centre = frame.vh / 2;
@@ -71,6 +81,9 @@ export function useWhatIDoScroll(
           }
         }
 
+        const finalStep = stepRefs[FINAL_STEP_INDEX]?.current;
+        const finalReached = !!finalStep && frame.rect(finalStep).top <= centre - FINAL_OFFSET_PX;
+
         const grayscale =
           index < EXIT_STEP_INDEX ? 1 : index > EXIT_STEP_INDEX ? 0 : 1 - progress;
 
@@ -84,9 +97,13 @@ export function useWhatIDoScroll(
         // Two decimals is well below what the eye can resolve here (both values
         // also ease through a CSS transition), and it lets the change guard in
         // write() skip most frames outright.
-        return { grayscale: grayscale.toFixed(2), reveal: reveal.toFixed(2) };
+        return {
+          grayscale: grayscale.toFixed(2),
+          reveal: reveal.toFixed(2),
+          final: finalReached ? '1' : '0',
+        };
       },
-      write: (_frame, { grayscale, reveal }) => {
+      write: (_frame, { grayscale, reveal, final }) => {
         if (grayscale !== lastGrayscale) {
           host.style.setProperty('--grayscale', grayscale);
           lastGrayscale = grayscale;
@@ -94,6 +111,10 @@ export function useWhatIDoScroll(
         if (reveal !== lastReveal) {
           host.style.setProperty('--reveal', reveal);
           lastReveal = reveal;
+        }
+        if (final !== lastFinal) {
+          host.style.setProperty('--final', final);
+          lastFinal = final;
         }
       },
     });

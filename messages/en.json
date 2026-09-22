@@ -293,6 +293,7 @@
   },
   "projectsPage": {
     "listLabel": "Projects",
+    "dotsLabel": "Go to a project",
     "hero": {
       "title": "Projects as Structured Systems",
       "lead": "I don’t treat projects as isolated deliverables.",
@@ -328,6 +329,12 @@
             "Frontend Engineer"
           ]
         },
+        "smartbet": {
+          "title": "Smartbet",
+          "roles": [
+            "UI Engineer"
+          ]
+        },
         "soulone": {
           "title": "SoulOne",
           "roles": [
@@ -335,10 +342,25 @@
             "Project Manager"
           ]
         },
-        "smartbet": {
-          "title": "Smartbet",
+        "ginosi": {
+          "title": "Ginosi",
           "roles": [
-            "UI Engineer"
+            "UI Architect",
+            "Frontend Engineer"
+          ]
+        },
+        "brainstorm": {
+          "title": "Brainstorm",
+          "roles": [
+            "UI Architect",
+            "Frontend Engineer"
+          ]
+        },
+        "benzeen": {
+          "title": "Benzeen Autoparts",
+          "roles": [
+            "UI Architect",
+            "Frontend Engineer"
           ]
         },
         "worldEducation": {
@@ -346,6 +368,27 @@
           "roles": [
             "UI Engineer",
             "Frontend Developer"
+          ]
+        },
+        "infinityRings": {
+          "title": "Infinity Rings",
+          "roles": [
+            "UI Architect",
+            "Frontend Engineer"
+          ]
+        },
+        "offMyCase": {
+          "title": "Off My Case",
+          "roles": [
+            "UI Architect",
+            "Frontend Engineer"
+          ]
+        },
+        "byRobynBlair": {
+          "title": "By Robyn Blair",
+          "roles": [
+            "UI Architect",
+            "Frontend Engineer"
           ]
         }
       }

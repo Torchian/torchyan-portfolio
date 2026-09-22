@@ -99,7 +99,13 @@ const Trigger = styled.button`
   }
 `;
 
-const Options = styled.ul<{ $open: boolean }>`
+/*
+ * Open and closed are both static rules keyed on data-open, not a
+ * styled-components prop: a prop that flips generates its open-state class the
+ * first time it's used, and injecting that stylesheet rule restyles the whole
+ * page in the middle of the first opening — which is what made it stutter.
+ */
+const Options = styled.ul`
   ${glassSurface}
   position: absolute;
   top: calc(100% + ${spacing[100]}px);
@@ -136,40 +142,39 @@ const Options = styled.ul<{ $open: boolean }>`
     height: ${spacing[100]}px;
   }
 
-  ${(p) =>
-    p.$open
-      ? css`
-          opacity: 1;
-          transform: none;
-          visibility: visible;
-          transition:
-            opacity ${OPEN},
-            transform ${OPEN},
-            visibility ${OPEN};
+  &[data-open='true'] {
+    opacity: 1;
+    transform: none;
+    visibility: visible;
+    transition:
+      opacity ${OPEN},
+      transform ${OPEN},
+      visibility ${OPEN};
 
-          li {
-            opacity: 1;
-            transform: none;
-            transition:
-              opacity ${OPEN},
-              transform ${OPEN};
-          }
+    li {
+      opacity: 1;
+      transform: none;
+      transition:
+        opacity ${OPEN},
+        transform ${OPEN};
+    }
 
-          li:nth-child(2) {
-            transition-delay: ${ROW_STAGGER_MS}ms;
-          }
-        `
-      : css`
-          opacity: 0;
-          /* Lifted and slightly smaller: it grows out of the pill above it. */
-          transform: translateY(-${spacing[150]}px) scale(0.96);
-          visibility: hidden;
+    li:nth-child(2) {
+      transition-delay: ${ROW_STAGGER_MS}ms;
+    }
+  }
 
-          li {
-            opacity: 0;
-            transform: translateY(-${spacing[100]}px);
-          }
-        `}
+  &[data-open='false'] {
+    opacity: 0;
+    /* Lifted and slightly smaller: it grows out of the pill above it. */
+    transform: translateY(-${spacing[150]}px) scale(0.96);
+    visibility: hidden;
+
+    li {
+      opacity: 0;
+      transform: translateY(-${spacing[100]}px);
+    }
+  }
 
   ${media.reducedMotion} {
     transform: none;
@@ -322,7 +327,7 @@ export function LanguageSwitcher({ className }: LanguageSwitcherProps) {
         <Flag src={FLAG_SRC[locale]} alt="" width={16} height={12} />
         <span lang={locale}>{LANGUAGE_LABELS[locale]}</span>
       </Trigger>
-      <Options id={listId} $open={open}>
+      <Options id={listId} data-open={open}>
         {/* Only the languages you can switch to; the current one is already on the pill. */}
         {routing.locales
           .filter((option) => option !== locale)

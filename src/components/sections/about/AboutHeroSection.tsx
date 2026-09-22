@@ -238,7 +238,7 @@ export function AboutHeroSection() {
         <HeroImageWrapper>
           <HeroImageSharp>
             <Image
-              src="/hero/character_color.png"
+              src="/hero/character_color_2.png"
               alt=""
               fill
               sizes="(max-width: 480px) 320px, 720px"

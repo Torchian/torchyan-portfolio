@@ -1,11 +1,27 @@
 /**
- * Projects page (Figma 3155:9789): the "Single Project" rows and the screenshot
- * collages beside them.
+ * Projects page (Figma section 3155:8425 — frames 1920 / 1440 / 1024 / 480):
+ * the "Single Project" rows and the screenshot collages beside them.
  *
- * Content mirrors the Figma frame as it is today, where several rows still share
- * copy and artwork; swap in each project's real content here. The copy itself
- * lives in messages/*.json under projectsPage.showcase.
+ * Only the titles are final. Every row still shares one description, tech stack
+ * and the Picsart collage (Figma 3011:9178); swap in each project's real content
+ * here as it arrives. The copy lives in messages/*.json under
+ * projectsPage.showcase.
+ *
+ * The rows carry the page's colour: each one is a vertical gradient that ends
+ * where the next begins, so the ten together read as a single wash from
+ * Picsart's magenta round to By Robyn Blair's pink. Sampled from the 1440 frame.
  */
+
+/**
+ * Where the Projects list runs as a stage (see ProjectsListSection): every row
+ * one screen tall, pinned, and swapped by animation. At every width, as long as
+ * the window is tall enough under the header: 720 for the side-by-side row,
+ * 560 for the stacked one (768 and below). In a shorter window the rows simply
+ * stack. STAGE_QUERY is a media query list, so only use it on its own.
+ */
+export const STAGE_SPLIT_QUERY = '(min-width: 768.02px) and (min-height: 720px)';
+export const STAGE_STACKED_QUERY = '(max-width: 768px) and (min-height: 560px)';
+export const STAGE_QUERY = `${STAGE_SPLIT_QUERY}, ${STAGE_STACKED_QUERY}`;
 
 export interface CollageImage {
   src: string;
@@ -24,6 +40,8 @@ export interface CollageStack {
   x: number;
   y: number;
   width: number;
+  /** Figma's own box height when it's shorter than the images; they overflow its bottom as there. */
+  height?: number;
   gap?: number;
   images: CollageImage[];
 }
@@ -34,16 +52,32 @@ export type CollageTilt = 'clockwise' | 'counterClockwise' | 'none';
 export interface Collage {
   tilt: CollageTilt;
   stacks: CollageStack[];
+  /** The media box the coordinates were measured in; the 1920 frame's 948 × 576 unless given. */
+  frame?: { width: number; height: number };
 }
 
 /** Which copy a row shows, from messages/*.json under projectsPage.showcase.items. */
-export type ShowcaseContentKey = 'picsart' | 'soulone' | 'smartbet' | 'worldEducation';
+export type ShowcaseContentKey =
+  | 'picsart'
+  | 'smartbet'
+  | 'soulone'
+  | 'ginosi'
+  | 'brainstorm'
+  | 'benzeen'
+  | 'worldEducation'
+  | 'infinityRings'
+  | 'offMyCase'
+  | 'byRobynBlair';
 
 export interface ShowcaseProject {
   id: string;
   content: ShowcaseContentKey;
   href: string;
   collage: Collage;
+  /** The row's own slice of the page-long gradient. */
+  background: string;
+  /** How dark the row is, which decides whether its text is light or dark. */
+  tone: 'dark' | 'light';
 }
 
 const DESKTOP = { width: 1366, height: 757 };
@@ -53,22 +87,26 @@ const shot = (set: string, name: string, size: { width: number; height: number }
   ...size,
 });
 
+/** Figma: Single Project, Name=Picsart (3011:9178): three columns in its 908 × 708 media box. */
 const PICSART: Collage = {
   tilt: 'clockwise',
+  frame: { width: 908, height: 708 },
   stacks: [
     {
-      x: 513.94,
-      y: 21.35,
-      width: 640,
+      x: 443.94,
+      y: 5.65,
+      width: 516.42,
+      height: 1534.2,
       gap: 32,
-      images: ['marketplace-home', 'marketplace-feed', 'marketplace-item', 'marketplace-search', 'discovery-collections', 'discovery-templates'].map(
+      images: ['marketplace-feed', 'marketplace-item', 'marketplace-search', 'discovery-collections', 'discovery-templates'].map(
         (name) => shot('picsart', name, DESKTOP),
       ),
     },
     {
-      x: 546.39,
-      y: 440.08,
-      width: 170.94,
+      x: 562.91,
+      y: 300.68,
+      width: 137.93,
+      height: 1587.61,
       gap: 32,
       images: [
         shot('picsart', 'mobile-feed', { width: 830, height: 1804 }),
@@ -79,112 +117,20 @@ const PICSART: Collage = {
       ],
     },
     {
-      x: 1098.45,
-      y: 558.82,
-      width: 640,
+      x: 664.72,
+      y: 605.34,
+      width: 516.42,
+      height: 1534.2,
       gap: 32,
-      images: ['marketplace-filters', 'marketplace-creator', 'discovery-home', 'marketplace-editor', 'discovery-collections', 'marketplace-checkout'].map(
+      images: ['marketplace-filters', 'marketplace-creator', 'discovery-home', 'marketplace-editor', 'discovery-collections'].map(
         (name) => shot('picsart', name, DESKTOP),
       ),
     },
   ],
 };
 
-const SOULONE: Collage = {
-  tilt: 'counterClockwise',
-  stacks: [
-    { x: 1415.23, y: 1378.7, width: 180, images: [{ ...shot('soulone', 'iphone-home', { width: 180, height: 5203 }), outlined: true }] },
-    { x: 1913.19, y: 391.2, width: 180, images: [shot('soulone', 'iphone-product-3', { width: 180, height: 3993 })] },
-    { x: 860.63, y: 698.9, width: 475, images: [shot('soulone', 'plan-diet', { width: 475, height: 2421 })] },
-    { x: 565.74, y: 169.15, width: 180, images: [shot('soulone', 'iphone-product-2', { width: 180, height: 3485 })] },
-    { x: 1845.73, y: 630.15, width: 312, images: [shot('soulone', 'ipad-home', { width: 312, height: 2805 })] },
-  ],
-};
-
-const SMARTBET_WIDE = { width: 3584, height: 1994 };
-const SMARTBET_PAGE = { width: 2732, height: 1514 };
-const SMARTBET_MOBILE = { width: 750, height: 1334 };
-
-const SMARTBET: Collage = {
-  tilt: 'counterClockwise',
-  stacks: [
-    {
-      x: 707.88,
-      y: 851.38,
-      width: 640,
-      gap: 32,
-      images: [
-        shot('smartbet', 'desktop-virtuals', SMARTBET_WIDE),
-        shot('smartbet', 'products-smart-sports', SMARTBET_PAGE),
-        shot('smartbet', 'platform-smart-connect', SMARTBET_PAGE),
-        shot('smartbet', 'desktop-sports', SMARTBET_WIDE),
-        shot('smartbet', 'products-overview', SMARTBET_PAGE),
-        shot('smartbet', 'platform-smart-control', SMARTBET_PAGE),
-      ],
-    },
-    {
-      x: 407.89,
-      y: 204.58,
-      width: 243.2,
-      gap: 32,
-      images: ['mobile-our-vision', 'mobile-kaboom', 'mobile-smart-sports', 'mobile-smart-feed', 'mobile-our-mission'].map((name) =>
-        shot('smartbet', name, SMARTBET_MOBILE),
-      ),
-    },
-    {
-      x: 800.73,
-      y: -42.23,
-      width: 640,
-      gap: 32,
-      images: [
-        shot('smartbet', 'desktop-careers-hero', SMARTBET_WIDE),
-        shot('smartbet', 'providers', SMARTBET_PAGE),
-        shot('smartbet', 'desktop-feed', SMARTBET_WIDE),
-        shot('smartbet', 'careers', SMARTBET_PAGE),
-        shot('smartbet', 'gaming-casino', SMARTBET_PAGE),
-        shot('smartbet', 'about-our-vision', SMARTBET_PAGE),
-        shot('smartbet', 'ice', SMARTBET_PAGE),
-      ],
-    },
-  ],
-};
-
-const WEBSITE_COLUMN = 336.25;
-
-const WEBSITES: Collage = {
-  tilt: 'none',
-  stacks: [
-    { x: 0, y: 0, width: WEBSITE_COLUMN, images: [shot('websites', 'benzeen-wheel', { width: WEBSITE_COLUMN, height: 1159.33 })] },
-    {
-      x: 368.25,
-      y: -306,
-      width: WEBSITE_COLUMN,
-      gap: 27,
-      images: [
-        shot('websites', 'backoffice', { width: 1440, height: 768 }),
-        shot('websites', 'ginosi-search', { width: 1920, height: 1265 }),
-        shot('websites', 'scunci-shop', { width: 1920, height: 3031 }),
-      ],
-    },
-    { x: 736.5, y: 0, width: WEBSITE_COLUMN, images: [shot('websites', 'brainstorm-services', { width: WEBSITE_COLUMN, height: 1272.9 })] },
-    {
-      x: 1104.75,
-      y: -303,
-      width: WEBSITE_COLUMN,
-      gap: 27,
-      images: [
-        shot('websites', 'dashboard-dark', SMARTBET_WIDE),
-        shot('websites', 'dashboard-analytics', SMARTBET_WIDE),
-        shot('websites', 'ginosi-downtown', { width: 1903, height: 903 }),
-        shot('websites', 'benzeen-alfa-romeo', { width: 1903, height: 903 }),
-        shot('websites', 'dashboard-light', { width: 1440, height: 768 }),
-      ],
-    },
-  ],
-};
-
-/** World Education has no case study page yet, so its CTA opens the case studies list. */
-const NO_CASE_PAGE = '/case-studies';
+/** Each row hands its closing colour to the next, so the list reads as one gradient. */
+const band = (from: string, to: string) => `linear-gradient(180deg, ${from} 0%, ${to} 100%)`;
 
 export const SHOWCASE_PROJECTS: ShowcaseProject[] = [
   {
@@ -192,47 +138,79 @@ export const SHOWCASE_PROJECTS: ShowcaseProject[] = [
     content: 'picsart',
     href: '/projects/picsart',
     collage: PICSART,
-  },
-  {
-    id: 'soulone',
-    content: 'soulone',
-    href: '/projects/soulone',
-    collage: SOULONE,
+    background: band('#920792', '#1C014A'),
+    tone: 'dark',
   },
   {
     id: 'smartbet',
     content: 'smartbet',
     href: '/projects/smartbet',
-    collage: SMARTBET,
+    collage: PICSART,
+    background: band('#1C014A', '#20520F'),
+    tone: 'dark',
+  },
+  {
+    id: 'soulone',
+    content: 'soulone',
+    href: '/projects/soulone',
+    collage: PICSART,
+    background: band('#20520F', '#102649'),
+    tone: 'dark',
+  },
+  {
+    id: 'ginosi',
+    content: 'ginosi',
+    href: '/projects/ginosi',
+    collage: PICSART,
+    background: band('#102649', '#5C4AC0'),
+    tone: 'dark',
+  },
+  {
+    id: 'brainstorm',
+    content: 'brainstorm',
+    href: '/projects/brainstorm',
+    collage: PICSART,
+    background: band('#5C4AC0', '#DE9E3C'),
+    tone: 'dark',
+  },
+  {
+    id: 'benzeen',
+    content: 'benzeen',
+    href: '/projects/benzeen',
+    collage: PICSART,
+    background: band('#DE9E3C', '#927F3D'),
+    tone: 'light',
   },
   {
     id: 'world-education',
     content: 'worldEducation',
-    href: NO_CASE_PAGE,
+    href: '/projects/world-education',
     collage: PICSART,
+    background: band('#927F3D', '#B6955F'),
+    tone: 'light',
   },
   {
-    id: 'smartbet-2',
-    content: 'smartbet',
-    href: '/projects/smartbet',
-    collage: SOULONE,
-  },
-  {
-    id: 'world-education-2',
-    content: 'worldEducation',
-    href: NO_CASE_PAGE,
-    collage: WEBSITES,
-  },
-  {
-    id: 'smartbet-3',
-    content: 'smartbet',
-    href: '/projects/smartbet',
-    collage: SOULONE,
-  },
-  {
-    id: 'world-education-3',
-    content: 'worldEducation',
-    href: NO_CASE_PAGE,
+    id: 'infinity-rings',
+    content: 'infinityRings',
+    href: '/projects/infinity-rings',
     collage: PICSART,
+    background: band('#B6955F', '#F6CEC1'),
+    tone: 'light',
+  },
+  {
+    id: 'off-my-case',
+    content: 'offMyCase',
+    href: '/projects/off-my-case',
+    collage: PICSART,
+    background: band('#F6CEC1', '#FF8DAA'),
+    tone: 'light',
+  },
+  {
+    id: 'by-robyn-blair',
+    content: 'byRobynBlair',
+    href: '/projects/by-robyn-blair',
+    collage: PICSART,
+    background: band('#FF8DAA', '#FF8DAA'),
+    tone: 'light',
   },
 ];

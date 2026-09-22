@@ -293,6 +293,7 @@
   },
   "projectsPage": {
     "listLabel": "Проекты",
+    "dotsLabel": "Перейти к проекту",
     "hero": {
       "title": "Проекты как цельные системы",
       "lead": "Я не отношусь к проектам как к разрозненным результатам.",
@@ -328,6 +329,12 @@
             "Фронтенд-инженер"
           ]
         },
+        "smartbet": {
+          "title": "Smartbet",
+          "roles": [
+            "UI-инженер"
+          ]
+        },
         "soulone": {
           "title": "SoulOne",
           "roles": [
@@ -335,10 +342,25 @@
             "Руководитель проекта"
           ]
         },
-        "smartbet": {
-          "title": "Smartbet",
+        "ginosi": {
+          "title": "Ginosi",
           "roles": [
-            "UI-инженер"
+            "UI-архитектор",
+            "Фронтенд-инженер"
+          ]
+        },
+        "brainstorm": {
+          "title": "Brainstorm",
+          "roles": [
+            "UI-архитектор",
+            "Фронтенд-инженер"
+          ]
+        },
+        "benzeen": {
+          "title": "Benzeen Autoparts",
+          "roles": [
+            "UI-архитектор",
+            "Фронтенд-инженер"
           ]
         },
         "worldEducation": {
@@ -346,6 +368,27 @@
           "roles": [
             "UI-инженер",
             "Фронтенд-разработчик"
+          ]
+        },
+        "infinityRings": {
+          "title": "Infinity Rings",
+          "roles": [
+            "UI-архитектор",
+            "Фронтенд-инженер"
+          ]
+        },
+        "offMyCase": {
+          "title": "Off My Case",
+          "roles": [
+            "UI-архитектор",
+            "Фронтенд-инженер"
+          ]
+        },
+        "byRobynBlair": {
+          "title": "By Robyn Blair",
+          "roles": [
+            "UI-архитектор",
+            "Фронтенд-инженер"
           ]
         }
       }

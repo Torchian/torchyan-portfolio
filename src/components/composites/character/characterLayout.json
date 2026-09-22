@@ -1,0 +1,240 @@
+{
+  "$comment": "Generated from Figma (Character Body 3871:1230, Character Head 3183:6631, character_glasses 3875:1182, Character - Head + Body 3884:1468). Boxes are px in their frame. Regenerate rather than hand-edit.",
+  "frame": {
+    "width": 1024,
+    "height": 1024
+  },
+  "head": {
+    "x": 319.9572,
+    "y": 0,
+    "width": 384.0855,
+    "height": 713.3017,
+    "frame": {
+      "width": 420,
+      "height": 780
+    }
+  },
+  "faceFrame": {
+    "x": 0,
+    "y": 38,
+    "width": 421,
+    "height": 573
+  },
+  "order": [
+    "eye-left",
+    "eye-right",
+    "ear-right",
+    "ear-left",
+    "face",
+    "brow-left",
+    "brow-right",
+    "glasses",
+    "cap",
+    "beard"
+  ],
+  "parts": {
+    "eye-left": {
+      "src": "/character/v2/head/eye-left.webp",
+      "x": 255.0,
+      "y": 275.0,
+      "width": 83.0,
+      "height": 42.0
+    },
+    "eye-right": {
+      "src": "/character/v2/head/eye-right.webp",
+      "x": 82.0,
+      "y": 274.64,
+      "width": 80.0,
+      "height": 41.0
+    },
+    "ear-right": {
+      "src": "/character/v2/head/ear-right.webp",
+      "x": 10.46,
+      "y": 279.93,
+      "width": 57.0,
+      "height": 147.0
+    },
+    "ear-left": {
+      "src": "/character/v2/head/ear-left.webp",
+      "x": 350.11,
+      "y": 279.96,
+      "width": 56.5,
+      "height": 146.5
+    },
+    "face": {
+      "src": "/character/v2/head/face.webp",
+      "x": 14.5,
+      "y": 38.0,
+      "width": 391.0,
+      "height": 571.5
+    },
+    "brow-left": {
+      "src": "/character/v2/head/brow-left.webp",
+      "x": 237.05,
+      "y": 223.1,
+      "width": 120.5,
+      "height": 44.5
+    },
+    "brow-right": {
+      "src": "/character/v2/head/brow-right.webp",
+      "x": 63.52,
+      "y": 226.81,
+      "width": 112.5,
+      "height": 37.5
+    },
+    "cap": {
+      "src": "/character/v2/head/cap.webp",
+      "x": 34.0,
+      "y": 2.5,
+      "width": 353.0,
+      "height": 273.5
+    },
+    "beard": {
+      "src": "/character/v2/head/beard.webp",
+      "x": 47.0,
+      "y": 395.0,
+      "width": 325.5,
+      "height": 383.0
+    }
+  },
+  "glasses": {
+    "default": {
+      "src": "/character/v2/glasses/default.webp",
+      "x": 41.0,
+      "y": 258.0,
+      "width": 337.0,
+      "height": 108.0
+    },
+    "matrix": {
+      "src": "/character/v2/glasses/matrix.webp",
+      "x": 41.0,
+      "y": 258.0,
+      "width": 337.0,
+      "height": 108.0
+    },
+    "pixel": {
+      "src": "/character/v2/glasses/pixel.webp",
+      "x": 41.0,
+      "y": 258.0,
+      "width": 337.0,
+      "height": 96.0
+    },
+    "optical": {
+      "src": "/character/v2/glasses/optical.webp",
+      "x": 41.0,
+      "y": 258.0,
+      "width": 337.0,
+      "height": 108.0
+    }
+  },
+  "bodies": {
+    "default": {
+      "figma": "Default",
+      "node": "3870:16064",
+      "src": "/character/v2/body/default.webp",
+      "x": 0.0,
+      "y": 468.97,
+      "width": 1024.0,
+      "height": 555.0
+    },
+    "russian-90s": {
+      "figma": "Russian 90's",
+      "node": "3871:1178",
+      "src": "/character/v2/body/russian-90s.webp",
+      "x": 0.0,
+      "y": 467.97,
+      "width": 1024.0,
+      "height": 556.0
+    },
+    "hoodie": {
+      "figma": "Hoodie",
+      "node": "3872:1190",
+      "src": "/character/v2/body/hoodie.webp",
+      "x": 0.0,
+      "y": 433.97,
+      "width": 1024.0,
+      "height": 590.0
+    },
+    "retro-classic": {
+      "figma": "Retro Classic",
+      "node": "3872:1192",
+      "src": "/character/v2/body/retro-classic.webp",
+      "x": 0.0,
+      "y": 467.97,
+      "width": 1024.0,
+      "height": 556.0
+    },
+    "jacket-hoodie": {
+      "figma": "Jacket Hoodie",
+      "node": "3872:1194",
+      "src": "/character/v2/body/jacket-hoodie.webp",
+      "x": 0.0,
+      "y": 440.97,
+      "width": 1024.0,
+      "height": 583.0
+    },
+    "fight-club": {
+      "figma": "Fight Club",
+      "node": "3872:1198",
+      "src": "/character/v2/body/fight-club.webp",
+      "x": 0.0,
+      "y": 467.97,
+      "width": 1024.0,
+      "height": 556.0
+    },
+    "matrix": {
+      "figma": "Matrix 2",
+      "node": "3872:1200",
+      "src": "/character/v2/body/matrix.webp",
+      "x": 0.0,
+      "y": 431.97,
+      "width": 1024.0,
+      "height": 592.0
+    },
+    "scarface": {
+      "figma": "Scarface",
+      "node": "3872:1201",
+      "src": "/character/v2/body/scarface.webp",
+      "x": 0.0,
+      "y": 467.97,
+      "width": 1024.0,
+      "height": 556.0
+    },
+    "big-lebowski": {
+      "figma": "Big Lebowski",
+      "node": "3872:1202",
+      "src": "/character/v2/body/big-lebowski.webp",
+      "x": 0.0,
+      "y": 431.97,
+      "width": 1024.0,
+      "height": 592.0
+    },
+    "pulp-fiction": {
+      "figma": "Pulp Fiction",
+      "node": "3872:1203",
+      "src": "/character/v2/body/pulp-fiction.webp",
+      "x": 0.0,
+      "y": 427.97,
+      "width": 1024.0,
+      "height": 596.0
+    },
+    "wall-street": {
+      "figma": "Wall Street",
+      "node": "3872:1209",
+      "src": "/character/v2/body/wall-street.webp",
+      "x": 0.0,
+      "y": 406.97,
+      "width": 1024.0,
+      "height": 617.0
+    },
+    "armenian-traditional": {
+      "figma": "Armenian Traditional 2",
+      "node": "3872:1211",
+      "src": "/character/v2/body/armenian-traditional.webp",
+      "x": 0.0,
+      "y": 464.97,
+      "width": 1024.0,
+      "height": 559.0
+    }
+  }
+}

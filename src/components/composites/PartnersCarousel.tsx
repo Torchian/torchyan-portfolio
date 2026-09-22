@@ -3,13 +3,18 @@
 /* eslint-disable @next/next/no-img-element -- monochrome SVG logos; next/image adds nothing */
 import styled, { css, keyframes } from 'styled-components';
 import { spacing } from '@/styles/tokens/spacing';
-import { neutrals } from '@/styles/tokens/colors';
+import { transparents } from '@/styles/tokens/colors';
+import { media } from '@/styles/media';
 import { useTranslations } from 'next-intl';
 
 /*
- * Figma: Partners Carousel LTR (3053:13727). A 148px strip of partner logos,
- * 48px tall and 160px apart, drifting in an endless loop. The strip is dark
- * with mix-blend-mode: exclusion, so over the page glow only the logos read.
+ * Figma: Partners Carousel LTR (3053:13727), on the Projects page at 1920
+ * (3155:9824), 1440 (3753:11197), 1024 (3753:14718) and 480 (3753:17745).
+ *
+ * A strip of partner logos drifting in an endless loop: 108px tall on desktop
+ * with 48px logos 160px apart, and a slimmer band below that — 56px with 24px
+ * logos on a tablet, 48px on a phone. The strip is dark with
+ * mix-blend-mode: exclusion, so over the page glow only the logos read.
  */
 
 export interface PartnerLogo {
@@ -63,9 +68,17 @@ const LOGO_GAP = spacing[2000];
 
 const Strip = styled.section`
   overflow: hidden;
-  padding: ${spacing[500]}px 0;
-  background: ${neutrals[900]};
+  padding: ${spacing[250]}px 0;
+  background: ${transparents.transparent4};
   mix-blend-mode: exclusion;
+
+  ${media.down('xl')} {
+    padding: ${spacing[200]}px 0;
+  }
+
+  ${media.down('m')} {
+    padding: ${spacing[150]}px 0;
+  }
 `;
 
 const Track = styled.div<{ $direction: CarouselDirection; $seconds: number }>`
@@ -89,6 +102,16 @@ const Row = styled.ul`
   /* The gap after the last logo, so the loop is seamless. */
   padding: 0 ${LOGO_GAP}px 0 0;
   list-style: none;
+
+  ${media.down('xl')} {
+    gap: ${spacing[1000]}px;
+    padding-right: ${spacing[1000]}px;
+  }
+
+  ${media.down('m')} {
+    gap: ${spacing[800]}px;
+    padding-right: ${spacing[800]}px;
+  }
 `;
 
 const Item = styled.li<{ $boxed: boolean }>`
@@ -108,6 +131,19 @@ const Item = styled.li<{ $boxed: boolean }>`
     display: block;
     width: auto;
     max-width: none;
+    /* Set per logo; a breakpoint can override it, which an inline height could not. */
+    height: var(--logo-height);
+  }
+
+  /* Below desktop every logo is the same 24px tall. The height is set on the
+     image, not the custom property, which the per-logo inline value would win. */
+  ${media.down('xl')} {
+    height: auto;
+    padding: 0;
+
+    img {
+      height: 24px;
+    }
   }
 `;
 
@@ -124,8 +160,12 @@ export function PartnersCarousel({ direction = 'ltr', seconds = 80, logos = PART
   const row = (copy: boolean) => (
     <Row aria-hidden={copy || undefined}>
       {logos.map((partner) => (
-        <Item key={partner.name} $boxed={partner.boxed !== false}>
-          <img src={partner.src} alt={copy ? '' : partner.name} style={{ height: partner.height ?? 48 }} />
+        <Item
+          key={partner.name}
+          $boxed={partner.boxed !== false}
+          style={{ '--logo-height': `${partner.height ?? 48}px` } as React.CSSProperties}
+        >
+          <img src={partner.src} alt={copy ? '' : partner.name} />
         </Item>
       ))}
     </Row>

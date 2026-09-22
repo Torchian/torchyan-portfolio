@@ -20,7 +20,10 @@ export async function generateMetadata({ params }: LocaleParams): Promise<Metada
   });
 }
 
-/* Figma: Projects Page (3155:9789). Desktop only for now. */
+/*
+ * Figma: Projects Page (section 3155:8425) — Desktop 1920 (3155:9789), Desktop
+ * 1440 (3753:11170), Tablet 1024 (3753:14691), Mobile 480 (3753:17708).
+ */
 export default async function ProjectsPage({ params }: LocaleParams) {
   await resolveLocale(params);
 

@@ -25,7 +25,8 @@ import { useTranslations } from 'next-intl';
  * SideCharacters (SiteLayout); below it SideCharacters keeps only the lines.
  */
 
-const PORTRAIT = { width: 768, height: 768 } as const;
+/** Baked with scripts/bake-character.py (Big Lebowski, no cap or glasses); see ADR 0005. */
+const PORTRAIT = { src: '/hero/character-portrait.webp', width: 1024, height: 1024 } as const;
 
 const Section = styled.section`
   position: relative;
@@ -309,7 +310,7 @@ export function HeroSection() {
           </CtaSlot>
           <CenterPortrait aria-hidden>
             <Image
-              src="/hero/character_color.png"
+              src={PORTRAIT.src}
               width={PORTRAIT.width}
               height={PORTRAIT.height}
               alt=""

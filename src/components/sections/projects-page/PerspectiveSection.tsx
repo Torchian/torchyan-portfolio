@@ -8,15 +8,26 @@ import { fontFamily, fontWeight, fontSize, lineHeight, letterSpacing } from '@/s
 import { accents, neutrals, transparents } from '@/styles/tokens/colors';
 import { radius } from '@/styles/tokens/radius';
 import { grid } from '@/styles/tokens/grid';
+import { media } from '@/styles/media';
 import { useTranslations } from 'next-intl';
 
-/* Figma: Positioning / Role Definition — "Switch Perspective" (3155:9825). Desktop only for now. */
+/*
+ * Figma: Positioning / Role Definition — "Switch Perspective": 1920 (3155:9825),
+ * 1440 (3753:11198), 1024 (3753:14719), 480 (3753:17746).
+ *
+ * Three cards in a row down to tablet, stacked on a phone. Their text is centred
+ * on desktop and reads from the left below that, as the design has it.
+ */
 
 const Section = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: ${spacing[1000]}px 0;
+
+  ${media.down('m')} {
+    padding: ${spacing[600]}px 0;
+  }
 `;
 
 const Container = styled.div`
@@ -27,6 +38,16 @@ const Container = styled.div`
   width: 100%;
   max-width: ${grid.maxWidth}px;
   padding: 0 ${spacing[400]}px;
+
+  ${media.down('xl')} {
+    gap: ${spacing[800]}px;
+    padding: 0 ${spacing[300]}px;
+  }
+
+  ${media.down('m')} {
+    gap: ${spacing[600]}px;
+    padding: 0 ${spacing[200]}px;
+  }
 `;
 
 const Cards = styled.ul`
@@ -37,6 +58,15 @@ const Cards = styled.ul`
   margin: 0;
   padding: 0;
   list-style: none;
+
+  ${media.down('xl')} {
+    gap: ${spacing[300]}px;
+  }
+
+  ${media.down('m')} {
+    flex-direction: column;
+    gap: ${spacing[300]}px;
+  }
 `;
 
 const Card = styled.li`
@@ -54,6 +84,20 @@ const Card = styled.li`
   font-weight: ${fontWeight.semibold};
   letter-spacing: ${letterSpacing.xs}px;
   text-align: center;
+
+  /* Below desktop the cards read from the left. */
+  ${media.down('xl')} {
+    align-items: flex-start;
+    gap: ${spacing[400]}px;
+    padding: ${spacing[400]}px;
+    text-align: left;
+  }
+
+  ${media.down('m')} {
+    gap: ${spacing[200]}px;
+    min-height: 160px;
+    padding: ${spacing[200]}px ${spacing[250]}px;
+  }
 `;
 
 const CardTitle = styled.h3`
@@ -62,6 +106,12 @@ const CardTitle = styled.h3`
   font-size: ${fontSize.heading.l}px;
   line-height: ${lineHeight.heading.l}px;
   color: ${accents.primary};
+
+  ${media.down('m')} {
+    font-weight: ${fontWeight.medium};
+    font-size: ${fontSize.heading.m}px;
+    line-height: ${lineHeight.heading.m}px;
+  }
 `;
 
 const CardBody = styled.p`
@@ -70,6 +120,12 @@ const CardBody = styled.p`
   font-size: ${fontSize.heading.s}px;
   line-height: ${lineHeight.heading.s}px;
   color: ${neutrals[500]};
+
+  ${media.down('m')} {
+    font-size: ${fontSize.body.xl}px;
+    line-height: ${lineHeight.body.xl}px;
+    color: ${neutrals[100]};
+  }
 `;
 
 const Ecosystems = styled.div`
@@ -101,6 +157,31 @@ const EcosystemList = styled.ul`
 
   li {
     display: flex;
+  }
+
+  /* The badge steps down a size with the breakpoint (Large → Medium → Small). */
+  ${media.down('xl')} {
+    gap: ${spacing[200]}px;
+
+    li > * {
+      height: 24px;
+      padding: ${spacing[50]}px ${spacing[200]}px;
+      font-size: ${fontSize.body.l}px;
+      line-height: ${lineHeight.body.l}px;
+      letter-spacing: ${letterSpacing.m}px;
+    }
+  }
+
+  ${media.down('m')} {
+    gap: ${spacing[150]}px;
+
+    li > * {
+      height: 22px;
+      padding: ${spacing[50]}px ${spacing[150]}px;
+      font-size: ${fontSize.body.m}px;
+      line-height: ${lineHeight.body.m}px;
+      letter-spacing: ${letterSpacing.s}px;
+    }
   }
 `;
 
