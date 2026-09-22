@@ -7,6 +7,8 @@ export const zIndex = {
   modal: 400,
   toast: 500,
   tooltip: 600,
+  /** The custom mouse cursor: above everything, page loader included. */
+  cursor: 10000,
   /** What I Do section: grid (back) < characters < all Bg images (front) */
   whatidoGrid: 1,
   whatidoCharacter: 2,

@@ -6,6 +6,7 @@ import { spacing } from '@/styles/tokens/spacing';
 import { transparents } from '@/styles/tokens/colors';
 import { media } from '@/styles/media';
 import { useTranslations } from 'next-intl';
+import { usePauseOffscreen } from '@/hooks';
 
 /*
  * Figma: Partners Carousel LTR (3053:13727), on the Projects page at 1920
@@ -157,6 +158,8 @@ export interface PartnersCarouselProps {
 
 export function PartnersCarousel({ direction = 'ltr', seconds = 80, logos = PARTNERS }: PartnersCarouselProps) {
   const t = useTranslations('partners');
+  // The strip drifts forever; only while it's in view.
+  const ref = usePauseOffscreen<HTMLElement>();
   const row = (copy: boolean) => (
     <Row aria-hidden={copy || undefined}>
       {logos.map((partner) => (
@@ -172,7 +175,7 @@ export function PartnersCarousel({ direction = 'ltr', seconds = 80, logos = PART
   );
 
   return (
-    <Strip aria-label={t('label')}>
+    <Strip ref={ref} aria-label={t('label')}>
       <Track $direction={direction} $seconds={seconds}>
         {row(false)}
         {row(true)}

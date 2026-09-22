@@ -1,133 +1,105 @@
 #!/usr/bin/env tsx
 /**
- * Optimize PNG/JPEG images in public folders.
- * Usage:
- *   npm run optimize:images                    # optimizes hero + selected-work
- *   npm run optimize:images -- hero            # only public/hero
- *   npm run optimize:images -- selected-work  # only public/selected-work
+ * Prepares images for the site: right-sized, WebP, no metadata.
+ *
+ *   npm run images                          # everything under public/projects
+ *   npm run images -- public/projects/ginosi public/hero
+ *   npm run images -- --dry                 # report only, change nothing
+ *
+ * Drop screenshots in (PNG, JPEG or WebP, any size) and run it. For each one:
+ *  - It's sized to twice the largest size the site draws that kind of image,
+ *    judged by its shape: desktop screens 1600px wide, phone screens 720px, long
+ *    full-page captures 1200px. Anything already smaller is left at its size.
+ *  - It's encoded as WebP (quality 80, highest effort), metadata stripped.
+ *  - A PNG or JPEG becomes a .webp beside it, and the original moves to
+ *    .originals/ (git-ignored) so nothing is lost. An existing WebP is only
+ *    rewritten when that saves at least 10%.
+ *
+ * These are the masters. next/image makes the per-screen copies from them (AVIF
+ * or WebP, at the width each device needs), so the masters only need to be
+ * sharp enough for the largest one.
+ *
+ * When you replace an image, give it a new file name rather than overwriting:
+ * encoded copies are cached for 31 days (next.config.ts).
  */
 
 import sharp from 'sharp';
-import { readdir, mkdir } from 'fs/promises';
-import { join, dirname } from 'path';
-import fs from 'fs';
+import { mkdir, readdir, rename, stat, writeFile } from 'fs/promises';
+import { basename, dirname, extname, join, relative } from 'path';
 
-const DEFAULT_DIRS = ['hero', 'selected-work'];
-const MAX_DIMENSION = 1200; // Good for masonry/grid display
-const QUALITY = 85; // JPEG quality if converting
+const QUALITY = 80;
+const MIN_SAVING = 0.1;
 
-async function findImages(dir: string, base = ''): Promise<string[]> {
-  const fullPath = join(process.cwd(), 'public', dir, base);
-  if (!fs.existsSync(fullPath)) return [];
-  const entries = await readdir(fullPath, { withFileTypes: true });
-  const files: string[] = [];
-  for (const e of entries) {
-    const rel = base ? `${base}/${e.name}` : e.name;
-    if (e.isFile() && /\.(png|jpe?g|webp)$/i.test(e.name)) {
-      files.push(rel);
-    } else if (e.isDirectory() && !e.name.startsWith('.') && e.name !== 'node_modules') {
-      files.push(...(await findImages(dir, rel)));
-    }
-  }
-  return files;
+/** Max width by shape (width ÷ height). */
+function maxWidth(aspect: number): { kind: string; width: number } {
+  if (aspect < 0.35) return { kind: 'page', width: 1200 };
+  if (aspect < 0.8) return { kind: 'phone', width: 720 };
+  return { kind: 'desktop', width: 1600 };
 }
 
-async function optimizeDir(dir: string) {
-  const fullPath = join(process.cwd(), 'public', dir);
-  if (!fs.existsSync(fullPath)) {
-    console.log(`Skipping ${dir} (folder not found)`);
-    return;
+async function* walk(dir: string): AsyncGenerator<string> {
+  for (const entry of await readdir(dir, { withFileTypes: true })) {
+    if (entry.name.startsWith('.')) continue;
+    const path = join(dir, entry.name);
+    if (entry.isDirectory()) yield* walk(path);
+    else if (/\.(png|jpe?g|webp)$/i.test(entry.name)) yield path;
   }
-
-  const files = await findImages(dir);
-  if (files.length === 0) {
-    console.log(`No images in public/${dir}`);
-    return;
-  }
-
-  for (const file of files) {
-    const inputPath = join(fullPath, file);
-    const fileDir = join(fullPath, dirname(file));
-    const backupDir = join(fileDir, '.backup');
-    await mkdir(backupDir, { recursive: true });
-    const backupPath = join(backupDir, file.split('/').pop()!);
-    const ext = file.slice(file.lastIndexOf('.')).toLowerCase();
-
-    try {
-      const meta = await sharp(inputPath).metadata();
-      const inSize = fs.statSync(inputPath).size;
-      const needsResize =
-        (meta.width ?? 0) > MAX_DIMENSION || (meta.height ?? 0) > MAX_DIMENSION;
-
-      let pipeline = sharp(inputPath);
-      if (needsResize) {
-        pipeline = pipeline.resize(MAX_DIMENSION, MAX_DIMENSION, {
-          fit: 'inside',
-          withoutEnlargement: true,
-        });
-      }
-
-      if (ext === '.png') {
-        await pipeline
-          .png({ compressionLevel: 9, adaptiveFiltering: true })
-          .toFile(backupPath);
-      } else if (ext === '.jpg' || ext === '.jpeg') {
-        await pipeline
-          .jpeg({ quality: QUALITY, mozjpeg: true })
-          .toFile(backupPath);
-      } else if (ext === '.webp') {
-        await pipeline
-          .webp({ quality: QUALITY })
-          .toFile(backupPath);
-      } else {
-        continue;
-      }
-
-      const outPath = backupPath;
-      if (fs.existsSync(outPath)) {
-        const outSize = fs.statSync(outPath).size;
-        if (outSize < inSize) {
-          fs.renameSync(outPath, inputPath);
-          console.log(
-            `  ${file}: ${(inSize / 1024).toFixed(1)}KB → ${(outSize / 1024).toFixed(1)}KB`
-          );
-        } else {
-          fs.unlinkSync(outPath);
-          console.log(`  ${file}: kept original (${(inSize / 1024).toFixed(1)}KB)`);
-        }
-      }
-    } catch (err) {
-      console.error(`  ${file}: error`, err);
-    }
-  }
-
-  // Clean empty .backup dirs
-  function cleanBackups(p: string) {
-    if (!fs.existsSync(p)) return;
-    const entries = fs.readdirSync(p, { withFileTypes: true });
-    for (const e of entries) {
-      if (e.isDirectory() && e.name === '.backup') {
-        const bp = join(p, e.name);
-        if (fs.readdirSync(bp).length === 0) fs.rmdirSync(bp);
-      } else if (e.isDirectory() && !e.name.startsWith('.')) {
-        cleanBackups(join(p, e.name));
-      }
-    }
-  }
-  cleanBackups(fullPath);
 }
+
+const kb = (bytes: number) => `${Math.round(bytes / 1024)} KB`;
 
 async function main() {
   const args = process.argv.slice(2);
-  const dirs = args.length > 0 ? args : DEFAULT_DIRS;
+  const dry = args.includes('--dry');
+  const dirs = args.filter((a) => !a.startsWith('--'));
+  const roots = (dirs.length ? dirs : ['public/projects']).map((d) => join(process.cwd(), d));
 
-  console.log('Optimizing images...\n');
-  for (const dir of dirs) {
-    console.log(`public/${dir}:`);
-    await optimizeDir(dir);
-    console.log('');
+  let before = 0;
+  let after = 0;
+  const rows: string[] = [];
+
+  for (const root of roots) {
+    for await (const file of walk(root)) {
+      const ext = extname(file).toLowerCase();
+      const input = await stat(file);
+      const meta = await sharp(file).metadata();
+      if (!meta.width || !meta.height) continue;
+
+      const { kind, width } = maxWidth(meta.width / meta.height);
+      const target = Math.min(meta.width, width);
+      const buffer = await sharp(file)
+        .rotate()
+        .resize({ width: target, withoutEnlargement: true })
+        .webp({ quality: QUALITY, effort: 6, smartSubsample: true })
+        .toBuffer();
+
+      const isWebp = ext === '.webp';
+      const worth = !isWebp || meta.width > width || buffer.length < input.size * (1 - MIN_SAVING);
+      before += input.size;
+      after += worth ? buffer.length : input.size;
+      rows.push(
+        `${worth ? (dry ? 'would write' : 'written   ') : 'kept      '}  ${kind.padEnd(7)} ${String(meta.width).padStart(5)} → ${String(target).padStart(4)}px  ${kb(input.size).padStart(8)} → ${kb(worth ? buffer.length : input.size).padStart(7)}  ${relative(process.cwd(), file)}`,
+      );
+      if (!worth || dry) continue;
+
+      const out = isWebp ? file : join(dirname(file), `${basename(file, ext)}.webp`);
+      if (!isWebp) {
+        const originals = join(dirname(file), '.originals');
+        await mkdir(originals, { recursive: true });
+        await rename(file, join(originals, basename(file)));
+      }
+      await writeFile(out, buffer);
+    }
   }
-  console.log('Done.');
+
+  console.log(rows.join('\n'));
+  console.log(`\n${rows.length} images: ${kb(before)} → ${kb(after)}${dry ? ' (dry run)' : ''}`);
+  if (!dry && rows.some((r) => /\.(png|jpe?g)$/i.test(r))) {
+    console.log('PNG/JPEG sources became .webp: update their paths in the code.');
+  }
 }
 
-main().catch(console.error);
+main().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});

@@ -34,6 +34,8 @@ const Wrapper = styled.div<{ $align?: 'center' | 'left' }>`
 `;
 
 const Title = styled(Display)<{ $heading: SectionHeadingSize }>`
+  /* A title that wraps onto two lines keeps the heading's alignment. */
+  text-align: inherit;
   font-family: ${fontFamily.heading};
   font-size: ${fontSize.heading.l}px;
   line-height: ${lineHeight.heading.l}px;

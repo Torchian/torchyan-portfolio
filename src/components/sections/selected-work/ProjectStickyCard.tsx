@@ -381,12 +381,6 @@ const GridCTA = styled(CTASecondary)`
   left: 50%;
   z-index: 1;
   transform: translate(-50%, -50%);
-
-  ${media.down('m')} {
-    top: auto;
-    bottom: ${spacing[800]}px;
-    transform: translateX(-50%);
-  }
 `;
 
 /** Tile widths per screen, for the image `sizes` hint. */

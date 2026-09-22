@@ -210,7 +210,7 @@ const Info = styled.div`
 
   ${media.down('l')} {
     grid-area: text;
-    gap: ${spacing[300]}px;
+    gap: ${spacing[400]}px;
     padding-inline: ${HEADER_INLINE.mobile}px;
   }
 

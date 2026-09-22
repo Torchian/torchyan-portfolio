@@ -8,6 +8,7 @@ import { fontFamily, fontWeight } from './tokens/typography';
 import { spacing } from './tokens/spacing';
 import { border } from './tokens/border';
 import { zIndex } from './tokens/z-index';
+import { media } from './media';
 
 export const GlobalStyle = createGlobalStyle`
   [data-theme='dark'] {
@@ -92,10 +93,22 @@ export const GlobalStyle = createGlobalStyle`
     color: var(--color-text-inverse);
   }
 
+  /* usePauseOffscreen: infinite animations rest while out of view. */
+  [data-offscreen='true'],
+  [data-offscreen='true'] *,
+  [data-offscreen='true'] *::before,
+  [data-offscreen='true'] *::after {
+    animation-play-state: paused !important;
+  }
+
   #main-content {
     display: flex;
     flex-direction: column;
     gap: ${spacing[2000]}px;
+
+    ${media.down('m')} {
+      gap: ${spacing[1000]}px;
+    }
   }
 
   /*

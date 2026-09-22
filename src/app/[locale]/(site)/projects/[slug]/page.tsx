@@ -5,6 +5,12 @@ import { getProjectBySlug, PROJECTS } from '@/components/sections/selected-work/
 import { CaseStudyHeroSection } from '@/components/sections/case-study/CaseStudyHeroSection';
 import { CaseStudyBodySection } from '@/components/sections/case-study/CaseStudyBodySection';
 import { ContactCTASection } from '@/components/sections/contact-cta/ContactCTASection';
+import { CaseStudyHero } from '@/components/sections/case-study/CaseStudyHero';
+import { CaseStudyTimeline } from '@/components/sections/case-study/CaseStudyTimeline';
+import { CaseStudyBlueprint } from '@/components/sections/case-study/CaseStudyBlueprint';
+import { CaseStudyArchitecture } from '@/components/sections/case-study/CaseStudyArchitecture';
+import { CollaborationSection } from '@/components/sections/projects-page/CollaborationSection';
+import { CASE_STUDIES, type CaseStudyCopy } from '@/components/sections/case-study/caseStudyConfig';
 import { resolveLocale } from '@/i18n/server';
 import { generatePageMetadata } from '@/lib/seo/metadata';
 
@@ -35,12 +41,29 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function ProjectPage({ params }: PageProps) {
-  await resolveLocale(params);
+  const locale = await resolveLocale(params);
   const { slug } = await params;
   const project = getProjectBySlug(slug);
 
   if (!project) {
     notFound();
+  }
+
+  // Figma: Case Study page (3155:9107). A project gets it once it has imagery
+  // (caseStudyConfig.ts) and copy (caseStudy.<slug>); until then, the older layout.
+  const imagery = CASE_STUDIES[project.slug];
+  const caseCopies = (await getMessages({ locale })).caseStudy as Record<string, CaseStudyCopy> | undefined;
+  const copy = caseCopies?.[project.slug];
+  if (imagery && copy) {
+    return (
+      <main id="main-content">
+        <CaseStudyHero copy={copy.hero} carousel={imagery.carousel} />
+        <CaseStudyTimeline copy={copy.timeline} gallery={imagery.timeline} />
+        <CaseStudyBlueprint copy={copy.blueprint} />
+        <CaseStudyArchitecture copy={copy.architecture} images={imagery.useCases} />
+        <CollaborationSection />
+      </main>
+    );
   }
 
   return (

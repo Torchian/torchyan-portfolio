@@ -572,5 +572,528 @@
       },
       "bottomLine": "Сейчас изучаю продвинутые UI-системы, рабочие процессы с ИИ и интерфейсы, ориентированные на производительность."
     }
+  },
+  "caseStudy": {
+    "picsart": {
+      "hero": {
+        "title": "Picsart Marketplace",
+        "subtitle": "System Architecture & Design Infrastructure",
+        "description": [
+          "This project required restructuring not only interface visuals, but the entire logic behind how UI components were defined, reused, scaled, and maintained across a multi-team ecosystem.",
+          "The objective was systemic coherence - not cosmetic improvement."
+        ],
+        "meta": [
+          {
+            "label": "Role:",
+            "items": [
+              "UI Architect",
+              "Frontend Engineer"
+            ]
+          },
+          {
+            "label": "Scope:",
+            "items": [
+              "Design System Migration",
+              "Accessibility",
+              "Performance Optimization"
+            ]
+          },
+          {
+            "label": "Platform:",
+            "items": [
+              "Web (Marketplace + Discovery)"
+            ]
+          },
+          {
+            "label": "Stack:",
+            "items": [
+              "React",
+              "JSS",
+              "Styled Components",
+              "i18n"
+            ]
+          }
+        ]
+      },
+      "timeline": {
+        "title": "Building Interface Systems Since 2016",
+        "subtitle": [
+          "I work at the intersection where design decisions meet technical reality.",
+          "My role is to connect intent, system logic, and execution - without losing quality along the way."
+        ],
+        "steps": [
+          [
+            {
+              "title": "Product Landscape",
+              "blocks": [
+                [
+                  "Picsart Marketplace operates as a modular digital ecosystem containing:",
+                  [
+                    "Content discovery interfaces",
+                    "Asset marketplaces",
+                    "Mini Apps integrations",
+                    "Cross-team contribution surfaces"
+                  ]
+                ],
+                [
+                  "Multiple teams were shipping features simultaneously.",
+                  "However, UI implementation lacked structural standardization."
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "Initial Friction Points",
+              "blocks": [
+                [
+                  [
+                    "Fragmented component implementations",
+                    "Inconsistent spacing and typography rules",
+                    "Diverging interaction states",
+                    "Redundant UI logic",
+                    "Weak RTL/LTR handling",
+                    "Performance inefficiencies in rendering flows",
+                    "Accessibility gaps in keyboard and ARIA behaviors"
+                  ]
+                ],
+                [
+                  "The system was growing, but its architecture was not."
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "The Real Problem",
+              "blocks": [
+                [
+                  "The Marketplace did not lack visual quality.",
+                  "It lacked architectural discipline."
+                ],
+                [
+                  "Without a centralized design system and frontend abstraction layer:",
+                  [
+                    "Development velocity slowed",
+                    "UI inconsistencies multiplied",
+                    "Scaling introduced compounding complexity",
+                    "Accessibility became reactive instead of structured"
+                  ]
+                ],
+                [
+                  "This was not a UI redesign task.",
+                  "It was a systemic stabilization initiative."
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "phase": "Phase 1",
+              "title": "System Audit",
+              "blocks": [
+                [
+                  "I conducted:",
+                  [
+                    "Component inventory mapping",
+                    "Token inconsistency detection",
+                    "State behavior comparison",
+                    "Accessibility violation identification",
+                    "Performance profiling of key surfaces"
+                  ]
+                ],
+                [
+                  "This allowed structural prioritization instead of aesthetic assumptions."
+                ]
+              ]
+            },
+            {
+              "phase": "Phase 2",
+              "title": "Component Taxonomy Definition",
+              "blocks": [
+                [
+                  "A unified classification system was introduced:",
+                  [
+                    "Base primitives",
+                    "Composite components",
+                    "Layout wrappers",
+                    "Contextual modules"
+                  ]
+                ],
+                [
+                  "Each component received:",
+                  [
+                    "Defined states",
+                    "Usage constraints",
+                    "Accessibility attributes",
+                    "Token-based styling",
+                    "Responsiveness rules"
+                  ]
+                ]
+              ]
+            },
+            {
+              "phase": "Phase 3",
+              "title": "Token & Styling Infrastructure",
+              "blocks": [
+                [
+                  "Implemented:",
+                  [
+                    "Centralized design tokens",
+                    "Scalable typography system",
+                    "Spacing scale hierarchy",
+                    "Color role mapping",
+                    "Theme abstraction"
+                  ]
+                ],
+                [
+                  "Using:",
+                  [
+                    "React + JSS / Styled Components"
+                  ]
+                ],
+                [
+                  "This allowed:",
+                  [
+                    "Controlled overrides",
+                    "Predictable styling inheritance",
+                    "Reduced CSS duplication"
+                  ]
+                ]
+              ]
+            },
+            {
+              "phase": "Phase 4",
+              "title": "Multilingual Architecture",
+              "blocks": [
+                [
+                  "Introduced structural RTL/LTR logic:",
+                  [
+                    "Layout mirroring rules",
+                    "Bidirectional spacing validation",
+                    "Typography fallback control",
+                    "Contextual icon orientation"
+                  ]
+                ],
+                [
+                  "This reduced layout bugs significantly."
+                ]
+              ]
+            },
+            {
+              "phase": "Phase 5",
+              "title": "Accessibility Integration",
+              "blocks": [
+                [
+                  "Applied WCAG 2.0 compliance baseline:",
+                  [
+                    "Keyboard navigability",
+                    "Focus visibility control",
+                    "ARIA role mapping",
+                    "Contrast compliance",
+                    "Semantic structure correction"
+                  ]
+                ],
+                [
+                  "Accessibility became part of the system — not an afterthought."
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "Interaction Modeling",
+              "blocks": [
+                [
+                  "Defined consistent interaction states:",
+                  [
+                    "Default",
+                    "Hover",
+                    "Focus",
+                    "Active",
+                    "Disabled",
+                    "Loading"
+                  ]
+                ],
+                [
+                  "No component shipped without state completeness."
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "Visual Coherence",
+              "blocks": [
+                [
+                  "Implemented:",
+                  [
+                    "Hierarchical typography rhythm",
+                    "Grid-aligned layout system",
+                    "Consistent elevation logic",
+                    "Predictable microinteractions"
+                  ]
+                ],
+                [
+                  "The goal was cognitive clarity - not decorative density."
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "Architectural Improvements",
+              "blocks": [
+                [
+                  [
+                    "Refactored component reuse patterns",
+                    "Reduced redundant DOM nesting",
+                    "Optimized conditional rendering",
+                    "Cleaned styling dependencies",
+                    "Standardized prop APIs"
+                  ]
+                ],
+                [
+                  "No component shipped without state completeness."
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "Performance Optimization",
+              "blocks": [
+                [
+                  "Focused on:",
+                  [
+                    "Minimizing unnecessary re-renders",
+                    "Lazy loading heavy modules",
+                    "Memoizing reusable components",
+                    "Reducing style recalculation overhead"
+                  ]
+                ],
+                [
+                  "Result:",
+                  [
+                    "~20% rendering performance improvement on Discovery pages."
+                  ]
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "Measurable Improvements",
+              "blocks": [
+                [
+                  [
+                    "Reduced UI inconsistencies across teams",
+                    "Improved feature deployment speed",
+                    "Improved maintainability",
+                    "Achieved accessibility compliance baseline",
+                    "Strengthened cross-team collaboration"
+                  ]
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "Strategic Impact",
+              "blocks": [
+                [
+                  "The Marketplace transitioned from:",
+                  [
+                    "Fragmented interface growth → Governed system expansion"
+                  ]
+                ]
+              ]
+            }
+          ]
+        ]
+      },
+      "blueprint": {
+        "title": "System Blueprint & Visual Governance",
+        "subtitle": "A structured overview of the design tokens, component logic, spatial rhythm, and interaction matrices that define the product’s internal coherence.",
+        "cards": [
+          {
+            "title": "Typography Scale",
+            "body": "If you’re building a product that requires system thinking, precision, and long-term architectural clarity — let’s talk."
+          },
+          {
+            "title": "Token Architecture",
+            "body": "Color roles, spacing scale, border radius logic, elevation levels."
+          },
+          {
+            "title": "Layout Grid System",
+            "body": "Responsive breakpoints and alignment governance."
+          },
+          {
+            "title": "Component Hierarchy Diagram",
+            "body": "Base primitives → composite units → contextual modules."
+          },
+          {
+            "title": "State Matrix Table",
+            "body": "Complete interaction coverage: default, hover, focus, active, disabled, loading."
+          }
+        ]
+      },
+      "architecture": {
+        "title": "Visual System Architecture",
+        "subtitle": "A structural breakdown of the design tokens, component governance, spatial logic, and interaction matrices that ensure long-term scalability and implementation clarity.",
+        "useCases": [
+          {
+            "title": "1. Typography Scale System",
+            "blocks": [
+              [
+                "The typography system was defined semantically, not visually."
+              ],
+              [
+                "Each level corresponds to functional intent:",
+                [
+                  "Display — strategic emphasis and high-level hierarchy",
+                  "Heading — structural segmentation",
+                  "Subheading — contextual grouping",
+                  "Body — readable content blocks",
+                  "Caption — metadata and secondary information"
+                ]
+              ],
+              [
+                "Font sizes, weights, line-heights, and letter-spacing were tokenized and aligned to a vertical rhythm grid."
+              ],
+              [
+                "The goal was:",
+                [
+                  "Cognitive clarity",
+                  "Readability across resolutions",
+                  "Predictable hierarchy under content expansion",
+                  "Accessibility-safe contrast pairing"
+                ]
+              ],
+              [
+                "No arbitrary font sizing was permitted outside the system scale."
+              ]
+            ]
+          },
+          {
+            "title": "2. Token Architecture",
+            "blocks": [
+              [
+                "All visual values were abstracted into tokens to ensure controlled scalability."
+              ],
+              [
+                "Token categories included:",
+                [
+                  "Color roles (Primary, Surface, Accent, Error, Success, Warning)",
+                  "Spacing scale (4pt modular system)",
+                  "Border radius tiers",
+                  "Elevation layers",
+                  "Opacity states",
+                  "Motion timing curves"
+                ]
+              ],
+              [
+                "Each token was designed to:",
+                [
+                  "Prevent visual drift",
+                  "Enable theme adjustments",
+                  "Support light/dark variations",
+                  "Reduce redundant CSS logic"
+                ]
+              ],
+              [
+                "Styling decisions were no longer hard-coded — they were governed."
+              ]
+            ]
+          },
+          {
+            "title": "3. Component Hierarchy Diagram",
+            "blocks": [
+              [
+                "The system was structured across three architectural layers:",
+                "Layer 1 — Primitives",
+                [
+                  "Buttons, Inputs, Typography, Icons"
+                ],
+                "Layer 2 — Composite Components",
+                [
+                  "Cards, Modals, Dropdowns, Tooltips"
+                ],
+                "Layer 3 — Contextual Modules",
+                [
+                  "Marketplace grids, discovery feeds, filtering panels"
+                ]
+              ],
+              [
+                "Each component defined:",
+                [
+                  "Required props",
+                  "Optional states",
+                  "Accessibility attributes",
+                  "Responsive behavior",
+                  "Usage restrictions"
+                ]
+              ],
+              [
+                "This hierarchy ensured that features were assembled from system-approved blocks — not improvised fragments."
+              ]
+            ]
+          },
+          {
+            "title": "4. Interaction State Matrix",
+            "blocks": [
+              [
+                "Every interactive element adhered to a complete state definition:",
+                [
+                  "Default",
+                  "Hover",
+                  "Focus",
+                  "Active",
+                  "Disabled",
+                  "Loading",
+                  "Error (where applicable)"
+                ]
+              ],
+              [
+                "Focus states were designed with accessibility compliance in mind.",
+                "Hover states avoided decorative excess and maintained semantic clarity.",
+                "Loading states preserved layout stability to prevent content shift.",
+                "This matrix reduced behavioral ambiguity and prevented inconsistent microinteraction patterns across teams."
+              ]
+            ]
+          },
+          {
+            "title": "5. Layout Grid System",
+            "blocks": [
+              [
+                "A responsive grid architecture was implemented to stabilize spatial rhythm."
+              ],
+              [
+                "Core principles:",
+                [
+                  "12-column system (desktop)",
+                  "Modular reduction for tablet and mobile",
+                  "Consistent gutter scaling",
+                  "Defined max-content widths",
+                  "Controlled content density"
+                ]
+              ],
+              [
+                "Spacing adhered strictly to the predefined token scale."
+              ],
+              [
+                "The result:",
+                [
+                  "Predictable alignment",
+                  "Reduced layout breakage",
+                  "Faster feature composition",
+                  "Easier multilingual adaptation (LTR/RTL safe)"
+                ]
+              ]
+            ]
+          }
+        ]
+      }
+    }
   }
 }

@@ -47,13 +47,46 @@ Deferred items from the homepage review (2026-09-14). Numbers match the review.
 - [ ] **Collage hover state** — each collage component in Figma has a hidden "CTA Secondary"; the hover state isn't built.
 - [ ] **SoulOne collage image quality** — Figma's export caps these tall screenshots at 4096px high, so they arrive only 142–455px wide and look soft on retina. Replace them with the original screenshots.
 
+## Performance (2026-09-22)
+
+Measured on a production build at 1440×900 @2x. The case study page loads its largest content at 0.38s with no layout shift, and scrolls at 60fps on the main thread. The dev server is much slower by nature: code is unminified, pages compile on demand, and images are encoded on their first request. Judge speed on `npm run build && npm run start`.
+
+Done:
+- Header: 6 live backdrop blurs → 1 on every page. The controls on the bar no longer re-blur the already-blurred strip.
+- Case study carousel rows are GPU layers only while on screen (about 40 MB freed after it scrolls away).
+- Timeline gallery keeps only the current, outgoing and next image sets mounted.
+- `next.config.ts` images: fewer candidate widths, and encoded variants are cached for 31 days instead of 4 hours.
+- `npm run images`: right-sizes and converts new project images to WebP (see the script header). Today's images are already optimal.
+
+Done in the lag investigation (2026-09-22, measured on a production build, CPU ×4 throttle):
+- Hero "O" crosshair: the transform animations sat on `<svg>` elements, which Chrome ticks on the main thread every frame (60 style recalcs/s, ~85ms/s idle). Moved to wrapping spans: ~10ms/s. It also paused after the hero scrolls away.
+- `usePauseOffscreen` (src/hooks): infinite animations rest out of view — hero "O", Years map dots, Partners carousel strip. Mid-homepage idle went from ~90ms/s to ~1ms/s.
+- Custom cursor: dropped its backdrop blur, which re-blurred the page under it on every pointer move. The cursor still costs one main-thread frame per move (it's positioned from JS); that's inherent to a custom cursor.
+- Rule of thumb: never animate `transform` on an `<svg>` element itself; animate an HTML wrapper.
+
+Still to do (homepage, found by layer profiling):
+- [ ] **Animated backdrop-filter**: a glass pane in What I Do (a `::before` of about 523×506, `ActiveBackdropFilterAnimation`) animates its blur, which re-blurs the backdrop every frame. This is the single most expensive effect on the site. Animate opacity or transform instead, or bake the look into an image.
+- [ ] **What I Do glow is a 1440×5660 layer**: `WhatIDoSection__EllipseGlow`. Split it or bake it into the background images.
+- [x] **Map dots animate forever**: paused off screen with `usePauseOffscreen` (2026-09-22). While the map is in view the CSS heartbeat still costs ~30ms/s of main thread (CSS keyframe animations on the dots tick Blink each iteration; the same keyframes through `element.animate()` measured ~0). Optional: move `MapDot` to WAAPI.
+- [ ] **Three chip-sized `::before` backdrop blurs** (196×64) on the homepage, plus the Bg4 glass pane. Check whether each is visible enough to earn its cost.
+- [ ] **Lighthouse / WebPageTest baseline** on the deployed site once the domain is set.
+
+## Case Study page (2026-09-22)
+
+Built from Figma 3155:9107; see `docs/adr/0006-case-study-page.md`.
+
+- [ ] **Picsart Timeline gallery and use-case images**: placeholders from the Picsart screenshots. Swap them in `src/components/sections/case-study/caseStudyConfig.ts` (one gallery set per Timeline step, one image per use case).
+- [ ] **Smartbet and SoulOne case studies**: they still show the older layout until they have copy (`caseStudy.<slug>` in `messages/*.json`) and imagery (`CASE_STUDIES`). The other seven projects need their pages too.
+- [ ] **Case study translations**: `caseStudy.*` is English in `ru.json` and `hy.json`.
+- [ ] **Blueprint cards on tablet and mobile**: laid out two per row, then one, following the Projects cards. Check against the tablet and mobile frames.
+
 ## Projects page code review (2026-09-22)
 
 Found in the review of `/projects`. #1–#4 were confirmed in the browser; #5 needs a real iPhone.
 
 - [ ] **(1) Short phones cut off the text and hide the CTA** — the stacked full-screen layout (`ProjectShowcase.tsx`, `stageStacked`) sizes the text to fit and gives the grid whatever is left. In Armenian at 375×600 the text runs past the screen (to 642px), the grid is 0px tall and View Case Story sits off screen at 642–690px. In Russian at 375×667 the grid is 95px. Raise `STAGE_STACKED_QUERY`'s min-height, give the grid a minimum height, and tighten the stacked type.
 - [ ] **(2) The list is invisible without JavaScript** — the stage turns on from a CSS media query, but the project on screen is only chosen in JS (`active` starts at -1). With JS off, all ten rows are at opacity 0 inside a blank area nine screens tall. The same flashes up on a reload that restores the scroll position into the list. Turn the stage on from JS (a `data-staged` attribute) so the rows stack without it. The comment "server HTML already stages correctly" in `ProjectsListSection.tsx` is out of date.
-- [ ] **(3) Scroll listeners block scrolling across the whole page** — `useStageStepping.ts` adds non-passive `wheel` and `touchmove` listeners to `window` on mount, so every scroll anywhere on the page waits for the main thread. Attach them only while the list is on screen.
+- [x] **(3) Scroll listeners block scrolling across the whole page** — fixed 2026-09-22: the stepping (now shared, `src/hooks/useScrollStepping.ts`) attaches them only while the track is near the screen. Was: `useStageStepping.ts` added non-passive `wheel` and `touchmove` listeners to `window` on mount, so every scroll anywhere on the page waits for the main thread. Attach them only while the list is on screen.
 - [ ] **(4) Pinch-zoom is blocked inside the list** — the touch handler cancels two-finger moves too. Ignore `e.touches.length > 1`.
 - [ ] **(5) iOS swipes may scroll freely** — `onTouchMove` returns early for moves under 4px without cancelling them, so Safari may start its own scroll and then ignore the later cancels. Cancel every move inside the list, then check on a device.
 - [ ] **(6) Desktop bottom padding** — `ProjectsListSection` lost its desktop `padding-bottom: 160px`; the comment still mentions it. Confirm whether that was intentional.
@@ -61,7 +94,7 @@ Found in the review of `/projects`. #1–#4 were confirmed in the browser; #5 ne
 - [ ] **(8) Unused collage images (~1.8 MB)** — `public/projects/collages/{smartbet,soulone,websites}` plus Picsart's `marketplace-home.webp` and `marketplace-checkout.webp`. Delete them, or keep them for the real project media.
 - [ ] **(9) Out-of-date comments** — the headers of `ProjectsListSection.tsx` and `ProjectShowcase.tsx` still describe the collage sliding to its page edge and the 240px phone band.
 - [ ] **(10) Naming** — `stage` is both a media-query string and a prop in `ProjectShowcase.tsx`, and the prop's `past`/`upcoming` values are no longer read by any CSS. Make it a boolean again.
-- [ ] **(11) Tests** — pull the gesture logic in `useStageStepping.ts` out into a pure function and unit-test the momentum, arrival and exit cases.
+- [ ] **(11) Tests** — pull the gesture logic in `src/hooks/useScrollStepping.ts` (Projects stage and homepage Selected Work) out into a pure function and unit-test the momentum, arrival and exit cases.
 - [ ] **Project dots placement** — provisional: the pill sits on the stage's right edge in line with Contact Me, side-by-side stage only (not on phones). It isn't placed in Figma yet.
 
 ## Localization (2026-09-15)
@@ -75,3 +108,139 @@ English is the default; Russian and Armenian live under /ru and /hy. See `docs/a
 - [ ] **All-projects card copy** — `selectedWork.allProjects` (company, roles, title, description, field) is a draft in all three languages; the Figma file only designs its grid (2350:656).
 - [ ] **Contact form values are localized** — the option groups submit the translated labels. When the form gets an endpoint (item 2), submit stable ids instead.
 
+
+
+# Full project TODO documentation
+
+## Context
+
+The user sent their own to-do list and asked for a full TODO document, adding anything else outstanding (bugs, features, etc.):
+- Homepage: What I Do on tablet and mobile; Capabilities and Trusted By to fit the screen height.
+- Projects: the Partners carousel lags.
+- Header: responsiveness is broken; redesign the tablet and mobile menu.
+- Whole project: Case Studies and About pages, performance (high priority), accessibility, light theme, sound enhancements, backend, the torchyan.design domain, and a mailing system.
+
+Today's `TODO.md` is a pile of dated review lists (homepage review, Projects review, localization) with open and done items mixed together. The goal is **one structured, prioritised document**. It merges the user's list, every open item already in `TODO.md`, and new findings from surveying the code. The backend section explains in plain terms what "backend" means for this site, since the user said it isn't their area.
+
+This is a documentation-only change: `TODO.md` is rewritten, and no code changes.
+
+## New findings (from surveying the repo) to fold in
+
+**Launch blockers:**
+- **Wrong domain everywhere:** `NEXT_PUBLIC_SITE_URL` falls back to `https://torchyan.com` (`src/lib/seo/constants.ts`, `src/app/robots.ts`). Canonical URLs, hreflang, the sitemap, robots.txt and OG URLs would all point at the wrong domain. The site is torchyan.design.
+- **Broken social previews:** the default social preview image `/og/default.png` doesn't exist; `public/og/` is missing.
+- **No env setup:** there's no `.env.example`, so the required variables aren't documented (site URL, GA, Yandex, and later the mail provider keys).
+
+**Bugs and cleanup:**
+- **Junk in git:** `torchyan-portfolio/node_modules/…` (5 files) is tracked at the repo root by accident. Remove it and ignore it. `.claude/` needs the same commit-or-ignore decision.
+- **Likely cause of the Partners carousel lag:** the strip has `mix-blend-mode: exclusion` (`PartnersCarousel.tsx`). The blend forces the moving track and everything behind it to repaint every frame. The animation also runs while the strip is off screen.
+- **Light theme is half there:** `src/store/ui.ts` has a working theme toggle and `themes/light.ts` exists, but `app/[locale]/layout.tsx` hard-codes `data-theme="dark"`. There's no light design in Figma yet.
+- **Case Studies page is a placeholder:** `/case-studies` shows only Capabilities plus the Contact CTA. Only three case pages exist (`/projects/{picsart,smartbet,soulone}`).
+- **About page:** it exists (hero, timeline, skill circles, CTA). "Build About page" means finishing and checking it against Figma, not starting from zero.
+- **No security headers** in `next.config.ts` (CSP, HSTS, Referrer-Policy, Permissions-Policy, X-Content-Type-Options).
+- **Tooling:** there's no CI (no `.github/`), no test setup, and `README.md` is one line.
+- **`sharp` is a devDependency:** fine for the scripts. If the site is self-hosted rather than on Vercel, image optimisation needs it in `dependencies`.
+- **Uncommitted change:** the mobile `#main-content` gap of 80px.
+
+## Document structure (new `TODO.md`)
+
+1. **How to read this.** A legend:
+   - priority **P0** (launch blocker), **P1** (high), **P2** (normal) and **P3** (nice to have);
+   - owner **Dev**, **Design** (needs Figma) or **Decision** (user's call);
+   - links to the ADRs.
+2. **Launch blockers (P0):** the domain URL, the OG image, `.env.example`, the contact form actually sending, the Projects code-review items #1–#4, and the header responsiveness.
+3. **Homepage:**
+   - What I Do on tablet and mobile (Design + Dev);
+   - Capabilities fit to the viewport height;
+   - Trusted By fit to the viewport height;
+   - Selected Work snap drift on phones (existing #7);
+   - What I Do flashing, WCAG 2.3.1 (existing #1);
+   - the glass square tint (existing #12.2);
+   - the years map popup and keyboard access (existing #10);
+   - the hero blink or idle glance (P3).
+4. **Projects page:**
+   - carousel lag, with its cause and fix outline (drop or bake the blend, pause off screen);
+   - the full code-review list (existing #1–#11);
+   - real content per project, the 7 links that 404, "View Random Case", the collage hover state, SoulOne image quality and the dots placement.
+5. **Header and navigation:**
+   - responsiveness (audit breakpoints 1440 / 1024 / 768 / 480 / 375);
+   - the tablet and mobile menu redesign (Design);
+   - placement of the sound and language controls (existing);
+   - the page loader (provisional, existing).
+6. **Case Studies page:** decide the structure (a list page vs `/projects/[slug]`), the Figma design, the build, and the remaining seven case pages.
+7. **About page:** check against Figma, image alt text (existing #9), and the timeline map.
+8. **Performance (P1).** Set a baseline first: Lighthouse and WebPageTest on a production build, with targets LCP < 2.5s, INP < 200ms, CLS < 0.1. Then work through:
+   - the carousel;
+   - the Projects scroll listeners and the ten-screen layer;
+   - the backdrop-filter count;
+   - What I Do scroll effects;
+   - fonts (subset and preload);
+   - the styled-components runtime cost and bundle analysis;
+   - unused collage images (~1.8 MB);
+   - pausing animations while off screen.
+9. **Accessibility:**
+   - an axe and Lighthouse audit;
+   - keyboard paths (the menu, the Projects stage, the dots, the forms);
+   - focus management in the menu;
+   - reduced-motion coverage;
+   - contrast on the light Projects rows;
+   - pinch-zoom (Projects #4);
+   - screen-reader names for the sound toggles;
+   - the flashing item;
+   - the years map.
+10. **Light theme:** Design first. Then wire the existing toggle, remove the hard-coded `data-theme`, avoid a flash on load, and check every section.
+11. **Sound system:**
+    - existing: more cues;
+    - scaling: a cue per section and state, a volume control, whether the preference should persist beyond the tab (it's sessionStorage today), mobile unlock behaviour, lazy-loading cues per page, and bringing ADR 0001 up to date.
+12. **Backend and integrations (plain-language explainer).** What's needed and why:
+    - **Contact form endpoint:** a Next.js route handler or server action.
+    - **Email delivery:** a provider such as Resend or Postmark, sending from a verified torchyan.design address, which needs SPF, DKIM and DMARC DNS records.
+    - **Spam protection:** Cloudflare Turnstile or a honeypot, plus rate limiting.
+    - **Validation and storage:** server-side validation, and optionally saving submissions.
+    - **Hosting:** choose Vercel (recommended; the i18n country detection already reads Vercel's headers) or another host.
+    - **Environment variables and secrets.**
+    - **Analytics consent** (existing #11).
+    - **Error monitoring:** optional.
+    - **Future CMS:** if case studies should be editable without code. The Sanity note already in the file is kept here.
+13. **Domain (torchyan.design):**
+    - connect it to the host (DNS records), HTTPS, and the canonical URL;
+    - redirect www to the apex, or the other way round;
+    - set `NEXT_PUBLIC_SITE_URL`;
+    - Search Console, submitting the sitemap, and hreflang checks.
+14. **Mailing system:**
+    - the transactional side: the contact form's notification to the user and an optional auto-reply;
+    - a decision on whether a newsletter or list is wanted (a provider, a double opt-in form and GDPR text);
+    - email templates in all three languages;
+    - the DNS setup shared with item 12.
+15. **SEO:**
+    - the OG image, including per-page OG images;
+    - structured data (a Person schema, replacing the removed `json-ld.tsx`);
+    - metadata check per locale;
+    - sitemap and robots after the domain is set.
+16. **Localization:** the existing items, kept as they are.
+17. **Content and assets waiting on design:** the existing items (alt text, the footer character still, the Picsart grid hover, more sounds and so on).
+18. **Code quality and tooling:**
+    - CI running lint, typecheck, `check:messages` and build on each push;
+    - tests (starting with the Projects gesture logic);
+    - a README covering setup, scripts, env and deploy;
+    - the tracked junk and `.claude/`;
+    - the uncommitted `#main-content` gap;
+    - the old CMS note.
+19. **Done (archive):** every `[x]` item from today's file, moved to the bottom with its date, so the open work reads cleanly.
+
+**Writing rules:**
+- Each item is one line: the title in bold, the priority and owner tags, then what and why, with file paths where they help.
+- Existing items keep their original numbers in brackets, e.g. "(Projects #3)", so earlier references still resolve.
+- No item from the current file is dropped.
+
+## Critical files
+
+- `TODO.md`: rewritten. No other file changes.
+
+## Verification
+
+- Every open item in today's `TODO.md` appears in the new file: cross-check by counting `- [ ]` items before and after, and diff the titles.
+- Every item the user listed appears, in its own section.
+- The new findings above each appear once, with a priority.
+- The file renders cleanly as Markdown: headings, the legend and consistent tags.
+- No commit unless asked.

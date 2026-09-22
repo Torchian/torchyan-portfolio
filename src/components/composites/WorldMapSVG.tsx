@@ -2,6 +2,7 @@
 
 import styled from 'styled-components';
 import { MapDot } from './MapDot';
+import { usePauseOffscreen } from '@/hooks';
 
 const Wrapper = styled.div`
   position: relative;
@@ -38,8 +39,10 @@ function hash(str: string): number {
 }
 
 export function WorldMapSVG({ locations, alt }: WorldMapSVGProps) {
+  // The dots beat forever; only while the map is in view.
+  const ref = usePauseOffscreen<HTMLDivElement>();
   return (
-    <Wrapper>
+    <Wrapper ref={ref}>
       <MapImage src="/vectors/map.svg" alt={alt} />
       {locations.map((loc) => {
         const id = loc.id ?? loc.label;

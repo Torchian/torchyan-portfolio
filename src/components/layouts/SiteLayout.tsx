@@ -3,6 +3,7 @@
 import { usePathname } from '@/i18n/navigation';
 import styled from 'styled-components';
 import { NavBar } from './NavBar';
+import { CustomCursor } from './CustomCursor';
 import { Footer } from '@/components/sections/footer/Footer';
 import { LowerPageBackground, PageBackground, SideCharacters } from '@/components/composites';
 
@@ -31,6 +32,7 @@ export function SiteLayout({ children }: { children: React.ReactNode }) {
       <PageBackground />
       {isHomepage && <SideCharacters />}
       <NavBar />
+      <CustomCursor />
       <Page>
         <LowerPageBackground />
         <Main>{children}</Main>

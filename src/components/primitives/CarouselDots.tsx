@@ -7,6 +7,7 @@ import { accents, neutrals } from '@/styles/tokens/colors';
 import { duration, easing } from '@/styles/tokens/motion';
 import { radius } from '@/styles/tokens/radius';
 import { spacing } from '@/styles/tokens/spacing';
+import { glass } from '@/styles/tokens/effects';
 
 /*
  * Figma: Dot indicator (3907:1260) and Carousel Dots, Direction=Vertical (3906:9704).
@@ -21,8 +22,8 @@ const DOT = { rest: 6, hover: 12, active: 16 } as const;
 /** Space between two dots' edges. */
 const DOT_GAP = 24;
 /** Space between the pill's ends and the first and last dot. */
-const END_INSET = spacing[400];
-const WIDTH = spacing[600];
+const END_INSET = spacing[300];
+const WIDTH = spacing[500];
 const EASE = `${duration.normal} ${easing.out}`;
 
 /**
@@ -34,6 +35,7 @@ const pillLength = (count: number) =>
 
 const Pill = styled.div`
   ${glassSurface}
+  background: ${glass.bgMedium};
   position: relative;
   display: flex;
   flex-direction: column;
@@ -86,7 +88,7 @@ const DotButton = styled.button`
   background: none;
   cursor: pointer;
   --dot: ${DOT.rest}px;
-  --dot-color: ${neutrals[700]};
+  --dot-color: ${neutrals[100]};
   transition: height ${EASE};
 
   &::before {
@@ -121,7 +123,7 @@ const DotButton = styled.button`
 
   &[aria-current='true'] {
     --dot: ${DOT.active}px;
-    --dot-color: ${accents.secondary};
+    --dot-color: ${accents.primary};
     cursor: default;
   }
 

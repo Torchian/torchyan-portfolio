@@ -129,6 +129,10 @@ const FieldLabel = styled.label`
   line-height: ${lineHeight.heading.s}px;
   letter-spacing: ${letterSpacing.xs}px;
   color: ${neutrals[100]};
+  
+  ${media.down('m')} {
+    font-size: ${fontSize.body.xl}px;
+  }
 `;
 
 const Options = styled.div`

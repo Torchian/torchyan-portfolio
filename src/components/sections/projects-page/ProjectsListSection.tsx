@@ -10,7 +10,7 @@ import { media } from '@/styles/media';
 import { createInViewGate, subscribeScroll } from '@/lib/scroll-driver';
 import { ProjectShowcase } from './ProjectShowcase';
 import { SHOWCASE_PROJECTS, STAGE_QUERY, STAGE_SPLIT_QUERY } from './projectShowcaseConfig';
-import { useStageStepping } from './useStageStepping';
+import { useScrollStepping } from '@/hooks';
 
 /**
  * Figma: Projects (3155:9805 / 3753:11186 / 3753:14707 / 3753:17734). The collage
@@ -180,7 +180,8 @@ export function ProjectsListSection() {
     };
   }, [staged]);
 
-  useStageStepping(trackRef, COUNT, staged);
+  // One project per gesture; the stage animates the change, so each step is an instant jump.
+  useScrollStepping(trackRef, { count: COUNT, enabled: staged });
 
   /** Brings a project on stage by scrolling to its screen; the stage animates the change. */
   const goTo = (index: number) => {

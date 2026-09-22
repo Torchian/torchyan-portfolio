@@ -77,6 +77,16 @@ const Header = styled.header`
     -webkit-backdrop-filter: blur(16px);
   }
 
+  /* The controls on the bar sit on that already-blurred strip, so their own
+     glass blur would re-blur a blur: invisible, but each one is another full
+     backdrop pass on every scroll frame. They keep their tint; only the panels
+     that hang below the bar over the page (the language list, the menu) blur. */
+  & > * button,
+  & > * a {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
   ${media.down('m')} {
     padding: 0 ${HEADER_INLINE.mobile}px;
   }
@@ -150,8 +160,7 @@ const NavCenter = styled.nav`
   overflow: hidden;
   background: ${glass.shadow};
   border-radius: ${radius.round}px;
-  backdrop-filter: blur(${blur.glassMedium});
-  -webkit-backdrop-filter: blur(${blur.glassMedium});
+  /* No backdrop blur: it sits on the header's blurred strip (see Header). */
 `;
 
 const LineContainer = styled.div`
