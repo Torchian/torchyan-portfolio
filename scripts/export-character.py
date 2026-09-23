@@ -6,6 +6,9 @@ Run when the character art changes in Figma:
      one folder as body-<slug>.png, glasses-<style>.png and <part>.png
      (face, cap, beard, ear-left, eye-left, brow-left, ...).
   2. python3 scripts/export-character.py <that folder>
+For a new outfit only, download its fill as body-<slug>.png, add it to BODIES and
+run `python3 scripts/export-character.py <folder> --only=<slug>`: the rest of the
+character is kept as it is.
 Boxes below are the Figma values; update them if the art moves. New outfits go
 in BODIES.
 
@@ -18,7 +21,12 @@ import json, os, sys
 from PIL import Image
 import numpy as np
 
-RAW = sys.argv[1] if len(sys.argv) > 1 else 'raw'
+args = [a for a in sys.argv[1:] if not a.startswith('--')]
+RAW = args[0] if args else 'raw'
+# --only <slug,slug>: re-export just these outfits (new art), keeping everything
+# else as it is in characterLayout.json. Without it, everything is rebuilt.
+flag = next((a for a in sys.argv[1:] if a.startswith('--only')), None)
+ONLY = set(flag.split('=', 1)[1].split(',')) if flag and '=' in flag else set()
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = f'{REPO}/public/character/v2'
 LAYOUT = f'{REPO}/src/components/composites/character/characterLayout.json'
@@ -74,35 +82,35 @@ def save(img, rel, box, scale):
         'bytes': os.path.getsize(path),
     }
 
-S = SCALE
-head = {}
-def head_part(key, name, box, place, **kw):
-    x, y, w, h = box
-    img = place(load(name), w * S, h * S, **kw)
-    head[key] = save(img, f'head/{key}', box, S)
+head, glasses = {}, {}
+if not ONLY:
+    S = SCALE
+    def head_part(key, name, box, place, **kw):
+        x, y, w, h = box
+        img = place(load(name), w * S, h * S, **kw)
+        head[key] = save(img, f'head/{key}', box, S)
 
-# Bottom to top, as in the Figma symbol.
-head_part('eye-left', 'eye-left', (255, 274, 83, 43), fill)
-head_part('eye-right', 'eye-right', (82, 274.64, 80, 41), cover)
-# Ears: the image box is rotated inside its container; bake the rotation in.
-# Containers come from the design-context insets: metadata x/y on a rotated
-# node is its rotated origin, not its bounding box (8px off for the left ear).
-x, y, w, h = 420 * 0.0249, 780 * 0.3576, 420 * (1 - 0.8382 - 0.0249), 780 * (1 - 0.4511 - 0.3576)
-head['ear-right'] = save(rotated(load('ear-right'), 54.019 * S, 147.975 * S, -1.36, w * S, h * S), 'head/ear-right', (x, y, w, h), S)
-x, y, w, h = 420 * 0.8336, 780 * 0.357, 420 * (1 - 0.03 - 0.8336), 780 * (1 - 0.4494 - 0.357)
-head['ear-left'] = save(rotated(load('ear-left'), 49 * S, 148.492 * S, 3.22, w * S, h * S), 'head/ear-left', (x, y, w, h), S)
-head_part('face', 'face', (0, 38, 422, 572.04), fill)
-head_part('brow-left', 'brow-left', (237.05, 223.1, 120.43, 44.32), fill)
-head_part('brow-right', 'brow-right', (63.52, 226.81, 112.41, 38.04), fill)
-head_part('cap', 'cap', (34, 2, 353, 275), fill)
-head_part('beard', 'beard', (47, 395, 325.42, 383), fill)
+    # Bottom to top, as in the Figma symbol.
+    head_part('eye-left', 'eye-left', (255, 274, 83, 43), fill)
+    head_part('eye-right', 'eye-right', (82, 274.64, 80, 41), cover)
+    # Ears: the image box is rotated inside its container; bake the rotation in.
+    # Containers come from the design-context insets: metadata x/y on a rotated
+    # node is its rotated origin, not its bounding box (8px off for the left ear).
+    x, y, w, h = 420 * 0.0249, 780 * 0.3576, 420 * (1 - 0.8382 - 0.0249), 780 * (1 - 0.4511 - 0.3576)
+    head['ear-right'] = save(rotated(load('ear-right'), 54.019 * S, 147.975 * S, -1.36, w * S, h * S), 'head/ear-right', (x, y, w, h), S)
+    x, y, w, h = 420 * 0.8336, 780 * 0.357, 420 * (1 - 0.03 - 0.8336), 780 * (1 - 0.4494 - 0.357)
+    head['ear-left'] = save(rotated(load('ear-left'), 49 * S, 148.492 * S, 3.22, w * S, h * S), 'head/ear-left', (x, y, w, h), S)
+    head_part('face', 'face', (0, 38, 422, 572.04), fill)
+    head_part('brow-left', 'brow-left', (237.05, 223.1, 120.43, 44.32), fill)
+    head_part('brow-right', 'brow-right', (63.52, 226.81, 112.41, 38.04), fill)
+    head_part('cap', 'cap', (34, 2, 353, 275), fill)
+    head_part('beard', 'beard', (47, 395, 325.42, 383), fill)
 
-glasses = {}
-GX, GY = 41, 258
-glasses['default'] = save(fill(load('glasses-default'), 337 * S, 108 * S), 'glasses/default', (GX, GY, 337, 108), S)
-glasses['matrix'] = save(cover(load('glasses-matrix'), 337 * S, 108 * S), 'glasses/matrix', (GX, GY, 337, 108), S)
-glasses['pixel'] = save(crop_rows(load('glasses-pixel'), 337 * S, 96 * S, -1.6816, 4.4048), 'glasses/pixel', (GX, GY, 337, 96), S)
-glasses['optical'] = save(cover(load('glasses-optical'), 337 * S, 108 * S), 'glasses/optical', (GX, GY, 337, 108), S)
+    GX, GY = 41, 258
+    glasses['default'] = save(fill(load('glasses-default'), 337 * S, 108 * S), 'glasses/default', (GX, GY, 337, 108), S)
+    glasses['matrix'] = save(cover(load('glasses-matrix'), 337 * S, 108 * S), 'glasses/matrix', (GX, GY, 337, 108), S)
+    glasses['pixel'] = save(crop_rows(load('glasses-pixel'), 337 * S, 96 * S, -1.6816, 4.4048), 'glasses/pixel', (GX, GY, 337, 96), S)
+    glasses['optical'] = save(cover(load('glasses-optical'), 337 * S, 108 * S), 'glasses/optical', (GX, GY, 337, 108), S)
 
 BODIES = [
     ('default', 'Default', '3870:16064'),
@@ -117,9 +125,19 @@ BODIES = [
     ('pulp-fiction', 'Pulp Fiction', '3872:1203'),
     ('wall-street', 'Wall Street', '3872:1209'),
     ('armenian-traditional', 'Armenian Traditional 2', '3872:1211'),
+    ('classic', 'Classic', '3960:16688'),
+    ('sopranos', 'Sopranos', '3990:17062'),
 ]
 bodies = {}
+if ONLY:
+    # Merge into what's already there rather than starting from scratch.
+    with open(LAYOUT) as f:
+        previous = json.load(f)
+    head, glasses, bodies = previous['parts'], previous['glasses'], previous['bodies']
+
 for slug, name, node in BODIES:
+    if ONLY and slug not in ONLY:
+        continue
     # Clothing box: inset 1.95% 0 0 0 of 1024, object-fit cover. The source caps at 1024, so 1x.
     box = (0, 1024 * 0.0195, 1024, 1024 * (1 - 0.0195))
     part = save(cover(load(f'body-{slug}'), box[2], box[3]), f'body/{slug}', box, 1)
@@ -141,8 +159,8 @@ with open(LAYOUT, 'w') as f:
     json.dump({**layout, 'parts': strip(head), 'glasses': strip(glasses), 'bodies': strip(bodies)}, f, indent=2)
     f.write('\n')
 
-tot = sum(p['bytes'] for p in list(head.values()) + list(glasses.values()) + list(bodies.values()))
+tot = sum(p.get('bytes', 0) for p in list(head.values()) + list(glasses.values()) + list(bodies.values()))
 for group, d in (('head', head), ('glasses', glasses), ('bodies', bodies)):
     for k, v in d.items():
-        print(f"{group:8} {k:22} {v['width']:7} x {v['height']:7}  {v['bytes']//1024:4} KB")
+        print(f"{group:8} {k:22} {v['width']:7} x {v['height']:7}  {v.get('bytes', 0)//1024:4} KB")
 print('total', tot // 1024, 'KB')

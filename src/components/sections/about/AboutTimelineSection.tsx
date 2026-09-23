@@ -1,9 +1,9 @@
 'use client';
 
-import { useRef, useEffect, useState } from 'react';
-import styled from 'styled-components';
 import Image from 'next/image';
-import { Text } from '@/components/primitives';
+import { useEffect, useRef, useState } from 'react';
+import styled from 'styled-components';
+import { SectionHeading } from '@/components/composites';
 import { spacing } from '@/styles/tokens/spacing';
 import {
   fontFamily,
@@ -13,423 +13,433 @@ import {
   letterSpacing,
 } from '@/styles/tokens/typography';
 import { accents, neutrals } from '@/styles/tokens/colors';
-import { radius } from '@/styles/tokens/radius';
 import { grid } from '@/styles/tokens/grid';
 import { media } from '@/styles/media';
 import { useMessages, useTranslations } from 'next-intl';
-import { TIMELINE_ENTRIES } from './timelineConfig';
-import { PROJECTS } from '@/components/sections/selected-work/projectsConfig';
+import { TIMELINE_ENTRIES, type TimelineEntry, type TimelineEntryContent } from './aboutConfig';
+import { AboutYearRail, RAIL_SPACE, RAIL_WIDE } from './AboutYearRail';
 
-/* Timeline */
+/*
+ * Figma: Timeline — 1920 (2973:16245), 1024 (3960:15405), 480 (3983:11086);
+ * the card is 2810:6345 and the gallery 2821:5636.
+ *
+ * A column of workplaces with a gallery that swaps its screenshots for
+ * whichever card is crossing the middle of the screen, laid out as each frame
+ * has it:
+ *  - 1920: cards 756 wide, the gallery two columns beside them (900 wide).
+ *  - tablet: cards 536 of the 952 container, the gallery one column (408) on
+ *    the right, both sticky beside the cards.
+ *  - phone: the cards run full width and the gallery is a 244-tall strip that
+ *    sticks to the top of the timeline while they scroll under it.
+ * The year rail down the left edge is AboutYearRail.
+ */
+
+/** Where the gallery stops sitting beside the cards and becomes a strip above them. */
+const STACKED = media.down('m');
+/** Figma's gallery widths: 900 beside the 1920 frame's cards, 408 on a tablet. */
+const GALLERY = { desktop: 900, tablet: 408, strip: 244 } as const;
+
 const Section = styled.section`
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: ${spacing[2000]}px 0;
-  gap: ${spacing[1000]}px;
-  position: relative;
   width: 100%;
 `;
 
-/* Container */
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: ${spacing[2000]}px;
+  gap: ${spacing[1000]}px;
   width: 100%;
   max-width: ${grid.maxWidth}px;
+  /* Room on the left for the year rail, except where the page's own margin has it. */
+  padding: 0 ${spacing[400]}px 0 ${RAIL_SPACE.base}px;
+
+  @media (min-width: ${RAIL_WIDE}px) {
+    padding: 0 ${spacing[400]}px;
+  }
+
+  /* Figma: 48 on the tablet frame, 32 on the phone — plus the rail's gutter. */
+  ${media.down('xl')} {
+    padding: 0 ${spacing[600]}px 0 ${RAIL_SPACE.tablet}px;
+  }
+
+  ${media.down('m')} {
+    gap: ${spacing[600]}px;
+    padding: 0 ${spacing[400]}px 0 ${RAIL_SPACE.mobile}px;
+  }
 `;
 
-/* Section Heading */
-const SectionHeading = styled.div`
+/** The cards and the gallery side by side; the gallery runs to the screen's right edge. */
+const Body = styled.div`
+  position: relative;
+  display: flex;
+  width: 100%;
+`;
+
+const Cards = styled.div`
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: ${spacing[1000]}px;
+  /* Figma: the cards take the left 756 of the 1376 container. */
+  max-width: 756px;
+
+  /* Beside the tablet gallery (408 and a 24 gap), in what the rail leaves. */
+  ${media.down('xl')} {
+    max-width: calc(100% - ${GALLERY.tablet + 24}px);
+    gap: ${spacing[800]}px;
+  }
+
+  ${STACKED} {
+    max-width: none;
+    gap: ${spacing[600]}px;
+  }
+`;
+
+const Card = styled.article`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 0;
-  gap: ${spacing[200]}px;
-  padding: 0 ${spacing[400]}px;
-  width: 100%;
-  max-width: ${grid.maxWidth}px;
-  flex: none;
-  align-self: stretch;
+  gap: ${spacing[500]}px;
+
+  ${media.down('m')} {
+    gap: ${spacing[300]}px;
+  }
 `;
 
-/* whatido_title — typography/display/large */
-const SectionTitle = styled(Text)`
-  font-family: ${fontFamily.display};
-  font-style: normal;
-  font-weight: ${fontWeight.black};
-  font-size: ${fontSize.display.xl}px;
-  line-height: ${lineHeight.display.xl}px;
-  text-align: center;
-  letter-spacing: ${letterSpacing.xxs}px;
-  text-transform: uppercase;
-  color: ${neutrals[500]};
-  border-radius: ${radius.xl}px;
+const Heading = styled.header`
+  display: flex;
+  flex-direction: column;
+  gap: ${spacing[150]}px;
+`;
+
+const Company = styled.h3`
   margin: 0;
-  align-self: stretch;
+  font-family: ${fontFamily.display};
+  font-weight: ${fontWeight.heading};
+  font-size: ${fontSize.display.s}px;
+  line-height: ${lineHeight.display.s}px;
+  letter-spacing: ${letterSpacing.xs}px;
+  color: ${accents.primary};
 
-  ${media.down('l')} {
-    font-size: ${fontSize.display.m}px;
-    line-height: ${lineHeight.display.m}px;
-  }
   ${media.down('m')} {
-    font-size: ${fontSize.display.s}px;
-    line-height: ${lineHeight.display.s}px;
+    font-size: ${fontSize.heading.l}px;
+    line-height: ${lineHeight.heading.l}px;
+  }
+`;
+
+const Role = styled.p`
+  margin: 0;
+  font-family: ${fontFamily.heading};
+  font-weight: ${fontWeight.semibold};
+  font-size: ${fontSize.heading.s}px;
+  line-height: ${lineHeight.heading.s}px;
+  letter-spacing: ${letterSpacing.xs}px;
+  color: ${neutrals[700]};
+
+  ${media.down('m')} {
+    font-size: ${fontSize.body.l}px;
+    line-height: ${lineHeight.body.l}px;
+  }
+`;
+
+const Block = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${spacing[200]}px;
+`;
+
+const BlockLabel = styled.h4`
+  margin: 0;
+  font-family: ${fontFamily.heading};
+  font-weight: ${fontWeight.semibold};
+  font-size: ${fontSize.body.l}px;
+  line-height: ${lineHeight.body.l}px;
+  letter-spacing: ${letterSpacing.m}px;
+  color: ${neutrals[100]};
+`;
+
+const BlockBody = styled.ul`
+  display: flex;
+  flex-direction: column;
+  gap: ${spacing[50]}px;
+  margin: 0;
+  padding-left: 1.2em;
+  list-style: disc;
+  font-family: ${fontFamily.heading};
+  font-weight: ${fontWeight.regular};
+  font-size: ${fontSize.body.l}px;
+  line-height: ${lineHeight.body.l}px;
+  letter-spacing: ${letterSpacing.m}px;
+  color: ${neutrals[500]};
+
+  ${media.down('m')} {
+    font-size: ${fontSize.body.m}px;
+    line-height: ${lineHeight.body.m}px;
+  }
+`;
+
+/** The growth words, spaced out on one line as in the card. */
+const Growth = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  gap: ${spacing[400]}px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: ${fontFamily.heading};
+  font-weight: ${fontWeight.semibold};
+  font-size: ${fontSize.body.l}px;
+  line-height: ${lineHeight.body.l}px;
+  letter-spacing: ${letterSpacing.m}px;
+  color: ${neutrals[700]};
+
+  ${media.down('m')} {
+    gap: ${spacing[200]}px;
+    font-size: ${fontSize.body.m}px;
+  }
+`;
+
+/* ---------- Gallery ---------- */
+
+/**
+ * Beside the cards, running to the right edge of the screen, with a sticky box
+ * inside it: Figma's gallery is 900 wide and 1146 tall at 1920.
+ */
+const GalleryColumn = styled.div`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 780px;
+  right: calc((100vw - min(100vw, ${grid.maxWidth}px)) / -2 - ${spacing[400]}px);
+  pointer-events: none;
+
+  ${media.down('xl')} {
+    left: auto;
+    right: 0;
+    width: ${GALLERY.tablet}px;
   }
 
-  /* Russian and Armenian words don't fit the 320 frame at 58px. */
-  ${media.down('s')} {
-    :lang(ru) &,
-    :lang(hy) & {
-      font-size: ${fontSize.heading.l}px;
-      line-height: ${lineHeight.heading.l}px;
+  ${STACKED} {
+    display: none;
+  }
+`;
+
+const Sticky = styled.div`
+  position: sticky;
+  /* Under the header, with the same room left below. */
+  top: ${spacing[1000]}px;
+  height: min(1146px, 100svh - ${spacing[1000] * 2}px);
+  overflow: hidden;
+`;
+
+const Set = styled.div`
+  position: absolute;
+  inset: 0;
+  display: flex;
+  gap: ${spacing[200]}px;
+  opacity: 0;
+  transition: opacity 400ms ease-out;
+
+  &[data-active='true'] {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+`;
+
+const Column = styled.div`
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: ${spacing[200]}px;
+
+  /* The second column is shifted, as the design staggers the two. */
+  &:nth-child(2) {
+    margin-top: -${spacing[1000]}px;
+  }
+
+  /* The tablet frame's gallery is a single column. */
+  ${media.down('xl')} {
+    &:nth-child(2) {
+      display: none;
     }
   }
 `;
 
-/* whatido_subtitle — typography/headline/small */
-const SectionSubtitle = styled(Text)`
-  font-family: ${fontFamily.heading};
-  font-style: normal;
-  font-weight: ${fontWeight.semibold};
-  font-size: ${fontSize.heading.s}px;
-  line-height: ${lineHeight.heading.s}px;
-  text-align: center;
-  color: ${neutrals[500]};
-  margin: 0;
-  align-self: stretch;
-`;
-
-const ThreeColumn = styled.div`
-  display: grid;
-  grid-template-columns: 200px 1fr  minmax(280px, 40%);
-  gap: ${spacing[1000]}px;
-  width: 100%;
-  max-width: ${grid.maxWidth}px;
-  margin: 0 auto;
-  padding: 0 ${spacing[400]}px;
-
-  ${media.down('l')} {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr auto;
-  }
-`;
-
-/* Sticky date — left column, stays sticky */
-const StickyDateWrapper = styled.div`
+const Shot = styled.div`
   position: relative;
-
-  ${media.down('l')} {
-    order: -1;
-  }
-`;
-
-const StickyDateInner = styled.div`
-  position: sticky;
-  top: ${spacing[2000]}px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: ${spacing[300]}px;
-`;
-
-const YearRow = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: ${spacing[200]}px;
-`;
-
-const YearDot = styled.span`
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: ${accents.primary};
-  flex-shrink: 0;
-`;
-
-const YearText = styled(Text)`
-  font-family: ${fontFamily.display};
-  font-weight: ${fontWeight.black};
-  font-size: ${fontSize.display.l}px;
-  line-height: ${lineHeight.display.l}px;
-  color: ${accents.primary};
-  margin: 0;
-
-  ${media.down('m')} {
-    font-size: ${fontSize.display.m}px;
-    line-height: ${lineHeight.display.m}px;
-  }
-`;
-
-const StickyContentText = styled(Text)`
-  font-family: ${fontFamily.heading};
-  font-weight: ${fontWeight.medium};
-  font-size: ${fontSize.heading.s}px;
-  line-height: ${lineHeight.heading.s}px;
-  color: ${neutrals[500]};
-  margin: 0;
-  text-align: left;
-  white-space: pre-line;
-`;
-
-/* Frame — timeline cards list */
-const TimelineList = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding-top: ${spacing[500]}px;
-  gap: ${spacing[500]}px;
   width: 100%;
-  min-width: 0;
-`;
-
-/* timeline_card */
-const TimelineCard = styled.article`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 0;
-  gap: ${spacing[1000]}px;
-  width: 100%;
-  min-width: 0;
-
-  ${media.down('m')} {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: ${spacing[400]}px;
-  }
-`;
-
-/* Frame 54 */
-const CardContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: ${spacing[500]}px 0;
-  gap: ${spacing[400]}px;
-  flex: 1;
-  min-width: 0;
-`;
-
-/* timeline_card_heading */
-const CardHeading = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0;
-  gap: ${spacing[150]}px;
   flex: none;
-`;
-
-/* Company Name — typography/headline/large, dark/background/primary */
-const CompanyName = styled(Text)`
-  font-family: ${fontFamily.heading};
-  font-style: normal;
-  font-weight: ${fontWeight.semibold};
-  font-size: ${fontSize.heading.l}px;
-  line-height: ${lineHeight.heading.l}px;
-  text-align: left;
-  color: ${accents.primary};
-  margin: 0;
-`;
-
-/* Role — typography/headline/small, dark/text/primary */
-const Role = styled(Text)`
-  font-family: ${fontFamily.heading};
-  font-style: normal;
-  font-weight: ${fontWeight.semibold};
-  font-size: ${fontSize.heading.s}px;
-  line-height: ${lineHeight.heading.s}px;
-  text-align: left;
-  color: ${neutrals[100]};
-  margin: 0;
-`;
-
-/* focus / impact block */
-const Block = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0;
-  gap: ${spacing[100]}px;
-  flex: none;
-`;
-
-/* Label — typography/title/large, dark/text/mute */
-const BlockLabel = styled(Text)`
-  font-family: ${fontFamily.body};
-  font-style: normal;
-  font-weight: ${fontWeight.semibold};
-  font-size: ${fontSize.body.xl}px;
-  line-height: ${lineHeight.body.xl}px;
-  letter-spacing: ${letterSpacing.s}px;
-  color: ${neutrals[700]};
-  margin: 0;
-`;
-
-/* Body — typography/body/extraLarge, dark/text/primary */
-const BlockBody = styled(Text)`
-  font-family: ${fontFamily.body};
-  font-style: normal;
-  font-weight: ${fontWeight.regular};
-  font-size: ${fontSize.body.xl}px;
-  line-height: ${lineHeight.body.xl}px;
-  color: ${neutrals[100]};
-  margin: 0;
-  white-space: pre-line;
-`;
-
-/* core_growth — row of keywords */
-const CoreGrowth = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  padding: 0;
-  gap: ${spacing[400]}px;
-  flex-wrap: wrap;
-  flex: none;
-`;
-
-const CoreGrowthItem = styled(Text)`
-  font-family: ${fontFamily.body};
-  font-style: normal;
-  font-weight: ${fontWeight.semibold};
-  font-size: ${fontSize.body.xl}px;
-  line-height: ${lineHeight.body.xl}px;
-  letter-spacing: ${letterSpacing.s}px;
-  color: ${neutrals[100]};
-  margin: 0;
-`;
-
-/* Sticky 4-column projects grid */
-const StickyGridWrapper = styled.div`
-  position: relative;
-  min-width: 0;
-`;
-
-const ProjectsGrid = styled.div`
-  position: sticky;
-  top: ${spacing[0]}px;
-  padding-top: ${spacing[1000]}px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: ${spacing[200]}px;
-  width: 100%;
-  height: 100vh;
-`;
-
-const GridImageWrapper = styled.div`
-  position: relative;
-  aspect-ratio: 4 / 3;
   overflow: hidden;
+
+  img {
+    object-fit: cover;
+    object-position: top center;
+  }
 `;
+
+/**
+ * The phone frame's gallery: a strip at the top of the timeline that the cards
+ * scroll under, showing the set of whichever card is in the middle.
+ */
+const Strip = styled.div`
+  display: none;
+
+  ${STACKED} {
+    position: sticky;
+    top: ${spacing[1000]}px;
+    z-index: 2;
+    display: block;
+    width: 100%;
+    height: ${GALLERY.strip}px;
+    margin-bottom: ${spacing[400]}px;
+    /* The cards pass under it, so it can't be see-through. */
+    background: var(--color-bg-primary, #0b0915);
+    overflow: hidden;
+  }
+`;
+
+/** Inside the strip the two columns lie side by side, as the mobile gallery has them. */
+const StripSet = styled.div`
+  position: absolute;
+  inset: 0;
+  display: flex;
+  gap: ${spacing[150]}px;
+  opacity: 0;
+  transition: opacity 400ms ease-out;
+
+  &[data-active='true'] {
+    opacity: 1;
+  }
+
+  > * {
+    flex: 1 1 0;
+    height: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+`;
+
+function GallerySet({ entry, active }: { entry: TimelineEntry; active: boolean }) {
+  return (
+    <Set data-active={active} aria-hidden>
+      {entry.gallery.map((column, c) => (
+        <Column key={c}>
+          {column.map((image) => (
+            <Shot key={image.src} style={{ aspectRatio: String(image.aspect) }}>
+              <Image src={image.src} alt="" fill sizes="(max-width: 1024px) 40vw, 50vw" />
+            </Shot>
+          ))}
+        </Column>
+      ))}
+    </Set>
+  );
+}
 
 export function AboutTimelineSection() {
   const t = useTranslations('about.timeline');
-  const entryContent = useMessages().about.timeline.entries;
-  const entries = TIMELINE_ENTRIES.map((entry) => ({ ...entry, ...entryContent[entry.id] }));
-  const gridImages = PROJECTS.flatMap((p) => p.images.slice(0, 4)).slice(0, 16);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const cardRefs = useRef<(HTMLElement | null)[]>([]);
-  const ratiosRef = useRef<number[]>([]);
+  const messages = useMessages() as {
+    about: { timeline: { entries: Record<string, TimelineEntryContent> } };
+  };
+  const copy = messages.about.timeline.entries;
+  const entries: TimelineEntry[] = TIMELINE_ENTRIES.map((entry) => ({
+    ...entry,
+    ...copy[entry.id],
+  }));
 
+  const [active, setActive] = useState(0);
+  const cardsRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // Whichever card is crossing the middle of the screen owns the gallery and the rail.
   useEffect(() => {
-    const refs = cardRefs.current;
-    const count = TIMELINE_ENTRIES.length;
-    ratiosRef.current = new Array(count).fill(0);
-
+    const cards = cardsRef.current;
+    if (!cards) return;
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const index = refs.findIndex((el) => el === entry.target);
-          if (index !== -1) ratiosRef.current[index] = entry.intersectionRatio;
-        });
-        const ratios = ratiosRef.current;
-        const maxRatio = Math.max(...ratios);
-        const newIndex = ratios.findIndex((r) => r === maxRatio);
-        if (maxRatio > 0 && newIndex !== -1) {
-          setActiveIndex(newIndex);
-        }
+      (records) => {
+        const seen = records
+          .filter((record) => record.isIntersecting)
+          .map((record) => Number((record.target as HTMLElement).dataset.index));
+        if (seen.length) setActive(Math.min(...seen));
       },
-      { root: null, rootMargin: '-10% 0px -55% 0px', threshold: [0, 0.1, 0.25, 0.5, 0.75, 1] }
+      { rootMargin: '-50% 0px -50% 0px' },
     );
-
-    const toObserve = refs.slice(0, count);
-    toObserve.forEach((el) => el && observer.observe(el));
+    cards.querySelectorAll('[data-index]').forEach((card) => observer.observe(card));
     return () => observer.disconnect();
   }, []);
 
-  const activeEntry = entries[activeIndex] ?? entries[0];
-
   return (
-    <Section id="timeline">
+    <Section ref={sectionRef}>
+      <AboutYearRail entries={entries} active={active} sectionRef={sectionRef} />
       <Container>
-        <SectionHeading>
-          <SectionTitle as="h2">{t('title')}</SectionTitle>
-          <SectionSubtitle as="p">{t('subtitle')}</SectionSubtitle>
-        </SectionHeading>
-      </Container>
-      <ThreeColumn>
-        <StickyDateWrapper>
-          <StickyDateInner>
-            <YearRow>
-              <YearDot aria-hidden />
-              <YearText as="span">{activeEntry.year}</YearText>
-            </YearRow>
-            <StickyContentText as="p">{activeEntry.stickyContent}</StickyContentText>
-          </StickyDateInner>
-        </StickyDateWrapper>
-        <TimelineList>
+        <SectionHeading title={t('title')} subtitle={t('subtitle')} />
+        <Strip aria-hidden>
           {entries.map((entry, index) => (
-            <TimelineCard
-              key={`${entry.company}-${entry.role}`}
-              ref={(el) => { cardRefs.current[index] = el; }}
-            >
-              <CardContent>
-                <CardHeading>
-                  <CompanyName as="h3">{entry.company}</CompanyName>
-                  <Role as="p">{entry.role}</Role>
-                </CardHeading>
-                <Block>
-                  <BlockLabel as="p">{t('focus')}</BlockLabel>
-                  <BlockBody as="p">{entry.focus}</BlockBody>
-                </Block>
-                <Block>
-                  <BlockLabel as="p">{t('impact')}</BlockLabel>
-                  <BlockBody as="p">{entry.impact}</BlockBody>
-                </Block>
-                <CoreGrowth>
-                  {entry.coreGrowth.map((item) => (
-                    <CoreGrowthItem as="span" key={item}>
-                      {item}
-                    </CoreGrowthItem>
-                  ))}
-                </CoreGrowth>
-              </CardContent>
-            </TimelineCard>
+            <StripSet key={entry.id} data-active={index === active}>
+              {entry.gallery.flat().map((image) => (
+                <Shot key={image.src}>
+                  <Image src={image.src} alt="" fill sizes="33vw" />
+                </Shot>
+              ))}
+            </StripSet>
           ))}
-        </TimelineList>
-
-        <StickyGridWrapper>
-          <ProjectsGrid>
-            {gridImages.map((img, i) => (
-              <GridImageWrapper key={`${img.src}-${i}`}>
-                <Image
-                  src={img.src}
-                  alt={img.alt}
-                  fill
-                  sizes="(max-width: 768px) 25vw, 120px"
-                  style={{ objectFit: 'cover' }}
-                />
-              </GridImageWrapper>
+        </Strip>
+        <Body>
+          <Cards ref={cardsRef}>
+            {entries.map((entry, index) => (
+              <Card key={entry.id} data-index={index}>
+                <Heading>
+                  <Company>{entry.company}</Company>
+                  <Role>{entry.role}</Role>
+                </Heading>
+                <Block>
+                  <BlockLabel>{t('focus')}</BlockLabel>
+                  <BlockBody>
+                    {entry.focus
+                      .split('. ')
+                      .filter(Boolean)
+                      .map((line) => (
+                        <li key={line}>{line.replace(/\.$/, '')}</li>
+                      ))}
+                  </BlockBody>
+                </Block>
+                <Block>
+                  <BlockLabel>{t('impact')}</BlockLabel>
+                  <BlockBody>
+                    {entry.impact
+                      .split('. ')
+                      .filter(Boolean)
+                      .map((line) => (
+                        <li key={line}>{line.replace(/\.$/, '')}</li>
+                      ))}
+                  </BlockBody>
+                </Block>
+                <Growth>
+                  {entry.coreGrowth.map((word) => (
+                    <li key={word}>{word}</li>
+                  ))}
+                </Growth>
+              </Card>
             ))}
-          </ProjectsGrid>
-        </StickyGridWrapper>
-      </ThreeColumn>
+          </Cards>
+          <GalleryColumn aria-hidden>
+            <Sticky>
+              {entries.map((entry, index) => (
+                <GallerySet key={entry.id} entry={entry} active={index === active} />
+              ))}
+            </Sticky>
+          </GalleryColumn>
+        </Body>
+      </Container>
     </Section>
   );
 }

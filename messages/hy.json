@@ -13,10 +13,6 @@
       "title": "Նախագծեր",
       "description": "Ստեփան Թորչյանի ընտրված աշխատանքներն ու նախագծերը։"
     },
-    "caseStudies": {
-      "title": "Քեյսեր",
-      "description": "Ստեփան Թորչյանի դիզայնի և ծրագրավորման քեյսերը։"
-    },
     "projectNotFound": "Նախագիծը չի գտնվել"
   },
   "common": {
@@ -31,7 +27,6 @@
   "nav": {
     "home": "Գլխավոր",
     "projects": "Նախագծեր",
-    "caseStudies": "Քեյսեր",
     "about": "Իմ մասին",
     "contactMe": "Կապ",
     "mainLabel": "Հիմնական նավիգացիա",
@@ -284,7 +279,6 @@
       "home": "Գլխավոր",
       "about": "Իմ մասին",
       "projects": "Նախագծեր",
-      "caseStudies": "Քեյսեր",
       "contact": "Կապ"
     }
   },
@@ -451,7 +445,8 @@
         "Ֆրոնտենդ իրականացում",
         "Հասանելի և արագ ինտերֆեյսներ",
         "Երկարատև մասշտաբ"
-      ]
+      ],
+      "generate": "Գեներացնել"
     },
     "timeline": {
       "title": "Ստեղծում եմ UI համակարգեր 2016-ից",
@@ -523,9 +518,9 @@
         }
       }
     },
-    "skills": {
-      "title": "Հմտություններ",
-      "caption": "Ստորև ներկայացված շրջանակները ցույց են տալիս այն ոլորտները, որտեղ բազմիցս նախագծել, թողարկել և ծանրաբեռնվածության տակ փորձարկել եմ ինտերֆեյսային համակարգեր՝ ճարտարապետությունից և փոխազդեցության դիզայնից մինչև արագագործություն, հասանելիություն և ֆրոնտենդ ծրագրավորում։",
+    "practice": {
+      "title": "Ինչ եմ անում գործնականում",
+      "subtitle": "Ճարտարապետությունից մինչև փոխազդեցության տրամաբանություն և արտադրական կոդ։",
       "circles": [
         "Տեղեկատվական ճարտարապետություն",
         "UI պատերնների գրադարաններ",
@@ -550,7 +545,42 @@
         "Ցանցային համակարգեր",
         "Սեմանտիկ HTML",
         "CSS ճարտարապետություն",
-        "Դիզայն համակարգեր"
+        "Դիզայն համակարգեր",
+        "RTL Support",
+        "State Management",
+        "Code Splitting",
+        "AI Tools",
+        "Microinteractions",
+        "High-Fidelity Mockups",
+        "Visual Hierarchy",
+        "SCSS Structuring",
+        "Motion Systems",
+        "UI Governance",
+        "Scalability Planning",
+        "UI Audits",
+        "Component Architecture",
+        "SSR Integration",
+        "UI Refactoring",
+        "Event Handling",
+        "Typography Systems",
+        "State Design",
+        "BEM Methodology",
+        "Dynamic Theming",
+        "Code Reviews",
+        "Cross-Browser Compatibility",
+        "Interaction Prototyping",
+        "Technical Strategy",
+        "Color Theming",
+        "Accessibility Compliance",
+        "Styled Components",
+        "Animation Logic",
+        "Conditional Rendering",
+        "API Integration",
+        "Lazy Loading",
+        "Pixel Precision",
+        "Interactive Design",
+        "Semantic Structure",
+        "Visual QA"
       ]
     },
     "cta": {

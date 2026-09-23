@@ -19,3 +19,5 @@ export { PageBackground } from './PageBackground';
 export { LowerPageBackground } from './LowerPageBackground';
 export type { LowerPageBackgroundProps } from './LowerPageBackground';
 export { SideCharacters } from './SideCharacters';
+export { CTACards } from './CTACards';
+export type { CTACardContent, CTATone } from './CTACards';

@@ -52,7 +52,6 @@ const PRIMARY_LINKS = [
   { key: 'home', href: '/' },
   { key: 'about', href: '/about' },
   { key: 'projects', href: '/projects' },
-  { key: 'caseStudies', href: '/case-studies' },
   { key: 'contact', href: '/#contact' },
 ] as const;
 

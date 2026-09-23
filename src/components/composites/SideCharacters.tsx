@@ -5,7 +5,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { zIndex } from '@/styles/tokens/z-index';
 import { media, mediaQueries } from '@/styles/media';
-import { Character } from './character/Character';
+import { Character, characterFade } from './character/Character';
 import { useLookAtPointer } from './character/useLookAtPointer';
 
 const HEIGHT = '90vmin'; // Responsive to screen (smaller of vw/vh)
@@ -67,8 +67,7 @@ const SideCharacter = styled.div<{ $side: 'left' | 'right' }>`
   width: calc(${HEIGHT} / 2);
   height: ${HEIGHT};
   z-index: 1;
-  mask-image: linear-gradient(to bottom, black 0%, black 55%, transparent 96%);
-  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 55%, transparent 96%);
+  ${characterFade}
 
   /* In the 768 frame and below, the hero shows a single centred portrait instead. */
   ${media.down('l')} {

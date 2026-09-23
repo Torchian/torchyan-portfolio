@@ -4,12 +4,17 @@ import Image from 'next/image';
 import styled from 'styled-components';
 import { Button } from '@/components/primitives';
 import { spacing } from '@/styles/tokens/spacing';
-import { fontFamily, fontWeight, fontSize, lineHeight, letterSpacing } from '@/styles/tokens/typography';
+import {
+  fontFamily,
+  fontWeight,
+  fontSize,
+  lineHeight,
+  letterSpacing,
+} from '@/styles/tokens/typography';
 import { accents, neutrals } from '@/styles/tokens/colors';
 import { grid } from '@/styles/tokens/grid';
 import { media } from '@/styles/media';
 import { useTranslations } from 'next-intl';
-import { CrosshairName } from './CrosshairName';
 
 /*
  * Figma: hero_section — 1920 (3285:8498), 1440 (2670:10805), 1280 (2670:11152),
@@ -301,9 +306,7 @@ export function HeroSection() {
 
       <Container>
         <Body>
-          <Name id="hero-name">
-            <CrosshairName name={t('name')} />
-          </Name>
+          <Name id="hero-name">{t('name')}</Name>
           <Role>{t('role')}</Role>
           <Description>{t('description')}</Description>
           <CtaSlot>

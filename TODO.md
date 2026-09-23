@@ -42,7 +42,6 @@ Deferred items from the homepage review (2026-09-14). Numbers match the review.
 - [x] **Responsive design** — done 2026-09-17 from the four frames in section 3155:8425 (1920 / 1440 / 1024 / 480). Section heights match Figma exactly at 1024; mobile rows run ~24px taller each because the placeholder description wraps further than the design's.
 - [ ] **Real content per project** — the ten rows now carry their real titles, but every one still shares one description, tech stack and a collage borrowed from the four existing sets. Roles are per project for the four that had them and the design's placeholder pair for the rest. Content lives in `src/components/sections/projects-page/projectShowcaseConfig.ts` and `messages/*.json` under `projectsPage.showcase`.
 - [ ] **Seven project rows link to pages that don't exist** — Ginosi, Brainstorm, Benzeen, World Education, Infinity Rings, Off My Case and By Robyn Blair point at `/projects/<slug>` as agreed, but only picsart, smartbet and soulone are in `PROJECTS`, so the rest 404 until their case pages exist.
-- [ ] **World Education "View Case Story"** — there's no case study page yet, so the CTA opens `/case-studies`.
 - [ ] **"View Random Case"** — links to `/projects/picsart` for now; decide whether it should pick a random case.
 - [ ] **Collage hover state** — each collage component in Figma has a hidden "CTA Secondary"; the hover state isn't built.
 - [ ] **SoulOne collage image quality** — Figma's export caps these tall screenshots at 4096px high, so they arrive only 142–455px wide and look soft on retina. Replace them with the original screenshots.
@@ -59,10 +58,9 @@ Done:
 - `npm run images`: right-sizes and converts new project images to WebP (see the script header). Today's images are already optimal.
 
 Done in the lag investigation (2026-09-22, measured on a production build, CPU ×4 throttle):
-- Hero "O" crosshair: the transform animations sat on `<svg>` elements, which Chrome ticks on the main thread every frame (60 style recalcs/s, ~85ms/s idle). Moved to wrapping spans: ~10ms/s. It also paused after the hero scrolls away.
-- `usePauseOffscreen` (src/hooks): infinite animations rest out of view — hero "O", Years map dots, Partners carousel strip. Mid-homepage idle went from ~90ms/s to ~1ms/s.
+- `usePauseOffscreen` (src/hooks): infinite animations rest out of view — Years map dots, Partners carousel strip. Mid-homepage idle went from ~90ms/s to ~1ms/s.
 - Custom cursor: dropped its backdrop blur, which re-blurred the page under it on every pointer move. The cursor still costs one main-thread frame per move (it's positioned from JS); that's inherent to a custom cursor.
-- Rule of thumb: never animate `transform` on an `<svg>` element itself; animate an HTML wrapper.
+- Rule of thumb: never animate `transform` on an `<svg>` element itself — Chrome ticks it on the main thread every frame (60 style recalcs/s, ~85ms/s, measured). Animate an HTML wrapper instead.
 
 Still to do (homepage, found by layer profiling):
 - [ ] **Animated backdrop-filter**: a glass pane in What I Do (a `::before` of about 523×506, `ActiveBackdropFilterAnimation`) animates its blur, which re-blurs the backdrop every frame. This is the single most expensive effect on the site. Animate opacity or transform instead, or bake the look into an image.
@@ -79,6 +77,14 @@ Built from Figma 3155:9107; see `docs/adr/0006-case-study-page.md`.
 - [ ] **Smartbet and SoulOne case studies**: they still show the older layout until they have copy (`caseStudy.<slug>` in `messages/*.json`) and imagery (`CASE_STUDIES`). The other seven projects need their pages too.
 - [ ] **Case study translations**: `caseStudy.*` is English in `ru.json` and `hy.json`.
 - [ ] **Blueprint cards on tablet and mobile**: laid out two per row, then one, following the Projects cards. Check against the tablet and mobile frames.
+
+## About page (2026-09-23)
+
+Rebuilt from Figma 2973:9261; see `docs/adr/0007-about-page.md`.
+
+- [ ] **Timeline gallery images**: placeholders from other projects, one set per workplace, in `src/components/sections/about/aboutConfig.ts`. Replace with real screenshots per workplace (the user is providing content and media at the end).
+- [ ] **New copy in Russian and Armenian**: `about.practice.circles` (the labels past the first 24) and `about.hero.generate` beyond the button itself.
+- [ ] **Armenian 90's outfit**: exported in Figma (3966:16811) but not in the random pool, since it isn't in the list of ten. Add it if it should be.
 
 ## Projects page code review (2026-09-22)
 
@@ -118,7 +124,7 @@ The user sent their own to-do list and asked for a full TODO document, adding an
 - Homepage: What I Do on tablet and mobile; Capabilities and Trusted By to fit the screen height.
 - Projects: the Partners carousel lags.
 - Header: responsiveness is broken; redesign the tablet and mobile menu.
-- Whole project: Case Studies and About pages, performance (high priority), accessibility, light theme, sound enhancements, backend, the torchyan.design domain, and a mailing system.
+- Whole project: Case Studies and About pages, performance (high priority), accessibility, light theme, sound enhancements, backend, the torchyan.design domain, and a mailing system. (The Case Studies list page was dropped on 2026-09-23; cases live under `/projects/<slug>`.)
 
 Today's `TODO.md` is a pile of dated review lists (homepage review, Projects review, localization) with open and done items mixed together. The goal is **one structured, prioritised document**. It merges the user's list, every open item already in `TODO.md`, and new findings from surveying the code. The backend section explains in plain terms what "backend" means for this site, since the user said it isn't their area.
 
@@ -135,8 +141,8 @@ This is a documentation-only change: `TODO.md` is rewritten, and no code changes
 - **Junk in git:** `torchyan-portfolio/node_modules/…` (5 files) is tracked at the repo root by accident. Remove it and ignore it. `.claude/` needs the same commit-or-ignore decision.
 - **Likely cause of the Partners carousel lag:** the strip has `mix-blend-mode: exclusion` (`PartnersCarousel.tsx`). The blend forces the moving track and everything behind it to repaint every frame. The animation also runs while the strip is off screen.
 - **Light theme is half there:** `src/store/ui.ts` has a working theme toggle and `themes/light.ts` exists, but `app/[locale]/layout.tsx` hard-codes `data-theme="dark"`. There's no light design in Figma yet.
-- **Case Studies page is a placeholder:** `/case-studies` shows only Capabilities plus the Contact CTA. Only three case pages exist (`/projects/{picsart,smartbet,soulone}`).
-- **About page:** it exists (hero, timeline, skill circles, CTA). "Build About page" means finishing and checking it against Figma, not starting from zero.
+- **Case Studies page removed (2026-09-23):** `/case-studies` was a placeholder (Capabilities plus the Contact CTA) linked from the header and footer. A case is reached from the Projects page instead, at `/projects/<slug>`. Its route, nav and footer links, sitemap entry and `meta.caseStudies` copy are gone. If the site ever goes live with that URL already indexed, add a redirect to `/projects`.
+- **About page rebuilt (2026-09-23):** hero with the random character, hero info, timeline with sticky gallery and year rail, "What I Do In Practice", Positioning — from Figma 2973:9261, see `docs/adr/0007-about-page.md`.
 - **No security headers** in `next.config.ts` (CSP, HSTS, Referrer-Policy, Permissions-Policy, X-Content-Type-Options).
 - **Tooling:** there's no CI (no `.github/`), no test setup, and `README.md` is one line.
 - **`sharp` is a devDependency:** fine for the scripts. If the site is self-hosted rather than on Vercel, image optimisation needs it in `dependencies`.
@@ -167,8 +173,8 @@ This is a documentation-only change: `TODO.md` is rewritten, and no code changes
    - the tablet and mobile menu redesign (Design);
    - placement of the sound and language controls (existing);
    - the page loader (provisional, existing).
-6. **Case Studies page:** decide the structure (a list page vs `/projects/[slug]`), the Figma design, the build, and the remaining seven case pages.
-7. **About page:** check against Figma, image alt text (existing #9), and the timeline map.
+6. **Case pages:** a case is `/projects/<slug>`, reached from the Projects page; there is no separate Case Studies list page. Remaining: the seven projects without a page (see Projects), and their copy and imagery.
+7. **About page:** real timeline gallery screenshots per workplace (placeholders today, `src/components/sections/about/aboutConfig.ts`), image alt text (existing #9), and `about.practice.circles` / `about.hero.generate` in Russian and Armenian (the new labels are English there).
 8. **Performance (P1).** Set a baseline first: Lighthouse and WebPageTest on a production build, with targets LCP < 2.5s, INP < 200ms, CLS < 0.1. Then work through:
    - the carousel;
    - the Projects scroll listeners and the ten-screen layer;

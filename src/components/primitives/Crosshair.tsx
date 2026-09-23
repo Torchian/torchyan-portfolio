@@ -3,16 +3,13 @@
 import { css } from 'styled-components';
 
 /*
- * The crosshair drawing from Figma's Cursor (3945:15184), shared by the custom
- * cursor and the hero name's "O": a dashed ring with four inward ticks, a plus
- * in the middle, over a round glass backing.
+ * The crosshair drawing from Figma's Cursor (3945:15184): a dashed ring with
+ * four inward ticks, a plus in the middle, over a round glass backing.
  */
 
 /** The drawing's box in Figma units: the 38px ring plus room for its soft edge (inset -4.55%). */
 export const CROSSHAIR_BOX = 41.4545;
 export const CROSSHAIR_VIEWBOX = `0 0 ${CROSSHAIR_BOX} ${CROSSHAIR_BOX}`;
-/** Tight to the ring (2.59 → 38.86), for uses without the soft-edge room, like the hero "O" (3956:15293). */
-export const CROSSHAIR_RING_VIEWBOX = '2.5909 2.5909 36.2727 36.2727';
 
 /** The dashed ring and its ticks. */
 export function CrosshairRing() {

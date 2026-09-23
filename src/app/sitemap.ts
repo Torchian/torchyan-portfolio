@@ -13,7 +13,6 @@ interface Route {
 const ROUTES: Route[] = [
   { path: '/', changeFrequency: 'monthly', priority: 1 },
   { path: '/projects', changeFrequency: 'weekly', priority: 0.8 },
-  { path: '/case-studies', changeFrequency: 'monthly', priority: 0.7 },
   { path: '/about', changeFrequency: 'monthly', priority: 0.6 },
   ...PROJECTS.map((project): Route => ({
     path: `/projects/${project.slug}`,

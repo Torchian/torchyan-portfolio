@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import { AboutHeroSection } from '@/components/sections/about/AboutHeroSection';
+import { AboutIntroSection } from '@/components/sections/about/AboutIntroSection';
 import { AboutTimelineSection } from '@/components/sections/about/AboutTimelineSection';
-import { AboutSkillsCirclesSection } from '@/components/sections/about/AboutSkillsCirclesSection';
-import { AboutCTASection } from '@/components/sections/about/AboutCTASection';
+import { AboutPracticeSection } from '@/components/sections/about/AboutPracticeSection';
+import { AboutPositioningSection } from '@/components/sections/about/AboutPositioningSection';
 import { resolveLocale, type LocaleParams } from '@/i18n/server';
 import { generatePageMetadata } from '@/lib/seo/metadata';
 
@@ -19,15 +20,20 @@ export async function generateMetadata({ params }: LocaleParams): Promise<Metada
   });
 }
 
+/*
+ * Figma: About (section 2973:9261) — Desktop 2973:16130, Tablet 3960:15294,
+ * Mobile 3983:10975. See docs/adr/0007-about-page.md.
+ */
 export default async function AboutPage({ params }: LocaleParams) {
   await resolveLocale(params);
 
   return (
     <main id="main-content">
       <AboutHeroSection />
+      <AboutIntroSection />
       <AboutTimelineSection />
-      <AboutSkillsCirclesSection />
-      <AboutCTASection />
+      <AboutPracticeSection />
+      <AboutPositioningSection />
     </main>
   );
 }

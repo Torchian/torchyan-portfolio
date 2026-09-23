@@ -13,10 +13,6 @@
       "title": "Проекты",
       "description": "Избранные работы и проекты Степана Торчяна."
     },
-    "caseStudies": {
-      "title": "Кейсы",
-      "description": "Кейсы по дизайну и разработке от Степана Торчяна."
-    },
     "projectNotFound": "Проект не найден"
   },
   "common": {
@@ -31,7 +27,6 @@
   "nav": {
     "home": "Главная",
     "projects": "Проекты",
-    "caseStudies": "Кейсы",
     "about": "Обо мне",
     "contactMe": "Связаться",
     "mainLabel": "Основная навигация",
@@ -284,7 +279,6 @@
       "home": "Главная",
       "about": "Обо мне",
       "projects": "Проекты",
-      "caseStudies": "Кейсы",
       "contact": "Контакты"
     }
   },
@@ -451,7 +445,8 @@
         "Фронтенд-реализация",
         "Доступность и скорость",
         "Масштаб на годы вперёд"
-      ]
+      ],
+      "generate": "Сгенерировать"
     },
     "timeline": {
       "title": "Создаю UI-системы с 2016 года",
@@ -523,9 +518,9 @@
         }
       }
     },
-    "skills": {
-      "title": "Навыки",
-      "caption": "Круги ниже показывают области, в которых я многократно проектировал, выпускал и проверял под нагрузкой интерфейсные системы — от архитектуры и дизайна взаимодействий до производительности, доступности и фронтенд-разработки.",
+    "practice": {
+      "title": "Что я делаю на практике",
+      "subtitle": "От архитектуры к логике взаимодействия и продакшн-коду.",
       "circles": [
         "Информационная архитектура",
         "Библиотеки UI-паттернов",
@@ -550,7 +545,42 @@
         "Сетки",
         "Семантический HTML",
         "Архитектура CSS",
-        "Дизайн-системы"
+        "Дизайн-системы",
+        "RTL Support",
+        "State Management",
+        "Code Splitting",
+        "AI Tools",
+        "Microinteractions",
+        "High-Fidelity Mockups",
+        "Visual Hierarchy",
+        "SCSS Structuring",
+        "Motion Systems",
+        "UI Governance",
+        "Scalability Planning",
+        "UI Audits",
+        "Component Architecture",
+        "SSR Integration",
+        "UI Refactoring",
+        "Event Handling",
+        "Typography Systems",
+        "State Design",
+        "BEM Methodology",
+        "Dynamic Theming",
+        "Code Reviews",
+        "Cross-Browser Compatibility",
+        "Interaction Prototyping",
+        "Technical Strategy",
+        "Color Theming",
+        "Accessibility Compliance",
+        "Styled Components",
+        "Animation Logic",
+        "Conditional Rendering",
+        "API Integration",
+        "Lazy Loading",
+        "Pixel Precision",
+        "Interactive Design",
+        "Semantic Structure",
+        "Visual QA"
       ]
     },
     "cta": {

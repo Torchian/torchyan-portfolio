@@ -30,6 +30,13 @@ import {
  * can see where you type.
  */
 
+/**
+ * Off for now, and the system cursor is back: set this to true to bring it
+ * back. Nothing else is needed — it's still mounted in SiteLayout, and while
+ * it's off it renders nothing and listens to nothing.
+ */
+const ENABLED: boolean = false;
+
 const DRAWING = CROSSHAIR_BOX;
 /**
  * Drawn size on screen: Figma's 41.5px box brought down to 32px, as the full
@@ -159,6 +166,7 @@ export function CustomCursor() {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (!ENABLED) return;
     const query = window.matchMedia(QUERY);
     const sync = () => setEnabled(query.matches);
     sync();

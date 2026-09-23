@@ -2,7 +2,7 @@
 
 import Image, { getImageProps } from 'next/image';
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { media } from '@/styles/media';
 import {
   DEPTH,
@@ -88,6 +88,16 @@ const TILT_DEG = 3;
 const EYE_SCALE = 1.16;
 const GAZE_X = 5;
 const GAZE_Y = 2.5;
+
+/**
+ * The hero fade: the character's own pixels go transparent towards its feet,
+ * rather than a band drawn over it (which leaves the image's own edge hard).
+ * Used by the home hero's pair and the About hero.
+ */
+export const characterFade = css`
+  mask-image: linear-gradient(to bottom, black 0%, black 55%, transparent 96%);
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 55%, transparent 96%);
+`;
 
 const Frame = styled.div<{ $aspect: string; $designWidth: number }>`
   position: relative;

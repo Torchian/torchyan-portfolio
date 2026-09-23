@@ -31,7 +31,6 @@ import { border } from '@/styles/tokens/border';
 const NAV_LINKS = [
   { key: 'home', href: '/' },
   { key: 'projects', href: '/projects' },
-  { key: 'caseStudies', href: '/case-studies' },
   { key: 'about', href: '/about' },
 ] as const;
 

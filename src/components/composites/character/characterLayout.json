@@ -235,6 +235,24 @@
       "y": 464.97,
       "width": 1024.0,
       "height": 559.0
+    },
+    "classic": {
+      "figma": "Classic",
+      "node": "3960:16688",
+      "src": "/character/v2/body/classic.webp",
+      "x": 0.0,
+      "y": 463.97,
+      "width": 1024.0,
+      "height": 560.0
+    },
+    "sopranos": {
+      "figma": "Sopranos",
+      "node": "3990:17062",
+      "src": "/character/v2/body/sopranos.webp",
+      "x": 0.0,
+      "y": 468.97,
+      "width": 1024.0,
+      "height": 555.0
     }
   }
 }
