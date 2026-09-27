@@ -29,11 +29,23 @@ import { useScrollStepping } from '@/hooks';
  *    same edges.
  * Scrolling back up plays it in reverse. Elsewhere (phones, short windows) the
  * rows stack flush against each other, each ending on the colour the next
- * begins with, so the ten read as one gradient down the page.
+ * begins with, so the ten read as one gradient down the page. That stacked
+ * layout is also what renders without JavaScript: the stage needs JS to choose
+ * the row on screen, so it is switched on from here (see STAGED) rather than by
+ * the media query alone.
  */
 
 const COUNT = SHOWCASE_PROJECTS.length;
-const stage = `@media ${STAGE_QUERY}`;
+
+/**
+ * The stage is turned on in JS, not by the media query alone: `data-staged` on
+ * the section. Which row is on screen can only be worked out from the scroll
+ * position, so without JS — and in the server HTML, before hydration — there is
+ * no row to show, and a stage would be ten hidden rows in nine blank screens.
+ * The attribute keeps the rows stacked in normal flow until JS says otherwise.
+ * ProjectShowcase gates its own stage rules the same way.
+ */
+const STAGED = `[data-staged='true'] &`;
 
 const Section = styled.section`
   /* The Figma frame ends 160px below the last row, on top of the page's section gap. */
@@ -45,7 +57,7 @@ const Section = styled.section`
 
 /** The scroll runway: one screen per project. */
 const Track = styled.div`
-  ${stage} {
+  ${STAGED} {
     height: ${COUNT * 100}svh;
   }
 `;
@@ -54,7 +66,7 @@ const Stage = styled.div`
   display: flex;
   flex-direction: column;
 
-  ${stage} {
+  ${STAGED} {
     position: sticky;
     top: 0;
     display: block;
@@ -67,7 +79,7 @@ const Stage = styled.div`
 const Backdrop = styled.div`
   display: none;
 
-  ${stage} {
+  ${STAGED} {
     position: absolute;
     top: 0;
     left: 0;
@@ -95,20 +107,22 @@ const Band = styled.div`
 const Dots = styled.div`
   display: none;
 
-  @media ${STAGE_SPLIT_QUERY} {
-    position: absolute;
-    top: 50%;
-    right: ${HEADER_INLINE.base}px;
-    z-index: 2;
-    display: block;
-    transform: translateY(-50%);
-    transition:
-      opacity 400ms ease-out,
-      visibility 400ms ease-out;
+  ${STAGED} {
+    @media ${STAGE_SPLIT_QUERY} {
+      position: absolute;
+      top: 50%;
+      right: ${HEADER_INLINE.base}px;
+      z-index: 2;
+      display: block;
+      transform: translateY(-50%);
+      transition:
+        opacity 400ms ease-out,
+        visibility 400ms ease-out;
 
-    &[data-shown='false'] {
-      opacity: 0;
-      visibility: hidden;
+      &[data-shown='false'] {
+        opacity: 0;
+        visibility: hidden;
+      }
     }
   }
 `;
@@ -198,7 +212,7 @@ export function ProjectsListSection() {
   };
 
   return (
-    <Section aria-label={t('listLabel')}>
+    <Section aria-label={t('listLabel')} data-staged={staged}>
       <Track ref={trackRef}>
         <Stage onFocus={onFocus}>
           <Backdrop
@@ -222,9 +236,10 @@ export function ProjectsListSection() {
               <ProjectShowcase
                 project={project}
                 mediaSide={i % 2 === 0 ? 'right' : 'left'}
-                // Only read on the stage (the CSS ignores it otherwise), so the
-                // server HTML already stages correctly before hydration.
-                stage={i < active ? 'past' : i === active ? 'active' : 'upcoming'}
+                staged={staged}
+                // Ignored when the rows stack, so the rows the server renders
+                // are all "on screen" and none of them is hidden.
+                active={!staged || i === active}
                 showMedia={!staged || seen.has(i)}
               />
             </div>
