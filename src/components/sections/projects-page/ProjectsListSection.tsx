@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState, type FocusEvent } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState, type FocusEvent } from 'react';
 import styled from 'styled-components';
 import { useMessages, useTranslations } from 'next-intl';
 import { CarouselDots } from '@/components/primitives';
@@ -53,6 +53,22 @@ const COUNT = SHOWCASE_PROJECTS.length;
  */
 const STAGED = `[data-staged='true'] &`;
 
+/**
+ * Whether the list should run as a stage, at this moment and this size.
+ *
+ * Read twice: once before the first paint, to write the attribute the CSS keys
+ * on, and again whenever the window changes.
+ */
+function shouldStage() {
+  if (!window.matchMedia(STAGE_QUERY).matches) return false;
+  // The stacked row has to hold its text, its collage band and its CTA in one
+  // screen, so it is measured against the screen it really gets. The
+  // side-by-side row puts the two halves next to each other and has never run
+  // out of height, so its media query stands on its own.
+  if (!window.matchMedia(STAGE_STACKED_QUERY).matches) return true;
+  return smallViewportHeight() >= STACKED_STAGE_MIN_HEIGHT;
+}
+
 const Section = styled.section`
   /* The Figma frame ends 160px below the last row, on top of the page's section gap. */
 
@@ -61,9 +77,24 @@ const Section = styled.section`
   }
 `;
 
-/** The scroll runway: one screen per project. */
+/**
+ * The scroll runway: one screen per project.
+ *
+ * Its height is the one stage rule left on the media query, because it is the
+ * one that has to be right in the *first painted frame*. Everything else waits
+ * for `data-staged`, which cannot appear before hydration — and hydration lands
+ * long after the server HTML is on screen. Reserving this height from CSS is
+ * what stops the page growing by three thousand pixels once the stage turns on,
+ * which dragged the page glow down with it and measured 0.132 CLS.
+ *
+ * The cost falls on the rare visitor with no JavaScript at all: the runway is
+ * there but the rows stay stacked inside it, so the section ends with a stretch
+ * of empty space. Every row is still readable, which is what matters — the
+ * alternative, staging from CSS, hid nine of them behind an opacity the browser
+ * had no way to lift.
+ */
 const Track = styled.div`
-  ${STAGED} {
+  @media ${STAGE_QUERY} {
     height: ${COUNT * 100}svh;
   }
 `;
@@ -173,6 +204,7 @@ function indexAt(scrolled: number, screen: number) {
 export function ProjectsListSection() {
   const t = useTranslations('projectsPage');
   const items = useMessages().projectsPage.showcase.items;
+  const sectionRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const [staged, setStaged] = useState(false);
   // None until the stage is mostly on screen; the first project then plays its
@@ -181,18 +213,24 @@ export function ProjectsListSection() {
   // Collages mount as their row comes near and then stay, so they load one at a time.
   const [seen, setSeen] = useState(() => new Set([0, 1]));
 
+  /**
+   * The attribute is written straight to the DOM before the first paint, not
+   * rendered from state. State only settles after that paint, so the track
+   * would spend a frame at its stacked height and the page would grow by three
+   * thousand pixels underneath the reader — measured at 0.132 CLS on this page,
+   * from the page glow being dragged down with it.
+   */
+  useLayoutEffect(() => {
+    sectionRef.current?.setAttribute('data-staged', String(shouldStage()));
+  }, []);
+
   useEffect(() => {
     const query = window.matchMedia(STAGE_QUERY);
     const stackedQuery = window.matchMedia(STAGE_STACKED_QUERY);
     const sync = () => {
-      // The stacked row has to hold its text, its collage band and its CTA in
-      // one screen, so it is measured against the screen it really gets. The
-      // side-by-side row puts the two halves next to each other and has never
-      // run out of height, so its media query stands on its own.
-      setStaged(
-        query.matches &&
-          (!stackedQuery.matches || smallViewportHeight() >= STACKED_STAGE_MIN_HEIGHT),
-      );
+      const next = shouldStage();
+      sectionRef.current?.setAttribute('data-staged', String(next));
+      setStaged(next);
     };
     sync();
     query.addEventListener('change', sync);
@@ -256,7 +294,7 @@ export function ProjectsListSection() {
   };
 
   return (
-    <Section aria-label={t('listLabel')} data-staged={staged}>
+    <Section ref={sectionRef} aria-label={t('listLabel')}>
       <Track ref={trackRef}>
         <Stage onFocus={onFocus}>
           <Backdrop
@@ -280,7 +318,6 @@ export function ProjectsListSection() {
               <ProjectShowcase
                 project={project}
                 mediaSide={i % 2 === 0 ? 'right' : 'left'}
-                staged={staged}
                 // Ignored when the rows stack, so the rows the server renders
                 // are all "on screen" and none of them is hidden.
                 active={!staged || i === active}
