@@ -140,3 +140,101 @@ Two options, and both are visual calls rather than engineering ones:
 Given the TBT figures in section 1, the honest reading is that the carousel is
 unlikely to be the main cause of lag on `/projects`. The main-thread blocking is
 the larger and better-evidenced problem.
+
+---
+
+# Addendum — chasing the blocking time (same day)
+
+Section 1 said Total Blocking Time was the site's main problem. Digging into it
+produced one correction, several environment-independent facts, and a warning
+about the numbers.
+
+## The TBT figure is not safe to act on
+
+Measured with the browser's own `longtask` entries (authoritative: that API is
+the renderer main thread by definition), TBT is 2.1–4.8s per page, which agrees
+with Lighthouse. But the shape is wrong for real work:
+
+| page | CPU 1× | CPU 4× |
+| --- | --- | --- |
+| home | longest task 2339ms | longest task 2444ms |
+| projects | 2293ms | 2168ms |
+| case study | 2381ms | 2200ms |
+| about | 2386ms | 2097ms |
+
+**One task of roughly 2.3s dominates every page, and it barely moves when the
+CPU is throttled four times slower.** Genuine JavaScript would take about four
+times as long. A task whose wall-clock duration ignores CPU speed is a thread
+that is not running, not a thread that is busy: the container's scheduler
+preempting the renderer for seconds at a time.
+
+Two other readings agree. The V8 CPU profiler attributes only ~300–800ms across
+all the site's own scripts at 4× throttle, the largest named function being
+`resolveLocale` at 79ms. And a timeline trace accounts for about 1.4s of
+main-thread work in total. Neither leaves room for a real 2.3s task.
+
+**So: do not optimise against these TBT numbers.** Whether the site has a
+blocking problem has to be settled on the deployed site, which is already filed
+in §7. What follows is limited to what this environment *can* establish.
+
+### On the earlier attempts
+
+Four attempts to derive long tasks from a trace each produced a number that was
+wrong in a different way: a flood of `cc`/`viz` events that never completed; zero
+long tasks, because the `toplevel` category was missing; 21 seconds of blocking
+inside a 6-second window, because worker and compositor threads were summed in;
+and then 11ms, because the `CrRendererMain` filter matched a different renderer
+process. Recorded so the next person reaches for `PerformanceObserver` first.
+
+## What is solid: bytes
+
+None of this depends on the container's CPU.
+
+| | home | /projects |
+| --- | --- | --- |
+| HTML document | **314 KB** | 197 KB |
+| — styled-components CSS | **127 KB (40%)** | 76 KB (38%) |
+| — RSC flight payload | 39 KB (12%) | 38 KB (19%) |
+| — markup and the rest | 147 KB | 82 KB |
+| JavaScript | 836 KB over 18 files | 836 KB over 18 files |
+
+**127 KB of inline CSS on the homepage** is the clearest target. It is generated
+by styled-components at render, arrives in the document, and has to be parsed
+before anything paints — which fits the trace putting style recalculation at 19%
+of main-thread work, second only to script execution, and `insertRule` showing up
+in the CPU profile.
+
+The largest JS chunks are react-dom (220 KB), the Next router (120 KB), an
+unidentified 112 KB chunk, styled-components with next-intl (88 KB) and next-intl
+alone (72 KB).
+
+**Translations do not bloat the client.** Checked directly: no Russian or
+Armenian string appears in any client chunk. next-intl serialises only the active
+locale's messages into the flight payload, which is the 38–39 KB above.
+
+## Work profile
+
+From the timeline trace. The proportions hold across pages even though the
+absolute times do not mean much here:
+
+| | home | /projects | case study |
+| --- | --- | --- | --- |
+| script: run | 48% | 46% | 48% |
+| style recalc | 19% | 16% | 11% |
+| script: evaluate | 14% | 14% | 22% |
+| layout | 10% | 11% | 9% |
+| paint | 3% | 6% | — |
+| parse HTML | 5% | 4% | 5% |
+
+## What to do next, in order
+
+1. **Cut the inline CSS.** 127 KB on the homepage, before first paint. Worth
+   understanding where it comes from before changing anything — a homepage with
+   this many sections generates a lot of per-component CSS, and some of it is
+   likely duplicated across components that could share.
+2. **Look at the 112 KB chunk** that matches none of the known library markers.
+3. **Act on Lighthouse's byte-level audits**, which are facts rather than
+   timings: `unused-javascript`, `legacy-javascript-insight`, `unsized-images`,
+   and `unminified-css` on the homepage.
+4. **Then measure on the deployed site**, and only then decide whether blocking
+   time is a real problem.
