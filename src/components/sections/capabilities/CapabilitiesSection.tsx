@@ -39,20 +39,30 @@ const Section = styled.section`
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: ${spacing[300]}px;
+  gap: ${spacing[1000]}px;
   padding: 0 0 ${spacing[1000]}px;
 
+  /* One screen on desktop, clearing the fixed header: the grid below scales
+     into whatever the heading leaves. */
   ${media.up('xl')} {
-    padding: ${spacing[1000]}px 0;
+    min-height: 100svh;
+    justify-content: center;
+    gap: ${spacing[500]}px;
+    padding: ${spacing[1000]}px 0 ${spacing[300]}px;
   }
 
-  ${media.down('m')} {
+  ${media.down('l')} {
+    gap: ${spacing[300]}px;
     padding: ${spacing[600]}px 0;
   }
 `;
 
 const HeadingFrame = styled(Container)`
   padding-block: ${spacing[1000]}px;
+
+  ${media.up('xl')} {
+    padding-block: ${spacing[200]}px;
+  }
 
   ${media.between('m', 'xl')} {
     padding-inline: ${spacing[300]}px;
@@ -70,7 +80,7 @@ const Frame = styled(Container)`
   padding-top: ${spacing[300]}px;
 
   ${media.up('xl')} {
-    padding-bottom: ${spacing[300]}px;
+    padding-block: 0;
   }
 
   ${media.up('xxxl')} {
@@ -309,7 +319,22 @@ function useCapabilityGeometry(
       }
 
       if (grid.clientWidth === 0) return;
-      const scale = Math.min(1, grid.clientWidth / DESIGN_WIDTH);
+      /*
+       * The grid gets whatever the screen has left once the rest of the section
+       * has taken its share — its own padding, the gap, the heading, and the
+       * frame's padding. Measured from those parts rather than from the
+       * section's height, which `min-height: 100svh` would otherwise inflate.
+       */
+      const frame = grid.parentElement;
+      const sectionStyle = getComputedStyle(section);
+      const chrome =
+        parseFloat(sectionStyle.paddingTop) +
+        parseFloat(sectionStyle.paddingBottom) +
+        parseFloat(sectionStyle.rowGap || '0') +
+        (section.firstElementChild?.getBoundingClientRect().height ?? 0) +
+        (frame ? frame.getBoundingClientRect().height - grid.getBoundingClientRect().height : 0);
+      const room = window.innerHeight - chrome;
+      const scale = Math.min(1, grid.clientWidth / DESIGN_WIDTH, room > 0 ? room / DESIGN_HEIGHT : 1);
       section.style.setProperty('--capabilities-scale', scale.toFixed(4));
 
       // Measured after the scale is applied: it changes the gaps, and so the cards.
@@ -344,11 +369,15 @@ function useCapabilityGeometry(
     };
 
     update();
+    window.addEventListener('resize', update);
     const observer = new ResizeObserver(update);
     observer.observe(section);
     observer.observe(grid);
     cards.forEach((card) => observer.observe(card));
-    return () => observer.disconnect();
+    return () => {
+      window.removeEventListener('resize', update);
+      observer.disconnect();
+    };
   }, [sectionRef, gridRef]);
 }
 
