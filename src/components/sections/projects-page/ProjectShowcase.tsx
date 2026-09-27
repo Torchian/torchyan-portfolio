@@ -48,8 +48,8 @@ const stageStacked = `@media ${STAGE_STACKED_QUERY}`;
 
 /**
  * Every stage rule is gated on this as well as its media query: the row only
- * stages once JavaScript has said so (`data-staged`, set by ProjectsListSection
- * once it has matched STAGE_QUERY itself).
+ * stages once JavaScript has said so (`data-staged`, which ProjectsListSection
+ * puts on the section).
  *
  * The media query can't do it alone. On the stage the rows lie on top of each
  * other and all but one are hidden, and which one that is can only be chosen in
@@ -57,6 +57,10 @@ const stageStacked = `@media ${STAGE_STACKED_QUERY}`;
  * hydration — the stage would be ten hidden rows in nine blank screens. Without
  * the attribute the rows simply stack down the page, which is the same layout a
  * window too short for the stage gets.
+ *
+ * It reads off the section rather than the row so that one attribute, written
+ * once before the first paint, gates the whole stage. Putting a copy on each row
+ * meant React had to render it, which could only happen after that paint.
  */
 const STAGED = "[data-staged='true']";
 
@@ -78,7 +82,7 @@ const stageHalf = (side: MediaSide, motion: 'slide' | 'fade' = 'slide', when = s
   ${when} {
     transition: ${motion === 'slide' ? STAGE_IN : 'opacity 300ms ease-out 150ms'};
 
-    ${STAGED}[data-active='false'] & {
+    ${STAGED} [data-active='false'] & {
       opacity: 0;
       /* calc(): a bare minus in front of clamp() is invalid and drops the whole transform. */
       transform: ${
@@ -135,7 +139,7 @@ const Row = styled.article<{ $side: MediaSide; $background: string; $light: bool
   /* Staged: one screen tall, over the stage's own animated background, with the
      row's design-height band centred in it. */
   ${stage} {
-    &${STAGED} {
+    ${STAGED} & {
       position: absolute;
       inset: 0;
       min-height: 0;
@@ -160,7 +164,7 @@ const Row = styled.article<{ $side: MediaSide; $background: string; $light: bool
      top for the header and 32 at the bottom; the halves run its full height,
      80 apart. */
   ${stageDesktop} {
-    &${STAGED} {
+    ${STAGED} & {
       align-content: stretch;
       align-items: stretch;
       grid-template-rows: minmax(0, 1fr);
@@ -176,7 +180,7 @@ const Row = styled.article<{ $side: MediaSide; $background: string; $light: bool
   /* Stacked stage (768 and below): a screen tall too — the text under the
      header, and the collage filling all the rest down to the bottom edge. */
   ${stageStacked} {
-    &${STAGED} {
+    ${STAGED} & {
       align-content: stretch;
       align-items: stretch;
       grid-template-rows: auto minmax(0, 1fr);
@@ -411,11 +415,6 @@ const Media = styled.div<{ $side: MediaSide }>`
 export interface ProjectShowcaseProps {
   project: ShowcaseProject;
   mediaSide: MediaSide;
-  /**
-   * Whether the list is running as a stage. Only ProjectsListSection knows, and
-   * only in JS; see STAGED above for why the media query can't decide it.
-   */
-  staged?: boolean;
   /** On the stage: whether this is the row on screen. Ignored when the rows stack. */
   active?: boolean;
   /** Render the collage; the stage holds it back until a row is near, so ten load one by one. */
@@ -425,7 +424,6 @@ export interface ProjectShowcaseProps {
 export function ProjectShowcase({
   project,
   mediaSide,
-  staged = false,
   active = true,
   showMedia = true,
 }: ProjectShowcaseProps) {
@@ -439,7 +437,6 @@ export function ProjectShowcase({
       $side={mediaSide}
       $background={project.background}
       $light={project.tone === 'light'}
-      data-staged={staged}
       data-active={active}
     >
       <TextColumn $side={mediaSide === 'right' ? 'left' : 'right'}>
