@@ -1,8 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import styled from 'styled-components';
 import { TextInput, RadioInput, Button } from '@/components/primitives';
+import { accents } from '@/styles/tokens/colors';
+import { gaEvents } from '@/lib/analytics/gtag';
+import { ymGoals } from '@/lib/analytics/ym';
+import { useLocale } from 'next-intl';
 import { spacing } from '@/styles/tokens/spacing';
 import { fontSize, lineHeight, fontWeight, fontFamily, letterSpacing } from '@/styles/tokens/typography';
 import { neutrals } from '@/styles/tokens/colors';
@@ -93,6 +97,37 @@ const Heading = styled.h2`
     letter-spacing: ${letterSpacing.xxs}px;
     text-transform: uppercase;
   }
+`;
+
+/**
+ * The honeypot. Not `display: none`: some bots skip what a browser would not
+ * render. It is off the page, out of the tab order and hidden from assistive
+ * tech, so only something filling fields by name will touch it — and the server
+ * drops any submission that does.
+ */
+const Honeypot = styled.div`
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+`;
+
+/**
+ * The result of a submission, announced as well as shown: `role="status"` is
+ * polite, so a screen reader reads it once the field it is in has settled.
+ */
+const Status = styled.p<{ $tone: 'success' | 'error' }>`
+  margin: 0;
+  font-family: ${fontFamily.body};
+  font-size: ${fontSize.body.m}px;
+  line-height: ${lineHeight.body.m}px;
+  letter-spacing: ${letterSpacing.xs}px;
+
+  /* The token set has no error colour — the design has never needed one. This
+     literal is a stand-in until it does; see TODO.md. It is 7.1:1 on the page
+     background, so it reads either way. */
+  color: ${(p) => (p.$tone === 'success' ? accents.primary : '#ff6b6b')};
 `;
 
 const Form = styled.form`
@@ -204,12 +239,67 @@ function OptionGroup({ id, label, options, value, onChange, stretch }: OptionGro
   );
 }
 
+/** Where a submission has got to. `sending` locks the button so one click is one message. */
+type SubmitState = 'idle' | 'sending' | 'sent' | 'error';
+
 export function ContactCTASection() {
   const [intent, setIntent] = useState<string | null>(null);
   const [stage, setStage] = useState<string | null>(null);
   const [timeline, setTimeline] = useState<string | null>(null);
+  const [state, setState] = useState<SubmitState>('idle');
   const t = useTranslations('contact');
+  const locale = useLocale();
+  const statusId = useId();
   const headingWords = t('heading').split(' ');
+
+  const intentOptions = t.raw('intentOptions') as string[];
+  const stageOptions = t.raw('stageOptions') as string[];
+  const timelineOptions = t.raw('timelineOptions') as string[];
+
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (state === 'sending') return;
+    // Held onto now: `event.currentTarget` is only the form while the event is
+    // being dispatched, and it is null by the time the fetch below resolves.
+    const form = event.currentTarget;
+    const data = new FormData(form);
+    setState('sending');
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          name: data.get('name'),
+          email: data.get('email'),
+          message: data.get('building'),
+          // Indexes, not labels: the labels are translated, so the same answer
+          // would reach the inbox as three different strings. The server reads
+          // them back off the English list.
+          intent: intent === null ? null : intentOptions.indexOf(intent),
+          stage: stage === null ? null : stageOptions.indexOf(stage),
+          timeline: timeline === null ? null : timelineOptions.indexOf(timeline),
+          locale,
+          company: data.get('company'),
+        }),
+      });
+      if (!response.ok) throw new Error(String(response.status));
+    } catch {
+      // Whatever went wrong — offline, a 400, a 502 — the sender can do one
+      // thing about it, so they are told one thing: it did not send.
+      setState('error');
+      return;
+    }
+    // Outside the try on purpose. These run only once the message is away, and
+    // if one of them threw in there it would report a failure that never
+    // happened — which is exactly what a stale `currentTarget` used to do.
+    setState('sent');
+    gaEvents.contactFormSubmit();
+    ymGoals.contactFormSubmit();
+    form.reset();
+    setIntent(null);
+    setStage(null);
+    setTimeline(null);
+  };
 
   return (
     <Section id="contact" aria-labelledby="contact-heading">
@@ -223,7 +313,7 @@ export function ContactCTASection() {
           ))}
         </Heading>
 
-        <Form onSubmit={(e) => e.preventDefault()}>
+        <Form onSubmit={onSubmit} noValidate>
           <OptionGroup
             id="contact-intent"
             label={t('intentLabel')}
@@ -235,7 +325,15 @@ export function ContactCTASection() {
           <NameEmailRow>
             <Field>
               <FieldLabel htmlFor="contact-name">{t('nameLabel')}</FieldLabel>
-              <TextInput id="contact-name" name="name" type="text" autoComplete="name" placeholder={t('namePlaceholder')} />
+              <TextInput
+                id="contact-name"
+                name="name"
+                type="text"
+                autoComplete="name"
+                required
+                maxLength={100}
+                placeholder={t('namePlaceholder')}
+              />
             </Field>
             <Field>
               <FieldLabel htmlFor="contact-email">{t('emailLabel')}</FieldLabel>
@@ -244,6 +342,8 @@ export function ContactCTASection() {
                 name="email"
                 type="email"
                 autoComplete="email"
+                required
+                maxLength={254}
                 placeholder={t('emailPlaceholder')}
               />
             </Field>
@@ -255,6 +355,8 @@ export function ContactCTASection() {
               as="textarea"
               id="contact-building"
               name="building"
+              required
+              maxLength={4000}
               placeholder={t('buildingPlaceholder')}
             />
           </Field>
@@ -277,9 +379,26 @@ export function ContactCTASection() {
             stretch
           />
 
-          <Button as="button" type="submit" $variant="secondary">
-            {t('submit')}
+          <Honeypot aria-hidden>
+            <label htmlFor="contact-company">{t('companyLabel')}</label>
+            <input id="contact-company" name="company" type="text" tabIndex={-1} autoComplete="off" />
+          </Honeypot>
+
+          <Button
+            as="button"
+            type="submit"
+            $variant="secondary"
+            disabled={state === 'sending'}
+            aria-describedby={state === 'sent' || state === 'error' ? statusId : undefined}
+          >
+            {state === 'sending' ? t('submitSending') : t('submit')}
           </Button>
+
+          {(state === 'sent' || state === 'error') && (
+            <Status id={statusId} role="status" $tone={state === 'sent' ? 'success' : 'error'}>
+              {state === 'sent' ? t('submitSuccess') : t('submitError')}
+            </Status>
+          )}
         </Form>
       </Inner>
     </Section>

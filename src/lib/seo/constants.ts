@@ -6,7 +6,10 @@ export const siteMetadata: SiteMetadata = {
   defaultTitle: 'Stepan Torchyan — Design Engineer',
   defaultDescription:
     'Design engineering portfolio of Stepan Torchyan. Building performant, accessible, and beautifully crafted web experiences.',
-  defaultOgImage: '/og/default.png',
+  // 1200x630, the size every social platform crops from. JPEG rather than PNG:
+  // the artwork is photographic, so JPEG is 145 KB against PNG's 642 KB with no
+  // visible difference, and LinkedIn still does not render WebP previews.
+  defaultOgImage: '/og/default.jpg',
   twitterHandle: undefined,
   locale: 'en_US',
 };

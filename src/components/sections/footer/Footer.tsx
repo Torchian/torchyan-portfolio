@@ -61,7 +61,9 @@ const SOCIAL_LINKS = [
 ];
 
 const CONTACT_LINKS = [
-  { label: 'hello@torchyan.com', href: 'mailto:hello@torchyan.com' },
+  // On the site's own domain. It needs a forwarder in the registrar's DNS
+  // before it receives anything — see docs/setup/domain-email-hosting.md.
+  { label: 'hello@torchyan.design', href: 'mailto:hello@torchyan.design' },
   { label: '+374 95 334 719', href: 'tel:+37495334719' },
 ];
 

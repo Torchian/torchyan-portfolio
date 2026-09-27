@@ -34,9 +34,6 @@ reveal, 0004 Selected Work grids, 0005 Character component, 0006 case study page
 
 ## 1. Launch blockers (P0)
 
-- [ ] **Default social preview image is missing** — **P0 · Dev + Design** — `defaultOgImage` points at `/og/default.png` (`src/lib/seo/constants.ts:9`) and `public/og/` does not exist, so every share card is blank. Needs a 1200×630 export.
-- [ ] **(Homepage #2) Contact form sends nothing** — **P0 · Dev + Decision** — submit only calls `preventDefault()`. Needs an endpoint (see §12), `required` fields with validation, success and error states, and a `gaEvents.contactFormSubmit` call.
-- [ ] **Footer email is on the wrong domain** — **P0 · Decision** — `Footer.tsx:64` shows `hello@torchyan.com`. Confirm the real address; if it is on torchyan.design it needs a mailbox or forwarder, and it shares the DNS work in §12.
 
 ---
 
@@ -178,14 +175,12 @@ Plain terms: the site is static apart from the contact form. "Backend" here mean
 amount of server code and third-party setup the form needs, plus the hosting decisions
 around it. Nothing here requires a database.
 
-- [ ] **Contact form endpoint** — **P0 · Dev** — a Next.js route handler or server action that receives the form, validates it on the server and returns a result. Pairs with the form work in §1.
-- [ ] **Email delivery** — **P0 · Decision + Dev** — pick a provider (Resend and Postmark are both straightforward) and send from a verified address on torchyan.design. Verification needs SPF, DKIM and DMARC DNS records — the same DNS as §13.
-- [ ] **Spam protection** — **P1 · Dev** — Cloudflare Turnstile or a honeypot field, plus rate limiting per IP on the endpoint. Without it the form will be abused within days of launch.
-- [ ] **Submission storage (optional)** — **P3 · Decision** — whether submissions are also saved somewhere, or email is the only record.
-- [ ] **Hosting** — **P1 · Decision** — Vercel is the recommended default: the i18n country detection already reads Vercel's headers (`src/i18n/detection.ts`), and Next.js image optimisation works without extra setup. Any other host needs the checks in §13 and §18.
-- [ ] **Environment variables and secrets** — **P0 · Dev** — set the site URL, analytics and mail provider keys on the host, and document them in `.env.example` (§1).
+- [ ] **Spam protection beyond the honeypot** — **P2 · Dev** — the endpoint has a honeypot field and an in-memory rate limit of 5 per IP per hour. The rate limit only holds for the life of one serverless instance and only for the requests that instance sees, so it stops a crude script and nothing more. Real limiting needs shared state (Vercel KV or Upstash); a Cloudflare Turnstile challenge is the other half.
+- [ ] **Submission storage (optional)** — **P3 · Decision** — whether submissions are also saved somewhere, or email is the only record. Today the mail is the only copy: if Resend is down, the message is lost and the sender is told so.
+- [ ] **An error colour in the token set** — **P2 · Design** — the contact form's failure message uses a literal `#ff6b6b` (7.1:1 on the page background) because `accents` has no error colour. Add one when the design has a view on it; `ContactCTASection.tsx` marks the spot.
+- [ ] **Auto-reply to the sender** — **P3 · Decision** — the form confirms on screen but sends nothing to the person who wrote. A short confirmation in their own language would need the email templates in §14.
+- [ ] **Set the variables on the host** — **P0 · Owner** — `NEXT_PUBLIC_SITE_URL`, `RESEND_API_KEY`, `CONTACT_FROM` and `CONTACT_TO` in Vercel, then redeploy (they are read at build time). All four are documented in `.env.example`; the steps are in `docs/setup/domain-email-hosting.md` §4.
 - [ ] **(Homepage #11) Analytics consent** — **P1 · Decision + Dev** — only applies when the GA / Yandex variables are set. Yandex Webvisor records sessions including typing in the contact form, and both trackers load without consent. Options: turn Webvisor off, exclude the form fields, or add a consent banner. A banner is the only option that is defensible under GDPR for EU visitors.
-- [ ] **Contact form submits translated labels** — **P1 · Dev** — the option groups submit the localized text, so submissions differ per locale. Submit stable ids and map them to labels when the endpoint lands.
 - [ ] **Error monitoring (optional)** — **P3 · Decision** — Sentry or the host's own reporting, so a broken form is noticed without a user report.
 - [ ] **Future CMS** — **P3 · Decision** — only if case studies should be editable without code. Sanity was removed 2026-09-16 (`src/lib/cms`, the `sanity/` studio and schemas, `lib/seo/json-ld.tsx`, and the packages `@sanity/client`, `@sanity/image-url`, `next-sanity`, `gsap`, `three`, `@react-three/*`, `@types/three`; the `cdn.sanity.io` image host and the `/studio` exclusions in `robots.ts` and `proxy.ts` went with it). To restore: `git checkout f3eb7d6^ -- sanity src/lib/cms src/lib/seo/json-ld.tsx` and reinstall those packages (`f3eb7d6` is the commit that deleted them; the old file's `git checkout HEAD -- …` no longer works).
 
@@ -193,8 +188,9 @@ around it. Nothing here requires a database.
 
 ## 13. Domain (torchyan.design)
 
-- [ ] **Connect the domain to the host** — **P0 · Dev + Decision** — DNS records, HTTPS certificate, and `NEXT_PUBLIC_SITE_URL` set to the live origin (§1).
-- [ ] **Pick the canonical host** — **P0 · Decision** — apex or `www`, with a permanent redirect the other way. Everything in §11 depends on the choice.
+- [ ] **Deploy and connect the domain** — **P0 · Owner** — Vercel (chosen 2026-09-27), then torchyan.design pointed at it with `www` redirecting to the bare domain, which is canonical. Step by step in `docs/setup/domain-email-hosting.md` §1–2.
+- [ ] **Verify torchyan.design in Resend** — **P0 · Owner** — three DNS records (DKIM, SPF, an MX for bounces) plus a DMARC record, then an API key. Until this is done the form's endpoint answers 503 and the form shows its error state. `docs/setup/domain-email-hosting.md` §3.
+- [ ] **Receiving at hello@torchyan.design** — **P2 · Owner** — the footer now prints it, but nothing receives there yet: GoDaddy has no mail on the domain. Forwarding to a personal inbox is the free start; a real mailbox is $6–7/mo and only worth it once clients write. The contact form does not depend on this. `docs/setup/domain-email-hosting.md` §5.
 - [ ] **Search Console** — **P2 · Dev** — verify the domain, submit the sitemap, and check that hreflang resolves for en / ru / hy.
 - [ ] **Country detection depends on the host** — **P2 · Dev** — `src/i18n/detection.ts` reads the Vercel, Cloudflare and CloudFront country headers. On a host with none of them, detection falls back to the browser language; add that host's header if needed.
 
@@ -202,7 +198,6 @@ around it. Nothing here requires a database.
 
 ## 14. Mailing
 
-- [ ] **Contact form notification** — **P0 · Dev** — the message that reaches the owner when someone submits. Shares the provider and DNS work in §12.
 - [ ] **Auto-reply to the sender (optional)** — **P3 · Decision** — a short confirmation, in the sender's locale.
 - [ ] **Newsletter or mailing list** — **P3 · Decision** — whether one is wanted at all. If yes: a provider, a double opt-in form, a consent record and GDPR text, all of which are more work than the contact form.
 - [ ] **Email templates in three languages** — **P2 · Dev + Decision** — needed for anything sent to a visitor rather than to the owner.
@@ -270,6 +265,17 @@ Completed, kept for reference with the date each was resolved.
 - [x] **Custom cursor backdrop blur dropped** — it re-blurred the page under it on every pointer move. The cursor still costs one main-thread frame per move (it is positioned from JS); that is inherent to a custom cursor.
 - [x] **Map dots animate forever** — paused off screen with `usePauseOffscreen`. The remaining in-view cost is tracked in §7.
 - [x] **Mobile `#main-content` gap** — the 80px mobile gap is committed (`src/styles/global.ts`, `spacing[1000]` below `m`).
+
+**Contact form, social preview and domain decisions (2026-09-27)**
+
+Setup guide for the owner's side: `docs/setup/domain-email-hosting.md`.
+
+- [x] **Contact form sends** — 2026-09-27. `POST /api/contact` validates on the server (name, email, message, lengths), resolves the option groups and mails through Resend's REST API over `fetch` — no SDK, no new dependency. The form has sending, success and error states, `required` fields, and fires both analytics goals. Verified against a running build: missing fields give 400 with per-field reasons, a malformed address 400, malformed JSON 400, the honeypot a silent 200 with nothing sent, the sixth post from one IP 429, and the success path shows the green confirmation, resets the fields and clears the option groups.
+- [x] **(Localization) The form submitted translated labels** — 2026-09-27. It sends option indexes plus the locale; the server reads the labels back off `messages/en.json`, so the same answer reaches the inbox identically whatever language it was sent in. Verified: a Russian submission sends `intent: 1, timeline: 0, locale: "ru"`, not Russian strings.
+- [x] **A bug the browser test caught** — 2026-09-27. `event.currentTarget` is null once the fetch resolves, so `form.reset()` threw inside the try and a message that had sent perfectly well reported a failure. The element is captured before the await now, and the post-send work sits outside the try where it cannot be mistaken for a send failure.
+- [x] **Default social preview image** — 2026-09-27. The owner's 1200x630 artwork is at `public/og/default.jpg`. JPEG rather than PNG: 145 KB against 642 KB with no visible difference on photographic artwork, and LinkedIn still does not render WebP previews. The constant moved with it.
+- [x] **Footer email** — 2026-09-27. `hello@torchyan.design`. It needs a forwarder before it receives anything, which is §12.
+- [x] **Provider, host and canonical decisions** — 2026-09-27. Resend for mail, Vercel for hosting, and the bare domain as canonical with `www` redirecting to it.
 
 **Header and accessibility audit (2026-09-27)**
 
