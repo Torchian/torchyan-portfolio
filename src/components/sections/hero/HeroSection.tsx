@@ -184,6 +184,16 @@ const Description = styled.p`
     letter-spacing: ${letterSpacing.s}px;
   }
 
+  ${media.down('l')} {
+    margin-top: ${spacing[200]}px;
+  }
+
+  ${media.down('s')} {
+    font-size: ${fontSize.body.m}px;
+    line-height: ${lineHeight.body.m}px;
+    letter-spacing: ${letterSpacing.s}px;
+  }
+    
   ${media.up('m')} {
     max-width: 500px;
   }
@@ -239,7 +249,7 @@ const CenterPortrait = styled.div`
   position: relative;
   width: 100%;
   height: var(--portrait-size);
-  margin-top: ${spacing[800]}px;
+  margin-top: ${spacing[300]}px;
   pointer-events: none;
   mask-image: linear-gradient(to bottom, #000 82%, transparent 100%);
   -webkit-mask-image: linear-gradient(to bottom, #000 82%, transparent 100%);
@@ -255,7 +265,7 @@ const CenterPortrait = styled.div`
   }
 
   ${media.up('m')} {
-    margin-top: ${spacing[100]}px;
+    margin-top: ${spacing[300]}px;
   }
 
   ${media.up('l')} {

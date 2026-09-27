@@ -106,6 +106,10 @@ export const GlobalStyle = createGlobalStyle`
     flex-direction: column;
     gap: ${spacing[2000]}px;
 
+    ${media.down('xl')} {
+      gap: ${spacing[1500]}px;
+    }
+
     ${media.down('m')} {
       gap: ${spacing[1000]}px;
     }

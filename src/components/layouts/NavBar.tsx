@@ -7,12 +7,24 @@ import styled, { css } from 'styled-components';
 import { zIndex } from '@/styles/tokens/z-index';
 import { duration, easing } from '@/styles/tokens/motion';
 import { spacing } from '@/styles/tokens/spacing';
-import { fontSize, lineHeight, letterSpacing, fontWeight, fontFamily } from '@/styles/tokens/typography';
+import {
+  fontSize,
+  lineHeight,
+  letterSpacing,
+  fontWeight,
+  fontFamily,
+} from '@/styles/tokens/typography';
 import { accents, neutrals } from '@/styles/tokens/colors';
 import { glass, blur } from '@/styles/tokens/effects';
 import { radius } from '@/styles/tokens/radius';
 import { media, mediaQueries } from '@/styles/media';
-import { Button, LanguageSwitcher, LogoMark, MusicToggle, SoundToggle } from '@/components/primitives';
+import {
+  Button,
+  LanguageSwitcher,
+  LogoMark,
+  MusicToggle,
+  SoundToggle,
+} from '@/components/primitives';
 import { useTranslations } from 'next-intl';
 import { border } from '@/styles/tokens/border';
 
@@ -48,7 +60,7 @@ function activeIndexFor(pathname: string) {
 /** The header's side padding, which page content lines up with (e.g. the Projects rows' text). */
 export const HEADER_INLINE = { base: spacing[400], mobile: spacing[300] } as const;
 
-const Header = styled.header`
+const Header = styled.header<{ $bare?: boolean }>`
   position: fixed;
   top: 0;
   left: 0;
@@ -76,6 +88,16 @@ const Header = styled.header`
     -webkit-backdrop-filter: blur(16px);
   }
 
+  /* The About page opens on the character's own dark field and carries the
+     year rail up to the logo, so the strip would only smudge both. */
+  ${(p) =>
+    p.$bare &&
+    css`
+      &::before {
+        content: none;
+      }
+    `}
+
   /* The controls on the bar sit on that already-blurred strip, so their own
      glass blur would re-blur a blur: invisible, but each one is another full
      backdrop pass on every scroll frame. They keep their tint; only the panels
@@ -92,11 +114,13 @@ const Header = styled.header`
 `;
 
 /** Figma Logo (2562:4479): 48px on desktop and tablet, 24px on mobile. */
-const LogoLink = styled(Link)`
+const LogoLink = styled(Link)<{ $accent?: boolean }>`
   display: flex;
   align-items: center;
   flex-shrink: 0;
   text-decoration: none;
+  /* The mark is drawn in currentColor, so the page picks its colour. */
+  color: ${(p) => (p.$accent ? accents.primary : neutrals[100])};
 
   svg {
     width: 48px;
@@ -401,6 +425,8 @@ export function NavBar() {
 
   const pathname = usePathname();
   const activeIndex = activeIndexFor(pathname);
+  /** The About page wears the header differently: green logo, no scrim. */
+  const onAbout = pathname.startsWith('/about');
   const lineIndex = hoverIndex ?? activeIndex;
 
   // The menu remembers the page it was opened on, so navigating anywhere closes it without an effect.
@@ -474,8 +500,8 @@ export function NavBar() {
   }, [menuOpen, closeMenu]);
 
   return (
-    <Header ref={headerRef}>
-      <LogoLink href="/" aria-label={t('home')}>
+    <Header ref={headerRef} $bare={onAbout}>
+      <LogoLink href="/" aria-label={t('home')} $accent={onAbout}>
         <LogoMark />
       </LogoLink>
 

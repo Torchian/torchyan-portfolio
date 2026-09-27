@@ -1,13 +1,7 @@
 'use client';
 
-import {
-  forwardRef,
-  useRef,
-  useEffect,
-  useCallback,
-  type ElementType,
-} from 'react';
-import styled, { css } from 'styled-components';
+import { forwardRef, useRef, useEffect, useCallback, type ElementType } from 'react';
+import styled, { css, type RuleSet } from 'styled-components';
 import { fontWeight, fontSize, lineHeight, letterSpacing, fontFamily } from '@/styles/tokens/typography';
 import { spacing } from '@/styles/tokens/spacing';
 import { radius } from '@/styles/tokens/radius';
@@ -15,6 +9,7 @@ import { duration, easing } from '@/styles/tokens/motion';
 import { neutrals, accents } from '@/styles/tokens/colors';
 import { glass, blur } from '@/styles/tokens/effects';
 import { border } from '@/styles/tokens/border';
+import { media } from '@/styles/media';
 
 type ButtonVariant = 'primary' | 'secondary' | 'secondaryPink' | 'tertiary';
 
@@ -29,6 +24,48 @@ export interface ButtonProps extends React.HTMLAttributes<HTMLElement> {
 }
 
 const TRANSITION = `${duration.fast} ${easing.linear}`;
+
+/**
+ * Wears the hover look on hover — and simply wears it, at rest, on a tablet or
+ * a phone, where there is no pointer to hover with. The same call the Practice
+ * circles make: a state you can't reach is a state the design never shows, so
+ * below the desktop breakpoint it becomes the resting one.
+ *
+ * Sits before each variant's focus and active rules, which carry the same
+ * specificity and so still win on source order.
+ */
+const hoverOrTouchRest = (look: RuleSet<object>) => css`
+  @media (hover: hover) and (pointer: fine) {
+    &:hover:not(:disabled) {
+      ${look}
+    }
+  }
+
+  ${media.down('xl')} {
+    &:not(:disabled) {
+      ${look}
+    }
+  }
+`;
+
+/** The primary and tertiary look: the wedges widen and take the accent. */
+const wedgeLook = (accent: string) => css`
+  color: ${accent};
+
+  &::before {
+    filter: blur(${blur.md});
+    top: -2px;
+    border-top: ${spacing[75]}px solid ${accent};
+    transform: translateX(-50%) scaleX(1.5);
+  }
+
+  &::after {
+    filter: blur(${blur.md});
+    bottom: -2px;
+    border-bottom: ${spacing[75]}px solid ${accent};
+    transform: translateX(-50%) scaleX(1.5);
+  }
+`;
 
 const primaryStyles = css`
   padding: ${spacing[150]}px ${spacing[400]}px;
@@ -87,25 +124,7 @@ const primaryStyles = css`
       border ${TRANSITION};
   }
 
-  @media (hover: hover) and (pointer: fine) {
-    &:hover:not(:disabled) {
-      color: ${accents.primary};
-
-      &::before {
-        filter: blur(${blur.md});
-        top: -2px;
-        border-top: ${spacing[75]}px solid ${accents.primary};
-        transform: translateX(-50%) scaleX(1.5);
-      }
-
-      &::after {
-        filter: blur(${blur.md});
-        bottom: -2px;
-        border-bottom: ${spacing[75]}px solid ${accents.primary};
-        transform: translateX(-50%) scaleX(1.5);
-      }
-    }
-  }
+  ${hoverOrTouchRest(wedgeLook(accents.primary))}
 
   /*
    * Figma "Primary Focus": the wedges open to the full width, 8px deep, just inside the edges.
@@ -192,25 +211,7 @@ const tertiaryStyles = css`
       border ${TRANSITION};
   }
 
-  @media (hover: hover) and (pointer: fine) {
-    &:hover:not(:disabled) {
-      color: ${accents.secondary};
-
-      &::before {
-        filter: blur(${blur.md});
-        top: -2px;
-        border-top: ${spacing[75]}px solid ${accents.secondary};
-        transform: translateX(-50%) scaleX(1.5);
-      }
-
-      &::after {
-        filter: blur(${blur.md});
-        bottom: -2px;
-        border-bottom: ${spacing[75]}px solid ${accents.secondary};
-        transform: translateX(-50%) scaleX(1.5);
-      }
-    }
-  }
+  ${hoverOrTouchRest(wedgeLook(accents.secondary))}
 
   /*
    * Figma "Primary Focus": the wedges open to the full width, 8px deep, just inside the edges.
@@ -271,7 +272,9 @@ const secondaryStyles = css`
   letter-spacing: ${letterSpacing.s}px;
   color: ${neutrals[100]};
   text-align: center;
-  transition: opacity ${TRANSITION}, background ${TRANSITION};
+  transition:
+    opacity ${TRANSITION},
+    background ${TRANSITION};
 
   &::before {
     content: '';
@@ -285,11 +288,9 @@ const secondaryStyles = css`
   }
 
   /* Figma CTA Primary "Secondary Hover": darker body, ring unchanged. */
-  @media (hover: hover) and (pointer: fine) {
-    &:hover:not(:disabled) {
-      background: ${accents.primaryDark};
-    }
-  }
+  ${hoverOrTouchRest(css`
+    background: ${accents.primaryDark};
+  `)}
 
   /* "Secondary Focus": darker body and the ring opens out to 12px. */
   &:focus-visible,
@@ -336,7 +337,9 @@ const secondaryPinkStyles = css`
   letter-spacing: ${letterSpacing.s}px;
   color: ${neutrals[100]};
   text-align: center;
-  transition: opacity ${TRANSITION}, background ${TRANSITION};
+  transition:
+    opacity ${TRANSITION},
+    background ${TRANSITION};
 
   &::before {
     content: '';
@@ -350,11 +353,9 @@ const secondaryPinkStyles = css`
   }
 
   /* Figma CTA Tertiary "Secondary Hover": darker body, ring unchanged. */
-  @media (hover: hover) and (pointer: fine) {
-    &:hover:not(:disabled) {
-      background: ${accents.secondaryDark};
-    }
-  }
+  ${hoverOrTouchRest(css`
+    background: ${accents.secondaryDark};
+  `)}
 
   /* "Secondary Focus": darker body and the ring opens out to 12px. */
   &:focus-visible,
@@ -400,39 +401,40 @@ const StyledButton = styled.button<{ $variant?: ButtonVariant }>`
   }
 `;
 
-export const Button = forwardRef<HTMLElement, ButtonProps>(
-  function Button({ children, ...props }, externalRef) {
-    const internalRef = useRef<HTMLElement>(null);
+export const Button = forwardRef<HTMLElement, ButtonProps>(function Button(
+  { children, ...props },
+  externalRef,
+) {
+  const internalRef = useRef<HTMLElement>(null);
 
-    const measure = useCallback(() => {
-      const el = internalRef.current;
-      if (!el) return;
-      const width = el.getBoundingClientRect().width;
-      el.style.setProperty('--btn-width', `${width}px`);
-    }, []);
+  const measure = useCallback(() => {
+    const el = internalRef.current;
+    if (!el) return;
+    const width = el.getBoundingClientRect().width;
+    el.style.setProperty('--btn-width', `${width}px`);
+  }, []);
 
-    useEffect(() => {
-      measure();
-      const el = internalRef.current;
-      if (!el) return;
-      const observer = new ResizeObserver(measure);
-      observer.observe(el);
-      return () => observer.disconnect();
-    }, [measure]);
+  useEffect(() => {
+    measure();
+    const el = internalRef.current;
+    if (!el) return;
+    const observer = new ResizeObserver(measure);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [measure]);
 
-    const setRef = useCallback(
-      (node: HTMLElement | null) => {
-        (internalRef as React.MutableRefObject<HTMLElement | null>).current = node;
-        if (typeof externalRef === 'function') externalRef(node);
-        else if (externalRef) (externalRef as React.MutableRefObject<HTMLElement | null>).current = node;
-      },
-      [externalRef],
-    );
+  const setRef = useCallback(
+    (node: HTMLElement | null) => {
+      (internalRef as React.MutableRefObject<HTMLElement | null>).current = node;
+      if (typeof externalRef === 'function') externalRef(node);
+      else if (externalRef) (externalRef as React.MutableRefObject<HTMLElement | null>).current = node;
+    },
+    [externalRef],
+  );
 
-    return (
-      <StyledButton ref={setRef as React.Ref<HTMLButtonElement>} {...props}>
-        {children}
-      </StyledButton>
-    );
-  },
-);
+  return (
+    <StyledButton ref={setRef as React.Ref<HTMLButtonElement>} {...props}>
+      {children}
+    </StyledButton>
+  );
+});
