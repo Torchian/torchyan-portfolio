@@ -11,15 +11,16 @@ import { fontSize, lineHeight, letterSpacing, fontWeight, fontFamily } from '@/s
 import { accents, neutrals } from '@/styles/tokens/colors';
 import { glass, blur } from '@/styles/tokens/effects';
 import { radius } from '@/styles/tokens/radius';
-import { media, mediaQueries } from '@/styles/media';
+import { media } from '@/styles/media';
 import { Button, LanguageSwitcher, LogoMark, MusicToggle, SoundToggle } from '@/components/primitives';
 import { useTranslations } from 'next-intl';
 import { border } from '@/styles/tokens/border';
 
 /*
  * Figma: Header (2562:2761) — screens 1920 / 1440 / 1280 / 1024 / 768 / 480 / 320.
- *  - 1280 frame and up (from 1025px): logo · centred link pill (Header Navigation, 1944:4109) · Contact Me.
- *  - 480–1024 frames (321–1024px): logo · Contact Me · menu button (CTA, 2562:2297).
+ *  - 1280 frame and up: logo · centred link pill (Header Navigation, 1944:4109) · Contact Me.
+ *    From 1060px rather than the frame's own 1025px — see DESKTOP_HEADER_QUERY.
+ *  - 480–1024 frames (321–1059px): logo · Contact Me · menu button (CTA, 2562:2297).
  *  - 320 frame (up to 320px): logo · menu button.
  * The link pill marks the current page green with a green glow above it; the
  * glow follows the pointer while hovering the pill.
@@ -33,6 +34,27 @@ const NAV_LINKS = [
   { key: 'projects', href: '/projects' },
   { key: 'about', href: '/about' },
 ] as const;
+
+/**
+ * Where the header switches between the 1280 frame's design (logo · centred link
+ * pill · Contact Me) and the 1024 frame's (logo · Contact Me · menu button).
+ *
+ * The 1280 frame's own range starts at 1025px, but the pill is centred on the
+ * viewport while Contact Me is right-aligned, so the two meet sooner the wider
+ * the pill is — and the pill is as wide as its longest translation. Measured on
+ * a production build: the Armenian pill is 454px against English's 386px, and
+ * with the language switcher and audio flanks the cluster runs 7px into Contact
+ * Me at 1025px, clearing at about 1043px. 1060 leaves the same 12px the cluster
+ * puts between its own parts.
+ *
+ * Below it the 1024 frame's design takes over, where the language switcher and
+ * the audio switches are rows in the menu panel, so nothing becomes unreachable.
+ * The flanks are provisional (they are not in the Figma file yet, see TODO.md
+ * §4); revisit this when their placement is designed, since it is their width
+ * that sets the number.
+ */
+const DESKTOP_HEADER_QUERY = '(min-width: 1060px)';
+const desktopHeader = `@media ${DESKTOP_HEADER_QUERY}`;
 
 const TRANSITION = `${duration.slowest} ${easing.spring}`;
 /** How long the pointer can be between links before the glow heads back to the current page's link. */
@@ -137,7 +159,7 @@ const NavCluster = styled.div`
     justify-self: start;
   }
 
-  ${media.up('xl')} {
+  ${desktopHeader} {
     display: grid;
   }
 `;
@@ -295,7 +317,7 @@ const MenuButton = styled.button<{ $open: boolean }>`
     outline-offset: 2px;
   }
 
-  ${media.up('xl')} {
+  ${desktopHeader} {
     display: none;
   }
 `;
@@ -341,7 +363,7 @@ const MenuPanel = styled.nav<{ $open: boolean }>`
     right: ${spacing[300]}px;
   }
 
-  ${media.up('xl')} {
+  ${desktopHeader} {
     display: none;
   }
 `;
@@ -394,6 +416,8 @@ const MenuSetting = styled.div`
 export function NavBar() {
   const headerRef = useRef<HTMLElement>(null);
   const navRef = useRef<HTMLElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const menuPanelRef = useRef<HTMLElement>(null);
   const linkRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
   const menuId = useId();
@@ -406,7 +430,13 @@ export function NavBar() {
   // The menu remembers the page it was opened on, so navigating anywhere closes it without an effect.
   const [menuOpenOn, setMenuOpenOn] = useState<string | null>(null);
   const menuOpen = menuOpenOn === pathname;
-  const closeMenu = useCallback(() => setMenuOpenOn(null), []);
+  const closeMenu = useCallback(() => {
+    // The panel goes `inert` as it closes, so focus left inside it would be
+    // dropped on the spot and the next Tab would start again from the top of the
+    // page. Hand it back to the button that opened it.
+    if (menuPanelRef.current?.contains(document.activeElement)) menuButtonRef.current?.focus();
+    setMenuOpenOn(null);
+  }, []);
   const soundLabelId = useId();
   const musicLabelId = useId();
 
@@ -454,12 +484,32 @@ export function NavBar() {
   useEffect(() => {
     if (!menuOpen) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') closeMenu();
+      if (e.key === 'Escape') {
+        closeMenu();
+        return;
+      }
+      if (e.key !== 'Tab') return;
+      // The panel covers the page but the page behind it stays focusable, so Tab
+      // past the last row used to land on content nobody can see. Keep the
+      // gesture inside the button and the panel, wrapping at both ends.
+      const panel = menuPanelRef.current;
+      const button = menuButtonRef.current;
+      if (!panel || !button) return;
+      const stops = [
+        button,
+        ...panel.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        ),
+      ];
+      const edge = e.shiftKey ? stops[0] : stops[stops.length - 1];
+      if (document.activeElement !== edge) return;
+      e.preventDefault();
+      (e.shiftKey ? stops[stops.length - 1] : stops[0]).focus();
     };
     const onPointer = (e: PointerEvent) => {
       if (!headerRef.current?.contains(e.target as Node)) closeMenu();
     };
-    const desktop = window.matchMedia(mediaQueries.up('xl'));
+    const desktop = window.matchMedia(DESKTOP_HEADER_QUERY);
     const onDesktop = () => {
       if (desktop.matches) closeMenu();
     };
@@ -514,6 +564,7 @@ export function NavBar() {
       </HeaderActions>
 
       <MenuButton
+        ref={menuButtonRef}
         type="button"
         $open={menuOpen}
         aria-expanded={menuOpen}
@@ -526,7 +577,13 @@ export function NavBar() {
         <span />
       </MenuButton>
 
-      <MenuPanel id={menuId} $open={menuOpen} aria-label={t('menuLabel')} inert={!menuOpen}>
+      <MenuPanel
+        ref={menuPanelRef}
+        id={menuId}
+        $open={menuOpen}
+        aria-label={t('menuLabel')}
+        inert={!menuOpen}
+      >
         {NAV_LINKS.map((link, i) => (
           <MenuItem
             key={link.key}

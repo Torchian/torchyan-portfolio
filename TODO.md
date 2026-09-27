@@ -37,7 +37,6 @@ reveal, 0004 Selected Work grids, 0005 Character component, 0006 case study page
 - [ ] **Default social preview image is missing** — **P0 · Dev + Design** — `defaultOgImage` points at `/og/default.png` (`src/lib/seo/constants.ts:9`) and `public/og/` does not exist, so every share card is blank. Needs a 1200×630 export.
 - [ ] **(Homepage #2) Contact form sends nothing** — **P0 · Dev + Decision** — submit only calls `preventDefault()`. Needs an endpoint (see §12), `required` fields with validation, success and error states, and a `gaEvents.contactFormSubmit` call.
 - [ ] **Footer email is on the wrong domain** — **P0 · Decision** — `Footer.tsx:64` shows `hello@torchyan.com`. Confirm the real address; if it is on torchyan.design it needs a mailbox or forwarder, and it shares the DNS work in §12.
-- [ ] **Header responsiveness re-audit** — **P0 · Dev** — the owner reported the header as broken across sizes. `NavBar.tsx` has since been rebuilt to Figma 2562:2761 and its header comment names every screen (1920 / 1440 / 1280 / 1024 / 768 / 480 / 320), so the original complaint may be stale. Walk the breakpoints (1440 / 1280 / 1024 / 768 / 480 / 375 / 320) in all three locales and either close this or list what actually breaks.
 
 ---
 
@@ -128,11 +127,13 @@ demand and encodes images on first request. What is already done is in the archi
 
 ## 8. Accessibility
 
-- [ ] **axe and Lighthouse accessibility audit** — **P1 · Dev** — run both on every page in all three locales and turn the findings into items here.
-- [ ] **Keyboard paths** — **P1 · Dev** — the menu, the Projects stage, the project dots and both forms need to be reachable and operable by keyboard, including focus management and trapping in the menu panel.
+- [ ] **Lighthouse accessibility pass** — **P2 · Dev** — axe is clean (see below); Lighthouse's own checks overlap but not entirely. Worth running with the performance baseline in §7 rather than on its own.
+- [ ] **Keyboard paths: the Projects stage, the dots and the forms** — **P1 · Dev** — the header and the menu panel are done and verified (see the archive). Still to check: stepping the Projects stage by keyboard, the project dots, and both forms.
 - [ ] **(Homepage #9) Image alt text** — **P1 · Dev** — after the new image sets arrive. Collage and decorative images get `alt=""`, and duplicates are hidden from screen readers. Affects `/projects`, `/projects/[slug]` and the About timeline grid.
 - [ ] **Screen-reader names for the sound toggles** — **P1 · Dev** — the two audio switches need accessible names and pressed state.
-- [ ] **Reduced-motion coverage** — **P1 · Dev** — check every scroll effect, carousel and character animation against `prefers-reduced-motion`.
+- [ ] **Reduced-motion coverage** — **P1 · Dev** — measured 2026-09-27: 14 animations still run two seconds after load under `prefers-reduced-motion: reduce`. Thirteen are transitions, which reduced motion does not require removing, so each is a judgement call; `PageLoader__Overlay` is a keyframe animation and the clear one to fix. Full list in `docs/audits/2026-09-27-header-and-accessibility.md` §3. Still unchecked: the scroll effects, the carousel and the character animations.
+- [ ] **CTA buttons signal focus with colour alone** — **P2 · Decision** — Contact Me and See My Work draw no focus outline; the label turns brand green instead, measured at 6.72:1 against the page background, so WCAG 2.4.7 and 1.4.3 both pass. Two open points: it fires on `:focus` rather than `:focus-visible`, so a mouse click shows it too, and a label colour change may not satisfy WCAG 2.2's 2.4.11 Focus Appearance. Decide whether to add an outline.
+- [ ] **Trusted By logos as a real list** — **P3 · Dev** — the invalid list roles were removed (see the archive). Restoring list semantics properly means `<ul>`/`<li>` per row with an `<a>` nested in each `<li>`; the only gain is the item count being announced.
 - [ ] **Contrast on the light Projects rows** — **P2 · Dev** — verify text and CTA contrast against the lighter backgrounds.
 - [ ] Also tracked elsewhere: pinch-zoom (§1, Projects review #4), the flashing cycle (§2, Homepage #1), the Years map keyboard access (§2, Homepage #10).
 
@@ -218,7 +219,7 @@ English is the default; Russian and Armenian live under `/ru` and `/hy`.
 - [ ] **CI** — **P2 · Dev** — there is no `.github/`. Add a workflow running `npm run lint`, `tsc --noEmit`, `npm run check:messages` and `npm run build` on every push.
 - [ ] **Test setup** — **P2 · Dev** — no test runner is installed. Add one (Vitest fits a Next.js app without extra config) and start with the gesture logic in §3.
 - [ ] **README** — **P2 · Dev** — it is two lines. Cover setup, the scripts in `package.json` (`dev`, `build`, `tokens`, `images`, `check:messages`), the environment variables, the ADR index and how to deploy.
-- [ ] **Security headers** — **P1 · Dev** — `next.config.ts` (27 lines) sets none. Add CSP, HSTS, Referrer-Policy, Permissions-Policy and X-Content-Type-Options via `headers()`. A CSP needs care with styled-components' inline styles — start in report-only.
+- [ ] **Turn the CSP from report-only to enforced** — **P1 · Dev** — the policy is in place and reported nothing across 24 runs, but the analytics entries are untested here because their env vars are unset. On the deployed site with the keys in place, walk every page watching the console, then rename the header to `Content-Security-Policy` and add `upgrade-insecure-requests` in the same change (a report-only policy ignores it). See `docs/audits/2026-09-27-header-and-accessibility.md` §4.
 - [ ] **`sharp` is a devDependency** — **P3 · Dev** — fine on Vercel and for the local scripts. If the site is self-hosted, Next.js image optimisation needs it in `dependencies`.
 - [ ] **Ignore `.claude/`** — **P3 · Dev** — not present and not tracked today, but add it to `.gitignore` so a local session directory never lands in a commit.
 - [ ] **Capabilities skill "Playground experiments"** — **P3 · No action** — kept deliberately. It is a skill label, not a reference to the removed Playground page. Recorded so it isn't "fixed" by mistake.
@@ -267,6 +268,18 @@ Completed, kept for reference with the date each was resolved.
 - [x] **Custom cursor backdrop blur dropped** — it re-blurred the page under it on every pointer move. The cursor still costs one main-thread frame per move (it is positioned from JS); that is inherent to a custom cursor.
 - [x] **Map dots animate forever** — paused off screen with `usePauseOffscreen`. The remaining in-view cost is tracked in §7.
 - [x] **Mobile `#main-content` gap** — the 80px mobile gap is committed (`src/styles/global.ts`, `spacing[1000]` below `m`).
+
+**Header and accessibility audit (2026-09-27)**
+
+Full write-up: `docs/audits/2026-09-27-header-and-accessibility.md`. Production
+build, 4 pages x 3 locales x 2 sizes, plus the header at 11 widths.
+
+- [x] **Header responsiveness re-audit** — 2026-09-27. The bar is sound at every width in all three locales: no horizontal page scroll, 80px tall throughout, the three frame designs switching cleanly, nothing off the bar or off screen. The original "responsiveness is broken" report predates the NavBar rebuild to Figma 2562:2761. One real defect found and fixed: on `/hy` at 1025px the provisional audio flank ran 7px into Contact Me, because `NavCluster` is centred on the viewport at its content's width and the Armenian link pill is 454px against English's 386px. The boundary between the 1280 and 1024 designs moved from 1025 to 1060px (`DESKTOP_HEADER_QUERY`), leaving the widest locale the same 12px the cluster uses internally; below it the 1024 design keeps every control reachable through the menu panel.
+- [x] **axe accessibility audit** — 2026-09-27. Zero violations across all 24 runs (`wcag2a`, `wcag2aa`, `wcag21a`, `wcag21aa`, `best-practice`). One rule fired first and was fixed: Trusted By carried `role="list"` with `role="listitem"` on each logo, invalid on the `<a>` a linked logo renders as and with the `Row` wrappers breaking list ownership anyway. axe covers about a third of WCAG, so this is a statement about the markup, not a clean bill of health — the manual findings are in §3 of the write-up.
+- [x] **Focus escaped the open menu** — 2026-09-27. Tab past the last panel row moved focus to page content behind the overlay. Focus is now kept inside the menu button and the panel and wraps at both ends; verified by 12 forward tabs cycling the 7 panel stops plus the button, and Shift+Tab walking back.
+- [x] **Focus was dropped when the menu closed** — 2026-09-27. The panel goes `inert` as it closes, so focus left inside it was discarded and the next Tab restarted from the top of the page. Closing hands focus back to the menu button; verified after Escape.
+- [x] **Security headers** — 2026-09-27. HSTS (one year, `includeSubDomains`, no `preload`), `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, `X-Frame-Options`, `Cross-Origin-Opener-Policy` and a CSP, confirmed on pages and static assets. The CSP is report-only on purpose and its remaining step is in §16.
+- [x] **Header tab order and focus rings** — 2026-09-27. Skip to content is the first stop on every page, every header control is reachable and shows a focus ring, and nothing is reachable while off screen.
 
 **Structural decisions**
 
