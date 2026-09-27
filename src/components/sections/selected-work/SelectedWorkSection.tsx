@@ -40,12 +40,19 @@ function useCardProgress(stackRef: React.RefObject<HTMLDivElement | null>) {
     const lastMagnifying = cards.map(() => false);
     const gate = createInViewGate(stack);
 
-    const unsubscribe = subscribeScroll<number>({
+    const unsubscribe = subscribeScroll<{ top: number; card: number }>({
       active: () => gate.current,
-      // The stack's top in document coordinates.
-      read: (frame) => frame.rect(stack).top + frame.y,
-      write: (frame, stackTop) => {
-        const progress = (frame.y - stackTop) / frame.vh;
+      // The stack's top in document coordinates, and how tall one card is.
+      // A card's height is the stack's over the cards in it — not
+      // `innerHeight`, which on a phone is the shorter, toolbar-shown viewport
+      // while the cards are laid out in `vh`. Dividing by that number made a
+      // card reach `--card-progress: 1` before it had been scrolled through.
+      read: (frame) => {
+        const rect = frame.rect(stack);
+        return { top: rect.top + frame.y, card: rect.height / cards.length };
+      },
+      write: (frame, { top: stackTop, card }) => {
+        const progress = (frame.y - stackTop) / card;
         for (let i = 0; i < cards.length; i++) {
           const p = Math.min(1, Math.max(0, progress - i));
           const value = p.toFixed(3);
@@ -74,7 +81,7 @@ export function SelectedWorkSection() {
   const stackRef = useRef<HTMLDivElement>(null);
   useCardProgress(stackRef);
   // One card per scroll gesture, however big: the case studies, then the all-projects card.
-  useScrollStepping(stackRef, { count: PROJECTS.length + 1, screen: 'viewport', stepMs: STEP_MS });
+  useScrollStepping(stackRef, { count: PROJECTS.length + 1, stepMs: STEP_MS });
 
   return (
     <Section id="work">

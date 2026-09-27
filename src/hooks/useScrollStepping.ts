@@ -59,11 +59,6 @@ export interface ScrollSteppingOptions {
   count: number;
   enabled?: boolean;
   /**
-   * The height of one stop: `track` divides the track's height by `count` (a
-   * pinned stage), `viewport` is one screen (a stack of sticky cards).
-   */
-  screen?: 'track' | 'viewport';
-  /**
    * How long the scroll to the next stop takes. 0 jumps instantly, for a
    * pinned stage whose change is its own animation; a stack whose cards move
    * with the scroll needs the scroll itself animated. Reduced motion always
@@ -105,7 +100,7 @@ export interface ScrollSteppingOptions {
  */
 export function useScrollStepping(
   trackRef: RefObject<HTMLElement | null>,
-  { count, enabled = true, screen: screenMode = 'track', stepMs = 0 }: ScrollSteppingOptions,
+  { count, enabled = true, stepMs = 0 }: ScrollSteppingOptions,
 ) {
   useEffect(() => {
     const track = trackRef.current;
@@ -133,9 +128,16 @@ export function useScrollStepping(
     let queueTimer: ReturnType<typeof setTimeout> | undefined;
 
     const geometry = () => {
-      // Measured each time: on phones innerHeight changes as the toolbar hides and shows.
+      // A stop is the track's own height over the stops, never `innerHeight`.
+      // The two are not the same number on a phone: `100vh` is the
+      // toolbar-hidden viewport there, and `innerHeight` is the shorter one you
+      // can see, which then grows as the toolbar slides away. Stepping by
+      // `innerHeight` through a track laid out in `vh` left every step short by
+      // the difference, and the error piled up stop by stop — two cards on
+      // screen at once by the second one. Read fresh each time, because the
+      // track's height moves with the window.
       const rect = track.getBoundingClientRect();
-      const screen = screenMode === 'viewport' ? window.innerHeight : rect.height / count;
+      const screen = rect.height / count;
       const top = rect.top + window.scrollY;
       return { screen, top, progress: (window.scrollY - top) / screen };
     };
@@ -409,5 +411,5 @@ export function useScrollStepping(
       unsubscribe();
       gate.disconnect();
     };
-  }, [trackRef, count, enabled, screenMode, stepMs]);
+  }, [trackRef, count, enabled, stepMs]);
 }
