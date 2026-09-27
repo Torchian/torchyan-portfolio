@@ -28,6 +28,15 @@ import { useTranslations } from 'next-intl';
 const Section = styled.section`
   padding: ${spacing[1000]}px 0;
 
+  /* One screen on desktop: the form's own rhythm tightens to reach it. */
+  ${media.up('xl')} {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100svh;
+    padding: ${spacing[1000]}px 0 clamp(${spacing[300]}px, 4svh, ${spacing[500]}px);
+  }
+
   ${media.down('m')} {
     padding: ${spacing[600]}px 0;
   }
@@ -82,8 +91,8 @@ const Heading = styled.h2`
     flex: none;
     white-space: nowrap;
     font-weight: ${fontWeight.heading};
-    font-size: ${fontSize.display.m}px;
-    line-height: ${lineHeight.display.m}px;
+    font-size: ${fontSize.display.s}px;
+    line-height: ${lineHeight.display.s}px;
 
     span {
       display: block;
@@ -92,8 +101,8 @@ const Heading = styled.h2`
 
   ${media.up('xxl')} {
     font-weight: ${fontWeight.black};
-    font-size: ${fontSize.display.xl}px;
-    line-height: ${lineHeight.display.l}px;
+    font-size: ${fontSize.display.m}px;
+    line-height: ${lineHeight.display.m}px;
     letter-spacing: ${letterSpacing.xxs}px;
     text-transform: uppercase;
   }
@@ -134,14 +143,25 @@ const Form = styled.form`
   display: flex;
   flex: 1;
   flex-direction: column;
-  gap: ${spacing[400]}px;
+  gap: ${spacing[300]}px;
   min-width: 0;
+
+  /* Six labelled groups and a submit have to share one screen, so the rhythm
+     between them follows its height rather than staying at the frame's 32. */
+  ${media.up('xl')} {
+    gap: clamp(${spacing[300]}px, 2.2svh, ${spacing[400]}px);
+
+    textarea {
+      height: clamp(56px, 8svh, 86px);
+      min-height: 0;
+    }
+  }
 
   /* The submit spans the form (the Button itself sizes to its content), 48px below the last field. */
   > button[type='submit'] {
     width: 100%;
     max-width: none;
-    margin-top: ${spacing[200]}px;
+    margin-top: ${spacing[300]}px;
   }
 `;
 
@@ -151,6 +171,10 @@ const Field = styled.div`
   align-items: stretch;
   gap: ${spacing[200]}px;
   min-width: 0;
+
+  ${media.up('xl')} {
+    gap: ${spacing[100]}px;
+  }
 
   ${media.down('m')} {
     gap: ${spacing[100]}px;
@@ -164,7 +188,13 @@ const FieldLabel = styled.label`
   line-height: ${lineHeight.heading.s}px;
   letter-spacing: ${letterSpacing.xs}px;
   color: ${neutrals[100]};
-  
+
+  /* Holds the frame's 24 on a normal screen; gives a little on a short one. */
+  ${media.up('xl')} {
+    font-size: clamp(${fontSize.body.l}px, 2.7svh, ${fontSize.body.xl}px);
+    line-height: clamp(${lineHeight.body.l}px, 3.6svh, ${lineHeight.body.xl}px);
+  }
+
   ${media.down('m')} {
     font-size: ${fontSize.body.xl}px;
   }
@@ -175,6 +205,10 @@ const Options = styled.div`
   flex-wrap: wrap;
   align-items: flex-start;
   gap: ${spacing[200]}px;
+
+  ${media.up('xl')} {
+    gap: clamp(${spacing[100]}px, 1.2svh, ${spacing[200]}px);
+  }
 `;
 
 /** Intents keep their own width; one per line on mobile. */

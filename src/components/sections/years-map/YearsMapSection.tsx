@@ -5,12 +5,24 @@ import { useTranslations } from 'next-intl';
 import { Container } from '@/components/primitives';
 import { WorldMapSVG, SectionHeading, type MapLocation } from '@/components/composites';
 import { spacing } from '@/styles/tokens/spacing';
+import { media } from '@/styles/media';
 
 const Section = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   padding: ${spacing[1000]}px 0;
+
+  ${media.up('xl')} {
+    min-height: 100svh;
+    padding: ${spacing[1000]}px 0 ${spacing[600]}px;
+  }
+
+
+  ${media.down('xl')} {
+    padding: ${spacing[300]}px 0;
+  }
 `;
 
 const Content = styled.div`
@@ -33,6 +45,11 @@ const StyledSectionHeading = styled(SectionHeading)`
 const MapWrapper = styled.div`
   width: 100%;
   max-width: 1200px;
+
+  /* The map is what gives on a short screen; it keeps its own ratio. */
+  ${media.up('xl')} {
+    max-width: min(1200px, 158svh);
+  }
 `;
 
 type LocationId =

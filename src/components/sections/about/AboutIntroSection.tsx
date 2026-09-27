@@ -18,10 +18,23 @@ import { useTranslations } from 'next-intl';
  * Three centred paragraphs under the hero, the name picked out in green.
  */
 
+/**
+ * \`#main-content\` (styles/global.ts) puts 160px between every top-level
+ * section — 80px below the \`m\` breakpoint — so every other pair on the page
+ * gets that rhythm. Only Hero→Info wants closer: it's pulled up to 24px with a
+ * negative margin, at each of the global gap's own two sizes.
+ */
+const CLOSER = 24;
+
 const Section = styled.section`
   display: flex;
   justify-content: center;
   width: 100%;
+  margin-top: -${spacing[2000] - CLOSER}px;
+
+  ${media.down('m')} {
+    margin-top: -${spacing[1000] - CLOSER}px;
+  }
 `;
 
 const Text = styled.div`
@@ -30,7 +43,6 @@ const Text = styled.div`
   gap: ${spacing[400]}px;
   width: 100%;
   max-width: 1024px;
-  padding: 0 ${spacing[400]}px;
   font-family: ${fontFamily.heading};
   font-weight: ${fontWeight.semibold};
   /* Figma: 36/48 on the 1920 and tablet frames, 24/32 on the phone. */
@@ -46,7 +58,7 @@ const Text = styled.div`
 
   ${media.down('xl')} {
     max-width: none;
-    padding: 0 ${spacing[600]}px;
+    padding: 0 ${spacing[800]}px;
   }
 
   ${media.down('m')} {

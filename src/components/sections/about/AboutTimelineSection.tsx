@@ -17,20 +17,23 @@ import { grid } from '@/styles/tokens/grid';
 import { media } from '@/styles/media';
 import { useMessages, useTranslations } from 'next-intl';
 import { TIMELINE_ENTRIES, type TimelineEntry, type TimelineEntryContent } from './aboutConfig';
-import { AboutYearRail, RAIL_SPACE, RAIL_WIDE } from './AboutYearRail';
+import { AboutYearRail, RAIL_CLEAR, RAIL_SPACE } from './AboutYearRail';
 
 /*
  * Figma: Timeline — 1920 (2973:16245), 1024 (3960:15405), 480 (3983:11086);
  * the card is 2810:6345 and the gallery 2821:5636.
  *
  * A column of workplaces with a gallery that swaps its screenshots for
- * whichever card is crossing the middle of the screen, laid out as each frame
- * has it:
- *  - 1920: cards 756 wide, the gallery two columns beside them (900 wide).
- *  - tablet: cards 536 of the 952 container, the gallery one column (408) on
- *    the right, both sticky beside the cards.
- *  - phone: the cards run full width and the gallery is a 244-tall strip that
- *    sticks to the top of the timeline while they scroll under it.
+ * whichever card is under the year marker, laid out as each frame has it:
+ *  - 1920: cards 748 wide with their text indented 80, the gallery two
+ *    columns beside them (900 wide).
+ *  - tablet: the cards beside a single 408 column, sticky on the right.
+ *  - phone: the cards run the width of the track and the gallery is a 244-tall
+ *    strip that sticks to the top while they scroll under it.
+ *
+ * The section is the page's ordinary centred container, so its heading lines up
+ * with every other one. Only the rows the year marker rides beside — the strip
+ * and the cards — step right, by as much as the marker still needs (see Track).
  * The year rail down the left edge is AboutYearRail.
  */
 
@@ -38,6 +41,8 @@ import { AboutYearRail, RAIL_SPACE, RAIL_WIDE } from './AboutYearRail';
 const STACKED = media.down('m');
 /** Figma's gallery widths: 900 beside the 1920 frame's cards, 408 on a tablet. */
 const GALLERY = { desktop: 900, tablet: 408, strip: 244 } as const;
+/** Where the gallery starts inside the 1376 container, which is where the cards stop. */
+const CARDS = { desktop: 640 } as const;
 
 const Section = styled.section`
   position: relative;
@@ -47,28 +52,57 @@ const Section = styled.section`
   width: 100%;
 `;
 
+/**
+ * The same box every other section on the page uses, so the timeline's heading
+ * is centred with the rest of them. Figma's own page margins: 32 at 1920, 48 on
+ * a tablet, 32 on a phone.
+ */
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: ${spacing[1000]}px;
+  gap: ${spacing[2000]}px;
   width: 100%;
   max-width: ${grid.maxWidth}px;
-  /* Room on the left for the year rail, except where the page's own margin has it. */
-  padding: 0 ${spacing[400]}px 0 ${RAIL_SPACE.base}px;
+  padding: ${spacing[2000]}px ${spacing[400]}px 0 ${spacing[600]}px;
 
-  @media (min-width: ${RAIL_WIDE}px) {
-    padding: 0 ${spacing[400]}px;
-  }
-
-  /* Figma: 48 on the tablet frame, 32 on the phone — plus the rail's gutter. */
   ${media.down('xl')} {
-    padding: 0 ${spacing[600]}px 0 ${RAIL_SPACE.tablet}px;
+    padding: 0 ${spacing[600]}px;
   }
 
   ${media.down('m')} {
     gap: ${spacing[600]}px;
-    padding: 0 ${spacing[400]}px 0 ${RAIL_SPACE.mobile}px;
+    padding: 0 ${spacing[400]}px;
+  }
+`;
+
+/**
+ * The rows the year marker rides beside — the gallery strip and the cards.
+ * Figma's 1920 frame parks the marker in the page's own 240px margin; narrower
+ * than that there is no margin to park it in, so these rows step right by
+ * whatever the marker still needs, while the section and its heading stay
+ * centred. The step closes itself as the page's margin grows, so nothing jumps
+ * at the width where the margin takes over.
+ */
+const Track = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-left: max(
+    0px,
+    calc(
+      ${RAIL_SPACE.base + RAIL_CLEAR - spacing[400]}px - (100vw - min(100vw, ${grid.maxWidth}px)) /
+        2
+    )
+  );
+
+  ${media.down('xl')} {
+    padding-left: ${RAIL_SPACE.tablet + RAIL_CLEAR - spacing[600]}px;
+  }
+
+  ${STACKED} {
+    gap: ${spacing[1000]}px;
+    padding-left: ${RAIL_SPACE.mobile + RAIL_CLEAR - spacing[400]}px;
   }
 `;
 
@@ -85,29 +119,40 @@ const Cards = styled.div`
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
-  gap: ${spacing[1000]}px;
-  /* Figma: the cards take the left 756 of the 1376 container. */
-  max-width: 756px;
+  /* Figma stacks the cards 40 apart; their own padding does the rest. */
+  gap: ${spacing[500]}px;
+  /* Figma: the card box reaches the gallery's left edge, 748 into the container. */
+  max-width: ${CARDS.desktop}px;
+  padding-right: ${spacing[800]}px;
 
-  /* Beside the tablet gallery (408 and a 24 gap), in what the rail leaves. */
+  /* Beside the tablet gallery (408 and a 32 gap), in what the rail leaves. */
   ${media.down('xl')} {
-    max-width: calc(100% - ${GALLERY.tablet + 24}px);
-    gap: ${spacing[800]}px;
+    max-width: calc(100% - ${GALLERY.tablet + 32}px);
+    padding-right: 0;
   }
 
+  /* The phone frame runs the cards edge to edge with no gap between them. */
   ${STACKED} {
     max-width: none;
-    gap: ${spacing[600]}px;
+    gap: 0;
   }
 `;
 
+/**
+ * Figma's timeline_card (2810:6345), one state per device: Desktop (2810:6108),
+ * Tablet (3984:12537) and Mobile (3984:12572). The card carries its own padding
+ * — 40 top and bottom with an 80 indent at 1920, 24 all round below it — so the
+ * three states differ in their rhythm as well as their type.
+ */
 const Card = styled.article`
   display: flex;
   flex-direction: column;
-  gap: ${spacing[500]}px;
+  gap: ${spacing[400]}px;
+  padding: 0 0 ${spacing[800]}px 0;
 
-  ${media.down('m')} {
+  ${media.down('xl')} {
     gap: ${spacing[300]}px;
+    padding: ${spacing[300]}px 0 ${spacing[300]}px ${spacing[300]}px;
   }
 `;
 
@@ -115,20 +160,32 @@ const Heading = styled.header`
   display: flex;
   flex-direction: column;
   gap: ${spacing[150]}px;
+
+  ${media.down('m')} {
+    gap: ${spacing[100]}px;
+  }
 `;
 
 const Company = styled.h3`
   margin: 0;
-  font-family: ${fontFamily.display};
-  font-weight: ${fontWeight.heading};
-  font-size: ${fontSize.display.s}px;
-  line-height: ${lineHeight.display.s}px;
+  font-family: ${fontFamily.heading};
+  font-weight: ${fontWeight.semibold};
+  font-size: ${fontSize.heading.l}px;
+  line-height: ${lineHeight.heading.l}px;
   letter-spacing: ${letterSpacing.xs}px;
   color: ${accents.primary};
 
+  /* The tablet state sets it lighter as well as smaller. */
+  ${media.down('xl')} {
+    font-weight: ${fontWeight.medium};
+    font-size: ${fontSize.heading.m}px;
+    line-height: ${lineHeight.heading.m}px;
+  }
+
   ${media.down('m')} {
-    font-size: ${fontSize.heading.l}px;
-    line-height: ${lineHeight.heading.l}px;
+    font-weight: ${fontWeight.semibold};
+    font-size: ${fontSize.heading.s}px;
+    line-height: ${lineHeight.heading.s}px;
   }
 `;
 
@@ -139,45 +196,83 @@ const Role = styled.p`
   font-size: ${fontSize.heading.s}px;
   line-height: ${lineHeight.heading.s}px;
   letter-spacing: ${letterSpacing.xs}px;
-  color: ${neutrals[700]};
+  color: ${neutrals[100]};
+
+  ${media.down('xl')} {
+    font-size: ${fontSize.body.xl}px;
+    line-height: ${lineHeight.body.xl}px;
+    letter-spacing: ${letterSpacing.s}px;
+  }
 
   ${media.down('m')} {
     font-size: ${fontSize.body.l}px;
     line-height: ${lineHeight.body.l}px;
+    letter-spacing: ${letterSpacing.m}px;
+  }
+`;
+
+/** Figma's Frame 68: everything under the heading, at one size per state. */
+const Details = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${spacing[200]}px;
+
+  ${media.down('m')} {
+    gap: ${spacing[150]}px;
   }
 `;
 
 const Block = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${spacing[200]}px;
+  gap: ${spacing[100]}px;
 `;
 
+/** "Focus" and "Impact": muted, with the lines under them at full strength. */
 const BlockLabel = styled.h4`
   margin: 0;
   font-family: ${fontFamily.heading};
   font-weight: ${fontWeight.semibold};
-  font-size: ${fontSize.body.l}px;
-  line-height: ${lineHeight.body.l}px;
-  letter-spacing: ${letterSpacing.m}px;
-  color: ${neutrals[100]};
+  font-size: ${fontSize.body.xl}px;
+  line-height: ${lineHeight.body.xl}px;
+  letter-spacing: ${letterSpacing.s}px;
+  color: ${neutrals[700]};
+
+  ${media.down('xl')} {
+    font-size: ${fontSize.body.l}px;
+    line-height: ${lineHeight.body.l}px;
+    letter-spacing: ${letterSpacing.m}px;
+  }
+
+  ${media.down('m')} {
+    font-size: ${fontSize.body.m}px;
+    line-height: ${lineHeight.body.m}px;
+    letter-spacing: ${letterSpacing.s}px;
+  }
 `;
 
 const BlockBody = styled.ul`
   display: flex;
   flex-direction: column;
-  gap: ${spacing[50]}px;
   margin: 0;
-  padding-left: 1.2em;
+  /* Figma hangs the bullets 27 out at 1920, 24 on a tablet, 21 on a phone. */
+  padding-left: 27px;
   list-style: disc;
-  font-family: ${fontFamily.heading};
+  font-family: ${fontFamily.body};
   font-weight: ${fontWeight.regular};
-  font-size: ${fontSize.body.l}px;
-  line-height: ${lineHeight.body.l}px;
-  letter-spacing: ${letterSpacing.m}px;
-  color: ${neutrals[500]};
+  font-size: ${fontSize.body.xl}px;
+  line-height: ${lineHeight.body.xl}px;
+  letter-spacing: ${letterSpacing.xs}px;
+  color: ${neutrals[100]};
+
+  ${media.down('xl')} {
+    padding-left: 24px;
+    font-size: ${fontSize.body.l}px;
+    line-height: ${lineHeight.body.l}px;
+  }
 
   ${media.down('m')} {
+    padding-left: 21px;
     font-size: ${fontSize.body.m}px;
     line-height: ${lineHeight.body.m}px;
   }
@@ -193,14 +288,22 @@ const Growth = styled.ul`
   list-style: none;
   font-family: ${fontFamily.heading};
   font-weight: ${fontWeight.semibold};
-  font-size: ${fontSize.body.l}px;
-  line-height: ${lineHeight.body.l}px;
-  letter-spacing: ${letterSpacing.m}px;
-  color: ${neutrals[700]};
+  font-size: ${fontSize.body.xl}px;
+  line-height: ${lineHeight.body.xl}px;
+  letter-spacing: ${letterSpacing.s}px;
+  color: ${neutrals[100]};
+
+  ${media.down('xl')} {
+    gap: ${spacing[300]}px;
+    font-size: ${fontSize.body.l}px;
+    line-height: ${lineHeight.body.l}px;
+    letter-spacing: ${letterSpacing.m}px;
+  }
 
   ${media.down('m')} {
-    gap: ${spacing[200]}px;
     font-size: ${fontSize.body.m}px;
+    line-height: ${lineHeight.body.m}px;
+    letter-spacing: ${letterSpacing.s}px;
   }
 `;
 
@@ -214,7 +317,7 @@ const GalleryColumn = styled.div`
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 780px;
+  left: ${CARDS.desktop}px;
   right: calc((100vw - min(100vw, ${grid.maxWidth}px)) / -2 - ${spacing[400]}px);
   pointer-events: none;
 
@@ -233,7 +336,7 @@ const Sticky = styled.div`
   position: sticky;
   /* Under the header, with the same room left below. */
   top: ${spacing[1000]}px;
-  height: min(1146px, 100svh - ${spacing[1000] * 2}px);
+  height: min(1146px, 100svh - ${spacing[1000]}px);
   overflow: hidden;
 `;
 
@@ -299,7 +402,6 @@ const Strip = styled.div`
     display: block;
     width: 100%;
     height: ${GALLERY.strip}px;
-    margin-bottom: ${spacing[400]}px;
     /* The cards pass under it, so it can't be see-through. */
     background: var(--color-bg-primary, #0b0915);
     overflow: hidden;
@@ -360,18 +462,25 @@ export function AboutTimelineSection() {
   const cardsRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
 
-  // Whichever card is crossing the middle of the screen owns the gallery and the rail.
+  // The card under the year marker owns the gallery and the rail: the topmost one
+  // still crossing the band that starts where the marker holds, so the year and
+  // the company name beside it always name the same workplace.
   useEffect(() => {
     const cards = cardsRef.current;
     if (!cards) return;
+    // A record only arrives for a card whose state changed, so the band's whole
+    // contents are kept here rather than read off one batch.
+    const crossing = new Map<number, boolean>();
     const observer = new IntersectionObserver(
       (records) => {
-        const seen = records
-          .filter((record) => record.isIntersecting)
-          .map((record) => Number((record.target as HTMLElement).dataset.index));
+        for (const record of records) {
+          const index = Number((record.target as HTMLElement).dataset.index);
+          crossing.set(index, record.isIntersecting);
+        }
+        const seen = [...crossing].filter(([, on]) => on).map(([index]) => index);
         if (seen.length) setActive(Math.min(...seen));
       },
-      { rootMargin: '-50% 0px -50% 0px' },
+      { rootMargin: `-${spacing[1000]}px 0px -60% 0px` },
     );
     cards.querySelectorAll('[data-index]').forEach((card) => observer.observe(card));
     return () => observer.disconnect();
@@ -379,66 +488,75 @@ export function AboutTimelineSection() {
 
   return (
     <Section ref={sectionRef}>
-      <AboutYearRail entries={entries} active={active} sectionRef={sectionRef} />
+      <AboutYearRail
+        entries={entries}
+        active={active}
+        sectionRef={sectionRef}
+        cardsRef={cardsRef}
+      />
       <Container>
         <SectionHeading title={t('title')} subtitle={t('subtitle')} />
-        <Strip aria-hidden>
-          {entries.map((entry, index) => (
-            <StripSet key={entry.id} data-active={index === active}>
-              {entry.gallery.flat().map((image) => (
-                <Shot key={image.src}>
-                  <Image src={image.src} alt="" fill sizes="33vw" />
-                </Shot>
-              ))}
-            </StripSet>
-          ))}
-        </Strip>
-        <Body>
-          <Cards ref={cardsRef}>
+        <Track>
+          <Strip aria-hidden>
             {entries.map((entry, index) => (
-              <Card key={entry.id} data-index={index}>
-                <Heading>
-                  <Company>{entry.company}</Company>
-                  <Role>{entry.role}</Role>
-                </Heading>
-                <Block>
-                  <BlockLabel>{t('focus')}</BlockLabel>
-                  <BlockBody>
-                    {entry.focus
-                      .split('. ')
-                      .filter(Boolean)
-                      .map((line) => (
-                        <li key={line}>{line.replace(/\.$/, '')}</li>
-                      ))}
-                  </BlockBody>
-                </Block>
-                <Block>
-                  <BlockLabel>{t('impact')}</BlockLabel>
-                  <BlockBody>
-                    {entry.impact
-                      .split('. ')
-                      .filter(Boolean)
-                      .map((line) => (
-                        <li key={line}>{line.replace(/\.$/, '')}</li>
-                      ))}
-                  </BlockBody>
-                </Block>
-                <Growth>
-                  {entry.coreGrowth.map((word) => (
-                    <li key={word}>{word}</li>
-                  ))}
-                </Growth>
-              </Card>
+              <StripSet key={entry.id} data-active={index === active}>
+                {entry.gallery.flat().map((image) => (
+                  <Shot key={image.src}>
+                    <Image src={image.src} alt="" fill sizes="33vw" />
+                  </Shot>
+                ))}
+              </StripSet>
             ))}
-          </Cards>
-          <GalleryColumn aria-hidden>
-            <Sticky>
+          </Strip>
+          <Body>
+            <Cards ref={cardsRef}>
               {entries.map((entry, index) => (
-                <GallerySet key={entry.id} entry={entry} active={index === active} />
+                <Card key={entry.id} data-index={index}>
+                  <Heading>
+                    <Company>{entry.company}</Company>
+                    <Role>{entry.role}</Role>
+                  </Heading>
+                  <Details>
+                    <Block>
+                      <BlockLabel>{t('focus')}</BlockLabel>
+                      <BlockBody>
+                        {entry.focus
+                          .split('. ')
+                          .filter(Boolean)
+                          .map((line) => (
+                            <li key={line}>{line.replace(/\.$/, '')}</li>
+                          ))}
+                      </BlockBody>
+                    </Block>
+                    <Block>
+                      <BlockLabel>{t('impact')}</BlockLabel>
+                      <BlockBody>
+                        {entry.impact
+                          .split('. ')
+                          .filter(Boolean)
+                          .map((line) => (
+                            <li key={line}>{line.replace(/\.$/, '')}</li>
+                          ))}
+                      </BlockBody>
+                    </Block>
+                    <Growth>
+                      {entry.coreGrowth.map((word) => (
+                        <li key={word}>{word}</li>
+                      ))}
+                    </Growth>
+                  </Details>
+                </Card>
               ))}
-            </Sticky>
-          </GalleryColumn>
-        </Body>
+            </Cards>
+            <GalleryColumn aria-hidden>
+              <Sticky>
+                {entries.map((entry, index) => (
+                  <GallerySet key={entry.id} entry={entry} active={index === active} />
+                ))}
+              </Sticky>
+            </GalleryColumn>
+          </Body>
+        </Track>
       </Container>
     </Section>
   );

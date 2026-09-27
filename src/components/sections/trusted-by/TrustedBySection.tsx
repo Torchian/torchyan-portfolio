@@ -40,7 +40,14 @@ const logo = (
   file: string,
   mobileOrder: number,
   options: Partial<Pick<TrustedLogo, 'height' | 'boxed' | 'href'>> = {},
-): TrustedLogo => ({ name, src: `/logo/companies/${file}.svg`, height: 48, boxed: true, mobileOrder, ...options });
+): TrustedLogo => ({
+  name,
+  src: `/logo/companies/${file}.svg`,
+  height: 48,
+  boxed: true,
+  mobileOrder,
+  ...options,
+});
 
 /** Desktop rows, each with its side inset in px. */
 const ROWS: { inset: number; logos: TrustedLogo[] }[] = [
@@ -102,6 +109,15 @@ const Section = styled.section`
   position: relative;
   padding: ${spacing[1000]}px 0;
 
+  /* One screen on desktop: the rows below give up height before the heading does. */
+  ${media.up('xl')} {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100svh;
+    padding: ${spacing[1000]}px 0 clamp(${spacing[300]}px, 5svh, ${spacing[600]}px);
+  }
+
   ${media.down('m')} {
     padding: ${spacing[600]}px 0;
   }
@@ -131,6 +147,11 @@ const HeadingFrame = styled.div`
   width: 100%;
   padding: ${spacing[1000]}px ${spacing[400]}px;
 
+  /* The Inner's own gap already separates it from the rows. */
+  ${media.up('xl')} {
+    padding: 0 ${spacing[400]}px;
+  }
+
   ${media.down('xl')} {
     padding: 0;
   }
@@ -151,6 +172,12 @@ const Logos = styled.div`
   gap: ${spacing[600]}px;
   width: 100%;
   opacity: 0.8;
+
+  /* Six rows of logos have to share one screen with the heading, so their gap
+     and their slots below follow its height, never above the frame's sizes. */
+  ${media.up('xl')} {
+    gap: clamp(${spacing[150]}px, 2.4svh, ${spacing[600]}px);
+  }
 
   ${media.down('xl')} {
     flex-direction: row;
@@ -173,6 +200,7 @@ const Row = styled.div<{ $inset: number }>`
   row-gap: ${spacing[600]}px;
   padding-inline: ${(p) => p.$inset}px;
   mix-blend-mode: difference;
+  min-height: 64px;
 
   /* Tablet and mobile: the rows dissolve into one wrap. */
   ${media.down('xl')} {
@@ -194,6 +222,10 @@ const Logo = styled.div<{ $height: number; $boxed: boolean; $mobileOrder: number
     css`
       height: 68px;
       padding: 0 10px;
+
+      ${media.up('xl')} {
+        height: clamp(40px, 6svh, 68px);
+      }
     `}
 
   img {
@@ -201,6 +233,15 @@ const Logo = styled.div<{ $height: number; $boxed: boolean; $mobileOrder: number
     width: auto;
     max-width: none;
     height: ${(p) => p.$height}px;
+
+    ${media.up('xl')} {
+      /* Each logo keeps its own proportion of the 48px frame height. */
+      height: clamp(
+        ${(p) => (p.$height * 28) / 48}px,
+        ${(p) => (p.$height * 4.2) / 48}svh,
+        ${(p) => p.$height}px
+      );
+    }
     /* Resting a touch small, so the pointer brings the mark up to full size. */
     transform: scale(0.9);
     transition: transform ${duration.normal} ${easing.out};
