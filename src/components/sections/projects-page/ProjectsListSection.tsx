@@ -9,7 +9,13 @@ import { spacing } from '@/styles/tokens/spacing';
 import { media } from '@/styles/media';
 import { createInViewGate, subscribeScroll } from '@/lib/scroll-driver';
 import { ProjectShowcase } from './ProjectShowcase';
-import { SHOWCASE_PROJECTS, STAGE_QUERY, STAGE_SPLIT_QUERY } from './projectShowcaseConfig';
+import {
+  SHOWCASE_PROJECTS,
+  STACKED_STAGE_MIN_HEIGHT,
+  STAGE_QUERY,
+  STAGE_SPLIT_QUERY,
+  STAGE_STACKED_QUERY,
+} from './projectShowcaseConfig';
 import { useScrollStepping } from '@/hooks';
 
 /**
@@ -139,6 +145,26 @@ const FIRST_ENTRANCE_EARLY_PX = 200;
  * Which project a scroll position shows (-1: none yet, the stage is still
  * coming up). They change halfway through each screen.
  */
+/**
+ * `100svh` in pixels: the height the stage is actually laid out in.
+ *
+ * A media query's `height` is not the same thing on a phone. Mobile Safari
+ * reports the toolbar-hidden viewport there and keeps it steady as the toolbar
+ * comes and goes, so it can be over 100px taller than the svh the row gets. A
+ * row staged on that number has its CTA under the toolbar, which is the very
+ * thing STACKED_STAGE_MIN_HEIGHT is there to prevent.
+ */
+function smallViewportHeight() {
+  const probe = document.createElement('div');
+  probe.style.cssText =
+    'position:absolute;top:0;left:0;width:0;height:100svh;visibility:hidden;pointer-events:none';
+  document.body.append(probe);
+  const height = probe.getBoundingClientRect().height;
+  probe.remove();
+  // 0 means svh didn't take (a browser too old for it): fall back to the window.
+  return height || window.innerHeight;
+}
+
 function indexAt(scrolled: number, screen: number) {
   if (scrolled < -screen * (1 - FIRST_ENTRANCE_COVER) - FIRST_ENTRANCE_EARLY_PX) return -1;
   return Math.min(COUNT - 1, Math.max(0, Math.round(scrolled / screen)));
@@ -157,10 +183,28 @@ export function ProjectsListSection() {
 
   useEffect(() => {
     const query = window.matchMedia(STAGE_QUERY);
-    const sync = () => setStaged(query.matches);
+    const stackedQuery = window.matchMedia(STAGE_STACKED_QUERY);
+    const sync = () => {
+      // The stacked row has to hold its text, its collage band and its CTA in
+      // one screen, so it is measured against the screen it really gets. The
+      // side-by-side row puts the two halves next to each other and has never
+      // run out of height, so its media query stands on its own.
+      setStaged(
+        query.matches &&
+          (!stackedQuery.matches || smallViewportHeight() >= STACKED_STAGE_MIN_HEIGHT),
+      );
+    };
     sync();
     query.addEventListener('change', sync);
-    return () => query.removeEventListener('change', sync);
+    stackedQuery.addEventListener('change', sync);
+    // svh changes with the window, not with the toolbar, so a resize is the only
+    // thing that can change the answer without either query changing.
+    window.addEventListener('resize', sync);
+    return () => {
+      query.removeEventListener('change', sync);
+      stackedQuery.removeEventListener('change', sync);
+      window.removeEventListener('resize', sync);
+    };
   }, []);
 
   useEffect(() => {

@@ -16,11 +16,33 @@
  * Where the Projects list runs as a stage (see ProjectsListSection): every row
  * one screen tall, pinned, and swapped by animation. At every width, as long as
  * the window is tall enough under the header: 720 for the side-by-side row,
- * 560 for the stacked one (768 and below). In a shorter window the rows simply
- * stack. STAGE_QUERY is a media query list, so only use it on its own.
+ * STACKED_STAGE_MIN_HEIGHT for the stacked one (768 and below). In a shorter
+ * window the rows simply stack and scroll. STAGE_QUERY is a media query list,
+ * so only use it on its own.
  */
 export const STAGE_SPLIT_QUERY = '(min-width: 768.02px) and (min-height: 720px)';
-export const STAGE_STACKED_QUERY = '(max-width: 768px) and (min-height: 560px)';
+
+/**
+ * How tall the stacked row has to be to hold its own content. Measured on a
+ * production build at 375 wide: the text block is 460px in English and Russian
+ * and 590px in Armenian, so with the 104px gap under the header and the 48px
+ * CTA the row needs 612px, or 742px in Armenian, before the collage band gets a
+ * single pixel. Below that the band collapses to nothing and View Case Story
+ * drops off the bottom edge, out of reach — the row is pinned, so there is
+ * nothing to scroll to reach it.
+ *
+ * 800 leaves the longest copy on the narrowest real phone (Armenian at 360
+ * wide) a 62px band. It is deliberately not the height at which the text merely
+ * fits: a band thinner than that is not worth staging for. Narrower than 360
+ * needs more again (Armenian at 320 wide needs 840), but a 320px-wide device is
+ * 568px tall, so it never reaches this threshold anyway.
+ *
+ * ProjectsListSection checks this against the row's real height rather than the
+ * media query's; see smallViewportHeight there.
+ */
+export const STACKED_STAGE_MIN_HEIGHT = 800;
+
+export const STAGE_STACKED_QUERY = `(max-width: 768px) and (min-height: ${STACKED_STAGE_MIN_HEIGHT}px)`;
 export const STAGE_QUERY = `${STAGE_SPLIT_QUERY}, ${STAGE_STACKED_QUERY}`;
 
 export interface CollageImage {
