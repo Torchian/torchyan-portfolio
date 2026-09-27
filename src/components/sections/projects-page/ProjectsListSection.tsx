@@ -9,7 +9,13 @@ import { spacing } from '@/styles/tokens/spacing';
 import { media } from '@/styles/media';
 import { createInViewGate, subscribeScroll } from '@/lib/scroll-driver';
 import { ProjectShowcase } from './ProjectShowcase';
-import { SHOWCASE_PROJECTS, STAGE_QUERY, STAGE_SPLIT_QUERY } from './projectShowcaseConfig';
+import {
+  SHOWCASE_PROJECTS,
+  STACKED_STAGE_MIN_HEIGHT,
+  STAGE_QUERY,
+  STAGE_SPLIT_QUERY,
+  STAGE_STACKED_QUERY,
+} from './projectShowcaseConfig';
 import { useScrollStepping } from '@/hooks';
 
 /**
@@ -29,11 +35,23 @@ import { useScrollStepping } from '@/hooks';
  *    same edges.
  * Scrolling back up plays it in reverse. Elsewhere (phones, short windows) the
  * rows stack flush against each other, each ending on the colour the next
- * begins with, so the ten read as one gradient down the page.
+ * begins with, so the ten read as one gradient down the page. That stacked
+ * layout is also what renders without JavaScript: the stage needs JS to choose
+ * the row on screen, so it is switched on from here (see STAGED) rather than by
+ * the media query alone.
  */
 
 const COUNT = SHOWCASE_PROJECTS.length;
-const stage = `@media ${STAGE_QUERY}`;
+
+/**
+ * The stage is turned on in JS, not by the media query alone: `data-staged` on
+ * the section. Which row is on screen can only be worked out from the scroll
+ * position, so without JS — and in the server HTML, before hydration — there is
+ * no row to show, and a stage would be ten hidden rows in nine blank screens.
+ * The attribute keeps the rows stacked in normal flow until JS says otherwise.
+ * ProjectShowcase gates its own stage rules the same way.
+ */
+const STAGED = `[data-staged='true'] &`;
 
 const Section = styled.section`
   /* The Figma frame ends 160px below the last row, on top of the page's section gap. */
@@ -45,7 +63,7 @@ const Section = styled.section`
 
 /** The scroll runway: one screen per project. */
 const Track = styled.div`
-  ${stage} {
+  ${STAGED} {
     height: ${COUNT * 100}svh;
   }
 `;
@@ -54,7 +72,7 @@ const Stage = styled.div`
   display: flex;
   flex-direction: column;
 
-  ${stage} {
+  ${STAGED} {
     position: sticky;
     top: 0;
     display: block;
@@ -67,7 +85,7 @@ const Stage = styled.div`
 const Backdrop = styled.div`
   display: none;
 
-  ${stage} {
+  ${STAGED} {
     position: absolute;
     top: 0;
     left: 0;
@@ -95,20 +113,22 @@ const Band = styled.div`
 const Dots = styled.div`
   display: none;
 
-  @media ${STAGE_SPLIT_QUERY} {
-    position: absolute;
-    top: 50%;
-    right: ${HEADER_INLINE.base}px;
-    z-index: 2;
-    display: block;
-    transform: translateY(-50%);
-    transition:
-      opacity 400ms ease-out,
-      visibility 400ms ease-out;
+  ${STAGED} {
+    @media ${STAGE_SPLIT_QUERY} {
+      position: absolute;
+      top: 50%;
+      right: ${HEADER_INLINE.base}px;
+      z-index: 2;
+      display: block;
+      transform: translateY(-50%);
+      transition:
+        opacity 400ms ease-out,
+        visibility 400ms ease-out;
 
-    &[data-shown='false'] {
-      opacity: 0;
-      visibility: hidden;
+      &[data-shown='false'] {
+        opacity: 0;
+        visibility: hidden;
+      }
     }
   }
 `;
@@ -125,6 +145,26 @@ const FIRST_ENTRANCE_EARLY_PX = 200;
  * Which project a scroll position shows (-1: none yet, the stage is still
  * coming up). They change halfway through each screen.
  */
+/**
+ * `100svh` in pixels: the height the stage is actually laid out in.
+ *
+ * A media query's `height` is not the same thing on a phone. Mobile Safari
+ * reports the toolbar-hidden viewport there and keeps it steady as the toolbar
+ * comes and goes, so it can be over 100px taller than the svh the row gets. A
+ * row staged on that number has its CTA under the toolbar, which is the very
+ * thing STACKED_STAGE_MIN_HEIGHT is there to prevent.
+ */
+function smallViewportHeight() {
+  const probe = document.createElement('div');
+  probe.style.cssText =
+    'position:absolute;top:0;left:0;width:0;height:100svh;visibility:hidden;pointer-events:none';
+  document.body.append(probe);
+  const height = probe.getBoundingClientRect().height;
+  probe.remove();
+  // 0 means svh didn't take (a browser too old for it): fall back to the window.
+  return height || window.innerHeight;
+}
+
 function indexAt(scrolled: number, screen: number) {
   if (scrolled < -screen * (1 - FIRST_ENTRANCE_COVER) - FIRST_ENTRANCE_EARLY_PX) return -1;
   return Math.min(COUNT - 1, Math.max(0, Math.round(scrolled / screen)));
@@ -143,10 +183,28 @@ export function ProjectsListSection() {
 
   useEffect(() => {
     const query = window.matchMedia(STAGE_QUERY);
-    const sync = () => setStaged(query.matches);
+    const stackedQuery = window.matchMedia(STAGE_STACKED_QUERY);
+    const sync = () => {
+      // The stacked row has to hold its text, its collage band and its CTA in
+      // one screen, so it is measured against the screen it really gets. The
+      // side-by-side row puts the two halves next to each other and has never
+      // run out of height, so its media query stands on its own.
+      setStaged(
+        query.matches &&
+          (!stackedQuery.matches || smallViewportHeight() >= STACKED_STAGE_MIN_HEIGHT),
+      );
+    };
     sync();
     query.addEventListener('change', sync);
-    return () => query.removeEventListener('change', sync);
+    stackedQuery.addEventListener('change', sync);
+    // svh changes with the window, not with the toolbar, so a resize is the only
+    // thing that can change the answer without either query changing.
+    window.addEventListener('resize', sync);
+    return () => {
+      query.removeEventListener('change', sync);
+      stackedQuery.removeEventListener('change', sync);
+      window.removeEventListener('resize', sync);
+    };
   }, []);
 
   useEffect(() => {
@@ -198,7 +256,7 @@ export function ProjectsListSection() {
   };
 
   return (
-    <Section aria-label={t('listLabel')}>
+    <Section aria-label={t('listLabel')} data-staged={staged}>
       <Track ref={trackRef}>
         <Stage onFocus={onFocus}>
           <Backdrop
@@ -222,9 +280,10 @@ export function ProjectsListSection() {
               <ProjectShowcase
                 project={project}
                 mediaSide={i % 2 === 0 ? 'right' : 'left'}
-                // Only read on the stage (the CSS ignores it otherwise), so the
-                // server HTML already stages correctly before hydration.
-                stage={i < active ? 'past' : i === active ? 'active' : 'upcoming'}
+                staged={staged}
+                // Ignored when the rows stack, so the rows the server renders
+                // are all "on screen" and none of them is hidden.
+                active={!staged || i === active}
                 showMedia={!staged || seen.has(i)}
               />
             </div>

@@ -1,0 +1,56 @@
+# The checks a contributor runs before pushing, run again on every push and pull
+# request so nothing lands red. Each step is a separate job step rather than one
+# chained command, so a failure names itself in the GitHub UI instead of hiding
+# behind "npm run everything".
+name: CI
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+
+# A second push to the same branch cancels the run still going for the first.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          # Matches the Node the project is developed on. Bump both together.
+          node-version: '22'
+          cache: npm
+
+      # `ci` rather than `install`: it installs exactly the lockfile and fails if
+      # package.json and package-lock.json have drifted apart.
+      - run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Typecheck
+        run: npx tsc --noEmit
+
+      # Fails when ru.json or hy.json has drifted from en.json: a missing or
+      # extra key, a list of a different length, an empty string, or different
+      # {placeholders}. See scripts/check-messages.ts.
+      - name: Translations
+        run: npm run check:messages
+
+      # Design tokens are generated from tokens.json into src/styles/tokens/.
+      # Regenerating must not change anything: a hand-edit to a generated file
+      # would be overwritten by the next `npm run tokens`.
+      - name: Tokens are up to date
+        run: |
+          npm run tokens
+          git diff --exit-code -- src/styles/tokens tokens.json
+
+      - name: Build
+        run: npm run build

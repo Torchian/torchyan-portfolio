@@ -265,7 +265,11 @@
       "1-2 months",
       "Flexible"
     ],
-    "submit": "Contact"
+    "submit": "Contact",
+    "companyLabel": "Company (leave this empty)",
+    "submitSending": "Sending…",
+    "submitSuccess": "Thank you — your message is on its way. I’ll reply to the address you gave.",
+    "submitError": "That didn’t send. Please try again, or email me directly."
   },
   "footer": {
     "srName": "Stepan Torchyan — Designer × Engineer",

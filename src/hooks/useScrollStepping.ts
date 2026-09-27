@@ -96,6 +96,12 @@ export interface ScrollSteppingOptions {
  *    scrolling, which makes the browser wait on them before it scrolls. They're
  *    attached only while the track is near the screen, so the rest of the page
  *    scrolls without that wait.
+ *  - A two-finger touch is left alone from the first move to the last finger up,
+ *    so pinch zoom keeps working inside the track (WCAG 1.4.4). Wheel events
+ *    with ctrl held are left alone for the same reason.
+ *  - A one-finger move is cancelled as soon as it has moved at all, before it
+ *    has travelled far enough to count as a swipe: Safari commits to its own
+ *    scroll on the first few pixels, and once it has, later cancels do nothing.
  */
 export function useScrollStepping(
   trackRef: RefObject<HTMLElement | null>,
@@ -322,14 +328,28 @@ export function useScrollStepping(
     };
 
     let touchStartY = 0;
+    /** A second finger landed: the whole touch is the browser's, to the last finger up. */
+    let pinching = false;
     const onTouchStart = (e: TouchEvent) => {
+      if (e.touches.length > 1) {
+        pinching = true;
+        return;
+      }
       touchStartY = e.touches[0].clientY;
       spent = false;
     };
     const onTouchMove = (e: TouchEvent) => {
+      // Two fingers is a pinch zoom, which has to keep working (WCAG 1.4.4).
+      if (pinching || e.touches.length > 1) return;
       const dy = touchStartY - e.touches[0].clientY;
-      if (Math.abs(dy) < 4) return;
+      // Every move that moved at all is cancelled, however small. A dead zone
+      // here let Safari start its own scroll on the first few pixels, and it
+      // then carried on with it despite the later cancels.
+      if (dy === 0) return;
       if (gesture(dy > 0 ? 1 : -1, Math.abs(dy) >= SWIPE_THRESHOLD)) e.preventDefault();
+    };
+    const onTouchEnd = (e: TouchEvent) => {
+      if (e.touches.length === 0) pinching = false;
     };
 
     // The blocking listeners, only while the track is near the screen.
@@ -342,12 +362,17 @@ export function useScrollStepping(
         window.addEventListener('keydown', onKey);
         window.addEventListener('touchstart', onTouchStart, { passive: true });
         window.addEventListener('touchmove', onTouchMove, { passive: false });
+        window.addEventListener('touchend', onTouchEnd, { passive: true });
+        window.addEventListener('touchcancel', onTouchEnd, { passive: true });
       } else {
         window.removeEventListener('wheel', onWheel);
         window.removeEventListener('keydown', onKey);
         window.removeEventListener('touchstart', onTouchStart);
         window.removeEventListener('touchmove', onTouchMove);
+        window.removeEventListener('touchend', onTouchEnd);
+        window.removeEventListener('touchcancel', onTouchEnd);
         engaged = false;
+        pinching = false;
       }
     };
     const near = new IntersectionObserver(([entry]) => listen(entry.isIntersecting), {

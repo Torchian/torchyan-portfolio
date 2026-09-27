@@ -136,6 +136,15 @@ const HeadingFrame = styled.div`
   }
 `;
 
+/*
+ * No list role. It used to carry role="list" with role="listitem" on each logo,
+ * which axe fails on two counts: listitem is not allowed on the <a> that a
+ * linked logo renders as (a link already has a role), and the Row wrappers in
+ * between stop a list from owning its items anyway. The logos are images with
+ * their company name as alt text inside a section labelled by its heading, which
+ * is enough. Making them a real list means <ul>/<li> per row and an <a> nested
+ * inside each <li> — see TODO.md §8 if the item count is worth that.
+ */
 const Logos = styled.div`
   display: flex;
   flex-direction: column;
@@ -247,7 +256,7 @@ export function TrustedBySection() {
           <SectionHeading id={TITLE_ID} title={t('title')} subtitle={t('subtitle')} />
         </HeadingFrame>
 
-        <Logos role="list">
+        <Logos>
           {ROWS.map((row, i) => (
             <Row key={i} $inset={row.inset}>
               {row.logos.map((item) => (
@@ -257,7 +266,6 @@ export function TrustedBySection() {
                   href={item.href}
                   target={item.href ? '_blank' : undefined}
                   rel={item.href ? 'noreferrer' : undefined}
-                  role="listitem"
                   $height={item.height}
                   $boxed={item.boxed}
                   $mobileOrder={item.mobileOrder}

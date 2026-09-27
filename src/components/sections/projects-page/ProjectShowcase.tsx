@@ -46,6 +46,20 @@ const stageSplit = `@media ${STAGE_SPLIT_QUERY}`;
 /** …and stacked, at 768 and below. */
 const stageStacked = `@media ${STAGE_STACKED_QUERY}`;
 
+/**
+ * Every stage rule is gated on this as well as its media query: the row only
+ * stages once JavaScript has said so (`data-staged`, set by ProjectsListSection
+ * once it has matched STAGE_QUERY itself).
+ *
+ * The media query can't do it alone. On the stage the rows lie on top of each
+ * other and all but one are hidden, and which one that is can only be chosen in
+ * JS from the scroll position. So with JS off — and in the server HTML, before
+ * hydration — the stage would be ten hidden rows in nine blank screens. Without
+ * the attribute the rows simply stack down the page, which is the same layout a
+ * window too short for the stage gets.
+ */
+const STAGED = "[data-staged='true']";
+
 /** How far a half travels as it leaves or arrives, towards its own page edge. */
 const STAGE_TRAVEL = 'clamp(80px, 12vw, 240px)';
 const STAGE_OUT = 'opacity 450ms ease-in, transform 450ms ease-in';
@@ -64,7 +78,7 @@ const stageHalf = (side: MediaSide, motion: 'slide' | 'fade' = 'slide', when = s
   ${when} {
     transition: ${motion === 'slide' ? STAGE_IN : 'opacity 300ms ease-out 150ms'};
 
-    [data-active='false'] & {
+    ${STAGED}[data-active='false'] & {
       opacity: 0;
       /* calc(): a bare minus in front of clamp() is invalid and drops the whole transform. */
       transform: ${
@@ -121,22 +135,24 @@ const Row = styled.article<{ $side: MediaSide; $background: string; $light: bool
   /* Staged: one screen tall, over the stage's own animated background, with the
      row's design-height band centred in it. */
   ${stage} {
-    position: absolute;
-    inset: 0;
-    min-height: 0;
-    padding-block: 0;
-    align-content: center;
-    grid-template-rows: ${ROW_HEIGHT.wide - 2 * MEDIA_INSET.wide}px;
-    background: none;
+    &${STAGED} {
+      position: absolute;
+      inset: 0;
+      min-height: 0;
+      padding-block: 0;
+      align-content: center;
+      grid-template-rows: ${ROW_HEIGHT.wide - 2 * MEDIA_INSET.wide}px;
+      background: none;
 
-    ${media.up('xxxl')} {
-      grid-template-rows: ${ROW_HEIGHT.desktop - 2 * MEDIA_INSET.desktop}px;
-    }
+      ${media.up('xxxl')} {
+        grid-template-rows: ${ROW_HEIGHT.desktop - 2 * MEDIA_INSET.desktop}px;
+      }
 
-    /* The rows lie stacked on top of each other: only the one on screen may
-       catch the pointer, or the topmost (last) row swallows every click. */
-    &[data-active='false'] {
-      pointer-events: none;
+      /* The rows lie stacked on top of each other: only the one on screen may
+         catch the pointer, or the topmost (last) row swallows every click. */
+      &[data-active='false'] {
+        pointer-events: none;
+      }
     }
   }
 
@@ -144,25 +160,29 @@ const Row = styled.article<{ $side: MediaSide; $background: string; $light: bool
      top for the header and 32 at the bottom; the halves run its full height,
      80 apart. */
   ${stageDesktop} {
-    align-content: stretch;
-    align-items: stretch;
-    grid-template-rows: minmax(0, 1fr);
-    gap: ${spacing[1000]}px;
-    padding-block: ${spacing[1000]}px ${spacing[400]}px;
-
-    ${media.up('xxxl')} {
+    &${STAGED} {
+      align-content: stretch;
+      align-items: stretch;
       grid-template-rows: minmax(0, 1fr);
+      gap: ${spacing[1000]}px;
+      padding-block: ${spacing[1000]}px ${spacing[400]}px;
+
+      ${media.up('xxxl')} {
+        grid-template-rows: minmax(0, 1fr);
+      }
     }
   }
 
   /* Stacked stage (768 and below): a screen tall too — the text under the
      header, and the collage filling all the rest down to the bottom edge. */
   ${stageStacked} {
-    align-content: stretch;
-    align-items: stretch;
-    grid-template-rows: auto minmax(0, 1fr);
-    gap: ${spacing[300]}px;
-    padding-block: ${spacing[1000] + spacing[300]}px 0;
+    &${STAGED} {
+      align-content: stretch;
+      align-items: stretch;
+      grid-template-rows: auto minmax(0, 1fr);
+      gap: ${spacing[300]}px;
+      padding-block: ${spacing[1000] + spacing[300]}px 0;
+    }
   }
 `;
 
@@ -185,8 +205,10 @@ const TextColumn = styled.div<{ $side: MediaSide }>`
 
   /* The text at the top of its half and the CTA at the bottom. */
   ${stageDesktop} {
-    justify-content: space-between;
-    padding-block: ${spacing[1000]}px;
+    ${STAGED} & {
+      justify-content: space-between;
+      padding-block: ${spacing[1000]}px;
+    }
   }
 
   /* On the stage the project dots sit at the right edge (ProjectsListSection):
@@ -195,7 +217,9 @@ const TextColumn = styled.div<{ $side: MediaSide }>`
     p.$side === 'right' &&
     css`
       ${stageSplit} {
-        padding-right: ${HEADER_INLINE.base + spacing[600] + spacing[400]}px;
+        ${STAGED} & {
+          padding-right: ${HEADER_INLINE.base + spacing[600] + spacing[400]}px;
+        }
       }
     `}
 `;
@@ -215,7 +239,9 @@ const Info = styled.div`
   }
 
   ${stageDesktop} {
-    gap: ${spacing[800]}px;
+    ${STAGED} & {
+      gap: ${spacing[800]}px;
+    }
   }
 `;
 
@@ -226,7 +252,9 @@ const Heading = styled.div`
   width: 100%;
 
   ${stageDesktop} {
-    gap: ${spacing[150]}px;
+    ${STAGED} & {
+      gap: ${spacing[150]}px;
+    }
   }
 `;
 
@@ -374,15 +402,22 @@ const Media = styled.div<{ $side: MediaSide }>`
 
   /* The stacked stage gives the collage everything below the text. */
   ${stageStacked} {
-    height: auto;
+    ${STAGED} & {
+      height: auto;
+    }
   }
 `;
 
 export interface ProjectShowcaseProps {
   project: ShowcaseProject;
   mediaSide: MediaSide;
-  /** On the stage: whether this row is before, on or after the one on screen. Ignored when the rows stack. */
-  stage?: 'past' | 'active' | 'upcoming';
+  /**
+   * Whether the list is running as a stage. Only ProjectsListSection knows, and
+   * only in JS; see STAGED above for why the media query can't decide it.
+   */
+  staged?: boolean;
+  /** On the stage: whether this is the row on screen. Ignored when the rows stack. */
+  active?: boolean;
   /** Render the collage; the stage holds it back until a row is near, so ten load one by one. */
   showMedia?: boolean;
 }
@@ -390,7 +425,8 @@ export interface ProjectShowcaseProps {
 export function ProjectShowcase({
   project,
   mediaSide,
-  stage: position = 'active',
+  staged = false,
+  active = true,
   showMedia = true,
 }: ProjectShowcaseProps) {
   const t = useTranslations('projectsPage.showcase');
@@ -403,8 +439,8 @@ export function ProjectShowcase({
       $side={mediaSide}
       $background={project.background}
       $light={project.tone === 'light'}
-      data-active={position === 'active'}
-      data-stage={position}
+      data-staged={staged}
+      data-active={active}
     >
       <TextColumn $side={mediaSide === 'right' ? 'left' : 'right'}>
         <Info>

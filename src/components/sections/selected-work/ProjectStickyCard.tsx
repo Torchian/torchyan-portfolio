@@ -17,7 +17,6 @@ import {
   GRID_FRAMES,
   ISOMETRIC_GAP,
   type FlatColumn,
-  type FramePoint,
   type GridImage,
   type GridScreen,
   type IsometricColumn,
@@ -296,9 +295,21 @@ const columnBase = css`
   }
 `;
 
-const columnSize = (width: number, gap: number) => css`
-  width: calc(${width} * var(--u));
-  gap: calc(${gap} * var(--u));
+/**
+ * A column's size and place differ per card, per column and per breakpoint, but
+ * the shape of the rule never does. The numbers therefore ride in as custom
+ * properties set inline (`columnVars` below) and the rule is written once, so
+ * every column on the page shares one class instead of generating its own copy
+ * at three breakpoints plus hover.
+ */
+/**
+ * Each breakpoint reads its own properties. It cannot alias them — redefining
+ * `--col-w` inside a media query would lose to the inline style that sets it,
+ * since an inline declaration beats any rule in a stylesheet.
+ */
+const columnSize = (suffix: string) => css`
+  width: calc(var(--col-w${suffix}) * var(--u));
+  gap: calc(var(--col-gap${suffix}) * var(--u));
 `;
 
 const PROJECTION: Record<IsometricGrid['axis'], string> = {
@@ -307,60 +318,102 @@ const PROJECTION: Record<IsometricGrid['axis'], string> = {
 };
 
 /** Centre the column on a frame point, then project it. */
-const isometric = (axis: IsometricGrid['axis'], [x, y]: FramePoint) =>
-  `translate(calc(${x} * var(--u)), calc(${y} * var(--u))) translate(-50%, -50%) ${PROJECTION[axis]}`;
+const isometricAt = (suffix: string) =>
+  `translate(calc(var(--col-x${suffix}) * var(--u)), calc(var(--col-y${suffix}) * var(--u)))
+   translate(-50%, -50%) var(--col-projection)`;
 
-const IsometricColumnBox = styled.div<{ $grid: IsometricGrid; $column: IsometricColumn }>`
+const IsometricColumnBox = styled.div`
   ${columnBase}
-  ${({ $grid, $column }) => css`
-    ${columnSize($column.width * $grid.scale.desktop, ISOMETRIC_GAP * $grid.scale.desktop)}
-    transform: ${isometric($grid.axis, $column.center.desktop)};
+  ${columnSize('')}
+  transform: ${isometricAt('')};
 
-    ${onDesktopHover(css`
-      transform: ${isometric($grid.axis, $column.center.hover)};
-    `)}
+  ${onDesktopHover(css`
+    transform: ${isometricAt('-hover')};
+  `)}
 
-    ${media.down('xl')} {
-      ${columnSize($column.width * $grid.scale.tablet, ISOMETRIC_GAP * $grid.scale.tablet)}
-      transform: ${isometric($grid.axis, $column.center.tablet)};
-    }
+  ${media.down('xl')} {
+    ${columnSize('-tablet')}
+    transform: ${isometricAt('-tablet')};
+  }
 
-    ${media.down('m')} {
-      ${columnSize($column.width * $grid.scale.mobile, ISOMETRIC_GAP * $grid.scale.mobile)}
-      transform: ${isometric($grid.axis, $column.center.mobile)};
-    }
-  `}
+  ${media.down('m')} {
+    ${columnSize('-mobile')}
+    transform: ${isometricAt('-mobile')};
+  }
 `;
 
-const flat = (left: number, top: number) => `translate(calc(${left} * var(--u)), calc(${top} * var(--u)))`;
+/** The inline values an isometric column needs. */
+const isometricVars = (grid: IsometricGrid, column: IsometricColumn) =>
+  ({
+    '--col-projection': PROJECTION[grid.axis],
+    '--col-w': column.width * grid.scale.desktop,
+    '--col-gap': ISOMETRIC_GAP * grid.scale.desktop,
+    '--col-x': column.center.desktop[0],
+    '--col-y': column.center.desktop[1],
+    '--col-x-hover': column.center.hover[0],
+    '--col-y-hover': column.center.hover[1],
+    '--col-w-tablet': column.width * grid.scale.tablet,
+    '--col-gap-tablet': ISOMETRIC_GAP * grid.scale.tablet,
+    '--col-x-tablet': column.center.tablet[0],
+    '--col-y-tablet': column.center.tablet[1],
+    '--col-w-mobile': column.width * grid.scale.mobile,
+    '--col-gap-mobile': ISOMETRIC_GAP * grid.scale.mobile,
+    '--col-x-mobile': column.center.mobile[0],
+    '--col-y-mobile': column.center.mobile[1],
+  }) as React.CSSProperties;
 
-const FlatColumnBox = styled.div<{ $column: FlatColumn }>`
+const flatAt = (suffix: string) =>
+  `translate(calc(var(--col-x${suffix}) * var(--u)), calc(var(--col-y${suffix}) * var(--u)))`;
+
+const FlatColumnBox = styled.div`
   ${columnBase}
-  ${({ $column: { frame, hoverTop } }) => css`
-    ${columnSize(frame.desktop.width, frame.desktop.width * FLAT_GAP_RATIO)}
-    transform: ${flat(frame.desktop.left, frame.desktop.top)};
+  ${columnSize('')}
+  transform: ${flatAt('')};
 
-    ${onDesktopHover(css`
-      transform: ${flat(frame.desktop.left, hoverTop)};
-    `)}
+  ${onDesktopHover(css`
+    transform: ${flatAt('-hover')};
+  `)}
 
-    ${media.down('xl')} {
-      ${columnSize(frame.tablet.width, frame.tablet.width * FLAT_GAP_RATIO)}
-      transform: ${flat(frame.tablet.left, frame.tablet.top)};
-    }
+  ${media.down('xl')} {
+    ${columnSize('-tablet')}
+    transform: ${flatAt('-tablet')};
+  }
 
-    ${media.down('m')} {
-      ${columnSize(frame.mobile.width, frame.mobile.width * FLAT_GAP_RATIO)}
-      transform: ${flat(frame.mobile.left, frame.mobile.top)};
-    }
-  `}
+  ${media.down('m')} {
+    ${columnSize('-mobile')}
+    transform: ${flatAt('-mobile')};
+  }
 `;
 
-const Tile = styled.div<{ $aspect: number; $only?: GridScreen }>`
+/** The inline values a flat column needs. Its hover only moves vertically. */
+const flatVars = ({ frame, hoverTop }: FlatColumn) =>
+  ({
+    '--col-w': frame.desktop.width,
+    '--col-gap': frame.desktop.width * FLAT_GAP_RATIO,
+    '--col-x': frame.desktop.left,
+    '--col-y': frame.desktop.top,
+    '--col-x-hover': frame.desktop.left,
+    '--col-y-hover': hoverTop,
+    '--col-w-tablet': frame.tablet.width,
+    '--col-gap-tablet': frame.tablet.width * FLAT_GAP_RATIO,
+    '--col-x-tablet': frame.tablet.left,
+    '--col-y-tablet': frame.tablet.top,
+    '--col-w-mobile': frame.mobile.width,
+    '--col-gap-mobile': frame.mobile.width * FLAT_GAP_RATIO,
+    '--col-x-mobile': frame.mobile.left,
+    '--col-y-mobile': frame.mobile.top,
+  }) as React.CSSProperties;
+
+/**
+ * The aspect ratio rides in on a custom property rather than being baked into
+ * the class. Every distinct ratio used to generate its own copy of this rule —
+ * eighteen of them on the homepage — and they are identical but for one number.
+ */
+const Tile = styled.div<{ $only?: GridScreen }>`
   position: relative;
   flex-shrink: 0;
   width: 100%;
-  aspect-ratio: ${(p) => p.$aspect};
+  aspect-ratio: var(--tile-aspect);
   overflow: hidden;
 
   ${(p) =>
@@ -391,7 +444,11 @@ function tileSizes(widths: Record<GridScreen, number>) {
 
 function Tiles({ images, sizes }: { images: GridImage[]; sizes: string }) {
   return images.map((image, i) => (
-    <Tile key={i} $aspect={image.aspect} $only={image.only}>
+    <Tile
+      key={i}
+      $only={image.only}
+      style={{ '--tile-aspect': image.aspect } as React.CSSProperties}
+    >
       <Image
         src={image.src}
         alt=""
@@ -408,7 +465,7 @@ function GridStage({ grid }: { grid: ProjectGrid }) {
     <Stage aria-hidden>
       {grid.kind === 'isometric'
         ? grid.columns.map((column, i) => (
-            <IsometricColumnBox key={i} $grid={grid} $column={column}>
+            <IsometricColumnBox key={i} style={isometricVars(grid, column)}>
               <Tiles
                 images={column.images}
                 sizes={tileSizes({
@@ -420,7 +477,7 @@ function GridStage({ grid }: { grid: ProjectGrid }) {
             </IsometricColumnBox>
           ))
         : grid.columns.map((column, i) => (
-            <FlatColumnBox key={i} $column={column}>
+            <FlatColumnBox key={i} style={flatVars(column)}>
               <Tiles
                 images={column.images}
                 sizes={tileSizes({
