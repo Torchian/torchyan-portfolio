@@ -62,6 +62,20 @@ const onDesktopHover = (styles: RuleSet) => css`
   }
 `;
 
+/**
+ * Bottom padding that clears the phone's browser toolbar.
+ *
+ * The card is `100vh` tall, and on a phone that is the *toolbar-hidden*
+ * viewport: with the toolbar out, its bottom `100lvh - 100svh` is behind the
+ * toolbar. The measured cost was the year-and-role line ending 16px above the
+ * card's edge on a 390px phone — invisible until you scrolled the toolbar away.
+ * `100lvh - 100svh` is exactly that strip, and it is 0 wherever there is no
+ * toolbar, so desktop keeps the padding as typed. Constant rather than
+ * `100dvh`-based on purpose: a padding that tracked the toolbar would reflow
+ * the card while it was being scrolled through.
+ */
+const TOOLBAR_SAFE = (px: number) => `calc(${px}px + (100lvh - 100svh))`;
+
 /* ---------- Card ---------- */
 
 const CardWrapper = styled.article<{ $background?: string }>`
@@ -70,6 +84,9 @@ const CardWrapper = styled.article<{ $background?: string }>`
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* 100vh rather than 100svh: on a phone vh is the toolbar-hidden viewport, so
+     the card is never shorter than the window and two cards can never show at
+     once. What the toolbar would cover is given back as padding below. */
   height: 100vh;
   padding: ${spacing[1500]}px ${spacing[400]}px ${spacing[500]}px;
   overflow: hidden;
@@ -81,11 +98,11 @@ const CardWrapper = styled.article<{ $background?: string }>`
   contain: layout paint;
 
   ${media.down('xl')} {
-    padding: ${spacing[1500]}px ${spacing[300]}px ${spacing[300]}px;
+    padding: ${spacing[1500]}px ${spacing[300]}px ${TOOLBAR_SAFE(spacing[300])};
   }
 
   ${media.down('m')} {
-    padding: ${spacing[1250]}px ${spacing[200]}px ${spacing[200]}px;
+    padding: ${spacing[1250]}px ${spacing[200]}px ${TOOLBAR_SAFE(spacing[200])};
   }
 `;
 
