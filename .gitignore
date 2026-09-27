@@ -1,7 +1,9 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
+# Unanchored: `/node_modules` only matched the repo root, which is how a nested
+# torchyan-portfolio/node_modules once got committed.
+node_modules/
 /.pnp
 .pnp.*
 .yarn/*
@@ -36,6 +38,9 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# local Claude Code session state
+.claude/
 
 # typescript
 *.tsbuildinfo
