@@ -14,6 +14,13 @@ import { media } from '@/styles/media';
  * Study, 3155:11130). Use it as an <li> in a list.
  */
 
+/*
+ * A phone takes these cards one step down the scale, the way the Capabilities
+ * cards do: the title from Heading M to Heading S, the body from Body XL to
+ * Body L. The frames were drawn at a width the phone does not have, and at
+ * 390px the cards read as blown up rather than as themselves. Tablet and
+ * desktop keep what Figma gave them.
+ */
 export const InfoCard = styled.li`
   display: flex;
   flex: 1 0 0;
@@ -54,8 +61,8 @@ export const InfoCardTitle = styled.h3`
 
   ${media.down('m')} {
     font-weight: ${fontWeight.medium};
-    font-size: ${fontSize.heading.m}px;
-    line-height: ${lineHeight.heading.m}px;
+    font-size: ${fontSize.heading.s}px;
+    line-height: ${lineHeight.heading.s}px;
   }
 `;
 
@@ -67,8 +74,8 @@ export const InfoCardBody = styled.p`
   color: ${neutrals[500]};
 
   ${media.down('m')} {
-    font-size: ${fontSize.body.xl}px;
-    line-height: ${lineHeight.body.xl}px;
+    font-size: ${fontSize.body.l}px;
+    line-height: ${lineHeight.body.l}px;
     color: ${neutrals[100]};
   }
 `;

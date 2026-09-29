@@ -73,6 +73,10 @@ const CardText = styled.div`
   text-align: center;
 `;
 
+/*
+ * Same step down on a phone as the other cards on the site: the title from
+ * Heading M to Heading S, the body from Body XL to Body L.
+ */
 const CardTitle = styled.h3<{ $tone: CTATone }>`
   margin: 0;
   font-size: ${fontSize.heading.l}px;
@@ -81,8 +85,8 @@ const CardTitle = styled.h3<{ $tone: CTATone }>`
 
   ${media.down('m')} {
     font-weight: ${fontWeight.medium};
-    font-size: ${fontSize.heading.m}px;
-    line-height: ${lineHeight.heading.m}px;
+    font-size: ${fontSize.heading.s}px;
+    line-height: ${lineHeight.heading.s}px;
   }
 `;
 
@@ -93,8 +97,8 @@ const CardBody = styled.p`
   color: ${neutrals[500]};
 
   ${media.down('m')} {
-    font-size: ${fontSize.body.xl}px;
-    line-height: ${lineHeight.body.xl}px;
+    font-size: ${fontSize.body.l}px;
+    line-height: ${lineHeight.body.l}px;
     color: ${neutrals[100]};
   }
 `;
