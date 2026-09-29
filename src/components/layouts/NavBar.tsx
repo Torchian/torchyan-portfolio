@@ -67,6 +67,8 @@ const NAV_LINKS = [
  */
 const DESKTOP_HEADER_QUERY = '(min-width: 1060px)';
 const desktopHeader = `@media ${DESKTOP_HEADER_QUERY}`;
+/** Below the desktop bar: the burger is out and the Contact pill is the bar's middle. */
+const compactHeader = '@media (max-width: 1059.98px)';
 
 const TRANSITION = `${duration.slowest} ${easing.spring}`;
 /** How long the pointer can be between links before the glow heads back to the current page's link. */
@@ -137,6 +139,8 @@ const Header = styled.header<{ $bare?: boolean }>`
 
 /** Figma Logo (2562:4479): 48px on desktop and tablet, 24px on mobile. */
 const LogoLink = styled(Link)<{ $accent?: boolean }>`
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   flex-shrink: 0;
@@ -280,10 +284,28 @@ const NavItem = styled(Link)<{ $active?: boolean }>`
 
 /** Contact Me (not in the 320 frame). */
 const HeaderActions = styled.div`
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-shrink: 0;
   align-items: center;
   gap: ${spacing[150]}px;
+
+  /*
+   * Below the desktop bar it is the middle of the header, and it is centred on
+   * the header rather than left to space-between. Between two items of
+   * different widths, space-between puts what is between them off centre by
+   * half the difference: the logo is 24px on a phone and the burger 48px, so
+   * the pill sat exactly 12px left of centre (measured), while on a tablet,
+   * where the logo is also 48px, it looked right. Positioned from the middle it
+   * is centred whatever sits beside it — the same reason NavCluster is.
+   */
+  ${compactHeader} {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 
   ${media.down('s')} {
     display: none;
@@ -293,6 +315,7 @@ const HeaderActions = styled.div`
 /** Figma CTA (2562:2297): three green bars that fold into a grey cross when the menu is open. */
 const MenuButton = styled.button<{ $open: boolean }>`
   position: relative;
+  z-index: 1;
   display: flex;
   flex-shrink: 0;
   align-items: center;
@@ -351,45 +374,61 @@ const MenuButton = styled.button<{ $open: boolean }>`
  * under the header using the link pill's type and colours.
  */
 const MenuPanel = styled.nav<{ $open: boolean }>`
-  position: absolute;
-  top: calc(100% - ${spacing[100]}px);
-  left: ${spacing[400]}px;
-  right: ${spacing[400]}px;
+  /*
+   * The whole screen, not a card under the bar. Fixed to the viewport with
+   * 100dvh rather than 100vh: on a phone vh is the toolbar-hidden viewport, so
+   * the last row would sit behind the toolbar. The panel is not scroll-linked,
+   * so a height that follows the toolbar costs nothing here.
+   *
+   * It starts under the bar's own height, and the bar's contents are lifted
+   * above it, so the logo, the Contact pill and the close cross stay readable
+   * and tappable on top of the panel's glass.
+   */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   gap: ${spacing[100]}px;
-  padding: ${spacing[300]}px ${spacing[400]}px;
+  padding: calc(${spacing[1000]}px + ${spacing[300]}px) ${spacing[400]}px ${spacing[500]}px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
   background: ${glass.bgMedium};
-  border: ${border.medium}px solid ${glass.border};
-  border-radius: ${radius.xxl}px;
   backdrop-filter: blur(${blur.glassLarge});
   -webkit-backdrop-filter: blur(${blur.glassLarge});
   transition:
     opacity ${FAST},
-    transform ${FAST},
     visibility ${FAST};
 
   ${(p) =>
     p.$open
       ? css`
           opacity: 1;
-          transform: none;
           visibility: visible;
         `
       : css`
           opacity: 0;
-          transform: translateY(-${spacing[100]}px);
           visibility: hidden;
         `}
 
   ${media.down('m')} {
-    left: ${spacing[300]}px;
-    right: ${spacing[300]}px;
+    padding-left: ${spacing[300]}px;
+    padding-right: ${spacing[300]}px;
   }
 
   ${desktopHeader} {
     display: none;
   }
+`;
+
+/** The links take the room the panel now has; the settings sit at its foot. */
+const MenuLinks = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: ${spacing[100]}px;
 `;
 
 const MenuItem = styled(Link)<{ $active?: boolean }>`
@@ -506,6 +545,22 @@ export function NavBar() {
     return () => observer.disconnect();
   }, [lineIndex, applyLinePosition]);
 
+  /*
+   * The panel covers the screen, so the page behind it must not scroll under
+   * it: a swipe on the menu would otherwise move the page, and closing it would
+   * leave the reader somewhere else. `overscroll-behavior: contain` on the
+   * panel stops a scroll inside it reaching the page; this stops one that never
+   * started inside it.
+   */
+  useEffect(() => {
+    if (!menuOpen) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, [menuOpen]);
+
   // While open: close on Escape, a press outside the header, or growing into the desktop layout.
   useEffect(() => {
     if (!menuOpen) return;
@@ -610,23 +665,25 @@ export function NavBar() {
         aria-label={t('menuLabel')}
         inert={!menuOpen}
       >
-        {NAV_LINKS.map((link, i) => (
-          <MenuItem
-            key={link.key}
-            href={link.href}
-            $active={i === activeIndex}
-            aria-current={i === activeIndex ? 'page' : undefined}
-            onClick={closeMenu}
-          >
-            {t(link.key)}
+        <MenuLinks>
+          {NAV_LINKS.map((link, i) => (
+            <MenuItem
+              key={link.key}
+              href={link.href}
+              $active={i === activeIndex}
+              aria-current={i === activeIndex ? 'page' : undefined}
+              onClick={closeMenu}
+            >
+              {t(link.key)}
+            </MenuItem>
+          ))}
+          <MenuItem href="/#contact" onClick={closeMenu}>
+            {t('contactMe')}
           </MenuItem>
-        ))}
-        <MenuItem href="/#contact" onClick={closeMenu}>
-          {t('contactMe')}
-        </MenuItem>
+        </MenuLinks>
         <MenuSetting>
           <span>{t('language')}</span>
-          <LanguageSwitcher />
+          <LanguageSwitcher inline />
         </MenuSetting>
         <MenuSetting>
           <span id={soundLabelId}>{t('sound')}</span>

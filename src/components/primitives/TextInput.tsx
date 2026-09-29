@@ -128,6 +128,37 @@ const fieldStyles = css`
     opacity: 1;
     transition: color ${TRANSITION};
   }
+
+  /*
+   * A browser that fills the field in paints its own pale background and near
+   * black text straight over the design: on a dark field that reads as a white
+   * box with a dark word in it. The background is a UA-internal one, so
+   * background: transparent does not reach it and background-color cannot
+   * override it — the two things that do are here.
+   *
+   *  - background-clip: text clips that background to the glyphs themselves,
+   *    which is as good as removing it. box-shadow is the usual trick
+   *    instead, but it needs an opaque colour to paint over with, and this
+   *    field is transparent over the page's gradient.
+   *  - text-fill-color is what actually colours autofilled text; color
+   *    alone is ignored while the field is in that state.
+   *
+   * The very long transition is the third guard: it defers the background's
+   * own paint so far out that it never lands, which is what catches the frame
+   * WebKit paints before the rest applies.
+   */
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: var(--value-color);
+    caret-color: var(--value-color);
+    transition:
+      background-color 100000s ease-in-out 0s,
+      color ${TRANSITION};
+  }
 `;
 
 const StyledInput = styled.input`
