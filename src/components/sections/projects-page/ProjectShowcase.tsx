@@ -401,6 +401,11 @@ const Media = styled.div<{ $side: MediaSide }>`
     grid-area: media;
     order: 0;
     height: 240px;
+    /* Inset to the gutter the text keeps, so the collage lines up with the
+       words above it instead of running out to both screen edges. Below this
+       width the text's own inset comes from Info, not from TextColumn, which
+       is display: contents here. */
+    margin-inline: ${HEADER_INLINE.mobile}px;
     border-radius: 0;
   }
 
