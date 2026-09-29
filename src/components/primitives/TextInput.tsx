@@ -106,6 +106,22 @@ const Line = styled.span<{ $flip?: boolean; $multiline: boolean }>`
   }
 `;
 
+/*
+ * What an autofilled field is told to look like. Marked important because the
+ * style being fought is the browser's own for that state, which outranks an
+ * ordinary author rule.
+ */
+const autofilled = css`
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: var(--value-color) !important;
+  caret-color: var(--value-color);
+  box-shadow: none !important;
+  transition:
+    background-color 100000s ease-in-out 0s,
+    color ${TRANSITION};
+`;
+
 const fieldStyles = css`
   position: relative;
   flex: 1;
@@ -151,13 +167,20 @@ const fieldStyles = css`
   &:-webkit-autofill:hover,
   &:-webkit-autofill:focus,
   &:-webkit-autofill:active {
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: var(--value-color);
-    caret-color: var(--value-color);
-    transition:
-      background-color 100000s ease-in-out 0s,
-      color ${TRANSITION};
+    ${autofilled}
+  }
+
+  /*
+   * The standard selector, in a block of its own. A browser drops a whole
+   * selector list over one name it does not know, so the prefixed and the
+   * unprefixed cannot share a block: Safari knows both, older WebKit only the
+   * prefixed one, and each needs to keep working without the other.
+   */
+  &:autofill,
+  &:autofill:hover,
+  &:autofill:focus,
+  &:autofill:active {
+    ${autofilled}
   }
 `;
 
