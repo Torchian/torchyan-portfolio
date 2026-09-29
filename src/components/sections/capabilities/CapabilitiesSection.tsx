@@ -57,6 +57,25 @@ const Section = styled.section`
   }
 `;
 
+/**
+ * The section's own heading takes the same step down on a phone as the cards
+ * do: the title from Heading L to Heading M, the subtitle from Body XL to
+ * Body L. Only here — every other section keeps the shared heading as drawn.
+ */
+const SectionTitle = styled(SectionHeading)`
+  ${media.down('m')} {
+    h2 {
+      font-size: ${fontSize.heading.m}px;
+      line-height: ${lineHeight.heading.m}px;
+    }
+
+    p {
+      font-size: ${fontSize.body.l}px;
+      line-height: ${lineHeight.body.l}px;
+    }
+  }
+`;
+
 const HeadingFrame = styled(Container)`
   padding-block: ${spacing[1000]}px;
 
@@ -391,7 +410,7 @@ export function CapabilitiesSection() {
   return (
     <Section ref={sectionRef} id="capabilities" aria-labelledby={TITLE_ID}>
       <HeadingFrame>
-        <SectionHeading id={TITLE_ID} title={t('heading')} subtitle={t('subtitle')} />
+        <SectionTitle id={TITLE_ID} title={t('heading')} subtitle={t('subtitle')} />
       </HeadingFrame>
 
       <Frame>
