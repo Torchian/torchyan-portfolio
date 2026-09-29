@@ -190,7 +190,6 @@ const RoleSlot = styled.div`
   ${media.down('l')} {
     position: relative;
     aspect-ratio: ${NAME_ART.role.height} / ${NAME_ART.role.width};
-    container-type: inline-size;
 
     img {
       position: absolute;
@@ -198,7 +197,21 @@ const RoleSlot = styled.div`
       left: 50%;
       width: auto;
       max-width: none;
-      height: 100cqw;
+      /*
+       * The artwork is exported upright and turned on its side here, so what
+       * has to match the slot's width is its height. That used to be said with
+       * 100cqw, with the slot made a container to measure against — and on a
+       * phone the containment is switched on by this very media query. Safari
+       * did not re-resolve the unit after the screen turned back to portrait:
+       * the words kept the landscape width, several times the screen, and one
+       * letter filled it.
+       *
+       * The same number without a container: the slot's height is its width
+       * times the artwork's own ratio, so its width is that height times the
+       * ratio the other way up. A percentage height resolves against the
+       * slot, whose height the aspect-ratio above makes definite.
+       */
+      height: ${((NAME_ART.role.height / NAME_ART.role.width) * 100).toFixed(4)}%;
       transform: translate(-50%, -50%) rotate(90deg);
     }
   }
