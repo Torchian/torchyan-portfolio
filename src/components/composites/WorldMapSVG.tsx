@@ -1,8 +1,12 @@
 'use client';
 
+import { useLayoutEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { MapDot } from './MapDot';
 import { usePauseOffscreen } from '@/hooks';
+
+/** The map width the dots were drawn against; the scale is this one over the real one. */
+const DESIGN_MAP_WIDTH = 1200;
 
 const Wrapper = styled.div`
   position: relative;
@@ -40,9 +44,34 @@ function hash(str: string): number {
 
 export function WorldMapSVG({ locations, alt }: WorldMapSVGProps) {
   // The dots beat forever; only while the map is in view.
-  const ref = usePauseOffscreen<HTMLDivElement>();
+  const pauseRef = usePauseOffscreen<HTMLDivElement>();
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
+  /*
+   * How wide the map is against the size the dots were drawn at. Written to the
+   * DOM rather than held in state: it changes on every resize frame, and a dot's
+   * size is not worth a render.
+   */
+  useLayoutEffect(() => {
+    const wrapper = wrapperRef.current;
+    if (!wrapper) return;
+    const update = () => {
+      const width = wrapper.getBoundingClientRect().width;
+      if (width > 0) wrapper.style.setProperty('--map-scale', String(width / DESIGN_MAP_WIDTH));
+    };
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(wrapper);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <Wrapper ref={ref}>
+    <Wrapper
+      ref={(node) => {
+        wrapperRef.current = node;
+        pauseRef.current = node;
+      }}
+    >
       <MapImage src="/vectors/map.svg" alt={alt} />
       {locations.map((loc) => {
         const id = loc.id ?? loc.label;

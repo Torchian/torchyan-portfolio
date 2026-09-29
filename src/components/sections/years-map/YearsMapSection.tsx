@@ -34,12 +34,23 @@ const Content = styled.div`
   width: 100%;
 `;
 
+/**
+ * Desktop keeps the Figma arrangement: the title lies across the map, which is
+ * wide enough there for the words and the places to keep out of each other's
+ * way. Below that the map is a few hundred pixels across, the title covers its
+ * middle and the dots beat through the letters, so the title takes its own line
+ * above the map instead. It comes first in the DOM either way, which is also
+ * the order it should be read in.
+ */
 const StyledSectionHeading = styled(SectionHeading)`
-  position: absolute;
-  bottom: 30%;
-  left: 50%;
-  transform: translateX(-50%);
   width: 100%;
+
+  ${media.up('xl')} {
+    position: absolute;
+    bottom: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 `;
 
 const MapWrapper = styled.div`
@@ -87,10 +98,10 @@ export function YearsMapSection() {
     <Section id="years-map">
       <Container>
         <Content>
+          <StyledSectionHeading title={t('title')} />
           <MapWrapper>
             <WorldMapSVG locations={locations} alt={t('mapAlt')} />
           </MapWrapper>
-          <StyledSectionHeading title={t('title')} />
         </Content>
       </Container>
     </Section>

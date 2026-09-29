@@ -121,6 +121,13 @@ const Body = styled.div`
   }
 `;
 
+/*
+ * Mobile takes every size in this section one step down the scale: the title
+ * from Heading M to Heading S, the body, the skills and the footnote from
+ * Body XL to Body L. The frames were drawn at a size the phone does not have,
+ * and at 390px the cards read as blown up rather than as themselves. Tablet
+ * and desktop keep what Figma gave them.
+ */
 const Title = styled.h3`
   margin: 0;
   font-family: ${fontFamily.heading};
@@ -141,8 +148,8 @@ const Title = styled.h3`
 
   ${media.down('m')} {
     font-weight: ${fontWeight.medium};
-    font-size: ${fontSize.heading.m}px;
-    line-height: ${lineHeight.heading.m}px;
+    font-size: ${fontSize.heading.s}px;
+    line-height: ${lineHeight.heading.s}px;
   }
 `;
 
@@ -184,8 +191,8 @@ const MainText = styled.div<{ $besideNotch: boolean }>`
   }
 
   ${media.down('m')} {
-    font-size: ${fontSize.body.xl}px;
-    line-height: ${lineHeight.body.xl}px;
+    font-size: ${fontSize.body.l}px;
+    line-height: ${lineHeight.body.l}px;
     letter-spacing: ${letterSpacing.s}px;
   }
 `;
@@ -235,8 +242,8 @@ const Skills = styled.ul`
 
   ${media.down('m')} {
     gap: ${spacing[50]}px ${spacing[100]}px;
-    font-size: ${fontSize.body.xl}px;
-    line-height: ${lineHeight.body.xl}px;
+    font-size: ${fontSize.body.l}px;
+    line-height: ${lineHeight.body.l}px;
     letter-spacing: ${letterSpacing.s}px;
   }
 `;
@@ -260,6 +267,11 @@ const Skill = styled.li`
 
   ${media.down('m')} {
     gap: ${spacing[100]}px;
+
+    &:not(:last-child)::after {
+      font-size: ${fontSize.body.l}px;
+      line-height: ${lineHeight.body.l}px;
+    }
   }
 `;
 
@@ -285,6 +297,11 @@ const Footnote = styled.p<{ $besideNotch: boolean }>`
     font-family: ${fontFamily.body};
     font-weight: ${fontWeight.regular};
     letter-spacing: ${letterSpacing.xs}px;
+  }
+
+  ${media.down('m')} {
+    font-size: ${fontSize.body.l}px;
+    line-height: ${lineHeight.body.l}px;
   }
 `;
 
