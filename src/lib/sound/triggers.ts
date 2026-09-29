@@ -17,9 +17,15 @@ import { isSoundCue, type SoundCueId } from './sounds';
  *               button plays DEFAULT_HOVER without asking; an element only needs
  *               the attribute to play something else.
  *  - focus:     keyboard focus lands on it — :focus-visible, like the visual state.
- *               Form fields are the exception: a radio, text field or select
- *               sounds whenever it takes focus, by pointer or by keyboard, since
- *               that is the moment it answers you.
+ *               A text field is the exception: it sounds whenever it takes
+ *               focus, by pointer or by keyboard, since that is the moment it
+ *               answers you.
+ *  - change:    a radio, checkbox or select takes a new value. Choosing one is
+ *               the moment it answers, and focus is not: Safari on iOS does not
+ *               focus a control like that when you tap it, so a radio on a
+ *               phone made no sound at all — it is in neither PRESSABLE nor,
+ *               there, the focus path. Change is the one signal every browser
+ *               agrees on, by tap, click or arrow key.
  *  - press:     a primary press, or Enter / Space, on it — the :active moment.
  *               Like hover, every link and button plays DEFAULT_PRESS without
  *               asking; the attribute is only for playing something else.
@@ -61,8 +67,8 @@ const PRESSABLE = 'a[href], button:not([disabled]), [role="button"], summary';
  * only once.
  */
 const FIELD = 'input:not([type="hidden"]), textarea, select';
-/** The controls a key can act on; a text field is left out, or typing a space would sound. */
-const KEY_FIELD = 'input[type="radio"], input[type="checkbox"], select';
+/** The controls that answer by taking a value rather than by taking focus. */
+const VALUE_FIELD = 'input[type="radio"], input[type="checkbox"], select';
 
 /** Hover covers everything interactive, fields included. */
 const HOVERABLE = `${PRESSABLE}, ${FIELD}, label:has(input), label:has(textarea), label:has(select)`;
@@ -98,7 +104,17 @@ function onFocusIn(e: FocusEvent) {
     return;
   }
   // A field's own cue: however it was reached, this is the moment it opens up.
-  if (e.target.matches(FIELD)) playSound(FIELD_CUE, { origin: e.target });
+  // The value fields are left to `change`, or a tap would sound twice where
+  // tapping one does focus it.
+  if (e.target.matches(FIELD) && !e.target.matches(VALUE_FIELD)) {
+    playSound(FIELD_CUE, { origin: e.target });
+  }
+}
+
+/** Choosing a radio, a checkbox or an option: the moment it answers. */
+function onChange(e: Event) {
+  if (!isSoundReady() || !(e.target instanceof Element)) return;
+  if (e.target.matches(VALUE_FIELD)) playSound(FIELD_CUE, { origin: e.target });
 }
 
 function onPointerDown(e: PointerEvent) {
@@ -108,11 +124,8 @@ function onPointerDown(e: PointerEvent) {
 
 function onKeyDown(e: KeyboardEvent) {
   if (e.repeat || (e.key !== 'Enter' && e.key !== ' ') || !isSoundReady()) return;
-  // Choosing a radio or an option with the keyboard: its own cue, not a press.
-  if (e.target instanceof Element && e.target.matches(KEY_FIELD)) {
-    playSound(FIELD_CUE, { origin: e.target });
-    return;
-  }
+  // A value field is left to `change`, which the key press raises anyway.
+  if (e.target instanceof Element && e.target.matches(VALUE_FIELD)) return;
   playPress(e.target);
 }
 
@@ -137,12 +150,14 @@ function onAnimationStart(e: AnimationEvent) {
 export function installSoundTriggers(): () => void {
   document.addEventListener('pointerover', onPointerOver, LISTENER_OPTIONS);
   document.addEventListener('focusin', onFocusIn, LISTENER_OPTIONS);
+  document.addEventListener('change', onChange, LISTENER_OPTIONS);
   document.addEventListener('pointerdown', onPointerDown, LISTENER_OPTIONS);
   document.addEventListener('keydown', onKeyDown, LISTENER_OPTIONS);
   document.addEventListener('animationstart', onAnimationStart, LISTENER_OPTIONS);
   return () => {
     document.removeEventListener('pointerover', onPointerOver, LISTENER_OPTIONS);
     document.removeEventListener('focusin', onFocusIn, LISTENER_OPTIONS);
+    document.removeEventListener('change', onChange, LISTENER_OPTIONS);
     document.removeEventListener('pointerdown', onPointerDown, LISTENER_OPTIONS);
     document.removeEventListener('keydown', onKeyDown, LISTENER_OPTIONS);
     document.removeEventListener('animationstart', onAnimationStart, LISTENER_OPTIONS);

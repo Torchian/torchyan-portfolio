@@ -224,11 +224,45 @@ function rememberLocale(locale: Locale) {
   document.cookie = `${LOCALE_COOKIE}=${locale}; path=/; max-age=${LOCALE_COOKIE_MAX_AGE}; samesite=lax`;
 }
 
+/**
+ * All three languages side by side, for the mobile menu: a panel that is
+ * already a list has no room for a second one hanging off a pill, and a
+ * dropdown inside a scrolling panel either clips or covers the rows under it.
+ * Here the choice is simply visible — one tap instead of two.
+ */
+const InlineOptions = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${spacing[250]}px;
+`;
+
+const InlineOption = styled(Link)<{ $current: boolean }>`
+  ${rowText}
+  display: flex;
+  align-items: center;
+  gap: ${spacing[100]}px;
+  padding: ${spacing[50]}px 0;
+  text-decoration: none;
+  color: ${(p) => (p.$current ? accents.primary : neutrals[100])};
+
+  ${Flag} {
+    filter: ${(p) => (p.$current ? 'none' : 'grayscale(1)')};
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${accents.primary};
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+`;
+
 export interface LanguageSwitcherProps {
   className?: string;
+  /** Show every language at once instead of the pill and its dropdown. */
+  inline?: boolean;
 }
 
-export function LanguageSwitcher({ className }: LanguageSwitcherProps) {
+export function LanguageSwitcher({ className, inline }: LanguageSwitcherProps) {
   const locale = useLocale();
   const pathname = usePathname();
   const t = useTranslations('language');
@@ -303,6 +337,28 @@ export function LanguageSwitcher({ className }: LanguageSwitcherProps) {
   const onBlur = (e: FocusEvent<HTMLDivElement>) => {
     if (!e.currentTarget.contains(e.relatedTarget as Node | null)) changeOpen(false);
   };
+
+  if (inline) {
+    return (
+      <InlineOptions className={className} role="group" aria-label={t('label', { language: tNames(locale) })}>
+        {routing.locales.map((option) => (
+          <InlineOption
+            key={option}
+            href={pathname}
+            locale={option}
+            lang={option}
+            hrefLang={option}
+            $current={option === locale}
+            aria-current={option === locale ? 'true' : undefined}
+            onClick={() => rememberLocale(option)}
+          >
+            <Flag src={FLAG_SRC[option]} alt="" width={16} height={12} />
+            {LANGUAGE_LABELS[option]}
+          </InlineOption>
+        ))}
+      </InlineOptions>
+    );
+  }
 
   return (
     <Root
