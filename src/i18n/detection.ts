@@ -1,8 +1,13 @@
-import { isLocale, routing, type Locale } from './routing';
+import { routing, type Locale } from './routing';
 
-/** Countries whose visitors get a language other than English on their first visit. Edit freely. */
+/**
+ * Countries whose visitors get a language other than English on their first
+ * visit. Edit freely — anything not listed here gets English.
+ *
+ * Armenia is deliberately absent: the site's audience there reads English, and
+ * Armenian is a choice the switcher offers rather than one the site makes.
+ */
 export const COUNTRY_LOCALES: Record<string, Locale> = {
-  AM: 'hy',
   RU: 'ru',
   BY: 'ru',
   KZ: 'ru',
@@ -25,38 +30,28 @@ export function countryFrom(headers: Headers): string | null {
     const value = headers.get(name);
     if (value && /^[a-z]{2}$/i.test(value)) return value.toUpperCase();
   }
-  // No geo header on localhost: DEV_COUNTRY=AM npm run dev simulates one.
+  // No geo header on localhost: DEV_COUNTRY=RU npm run dev simulates one.
   if (process.env.NODE_ENV === 'development' && process.env.DEV_COUNTRY) {
     return process.env.DEV_COUNTRY.toUpperCase();
   }
   return null;
 }
 
-/** The highest-ranked Accept-Language entry we have a translation for. */
-export function localeFromAcceptLanguage(header: string | null): Locale | null {
-  if (!header) return null;
-  const ranked = header
-    .split(',')
-    .map((part) => {
-      const [tag, ...params] = part.trim().split(';');
-      const q = params.map((p) => p.trim()).find((p) => p.startsWith('q='));
-      return { base: tag.trim().toLowerCase().split('-')[0], weight: q ? Number(q.slice(2)) : 1 };
-    })
-    .filter(({ base, weight }) => base && weight > 0)
-    .sort((a, b) => b.weight - a.weight);
-
-  for (const { base } of ranked) {
-    if (isLocale(base)) return base;
-  }
-  return null;
-}
-
-/** Country first, then the browser's languages, then English. */
+/**
+ * The country decides, and nothing else: English everywhere but the countries
+ * listed above.
+ *
+ * `Accept-Language` used to have a say after the country, and it was dropped on
+ * purpose. It is the visitor's *interface* language, not a statement about what
+ * they want to read here, and it quietly broke the rule it was meant to serve:
+ * a Russian-speaking visitor in Germany or the United States was sent to the
+ * Russian site although nothing about their visit said to. English is the one
+ * language every visitor of this site is assumed to read; the other two are a
+ * courtesy where the whole country shares them, and a click away everywhere
+ * else. The choice is then remembered in `NEXT_LOCALE` for a year, so it is
+ * made once.
+ */
 export function detectLocale(headers: Headers): Locale {
   const country = countryFrom(headers);
-  return (
-    (country && COUNTRY_LOCALES[country]) ||
-    localeFromAcceptLanguage(headers.get('accept-language')) ||
-    routing.defaultLocale
-  );
+  return (country && COUNTRY_LOCALES[country]) || routing.defaultLocale;
 }

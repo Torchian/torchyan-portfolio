@@ -22,8 +22,8 @@ What shaped the design:
   - **Bots** are never redirected; hreflang covers them.
   - **Prefixed URLs** always render their own language and never change the saved choice.
   - **Unprefixed pages** use the `NEXT_LOCALE` cookie. Without it, the proxy detects the language once and remembers it for a year.
-  - **Detection order:** country header first (Vercel, Cloudflare, CloudFront), then `Accept-Language`, then English.
-  - **Country map:** `COUNTRY_LOCALES` in `src/i18n/detection.ts`.
+  - **Detection:** the country header decides (Vercel, Cloudflare, CloudFront), and nothing else; English everywhere it says nothing. `Accept-Language` was part of this and was dropped: it is the visitor's interface language, not a statement about what they want to read here, and it sent Russian-speaking visitors outside the listed countries to the Russian site although nothing about their visit said to.
+  - **Country map:** `COUNTRY_LOCALES` in `src/i18n/detection.ts`. Armenia is deliberately absent — the audience there reads English, and Armenian is a choice the switcher offers rather than one the site makes.
 - **Messages.**
   - **Files:** `messages/{en,ru,hy}.json`, one namespace per area.
   - **Config files** keep only data that doesn't change between languages (slugs, years, company names, images, geometry).
