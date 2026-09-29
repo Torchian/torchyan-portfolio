@@ -2,6 +2,7 @@ import type { MetadataRoute } from 'next';
 import { PROJECTS } from '@/components/sections/selected-work/projectsConfig';
 import { routing } from '@/i18n/routing';
 import { languageAlternates, localizedUrl } from '@/lib/seo/metadata';
+import { maintenanceIsOn } from '@/lib/maintenance';
 
 interface Route {
   path: string;
@@ -22,6 +23,10 @@ const ROUTES: Route[] = [
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  // Nothing to offer while the site is closed; listing pages that all answer
+  // 503 only invites a crawler to keep asking for them.
+  if (maintenanceIsOn()) return [];
+
   const lastModified = new Date();
   return ROUTES.flatMap((route) =>
     routing.locales.map((locale) => ({
