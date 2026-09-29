@@ -243,11 +243,29 @@ const CtaSlot = styled.div`
  * shows, down to the shoulders; only the image's hard bottom edge fades out.
  */
 const CenterPortrait = styled.div`
-  --portrait-size: min(150vw, 705px);
+  /*
+   * 150% of the screen, so the head reads at the size the frames were drawn
+   * at, capped so it stops growing on a wide tablet — but never narrower than
+   * the screen it sits on. Without that floor the cap itself left a gap: the
+   * portrait is shown up to 768px wide and the cap is 705, so from about 678px
+   * the image was simply narrower than the screen and the character could not
+   * reach its edges however the box was laid out. 104% rather than 100 because
+   * the shoulders stop a couple of pixels short of the artwork's own edge.
+   */
+  --portrait-size: max(104vw, min(150vw, 705px));
 
   order: 5;
   position: relative;
-  width: 100%;
+  /*
+   * The full width of the screen, not the column's. The image is wider than
+   * the screen and centred on it, but the fade below is a mask, and a mask
+   * clips to its own element's box: inside the section's 16px gutter that cut
+   * the character off 16px short of each edge, leaving a dark seam down both
+   * sides whatever size the image was. The margin pulls this box back out to
+   * the screen's edges, so the mask clips nothing the reader can see.
+   */
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
   height: var(--portrait-size);
   margin-top: ${spacing[300]}px;
   pointer-events: none;
