@@ -84,6 +84,12 @@ const EcosystemsLabel = styled.p`
   letter-spacing: ${letterSpacing.xs}px;
   text-align: center;
   color: ${neutrals[100]};
+
+  /* A step down on a phone, with the cards above it. */
+  ${media.down('m')} {
+    font-size: ${fontSize.body.xl}px;
+    line-height: ${lineHeight.body.xl}px;
+  }
 `;
 
 const EcosystemList = styled.ul`
