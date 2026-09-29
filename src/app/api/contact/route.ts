@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import en from '../../../../messages/en.json';
+import { maintenanceIsOn } from '@/lib/maintenance';
 
 /**
  * The contact form's endpoint.
@@ -68,6 +69,12 @@ const clean = (value: unknown, max: number) =>
   typeof value === 'string' ? value.trim().slice(0, max) : '';
 
 export async function POST(request: Request) {
+  // The proxy's gate covers pages, not this route, and a closed site should not
+  // still have one door that sends mail.
+  if (maintenanceIsOn()) {
+    return NextResponse.json({ ok: false, error: 'unavailable' }, { status: 503 });
+  }
+
   const { RESEND_API_KEY, CONTACT_FROM, CONTACT_TO } = process.env;
   if (!RESEND_API_KEY || !CONTACT_FROM || !CONTACT_TO) {
     // A 503 and no detail: which variable is missing is not the sender's business.

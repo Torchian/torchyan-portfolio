@@ -2,6 +2,7 @@ import createMiddleware from 'next-intl/middleware';
 import { NextResponse, type NextRequest } from 'next/server';
 import { detectLocale } from '@/i18n/detection';
 import { isLocale, LOCALE_COOKIE, LOCALE_COOKIE_MAX_AGE, routing } from '@/i18n/routing';
+import { maintenanceGate } from '@/lib/maintenance';
 
 /*
  * Language routing.
@@ -29,7 +30,12 @@ function hasLocalePrefix(pathname: string) {
   return isLocale(pathname.split('/')[1]);
 }
 
-export default function proxy(request: NextRequest) {
+export default async function proxy(request: NextRequest) {
+  // Before anything else, including the language routing: while the site is
+  // being worked on there is nothing to route to.
+  const held = await maintenanceGate(request);
+  if (held) return held;
+
   const { pathname } = request.nextUrl;
 
   if (
