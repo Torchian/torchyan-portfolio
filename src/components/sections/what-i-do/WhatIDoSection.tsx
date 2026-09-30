@@ -13,6 +13,7 @@ import { SectionHeading } from '@/components/composites';
 import { WhatidoStep } from './WhatidoStep';
 import { WhatIDoCharacter } from './WhatIDoCharacter';
 import { WhatIDoCharacterWaiting } from './WhatIDoCharacterWaiting';
+import { WhatIDoMobileStage } from './WhatIDoMobileStage';
 import { Bg4Glass } from './Bg4Glass';
 import { WHATIDO_GRID, STEP_BACKGROUNDS } from './config';
 import { easing } from '@/styles/tokens';
@@ -42,8 +43,18 @@ const ContentGrid = styled.div`
   }
 `;
 
-/** The steps are a sequence, so an ordered list. */
-const StepsColumn = styled.ol``;
+/**
+ * The steps are a sequence, so an ordered list. Below the desktop frame the
+ * mobile stage shows them instead, pinned beside the character, so this list
+ * steps aside once that stage is running.
+ */
+const StepsColumn = styled.ol`
+  ${media.down('l')} {
+    [data-whatido-staged='true'] & {
+      display: none;
+    }
+  }
+`;
 
 /** Figma: whatido_sticky_image - right section container */
 const VisualsColumn = styled.div`
@@ -268,6 +279,9 @@ const StickyCharacterWrapper = styled.div`
 export function WhatIDoSection() {
   const t = useTranslations('whatIDo');
   const steps = t.raw('steps') as { title: string; description: string }[];
+  // Carries data-whatido-staged: the mobile stage and the plain list it
+  // replaces are siblings, so the answer has to live above both.
+  const sectionRef = useRef<HTMLElement>(null);
   const stepRef0 = useRef<HTMLLIElement>(null);
   const stepRef1 = useRef<HTMLLIElement>(null);
   const stepRef2 = useRef<HTMLLIElement>(null);
@@ -287,12 +301,13 @@ export function WhatIDoSection() {
   const squareRef = useRef<HTMLDivElement>(null);
 
   return (
-    <Section id="about">
+    <Section id="about" ref={sectionRef}>
       <Container>
         <SectionHeading
           title={t('title')}
           subtitle={t('subtitle')}
         />
+        <WhatIDoMobileStage steps={steps} hostRef={sectionRef} />
         <ContentGrid>
           <StepsColumn>
             {steps.map((step, i) => (
