@@ -44,11 +44,20 @@ import { WhatIDoCharacterWaiting } from './WhatIDoCharacterWaiting';
  * a picture that has already moved on.
  */
 
-/** Screens of scroll per step. Long on purpose: the change is what should be felt, not the distance. */
-const SCREENS_PER_STEP = 1.8;
-
-/** The share of a step spent holding still before the change to the next begins. */
-const HOLD = 0.3;
+/*
+ * Screens of scroll per step, and the share of a step spent holding still
+ * before the change to the next begins.
+ *
+ * A step used to take 1.8 screens, which read as a long walk to the same five
+ * pictures. It is 1.1 now — the section goes from ten screens of track to six
+ * and a half — and the hold comes down with it, from a third of a step to a
+ * fifth. Both together: a shorter step whose hold stayed put would have spent
+ * the saving on standing still and rushed the change itself, which is the part
+ * worth seeing. This way a change takes 0.88 of a screen where it took 1.26,
+ * so it is quicker but still the greater part of the step.
+ */
+const SCREENS_PER_STEP = 1.1;
+const HOLD = 0.2;
 
 /** What the drawing looks like at each stage. Everything in between is interpolated. */
 interface Stage {
