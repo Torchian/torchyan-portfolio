@@ -153,10 +153,15 @@ const LogoLink = styled(Link)<{ $accent?: boolean }>`
     height: 48px;
   }
 
+  /*
+   * One step up from the 24px the mobile frame gives it. At 24 the mark sat
+   * against a 48px burger and a 48px-tall pill and read as an afterthought;
+   * 32 is the next size in the same family and still well clear of both.
+   */
   ${media.down('m')} {
     svg {
-      width: 24px;
-      height: 24px;
+      width: 32px;
+      height: 32px;
     }
   }
 `;

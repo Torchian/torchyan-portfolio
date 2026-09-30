@@ -22,6 +22,9 @@ const Wrapper = styled.li`
   height: ${STEP_HEIGHT}px;
 
   ${media.down('l')} {
+    /* A title and the sentence under it are one thought; away from the desktop
+       column, 48px of air between them reads as two. */
+    gap: ${spacing[200]}px;
     height: auto;
     min-height: 480px;
     padding-top: ${spacing[1000]}px;
