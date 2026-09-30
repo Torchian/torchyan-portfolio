@@ -86,3 +86,6 @@ export function partBox(image: PartImage, frame: 'head' | 'face' = 'head'): Perc
 }
 
 export const FACE_ASPECT = `${FACE.width} / ${FACE.height}`;
+
+/** The face frame itself, for anything that has to size a drawing to fit a screen. */
+export const FACE_FRAME = FACE;
