@@ -43,8 +43,13 @@ const NAME_ART = {
 const NAME_GAP = 22.698 / 752;
 const NAME_GROUP_THICKNESS = (160.013 + 22.698 + 107.567) / 752;
 
-/** Portrait: Figma's grey wireframe character. Positioned by its square, from the footer's bottom-right, as in each frame. */
-const PORTRAIT = { src: '/footer/portrait-mesh.webp', size: 1024 } as const;
+/*
+ * Portrait: the same character the page is framed by — SideCharacters' right
+ * one, grey, in its glasses and coat — rather than a second wireframe man who
+ * was nobody else on the site. It is the half that shows there too, so the cut
+ * down its middle is what hangs off the footer's right edge.
+ */
+const PORTRAIT = { src: '/hero/character-right.webp', width: 768, height: 1536 } as const;
 
 const LINK_TRANSITION = `${duration.slower} ${easing.spring}`;
 
@@ -89,7 +94,7 @@ const FooterEl = styled.footer`
   }
 
   ${media.down('m')} {
-    padding-bottom: ${spacing[300]}px;
+    padding: ${spacing[600]}px 0 ${spacing[300]}px;
   }
 `;
 
@@ -107,7 +112,7 @@ const Inner = styled.div`
   }
 
   ${media.down('m')} {
-    gap: ${spacing[500]}px;
+    gap: ${spacing[400]}px;
     padding: 0 ${spacing[200]}px;
   }
 
@@ -128,7 +133,7 @@ const NameBlock = styled.div`
   gap: ${spacing[400]}px;
 
   ${media.down('m')} {
-    gap: ${spacing[300]}px;
+    gap: ${spacing[200]}px;
   }
 
   ${media.up('l')} {
@@ -172,6 +177,12 @@ const NameGroupArt = styled.div`
     margin-top: ${(NAME_GAP * 100).toFixed(4)}%;
   }
 
+  /* The words ran the container's full width, which on a phone is the whole
+     screen and reads as a banner rather than a signature. */
+  ${media.down('m')} {
+    width: 76%;
+  }
+
   ${media.up('l')} {
     flex: none;
     width: ${NAME_LENGTH};
@@ -185,6 +196,10 @@ const RoleSlot = styled.div`
 
   img {
     display: block;
+  }
+
+  ${media.down('m')} {
+    width: 76%;
   }
 
   ${media.down('l')} {
@@ -232,40 +247,49 @@ const Portrait = styled(Image)`
   /* Wider than the footer in places by design; override the global img max-width. */
   max-width: none;
   height: auto;
-  opacity: 0.3;
-  mix-blend-mode: hard-light;
+  /*
+   * The old wireframe was a bright white mesh; this character is the same
+   * drawing lit far lower — mean luminance 22 against 62, and 75 against 186 at
+   * the ninth decile. At the old 0.3 and hard-light it read as nothing: that
+   * blend darkens a backdrop under a dark source, which is most of this one.
+   * Screen only ever adds light, which is what a wireframe on black wants, and
+   * the opacity is raised to land at about the presence the old one had.
+   */
+  opacity: 0.55;
+  mix-blend-mode: screen;
   pointer-events: none;
   user-select: none;
 
+  /*
+   * The cut runs down the character's middle, so the image's right edge IS that
+   * centre line — it has to sit on the footer's right edge, not past it, or the
+   * face is the first thing gone. Same as on the page sides, where the other
+   * half stands off screen.
+   */
+  right: 0;
+  bottom: 0;
+
   /* The 768 frame (481–768px). */
-  right: -94px;
-  bottom: -62.66px;
-  width: 603px;
+  width: 340px;
 
   /* The 480 frame (up to 480px). */
   ${media.down('m')} {
-    right: -149px;
-    bottom: -19.63px;
-    width: 527px;
+    width: 260px;
   }
 
   /* The 1024 frame (769–1024px). */
   ${media.up('l')} {
-    right: -165px;
-    bottom: -68.89px;
+    width: 380px;
   }
 
   /* The 1440 frame (1025–1440px). */
   ${media.up('xl')} {
-    right: -158px;
-    bottom: -23.5px;
+    width: 400px;
   }
 
   /* Interpolated from the 1440 frame to the 1920 frame (cqw = footer width), then held. */
   ${media.up('xxxl')} {
-    right: max(-163px, min(-158px, calc(-158px - (100cqw - ${breakpoints.xxl}px) * 0.010417)));
-    bottom: max(-88.5px, min(-23.5px, calc(-23.5px - (100cqw - ${breakpoints.xxl}px) * 0.135417)));
-    width: min(699px, max(603px, calc(603px + (100cqw - ${breakpoints.xxl}px) * 0.2)));
+    width: min(420px, max(400px, calc(400px + (100cqw - ${breakpoints.xxl}px) * 0.041667)));
   }
 `;
 
@@ -289,6 +313,10 @@ const Groups = styled.div`
   order: 1;
   padding-left: ${spacing[150]}px;
 
+  ${media.down('m')} {
+    gap: ${spacing[400]}px;
+  }
+
   /* Desktop: the groups join the column's own gap, alongside the copyright. */
   ${media.up('l')} {
     display: contents;
@@ -302,6 +330,10 @@ const Group = styled.div`
   gap: ${spacing[200]}px;
   /* Reset for the <address> variant. */
   font-style: normal;
+
+  ${media.down('m')} {
+    gap: ${spacing[150]}px;
+  }
 `;
 
 const GroupTitle = styled.h2`
@@ -312,6 +344,11 @@ const GroupTitle = styled.h2`
   line-height: ${lineHeight.body.l}px;
   letter-spacing: ${letterSpacing.m}px;
   color: ${neutrals[100]};
+
+  ${media.down('m')} {
+    font-size: ${fontSize.body.m}px;
+    line-height: ${lineHeight.body.m}px;
+  }
 `;
 
 const LinkList = styled.ul<{ $stacked?: boolean }>`
@@ -323,6 +360,10 @@ const LinkList = styled.ul<{ $stacked?: boolean }>`
   margin: 0;
   padding: 0;
   list-style: none;
+
+  ${media.down('m')} {
+    gap: ${spacing[150]}px ${spacing[500]}px;
+  }
 
   /* Flex items, so the list item's own line box can't make a row taller than its link. */
   li {
@@ -408,6 +449,12 @@ const bracketLink = css`
     font-size: ${fontSize.heading.s}px;
     line-height: ${lineHeight.heading.s}px;
   }
+
+  ${media.down('m')} {
+    --bracket-offset: 6px;
+    font-size: ${fontSize.body.xl}px;
+    line-height: ${lineHeight.body.xl}px;
+  }
 `;
 
 const InternalLink = styled(Link)`
@@ -439,10 +486,15 @@ const Location = styled.p`
   }
 
   ${media.down('m')} {
-    gap: ${spacing[200]}px;
+    gap: ${spacing[150]}px;
     font-weight: ${fontWeight.semibold};
-    font-size: ${fontSize.heading.s}px;
-    line-height: ${lineHeight.heading.s}px;
+    font-size: ${fontSize.body.xl}px;
+    line-height: ${lineHeight.body.xl}px;
+
+    img {
+      width: 10.7px;
+      height: 18.9px;
+    }
   }
 `;
 
@@ -461,6 +513,19 @@ const Copyright = styled.div`
   p {
     margin: 0;
     white-space: nowrap;
+  }
+
+  ${media.down('m')} {
+    gap: ${spacing[200]}px;
+    font-size: ${fontSize.body.m}px;
+    line-height: ${lineHeight.body.m}px;
+
+    /* The two halves were held on one line at a size that did not fit one, so
+       the second ran off the right edge. Smaller, and free to wrap rather than
+       be cut — which is what keeps it whole in a language with longer words. */
+    p {
+      white-space: normal;
+    }
   }
 
   ${media.up('l')} {
@@ -545,10 +610,10 @@ export function Footer() {
             </NameGroupArt>
             <Portrait
               src={PORTRAIT.src}
-              width={PORTRAIT.size}
-              height={PORTRAIT.size}
+              width={PORTRAIT.width}
+              height={PORTRAIT.height}
               alt=""
-              sizes="(min-width: 1441px) 699px, (min-width: 481px) 603px, 527px"
+              sizes="(min-width: 1441px) 420px, (min-width: 769px) 380px, (min-width: 481px) 340px, 260px"
               loading="lazy"
               draggable={false}
             />
