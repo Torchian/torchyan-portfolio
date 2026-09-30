@@ -44,11 +44,20 @@ import { WhatIDoCharacterWaiting } from './WhatIDoCharacterWaiting';
  * a picture that has already moved on.
  */
 
-/** Screens of scroll per step. Long on purpose: the change is what should be felt, not the distance. */
-const SCREENS_PER_STEP = 1.8;
-
-/** The share of a step spent holding still before the change to the next begins. */
-const HOLD = 0.3;
+/*
+ * Screens of scroll per step, and the share of a step spent holding still
+ * before the change to the next begins.
+ *
+ * A step used to take 1.8 screens, which read as a long walk to the same five
+ * pictures. It is 1.1 now — the section goes from ten screens of track to six
+ * and a half — and the hold comes down with it, from a third of a step to a
+ * fifth. Both together: a shorter step whose hold stayed put would have spent
+ * the saving on standing still and rushed the change itself, which is the part
+ * worth seeing. This way a change takes 0.88 of a screen where it took 1.26,
+ * so it is quicker but still the greater part of the step.
+ */
+const SCREENS_PER_STEP = 1.1;
+const HOLD = 0.2;
 
 /** What the drawing looks like at each stage. Everything in between is interpolated. */
 interface Stage {
@@ -176,7 +185,7 @@ const Drawing = styled.div`
     position: absolute;
     inset: 0;
     /* Clear of the fixed header; the words lie over the foot of it. */
-    padding-top: ${HEADER_HEIGHT + spacing[300]}px;
+    padding-top: ${HEADER_HEIGHT + spacing[100]}px;
     padding-bottom: 0;
   }
 `;
@@ -189,7 +198,7 @@ const Drawing = styled.div`
  * apart. The doubled class is there so this wins over each component's own
  * width whichever order the two stylesheets land in.
  */
-const FIGURE_MAX = 360;
+const FIGURE_MAX = 414;
 
 /**
  * The beard is drawn past the bottom of the face frame — its box ends at 129%
@@ -204,11 +213,15 @@ const DROP = (BEARD.top + BEARD.height) / 100;
 const FIT = ((FACE_FRAME.width / FACE_FRAME.height) / DROP).toFixed(4);
 
 /** Until the words have been measured. Two lines of title and three of body. */
-const WORDS_FALLBACK = 280;
+const WORDS_FALLBACK = 248;
 
-/** What sits below the words, and the air the drawing keeps above them. */
-const WORDS_BELOW = spacing[1000];
-const WORDS_GAP = spacing[600];
+/*
+ * What sits below the words, and the air the drawing keeps above them. Both are
+ * tighter than the page's usual rhythm on purpose: the drawing is sized to
+ * whatever is left over, so every pixel reserved here comes straight off it.
+ */
+const WORDS_BELOW = spacing[600];
+const WORDS_GAP = spacing[200];
 
 const Figure = styled.div`
   position: relative;
@@ -225,7 +238,7 @@ const Figure = styled.div`
       100%,
       ${FIGURE_MAX}px,
       calc(
-        (100svh - ${HEADER_HEIGHT + spacing[300]}px - var(--words, ${WORDS_FALLBACK}px)) * ${FIT}
+        (100svh - ${HEADER_HEIGHT + spacing[100]}px - var(--words, ${WORDS_FALLBACK}px)) * ${FIT}
       )
     );
   }
@@ -281,7 +294,7 @@ const Steps = styled.ol`
     bottom: 0;
     left: 0;
     gap: 0;
-    padding: 0 var(--gutter) ${spacing[1000]}px;
+    padding: 0 var(--gutter) ${WORDS_BELOW}px;
   }
 `;
 
@@ -293,7 +306,7 @@ const Step = styled.li`
   ${STAGED} {
     position: absolute;
     right: var(--gutter);
-    bottom: ${spacing[1000]}px;
+    bottom: ${WORDS_BELOW}px;
     left: var(--gutter);
     /* Opacity is written per frame, on the same curve the drawing moves on. */
     opacity: 0;
