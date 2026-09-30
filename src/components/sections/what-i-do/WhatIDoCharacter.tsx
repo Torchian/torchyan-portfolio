@@ -64,11 +64,18 @@ const ColorLayer = styled.div`
 export interface WhatIDoCharacterProps {
   /** Ref to the board element (Bg1) whose bottom line drives the pencil clip. */
   boardRef?: RefObject<HTMLDivElement | null>;
+  /**
+   * Hands the wrapper out so a caller can drive the cut itself. The phone stage
+   * has no board to measure, so it writes the same two variables from its own
+   * scroll progress; passing this also stops the board hook writing.
+   */
+  clipRef?: RefObject<HTMLDivElement | null>;
 }
 
-export function WhatIDoCharacter({ boardRef }: WhatIDoCharacterProps) {
-  const wrapperRef = useRef<HTMLDivElement>(null);
-  useBoardClip(wrapperRef, boardRef);
+export function WhatIDoCharacter({ boardRef, clipRef }: WhatIDoCharacterProps) {
+  const ownRef = useRef<HTMLDivElement>(null);
+  const wrapperRef = clipRef ?? ownRef;
+  useBoardClip(wrapperRef, boardRef, !clipRef);
 
   return (
     <Wrapper ref={wrapperRef} aria-hidden>
