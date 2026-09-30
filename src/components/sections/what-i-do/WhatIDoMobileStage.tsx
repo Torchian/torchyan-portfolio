@@ -3,6 +3,8 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { media } from '@/styles/media';
+import { HEADER_HEIGHT } from '@/components/layouts/NavBar';
+import { FACE_ASPECT } from '@/components/composites/character/characterLayout';
 import { spacing } from '@/styles/tokens/spacing';
 import { fontFamily, fontSize, fontWeight, letterSpacing, lineHeight } from '@/styles/tokens/typography';
 import { createInViewGate, subscribeScroll } from '@/lib/scroll-driver';
@@ -80,8 +82,26 @@ const STAGED = "[data-whatido-staged='true'] &";
 const Track = styled.div<{ $screens: number }>`
   display: none;
 
+  /*
+   * The gutter the rest of the site uses — Container's own, repeated here
+   * because the stage steps outside Container to reach the screen edges and
+   * has to put the words back on the line everything else keeps.
+   */
+  --gutter: ${spacing[400]}px;
+
+  ${media.down('m')} {
+    --gutter: ${spacing[300]}px;
+  }
+
   ${media.down('l')} {
     display: block;
+    /*
+     * Out of the container and across the whole screen: the picture and the
+     * glow behind it are meant to reach the edges, and inside Container they
+     * ended at its padding with a visible edge down each side.
+     */
+    width: 100vw;
+    margin-inline: calc(50% - 50vw);
     /*
      * A screen-tall sticky element inside a track of N screens stays pinned for
      * N-1 of them, so the runway carries one screen more than the steps need.
@@ -130,26 +150,47 @@ const Glow = styled.div`
   }
 `;
 
-/** The drawing: the whole screen above the words. Both layers share this box. */
+/** The drawing: the screen under the header, with the words lying over its foot. */
 const Drawing = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  padding: ${spacing[1000]}px ${spacing[300]}px 0;
+  padding: ${spacing[1000]}px var(--gutter, ${spacing[300]}px) 0;
 
   ${STAGED} {
     position: absolute;
     inset: 0;
-    /* Room along the bottom for the words to sit on. */
-    padding-bottom: 34svh;
+    /* Clear of the fixed header; the words lie over the foot of it. */
+    padding-top: ${HEADER_HEIGHT + spacing[300]}px;
+    padding-bottom: 0;
   }
+`;
 
-  /* The two layers are the same drawing, so they occupy the same box. */
-  > * {
+/**
+ * The box both layers fill. They are one drawing in two files — the face and
+ * the parts that go around it, cut from the same artwork — so they only line up
+ * while they are the same size in the same place. One box, filled twice, is
+ * what guarantees that; sizing each of them separately is what pulled the face
+ * apart. The doubled class is there so this wins over each component's own
+ * width whichever order the two stylesheets land in.
+ *
+ * The cap is the desktop's: past it the beard, which hangs a third of a frame
+ * below the box, runs off the bottom of a phone.
+ */
+const FIGURE_MAX = 420;
+
+const Figure = styled.div`
+  position: relative;
+  width: 100%;
+  max-width: ${FIGURE_MAX}px;
+  aspect-ratio: ${FACE_ASPECT};
+
+  && > * {
     position: absolute;
-    width: auto;
+    inset: 0;
+    width: 100%;
+    max-width: none;
     height: 100%;
-    max-width: 100%;
   }
 `;
 
@@ -195,7 +236,7 @@ const Steps = styled.ol`
     bottom: 0;
     left: 0;
     gap: 0;
-    padding: 0 ${spacing[300]}px ${spacing[1000]}px;
+    padding: 0 var(--gutter) ${spacing[1000]}px;
   }
 `;
 
@@ -206,9 +247,9 @@ const Step = styled.li`
 
   ${STAGED} {
     position: absolute;
-    right: ${spacing[300]}px;
+    right: var(--gutter);
     bottom: ${spacing[1000]}px;
-    left: ${spacing[300]}px;
+    left: var(--gutter);
     /* Opacity is written per frame, on the same curve the drawing moves on. */
     opacity: 0;
     pointer-events: none;
@@ -290,7 +331,7 @@ export function WhatIDoMobileStage({ steps, hostRef }: WhatIDoMobileStageProps) 
     if (!staged || !track || !stage || !face) return;
 
     const gate = createInViewGate(track);
-    const written = { pencil: NaN, reveal: '', grayscale: '', final: '', glow: '' };
+    const written = { pencil: NaN, parts: '', reveal: '', grayscale: '', final: '', glow: '' };
     const opacities: number[] = steps.map(() => NaN);
 
     const unsubscribe = subscribeScroll<{ value: Stage; index: number; blend: number; height: number }>({
@@ -338,6 +379,14 @@ export function WhatIDoMobileStage({ steps, hostRef }: WhatIDoMobileStageProps) 
           face.style.setProperty('--clip-above', `${cut}px`);
           face.style.setProperty('--clip-below', `${height - cut}px`);
           written.pencil = cut;
+        }
+
+        // The parts that wait come in as the sketch gives way, the way the
+        // desktop's second character enters — not before it, over the pencil.
+        const parts = (1 - value.pencil).toFixed(2);
+        if (parts !== written.parts) {
+          stage.style.setProperty('--parts', parts);
+          written.parts = parts;
         }
 
         // Two decimals is below what the eye resolves, and it lets most frames
@@ -389,8 +438,10 @@ export function WhatIDoMobileStage({ steps, hostRef }: WhatIDoMobileStageProps) 
       <Stage ref={stageRef}>
         <Glow aria-hidden />
         <Drawing aria-hidden>
-          <WhatIDoCharacter clipRef={faceRef} />
-          <WhatIDoCharacterWaiting />
+          <Figure>
+            <WhatIDoCharacter clipRef={faceRef} />
+            <WhatIDoCharacterWaiting />
+          </Figure>
         </Drawing>
         <Scrim aria-hidden />
         <Steps>

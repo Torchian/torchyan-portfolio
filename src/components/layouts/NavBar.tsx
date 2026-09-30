@@ -84,6 +84,9 @@ function activeIndexFor(pathname: string) {
 /** The header's side padding, which page content lines up with (e.g. the Projects rows' text). */
 export const HEADER_INLINE = { base: spacing[400], mobile: spacing[300] } as const;
 
+/** The fixed bar's height, for anything that has to start below it. */
+export const HEADER_HEIGHT = spacing[1000];
+
 const Header = styled.header<{ $bare?: boolean }>`
   position: fixed;
   top: 0;
@@ -93,7 +96,7 @@ const Header = styled.header<{ $bare?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: ${spacing[1000]}px;
+  height: ${HEADER_HEIGHT}px;
   padding: 0 ${HEADER_INLINE.base}px;
 
   /* Darkens and softens whatever scrolls under it, fading out towards the
