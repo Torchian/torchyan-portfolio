@@ -4,7 +4,12 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { media } from '@/styles/media';
 import { HEADER_HEIGHT } from '@/components/layouts/NavBar';
-import { FACE_ASPECT } from '@/components/composites/character/characterLayout';
+import {
+  FACE_ASPECT,
+  FACE_FRAME,
+  headImage,
+  partBox,
+} from '@/components/composites/character/characterLayout';
 import { spacing } from '@/styles/tokens/spacing';
 import { fontFamily, fontSize, fontWeight, letterSpacing, lineHeight } from '@/styles/tokens/typography';
 import { createInViewGate, subscribeScroll } from '@/lib/scroll-driver';
@@ -113,11 +118,21 @@ const Track = styled.div<{ $screens: number }>`
   }
 `;
 
+/*
+ * dvh, not svh. On a phone the browser's bottom bar hides as you scroll down,
+ * and the viewport grows by exactly `100lvh - 100svh`. An svh-tall stage keeps
+ * its old height and leaves that strip empty below it, with the words stranded
+ * above the gap. dvh is the height of what is actually visible, so the stage
+ * grows with the viewport and the words stay on the bottom edge either way.
+ *
+ * The track below stays in svh: its height is the page's, and a page that grew
+ * and shrank as the bar came and went would move the scroll under the reader.
+ */
 const Stage = styled.div`
   ${STAGED} {
     position: sticky;
     top: 0;
-    height: 100svh;
+    height: 100dvh;
     overflow: hidden;
   }
 `;
@@ -173,17 +188,47 @@ const Drawing = styled.div`
  * what guarantees that; sizing each of them separately is what pulled the face
  * apart. The doubled class is there so this wins over each component's own
  * width whichever order the two stylesheets land in.
- *
- * The cap is the desktop's: past it the beard, which hangs a third of a frame
- * below the box, runs off the bottom of a phone.
  */
-const FIGURE_MAX = 420;
+const FIGURE_MAX = 360;
+
+/**
+ * The beard is drawn past the bottom of the face frame — its box ends at 129%
+ * of the frame's height. So what has to fit above the words is not the box but
+ * that: sizing the box to the free height puts the beard through the title,
+ * which is what it did.
+ */
+const BEARD = partBox(headImage('beard'), 'face');
+const DROP = (BEARD.top + BEARD.height) / 100;
+
+/** Free height → the box's width, through the drop and the frame's own ratio. */
+const FIT = ((FACE_FRAME.width / FACE_FRAME.height) / DROP).toFixed(4);
+
+/** Until the words have been measured. Two lines of title and three of body. */
+const WORDS_FALLBACK = 280;
+
+/** What sits below the words, and the air the drawing keeps above them. */
+const WORDS_BELOW = spacing[1000];
+const WORDS_GAP = spacing[600];
 
 const Figure = styled.div`
   position: relative;
-  width: 100%;
-  max-width: ${FIGURE_MAX}px;
+  width: min(100%, ${FIGURE_MAX}px);
   aspect-ratio: ${FACE_ASPECT};
+
+  ${STAGED} {
+    /*
+     * svh, not dvh: this is a size, and a picture that grew and shrank as the
+     * browser's bottom bar came and went would be worse than the gap it fixes.
+     * The smallest viewport is the one it has to fit.
+     */
+    width: min(
+      100%,
+      ${FIGURE_MAX}px,
+      calc(
+        (100svh - ${HEADER_HEIGHT + spacing[300]}px - var(--words, ${WORDS_FALLBACK}px)) * ${FIT}
+      )
+    );
+  }
 
   && > * {
     position: absolute;
@@ -210,7 +255,7 @@ const Scrim = styled.div`
     bottom: 0;
     left: 0;
     display: block;
-    height: 52svh;
+    height: 52dvh;
     pointer-events: none;
     background: linear-gradient(
       to bottom,
@@ -323,6 +368,30 @@ export function WhatIDoMobileStage({ steps, hostRef }: WhatIDoMobileStageProps) 
     query.addEventListener('change', sync);
     return () => query.removeEventListener('change', sync);
   }, [hostRef]);
+
+  /*
+   * How much of the bottom the words take, so the drawing can be sized to the
+   * rest of it rather than to a number picked by eye. Measured rather than
+   * assumed, because it is a translation: the longest step's title wraps to two
+   * lines in English and three in Russian, and a fixed reserve would either
+   * crop the drawing everywhere or let the beard through the title in one
+   * language.
+   */
+  useLayoutEffect(() => {
+    const stage = stageRef.current;
+    if (!staged || !stage) return;
+
+    const measure = () => {
+      const tallest = stepRefs.current.reduce((most, el) => Math.max(most, el?.offsetHeight ?? 0), 0);
+      if (!tallest) return;
+      stage.style.setProperty('--words', `${tallest + WORDS_BELOW + WORDS_GAP}px`);
+    };
+
+    measure();
+    const observer = new ResizeObserver(measure);
+    for (const el of stepRefs.current) if (el) observer.observe(el);
+    return () => observer.disconnect();
+  }, [staged, steps]);
 
   useEffect(() => {
     const track = trackRef.current;
