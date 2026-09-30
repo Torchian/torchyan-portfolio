@@ -57,6 +57,11 @@ const Wrapper = styled.div`
   width: 100%;
   max-width: ${MAX_WIDTH}px;
   aspect-ratio: ${FACE_ASPECT};
+  /* The three parts that wait from the start have no scroll gate of their own.
+     On desktop they enter with their own sticky element; the phone stage has
+     one box for both characters, so it holds them back through this instead —
+     1 where nothing writes it, which is every other use. */
+  opacity: var(--parts, 1);
   filter: sepia(0) grayscale(var(--grayscale, 1));
   transition: filter 0.4s ease-out;
 `;
