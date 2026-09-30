@@ -176,7 +176,7 @@ const Drawing = styled.div`
     position: absolute;
     inset: 0;
     /* Clear of the fixed header; the words lie over the foot of it. */
-    padding-top: ${HEADER_HEIGHT + spacing[300]}px;
+    padding-top: ${HEADER_HEIGHT + spacing[100]}px;
     padding-bottom: 0;
   }
 `;
@@ -189,7 +189,7 @@ const Drawing = styled.div`
  * apart. The doubled class is there so this wins over each component's own
  * width whichever order the two stylesheets land in.
  */
-const FIGURE_MAX = 360;
+const FIGURE_MAX = 414;
 
 /**
  * The beard is drawn past the bottom of the face frame — its box ends at 129%
@@ -204,11 +204,15 @@ const DROP = (BEARD.top + BEARD.height) / 100;
 const FIT = ((FACE_FRAME.width / FACE_FRAME.height) / DROP).toFixed(4);
 
 /** Until the words have been measured. Two lines of title and three of body. */
-const WORDS_FALLBACK = 280;
+const WORDS_FALLBACK = 248;
 
-/** What sits below the words, and the air the drawing keeps above them. */
-const WORDS_BELOW = spacing[1000];
-const WORDS_GAP = spacing[600];
+/*
+ * What sits below the words, and the air the drawing keeps above them. Both are
+ * tighter than the page's usual rhythm on purpose: the drawing is sized to
+ * whatever is left over, so every pixel reserved here comes straight off it.
+ */
+const WORDS_BELOW = spacing[600];
+const WORDS_GAP = spacing[200];
 
 const Figure = styled.div`
   position: relative;
@@ -225,7 +229,7 @@ const Figure = styled.div`
       100%,
       ${FIGURE_MAX}px,
       calc(
-        (100svh - ${HEADER_HEIGHT + spacing[300]}px - var(--words, ${WORDS_FALLBACK}px)) * ${FIT}
+        (100svh - ${HEADER_HEIGHT + spacing[100]}px - var(--words, ${WORDS_FALLBACK}px)) * ${FIT}
       )
     );
   }
@@ -281,7 +285,7 @@ const Steps = styled.ol`
     bottom: 0;
     left: 0;
     gap: 0;
-    padding: 0 var(--gutter) ${spacing[1000]}px;
+    padding: 0 var(--gutter) ${WORDS_BELOW}px;
   }
 `;
 
@@ -293,7 +297,7 @@ const Step = styled.li`
   ${STAGED} {
     position: absolute;
     right: var(--gutter);
-    bottom: ${spacing[1000]}px;
+    bottom: ${WORDS_BELOW}px;
     left: var(--gutter);
     /* Opacity is written per frame, on the same curve the drawing moves on. */
     opacity: 0;
