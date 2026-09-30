@@ -30,6 +30,13 @@ const Section = styled.section`
      container and breaks the sticky characters. */
   overflow-x: clip;
   padding: ${spacing[1000]}px 0;
+
+  /* On a phone the hero's own character ends right above this, and its trailing
+     space is already the pause between them; another 80px on top read as a gap
+     nobody put there. */
+  ${media.down('l')} {
+    padding-top: 0;
+  }
 `;
 
 const ContentGrid = styled.div`

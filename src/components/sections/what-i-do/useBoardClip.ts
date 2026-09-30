@@ -31,10 +31,17 @@ export const BOTTOM_LINE_FRACTION = 0.887;
 export function useBoardClip(
   wrapperRef: RefObject<HTMLElement | null>,
   boardRef?: RefObject<HTMLElement | null>,
+  /**
+   * False where something else owns the cut — the phone stage drives the same
+   * two variables from its own progress, and there is no board there to measure
+   * against. Without this the fallback below would write "no pencil" once at
+   * mount and the sketch would never be seen.
+   */
+  enabled = true,
 ) {
   useEffect(() => {
     const wrapper = wrapperRef.current;
-    if (!wrapper) return;
+    if (!wrapper || !enabled) return;
 
     const board = boardRef?.current ?? null;
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -77,5 +84,5 @@ export function useBoardClip(
       unsubscribe();
       gate.disconnect();
     };
-  }, [wrapperRef, boardRef]);
+  }, [wrapperRef, boardRef, enabled]);
 }
