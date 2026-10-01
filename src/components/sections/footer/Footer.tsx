@@ -267,9 +267,12 @@ const Portrait = styled(Image)`
    * centre line — it has to sit on the footer's right edge, not past it, or the
    * face is the first thing gone. Same as on the page sides, where the other
    * half stands off screen.
+   *
+   * Then nudged on purpose, on every screen: 45px in from the right edge and
+   * 40px below the bottom one (the footer clips what hangs below).
    */
-  right: 0;
-  bottom: 0;
+  right: 45px;
+  bottom: -40px;
 
   /* The 768 frame (481–768px). */
   width: 340px;
