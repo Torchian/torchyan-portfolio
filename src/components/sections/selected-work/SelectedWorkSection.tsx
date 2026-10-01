@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Container } from '@/components/primitives';
 import { SectionHeading } from '@/components/composites';
 import { AllProjectsStickyCard, ProjectStickyCard } from './ProjectStickyCard';
-import { PROJECTS } from './projectsConfig';
+import { FEATURED_PROJECTS } from './projectsConfig';
 import { spacing } from '@/styles/tokens/spacing';
 import { useTranslations } from 'next-intl';
 import { useEffect, useRef, useState } from 'react';
@@ -111,7 +111,7 @@ export function SelectedWorkSection() {
   }, []);
 
   // One card per scroll gesture, however big: the case studies, then the all-projects card.
-  useScrollStepping(stackRef, { count: PROJECTS.length + 1, enabled: stepping, stepMs: STEP_MS });
+  useScrollStepping(stackRef, { count: FEATURED_PROJECTS.length + 1, enabled: stepping, stepMs: STEP_MS });
 
   return (
     <Section id="work">
@@ -119,7 +119,7 @@ export function SelectedWorkSection() {
         <SectionHeading title={t('title')} subtitle={t('subtitle')} />
       </Container>
       <ProjectsStack ref={stackRef}>
-        {PROJECTS.map((project) => (
+        {FEATURED_PROJECTS.map((project) => (
           <ProjectStickyCard key={project.slug} project={project} />
         ))}
         <AllProjectsStickyCard />

@@ -127,6 +127,8 @@ export interface CTACardContent {
   body: string;
   cta: string;
   href: string;
+  /** Names the click in analytics (`cta_click` location). */
+  ctaId?: string;
 }
 
 export function CTACards({ cards, className }: { cards: CTACardContent[]; className?: string }) {
@@ -138,6 +140,7 @@ export function CTACards({ cards, className }: { cards: CTACardContent[]; classN
             as={Link}
             href={card.href}
             $variant={card.tone === 'green' ? 'secondary' : 'secondaryPink'}
+            data-cta={card.ctaId}
           >
             {card.cta}
           </Button>

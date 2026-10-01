@@ -151,9 +151,10 @@ export function ProjectCollage({ collage, mirrored = false }: ProjectCollageProp
             } as React.CSSProperties
           }
         >
-          {stack.images.map((image) => (
+          {stack.images.map((image, j) => (
             <Shot
-              key={image.src}
+              // A column may repeat a screenshot to cover its length (projectShowcaseConfig fill()).
+              key={`${j}-${image.src}`}
               $outlined={image.outlined}
               style={{ aspectRatio: `${image.width} / ${image.height}` }}
             >

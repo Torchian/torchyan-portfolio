@@ -2,7 +2,8 @@
 
 import Image from 'next/image';
 import styled from 'styled-components';
-import { Button } from '@/components/primitives';
+import { Button, VisuallyHidden } from '@/components/primitives';
+import { Link } from '@/i18n/navigation';
 import { spacing } from '@/styles/tokens/spacing';
 import {
   fontFamily,
@@ -145,7 +146,12 @@ const Role = styled.p`
   line-height: ${lineHeight.heading.l}px;
   letter-spacing: ${letterSpacing.xs}px;
   color: ${accents.primary};
-  white-space: nowrap;
+
+  /* "Digital Product Studio" is wider than the old role line: let it wrap on
+     the narrowest phones rather than run off the screen. */
+  ${media.up('s')} {
+    white-space: nowrap;
+  }
 
   ${media.up('m')} {
     margin: ${spacing[400]}px 0 ${spacing[300]}px;
@@ -216,6 +222,10 @@ const Description = styled.p`
 
 const CtaSlot = styled.div`
   order: 4;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: ${spacing[200]}px;
   margin-top: ${spacing[600]}px;
 
   ${media.up('l')} {
@@ -334,12 +344,26 @@ export function HeroSection() {
 
       <Container>
         <Body>
-          <Name id="hero-name">{t('name')}</Name>
-          <Role>{t('role')}</Role>
+          {/*
+            One heading for the brand and its category. The category is also
+            drawn as its own line above the name (Role), so the heading carries
+            it visually hidden and the visible line is hidden from screen
+            readers — it is read once, as part of the heading.
+          */}
+          <Name id="hero-name">
+            {t('name')}
+            <VisuallyHidden> — {t('role')}</VisuallyHidden>
+          </Name>
+          <Role aria-hidden>{t('role')}</Role>
           <Description>{t('description')}</Description>
           <CtaSlot>
-            <Button as="a" href="#work" $variant="primary">
+            {/* The green (secondary) style is the site's conversion colour, as on
+                the form's submit; the glass (primary) style is the quieter one. */}
+            <Button as={Link} href="/contact" $variant="secondary" data-cta="hero">
               {t('cta')}
+            </Button>
+            <Button as="a" href="#work" $variant="primary" data-cta="hero-secondary">
+              {t('secondaryCta')}
             </Button>
           </CtaSlot>
           <CenterPortrait aria-hidden>

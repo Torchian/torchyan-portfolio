@@ -140,14 +140,28 @@ const Points = styled.ul`
   }
 `;
 
-export function ProjectsHeroSection() {
-  const t = useTranslations('projectsPage.hero');
+/** The pages that open with this hero; each has title, lead, body and five points in its messages. */
+export type PageHeroNamespace = 'projectsPage.hero' | 'servicesPage.hero' | 'contactPage.hero';
+
+export interface PageHeroSectionProps {
+  namespace: PageHeroNamespace;
+  /** Prefix for the section and heading ids, unique per page. */
+  id: string;
+}
+
+/**
+ * The Projects page hero (Figma 3155:9789), shared by Services and Contact:
+ * same layout, each page's own copy.
+ */
+export function PageHeroSection({ namespace, id }: PageHeroSectionProps) {
+  const t = useTranslations(namespace);
   const points = t.raw('points') as string[];
+  const titleId = `${id}-title`;
 
   return (
-    <Section id="projects-hero" aria-labelledby="projects-title">
+    <Section id={`${id}-hero`} aria-labelledby={titleId}>
       <Container>
-        <Title id="projects-title">{t('title')}</Title>
+        <Title id={titleId}>{t('title')}</Title>
         <Description>
           <p>{t('lead')}</p>
           <p>{t('body')}</p>
@@ -160,4 +174,8 @@ export function ProjectsHeroSection() {
       </Container>
     </Section>
   );
+}
+
+export function ProjectsHeroSection() {
+  return <PageHeroSection namespace="projectsPage.hero" id="projects" />;
 }

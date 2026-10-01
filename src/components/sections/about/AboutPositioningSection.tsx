@@ -115,7 +115,8 @@ export function AboutPositioningSection() {
               title: t('build.title'),
               body: t('build.body'),
               cta: t('build.cta'),
-              href: '/#contact',
+              href: '/contact',
+              ctaId: 'about-primary',
             },
             {
               tone: 'pink',
@@ -123,6 +124,7 @@ export function AboutPositioningSection() {
               body: t('practice.body'),
               cta: t('practice.cta'),
               href: '/projects',
+              ctaId: 'about-secondary',
             },
           ]}
         />

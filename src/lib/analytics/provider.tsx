@@ -1,5 +1,12 @@
 'use client';
 
+/*
+ * NOT RENDERED (2026-10-01). GA4 and Yandex Metrica load without consent, and
+ * Yandex Webvisor records typing in the contact form. The layout renders
+ * Vercel Web Analytics instead. Before re-enabling this, build consent
+ * handling and update the privacy notice (messages: privacyPage.*).
+ */
+
 import { useEffect } from 'react';
 import Script from 'next/script';
 import { usePathname, useSearchParams } from 'next/navigation';

@@ -23,7 +23,7 @@ import {
   type IsometricGrid,
   type ProjectGrid,
 } from './projectGrids';
-import type { ProjectConfig } from './projectsConfig';
+import type { FeaturedProject } from './projectsConfig';
 
 /*
  * Figma: Single Project (2300:1687) — Desktop 2300:1686, Tablet 2650:4265, Mobile 2653:4955.
@@ -562,7 +562,7 @@ function StickyCard({ company, roles, title, description, field, background, gri
 }
 
 export interface ProjectStickyCardProps {
-  project: ProjectConfig;
+  project: FeaturedProject;
 }
 
 export function ProjectStickyCard({ project }: ProjectStickyCardProps) {
@@ -577,10 +577,10 @@ export function ProjectStickyCard({ project }: ProjectStickyCardProps) {
       description={content.description}
       field={`${content.field} · ${project.year}`}
       background={project.gradient}
-      grid={project.grid}
+      grid={project.card.grid}
       href={`/projects/${project.slug}`}
       cta={t('viewCase')}
-      ctaFill={project.ctaFill}
+      ctaFill={project.card.ctaFill}
     />
   );
 }

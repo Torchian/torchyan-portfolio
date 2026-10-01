@@ -11,8 +11,11 @@ export type TimelineEntryId =
   | 'tco'
   | 'volo'
   | 'softconstruct'
+  | 'smartbet'
   | 'picsart'
-  | 'armenianCodeAcademy';
+  | 'armenianCodeAcademy'
+  | 'soulone'
+  | 'torchyan';
 
 /** An entry's copy, from messages/*.json under about.timeline.entries.<id>. */
 export interface TimelineEntryContent {
@@ -44,68 +47,70 @@ export interface TimelineEntryConfig {
 export type TimelineEntry = TimelineEntryConfig & TimelineEntryContent;
 
 /**
- * Placeholders: screenshots of projects already in the repo, one set per
- * workplace, until the real ones arrive (see TODO).
+ * Each workplace shows only its own screens, or none: an entry with an empty
+ * gallery leaves the sticky gallery blank while its card is on screen, which is
+ * truer than borrowing another company's work. Roles and dates are the
+ * founder's (LinkedIn-confirmed, facts/2026-09-30-founder-facts.md); entries run
+ * in order of start date.
  */
 const shot = (src: string, aspect: number): GalleryImage => ({ src, aspect });
+const NONE: [GalleryImage[], GalleryImage[]] = [[], []];
 
 export const TIMELINE_ENTRIES: TimelineEntryConfig[] = [
   {
+    // Jun 2016 – Oct 2018
     id: 'apricode',
     year: '2016–2018',
     railYear: '2016',
     company: 'Apricode / MyZCapital',
-    gallery: [
-      [shot('/projects/collages/websites/scunci-shop.webp', 0.63)],
-      [
-        shot('/projects/collages/websites/backoffice.webp', 1.87),
-        shot('/projects/collages/websites/dashboard-light.webp', 1.87),
-      ],
-    ],
+    gallery: NONE,
   },
   {
+    // Jan – Sep 2019. Benzeen Auto Parts was delivered through TCO.
     id: 'tco',
     year: '2019',
     railYear: '2019',
-    company: 'TCO / Brainstorm',
+    company: 'TCO',
     gallery: [
-      [shot('/projects/collages/websites/brainstorm-services.webp', 0.26)],
-      [
-        shot('/projects/collages/websites/dashboard-dark.webp', 1.8),
-        shot('/projects/collages/websites/dashboard-analytics.webp', 1.8),
-      ],
+      [shot('/projects/collages/websites/benzeen-wheel.webp', 673 / 2320)],
+      [shot('/selected-work/various/benzeen-alfa.webp', 1903 / 903)],
     ],
   },
   {
+    // Sep 2019 – Apr 2020
     id: 'volo',
+    year: '2019–2020',
+    railYear: '2019',
+    company: 'VOLO',
+    gallery: NONE,
+  },
+  {
+    // Apr – Aug 2020
+    id: 'softconstruct',
     year: '2020',
     railYear: '2020',
-    company: 'VOLO',
-    gallery: [
-      [shot('/projects/collages/websites/benzeen-wheel.webp', 0.29)],
-      [
-        shot('/projects/collages/websites/ginosi-search.webp', 1.52),
-        shot('/projects/collages/websites/ginosi-downtown.webp', 2.11),
-      ],
-    ],
-  },
-  {
-    id: 'softconstruct',
-    year: '2021–2022',
-    railYear: '2021',
     company: 'SoftConstruct',
+    gallery: NONE,
+  },
+  {
+    // Aug – Oct 2021; a separate employer from SoftConstruct.
+    id: 'smartbet',
+    year: '2021',
+    railYear: '2021',
+    company: 'Smartbet',
     gallery: [
-      [shot('/projects/collages/smartbet/mobile-smart-sports.webp', 0.56)],
+      [shot('/projects/collages/smartbet/mobile-our-vision.webp', 486 / 864)],
       [
-        shot('/projects/collages/smartbet/desktop-sports.webp', 1.8),
-        shot('/projects/collages/smartbet/desktop-feed.webp', 1.8),
+        shot('/projects/collages/smartbet/about-our-vision.webp', 1280 / 709),
+        shot('/projects/collages/smartbet/products-overview.webp', 1280 / 709),
       ],
     ],
   },
   {
+    // Oct 2021 – Feb 2024: Growth, then Marketplace.
     id: 'picsart',
-    year: '2023–2024',
-    railYear: '2023',
+    year: '2021–2024',
+    railYear: '2021',
     company: 'Picsart',
     gallery: [
       [shot('/projects/collages/picsart/mobile-search-all.webp', 0.46)],
@@ -116,17 +121,33 @@ export const TIMELINE_ENTRIES: TimelineEntryConfig[] = [
     ],
   },
   {
+    // Nov 2022 – Feb 2023, alongside Picsart.
     id: 'armenianCodeAcademy',
-    year: '2024',
-    railYear: '2024',
+    year: '2022–2023',
+    railYear: '2022',
     company: 'Armenian Code Academy',
+    gallery: NONE,
+  },
+  {
+    // May – Oct 2025
+    id: 'soulone',
+    year: '2025',
+    railYear: '2025',
+    company: 'SoulOne',
     gallery: [
-      [shot('/projects/collages/soulone/plan-diet.webp', 0.2)],
+      [shot('/selected-work/soulone/grid/s-b1.webp', 415 / 3618)],
       [
-        shot('/projects/collages/picsart/discovery-home.webp', 1.8),
-        shot('/projects/collages/picsart/marketplace-creator.webp', 1.8),
+        shot('/selected-work/soulone/grid/s-a2.webp', 1366 / 1533),
+        shot('/selected-work/soulone/grid/s-c3.webp', 1366 / 2754),
       ],
     ],
+  },
+  {
+    id: 'torchyan',
+    year: '2025–now',
+    railYear: '2025',
+    company: 'Torchyan',
+    gallery: NONE,
   },
 ];
 

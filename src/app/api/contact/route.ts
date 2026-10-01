@@ -20,7 +20,7 @@ import { maintenanceIsOn } from '@/lib/maintenance';
 
 export const runtime = 'nodejs';
 
-const LIMITS = { name: 100, email: 254, message: 4000 } as const;
+const LIMITS = { name: 100, email: 254, company: 200, website: 300, message: 4000 } as const;
 
 /**
  * Deliberately loose: one @, something either side, a dot in the domain. The
@@ -29,6 +29,9 @@ const LIMITS = { name: 100, email: 254, message: 4000 } as const;
  * people expect).
  */
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+/** Same spirit: a scheme, then something with a dot in it. Optional field. */
+const URL_LIKE = /^https?:\/\/[^\s.]+\.[^\s]+$/i;
 
 /**
  * At most this many submissions from one IP per window.
@@ -59,7 +62,7 @@ function rateLimited(ip: string) {
  * whatever language it was sent in. An index that is not in the list is dropped
  * rather than guessed at.
  */
-function optionLabel(group: 'intentOptions' | 'stageOptions' | 'timelineOptions', index: unknown) {
+function optionLabel(group: 'intentOptions' | 'timelineOptions', index: unknown) {
   if (typeof index !== 'number' || !Number.isInteger(index)) return null;
   const options = en.contact[group] as string[];
   return options[index] ?? null;
@@ -89,9 +92,10 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: 'invalid' }, { status: 400 });
   }
 
-  // A field the form hides and a person never sees. Anything in it is a bot, and
-  // it is answered with a success it will not check, so it has nothing to retry.
-  if (clean(body.company, 200)) {
+  // A field the form hides and a person never sees ("nickname"). Anything in it
+  // is a bot, and it is answered with a success it will not check, so it has
+  // nothing to retry. (It used to be called "company", which is now a real field.)
+  if (clean(body.nickname, 200)) {
     return NextResponse.json({ ok: true });
   }
 
@@ -105,27 +109,32 @@ export async function POST(request: Request) {
 
   const name = clean(body.name, LIMITS.name);
   const email = clean(body.email, LIMITS.email);
+  const company = clean(body.company, LIMITS.company);
+  // People type "acme.com" as often as "https://acme.com"; accept both.
+  const typedWebsite = clean(body.website, LIMITS.website);
+  const website = typedWebsite && !/^https?:\/\//i.test(typedWebsite) ? `https://${typedWebsite}` : typedWebsite;
   const message = clean(body.message, LIMITS.message);
 
   const fields: Record<string, string> = {};
   if (!name) fields.name = 'required';
   if (!email) fields.email = 'required';
   else if (!EMAIL.test(email)) fields.email = 'invalid';
+  if (website && !URL_LIKE.test(website)) fields.website = 'invalid';
   if (!message) fields.message = 'required';
   if (Object.keys(fields).length) {
     return NextResponse.json({ ok: false, error: 'invalid', fields }, { status: 400 });
   }
 
   const intent = optionLabel('intentOptions', body.intent);
-  const stage = optionLabel('stageOptions', body.stage);
   const timeline = optionLabel('timelineOptions', body.timeline);
   const locale = ['en', 'ru', 'hy'].includes(String(body.locale)) ? String(body.locale) : 'unknown';
 
   const lines = [
     `Name:     ${name}`,
     `Email:    ${email}`,
-    intent && `Intent:   ${intent}`,
-    stage && `Stage:    ${stage}`,
+    company && `Company:  ${company}`,
+    website && `Website:  ${website}`,
+    intent && `Needs:    ${intent}`,
     timeline && `Timeline: ${timeline}`,
     `Language: ${locale}`,
     '',
@@ -145,7 +154,7 @@ export async function POST(request: Request) {
         // So a reply in the mail client goes to them, not to the site's own
         // address — `from` has to stay on the verified domain.
         reply_to: email,
-        subject: `Portfolio: ${name}${intent ? ` — ${intent}` : ''}`,
+        subject: `Torchyan — ${intent ?? 'New enquiry'} — ${company || name}`,
         text: lines.join('\n'),
       }),
     });

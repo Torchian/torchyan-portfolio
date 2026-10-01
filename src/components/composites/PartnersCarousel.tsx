@@ -34,27 +34,28 @@ const logo = (name: string, file: string, options: Omit<PartnerLogo, 'name' | 's
   ...options,
 });
 
+/**
+ * The same credibility set as the homepage section (TrustedBySection's
+ * TRUSTED_GROUPS): every logo here has a confirmed relationship that the
+ * homepage labels. Shown without labels in the strip, so it carries no logo the
+ * labelled section doesn't.
+ */
 export const PARTNERS: PartnerLogo[] = [
-  logo('SoftConstruct', 'SoftConstruct'),
-  logo('Volo', 'Volo'),
-  logo('Fortinet', 'Fortinet'),
-  logo('InfinitiRings', 'InfinitiRings'),
-  logo('Ginosi', 'Ginosi', { height: 42 }),
-  logo('by robynblair', 'byRobinblair'),
-  logo('IT365', 'IT365'),
-  logo('Smartbet', 'Smartbet'),
   logo('Picsart', 'Picsart', { height: 60 }),
-  logo('Brainstorm', 'Brainstorm'),
-  logo('Adrasheg', 'Adrasheg'),
+  logo('Ginosi', 'Ginosi', { height: 42 }),
+  logo('Smartbet', 'Smartbet'),
   logo('World Education', 'WorldEdu'),
+  logo('Volo', 'Volo'),
+  logo('Brainstorm', 'Brainstorm'),
   logo('SoulOne', 'SoulOne'),
-  logo('Armenian Code Academy', 'ArmenianCodeAcademy'),
   logo('Benzeen', 'Benzeen'),
+  logo('Infinity Rings', 'InfinitiRings'),
+  logo('TCO', 'TCO', { boxed: false }),
+  logo('By Robyn Blair', 'byRobinblair'),
+  logo('IT365', 'IT365'),
   logo('BrainRocket', 'BrainRocket'),
   logo('Scunci', 'Scunci'),
-  logo('Rostelecom', 'Rostelecom', { boxed: false }),
-  logo('Inlogic', 'Inlogic', { boxed: false }),
-  logo('TCO', 'TCO', { boxed: false }),
+  logo('Armenian Code Academy', 'ArmenianCodeAcademy'),
 ];
 
 export type CarouselDirection = 'ltr' | 'rtl';

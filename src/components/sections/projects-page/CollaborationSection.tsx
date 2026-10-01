@@ -58,8 +58,26 @@ const Container = styled.div`
   }
 `;
 
-export function CollaborationSection() {
-  const t = useTranslations('projectsPage.collaboration');
+/** Closing two-card CTA blocks; each namespace has title, subtitle, initiate.* and analyze.*. */
+export type CollaborationNamespace = 'projectsPage.collaboration' | 'servicesPage.cta';
+
+export interface CollaborationSectionProps {
+  namespace?: CollaborationNamespace;
+  /** The green card: the primary next step. */
+  initiateHref?: string;
+  /** The pink card: the secondary path. */
+  analyzeHref?: string;
+  /** Prefix for the analytics `cta_click` locations. */
+  ctaId?: string;
+}
+
+export function CollaborationSection({
+  namespace = 'projectsPage.collaboration',
+  initiateHref = '/contact',
+  analyzeHref = '/services',
+  ctaId = 'collaboration',
+}: CollaborationSectionProps) {
+  const t = useTranslations(namespace);
 
   return (
     <Section>
@@ -72,14 +90,16 @@ export function CollaborationSection() {
               title: t('initiate.title'),
               body: t('initiate.body'),
               cta: t('initiate.cta'),
-              href: '/#contact',
+              href: initiateHref,
+              ctaId: `${ctaId}-primary`,
             },
             {
               tone: 'pink',
               title: t('analyze.title'),
               body: t('analyze.body'),
               cta: t('analyze.cta'),
-              href: '/projects/picsart',
+              href: analyzeHref,
+              ctaId: `${ctaId}-secondary`,
             },
           ]}
         />
