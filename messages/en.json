@@ -41,7 +41,6 @@
     "services": "Services",
     "projects": "Work",
     "about": "About",
-    "contactMe": "Start a project",
     "mainLabel": "Main",
     "menuLabel": "Menu",
     "openMenu": "Open menu",
@@ -67,16 +66,18 @@
   "hero": {
     "name": "Torchyan",
     "role": "Digital Product Studio",
-    "description": "Design & engineering for websites and digital products — from first direction to production code, led by one accountable founder and supported by specialists when the work needs them.",
+    "description": "Design & engineering for websites and digital products — from first direction to production code, led by one accountable founder.",
     "cta": "Start a project",
     "secondaryCta": "See the work",
     "skillsLabel": "How a project moves",
     "skills": [
+      "Discovery",
       "Strategy",
       "UX",
       "Design",
       "Engineering",
-      "Launch"
+      "Launch",
+      "Improvement"
     ]
   },
   "whatIDo": {

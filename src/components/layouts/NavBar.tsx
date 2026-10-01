@@ -19,7 +19,6 @@ import { glass, blur } from '@/styles/tokens/effects';
 import { radius } from '@/styles/tokens/radius';
 import { media } from '@/styles/media';
 import {
-  Button,
   LanguageSwitcher,
   LogoMark,
   MusicToggle,
@@ -30,22 +29,21 @@ import { border } from '@/styles/tokens/border';
 
 /*
  * Figma: Header (2562:2761) — screens 1920 / 1440 / 1280 / 1024 / 768 / 480 / 320.
- *  - 1280 frame and up: logo · centred link pill (Header Navigation, 1944:4109) · Contact Me.
- *    From 1060px rather than the frame's own 1025px — see DESKTOP_HEADER_QUERY.
- *  - 480–1024 frames (321–1059px): logo · Contact Me · menu button (CTA, 2562:2297).
- *  - 320 frame (up to 320px): logo · menu button.
+ *  - 1280 frame and up: logo · centred link pill (Header Navigation, 1944:4109) · language,
+ *    sound and music together at the right edge. From 1060px — see DESKTOP_HEADER_QUERY.
+ *  - Below that (up to 1059px): logo · menu button (2562:2297). Language, sound and music are
+ *    rows at the bottom of the menu panel.
  * The link pill marks the current page green with a green glow above it; the
  * glow follows the pointer while hovering the pill.
- * Language switcher, sound and music toggles (their placement is provisional, not in Figma yet):
- * flanking the link pill from 1025px — language on the left, the two audio switches on the right —
- * and rows at the bottom of the menu panel below that.
+ * The bar carries no "Start a project" button: that action lives in the hero, the page
+ * closers and the footer. (It used to sit at the right of the bar and in the middle of the
+ * compact one; the placement of the language and audio controls is provisional, not in Figma yet.)
  */
 
 /*
  * Home is the logo, so the pill carries only the pages a buyer compares:
  * Services, Work (the /projects route keeps its URL) and About. Three links
- * keep the pill no wider than it was, which DESKTOP_HEADER_QUERY below was
- * measured against. "Start a project" is the button beside it.
+ * keep the pill no wider than it was.
  */
 const NAV_LINKS = [
   { key: 'services', href: '/services' },
@@ -53,31 +51,23 @@ const NAV_LINKS = [
   { key: 'about', href: '/about' },
 ] as const;
 
-/** Where every "Start a project" in the header goes. */
-const CONTACT_HREF = '/contact';
-
 /**
  * Where the header switches between the 1280 frame's design (logo · centred link
- * pill · Contact Me) and the 1024 frame's (logo · Contact Me · menu button).
+ * pill · language and audio controls) and the compact one (logo · menu button).
  *
- * The 1280 frame's own range starts at 1025px, but the pill is centred on the
- * viewport while Contact Me is right-aligned, so the two meet sooner the wider
- * the pill is — and the pill is as wide as its longest translation. Measured on
- * a production build: the Armenian pill is 454px against English's 386px, and
- * with the language switcher and audio flanks the cluster runs 7px into Contact
- * Me at 1025px, clearing at about 1043px. 1060 leaves the same 12px the cluster
- * puts between its own parts.
+ * The pill is centred on the viewport while the controls are right-aligned, so
+ * the two meet sooner the narrower the screen is and the wider the pill is — and
+ * the pill is as wide as its longest translation (the Armenian pill is 454px
+ * against English's 386px). 1060px keeps the clearance the bar had when a button
+ * sat in that corner; the controls (a 94px language switcher and two 48px
+ * toggles) are narrower than that button was, so there is room to spare.
  *
- * Below it the 1024 frame's design takes over, where the language switcher and
- * the audio switches are rows in the menu panel, so nothing becomes unreachable.
- * The flanks are provisional (they are not in the Figma file yet, see TODO.md
- * §4); revisit this when their placement is designed, since it is their width
- * that sets the number.
+ * Below it the language switcher and the audio switches are rows in the menu
+ * panel, so nothing becomes unreachable. Their placement is provisional (they are
+ * not in the Figma file yet, see TODO.md §4).
  */
 const DESKTOP_HEADER_QUERY = '(min-width: 1060px)';
 const desktopHeader = `@media ${DESKTOP_HEADER_QUERY}`;
-/** Below the desktop bar: the burger is out and the Contact pill is the bar's middle. */
-const compactHeader = '@media (max-width: 1059.98px)';
 
 const TRANSITION = `${duration.slowest} ${easing.spring}`;
 /** How long the pointer can be between links before the glow heads back to the current page's link. */
@@ -182,37 +172,35 @@ const LogoLink = styled(Link)<{ $accent?: boolean }>`
  * centred row. The side columns are equal, so the pill stays exactly centred even though the
  * switcher (94px) is wider than the toggle (48px).
  */
+/** The link pill, centred on the viewport (desktop bar only). */
 const NavCluster = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
   display: none;
-  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  gap: ${spacing[150]}px;
   /* Its own content width: positioned from the middle, it would otherwise be squeezed into
      half the header and the link pill would shrink under its links. */
   width: max-content;
   transform: translate(-50%, -50%);
 
-  > :first-child {
-    justify-self: end;
-  }
-
-  > :last-child {
-    justify-self: start;
-  }
-
   ${desktopHeader} {
-    display: grid;
+    display: flex;
   }
 `;
 
-/** The two audio switches sit together at the right of the cluster. */
-const AudioControls = styled.div`
-  display: flex;
+/** Language switcher and the two audio switches, together at the right edge (desktop bar only). */
+const HeaderControls = styled.div`
+  position: relative;
+  z-index: 1;
+  display: none;
+  flex-shrink: 0;
   align-items: center;
   gap: ${spacing[150]}px;
+
+  ${desktopHeader} {
+    display: flex;
+  }
 `;
 
 const NavCenter = styled.nav`
@@ -295,36 +283,6 @@ const NavItem = styled(Link)<{ $active?: boolean }>`
     outline: 2px solid ${accents.primary};
     outline-offset: 4px;
     border-radius: 4px;
-  }
-`;
-
-/** Contact Me (not in the 320 frame). */
-const HeaderActions = styled.div`
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-shrink: 0;
-  align-items: center;
-  gap: ${spacing[150]}px;
-
-  /*
-   * Below the desktop bar it is the middle of the header, and it is centred on
-   * the header rather than left to space-between. Between two items of
-   * different widths, space-between puts what is between them off centre by
-   * half the difference: the logo is 24px on a phone and the burger 48px, so
-   * the pill sat exactly 12px left of centre (measured), while on a tablet,
-   * where the logo is also 48px, it looked right. Positioned from the middle it
-   * is centred whatever sits beside it — the same reason NavCluster is.
-   */
-  ${compactHeader} {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-
-  ${media.down('s')} {
-    display: none;
   }
 `;
 
@@ -632,7 +590,6 @@ export function NavBar() {
       </LogoLink>
 
       <NavCluster>
-        <LanguageSwitcher />
         <NavCenter ref={navRef} aria-label={t('mainLabel')}>
           <LineContainer aria-hidden>
             <Line />
@@ -653,17 +610,13 @@ export function NavBar() {
             </NavItem>
           ))}
         </NavCenter>
-        <AudioControls>
-          <SoundToggle />
-          <MusicToggle />
-        </AudioControls>
       </NavCluster>
 
-      <HeaderActions>
-        <Button as={Link} href={CONTACT_HREF} $variant="primary" data-cta="header">
-          {t('contactMe')}
-        </Button>
-      </HeaderActions>
+      <HeaderControls>
+        <LanguageSwitcher />
+        <SoundToggle />
+        <MusicToggle />
+      </HeaderControls>
 
       <MenuButton
         ref={menuButtonRef}
@@ -698,15 +651,6 @@ export function NavBar() {
               {t(link.key)}
             </MenuItem>
           ))}
-          <MenuItem
-            href={CONTACT_HREF}
-            $active={pathname === CONTACT_HREF}
-            aria-current={pathname === CONTACT_HREF ? 'page' : undefined}
-            onClick={closeMenu}
-            data-cta="menu"
-          >
-            {t('contactMe')}
-          </MenuItem>
         </MenuLinks>
         <MenuSetting>
           <span>{t('language')}</span>
