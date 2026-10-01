@@ -50,6 +50,7 @@ const NAV_LINKS = [
   { key: 'services', href: '/services' },
   { key: 'projects', href: '/projects' },
   { key: 'about', href: '/about' },
+  { key: 'contact', href: '/contact' },
 ] as const;
 
 /**
@@ -63,17 +64,11 @@ const NAV_LINKS = [
  * sat in that corner; the controls (a 94px language switcher and two 48px
  * toggles) are narrower than that button was, so there is room to spare.
  *
- * Below it the language switcher and the audio switches are rows in the menu
- * panel, so nothing becomes unreachable. Their placement is provisional (they are
- * not in the Figma file yet, see TODO.md §4).
+ * Below it the links are the menu panel's, the sound and music switches stay in the bar,
+ * and the language switcher is a row in the panel, so nothing becomes unreachable.
  */
 const DESKTOP_HEADER_QUERY = '(min-width: 1060px)';
 const desktopHeader = `@media ${DESKTOP_HEADER_QUERY}`;
-/**
- * Below this the logo, the menu button and the three controls no longer fit in
- * one row (measured: they need 350px at 8px gaps), so the controls move into
- * the menu panel. Only the very smallest phones are under it.
- */
 
 const TRANSITION = `${duration.slowest} ${easing.spring}`;
 /** How long the pointer can be between links before the glow heads back to the current page's link. */
