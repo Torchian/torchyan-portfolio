@@ -34,8 +34,8 @@ import { WhatIDoCharacterWaiting } from './WhatIDoCharacterWaiting';
  * Five stages, the desktop's own, in order:
  *
  *   1. the face as a pencil sketch
- *   2. the sketch gives way to the drawing underneath, top to bottom
- *   3. the rest of the parts arrive
+ *   2. the sketch gives way to the bare face underneath, top to bottom
+ *   3. the parts arrive: brow, ears, eyes and the rest
  *   4. the colour comes in
  *   5. the glasses go on, and the green glow rises behind
  *
@@ -470,9 +470,9 @@ export function WhatIDoMobileStage({ steps, hostRef }: WhatIDoMobileStageProps) 
           written.pencil = cut;
         }
 
-        // The parts that wait come in as the sketch gives way, the way the
-        // desktop's second character enters — not before it, over the pencil.
-        const parts = (1 - value.pencil).toFixed(2);
+        // The parts that wait (brow, ear, eye) come in with the rest of them in
+        // the third stage — the second shows the bare face, without them.
+        const parts = value.reveal.toFixed(2);
         if (parts !== written.parts) {
           stage.style.setProperty('--parts', parts);
           written.parts = parts;

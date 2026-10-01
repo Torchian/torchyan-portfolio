@@ -57,18 +57,16 @@ const Wrapper = styled.div`
   width: 100%;
   max-width: ${MAX_WIDTH}px;
   aspect-ratio: ${FACE_ASPECT};
-  /* The three parts that wait from the start have no scroll gate of their own.
-     On desktop they enter with their own sticky element; the phone stage has
-     one box for both characters, so it holds them back through this instead —
-     1 where nothing writes it, which is every other use. */
-  opacity: var(--parts, 1);
   filter: sepia(0) grayscale(var(--grayscale, 1));
   transition: filter 0.4s ease-out;
 `;
 
 /**
  * How a part's opacity is driven:
- *  - `static`: always visible.
+ *  - `static`: the parts that wait from the start. On desktop they enter with their own
+ *    sticky element and are simply visible; the phone stage has one box for both
+ *    characters, so it holds them back through --parts (1 where nothing writes it,
+ *    which is every other use).
  *  - `reveal`: the inherited --reveal variable (written by useWhatIDoScroll),
  *    eased by a CSS transition.
  *  - `final` (the glasses): the inherited --final switch (written by
@@ -85,7 +83,7 @@ type PartMode = 'static' | 'reveal' | 'final' | 'scrollFade';
  *  and it does so through CSS variables rather than styled-component props.
  *  Paint order is DOM order. */
 const OPACITY: Record<PartMode, string> = {
-  static: '1',
+  static: 'var(--parts, 1)',
   reveal: 'var(--reveal, 0)',
   final: 'var(--final, 0)',
   scrollFade: 'var(--opacity, 0)',
