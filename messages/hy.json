@@ -989,7 +989,7 @@
       {
         "title": "Who processes it",
         "body": [
-          "Vercel hosts the website and provides the analytics. Resend delivers contact-form messages by email."
+          "Vercel hosts the website and provides the analytics. Resend delivers contact-form messages by email. ImprovMX forwards messages sent to hello@torchyan.design to our inbox."
         ]
       },
       {
