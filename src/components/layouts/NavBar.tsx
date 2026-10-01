@@ -74,8 +74,6 @@ const desktopHeader = `@media ${DESKTOP_HEADER_QUERY}`;
  * one row (measured: they need 350px at 8px gaps), so the controls move into
  * the menu panel. Only the very smallest phones are under it.
  */
-const NARROW_HEADER_QUERY = '(max-width: 349.98px)';
-const narrowHeader = `@media ${NARROW_HEADER_QUERY}`;
 
 const TRANSITION = `${duration.slowest} ${easing.spring}`;
 /** How long the pointer can be between links before the glow heads back to the current page's link. */
@@ -212,8 +210,8 @@ const HeaderControls = styled.div`
 `;
 
 /**
- * The bar's right end below the desktop bar: the menu button, then sound, music
- * and language. Lifted above the open menu panel like the rest of the bar.
+ * The bar's right end below the desktop bar: sound and music, then the menu button
+ * at the edge. Lifted above the open menu panel like the rest of the bar.
  */
 const HeaderEnd = styled.div`
   position: relative;
@@ -232,10 +230,6 @@ const CompactControls = styled.div`
   display: flex;
   align-items: center;
   gap: ${spacing[100]}px;
-
-  ${narrowHeader} {
-    display: none;
-  }
 `;
 
 const NavCenter = styled.nav`
@@ -463,15 +457,7 @@ const MenuItem = styled(Link)<{ $active?: boolean }>`
   }
 `;
 
-/* Provisional, like the panel: the language and sound settings under the links, behind one divider. */
-/** The settings rows exist only where the bar has no room for them (see NARROW_HEADER_QUERY). */
-const NarrowSettings = styled.div`
-  display: none;
-
-  ${narrowHeader} {
-    display: block;
-  }
-`;
+/* Provisional, like the panel: the language setting under the links, behind one divider. */
 
 const MenuSetting = styled.div`
   display: flex;
@@ -520,8 +506,6 @@ export function NavBar() {
     if (menuPanelRef.current?.contains(document.activeElement)) menuButtonRef.current?.focus();
     setMenuOpenOn(null);
   }, []);
-  const soundLabelId = useId();
-  const musicLabelId = useId();
 
   const lineReturnTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
 
@@ -663,6 +647,10 @@ export function NavBar() {
       </HeaderControls>
 
       <HeaderEnd>
+        <CompactControls>
+          <SoundToggle />
+          <MusicToggle />
+        </CompactControls>
         <MenuButton
           ref={menuButtonRef}
           type="button"
@@ -676,11 +664,6 @@ export function NavBar() {
           <span />
           <span />
         </MenuButton>
-        <CompactControls>
-          <SoundToggle />
-          <MusicToggle />
-          <LanguageSwitcher />
-        </CompactControls>
       </HeaderEnd>
 
       <MenuPanel
@@ -703,20 +686,10 @@ export function NavBar() {
             </MenuItem>
           ))}
         </MenuLinks>
-        <NarrowSettings>
-          <MenuSetting>
-            <span>{t('language')}</span>
-            <LanguageSwitcher inline />
-          </MenuSetting>
-          <MenuSetting>
-            <span id={soundLabelId}>{t('sound')}</span>
-            <SoundToggle aria-labelledby={soundLabelId} />
-          </MenuSetting>
-          <MenuSetting>
-            <span id={musicLabelId}>{t('music')}</span>
-            <MusicToggle aria-labelledby={musicLabelId} />
-          </MenuSetting>
-        </NarrowSettings>
+        <MenuSetting>
+          <span>{t('language')}</span>
+          <LanguageSwitcher inline />
+        </MenuSetting>
       </MenuPanel>
     </Header>
   );
