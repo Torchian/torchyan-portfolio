@@ -213,10 +213,13 @@ export const SOULONE_GRID: IsometricGrid = {
   ],
 };
 
-/* ---------- All projects (Various) ---------- */
+/* ---------- All projects (Various) ----------
+ * Only the commercial websites in the approved proof inventory: Ginosi,
+ * Benzeen Auto Parts, World Education and Brainstorm. The Scunci, back-office
+ * and gaming-dashboard shots were taken out (not part of that inventory).
+ */
 
 const various = tiles('various');
-const VARIOUS_DASHBOARD = 1440 / 768;
 const VARIOUS_LISTING = 1903 / 903;
 const VARIOUS_WORLD = 3584 / 1994;
 
@@ -234,10 +237,10 @@ export const ALL_PROJECTS_GRID: FlatGrid = {
     },
     {
       images: [
-        various('backoffice.webp', VARIOUS_DASHBOARD),
+        various('world-study.webp', VARIOUS_WORLD),
         various('ginosi-search.webp', 1920 / 1265),
         various('ginosi-apartel.webp', VARIOUS_LISTING, { only: 'mobile' }),
-        various('scunci-shop.webp', 1920 / 3031),
+        various('benzeen-alfa.webp', VARIOUS_LISTING),
         various('world-services.webp', VARIOUS_WORLD, { only: 'mobile' }),
       ],
       frame: {
@@ -262,7 +265,7 @@ export const ALL_PROJECTS_GRID: FlatGrid = {
         various('world-study.webp', VARIOUS_WORLD),
         various('ginosi-apartel.webp', VARIOUS_LISTING),
         various('benzeen-alfa.webp', VARIOUS_LISTING),
-        various('gamble-dashboard.webp', VARIOUS_DASHBOARD),
+        various('ginosi-search.webp', 1920 / 1265),
       ],
       frame: {
         desktop: { left: 1104.75, top: -303, width: 336.25 },

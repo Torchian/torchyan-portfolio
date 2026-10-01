@@ -54,22 +54,24 @@ const PORTRAIT = { src: '/hero/character-right.webp', width: 768, height: 1536 }
 const LINK_TRANSITION = `${duration.slower} ${easing.spring}`;
 
 const PRIMARY_LINKS = [
-  { key: 'home', href: '/' },
-  { key: 'about', href: '/about' },
+  { key: 'services', href: '/services' },
   { key: 'projects', href: '/projects' },
-  { key: 'contact', href: '/#contact' },
+  { key: 'about', href: '/about' },
+  { key: 'contact', href: '/contact' },
+  { key: 'privacy', href: '/privacy' },
 ] as const;
 
+/** `channel` names the outbound_contact analytics event (src/lib/analytics/track.ts). */
 const SOCIAL_LINKS = [
-  { label: 'Instagram', href: 'https://www.instagram.com/torchian_/' },
-  { label: 'Linkedin', href: 'https://www.linkedin.com/in/torchian/' },
+  { label: 'Instagram', href: 'https://www.instagram.com/torchian_/', channel: 'instagram' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/torchian/', channel: 'linkedin' },
 ];
 
 const CONTACT_LINKS = [
   // On the site's own domain. It needs a forwarder in the registrar's DNS
   // before it receives anything — see docs/setup/domain-email-hosting.md.
-  { label: 'hello@torchyan.design', href: 'mailto:hello@torchyan.design' },
-  { label: '+374 95 334 719', href: 'tel:+37495334719' },
+  { label: 'hello@torchyan.design', href: 'mailto:hello@torchyan.design', channel: 'email' },
+  { label: '+374 95 334 719', href: 'tel:+37495334719', channel: 'phone' },
 ];
 
 /* ─── Layout ─────────────────────────────────────────────────────────────── */
@@ -641,7 +643,12 @@ export function Footer() {
               <LinkList $stacked>
                 {SOCIAL_LINKS.map((item) => (
                   <li key={item.label}>
-                    <ExternalLink href={item.href} target="_blank" rel="noopener noreferrer">
+                    <ExternalLink
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      data-outbound={item.channel}
+                    >
                       {item.label}
                     </ExternalLink>
                   </li>
@@ -654,7 +661,9 @@ export function Footer() {
               <LinkList $stacked>
                 {CONTACT_LINKS.map((item) => (
                   <li key={item.label}>
-                    <ExternalLink href={item.href}>{item.label}</ExternalLink>
+                    <ExternalLink href={item.href} data-outbound={item.channel}>
+                      {item.label}
+                    </ExternalLink>
                   </li>
                 ))}
               </LinkList>

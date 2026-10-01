@@ -41,11 +41,20 @@ import { border } from '@/styles/tokens/border';
  * and rows at the bottom of the menu panel below that.
  */
 
+/*
+ * Home is the logo, so the pill carries only the pages a buyer compares:
+ * Services, Work (the /projects route keeps its URL) and About. Three links
+ * keep the pill no wider than it was, which DESKTOP_HEADER_QUERY below was
+ * measured against. "Start a project" is the button beside it.
+ */
 const NAV_LINKS = [
-  { key: 'home', href: '/' },
+  { key: 'services', href: '/services' },
   { key: 'projects', href: '/projects' },
   { key: 'about', href: '/about' },
 ] as const;
+
+/** Where every "Start a project" in the header goes. */
+const CONTACT_HREF = '/contact';
 
 /**
  * Where the header switches between the 1280 frame's design (logo · centred link
@@ -75,10 +84,9 @@ const TRANSITION = `${duration.slowest} ${easing.spring}`;
 const LINE_RETURN_DELAY_MS = 120;
 const FAST = `${duration.normal} ${easing.out}`;
 
-/** Index of the link for the current route; Home when nothing else matches. */
+/** Index of the link for the current route, or -1 on a page the pill doesn't list (home, contact). */
 function activeIndexFor(pathname: string) {
-  const index = NAV_LINKS.findIndex((l) => l.href !== '/' && pathname.startsWith(l.href));
-  return index >= 0 ? index : 0;
+  return NAV_LINKS.findIndex((l) => pathname === l.href || pathname.startsWith(`${l.href}/`));
 }
 
 /** The header's side padding, which page content lines up with (e.g. the Projects rows' text). */
@@ -531,8 +539,13 @@ export function NavBar() {
 
   const applyLinePosition = useCallback((index: number) => {
     const nav = navRef.current;
-    const link = linkRefs.current[index];
-    if (!nav || !link) return;
+    if (!nav) return;
+    const link = index >= 0 ? linkRefs.current[index] : null;
+    // A page the pill doesn't list (home, contact): no link to glow over.
+    if (!link) {
+      nav.style.setProperty('--nav-line-visible', '0');
+      return;
+    }
     const navRect = nav.getBoundingClientRect();
     const linkRect = link.getBoundingClientRect();
     nav.style.setProperty('--nav-line-left', `${linkRect.left - navRect.left}px`);
@@ -647,7 +660,7 @@ export function NavBar() {
       </NavCluster>
 
       <HeaderActions>
-        <Button as={Link} href="/#contact" $variant="primary">
+        <Button as={Link} href={CONTACT_HREF} $variant="primary" data-cta="header">
           {t('contactMe')}
         </Button>
       </HeaderActions>
@@ -685,7 +698,13 @@ export function NavBar() {
               {t(link.key)}
             </MenuItem>
           ))}
-          <MenuItem href="/#contact" onClick={closeMenu}>
+          <MenuItem
+            href={CONTACT_HREF}
+            $active={pathname === CONTACT_HREF}
+            aria-current={pathname === CONTACT_HREF ? 'page' : undefined}
+            onClick={closeMenu}
+            data-cta="menu"
+          >
             {t('contactMe')}
           </MenuItem>
         </MenuLinks>

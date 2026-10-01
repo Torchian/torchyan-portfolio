@@ -439,7 +439,7 @@ export function CapabilitiesSection() {
         </Grid>
 
         <ContactCTA>
-          <Button as={Link} href="/#contact" $variant="secondary">
+          <Button as={Link} href="/services" $variant="secondary" data-cta="areas">
             {t('cta')}
           </Button>
         </ContactCTA>

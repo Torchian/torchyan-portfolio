@@ -2,7 +2,7 @@
 
 import { Link } from '@/i18n/navigation';
 import styled, { css } from 'styled-components';
-import { Badge, Button } from '@/components/primitives';
+import { Badge, Button, VisuallyHidden } from '@/components/primitives';
 import { spacing } from '@/styles/tokens/spacing';
 import { fontFamily, fontWeight, fontSize, lineHeight, letterSpacing } from '@/styles/tokens/typography';
 import { neutrals } from '@/styles/tokens/colors';
@@ -304,10 +304,22 @@ const Roles = styled.ul`
     content: '×' / '';
   }
 
+
   ${media.down('l')} {
     font-size: ${fontSize.body.xl}px;
     line-height: ${lineHeight.body.xl}px;
   }
+`;
+
+/** Employee, direct client or via a partner, and the years: a quieter line under the roles. */
+const Relationship = styled.p`
+  margin: 0;
+  font-family: ${fontFamily.heading};
+  font-weight: ${fontWeight.medium};
+  font-size: ${fontSize.body.xl}px;
+  line-height: ${lineHeight.body.xl}px;
+  color: inherit;
+  opacity: 0.72;
 `;
 
 const Description = styled.div`
@@ -433,9 +445,11 @@ export function ProjectShowcase({
   showMedia = true,
 }: ProjectShowcaseProps) {
   const t = useTranslations('projectsPage.showcase');
+  // Each row's own copy. `stack` is empty when no stack has been confirmed for
+  // the project; the "Built with" list is then left out rather than guessed.
   const content = useMessages().projectsPage.showcase.items[project.content];
-  const description = t.raw('description') as string[];
-  const stack = t.raw('stack') as string[];
+  const description = content.description as string[];
+  const stack = content.stack as string[];
 
   return (
     <Row
@@ -453,14 +467,20 @@ export function ProjectShowcase({
                 <li key={role}>{role}</li>
               ))}
             </Roles>
+            <Relationship>
+              <VisuallyHidden>{t('relationshipLabel')}: </VisuallyHidden>
+              {content.relationship}
+            </Relationship>
           </Heading>
-          <TechStack aria-label={t('stackLabel')}>
-            {stack.map((item) => (
-              <li key={item}>
-                <Badge $size="medium">{item}</Badge>
-              </li>
-            ))}
-          </TechStack>
+          {stack.length > 0 && (
+            <TechStack aria-label={t('stackLabel')}>
+              {stack.map((item) => (
+                <li key={item}>
+                  <Badge $size="medium">{item}</Badge>
+                </li>
+              ))}
+            </TechStack>
+          )}
           <Description>
             {description.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
@@ -468,7 +488,7 @@ export function ProjectShowcase({
           </Description>
         </Info>
         <CtaSlot>
-          <Button as={Link} href={project.href} $variant="secondary">
+          <Button as={Link} href={project.href} $variant="secondary" data-cta={`work-row-${project.id}`}>
             {t('cta')}
           </Button>
         </CtaSlot>

@@ -5,7 +5,8 @@ import { useTranslations } from 'next-intl';
 import styled, { css } from 'styled-components';
 import { SectionHeading } from '@/components/composites';
 import { spacing } from '@/styles/tokens/spacing';
-import { accents } from '@/styles/tokens/colors';
+import { neutrals } from '@/styles/tokens/colors';
+import { fontFamily, fontWeight, fontSize, lineHeight, letterSpacing } from '@/styles/tokens/typography';
 import { duration, easing } from '@/styles/tokens/motion';
 import { grid } from '@/styles/tokens/grid';
 import { media } from '@/styles/media';
@@ -14,12 +15,16 @@ import { media } from '@/styles/media';
  * Figma: Credibility — Desktop 1920 (2670:10613), 1440 (2670:10970), Tablet 1024 (2670:11664),
  * Mobile 480 (2670:12308).
  *
- *  - Desktop (from 1025px): six rows, each spread edge to edge inside its own side inset.
- *    Logos are 48px tall (Ginosi 42, Picsart 60); most sit in a 68px slot with 10px side padding.
- *  - Tablet and mobile: one centred wrap of 40px / 24px logos; mobile reorders a few to balance the lines.
+ * The logos are grouped by relationship, each group under a visible label —
+ * direct clients, employers, projects through partner companies, and own
+ * product & teaching — so no logo implies more than the relationship it had.
+ * Which logos appear, and in which group, is the founder's register in
+ * facts/2026-09-30-founder-facts.md (F5). Logos don't link out: they are
+ * evidence, not navigation, and several of the sites have changed since.
  *
- * Each logo rests at 90% and grows to full size under the pointer. Most link to
- * the company, opening in a new tab; the few without a site stay plain marks.
+ * Logos are 48px tall on desktop (Ginosi 42, Picsart 60), most in a 68px slot
+ * with 10px side padding; 40px on tablet, 24px on a phone. Each rests at 90%
+ * and grows to full size under the pointer.
  */
 
 interface TrustedLogo {
@@ -29,77 +34,55 @@ interface TrustedLogo {
   height: number;
   /** In a 68px slot with 10px side padding, or straight in the row. */
   boxed: boolean;
-  /** Position in the mobile wrap. */
-  mobileOrder: number;
-  /** The company's site, where there is one to link to. */
-  href?: string;
 }
 
 const logo = (
   name: string,
   file: string,
-  mobileOrder: number,
-  options: Partial<Pick<TrustedLogo, 'height' | 'boxed' | 'href'>> = {},
+  options: Partial<Pick<TrustedLogo, 'height' | 'boxed'>> = {},
 ): TrustedLogo => ({
   name,
   src: `/logo/companies/${file}.svg`,
   height: 48,
   boxed: true,
-  mobileOrder,
   ...options,
 });
 
-/** Desktop rows, each with its side inset in px. */
-const ROWS: { inset: number; logos: TrustedLogo[] }[] = [
+export type RelationshipGroup = 'clients' | 'employers' | 'partners' | 'product';
+
+/** The credibility set, by relationship. Shared with the Partners carousel on /projects. */
+export const TRUSTED_GROUPS: { id: RelationshipGroup; logos: TrustedLogo[] }[] = [
   {
-    inset: 20,
+    id: 'clients',
     logos: [
-      logo('SoftConstruct', 'SoftConstruct', 0, { href: 'https://www.softconstruct.com/' }),
-      logo('Volo', 'Volo', 1, { href: 'https://volo.global/' }),
-      logo('Fortinet', 'Fortinet', 2, { href: 'https://www.fortinet.com/' }),
+      logo('Ginosi', 'Ginosi', { height: 42 }),
+      logo('World Education', 'WorldEdu'),
+      logo('Brainstorm', 'Brainstorm'),
+      logo('Infinity Rings', 'InfinitiRings'),
+      logo('IT365', 'IT365'),
     ],
   },
   {
-    inset: 120,
+    id: 'employers',
     logos: [
-      logo('InfinitiRings', 'InfinitiRings', 4, { href: 'https://www.infinityrings.com.au/' }),
-      logo('Ginosi', 'Ginosi', 3, { height: 42, href: 'https://www.ginosi.com/' }),
-      logo('by robynblair', 'byRobinblair', 5, { href: 'https://byrobynblair.com/' }),
-      logo('IT365', 'IT365', 6, { href: 'https://www.it365.am/' }),
+      logo('Picsart', 'Picsart', { height: 60 }),
+      logo('Smartbet', 'Smartbet'),
+      logo('Volo', 'Volo'),
+      logo('TCO', 'TCO', { boxed: false }),
+      logo('BrainRocket', 'BrainRocket'),
     ],
   },
   {
-    inset: 0,
+    id: 'partners',
     logos: [
-      logo('Smartbet', 'Smartbet', 7, { href: 'https://smartbet.am/' }),
-      logo('Picsart', 'Picsart', 8, { height: 60, href: 'https://picsart.com/' }),
-      logo('Brainstorm', 'Brainstorm', 9, { href: 'https://www.brainstormtech.io/' }),
+      logo('Benzeen Auto Parts', 'Benzeen'),
+      logo('By Robyn Blair', 'byRobinblair'),
+      logo('Scunci', 'Scunci'),
     ],
   },
   {
-    inset: 60,
-    logos: [
-      logo('Adrasheg', 'Adrasheg', 15),
-      logo('World Education', 'WorldEdu', 10, { href: 'https://worldedu.co.uk/' }),
-      logo('SoulOne', 'SoulOne', 11),
-      logo('Armenian Code Academy', 'ArmenianCodeAcademy', 13, { href: 'https://bootcamps.aca.am/' }),
-    ],
-  },
-  {
-    inset: 160,
-    logos: [
-      logo('Benzeen', 'Benzeen', 12, { href: 'https://www.benzeenautoparts.com/' }),
-      logo('BrainRocket', 'BrainRocket', 14, { href: 'https://www.brainrocket.com/' }),
-      logo('Scunci', 'Scunci', 16, { href: 'https://www.scunci.com/' }),
-    ],
-  },
-  {
-    inset: 120,
-    logos: [
-      logo('Inlogic', 'Inlogic', 19, { boxed: false }),
-      logo('Rostelecom', 'Rostelecom', 18, { boxed: false, href: 'https://www.company.rt.ru/en/' }),
-      logo('TCO', 'TCO', 21, { boxed: false, href: 'https://tco.am/en' }),
-    ],
+    id: 'product',
+    logos: [logo('SoulOne', 'SoulOne'), logo('Armenian Code Academy', 'ArmenianCodeAcademy')],
   },
 ];
 
@@ -157,59 +140,68 @@ const HeadingFrame = styled.div`
   }
 `;
 
-/*
- * No list role. It used to carry role="list" with role="listitem" on each logo,
- * which axe fails on two counts: listitem is not allowed on the <a> that a
- * linked logo renders as (a link already has a role), and the Row wrappers in
- * between stop a list from owning its items anyway. The logos are images with
- * their company name as alt text inside a section labelled by its heading, which
- * is enough. Making them a real list means <ul>/<li> per row and an <a> nested
- * inside each <li> — see TODO.md §8 if the item count is worth that.
- */
-const Logos = styled.div`
+const Groups = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${spacing[600]}px;
   width: 100%;
-  opacity: 0.8;
 
-  /* Six rows of logos have to share one screen with the heading, so their gap
-     and their slots below follow its height, never above the frame's sizes. */
+  /* Four groups share one screen with the heading on desktop. */
   ${media.up('xl')} {
-    gap: clamp(${spacing[150]}px, 2.4svh, ${spacing[600]}px);
-  }
-
-  ${media.down('xl')} {
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: ${spacing[600]}px ${spacing[1000]}px;
+    gap: clamp(${spacing[200]}px, 3svh, ${spacing[600]}px);
   }
 
   ${media.down('m')} {
-    gap: ${spacing[400]}px;
+    gap: ${spacing[500]}px;
   }
 `;
 
-const Row = styled.div<{ $inset: number }>`
+/** One relationship: its label, then its logos. */
+const Group = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: ${spacing[200]}px;
+`;
+
+const GroupLabel = styled.h3`
+  margin: 0;
+  font-family: ${fontFamily.heading};
+  font-weight: ${fontWeight.semibold};
+  font-size: ${fontSize.body.m}px;
+  line-height: ${lineHeight.body.m}px;
+  letter-spacing: ${letterSpacing.xxl}px;
+  text-transform: uppercase;
+  color: ${neutrals[500]};
+`;
+
+/*
+ * A plain list of marks: each logo is an image whose alt text is the company,
+ * inside a group named by its visible label.
+ */
+const LogoRow = styled.ul`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  row-gap: ${spacing[600]}px;
-  padding-inline: ${(p) => p.$inset}px;
+  justify-content: center;
+  gap: ${spacing[300]}px ${spacing[800]}px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  opacity: 0.8;
   mix-blend-mode: difference;
-  min-height: 64px;
 
-  /* Tablet and mobile: the rows dissolve into one wrap. */
   ${media.down('xl')} {
-    display: contents;
+    gap: ${spacing[400]}px ${spacing[600]}px;
+  }
+
+  ${media.down('m')} {
+    gap: ${spacing[300]}px ${spacing[400]}px;
   }
 `;
 
-/** A mark, or a link to the company when there is a site. */
-const Logo = styled.div<{ $height: number; $boxed: boolean; $mobileOrder: number }>`
+/** One company mark. */
+const Logo = styled.li<{ $height: number; $boxed: boolean }>`
   display: flex;
   flex: none;
   align-items: center;
@@ -253,16 +245,6 @@ const Logo = styled.div<{ $height: number; $boxed: boolean; $mobileOrder: number
     }
   }
 
-  &:focus-visible {
-    outline: 2px solid ${accents.primary};
-    outline-offset: 4px;
-    border-radius: 4px;
-
-    img {
-      transform: none;
-    }
-  }
-
   ${media.reducedMotion} {
     img {
       transition: none;
@@ -279,8 +261,6 @@ const Logo = styled.div<{ $height: number; $boxed: boolean; $mobileOrder: number
   }
 
   ${media.down('m')} {
-    order: ${(p) => p.$mobileOrder};
-
     img {
       height: 24px;
     }
@@ -297,26 +277,26 @@ export function TrustedBySection() {
           <SectionHeading id={TITLE_ID} title={t('title')} subtitle={t('subtitle')} />
         </HeadingFrame>
 
-        <Logos>
-          {ROWS.map((row, i) => (
-            <Row key={i} $inset={row.inset}>
-              {row.logos.map((item) => (
-                <Logo
-                  key={item.name}
-                  as={item.href ? 'a' : 'div'}
-                  href={item.href}
-                  target={item.href ? '_blank' : undefined}
-                  rel={item.href ? 'noreferrer' : undefined}
-                  $height={item.height}
-                  $boxed={item.boxed}
-                  $mobileOrder={item.mobileOrder}
-                >
-                  <img src={item.src} alt={item.name} loading="lazy" />
-                </Logo>
-              ))}
-            </Row>
-          ))}
-        </Logos>
+        <Groups>
+          {TRUSTED_GROUPS.map((group) => {
+            const labelId = `trusted-by-${group.id}`;
+            return (
+              <Group key={group.id} role="group" aria-labelledby={labelId}>
+                <GroupLabel id={labelId}>{t(`groups.${group.id}`)}</GroupLabel>
+                <LogoRow>
+                  {group.logos.map((item) => (
+                    <Logo key={item.name} $height={item.height} $boxed={item.boxed}>
+                      {/* Not lazy: an unsized SVG lays out 0px wide until it loads, and a
+                          0-wide lazy image is never seen to enter the viewport, so it never
+                          loads. Fifteen small SVGs, all below the fold. */}
+                      <img src={item.src} alt={item.name} decoding="async" />
+                    </Logo>
+                  ))}
+                </LogoRow>
+              </Group>
+            );
+          })}
+        </Groups>
       </Inner>
     </Section>
   );

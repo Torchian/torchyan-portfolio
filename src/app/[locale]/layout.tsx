@@ -4,7 +4,8 @@ import { Suspense } from 'react';
 import { NextIntlClientProvider } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import { StyledComponentsRegistry } from '@/lib/styled-registry';
-import { AnalyticsProvider } from '@/lib/analytics/provider';
+import { Analytics } from '@vercel/analytics/next';
+import { ClickTracker } from '@/lib/analytics/ClickTracker';
 import { SoundProvider } from '@/lib/sound/provider';
 import { routing } from '@/i18n/routing';
 import { PageLoader } from '@/components/layouts/PageLoader';
@@ -97,8 +98,15 @@ export default async function LocaleLayout({ children, params }: LocaleParams & 
           </StyledComponentsRegistry>
           <SoundProvider />
         </NextIntlClientProvider>
+        {/*
+          Vercel Web Analytics only: cookieless, so no consent banner is needed.
+          GA4 and Yandex Metrica (src/lib/analytics/provider.tsx) are not
+          rendered at all until consent handling is built — the privacy notice
+          says so, and this is what makes it true regardless of env vars.
+        */}
         <Suspense fallback={null}>
-          <AnalyticsProvider />
+          <Analytics />
+          <ClickTracker />
         </Suspense>
       </body>
     </html>

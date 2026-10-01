@@ -8,13 +8,11 @@ import { routing, type Locale } from './routing';
  * Armenian is a choice the switcher offers rather than one the site makes.
  */
 export const COUNTRY_LOCALES: Record<string, Locale> = {
-  RU: 'ru',
-  BY: 'ru',
-  KZ: 'ru',
-  KG: 'ru',
-  TJ: 'ru',
-  UZ: 'ru',
-  TM: 'ru',
+  // Suspended for the studio relaunch: the English copy is new and the Russian
+  // adaptation has not been written yet, so sending these visitors to /ru would
+  // show them text that lags the English site. Restore the map below once
+  // messages/ru.json carries the adapted copy (and run `npm run check:messages`).
+  //   RU, BY, KZ, KG, TJ, UZ, TM → 'ru'
 };
 
 /** Where hosts put the visitor's country (ISO 3166-1 alpha-2), in the order we trust them. */

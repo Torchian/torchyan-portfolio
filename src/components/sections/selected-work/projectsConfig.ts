@@ -1,12 +1,24 @@
 import { PICSART_GRID, SMARTBET_GRID, SOULONE_GRID, type IsometricGrid } from './projectGrids';
 
 /**
- * The case studies: company, gradient, the screenshots used around the site,
- * and the grid on their Selected Work card (projectGrids.ts).
- * Copy (roles, title, description, field) lives in messages/*.json under projects.<slug>.
+ * Every project with a case page: company, period, colours and screenshots.
+ * Copy (roles, title, description, field, story) lives in messages/*.json
+ * under projects.<slug>.
+ *
+ * This list drives three things: the case routes (/projects/<slug>), the
+ * sitemap, and — for the projects that have a `card` — the homepage Selected
+ * Work stack, in this order. A card needs a hand-measured screenshot grid
+ * (projectGrids.ts), which is why only the featured projects have one.
  */
 
-export type ProjectSlug = 'picsart' | 'smartbet' | 'soulone';
+export type ProjectSlug =
+  | 'picsart'
+  | 'soulone'
+  | 'smartbet'
+  | 'ginosi'
+  | 'benzeen'
+  | 'world-education'
+  | 'brainstorm';
 
 /** A project's copy, from messages/*.json under projects.<slug>. */
 export interface ProjectContent {
@@ -16,18 +28,25 @@ export interface ProjectContent {
   field: string;
 }
 
-export interface ProjectConfig {
-  slug: ProjectSlug;
-  company: string;
-  year: string;
-  gradient: string;
-  images: { src: string; alt: string }[];
-  href?: string;
-  /** The Selected Work card's screenshot grid. */
+/** The homepage Selected Work card: its screenshot grid and CTA fill. */
+export interface ProjectCard {
   grid: IsometricGrid;
   /** The card CTA's resting fill (Figma dark/gradient/brands/<slug>). */
   ctaFill: string;
 }
+
+export interface ProjectConfig {
+  slug: ProjectSlug;
+  company: string;
+  /** As shown on the card and the case page: a year or a span. */
+  year: string;
+  gradient: string;
+  images: { src: string; alt: string }[];
+  /** Present for the projects featured on the homepage. */
+  card?: ProjectCard;
+}
+
+export type FeaturedProject = ProjectConfig & { card: ProjectCard };
 
 /** Picsart */
 const PICSART_GRADIENT = 'linear-gradient(180deg, #920792 0%, #7F4AD9 100%)';
@@ -100,38 +119,72 @@ function toImages(folder: string, files: string[], alt: string) {
   return files.map((f) => ({ src: `/selected-work/${folder}/${f}`, alt }));
 }
 
+/** Ginosi, Benzeen, World Education, Brainstorm: case-page colours, from their Work rows. */
+const GINOSI_GRADIENT = 'linear-gradient(180deg, #102649 0%, #5C4AC0 100%)';
+const BRAINSTORM_GRADIENT = 'linear-gradient(180deg, #5C4AC0 0%, #8A5FA0 100%)';
+const BENZEEN_GRADIENT = 'linear-gradient(180deg, #6B4A12 0%, #927F3D 100%)';
+const WORLD_EDUCATION_GRADIENT = 'linear-gradient(180deg, #5E5128 0%, #927F3D 100%)';
+
+const various = (files: string[], alt: string) =>
+  files.map((f) => ({ src: `/selected-work/various/${f}`, alt }));
+
 export const PROJECTS: ProjectConfig[] = [
   {
     slug: 'picsart',
     company: 'Picsart',
-    year: '2024',
+    year: '2021–2024',
     gradient: PICSART_GRADIENT,
     images: toImages('picsart', PICSART_IMAGES, 'Picsart'),
-    grid: PICSART_GRID,
-    ctaFill: PICSART_GRADIENT,
-    href: '/projects/picsart',
+    card: { grid: PICSART_GRID, ctaFill: PICSART_GRADIENT },
+  },
+  {
+    slug: 'soulone',
+    company: 'SoulOne',
+    year: '2025',
+    gradient: SOULONE_GRADIENT,
+    images: toImages('soulone', SOULONE_IMAGES, 'SoulOne'),
+    card: { grid: SOULONE_GRID, ctaFill: SOULONE_GRADIENT },
   },
   {
     slug: 'smartbet',
     company: 'Smartbet',
-    year: '2024',
+    year: '2021',
     gradient: SMARTBET_GRADIENT,
     images: toImages('smartbet', SMARTBET_IMAGES, 'Smartbet'),
-    grid: SMARTBET_GRID,
-    ctaFill: SMARTBET_GRADIENT,
-    href: '/projects/smartbet',
+    card: { grid: SMARTBET_GRID, ctaFill: SMARTBET_GRADIENT },
   },
   {
-    slug: 'soulone',
-    company: 'Soulone',
-    year: '2024',
-    gradient: SOULONE_GRADIENT,
-    images: toImages('soulone', SOULONE_IMAGES, 'Soulone'),
-    grid: SOULONE_GRID,
-    ctaFill: SOULONE_GRADIENT,
-    href: '/projects/soulone',
+    slug: 'ginosi',
+    company: 'Ginosi Apartels & Hotels',
+    year: '2019',
+    gradient: GINOSI_GRADIENT,
+    images: various(['ginosi-search.webp', 'ginosi-apartel.webp'], 'Ginosi website'),
+  },
+  {
+    slug: 'benzeen',
+    company: 'Benzeen Auto Parts',
+    year: '2019',
+    gradient: BENZEEN_GRADIENT,
+    images: various(['benzeen-alfa.webp', 'benzeen-wheel.webp'], 'Benzeen Auto Parts website'),
+  },
+  {
+    slug: 'world-education',
+    company: 'World Education',
+    year: '2020',
+    gradient: WORLD_EDUCATION_GRADIENT,
+    images: various(['world-services.webp', 'world-study.webp'], 'World Education website'),
+  },
+  {
+    slug: 'brainstorm',
+    company: 'Brainstorm',
+    year: '2018',
+    gradient: BRAINSTORM_GRADIENT,
+    images: various(['brainstormtech.webp'], 'Brainstorm website'),
   },
 ];
+
+/** The homepage Selected Work cards, in order. */
+export const FEATURED_PROJECTS = PROJECTS.filter((p): p is FeaturedProject => Boolean(p.card));
 
 export function getProjectBySlug(slug: string): ProjectConfig | undefined {
   return PROJECTS.find((p) => p.slug === slug);

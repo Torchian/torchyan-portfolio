@@ -13,6 +13,7 @@
     "images": "tsx scripts/optimize-images.ts"
   },
   "dependencies": {
+    "@vercel/analytics": "^2.0.1",
     "next": "16.1.6",
     "next-intl": "^4.14.5",
     "react": "19.2.3",

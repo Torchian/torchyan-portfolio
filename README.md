@@ -125,6 +125,7 @@ width-constrained. See `docs/adr/0002-localization.md`.
 | `0005` | Character component |
 | `0006` | Case study page |
 | `0007` | About page |
+| `0008` | Studio relaunch: pages, proof and contact |
 
 ---
 

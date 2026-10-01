@@ -4,8 +4,8 @@
  * messages/*.json under caseStudy.<slug>; a project gets the page once it has
  * both an entry here and its copy.
  *
- * Only Picsart is filled in. The Timeline gallery and the use-case images are
- * placeholders drawn from the Picsart screenshots until the real ones arrive.
+ * Only Picsart has the full case. Its galleries and use-case images are Picsart
+ * screenshots, matched to each step as closely as the repo's set allows.
  */
 
 import type { ProjectSlug } from '@/components/sections/selected-work/projectsConfig';
@@ -85,24 +85,27 @@ export const CASE_STUDIES: Partial<Record<ProjectSlug, CaseStudyImagery>> = {
         phone('mobile-search-stickers'),
       ],
     ],
+    // One set per Timeline step (caseStudy.picsart.timeline.steps), in order:
+    // context, Growth, Ad Wizard, Marketplace, performance, what changed, what
+    // it shows. Picsart's own screens; Ad Wizard has none in the repo yet, so
+    // its step shows editor screens until those arrive.
     timeline: [
       gallery('mobile-feed', 'marketplace-home', 'discovery-home'),
-      gallery('mobile-search-all', 'marketplace-search', 'marketplace-filters'),
-      gallery('mobile-item', 'marketplace-item', 'marketplace-checkout'),
-      gallery('mobile-profile', 'discovery-collections', 'marketplace-creator'),
+      gallery('mobile-templates', 'discovery-templates', 'discovery-collections'),
       gallery('mobile-filters', 'marketplace-editor', 'editor-templates'),
-      gallery('mobile-templates', 'discovery-templates', 'marketplace-feed'),
-      gallery('mobile-actions', 'marketplace-checkout', 'discovery-home'),
-      gallery('mobile-search-stickers', 'marketplace-filters', 'marketplace-search'),
-      gallery('mobile-collections', 'marketplace-creator', 'discovery-collections'),
-      gallery('mobile-creator-profile', 'marketplace-home', 'editor-templates'),
+      gallery('mobile-search-all', 'marketplace-search', 'marketplace-filters'),
+      gallery('mobile-collections', 'discovery-collections', 'discovery-home'),
+      gallery('mobile-item', 'marketplace-item', 'marketplace-checkout'),
+      gallery('mobile-creator-profile', 'marketplace-creator', 'marketplace-feed'),
     ],
+    // One per Architecture use case: RTL/LTR, Design System integration, team
+    // components, accessibility, Ad Wizard (editor screens until its own arrive).
     useCases: [
-      desk('discovery-templates'),
-      desk('marketplace-filters'),
-      desk('discovery-home'),
-      desk('marketplace-item'),
       desk('marketplace-search'),
+      desk('discovery-home'),
+      desk('marketplace-filters'),
+      desk('marketplace-item'),
+      desk('editor-templates'),
     ],
   },
 };

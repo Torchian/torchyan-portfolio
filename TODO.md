@@ -34,6 +34,19 @@ reveal, 0004 Selected Work grids, 0005 Character component, 0006 case study page
 
 ## 1. Launch blockers (P0)
 
+Studio relaunch (ADR 0008). The pages, copy and contact flow are built; these
+must be done before the maintenance gate comes off.
+
+- [ ] **Russian adaptation** — **P0 · Decision + Dev** — `messages/ru.json` carries the new English strings wherever the English changed. Adapt (not translate word for word), run `npm run check:messages`, then restore `COUNTRY_LOCALES` in `src/i18n/detection.ts`.
+- [ ] **Armenian adaptation** — **P0 · Decision + Dev** — same for `messages/hy.json`. Check the long-copy layouts afterwards: Projects phone stage, header pill, hero.
+- [ ] **Privacy notice: data controller** — **P0 · Owner** — add the legal name, form and registration to `privacyPage.sections[0]`, and have the notice reviewed (including whether an EU representative is needed).
+- [ ] **Live contact test** — **P0 · Owner** — Resend variables in Vercel production; send one message through `/contact` and confirm it arrives. Then confirm `hello@torchyan.design` receives mail — the form's error messages point to it.
+- [ ] **Vercel Web Analytics** — **P0 · Owner** — enable Web Analytics for the project in the Vercel dashboard, and confirm custom events are available on the plan.
+- [ ] **Footer role lettering** — **P0 · Design** — `public/footer/name-designer-engineer.svg` still reads "Designer × Engineer"; replace with "Digital Product Studio" lettering at the same size.
+- [ ] **Default social image** — **P0 · Design** — `public/og/default.jpg` still shows the portfolio card ("Designer × Engineer", "AI-powered experiences", the "DESISN" typo). New 1200×630 artwork: Torchyan · Digital Product Studio.
+- [ ] **Screens to confirm** — **P1 · Owner** — the Smartbet screens on its card, row and case are the ones you implemented; Ad Wizard has no screenshots yet (its case step shows Picsart editor screens).
+- [ ] **"Built with" per project** — **P1 · Owner** — only Picsart has a confirmed stack; the other rows hide the line until one is added to `projectsPage.showcase.items.<key>.stack`.
+
 
 ---
 

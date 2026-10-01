@@ -1,19 +1,31 @@
 {
   "meta": {
-    "siteName": "Степан Торчян",
-    "titleTemplate": "%s | Степан Торчян",
-    "defaultTitle": "Степан Торчян — дизайн-инженер",
-    "description": "Портфолио дизайн-инженера Степана Торчяна.",
-    "jobTitle": "Дизайн-инженер",
+    "siteName": "Torchyan",
+    "titleTemplate": "%s | Torchyan",
+    "defaultTitle": "Torchyan — Digital Product Studio",
+    "description": "Founder-led studio for websites and digital products. Strategy, UX, design and engineering carried from first direction to production — then improved after launch.",
+    "jobTitle": "Founder, Torchyan",
     "about": {
       "title": "Обо мне",
-      "description": "Степан Торчян — дизайнер × инженер."
+      "description": "Torchyan is led by Stepan Torchyan, a designer and UI engineer based in Armenia and working internationally."
     },
     "projects": {
-      "title": "Проекты",
-      "description": "Избранные работы и проекты Степана Торчяна."
+      "title": "Work",
+      "description": "Website and product interface work with Picsart, SoulOne, Smartbet, Ginosi, Benzeen Auto Parts, World Education and Brainstorm — each with the exact role and relationship."
     },
-    "projectNotFound": "Проект не найден"
+    "services": {
+      "title": "Services",
+      "description": "Websites, product interfaces, design systems and launch support — owned from direction to production by one accountable lead, with specialists when needed."
+    },
+    "contact": {
+      "title": "Start a project",
+      "description": "Tell Torchyan what you’re building or what needs to change. You’ll get a reply within 2 business days."
+    },
+    "privacy": {
+      "title": "Privacy notice",
+      "description": "How Torchyan handles the personal data you send through this website."
+    },
+    "projectNotFound": "Project not found"
   },
   "common": {
     "skipToContent": "Перейти к содержимому",
@@ -26,9 +38,10 @@
   },
   "nav": {
     "home": "Главная",
-    "projects": "Проекты",
+    "services": "Services",
+    "projects": "Work",
     "about": "Обо мне",
-    "contactMe": "Связаться",
+    "contactMe": "Start a project",
     "mainLabel": "Основная навигация",
     "menuLabel": "Меню",
     "openMenu": "Открыть меню",
@@ -52,238 +65,555 @@
     }
   },
   "hero": {
-    "name": "Степан Торчян",
-    "role": "Дизайн-инженер",
-    "description": "Я работаю на стыке дизайна и разработки, объединяя продуктовое мышление, UI-архитектуру и фронтенд в единый последовательный процесс.",
-    "cta": "Смотреть работы",
-    "skillsLabel": "Направления",
+    "name": "Torchyan",
+    "role": "Digital Product Studio",
+    "description": "Design & engineering for websites and digital products — from first direction to production code, led by one accountable founder and supported by specialists when the work needs them.",
+    "cta": "Start a project",
+    "secondaryCta": "See the work",
+    "skillsLabel": "How a project moves",
     "skills": [
-      "Продуктовый дизайн",
-      "Дизайн-инжиниринг",
-      "UI-архитектура",
-      "Дизайн-системы",
-      "Эксперименты"
+      "Strategy",
+      "UX",
+      "Design",
+      "Engineering",
+      "Launch"
     ]
   },
   "whatIDo": {
-    "title": "Чем я занимаюсь",
-    "subtitle": "Дизайн-стратегия и full-stack разработка",
+    "title": "How a project runs",
+    "subtitle": "One continuous chain, from the first question to the live product — no handoffs where quality gets lost.",
     "steps": [
       {
-        "title": "Понять проблему",
-        "description": "Сначала понять настоящую проблему, а не только симптом. Опираться на контекст, цели и ограничения, чтобы её сформулировать."
+        "title": "Understand the business",
+        "description": "We start with what the business needs to achieve, who it serves and what’s in the way — before anything is designed."
       },
       {
-        "title": "Строить систему",
-        "description": "Заложить структурную основу продукта, чтобы он мог расти, не теряя ясности и целостности."
+        "title": "Shape the structure",
+        "description": "Content, user flows and information architecture are set up so the product can grow without losing clarity."
       },
       {
-        "title": "Дизайн со смыслом",
-        "description": "Превращать идеи в чёткие, точные интерфейсы, где каждое решение служит удобству и смыслу."
+        "title": "Design the experience",
+        "description": "Interfaces designed around real content and real users — clear, accessible and consistent."
       },
       {
-        "title": "Воплотить в коде",
-        "description": "Превращать макеты в пиксель-перфект код, готовый к продакшену, масштабируемый и поддерживаемый."
+        "title": "Build for production",
+        "description": "The same decisions carried into code: responsive, fast, accessible and maintainable. Specialists join for backend, QA or SEO when the project needs them."
       },
       {
-        "title": "Улучшать и развивать",
-        "description": "Совершенствовать продукт через итерации, обратную связь и взвешенные решения на основе данных."
+        "title": "Launch and improve",
+        "description": "Deployment, measurement and ongoing improvements after go-live, so the product keeps pace with the business."
       }
     ]
   },
   "selectedWork": {
-    "title": "Избранные работы",
-    "subtitle": "Проекты, которые сформировали моё мастерство",
-    "viewCase": "Смотреть кейс",
-    "viewAllCases": "Все кейсы",
+    "title": "Selected work",
+    "subtitle": "Product companies, a brand I helped build and direct clients — each with the exact role.",
+    "viewCase": "View case",
+    "viewAllCases": "View all work",
     "allProjects": {
-      "company": "Все проекты",
+      "company": "All work",
       "roles": [
-        "UI/UX-дизайн",
-        "Веб-разработка",
-        "Дашборды"
+        "UI development",
+        "Front-end",
+        "Websites"
       ],
-      "title": "Сайты, e-commerce и дашборды",
-      "description": "Подборка клиентских проектов — сайты бронирования и интернет-магазины, корпоративные сайты и админ-панели.",
-      "field": "Сайты · Веб-приложения"
+      "title": "Commercial websites",
+      "description": "Front-end builds for hospitality, automotive and education businesses — Ginosi, Benzeen Auto Parts, World Education and Brainstorm.",
+      "field": "Websites · 2018–2020"
     }
   },
   "projects": {
     "picsart": {
       "roles": [
-        "Продуктовый дизайн",
-        "Фронтенд",
-        "Дизайн-система"
+        "Senior UI Engineer"
       ],
-      "title": "Креативная платформа",
-      "description": "Продуктовый дизайн и фронтенд-разработка полного цикла для крупнейшей в мире креативной платформы.",
-      "field": "Дизайн · Разработка"
-    },
-    "smartbet": {
-      "roles": [
-        "Продуктовый дизайн",
-        "Фронтенд",
-        "Бэкенд"
-      ],
-      "title": "Платформа ставок и игр",
-      "description": "Дизайн-инжиниринг для B2B-платформы спортивных ставок и онлайн-игр.",
-      "field": "Финтех · Гейминг"
+      "title": "Growth & Marketplace",
+      "description": "UI engineering across Picsart Growth and Marketplace, including Design System integration, RTL/LTR localization, accessibility and performance work.",
+      "field": "Creative platform"
     },
     "soulone": {
       "roles": [
-        "Лид-дизайнер",
-        "Full-stack"
+        "Web Designer",
+        "Product Owner"
       ],
-      "title": "Набор продуктов",
-      "description": "Айдентика бренда и продуктовый дизайн для технологического стартапа.",
-      "field": "SaaS · Брендинг"
+      "title": "Gluten-free bakery brand",
+      "description": "Web and product design for an Armenian bakery brand — with day-to-day ownership of the product and the business behind it.",
+      "field": "Food · Bakery",
+      "story": [
+        {
+          "label": "Relationship & role",
+          "blocks": [
+            [
+              "Founding team, May–October 2025. Web designer and product owner."
+            ]
+          ]
+        },
+        {
+          "label": "Context",
+          "blocks": [
+            [
+              "SoulOne is an Armenian bakery and food brand focused on gluten-free, eco-oriented cakes, desserts and similar products."
+            ]
+          ]
+        },
+        {
+          "label": "What I did",
+          "blocks": [
+            [
+              [
+                "Web and product design",
+                "Product ownership, with deep day-to-day involvement in the product and the business — not only its visual design",
+                "Outreach and promotion"
+              ]
+            ]
+          ]
+        },
+        {
+          "label": "Evidence",
+          "blocks": [
+            [
+              "Product and website screens from the project."
+            ]
+          ]
+        },
+        {
+          "label": "What it shows",
+          "blocks": [
+            [
+              "Ownership beyond the screen — design, product and business decisions, and getting a real brand in front of customers. It’s the full chain Torchyan offers clients."
+            ]
+          ]
+        }
+      ]
+    },
+    "smartbet": {
+      "roles": [
+        "UI Developer"
+      ],
+      "title": "Company website",
+      "description": "Front-end implementation of Smartbet’s website from the design team’s layouts — responsive pages across products and company information.",
+      "field": "Website",
+      "story": [
+        {
+          "label": "Relationship & role",
+          "blocks": [
+            [
+              "Employee, August–October 2021. UI developer in a cross-functional team of designers and developers."
+            ]
+          ]
+        },
+        {
+          "label": "Context",
+          "blocks": [
+            [
+              "Smartbet’s website presents the company’s products and services."
+            ]
+          ]
+        },
+        {
+          "label": "What I did",
+          "blocks": [
+            [
+              [
+                "Front-end implementation of the website from the design team’s layouts",
+                "Responsive, cross-browser pages"
+              ]
+            ]
+          ]
+        },
+        {
+          "label": "Evidence",
+          "blocks": [
+            [
+              "Screens I implemented."
+            ]
+          ]
+        },
+        {
+          "label": "What it shows",
+          "blocks": [
+            [
+              "A faithful, production-ready build of a design team’s work, inside a cross-functional team."
+            ]
+          ]
+        }
+      ]
+    },
+    "ginosi": {
+      "roles": [
+        "Front-end development"
+      ],
+      "title": "Website front end",
+      "description": "The website UI for a serviced-apartment and hotel business.",
+      "field": "Hospitality",
+      "story": [
+        {
+          "label": "Relationship & role",
+          "blocks": [
+            [
+              "Direct client, April–May 2019. Front-end development — I built the website’s UI."
+            ]
+          ]
+        },
+        {
+          "label": "Context",
+          "blocks": [
+            [
+              "Ginosi runs serviced apartments and hotels, with locations internationally."
+            ]
+          ]
+        },
+        {
+          "label": "What I did",
+          "blocks": [
+            [
+              [
+                "Built the website UI and front end"
+              ]
+            ]
+          ]
+        },
+        {
+          "label": "Evidence",
+          "blocks": [
+            [
+              "Archived screenshots of the original build. The live site has since changed."
+            ]
+          ]
+        },
+        {
+          "label": "What it shows",
+          "blocks": [
+            [
+              "Front-end delivery for an international hospitality website."
+            ]
+          ]
+        }
+      ]
+    },
+    "benzeen": {
+      "roles": [
+        "Front-end development"
+      ],
+      "title": "Website front end",
+      "description": "Full front-end implementation for an auto-parts business, delivered through TCO.",
+      "field": "Automotive",
+      "story": [
+        {
+          "label": "Relationship & role",
+          "blocks": [
+            [
+              "Through TCO (then my employer), March–October 2019. Front-end development."
+            ]
+          ]
+        },
+        {
+          "label": "Context",
+          "blocks": [
+            [
+              "Benzeen Auto Parts is an auto-parts business based in Los Angeles."
+            ]
+          ]
+        },
+        {
+          "label": "What I did",
+          "blocks": [
+            [
+              [
+                "Full front-end implementation",
+                "Animations and interactive details",
+                "Input into design decisions during the build"
+              ]
+            ]
+          ]
+        },
+        {
+          "label": "Evidence",
+          "blocks": [
+            [
+              "Project screens and materials."
+            ]
+          ]
+        },
+        {
+          "label": "What it shows",
+          "blocks": [
+            [
+              "Complete front-end ownership of a commercial website, delivered through a partner company."
+            ]
+          ]
+        }
+      ]
+    },
+    "world-education": {
+      "roles": [
+        "UI Developer"
+      ],
+      "title": "Company website",
+      "description": "Full UI implementation, animations and interactive details.",
+      "field": "Education",
+      "story": [
+        {
+          "label": "Relationship & role",
+          "blocks": [
+            [
+              "Direct client, March–May 2020. UI developer."
+            ]
+          ]
+        },
+        {
+          "label": "Context",
+          "blocks": [
+            [
+              "World Education came to me directly for its website."
+            ]
+          ]
+        },
+        {
+          "label": "What I did",
+          "blocks": [
+            [
+              [
+                "Full UI and layout implementation",
+                "Animations",
+                "Some JavaScript functionality"
+              ]
+            ]
+          ]
+        },
+        {
+          "label": "Evidence",
+          "blocks": [
+            [
+              "Screenshots of the build."
+            ]
+          ]
+        },
+        {
+          "label": "What it shows",
+          "blocks": [
+            [
+              "Complete UI delivery for a direct client’s website."
+            ]
+          ]
+        }
+      ]
+    },
+    "brainstorm": {
+      "roles": [
+        "Front-end development"
+      ],
+      "title": "Company website",
+      "description": "Full front-end development from a ready-made design.",
+      "field": "Company website",
+      "story": [
+        {
+          "label": "Relationship & role",
+          "blocks": [
+            [
+              "Direct client, May–August 2018. Front-end development."
+            ]
+          ]
+        },
+        {
+          "label": "Context",
+          "blocks": [
+            [
+              "Brainstorm is a company based in New York and Yerevan."
+            ]
+          ]
+        },
+        {
+          "label": "What I did",
+          "blocks": [
+            [
+              [
+                "Full front-end development from a ready-made design"
+              ]
+            ]
+          ]
+        },
+        {
+          "label": "Evidence",
+          "blocks": [
+            [
+              "Screenshots and video of the original implementation. The live site has since changed."
+            ]
+          ]
+        },
+        {
+          "label": "What it shows",
+          "blocks": [
+            [
+              "Faithful implementation of an existing design, end to end."
+            ]
+          ]
+        }
+      ]
     }
   },
   "capabilities": {
-    "heading": "Компетенции",
-    "subtitle": "Я проектирую, разрабатываю и запускаю цифровые продукты, в которых важны структура, производительность и ясность.",
-    "cta": "Связаться",
-    "title": "Моё дело",
-    "skillsLabel": "Навыки: {title}",
+    "heading": "What you can hire Torchyan for",
+    "subtitle": "Four areas Torchyan takes responsibility for — each carried from direction to production, with specialists added when the work calls for them.",
+    "cta": "See how we work",
+    "title": "One accountable lead",
+    "skillsLabel": "What {title} includes",
     "items": [
       {
-        "title": "Архитектура UI продукта",
-        "text": "Проектирую структурную основу продукта: как экраны, компоненты и взаимодействия связаны между собой и масштабируются.",
-        "footnote": "Интерфейс, который ощущается продуманным, последовательным и готовым к будущему.",
+        "title": "Websites",
+        "text": "When the website no longer matches the business, or something new needs to launch: company sites, rebuilds and launch pages, owned from structure and content direction to a fast, maintainable build.",
+        "footnote": "A site that explains the business clearly — and that your team can update with confidence.",
         "skills": [
-          "Figma",
-          "UX-эвристики",
-          "Согласование между командами",
-          "Информационная архитектура",
-          "Логика и состояния компонентов",
-          "Доступность и WCAG",
-          "Дизайн-системы",
-          "Пользовательские сценарии"
+          "Direction & structure",
+          "Content direction",
+          "Brand & visual direction",
+          "UX & interface design",
+          "Motion & interaction",
+          "Front-end & CMS build",
+          "SEO foundations",
+          "Launch & handover"
         ]
       },
       {
-        "title": "Эксперименты и системная работа",
-        "text": "Исследую новые модели взаимодействия, логические системы и идеи за пределами стандартных UI-паттернов.",
-        "footnote": "Проектирую интерфейсные структуры, которые масштабируются, — от логики навигации до экосистем компонентов.",
+        "title": "Product interfaces",
+        "text": "When a product needs to be usable, consistent and shippable: UX and UI for web products, platforms and dashboards — designed and built in one continuous process.",
+        "footnote": "Interfaces your team can ship and extend, not just approve.",
         "skills": [
-          "UI на основе логики",
-          "Проверка концепций",
-          "Эксперименты в песочнице",
-          "Креативное программирование",
-          "Звуковое взаимодействие (Howler.js)",
-          "Быстрые итерации",
-          "Интерактивные прототипы",
-          "Конечные автоматы"
+          "Discovery & user flows",
+          "UX architecture",
+          "Interface design",
+          "Prototyping",
+          "Front-end engineering",
+          "Localization & RTL",
+          "WCAG 2.1 AA-aligned accessibility",
+          "Backend with specialists"
         ]
       },
       {
-        "title": "Фронтенд-разработка",
-        "text": "Превращаю дизайн-замысел в готовые к продакшену интерфейсы — доступные, быстрые и поддерживаемые.",
-        "footnote": "Интерфейсы, которые правильно выглядят, правильно ощущаются и надёжно работают в продакшене.",
+        "title": "Design systems",
+        "text": "When every new screen looks slightly different and slows the team down: foundations, components and documentation that design and engineering both use.",
+        "footnote": "Consistency that holds as the team and the product grow.",
         "skills": [
-          "Семантический HTML5",
-          "Доступность и WCAG",
-          "Архитектура CSS / SCSS",
-          "Styled Components / JSS",
-          "Оптимизация производительности",
-          "Работа с Git",
-          "Адаптивная вёрстка",
-          "React и Next.js"
+          "UI review",
+          "Tokens & foundations",
+          "Component library",
+          "States & variants",
+          "Theming",
+          "Code integration",
+          "Documentation",
+          "Adoption support"
         ]
       },
       {
-        "title": "Анимация и взаимодействие",
+        "title": "Launch & improvement",
         "text": {
-          "lead": "Что получают клиенты",
+          "lead": "After go-live, the work continues:",
           "items": [
-            "Лучшую ориентацию пользователя",
-            "Понятную обратную связь и переходы",
-            "Более интуитивные взаимодействия",
-            "Анимацию, которая помогает, а не отвлекает"
+            "Performance and accessibility care",
+            "Analytics and measurement",
+            "SEO and launch marketing, with specialists",
+            "Improvements based on real usage"
           ]
         },
-        "footnote": "Использую анимацию и взаимодействие, чтобы направлять внимание, передавать состояние и улучшать удобство.",
+        "footnote": "A product that keeps improving instead of slowly going out of date.",
         "skills": [
-          "CSS-анимации",
-          "Переходы между страницами",
-          "Микровзаимодействия",
-          "Анимация с GPU-ускорением",
-          "Системы обратной связи",
-          "Тайминги и кривые сглаживания",
-          "Иерархия анимации",
-          "Framer Motion"
+          "Deployment",
+          "Performance",
+          "Analytics setup",
+          "Conversion improvements",
+          "SEO",
+          "Launch promotion",
+          "Maintenance",
+          "Ongoing support"
         ]
       }
     ]
   },
   "trustedBy": {
-    "title": "Мне доверяют команды",
-    "subtitle": "За эти годы я работал с продуктовыми командами в финтехе, медиа и платформенных компаниях — помогая превращать сложные интерфейсы в масштабируемые системы, готовые к продакшену."
+    "title": "Who I’ve worked with",
+    "subtitle": "Direct clients, employers and projects through partner companies — every relationship shown as it was.",
+    "groups": {
+      "clients": "Direct clients",
+      "employers": "Employers",
+      "partners": "Through partner companies",
+      "product": "Product & teaching"
+    }
   },
   "yearsMap": {
-    "title": "Годы работы на карте",
-    "mapAlt": "Карта мира",
+    "title": "Based in Armenia. Working across markets.",
+    "subtitle": "Places I’ve worked with, for or through — not offices.",
+    "mapAlt": "World map of places where Torchyan’s founder has worked with clients and teams",
+    "listLabel": "Places of past work",
     "locations": {
+      "yerevan": "Ереван, Армения",
       "sanFrancisco": "Сан-Франциско, США",
       "newYork": "Нью-Йорк, США",
-      "miami": "Майами, США",
-      "sweden": "Швеция",
-      "berlin": "Берлин, Германия",
-      "switzerland": "Швейцария",
+      "losAngeles": "Los Angeles, USA",
+      "australia": "Australia",
       "moscow": "Москва, Россия",
-      "yerevan": "Ереван, Армения",
-      "cyprus": "Кипр",
-      "sydney": "Сидней, Австралия"
+      "cyprus": "Кипр"
     }
   },
   "contact": {
-    "heading": "Давайте обсудим, что вы создаёте",
-    "intentLabel": "Выберите цель",
+    "heading": "Tell me what you’re working on",
+    "intentLabel": "What do you need? (optional)",
     "intentOptions": [
-      "Продуктовый UI / дизайн-система",
-      "Фронтенд / UI-разработка",
-      "Дизайн × разработка",
-      "Консультация / аудит",
-      "Что-то экспериментальное"
+      "A website",
+      "A product interface",
+      "A design system",
+      "Improving something live",
+      "Not sure yet"
     ],
     "nameLabel": "Имя",
-    "namePlaceholder": "Ваше имя",
-    "emailLabel": "Email",
-    "emailPlaceholder": "Ваш email",
-    "buildingLabel": "Что вы создаёте?",
-    "buildingPlaceholder": "Продукт, идея или задача в нескольких строках",
-    "stageLabel": "Стадия проекта",
-    "stageOptions": [
-      "Идея",
-      "В работе",
-      "Масштабирование",
-      "Исправление"
-    ],
-    "timelineLabel": "Сроки",
+    "namePlaceholder": "Your name",
+    "emailLabel": "Work email",
+    "emailPlaceholder": "you@company.com",
+    "companyField": {
+      "label": "Company (optional)",
+      "placeholder": "Company name"
+    },
+    "websiteField": {
+      "label": "Website or product link (optional)",
+      "placeholder": "https://"
+    },
+    "buildingLabel": "What’s happening, and what should change?",
+    "buildingPlaceholder": "A few lines on the business, the problem and any deadline",
+    "timelineLabel": "When do you need it? (optional)",
     "timelineOptions": [
-      "Срочно",
-      "1–2 месяца",
-      "Гибко"
+      "Within a month",
+      "In 1–3 months",
+      "Just exploring"
     ],
-    "submit": "Отправить",
-    "companyLabel": "Компания (оставьте поле пустым)",
+    "submit": "Send message",
     "submitSending": "Отправляю…",
-    "submitSuccess": "Спасибо — сообщение отправлено. Отвечу на указанный адрес.",
-    "submitError": "Отправить не удалось. Попробуйте ещё раз или напишите мне напрямую."
+    "submitSuccess": "Thank you — your message has arrived. I’ll reply within 2 business days.",
+    "errors": {
+      "validation": "Please check the highlighted fields.",
+      "rateLimited": "Too many messages in a short time. Please wait a little and try again, or email hello@torchyan.design.",
+      "delivery": "Your message didn’t send. Please try again, or email hello@torchyan.design directly."
+    },
+    "fieldErrors": {
+      "required": "This field is required.",
+      "email": "Enter a valid email address, like name@company.com.",
+      "url": "Enter a valid link, like company.com."
+    },
+    "privacyNote": "Your details are used only to reply to this message. <link>Privacy notice</link>",
+    "trapLabel": "Leave this field empty"
   },
   "footer": {
-    "srName": "Степан Торчян — дизайнер × инженер",
-    "primary": "Разделы",
+    "srName": "Torchyan — Digital Product Studio, led by Stepan Torchyan",
+    "primary": "Studio",
     "social": "Соцсети",
-    "contacts": "Контакты",
+    "contacts": "Contact",
     "location": "Ереван, Армения",
     "copyright": "© {year} Torchyan",
-    "rights": "Все права защищены",
+    "rights": "All rights reserved",
     "links": {
-      "home": "Главная",
+      "services": "Services",
+      "projects": "Work",
       "about": "Обо мне",
-      "projects": "Проекты",
-      "contact": "Контакты"
+      "contact": "Start a project",
+      "privacy": "Privacy"
     }
   },
   "partners": {
@@ -293,176 +623,424 @@
     "listLabel": "Проекты",
     "dotsLabel": "Перейти к проекту",
     "hero": {
-      "title": "Проекты как цельные системы",
-      "lead": "Я не отношусь к проектам как к разрозненным результатам.",
-      "body": "Каждый из них — многоуровневая продуктовая архитектура, в которой исследования, логика взаимодействия, визуальные системы и инженерные ограничения сводятся в масштабируемый интерфейс.",
+      "title": "Work, with the exact role",
+      "lead": "Every project here says what I actually did.",
+      "body": "Some of this work happened inside product companies, some directly for clients, some through partner companies. The relationship and role are listed on each one, so you can judge the experience for what it is.",
       "points": [
-        "Превращаю неопределённость в структуру",
-        "Перевожу бизнес-цели в пользовательские сценарии",
-        "Проектирую экосистемы компонентов",
-        "Согласую визуальный язык с инженерной реальностью",
-        "Оптимизирую доступность, производительность и долгосрочную поддерживаемость"
+        "Product-scale UI engineering at Picsart",
+        "End-to-end design and product ownership at SoulOne",
+        "Front-end builds for hospitality, automotive and education websites",
+        "Accessibility, localization and performance in production",
+        "Design and engineering in the same hands"
       ]
     },
     "showcase": {
-      "rolesLabel": "Роли",
-      "stackLabel": "Технологии",
-      "cta": "Смотреть кейс",
-      "description": [
-        "Масштабная цифровая экосистема, в которой несколько команд создают и выпускают UI-функции для разделов Marketplace и Discovery.",
-        "Продукту нужна была единая система, способная работать с разнородными модулями, соответствовать требованиям доступности, поддерживать многоязычность и ускорять рендеринг — не замедляя разработку."
-      ],
-      "stack": [
-        "React",
-        "JSS",
-        "Styled Components",
-        "Локализация",
-        "Соответствие WCAG"
-      ],
+      "rolesLabel": "Role",
+      "stackLabel": "Built with",
+      "relationshipLabel": "Relationship",
+      "cta": "View case",
       "items": {
         "picsart": {
-          "title": "Picsart Marketplace",
+          "title": "Picsart",
           "roles": [
-            "UI-архитектор",
-            "Фронтенд-инженер"
+            "Senior UI Engineer"
+          ],
+          "relationship": "Employee · 2021–2024",
+          "description": [
+            "UI engineering for picsart.com across the Growth and Marketplace teams, including Design System integration, RTL/LTR localization, accessibility and performance work.",
+            "On Marketplace: Design System integration, team-specific components and RTL/LTR built from scratch. On Growth: performance and codebase optimization of the Discovery pages."
+          ],
+          "stack": [
+            "React",
+            "JSS",
+            "Styled Components",
+            "RTL/LTR",
+            "Accessibility"
           ]
         },
         "smartbet": {
           "title": "Smartbet",
           "roles": [
-            "UI-инженер"
-          ]
+            "UI Developer"
+          ],
+          "relationship": "Employee · 2021",
+          "description": [
+            "Front-end implementation of the Smartbet website from the design team’s layouts, in a cross-functional team of designers and developers.",
+            "Responsive, cross-browser pages across the company’s products and company information."
+          ],
+          "stack": []
         },
         "soulone": {
           "title": "SoulOne",
           "roles": [
-            "Продуктовый дизайнер",
-            "Руководитель проекта"
-          ]
+            "Web Designer",
+            "Product Owner"
+          ],
+          "relationship": "Founding team · 2025",
+          "description": [
+            "SoulOne is an Armenian bakery and food brand making gluten-free, eco-oriented cakes and desserts.",
+            "As web designer and product owner, I worked on web and product design and was involved in the business day to day — from product decisions to outreach."
+          ],
+          "stack": []
         },
         "ginosi": {
-          "title": "Ginosi",
+          "title": "Ginosi Apartels & Hotels",
           "roles": [
-            "UI-архитектор",
-            "Фронтенд-инженер"
-          ]
+            "Front-end development"
+          ],
+          "relationship": "Direct client · 2019",
+          "description": [
+            "The website front end for Ginosi, a serviced-apartment and hotel business with locations internationally.",
+            "I built the site’s UI. The live site has since changed; the screenshots show the original build."
+          ],
+          "stack": []
         },
         "brainstorm": {
           "title": "Brainstorm",
           "roles": [
-            "UI-архитектор",
-            "Фронтенд-инженер"
-          ]
+            "Front-end development"
+          ],
+          "relationship": "Direct client · 2018",
+          "description": [
+            "The company website for Brainstorm, a company based in New York and Yerevan.",
+            "Full front-end development from a ready-made design. The live site has since changed; the screenshots show the original build."
+          ],
+          "stack": []
         },
         "benzeen": {
-          "title": "Benzeen Autoparts",
+          "title": "Benzeen Auto Parts",
           "roles": [
-            "UI-архитектор",
-            "Фронтенд-инженер"
-          ]
+            "Front-end development"
+          ],
+          "relationship": "Via TCO · 2019",
+          "description": [
+            "The website for Benzeen, an auto-parts business in Los Angeles, delivered through TCO.",
+            "Full front-end implementation and animations, with input into design decisions."
+          ],
+          "stack": []
         },
         "worldEducation": {
           "title": "World Education",
           "roles": [
-            "UI-инженер",
-            "Фронтенд-разработчик"
-          ]
-        },
-        "infinityRings": {
-          "title": "Infinity Rings",
-          "roles": [
-            "UI-архитектор",
-            "Фронтенд-инженер"
-          ]
-        },
-        "offMyCase": {
-          "title": "Off My Case",
-          "roles": [
-            "UI-архитектор",
-            "Фронтенд-инженер"
-          ]
-        },
-        "byRobynBlair": {
-          "title": "By Robyn Blair",
-          "roles": [
-            "UI-архитектор",
-            "Фронтенд-инженер"
-          ]
+            "UI Developer"
+          ],
+          "relationship": "Direct client · 2020",
+          "description": [
+            "The website for World Education, a direct client.",
+            "Full UI and layout implementation, animations and some JavaScript."
+          ],
+          "stack": []
         }
       }
     },
     "perspective": {
-      "title": "Смените ракурс",
-      "subtitle": "Каждый проект можно рассмотреть с разных сторон:",
+      "title": "Technology follows the problem",
+      "subtitle": "The platform is chosen in discovery, based on three questions:",
       "modes": [
         {
-          "title": "Режим дизайна",
-          "body": "Фокус на ясности системы, визуальной иерархии, паттернах взаимодействия и управлении дизайном."
+          "title": "Content & workflow",
+          "body": "Who edits the site, how often, and in which languages."
         },
         {
-          "title": "Режим разработки",
-          "body": "Фокус на абстракции компонентов, управлении состоянием, оптимизации рендеринга и планировании роста."
+          "title": "Integrations & scale",
+          "body": "Commerce, CRM, analytics, and what the product needs to connect to."
         },
         {
-          "title": "Режим всей системы",
-          "body": "Как дизайн и разработка сходятся в целостную архитектуру продукта."
+          "title": "Performance & upkeep",
+          "body": "Speed, accessibility, and who maintains it after launch."
         }
       ],
-      "ecosystemsLabel": "Каждый день я работаю с современными экосистемами:",
+      "ecosystemsLabel": "Platforms I’ve built on:",
       "ecosystems": [
-        "Системы переменных Figma",
-        "Дизайн-архитектуры на токенах",
-        "Библиотеки компонентов на React",
-        "CSS-in-JS системы",
-        "Инструменты аудита производительности",
-        "Инструменты проверки доступности",
-        "Исследования и прототипирование с ИИ"
+        "React & Next.js",
+        "Webflow",
+        "WordPress",
+        "Shopify",
+        "Shopware"
       ]
     },
     "collaboration": {
-      "title": "Создавайте с продуманной структурой",
-      "subtitle": "Если вашему продукту нужна ясность между дизайн-видением и инженерной реализацией, следующий шаг должен быть взвешенным, а не импровизированным.",
+      "title": "Have something similar in mind?",
+      "subtitle": "Tell me what you’re building. I reply within 2 business days.",
       "initiate": {
-        "title": "Начать системное сотрудничество",
-        "body": "Для продуктов, которым нужны масштабируемое управление UI, архитектурная согласованность и измеримый рост производительности, — давайте заложим фундамент, прежде чем расширять интерфейс.",
-        "cta": "Обсудить проект"
+        "title": "Start a project",
+        "body": "A new website, a product interface, a design system, or improving what’s already live.",
+        "cta": "Start a project"
       },
       "analyze": {
-        "title": "Изучить кейсы",
-        "body": "Проекты, в которых интерфейсные системы, фронтенд-архитектура, доступность и оптимизация производительности создавались в условиях реального продакшена.",
-        "cta": "Случайный кейс"
+        "title": "See what Torchyan takes on",
+        "body": "Four areas, each carried from direction to production.",
+        "cta": "See services"
       }
     }
   },
+  "servicesPage": {
+    "hero": {
+      "title": "Design and engineering, under one accountable lead",
+      "lead": "Torchyan takes responsibility for websites and digital products from direction to production.",
+      "body": "You don’t have to coordinate separate strategists, designers, developers and specialists. One person leads the work, keeps every decision connected, and stays accountable from the first call to launch and beyond.",
+      "points": [
+        "Your website no longer matches your business",
+        "You’re launching a product, a service or a new market",
+        "Your product UI is inconsistent or slow to ship",
+        "You want design and build carried by one continuous process",
+        "You need a senior partner, not another vendor to manage"
+      ]
+    },
+    "areas": {
+      "title": "What Torchyan takes on",
+      "subtitle": "Four areas, each carried end to end. The exact scope depends on your project.",
+      "situationLabel": "When it fits",
+      "ownsLabel": "What Torchyan owns",
+      "outcomesLabel": "What you get",
+      "proofLabel": "Related work",
+      "items": [
+        {
+          "title": "Websites",
+          "situation": "Your site no longer reflects the business, is hard to update, or needs to support a launch or a new market.",
+          "owns": [
+            "Direction, structure and content planning",
+            "Brand and visual direction — with brand specialists for full identity work",
+            "UX, interface and motion design",
+            "Front-end development and CMS setup",
+            "Platform choice: custom (React / Next.js), Webflow, WordPress, Shopify or Shopware",
+            "SEO foundations, analytics and launch"
+          ],
+          "outcomes": [
+            "A site that explains the business clearly",
+            "Fast, accessible and responsive on every device",
+            "A setup your team can update"
+          ]
+        },
+        {
+          "title": "Product interfaces",
+          "situation": "A product needs a usable, consistent interface — new, redesigned, or growing faster than its UI.",
+          "owns": [
+            "Product discovery and user flows",
+            "UX architecture and research",
+            "Interface design and prototyping",
+            "Front-end engineering in your stack",
+            "Localization, including right-to-left languages",
+            "Accessibility aligned with WCAG 2.1 AA",
+            "Backend and system architecture through trusted specialists"
+          ],
+          "outcomes": [
+            "Interfaces people understand",
+            "UI your engineers can ship and extend"
+          ]
+        },
+        {
+          "title": "Design systems",
+          "situation": "Screens drift apart as the team grows, and every new feature restyles the same components.",
+          "owns": [
+            "UI review and gap analysis",
+            "Tokens and foundations",
+            "Component design and code",
+            "States, variants and theming",
+            "Integration into existing products",
+            "Documentation for design and engineering"
+          ],
+          "outcomes": [
+            "One source of truth for design and code",
+            "Faster, more consistent delivery"
+          ]
+        },
+        {
+          "title": "Launch & improvement",
+          "situation": "Launch is the start, not the end: the product needs to perform, be found and keep improving.",
+          "owns": [
+            "Deployment and hosting setup",
+            "Performance and accessibility care",
+            "Analytics and conversion measurement",
+            "SEO, launch promotion and marketing — with specialists",
+            "Improvements based on real usage",
+            "Maintenance and ongoing support"
+          ],
+          "outcomes": [
+            "A product that keeps pace with the business",
+            "Decisions based on data, not guesses"
+          ]
+        }
+      ]
+    },
+    "start": {
+      "title": "How we can start",
+      "subtitle": "No fixed packages. Scope, timeline and cost are agreed once we understand the project.",
+      "items": [
+        {
+          "title": "Defined project",
+          "body": "A clear goal with a clear end: a new website, a rebuild, a launch, a product interface or a design system. Scope, timeline and cost are agreed before work starts."
+        },
+        {
+          "title": "Ongoing partnership",
+          "body": "Continued design and development after a first project — new pages and features, improvements, maintenance and support, with capacity agreed month by month."
+        },
+        {
+          "title": "Diagnostic",
+          "body": "Not sure what needs fixing first? A focused review of your website or product — clarity, UX, performance, accessibility and SEO foundations — that ends with clear priorities and a recommended next step."
+        }
+      ]
+    },
+    "model": {
+      "title": "How Torchyan works",
+      "subtitle": "One accountable lead, specialists when the project needs them, and technology chosen for the problem."
+    },
+    "founder": {
+      "title": "You work with the person responsible",
+      "body": "Torchyan is led by Stepan Torchyan, a designer and UI engineer. I lead every engagement from the first call to launch and stay accountable for the result. There’s no account manager between you and the work."
+    },
+    "specialists": {
+      "title": "Specialists, when the project needs them",
+      "body": "Some projects need more than design and front-end. I bring in trusted, paid specialists — backend and system architecture, additional design, QA, project management, photography, SEO and marketing — and run them within one plan. You still have one point of contact."
+    },
+    "technology": {
+      "title": "Technology follows the problem",
+      "body": "The platform is chosen during discovery, based on your content workflow, integrations, performance needs, budget and who will maintain it. Experience includes React and Next.js, Webflow, WordPress, Shopify and Shopware."
+    },
+    "boundaries": {
+      "title": "What Torchyan doesn’t do",
+      "items": [
+        "Ongoing social media or paid-ads management",
+        "Guaranteed rankings, traffic or lead numbers",
+        "Native iOS and Android apps",
+        "Backend development as a standalone service — it’s included through specialists when a project needs it"
+      ]
+    },
+    "cta": {
+      "title": "Ready when you are",
+      "subtitle": "Tell me what you’re building or what needs to change.",
+      "initiate": {
+        "title": "Start a project",
+        "body": "A website, a product interface, a design system, or improving what’s live. I reply within 2 business days.",
+        "cta": "Start a project"
+      },
+      "analyze": {
+        "title": "Not sure where to start?",
+        "body": "Describe the situation and choose “Not sure yet”. A diagnostic may be the right first step.",
+        "cta": "Get in touch"
+      }
+    }
+  },
+  "contactPage": {
+    "hero": {
+      "title": "Start a project",
+      "lead": "Tell me what you’re building or what needs to change.",
+      "body": "You’ll get a reply from me directly, within 2 business days.",
+      "points": [
+        "A new website or a rebuild",
+        "A product interface or dashboard",
+        "A design system for a growing team",
+        "Improving something that’s already live",
+        "Not sure yet — we’ll work it out together"
+      ]
+    },
+    "next": {
+      "title": "What happens next",
+      "steps": [
+        {
+          "title": "A reply within 2 business days",
+          "body": "I read every message myself and reply with first thoughts or questions."
+        },
+        {
+          "title": "A short conversation",
+          "body": "We talk through goals, constraints and timing."
+        },
+        {
+          "title": "A clear proposal",
+          "body": "You receive a scope and approach — or, if the problem isn’t clear yet, a suggested diagnostic first."
+        }
+      ]
+    },
+    "direct": {
+      "title": "Prefer email?",
+      "body": "Write to <email>hello@torchyan.design</email>, or find me on <linkedin>LinkedIn</linkedin>."
+    }
+  },
+  "privacyPage": {
+    "title": "Privacy notice",
+    "updated": "Last updated: 1 October 2026",
+    "sections": [
+      {
+        "title": "Who is responsible",
+        "body": [
+          "Torchyan, led by Stepan Torchyan, Yerevan, Armenia, is responsible for the personal data described here.",
+          "Contact for anything about your data: hello@torchyan.design."
+        ]
+      },
+      {
+        "title": "What we collect",
+        "body": [
+          "What you enter in the contact form: your name and work email, and — if you choose to give them — your company, a website link, what you need, your timeline and your message.",
+          "Standard technical data needed to deliver the website, such as your browser type and the pages requested."
+        ]
+      },
+      {
+        "title": "Why we use it",
+        "body": [
+          "To reply to your enquiry and to take the steps you ask for before any agreement. Your details are not used for marketing and are not sold."
+        ]
+      },
+      {
+        "title": "Analytics",
+        "body": [
+          "Vercel Web Analytics measures visits in aggregate. It does not use cookies, and visitors are identified only by a temporary hash that is discarded after 24 hours. The site does not use Google Analytics or Yandex Metrica."
+        ]
+      },
+      {
+        "title": "Who processes it",
+        "body": [
+          "Vercel hosts the website and provides the analytics. Resend delivers contact-form messages by email."
+        ]
+      },
+      {
+        "title": "How long we keep it",
+        "body": [
+          "Enquiries are kept for 24 months, then deleted."
+        ]
+      },
+      {
+        "title": "Your rights",
+        "body": [
+          "You can ask to see, correct or delete the data you sent, or object to its use, by writing to hello@torchyan.design. You can also complain to your data protection authority."
+        ]
+      },
+      {
+        "title": "Changes",
+        "body": [
+          "If this notice changes, the date above changes with it."
+        ]
+      }
+    ]
+  },
   "about": {
     "hero": {
-      "title": "Я проектирую системы, которые живут дольше трендов",
+      "title": "One accountable lead, from first sketch to production",
       "basedIn": "Живу в Армении",
-      "workingGlobally": "Работаю по всему миру",
-      "cta": "Смотреть работы",
-      "intro": "Я <name>Степан Торчян</name> — дизайн-инженер на стыке UI-архитектуры, продуктового дизайна и фронтенд-разработки. С 2016 года помогаю командам превращать сложные идеи в масштабируемые и доступные интерфейсы. Большинство команд разделяют дизайн и реализацию. Я строю мост между ними.",
-      "execution": "От логики взаимодействия и структуры компонентов до выпуска доступного, многоязычного UI продакшен-уровня — я слежу, чтобы идеи не теряли качество при реализации.",
-      "resilience": "Хороший дизайн хрупок. Системы делают его устойчивым.",
+      "workingGlobally": "Working internationally",
+      "cta": "See the work",
+      "intro": "I’m <name>Stepan Torchyan</name>, the founder of Torchyan — a designer and UI engineer. I’ve built interfaces inside product companies like Picsart and for clients in the US, Australia and Armenia.",
+      "execution": "Torchyan exists so that design decisions survive production. I carry each project from direction and UX to production code, and bring in trusted specialists when the work needs more than one person.",
+      "resilience": "You always know who’s responsible: me.",
       "cards": [
-        "UI-архитектура и дизайн-системы",
-        "Дизайн продуктовых интерфейсов",
-        "Фронтенд-реализация",
-        "Доступность и скорость",
-        "Масштаб на годы вперёд"
+        "Product & web design",
+        "UI engineering",
+        "Design systems",
+        "Accessibility & localization",
+        "Launch & improvement"
       ],
-      "generate": "Сгенерировать"
+      "generate": "Generate random"
     },
     "timeline": {
-      "title": "Создаю UI-системы с 2016 года",
-      "subtitle": "Я работаю там, где дизайн-решения встречаются с технической реальностью. Моя роль — связать замысел, системную логику и реализацию, не теряя качества на этом пути.",
-      "focus": "Фокус",
-      "impact": "Результат",
+      "title": "Experience",
+      "subtitle": "Product companies, partner companies and direct clients — the roles behind Torchyan.",
+      "focus": "What I did",
+      "impact": "Result",
       "entries": {
         "apricode": {
-          "stickyContent": "Основа и\nструктурная\nдисциплина",
-          "role": "Веб-UI-разработчик / веб-дизайнер",
-          "focus": "HTML5 / CSS3 / LESS / фронтенд-реализация. Разработка UI по макетам Photoshop. Экосистемы Shopware (8+ проектов). Админ-панели с графиками и таймлайнами. Работа с командами бэкенда на PHP.",
-          "impact": "Создал масштабируемую UI-основу для e-commerce платформ. Выработал строгие стандарты адаптивности и кросс-браузерности. Заложил раннюю дисциплину семантической структуры и модульных стилей.",
+          "stickyContent": "Foundation &\nStructure",
+          "role": "Frontend Web Developer / Web Designer",
+          "focus": "Front-end implementation from design mockups. Shopware e-commerce projects. Admin dashboards.",
+          "impact": "Solid responsive and cross-browser foundations. Early discipline in semantic, modular styling.",
           "coreGrowth": [
             "Точность",
             "Структура",
@@ -470,10 +1048,10 @@
           ]
         },
         "tco": {
-          "stickyContent": "Точность и\nструктура",
+          "stickyContent": "Precision &\nDelivery",
           "role": "UI-разработчик",
-          "focus": "HTML5 / CSS3 / LESS / фронтенд-реализация. Разработка UI по макетам Photoshop. Экосистемы Shopware. Админ-панели. Работа с командами бэкенда на PHP.",
-          "impact": "Создал масштабируемую UI-основу для e-commerce платформ. Выработал строгие стандарты адаптивности и кросс-браузерности. Заложил раннюю дисциплину семантической структуры и модульных стилей.",
+          "focus": "Front-end development for client websites, including Benzeen Auto Parts.",
+          "impact": "Full front-end delivery on commercial projects.",
           "coreGrowth": [
             "Точность",
             "Структура"
@@ -482,29 +1060,38 @@
         "volo": {
           "stickyContent": "Масштаб и\nсогласованность",
           "role": "Фронтенд-разработчик",
-          "focus": "Компонентный UI. Дизайн-системы. Взаимодействие между командами. Производительность и доступность.",
-          "impact": "Выпускал фронтенд-приложения продакшен-уровня. Повысил переиспользование кода и согласованность между продуктами.",
+          "focus": "Component-based UI. Cross-team collaboration. Performance and accessibility.",
+          "impact": "Production front-end applications with more reuse and consistency.",
           "coreGrowth": [
             "Точность",
             "Структура"
           ]
         },
         "softconstruct": {
-          "stickyContent": "Системы и\nлидерство",
-          "role": "Фронтенд-инженер (лид)",
-          "focus": "Руководство фронтенд-архитектурой. Дизайн-системы. Менторство. Сложные продуктовые интерфейсы.",
-          "impact": "Масштабировал UI-основу. Внедрил паттерны для адаптивных и доступных интерфейсов.",
+          "stickyContent": "Systems &\nProduct UI",
+          "role": "Senior UI Engineer",
+          "focus": "UI engineering for complex product interfaces. Component-based front-end work.",
+          "impact": "Production UI for a large product company.",
           "coreGrowth": [
-            "Точность",
-            "Структура",
-            "Системная архитектура CSS"
+            "Precision",
+            "Structure"
+          ]
+        },
+        "smartbet": {
+          "stickyContent": "Detail &\nDelivery",
+          "role": "UI Developer",
+          "focus": "Front-end implementation of the company website from the design team’s layouts. Responsive, cross-browser pages.",
+          "impact": "A faithful build of a design team’s work.",
+          "coreGrowth": [
+            "Precision",
+            "Delivery"
           ]
         },
         "picsart": {
-          "stickyContent": "Платформа и\nсотрудничество",
+          "stickyContent": "Platform &\nScale",
           "role": "Senior UI-инженер",
-          "focus": "Дизайн-системы. UI креативных инструментов. Согласование между подразделениями. Производительность и согласованность.",
-          "impact": "Ускорил рендеринг страниц. Повысил согласованность. Укрепил сотрудничество между подразделениями. Повысил эффективность разработки.",
+          "focus": "Design System integration across picsart.com. Right-to-left localization built from scratch. Accessibility and performance work.",
+          "impact": "Consistent, accessible, multilingual UI in my scope. Faster Discovery pages.",
           "coreGrowth": [
             "Точность",
             "Структура",
@@ -512,137 +1099,87 @@
           ]
         },
         "armenianCodeAcademy": {
-          "stickyContent": "Преподавание и\nструктурированные знания",
-          "role": "Преподаватель UI",
-          "focus": "Преподавание UI-разработки. Воркшопы. Структурированная программа.",
-          "impact": "Обучал разработчиков современным практикам фронтенда и дизайн-систем.",
+          "stickyContent": "Teaching &\nStructure",
+          "role": "Lecturer",
+          "focus": "Teaching UI development. Interviewing lecturer candidates.",
+          "impact": "Developers trained in modern front-end practice.",
           "coreGrowth": [
             "От сырого воркшопа к чётко структурированным знаниям"
+          ]
+        },
+        "soulone": {
+          "stickyContent": "Ownership &\nProduct",
+          "role": "Web Designer & Product Owner",
+          "focus": "Web and product design. Day-to-day product ownership. Outreach and promotion.",
+          "impact": "A product designed and run end to end.",
+          "coreGrowth": [
+            "Ownership",
+            "Product"
+          ]
+        },
+        "torchyan": {
+          "stickyContent": "Studio &\nClients",
+          "role": "Founder",
+          "focus": "Freelance and contract work, including CMS, landing-page and e-commerce projects. Designing and building torchyan.design.",
+          "impact": "Torchyan, a founder-led studio.",
+          "coreGrowth": [
+            "Studio",
+            "Accountability"
           ]
         }
       }
     },
-    "practice": {
-      "title": "Что я делаю на практике",
-      "subtitle": "От архитектуры к логике взаимодействия и продакшн-коду.",
-      "circles": [
-        "Information Architecture",
-        "UI Pattern Libraries",
-        "Dark Mode",
-        "WCAG Standards",
-        "React Components",
-        "Component Abstraction",
-        "Data Mapping",
-        "Mobile Optimization",
-        "UX Heuristics",
-        "Agile Collaboration",
-        "Production Deployment",
-        "User Flow Mapping",
-        "Responsive Layouts",
-        "Icon Design",
-        "Multilingual Interfaces",
-        "Component Reusability",
-        "Prop Architecture",
-        "Rendering Optimization",
-        "Design Handoff",
-        "Performance Tuning",
-        "Technical Documentation",
-        "Design Tokens",
-        "Wireframe Prototyping",
-        "Grid Systems",
-        "Interaction Design",
-        "RTL Support",
-        "Semantic HTML",
-        "State Management",
-        "System Migration",
-        "Code Splitting",
-        "Web Performance",
-        "Frontend Architecture",
-        "AI Tools",
-        "Microinteractions",
-        "High-Fidelity Mockups",
-        "Visual Hierarchy",
-        "SCSS Structuring",
-        "Motion Systems",
-        "UI Governance",
-        "Scalability Planning",
-        "UI Audits",
-        "Component Architecture",
-        "SSR Integration",
-        "UI Refactoring",
-        "Event Handling",
-        "Typography Systems",
-        "State Design",
-        "CSS Architecture",
-        "BEM Methodology",
-        "Dynamic Theming",
-        "Code Reviews",
-        "Cross-Browser Compatibility",
-        "Interaction Prototyping",
-        "Technical Strategy",
-        "Design Systems",
-        "Color Theming",
-        "Accessibility Compliance",
-        "Styled Components",
-        "Animation Logic",
-        "Conditional Rendering",
-        "API Integration",
-        "Lazy Loading",
-        "Pixel Precision",
-        "Interactive Design",
-        "Semantic Structure",
-        "Visual QA"
-      ]
-    },
     "cta": {
       "intro": [
-        "Я постоянно слежу за новым — не потребляя тренды, а проверяя их в продакшене.",
-        "Каждый день я работаю с современными дизайн-системами, развивающимися фронтенд-архитектурами и креативными ИИ-инструментами, которые ускоряют исследования, создание медиа и разработку.",
-        "От экосистем Figma до редакторов кода, инструментов производительности и генеративных систем — я отношусь к технологиям как к партнёру по мышлению, а не просто к инструменту.",
-        "Результат прост: ясность в сложном, структура в хаосе и продукты, готовые к будущему."
+        "Torchyan started from a simple observation: digital projects lose quality at the handoffs — between strategy and design, design and code, launch and everything after.",
+        "So I run each project as one continuous chain, and stay responsible for all of it.",
+        "I use AI tools every day to research, prototype and build faster. The judgement, the design decisions and the accountability stay human.",
+        "The goal: websites and products that work the way they were designed to — and keep improving after launch."
       ],
       "build": {
-        "title": "Давайте создадим то, что масштабируется",
-        "body": "Если вы создаёте продукт, которому нужны системное мышление, точность и долгосрочная архитектурная ясность, — давайте поговорим.",
-        "cta": "Начать разговор"
+        "title": "Start a project",
+        "body": "Tell me what you’re building or what needs to change. I reply within 2 business days.",
+        "cta": "Start a project"
       },
       "practice": {
-        "title": "Посмотрите, как я мыслю на практике",
-        "body": "Избранные кейсы, архитектурные решения и реальные реализации.",
-        "cta": "Смотреть работы"
+        "title": "See the work",
+        "body": "Case studies with the exact role on every project.",
+        "cta": "See the work"
       },
-      "bottomLine": "Сейчас изучаю продвинутые UI-системы, рабочие процессы с ИИ и интерфейсы, ориентированные на производительность."
+      "bottomLine": "Currently designing and building torchyan.design — and taking on new projects."
     }
   },
   "caseStudy": {
     "picsart": {
       "hero": {
-        "title": "Picsart Marketplace",
-        "subtitle": "System Architecture & Design Infrastructure",
+        "title": "Picsart",
+        "subtitle": "Growth & Marketplace — UI engineering at product scale",
         "description": [
-          "This project required restructuring not only interface visuals, but the entire logic behind how UI components were defined, reused, scaled, and maintained across a multi-team ecosystem.",
-          "The objective was systemic coherence - not cosmetic improvement."
+          "From October 2021 to February 2024, I worked as a Senior UI Engineer on picsart.com — first with the Growth team, then with Marketplace.",
+          "The work: integrating the Picsart Design System, building the components it didn’t cover, adding right-to-left language support from scratch, and a large part of the accessibility work in my scope."
         ],
         "meta": [
           {
             "label": "Role:",
             "items": [
-              "UI Architect",
-              "Frontend Engineer"
+              "Senior UI Engineer",
+              "Employee"
             ]
           },
           {
             "label": "Scope:",
             "items": [
-              "Design System Migration",
+              "Design System integration",
+              "RTL/LTR localization",
               "Accessibility",
-              "Performance Optimization"
+              "Performance"
             ]
           },
           {
-            "label": "Platform:",
+            "label": "Teams:",
             "items": [
-              "Web (Marketplace + Discovery)"
+              "Growth (2021–2023)",
+              "Marketplace (2023–2024)"
             ]
           },
           {
@@ -657,73 +1194,56 @@
         ]
       },
       "timeline": {
-        "title": "Building Interface Systems Since 2016",
+        "title": "What the work involved",
         "subtitle": [
-          "I work at the intersection where design decisions meet technical reality.",
-          "My role is to connect intent, system logic, and execution - without losing quality along the way."
+          "picsart.com is a large product surface, shipped by many teams at once.",
+          "My job was to keep the UI in my team’s scope consistent, accessible and ready for every language."
         ],
         "steps": [
           [
             {
-              "title": "Product Landscape",
+              "title": "Context",
               "blocks": [
                 [
-                  "Picsart Marketplace operates as a modular digital ecosystem containing:",
+                  "Picsart’s website serves many products and page types:",
                   [
-                    "Content discovery interfaces",
-                    "Asset marketplaces",
-                    "Mini Apps integrations",
-                    "Cross-team contribution surfaces"
+                    "Marketing and business pages",
+                    "Marketplace and Discovery",
+                    "The editor and Mini Apps",
+                    "Growth products such as Ad Wizard"
                   ]
                 ],
                 [
-                  "Multiple teams were shipping features simultaneously.",
-                  "However, UI implementation lacked structural standardization."
+                  "Many teams ship to picsart.com at once. Each team has one person responsible for Design System integration — in my team’s scope, that was me."
                 ]
               ]
             }
           ],
           [
             {
-              "title": "Initial Friction Points",
+              "title": "Growth team, 2021–2023",
               "blocks": [
                 [
+                  "I was the team’s primary UI developer, focused on the Picsart website:",
                   [
-                    "Fragmented component implementations",
-                    "Inconsistent spacing and typography rules",
-                    "Diverging interaction states",
-                    "Redundant UI logic",
-                    "Weak RTL/LTR handling",
-                    "Performance inefficiencies in rendering flows",
-                    "Accessibility gaps in keyboard and ARIA behaviors"
+                    "Modular, scalable UI in React, JSS and Styled Components",
+                    "Responsive, cross-browser implementation",
+                    "Accessibility work",
+                    "Code reviews for performance, maintainability and best practice"
                   ]
-                ],
-                [
-                  "The system was growing, but its architecture was not."
                 ]
               ]
             }
           ],
           [
             {
-              "title": "The Real Problem",
+              "title": "Ad Wizard",
               "blocks": [
                 [
-                  "The Marketplace did not lack visual quality.",
-                  "It lacked architectural discipline."
+                  "A separate Growth product where people create visual and social content and adapt it to the formats each platform needs — text, imagery, titles and emoji in one editor."
                 ],
                 [
-                  "Without a centralized design system and frontend abstraction layer:",
-                  [
-                    "Development velocity slowed",
-                    "UI inconsistencies multiplied",
-                    "Scaling introduced compounding complexity",
-                    "Accessibility became reactive instead of structured"
-                  ]
-                ],
-                [
-                  "This was not a UI redesign task.",
-                  "It was a systemic stabilization initiative."
+                  "As the Growth team’s primary UI developer, I implemented its interface in React, HTML/CSS, JSS and Styled Components."
                 ]
               ]
             }
@@ -731,192 +1251,81 @@
           [
             {
               "phase": "Phase 1",
-              "title": "System Audit",
+              "title": "Design System integration",
               "blocks": [
                 [
-                  "I conducted:",
+                  "I was the main UI and Design System integration owner for picsart.com and selected product branches in my team:",
                   [
-                    "Component inventory mapping",
-                    "Token inconsistency detection",
-                    "State behavior comparison",
-                    "Accessibility violation identification",
-                    "Performance profiling of key surfaces"
+                    "Integrated shared components across business pages, the editor and Mini Apps",
+                    "Placed supplied components and templates as product required"
                   ]
-                ],
-                [
-                  "This allowed structural prioritization instead of aesthetic assumptions."
                 ]
               ]
             },
             {
               "phase": "Phase 2",
-              "title": "Component Taxonomy Definition",
+              "title": "Components the system didn’t cover",
               "blocks": [
                 [
-                  "A unified classification system was introduced:",
-                  [
-                    "Base primitives",
-                    "Composite components",
-                    "Layout wrappers",
-                    "Contextual modules"
-                  ]
-                ],
-                [
-                  "Each component received:",
-                  [
-                    "Defined states",
-                    "Usage constraints",
-                    "Accessibility attributes",
-                    "Token-based styling",
-                    "Responsiveness rules"
-                  ]
+                  "The shared components came from the Design System team.",
+                  "When a need wasn’t covered, I built the missing components for our product branch, matched to the system so the product still felt like one."
                 ]
               ]
             },
             {
               "phase": "Phase 3",
-              "title": "Token & Styling Infrastructure",
+              "title": "Right-to-left languages",
               "blocks": [
                 [
-                  "Implemented:",
-                  [
-                    "Centralized design tokens",
-                    "Scalable typography system",
-                    "Spacing scale hierarchy",
-                    "Color role mapping",
-                    "Theme abstraction"
-                  ]
+                  "I implemented multilingual support, including RTL/LTR, from scratch for my scope."
                 ],
                 [
-                  "Using:",
-                  [
-                    "React + JSS / Styled Components"
-                  ]
-                ],
-                [
-                  "This allowed:",
-                  [
-                    "Controlled overrides",
-                    "Predictable styling inheritance",
-                    "Reduced CSS duplication"
-                  ]
+                  "Instead of fixing left and right values page by page, I reworked layout direction around logical properties — inline and block, start and end — so a change of direction carries through the structure."
                 ]
               ]
             },
             {
               "phase": "Phase 4",
-              "title": "Multilingual Architecture",
+              "title": "Accessibility",
               "blocks": [
                 [
-                  "Introduced structural RTL/LTR logic:",
-                  [
-                    "Layout mirroring rules",
-                    "Bidirectional spacing validation",
-                    "Typography fallback control",
-                    "Contextual icon orientation"
-                  ]
-                ],
-                [
-                  "This reduced layout bugs significantly."
+                  "Accessibility was only minimally in place when I started. I handled a large part of the WCAG implementation work in my scope, building it into components rather than adding it afterwards."
                 ]
               ]
             },
             {
               "phase": "Phase 5",
-              "title": "Accessibility Integration",
+              "title": "Responsive and cross-browser",
               "blocks": [
                 [
-                  "Applied WCAG 2.0 compliance baseline:",
-                  [
-                    "Keyboard navigability",
-                    "Focus visibility control",
-                    "ARIA role mapping",
-                    "Contrast compliance",
-                    "Semantic structure correction"
-                  ]
+                  "Every component checked across breakpoints and browsers, so pages behaved the same for every visitor."
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "Performance",
+              "blocks": [
+                [
+                  "On the Growth team, I optimized the Discovery pages and their codebase."
                 ],
                 [
-                  "Accessibility became part of the system — not an afterthought."
+                  "Pages were measured before and after; the figures aren’t published here."
                 ]
               ]
             }
           ],
           [
             {
-              "title": "Interaction Modeling",
-              "blocks": [
-                [
-                  "Defined consistent interaction states:",
-                  [
-                    "Default",
-                    "Hover",
-                    "Focus",
-                    "Active",
-                    "Disabled",
-                    "Loading"
-                  ]
-                ],
-                [
-                  "No component shipped without state completeness."
-                ]
-              ]
-            }
-          ],
-          [
-            {
-              "title": "Visual Coherence",
-              "blocks": [
-                [
-                  "Implemented:",
-                  [
-                    "Hierarchical typography rhythm",
-                    "Grid-aligned layout system",
-                    "Consistent elevation logic",
-                    "Predictable microinteractions"
-                  ]
-                ],
-                [
-                  "The goal was cognitive clarity - not decorative density."
-                ]
-              ]
-            }
-          ],
-          [
-            {
-              "title": "Architectural Improvements",
+              "title": "What changed",
               "blocks": [
                 [
                   [
-                    "Refactored component reuse patterns",
-                    "Reduced redundant DOM nesting",
-                    "Optimized conditional rendering",
-                    "Cleaned styling dependencies",
-                    "Standardized prop APIs"
-                  ]
-                ],
-                [
-                  "No component shipped without state completeness."
-                ]
-              ]
-            }
-          ],
-          [
-            {
-              "title": "Performance Optimization",
-              "blocks": [
-                [
-                  "Focused on:",
-                  [
-                    "Minimizing unnecessary re-renders",
-                    "Lazy loading heavy modules",
-                    "Memoizing reusable components",
-                    "Reducing style recalculation overhead"
-                  ]
-                ],
-                [
-                  "Result:",
-                  [
-                    "~20% rendering performance improvement on Discovery pages."
+                    "Right-to-left languages supported structurally, not by manual fixes",
+                    "Marketplace pages consistent with the shared Design System",
+                    "Accessibility built into components in my scope",
+                    "Faster Discovery pages"
                   ]
                 ]
               ]
@@ -924,28 +1333,13 @@
           ],
           [
             {
-              "title": "Measurable Improvements",
+              "title": "What this shows",
               "blocks": [
                 [
                   [
-                    "Reduced UI inconsistencies across teams",
-                    "Improved feature deployment speed",
-                    "Improved maintainability",
-                    "Achieved accessibility compliance baseline",
-                    "Strengthened cross-team collaboration"
-                  ]
-                ]
-              ]
-            }
-          ],
-          [
-            {
-              "title": "Strategic Impact",
-              "blocks": [
-                [
-                  "The Marketplace transitioned from:",
-                  [
-                    "Fragmented interface growth → Governed system expansion"
+                    "Work at product scale, inside large teams and shared systems",
+                    "Localization and accessibility treated as structure, not patches",
+                    "The same standards applied to every Torchyan project"
                   ]
                 ]
               ]
@@ -954,182 +1348,96 @@
         ]
       },
       "blueprint": {
-        "title": "System Blueprint & Visual Governance",
-        "subtitle": "A structured overview of the design tokens, component logic, spatial rhythm, and interaction matrices that define the product’s internal coherence.",
+        "title": "Integration principles",
+        "subtitle": "How the shared Design System was carried into the pages in my scope.",
         "cards": [
           {
-            "title": "Typography Scale",
-            "body": "If you’re building a product that requires system thinking, precision, and long-term architectural clarity — let’s talk."
+            "title": "Shared first",
+            "body": "Use Design System components wherever they fit; build new ones only for real gaps."
           },
           {
-            "title": "Token Architecture",
-            "body": "Color roles, spacing scale, border radius logic, elevation levels."
+            "title": "Match the system",
+            "body": "New components follow the shared tokens, spacing and states."
           },
           {
-            "title": "Layout Grid System",
-            "body": "Responsive breakpoints and alignment governance."
+            "title": "Direction-agnostic layout",
+            "body": "Logical properties instead of left and right, so RTL works structurally."
           },
           {
-            "title": "Component Hierarchy Diagram",
-            "body": "Base primitives → composite units → contextual modules."
+            "title": "Accessible by default",
+            "body": "Accessibility considered in every component, not added later."
           },
           {
-            "title": "State Matrix Table",
-            "body": "Complete interaction coverage: default, hover, focus, active, disabled, loading."
+            "title": "Responsive everywhere",
+            "body": "Every component checked across breakpoints and browsers."
           }
         ]
       },
       "architecture": {
-        "title": "Visual System Architecture",
-        "subtitle": "A structural breakdown of the design tokens, component governance, spatial logic, and interaction matrices that ensure long-term scalability and implementation clarity.",
+        "title": "In detail",
+        "subtitle": "Five parts of the work, and how each was approached.",
         "useCases": [
           {
-            "title": "1. Typography Scale System",
+            "title": "1. RTL/LTR layout logic",
             "blocks": [
               [
-                "The typography system was defined semantically, not visually."
+                "Switching a page between left-to-right and right-to-left usually means hunting down every left and right value."
               ],
               [
-                "Each level corresponds to functional intent:",
+                "I rebuilt the layout direction around logical properties:",
                 [
-                  "Display — strategic emphasis and high-level hierarchy",
-                  "Heading — structural segmentation",
-                  "Subheading — contextual grouping",
-                  "Body — readable content blocks",
-                  "Caption — metadata and secondary information"
+                  "margin-inline and padding-inline instead of left and right",
+                  "inset-inline-start and inset-inline-end for positioning",
+                  "Direction set once, at the root"
                 ]
               ],
               [
-                "Font sizes, weights, line-heights, and letter-spacing were tokenized and aligned to a vertical rhythm grid."
-              ],
-              [
-                "The goal was:",
-                [
-                  "Cognitive clarity",
-                  "Readability across resolutions",
-                  "Predictable hierarchy under content expansion",
-                  "Accessibility-safe contrast pairing"
-                ]
-              ],
-              [
-                "No arbitrary font sizing was permitted outside the system scale."
+                "A direction change now carries through the structure instead of being patched page by page."
               ]
             ]
           },
           {
-            "title": "2. Token Architecture",
+            "title": "2. Design System integration",
             "blocks": [
               [
-                "All visual values were abstracted into tokens to ensure controlled scalability."
-              ],
-              [
-                "Token categories included:",
+                "Shared components from the Design System team, integrated across:",
                 [
-                  "Color roles (Primary, Surface, Accent, Error, Success, Warning)",
-                  "Spacing scale (4pt modular system)",
-                  "Border radius tiers",
-                  "Elevation layers",
-                  "Opacity states",
-                  "Motion timing curves"
+                  "Business and product pages",
+                  "The editor",
+                  "Mini Apps"
                 ]
               ],
               [
-                "Each token was designed to:",
-                [
-                  "Prevent visual drift",
-                  "Enable theme adjustments",
-                  "Support light/dark variations",
-                  "Reduce redundant CSS logic"
-                ]
-              ],
-              [
-                "Styling decisions were no longer hard-coded — they were governed."
+                "Placement followed product direction; consistency across branches was my responsibility in my team’s scope."
               ]
             ]
           },
           {
-            "title": "3. Component Hierarchy Diagram",
+            "title": "3. Components the system didn’t cover",
             "blocks": [
               [
-                "The system was structured across three architectural layers:",
-                "Layer 1 — Primitives",
+                "Some Marketplace needs weren’t in the shared system. For those, I built team-specific components that:",
                 [
-                  "Buttons, Inputs, Typography, Icons"
-                ],
-                "Layer 2 — Composite Components",
-                [
-                  "Cards, Modals, Dropdowns, Tooltips"
-                ],
-                "Layer 3 — Contextual Modules",
-                [
-                  "Marketplace grids, discovery feeds, filtering panels"
+                  "Use the shared tokens",
+                  "Follow the same states and spacing",
+                  "Stay responsive and accessible"
                 ]
-              ],
-              [
-                "Each component defined:",
-                [
-                  "Required props",
-                  "Optional states",
-                  "Accessibility attributes",
-                  "Responsive behavior",
-                  "Usage restrictions"
-                ]
-              ],
-              [
-                "This hierarchy ensured that features were assembled from system-approved blocks — not improvised fragments."
               ]
             ]
           },
           {
-            "title": "4. Interaction State Matrix",
+            "title": "4. Accessibility implementation",
             "blocks": [
               [
-                "Every interactive element adhered to a complete state definition:",
-                [
-                  "Default",
-                  "Hover",
-                  "Focus",
-                  "Active",
-                  "Disabled",
-                  "Loading",
-                  "Error (where applicable)"
-                ]
-              ],
-              [
-                "Focus states were designed with accessibility compliance in mind.",
-                "Hover states avoided decorative excess and maintained semantic clarity.",
-                "Loading states preserved layout stability to prevent content shift.",
-                "This matrix reduced behavioral ambiguity and prevented inconsistent microinteraction patterns across teams."
+                "From a minimal starting point, accessibility became part of the components in my scope rather than a late fix. I handled a large part of that WCAG implementation work myself."
               ]
             ]
           },
           {
-            "title": "5. Layout Grid System",
+            "title": "5. Ad Wizard",
             "blocks": [
               [
-                "A responsive grid architecture was implemented to stabilize spatial rhythm."
-              ],
-              [
-                "Core principles:",
-                [
-                  "12-column system (desktop)",
-                  "Modular reduction for tablet and mobile",
-                  "Consistent gutter scaling",
-                  "Defined max-content widths",
-                  "Controlled content density"
-                ]
-              ],
-              [
-                "Spacing adhered strictly to the predefined token scale."
-              ],
-              [
-                "The result:",
-                [
-                  "Predictable alignment",
-                  "Reduced layout breakage",
-                  "Faster feature composition",
-                  "Easier multilingual adaptation (LTR/RTL safe)"
-                ]
+                "A separate Growth product for creating visual and social content and adapting it to each platform’s formats. As the team’s primary UI developer, I implemented its interface in React, HTML/CSS, JSS and Styled Components."
               ]
             ]
           }
