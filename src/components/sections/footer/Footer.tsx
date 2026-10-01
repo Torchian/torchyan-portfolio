@@ -50,6 +50,8 @@ const NAME_GROUP_THICKNESS = (160.013 + 22.698 + 107.567) / 752;
  * down its middle is what hangs off the footer's right edge.
  */
 const PORTRAIT = { src: '/hero/character-right.webp', width: 768, height: 1536 } as const;
+/** The face's other half, whose cut is on its left edge: it carries on from PORTRAIT's right one. */
+const PORTRAIT_OTHER_HALF = { src: '/hero/character-left.webp' } as const;
 
 const LINK_TRANSITION = `${duration.slower} ${easing.spring}`;
 
@@ -243,12 +245,11 @@ const RoleSlot = styled.div`
   }
 `;
 
-const Portrait = styled(Image)`
+const Portrait = styled.div`
   position: absolute;
   z-index: -1;
   /* Wider than the footer in places by design; override the global img max-width. */
   max-width: none;
-  height: auto;
   /*
    * The old wireframe was a bright white mesh; this character is the same
    * drawing lit far lower — mean luminance 22 against 62, and 75 against 186 at
@@ -271,8 +272,8 @@ const Portrait = styled(Image)`
    * Then nudged on purpose, on every screen: 45px in from the right edge and
    * 40px below the bottom one (the footer clips what hangs below).
    */
-  right: 45px;
-  bottom: -40px;
+  right: 0;
+  bottom: 0;
 
   /* The 768 frame (481–768px). */
   width: 340px;
@@ -295,6 +296,20 @@ const Portrait = styled(Image)`
   /* Interpolated from the 1440 frame to the 1920 frame (cqw = footer width), then held. */
   ${media.up('xxxl')} {
     width: min(420px, max(400px, calc(400px + (100cqw - ${breakpoints.xxl}px) * 0.041667)));
+  }
+`;
+
+/** Both halves of the face, one box wide each: the box is the first half, the second hangs off its right. */
+const PortraitHalf = styled(Image)`
+  display: block;
+  width: 100%;
+  max-width: none;
+  height: auto;
+
+  &[data-half='other'] {
+    position: absolute;
+    top: 0;
+    left: 100%;
   }
 `;
 
@@ -613,15 +628,27 @@ export function Footer() {
               <img {...NAME_ART.stepan} alt="" />
               <img {...NAME_ART.torchyan} alt="" />
             </NameGroupArt>
-            <Portrait
-              src={PORTRAIT.src}
-              width={PORTRAIT.width}
-              height={PORTRAIT.height}
-              alt=""
-              sizes="(min-width: 1441px) 420px, (min-width: 769px) 380px, (min-width: 481px) 340px, 260px"
-              loading="lazy"
-              draggable={false}
-            />
+            <Portrait aria-hidden>
+              <PortraitHalf
+                src={PORTRAIT.src}
+                width={PORTRAIT.width}
+                height={PORTRAIT.height}
+                alt=""
+                sizes="(min-width: 1441px) 420px, (min-width: 769px) 380px, (min-width: 481px) 340px, 260px"
+                loading="lazy"
+                draggable={false}
+              />
+              <PortraitHalf
+                data-half="other"
+                src={PORTRAIT_OTHER_HALF.src}
+                width={PORTRAIT.width}
+                height={PORTRAIT.height}
+                alt=""
+                sizes="(min-width: 1441px) 420px, (min-width: 769px) 380px, (min-width: 481px) 340px, 260px"
+                loading="lazy"
+                draggable={false}
+              />
+            </Portrait>
           </NameGroup>
           <RoleSlot>
             <img {...NAME_ART.role} alt="" />
