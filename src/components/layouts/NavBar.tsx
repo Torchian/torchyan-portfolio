@@ -81,7 +81,11 @@ function activeIndexFor(pathname: string) {
 }
 
 /** The header's side padding, which page content lines up with (e.g. the Projects rows' text). */
-export const HEADER_INLINE = { base: spacing[400], mobile: spacing[300] } as const;
+export const HEADER_INLINE = {
+  base: spacing[400],
+  tablet: spacing[300],
+  mobile: spacing[200],
+} as const;
 
 /** The fixed bar's height, for anything that has to start below it. */
 export const HEADER_HEIGHT = spacing[1000];
@@ -132,6 +136,11 @@ const Header = styled.header<{ $bare?: boolean }>`
   & > * a {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
+  }
+
+  /* The same three steps the sections use: 32 on a desktop, 24 up to 1024, 16 on a phone. */
+  ${media.down('xl')} {
+    padding: 0 ${HEADER_INLINE.tablet}px;
   }
 
   ${media.down('m')} {

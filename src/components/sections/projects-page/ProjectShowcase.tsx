@@ -203,6 +203,10 @@ const TextColumn = styled.div<{ $side: MediaSide }>`
   /* In line with the header's logo and Contact Me at every width. */
   padding-inline: ${HEADER_INLINE.base}px;
 
+  ${media.between('l', 'xl')} {
+    padding-inline: ${HEADER_INLINE.tablet}px;
+  }
+
   ${media.down('l')} {
     display: contents;
   }
@@ -239,6 +243,10 @@ const Info = styled.div`
   ${media.down('l')} {
     grid-area: text;
     gap: ${spacing[400]}px;
+    padding-inline: ${HEADER_INLINE.tablet}px;
+  }
+
+  ${media.down('m')} {
     padding-inline: ${HEADER_INLINE.mobile}px;
   }
 
@@ -417,8 +425,12 @@ const Media = styled.div<{ $side: MediaSide }>`
        words above it instead of running out to both screen edges. Below this
        width the text's own inset comes from Info, not from TextColumn, which
        is display: contents here. */
-    margin-inline: ${HEADER_INLINE.mobile}px;
+    margin-inline: ${HEADER_INLINE.tablet}px;
     border-radius: 0;
+  }
+
+  ${media.down('m')} {
+    margin-inline: ${HEADER_INLINE.mobile}px;
   }
 
   /* The stacked stage gives the collage everything below the text. */

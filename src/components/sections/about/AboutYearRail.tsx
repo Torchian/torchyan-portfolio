@@ -73,6 +73,10 @@ const railColumn = css`
   width: 8px;
   pointer-events: none;
 
+  ${media.down('xl')} {
+    left: ${HEADER_INLINE.tablet}px;
+  }
+
   @media (min-width: ${RAIL_WIDE}px) {
     left: calc((100vw - 1376px) / 2 - 240px + ${HEADER_INLINE.base}px);
   }
