@@ -90,7 +90,7 @@ export const HEADER_INLINE = {
 /** The fixed bar's height, for anything that has to start below it. */
 export const HEADER_HEIGHT = spacing[1000];
 
-const Header = styled.header<{ $bare?: boolean }>`
+const Header = styled.header`
   position: fixed;
   top: 0;
   left: 0;
@@ -117,16 +117,6 @@ const Header = styled.header<{ $bare?: boolean }>`
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
   }
-
-  /* The About page opens on the character's own dark field and carries the
-     year rail up to the logo, so the strip would only smudge both. */
-  ${(p) =>
-    p.$bare &&
-    css`
-      &::before {
-        content: none;
-      }
-    `}
 
   /* The controls on the bar sit on that already-blurred strip, so their own
      glass blur would re-blur a blur: invisible, but each one is another full
@@ -616,7 +606,7 @@ export function NavBar() {
   }, [menuOpen, closeMenu]);
 
   return (
-    <Header ref={headerRef} $bare={onAbout}>
+    <Header ref={headerRef}>
       <LogoLink href="/" aria-label={t('home')} $accent={onAbout}>
         <LogoMark />
       </LogoLink>
