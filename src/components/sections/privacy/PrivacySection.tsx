@@ -31,13 +31,13 @@ const Title = styled.h1`
   margin: 0 0 ${spacing[200]}px;
   font-family: ${fontFamily.display};
   font-weight: ${fontWeight.heading};
-  font-size: ${fontSize.display.s}px;
-  line-height: ${lineHeight.display.s}px;
+  font-size: ${fontSize.heading.l}px;
+  line-height: ${lineHeight.heading.l}px;
   color: ${neutrals[100]};
 
   ${media.down('m')} {
-    font-size: ${fontSize.heading.l}px;
-    line-height: ${lineHeight.heading.l}px;
+    font-size: ${fontSize.heading.m}px;
+    line-height: ${lineHeight.heading.m}px;
   }
 `;
 

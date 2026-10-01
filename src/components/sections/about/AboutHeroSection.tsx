@@ -88,8 +88,8 @@ const Title = styled.h1`
   margin: 0;
   font-family: ${fontFamily.display};
   font-weight: ${fontWeight.black};
-  font-size: ${fontSize.display.xl}px;
-  line-height: ${lineHeight.display.xl}px;
+  font-size: ${fontSize.display.l}px;
+  line-height: ${lineHeight.display.l}px;
   letter-spacing: ${letterSpacing.xxs}px;
   text-align: center;
   /* Only the 1920 frame shouts; the tablet and phone frames set it as typed. */
@@ -98,16 +98,16 @@ const Title = styled.h1`
 
   ${media.down('xl')} {
     font-weight: ${fontWeight.heading};
-    font-size: ${fontSize.display.m}px;
-    line-height: ${lineHeight.display.m}px;
+    font-size: ${fontSize.display.s}px;
+    line-height: ${lineHeight.display.s}px;
     letter-spacing: ${letterSpacing.xs}px;
     text-transform: none;
   }
 
   ${media.down('m')} {
     font-weight: ${fontWeight.semibold};
-    font-size: ${fontSize.display.s}px;
-    line-height: ${lineHeight.display.s}px;
+    font-size: ${fontSize.heading.l}px;
+    line-height: ${lineHeight.heading.l}px;
   }
 `;
 
