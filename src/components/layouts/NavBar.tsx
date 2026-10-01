@@ -31,8 +31,9 @@ import { border } from '@/styles/tokens/border';
  * Figma: Header (2562:2761) — screens 1920 / 1440 / 1280 / 1024 / 768 / 480 / 320.
  *  - 1280 frame and up: logo · centred link pill (Header Navigation, 1944:4109) · language,
  *    sound and music together at the right edge. From 1060px — see DESKTOP_HEADER_QUERY.
- *  - Below that (up to 1059px): logo · menu button (2562:2297). Language, sound and music are
- *    rows at the bottom of the menu panel.
+ *  - Below that (up to 1059px): logo · menu button (2562:2297) · sound · music · language, in
+ *    that order, at the right. Under NARROW_HEADER_QUERY (350px) they do not fit beside the
+ *    logo, so they are rows at the foot of the menu panel instead and nothing is unreachable.
  * The link pill marks the current page green with a green glow above it; the
  * glow follows the pointer while hovering the pill.
  * The bar carries no "Start a project" button: that action lives in the hero, the page
@@ -68,6 +69,13 @@ const NAV_LINKS = [
  */
 const DESKTOP_HEADER_QUERY = '(min-width: 1060px)';
 const desktopHeader = `@media ${DESKTOP_HEADER_QUERY}`;
+/**
+ * Below this the logo, the menu button and the three controls no longer fit in
+ * one row (measured: they need 350px at 8px gaps), so the controls move into
+ * the menu panel. Only the very smallest phones are under it.
+ */
+const NARROW_HEADER_QUERY = '(max-width: 349.98px)';
+const narrowHeader = `@media ${NARROW_HEADER_QUERY}`;
 
 const TRANSITION = `${duration.slowest} ${easing.spring}`;
 /** How long the pointer can be between links before the glow heads back to the current page's link. */
@@ -200,6 +208,33 @@ const HeaderControls = styled.div`
 
   ${desktopHeader} {
     display: flex;
+  }
+`;
+
+/**
+ * The bar's right end below the desktop bar: the menu button, then sound, music
+ * and language. Lifted above the open menu panel like the rest of the bar.
+ */
+const HeaderEnd = styled.div`
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: ${spacing[100]}px;
+
+  ${desktopHeader} {
+    display: none;
+  }
+`;
+
+const CompactControls = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${spacing[100]}px;
+
+  ${narrowHeader} {
+    display: none;
   }
 `;
 
@@ -429,6 +464,15 @@ const MenuItem = styled(Link)<{ $active?: boolean }>`
 `;
 
 /* Provisional, like the panel: the language and sound settings under the links, behind one divider. */
+/** The settings rows exist only where the bar has no room for them (see NARROW_HEADER_QUERY). */
+const NarrowSettings = styled.div`
+  display: none;
+
+  ${narrowHeader} {
+    display: block;
+  }
+`;
+
 const MenuSetting = styled.div`
   display: flex;
   align-items: center;
@@ -618,19 +662,26 @@ export function NavBar() {
         <MusicToggle />
       </HeaderControls>
 
-      <MenuButton
-        ref={menuButtonRef}
-        type="button"
-        $open={menuOpen}
-        aria-expanded={menuOpen}
-        aria-controls={menuId}
-        aria-label={menuOpen ? t('closeMenu') : t('openMenu')}
-        onClick={() => setMenuOpenOn(menuOpen ? null : pathname)}
-      >
-        <span />
-        <span />
-        <span />
-      </MenuButton>
+      <HeaderEnd>
+        <MenuButton
+          ref={menuButtonRef}
+          type="button"
+          $open={menuOpen}
+          aria-expanded={menuOpen}
+          aria-controls={menuId}
+          aria-label={menuOpen ? t('closeMenu') : t('openMenu')}
+          onClick={() => setMenuOpenOn(menuOpen ? null : pathname)}
+        >
+          <span />
+          <span />
+          <span />
+        </MenuButton>
+        <CompactControls>
+          <SoundToggle />
+          <MusicToggle />
+          <LanguageSwitcher />
+        </CompactControls>
+      </HeaderEnd>
 
       <MenuPanel
         ref={menuPanelRef}
@@ -652,18 +703,20 @@ export function NavBar() {
             </MenuItem>
           ))}
         </MenuLinks>
-        <MenuSetting>
-          <span>{t('language')}</span>
-          <LanguageSwitcher inline />
-        </MenuSetting>
-        <MenuSetting>
-          <span id={soundLabelId}>{t('sound')}</span>
-          <SoundToggle aria-labelledby={soundLabelId} />
-        </MenuSetting>
-        <MenuSetting>
-          <span id={musicLabelId}>{t('music')}</span>
-          <MusicToggle aria-labelledby={musicLabelId} />
-        </MenuSetting>
+        <NarrowSettings>
+          <MenuSetting>
+            <span>{t('language')}</span>
+            <LanguageSwitcher inline />
+          </MenuSetting>
+          <MenuSetting>
+            <span id={soundLabelId}>{t('sound')}</span>
+            <SoundToggle aria-labelledby={soundLabelId} />
+          </MenuSetting>
+          <MenuSetting>
+            <span id={musicLabelId}>{t('music')}</span>
+            <MusicToggle aria-labelledby={musicLabelId} />
+          </MenuSetting>
+        </NarrowSettings>
       </MenuPanel>
     </Header>
   );
