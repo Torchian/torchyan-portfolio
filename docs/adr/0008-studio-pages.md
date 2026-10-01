@@ -38,3 +38,4 @@ The site was a personal Design Engineer portfolio. It is being relaunched as Tor
 - The privacy notice needs the data controller's legal details and a review before the site is opened.
 - The footer's "Designer × Engineer" lettering and the default social image still carry the portfolio identity; both are design assets to replace.
 - Vercel Web Analytics must be enabled for the project in the Vercel dashboard; locally its script 404s, which is expected.
+- `hello@torchyan.design` receives mail through ImprovMX forwarding (free plan; `MX` and root `SPF` records at GoDaddy, separate from Resend's records). ImprovMX is therefore a processor and is named in the privacy notice. Replying as `hello@` needs a real mailbox, which is deferred.
