@@ -7,6 +7,7 @@ import { accents, neutrals } from '@/styles/tokens/colors';
 import { grid } from '@/styles/tokens/grid';
 import { media } from '@/styles/media';
 import { useTranslations } from 'next-intl';
+import { LogoScroll } from './LogoScroll';
 
 /*
  * Figma: hero_section — 1920 (3155:9791), 1440 (3753:11172), 1024 (3753:14693),
@@ -147,13 +148,15 @@ export interface PageHeroSectionProps {
   namespace: PageHeroNamespace;
   /** Prefix for the section and heading ids, unique per page. */
   id: string;
+  /** Between the title and the description — only the Projects hero has one (LogoScroll). */
+  children?: React.ReactNode;
 }
 
 /**
  * The Projects page hero (Figma 3155:9789), shared by Services and Contact:
  * same layout, each page's own copy.
  */
-export function PageHeroSection({ namespace, id }: PageHeroSectionProps) {
+export function PageHeroSection({ namespace, id, children }: PageHeroSectionProps) {
   const t = useTranslations(namespace);
   const points = t.raw('points') as string[];
   const titleId = `${id}-title`;
@@ -162,6 +165,7 @@ export function PageHeroSection({ namespace, id }: PageHeroSectionProps) {
     <Section id={`${id}-hero`} aria-labelledby={titleId}>
       <Container>
         <Title id={titleId}>{t('title')}</Title>
+        {children}
         <Description>
           <p>{t('lead')}</p>
           <p>{t('body')}</p>
@@ -177,5 +181,9 @@ export function PageHeroSection({ namespace, id }: PageHeroSectionProps) {
 }
 
 export function ProjectsHeroSection() {
-  return <PageHeroSection namespace="projectsPage.hero" id="projects" />;
+  return (
+    <PageHeroSection namespace="projectsPage.hero" id="projects">
+      <LogoScroll />
+    </PageHeroSection>
+  );
 }
