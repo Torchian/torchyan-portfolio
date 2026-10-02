@@ -82,7 +82,6 @@ const LOGO_GAP = spacing[2000];
 const Strip = styled.section`
   overflow: hidden;
   padding: ${spacing[250]}px 0;
-  background: ${transparents.transparent4};
   mix-blend-mode: exclusion;
 
   ${media.down('xl')} {

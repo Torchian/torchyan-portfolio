@@ -53,12 +53,6 @@ const Card = styled.article<{ $tone: CTATone }>`
   padding: ${spacing[400]}px ${spacing[500]}px;
   border-radius: ${radius.xxl}px;
   background: ${(p) => CARD_BACKGROUND[p.$tone]};
-
-  ${(p) =>
-    p.$tone === 'green' &&
-    css`
-      box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-    `}
 `;
 
 const CardText = styled.div`
@@ -68,7 +62,6 @@ const CardText = styled.div`
   gap: ${spacing[300]}px;
   width: 100%;
   font-family: ${fontFamily.heading};
-  font-weight: ${fontWeight.semibold};
   letter-spacing: ${letterSpacing.xs}px;
   text-align: center;
 `;

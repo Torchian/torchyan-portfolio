@@ -58,7 +58,6 @@ const Copy = styled.div`
   gap: ${spacing[400]}px;
   max-width: 1024px;
   font-family: ${fontFamily.heading};
-  font-weight: ${fontWeight.semibold};
   /* Figma: 28/36 on every frame. */
   font-size: ${fontSize.heading.m}px;
   line-height: ${lineHeight.heading.m}px;

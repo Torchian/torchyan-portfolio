@@ -35,7 +35,6 @@ const pillLength = (count: number) =>
 
 const Pill = styled.div`
   ${glassSurface}
-  background: ${glass.bgMedium};
   position: relative;
   display: flex;
   flex-direction: column;

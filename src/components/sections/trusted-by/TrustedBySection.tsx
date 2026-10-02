@@ -112,7 +112,7 @@ const Section = styled.section`
     flex-direction: column;
     justify-content: center;
     min-height: 100svh;
-    padding: ${spacing[1000]}px 0 clamp(${spacing[300]}px, 5svh, ${spacing[600]}px);
+    padding: ${spacing[1000]}px 0 ${spacing[1250]}px;
   }
 
   ${media.down('m')} {

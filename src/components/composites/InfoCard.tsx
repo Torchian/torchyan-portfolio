@@ -31,7 +31,6 @@ export const InfoCard = styled.li`
   padding: ${spacing[400]}px ${spacing[500]}px;
   border-radius: ${radius.xxl}px;
   background: ${transparents.transparent4};
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   font-family: ${fontFamily.heading};
   font-weight: ${fontWeight.semibold};
   letter-spacing: ${letterSpacing.xs}px;
