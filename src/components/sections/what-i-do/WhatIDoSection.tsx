@@ -88,14 +88,21 @@ const VisualsColumn = styled.div`
  * Figma: Ellipse 17 - green glow at bottom: a 580px #0caf0a square under
  * blur(320px). Drawn as the radial gradient that blur produces instead (same
  * centre; pixel-diffed against the blur at max 4/255 per channel), so there's
- * no 2400px live filter to repaint behind the sticky characters.
+ * no 2000px live filter to repaint behind the sticky characters.
+ *
+ * Grown from nothing rather than simply present: it scales in on the same
+ * --final switch that puts the glasses on (useWhatIDoScroll, "Refine and
+ * evolve"), 0 at every step before that and full size once it's reached. The
+ * box is already full size and centred on its final spot; scale(var(--final))
+ * with a centred transform-origin shrinks and grows it in place, so the glow
+ * never has to move to stay under the character as it grows.
  */
 const EllipseGlow = styled.div`
   position: absolute;
-  width: 2400px;
-  height: 2400px;
-  left: calc(50% - 1200px);
-  bottom: calc(118px + 290px - 1200px);
+  width: 2000px;
+  height: 2000px;
+  left: calc(50% - 1000px);
+  bottom: calc(118px + 290px - 1000px);
   background: radial-gradient(
     circle closest-side,
     rgba(12, 175, 10, 0.403) 0%,
@@ -110,6 +117,13 @@ const EllipseGlow = styled.div`
   );
   z-index: 0;
   pointer-events: none;
+  transform: scale(var(--final, 0));
+  transform-origin: center;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+
+  ${media.reducedMotion} {
+    transition: none;
+  }
 `;
 
 /** Figma: whatido_grid */
