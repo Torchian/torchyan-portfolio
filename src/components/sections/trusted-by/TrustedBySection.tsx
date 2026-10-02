@@ -41,14 +41,17 @@ interface TrustedLogo {
 const logo = (
   name: string,
   file: string,
-  options: Partial<Pick<TrustedLogo, 'height' | 'boxed'>> = {},
-): TrustedLogo => ({
-  name,
-  src: `/logo/companies/${file}.svg`,
-  height: 48,
-  boxed: true,
-  ...options,
-});
+  options: Partial<Pick<TrustedLogo, 'height' | 'boxed'>> & { ext?: 'svg' | 'png' } = {},
+): TrustedLogo => {
+  const { ext = 'svg', ...rest } = options;
+  return {
+    name,
+    src: `/logo/companies/${file}.${ext}`,
+    height: 48,
+    boxed: true,
+    ...rest,
+  };
+};
 
 export type RelationshipGroup = 'clients' | 'employers' | 'partners' | 'product' | 'teaching';
 
@@ -86,9 +89,8 @@ export const TRUSTED_GROUPS: { id: RelationshipGroup; logos: TrustedLogo[] }[] =
   },
   {
     id: 'product',
-    // myZcapital, Solomoon and Panika belong here too — no logo file for any
-    // of the three yet (see the PR for what's needed to add them).
-    logos: [logo('SoulOne', 'SoulOne')],
+    // myZcapital belongs here too — no logo file for it yet.
+    logos: [logo('SoulOne', 'SoulOne'), logo('Solomoon', 'Solomoon', { ext: 'png' }), logo('Panika', 'Panika', { ext: 'png' })],
   },
   {
     id: 'teaching',
