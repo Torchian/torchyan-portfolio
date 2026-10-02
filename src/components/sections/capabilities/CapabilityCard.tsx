@@ -138,7 +138,14 @@ const Title = styled.h3`
   color: ${accents.primary};
   pointer-events: auto;
 
+  /*
+   * One step up on real desktop — Heading L is the top of the heading scale,
+   * so the step up crosses into the bottom of the display one, Display S.
+   * Tablet keeps Heading L, the size Figma drew it at.
+   */
   ${media.up('xl')} {
+    font-size: ${scaled(fontSize.display.s)};
+    line-height: ${scaled(lineHeight.display.s)};
     transition: color ${HOVER_TRANSITION};
 
     ${ACTIVE_CARD} & {
@@ -183,6 +190,12 @@ const MainText = styled.div<{ $besideNotch: boolean }>`
         max-width: ${BESIDE_NOTCH};
       }
     `}
+
+  /* One step up on real desktop, Heading S to Heading M; tablet keeps Heading S. */
+  ${media.up('xl')} {
+    font-size: ${scaled(fontSize.heading.m)};
+    line-height: ${scaled(lineHeight.heading.m)};
+  }
 
   ${media.between('m', 'xl')} {
     font-weight: ${fontWeight.medium};
@@ -292,6 +305,16 @@ const Footnote = styled.p<{ $besideNotch: boolean }>`
         max-width: ${BESIDE_NOTCH};
       }
     `}
+
+  /*
+   * One step up on real desktop — Body XL is the top of the body scale, so
+   * the step up crosses into the bottom of the heading one, Heading S.
+   * Tablet keeps Body XL, the size Figma drew it at.
+   */
+  ${media.up('xl')} {
+    font-size: ${scaled(fontSize.heading.s)};
+    line-height: ${scaled(lineHeight.heading.s)};
+  }
 
   ${media.down('xl')} {
     font-family: ${fontFamily.body};

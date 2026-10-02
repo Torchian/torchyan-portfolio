@@ -8,50 +8,54 @@ import Image from 'next/image';
 import { spacing } from '@/styles/tokens/spacing';
 import { neutrals, accents } from '@/styles/tokens/colors';
 import { fontSize, lineHeight, fontWeight, letterSpacing, fontFamily } from '@/styles/tokens/typography';
-import { breakpoints } from '@/styles/tokens/breakpoints';
 import { grid } from '@/styles/tokens/grid';
 import { media, mediaQueries } from '@/styles/media';
 import { duration, easing } from '@/styles/tokens/motion';
 import { useTranslations } from 'next-intl';
 
 /*
- * Figma: Footer — Desktop 1920 (2670:10716), Desktop 1280 (2670:11420),
- * Tablet 1024 (2670:11742), Tablet 768 (2670:12063), Mobile 480 (2670:12384),
- * Mobile 320 (2670:12704).
+ * Figma: Footer — Desktop 1920 (4037:14070), Tablet 1024 (4037:14206),
+ * Mobile 480 (4037:14275). No separate frame exists for 481-768px; that range
+ * takes the mobile numbers, same as the rest of the site's down('l') blocks.
  *
  * Two arrangements of the same elements:
- *  - 1024 frame and up (from 769px): the name runs vertically on the left, as tall as the link column
- *    beside it.
- *  - 768 frame and below (up to 768px): "Designer × Engineer", STEPAN and TORCHYAN at the container's
- *    full width, then the links, then the copyright.
- * The wireframe portrait sits in the footer's bottom corner at 30%, hard-light blended, behind the text.
+ *  - 769px and up: the wordmark runs vertically on the left, turned on its
+ *    side to read bottom-to-top, as tall as the link column beside it. The
+ *    tagline stands beside it, upright already (its own artwork is drawn
+ *    vertical) at the same height.
+ *  - Up to 768px: the wordmark upright and the tagline under it (turned
+ *    upright itself, since its artwork is vertical) at the container's full
+ *    width, then the links, then the copyright.
+ * The wireframe portrait sits in the footer's bottom corner, screen-blended,
+ * behind the text — unchanged by this pass; Figma's redesign puts a different,
+ * front-facing character there that would need its own baked still.
  */
 
 /** Word length on desktop — the link column's height, written by useNameLength. */
 const NAME_LENGTH = 'var(--footer-name-length, 624px)';
 
 /**
- * The name artwork is Figma's outlined lettering. Every dimension is a fixed
- * fraction of the words' shared length (the same at all six frames):
- * STEPAN 160.013 / 752 thick, a 22.698 / 752 gap, TORCHYAN 107.567 / 752.
+ * The logo, as two pieces of outlined lettering, each kept at its own native
+ * aspect ratio (confirmed equal at all three Figma frames — the same artwork,
+ * scaled): the wordmark is drawn horizontal, the tagline vertical. Below 769px
+ * each stands in its own drawn orientation; at 769px and up the wordmark turns
+ * onto its side to run the link column's height and the tagline, already
+ * vertical, stands beside it unrotated.
  */
-const NAME_ART = {
-  stepan: { src: '/footer/name-stepan.svg', width: 752, height: 160.013 },
-  torchyan: { src: '/footer/name-torchyan.svg', width: 751.996, height: 107.567 },
-  role: { src: '/footer/name-designer-engineer.svg', width: 77.0202, height: 752 },
-} as const;
-const NAME_GAP = 22.698 / 752;
-const NAME_GROUP_THICKNESS = (160.013 + 22.698 + 107.567) / 752;
+const WORDMARK = { src: '/footer/name-wordmark.svg', width: 540, height: 77.2426 } as const;
+const TAGLINE = { src: '/footer/name-tagline.svg', width: 51, height: 540 } as const;
 
 /*
  * Portrait: the same character the page is framed by — SideCharacters' right
  * one, grey, in its glasses and coat — rather than a second wireframe man who
- * was nobody else on the site. It is the half that shows there too, so the cut
- * down its middle is what hangs off the footer's right edge.
+ * was nobody else on the site. It is the half that shows there too: the page
+ * sides never pair it with its own left half either (character-left.webp is a
+ * different outfit entirely, Big Lebowski to this one's Matrix, not a
+ * continuation of it) — pairing them here once left a seam of mismatched
+ * colour straight down the middle of the face the moment the box was sized to
+ * show where that seam fell.
  */
 const PORTRAIT = { src: '/hero/character-right.webp', width: 768, height: 1536 } as const;
-/** The face's other half, whose cut is on its left edge: it carries on from PORTRAIT's right one. */
-const PORTRAIT_OTHER_HALF = { src: '/hero/character-left.webp' } as const;
 
 const LINK_TRANSITION = `${duration.slower} ${easing.spring}`;
 
@@ -90,22 +94,18 @@ const FooterEl = styled.footer`
   padding: ${spacing[1000]}px 0;
 
   ${media.between('l', 'xl')} {
-    padding: ${spacing[800]}px 0;
+    padding: ${spacing[500]}px 0;
   }
 
   ${media.down('l')} {
-    padding: ${spacing[800]}px 0 ${spacing[400]}px;
-  }
-
-  ${media.down('m')} {
-    padding: ${spacing[600]}px 0 ${spacing[300]}px;
+    padding: ${spacing[500]}px 0 ${spacing[300]}px;
   }
 `;
 
 const Inner = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${spacing[800]}px;
+  gap: ${spacing[500]}px;
   /* 1440px of content in the 1920 frame; 32px sides in the 1440 frame. */
   max-width: ${grid.maxWidth + 2 * spacing[400]}px;
   margin: 0 auto;
@@ -116,131 +116,108 @@ const Inner = styled.div`
   }
 
   ${media.down('m')} {
-    gap: ${spacing[400]}px;
     padding: 0 ${spacing[200]}px;
   }
 
   ${media.up('l')} {
     flex-direction: row;
     align-items: flex-start;
-    gap: ${spacing[1000]}px;
+    gap: ${spacing[600]}px;
   }
 
-  ${media.up('xxl')} {
-    gap: ${spacing[2000]}px;
+  ${media.up('xl')} {
+    gap: ${spacing[1500]}px;
   }
 `;
 
+/**
+ * Figma gives the wordmark-to-tagline gap as 24px at every frame it specifies
+ * (mobile's stacked pair and desktop/tablet's side-by-side one alike), so it is
+ * written once here rather than per breakpoint.
+ */
 const NameBlock = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${spacing[400]}px;
-
-  ${media.down('m')} {
-    gap: ${spacing[200]}px;
-  }
+  gap: ${spacing[300]}px;
 
   ${media.up('l')} {
     flex: none;
     flex-direction: row;
     align-items: flex-start;
-    gap: ${spacing[500]}px;
     /* Zero height so the words (sized from the column's height) never feed back into it. */
     height: 0;
   }
-
-  ${media.up('xl')} {
-    gap: ${spacing[800]}px;
-  }
 `;
 
-/** STEPAN + TORCHYAN. On desktop the pair is laid out horizontally, then turned to read bottom-to-top. */
-const NameGroup = styled.div`
-  order: 2;
+/**
+ * TORCHYAN. Drawn horizontal — upright as the page's own full-width logo on a
+ * phone, turned on its side at 769px and up to run the link column's height,
+ * the same way the name always has.
+ */
+const Wordmark = styled.div`
+  width: 100%;
 
-  ${media.up('l')} {
-    display: flex;
-    flex: none;
-    align-items: center;
-    justify-content: center;
-    order: 0;
-    width: calc(${NAME_LENGTH} * ${NAME_GROUP_THICKNESS.toFixed(6)});
-    height: ${NAME_LENGTH};
-  }
-`;
-
-const NameGroupArt = styled.div`
   img {
     display: block;
     width: 100%;
     height: auto;
   }
 
-  img + img {
-    /* Percentage margins resolve against the width — the words' length. */
-    margin-top: ${(NAME_GAP * 100).toFixed(4)}%;
-  }
-
-  /* The words ran the container's full width, which on a phone is the whole
-     screen and reads as a banner rather than a signature. */
-  ${media.down('m')} {
-    width: 76%;
-  }
-
   ${media.up('l')} {
+    display: flex;
     flex: none;
-    width: ${NAME_LENGTH};
-    transform: rotate(-90deg);
+    align-items: center;
+    justify-content: center;
+    width: calc(${NAME_LENGTH} * ${(WORDMARK.height / WORDMARK.width).toFixed(6)});
+    height: ${NAME_LENGTH};
+
+    > div {
+      flex: none;
+      width: ${NAME_LENGTH};
+      transform: rotate(-90deg);
+    }
   }
 `;
 
-/** "Designer × Engineer" — exported vertical; turned upright on tablet / mobile. */
-const RoleSlot = styled.div`
-  order: 1;
+/**
+ * Digital Product Studio. Drawn vertical — the opposite of the wordmark, so it
+ * stands upright already beside it at 769px and up, and is turned onto its
+ * side under the wordmark on a phone.
+ *
+ * The phone case reuses the same technique the old "Designer × Engineer" slot
+ * used (not 100cqw): a wrapper sized by aspect-ratio from its own width, then
+ * a percentage height on the absolutely-positioned image, resolved against
+ * that now-definite height. iOS Safari does not re-resolve a container query
+ * unit after the screen turns back to the orientation that first measured it;
+ * a percentage carries no such state to go stale.
+ */
+const Tagline = styled.div`
+  position: relative;
+  width: 100%;
+  aspect-ratio: ${TAGLINE.height} / ${TAGLINE.width};
 
   img {
-    display: block;
-  }
-
-  ${media.down('m')} {
-    width: 76%;
-  }
-
-  ${media.down('l')} {
-    position: relative;
-    aspect-ratio: ${NAME_ART.role.height} / ${NAME_ART.role.width};
-
-    img {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: auto;
-      max-width: none;
-      /*
-       * The artwork is exported upright and turned on its side here, so what
-       * has to match the slot's width is its height. That used to be said with
-       * 100cqw, with the slot made a container to measure against — and on a
-       * phone the containment is switched on by this very media query. Safari
-       * did not re-resolve the unit after the screen turned back to portrait:
-       * the words kept the landscape width, several times the screen, and one
-       * letter filled it.
-       *
-       * The same number without a container: the slot's height is its width
-       * times the artwork's own ratio, so its width is that height times the
-       * ratio the other way up. A percentage height resolves against the
-       * slot, whose height the aspect-ratio above makes definite.
-       */
-      height: ${((NAME_ART.role.height / NAME_ART.role.width) * 100).toFixed(4)}%;
-      transform: translate(-50%, -50%) rotate(90deg);
-    }
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: auto;
+    max-width: none;
+    height: ${((TAGLINE.height / TAGLINE.width) * 100).toFixed(4)}%;
+    transform: translate(-50%, -50%) rotate(90deg);
   }
 
   ${media.up('l')} {
     flex: none;
+    width: calc(${NAME_LENGTH} * ${(TAGLINE.width / TAGLINE.height).toFixed(6)});
+    height: ${NAME_LENGTH};
+    aspect-ratio: auto;
 
     img {
-      width: auto;
-      height: ${NAME_LENGTH};
+      position: static;
+      width: 100%;
+      height: 100%;
+      max-width: none;
+      transform: none;
     }
   }
 `;
@@ -264,53 +241,36 @@ const Portrait = styled.div`
   user-select: none;
 
   /*
-   * The cut runs down the character's middle, so the image's right edge IS that
-   * centre line — it has to sit on the footer's right edge, not past it, or the
-   * face is the first thing gone. Same as on the page sides, where the other
-   * half stands off screen.
-   *
-   * Then nudged on purpose, on every screen: 45px in from the right edge and
-   * 40px below the bottom one (the footer clips what hangs below).
+   * The cut runs down the character's middle, so the image's right edge IS
+   * that centre line — the same crop as on the page sides, where the other
+   * half stands off screen. Position and size past that are per-breakpoint,
+   * set by eye against the rebuilt footer rather than read off Figma, which
+   * (per the header comment) still shows the old wireframe here.
    */
-  right: 0;
+  right: 40px;
   bottom: 0;
+  width: 200px;
 
-  /* The 768 frame (481–768px). */
-  width: 340px;
-
-  /* The 480 frame (up to 480px). */
-  ${media.down('m')} {
-    width: 260px;
-  }
-
-  /* The 1024 frame (769–1024px). */
+  /* Tablet (769–1024px). */
   ${media.up('l')} {
-    width: 380px;
+    right: 90px;
+    bottom: -130px;
+    width: 360px;
   }
 
-  /* The 1440 frame (1025–1440px). */
+  /* Desktop (1025px and up). */
   ${media.up('xl')} {
-    width: 400px;
-  }
-
-  /* Interpolated from the 1440 frame to the 1920 frame (cqw = footer width), then held. */
-  ${media.up('xxxl')} {
-    width: min(420px, max(400px, calc(400px + (100cqw - ${breakpoints.xxl}px) * 0.041667)));
+    right: 160px;
+    bottom: -80px;
+    width: 300px;
   }
 `;
 
-/** Both halves of the face, one box wide each: the box is the first half, the second hangs off its right. */
 const PortraitHalf = styled(Image)`
   display: block;
   width: 100%;
   max-width: none;
   height: auto;
-
-  &[data-half='other'] {
-    position: absolute;
-    top: 0;
-    left: 100%;
-  }
 `;
 
 const Column = styled.div`
@@ -326,6 +286,11 @@ const Column = styled.div`
   }
 `;
 
+/**
+ * Figma keeps this gap at 40px whichever breakpoint's Input blocks it is
+ * between — the same at the mobile frame as at the desktop one — so unlike
+ * most of this file it takes no override at all.
+ */
 const Groups = styled.div`
   display: flex;
   flex-direction: column;
@@ -333,16 +298,13 @@ const Groups = styled.div`
   order: 1;
   padding-left: ${spacing[150]}px;
 
-  ${media.down('m')} {
-    gap: ${spacing[400]}px;
-  }
-
   /* Desktop: the groups join the column's own gap, alongside the copyright. */
   ${media.up('l')} {
     display: contents;
   }
 `;
 
+/** Also unchanged at every frame: a label to its links is always 16px. */
 const Group = styled.div`
   display: flex;
   flex-direction: column;
@@ -350,12 +312,9 @@ const Group = styled.div`
   gap: ${spacing[200]}px;
   /* Reset for the <address> variant. */
   font-style: normal;
-
-  ${media.down('m')} {
-    gap: ${spacing[150]}px;
-  }
 `;
 
+/** Figma keeps this one size — 16/20, SemiBold — at every frame; no override. */
 const GroupTitle = styled.h2`
   margin: 0;
   font-family: ${fontFamily.heading};
@@ -364,11 +323,6 @@ const GroupTitle = styled.h2`
   line-height: ${lineHeight.body.l}px;
   letter-spacing: ${letterSpacing.m}px;
   color: ${neutrals[100]};
-
-  ${media.down('m')} {
-    font-size: ${fontSize.body.m}px;
-    line-height: ${lineHeight.body.m}px;
-  }
 `;
 
 const LinkList = styled.ul<{ $stacked?: boolean }>`
@@ -376,13 +330,15 @@ const LinkList = styled.ul<{ $stacked?: boolean }>`
   flex-direction: ${(p) => (p.$stacked ? 'column' : 'row')};
   flex-wrap: wrap;
   align-items: flex-start;
-  gap: ${spacing[200]}px ${spacing[800]}px;
+  /* Figma's tablet and mobile frames agree on 16px row-gap, 48px column-gap;
+     only the desktop frame widens the column-gap, to 64px, below. */
+  gap: ${spacing[200]}px ${spacing[600]}px;
   margin: 0;
   padding: 0;
   list-style: none;
 
-  ${media.down('m')} {
-    gap: ${spacing[150]}px ${spacing[500]}px;
+  ${media.up('xl')} {
+    column-gap: ${spacing[800]}px;
   }
 
   /* Flex items, so the list item's own line box can't make a row taller than its link. */
@@ -471,9 +427,10 @@ const bracketLink = css`
   }
 
   ${media.down('m')} {
-    --bracket-offset: 6px;
-    font-size: ${fontSize.body.xl}px;
-    line-height: ${lineHeight.body.xl}px;
+    --bracket-offset: 5.5px;
+    font-weight: ${fontWeight.semibold};
+    font-size: ${fontSize.body.l}px;
+    line-height: ${lineHeight.body.l}px;
   }
 `;
 
@@ -505,15 +462,22 @@ const Location = styled.p`
     margin: -0.6px;
   }
 
-  ${media.down('m')} {
-    gap: ${spacing[150]}px;
+  /* Tablet keeps the gap and the pin's box, but drops to SemiBold 24/32. */
+  ${media.down('l')} {
     font-weight: ${fontWeight.semibold};
-    font-size: ${fontSize.body.xl}px;
-    line-height: ${lineHeight.body.xl}px;
+    font-size: ${fontSize.heading.s}px;
+    line-height: ${lineHeight.heading.s}px;
+  }
+
+  ${media.down('m')} {
+    gap: ${spacing[100]}px;
+    font-size: ${fontSize.body.l}px;
+    line-height: ${lineHeight.body.l}px;
 
     img {
-      width: 10.7px;
-      height: 18.9px;
+      width: 9px;
+      height: 16px;
+      margin: 0;
     }
   }
 `;
@@ -619,40 +583,30 @@ export function Footer() {
 
   return (
     <FooterEl id="site-footer">
+      <Portrait aria-hidden>
+        <PortraitHalf
+          src={PORTRAIT.src}
+          width={PORTRAIT.width}
+          height={PORTRAIT.height}
+          alt=""
+          sizes="(min-width: 1025px) 300px, (min-width: 769px) 360px, 200px"
+          loading="lazy"
+          draggable={false}
+        />
+      </Portrait>
+
       <Inner ref={innerRef}>
         <VisuallyHiddenText>{t('srName')}</VisuallyHiddenText>
 
         <NameBlock aria-hidden>
-          <NameGroup>
-            <NameGroupArt>
-              <img {...NAME_ART.stepan} alt="" />
-              <img {...NAME_ART.torchyan} alt="" />
-            </NameGroupArt>
-            <Portrait aria-hidden>
-              <PortraitHalf
-                src={PORTRAIT.src}
-                width={PORTRAIT.width}
-                height={PORTRAIT.height}
-                alt=""
-                sizes="(min-width: 1441px) 420px, (min-width: 769px) 380px, (min-width: 481px) 340px, 260px"
-                loading="lazy"
-                draggable={false}
-              />
-              <PortraitHalf
-                data-half="other"
-                src={PORTRAIT_OTHER_HALF.src}
-                width={PORTRAIT.width}
-                height={PORTRAIT.height}
-                alt=""
-                sizes="(min-width: 1441px) 420px, (min-width: 769px) 380px, (min-width: 481px) 340px, 260px"
-                loading="lazy"
-                draggable={false}
-              />
-            </Portrait>
-          </NameGroup>
-          <RoleSlot>
-            <img {...NAME_ART.role} alt="" />
-          </RoleSlot>
+          <Wordmark>
+            <div>
+              <img {...WORDMARK} alt="" />
+            </div>
+          </Wordmark>
+          <Tagline>
+            <img {...TAGLINE} alt="" />
+          </Tagline>
         </NameBlock>
 
         <Column ref={columnRef}>
