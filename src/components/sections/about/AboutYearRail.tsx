@@ -73,6 +73,10 @@ const railColumn = css`
   width: 8px;
   pointer-events: none;
 
+  ${media.down('xl')} {
+    left: ${HEADER_INLINE.tablet}px;
+  }
+
   @media (min-width: ${RAIL_WIDE}px) {
     left: calc((100vw - 1376px) / 2 - 240px + ${HEADER_INLINE.base}px);
   }
@@ -98,6 +102,15 @@ const Line = styled.div`
   position: absolute;
   inset: 17px 0 0;
   background: linear-gradient(to bottom, ${accents.primary} 0%, rgba(12, 175, 10, 0) 100%);
+
+  /*
+   * It continues the stem of the logo mark above it, which is a sixth of the
+   * logo's width: 8px under the 48px logo, and 32/6 under the phone's 32px one.
+   */
+  ${media.down('m')} {
+    right: auto;
+    width: calc(32px / 6);
+  }
 `;
 
 /** Spans the timeline, so the marker inside it can stick through it. */

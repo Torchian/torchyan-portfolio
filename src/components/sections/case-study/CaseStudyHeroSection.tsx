@@ -34,20 +34,20 @@ const Content = styled(Container)`
 const Title = styled.h1`
   font-family: ${fontFamily.display};
   font-weight: ${fontWeight.heading};
-  font-size: ${fontSize.display.m}px;
-  line-height: ${lineHeight.display.m}px;
+  font-size: ${fontSize.display.s}px;
+  line-height: ${lineHeight.display.s}px;
   color: ${neutrals[100]};
   margin: 0;
   max-width: 800px;
 
   ${media.down('l')} {
-    font-size: ${fontSize.display.s}px;
-    line-height: ${lineHeight.display.s}px;
+    font-size: ${fontSize.heading.l}px;
+    line-height: ${lineHeight.heading.l}px;
   }
 
   ${media.down('m')} {
-    font-size: ${fontSize.heading.l}px;
-    line-height: ${lineHeight.heading.l}px;
+    font-size: ${fontSize.heading.m}px;
+    line-height: ${lineHeight.heading.m}px;
   }
 `;
 

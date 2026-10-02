@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import styled from 'styled-components';
-import { Button } from '@/components/primitives';
 import { Character, characterFade } from '@/components/composites/character/Character';
 import { useLookAtPointer } from '@/components/composites/character/useLookAtPointer';
 import { spacing } from '@/styles/tokens/spacing';
@@ -13,12 +12,12 @@ import {
   lineHeight,
   letterSpacing,
 } from '@/styles/tokens/typography';
-import { accents, neutrals } from '@/styles/tokens/colors';
+import { neutrals } from '@/styles/tokens/colors';
 import { grid } from '@/styles/tokens/grid';
 import { media } from '@/styles/media';
 import { zIndex } from '@/styles/tokens/z-index';
 import { useTranslations } from 'next-intl';
-import { DEFAULT_LOOK, randomCharacter, type CharacterLook } from './aboutConfig';
+import { DEFAULT_LOOK, type CharacterLook } from './aboutConfig';
 
 /*
  * Figma: About Hero (3983:1266 — Default / Tablet / Mobile).
@@ -88,26 +87,26 @@ const Title = styled.h1`
   margin: 0;
   font-family: ${fontFamily.display};
   font-weight: ${fontWeight.black};
-  font-size: ${fontSize.display.xl}px;
-  line-height: ${lineHeight.display.xl}px;
+  font-size: ${fontSize.display.l}px;
+  line-height: ${lineHeight.display.l}px;
   letter-spacing: ${letterSpacing.xxs}px;
   text-align: center;
   /* Only the 1920 frame shouts; the tablet and phone frames set it as typed. */
   text-transform: uppercase;
-  color: ${accents.primary};
+  color: ${neutrals[100]};
 
   ${media.down('xl')} {
     font-weight: ${fontWeight.heading};
-    font-size: ${fontSize.display.m}px;
-    line-height: ${lineHeight.display.m}px;
+    font-size: ${fontSize.display.s}px;
+    line-height: ${lineHeight.display.s}px;
     letter-spacing: ${letterSpacing.xs}px;
     text-transform: none;
   }
 
   ${media.down('m')} {
     font-weight: ${fontWeight.semibold};
-    font-size: ${fontSize.display.s}px;
-    line-height: ${lineHeight.display.s}px;
+    font-size: ${fontSize.heading.l}px;
+    line-height: ${lineHeight.heading.l}px;
   }
 `;
 
@@ -189,15 +188,13 @@ const Footer = styled.div`
   margin-top: auto;
   padding: ${spacing[0]}px ${spacing[400]}px;
 
-  /* The phone frame stands the button above the two labels, which share a line. */
+  /* The phone: the two labels share a line, and they take the page's own 16px
+     margin rather than the title's 32 so "Working internationally" stays on one line. */
   ${media.down('m')} {
-    flex-wrap: wrap;
-    gap: ${spacing[400]}px;
-
-    & > button {
-      order: -1;
-      flex: 1 0 100%;
-    }
+    gap: ${spacing[200]}px;
+    width: calc(100% + ${spacing[400]}px);
+    margin-inline: -${spacing[200]}px;
+    padding: 0;
   }
 `;
 
@@ -226,7 +223,7 @@ const LIVE_QUERY = '(hover: hover) and (pointer: fine)';
 
 export function AboutHeroSection() {
   const t = useTranslations('about.hero');
-  const [look, setLook] = useState<CharacterLook>(DEFAULT_LOOK);
+  const look: CharacterLook = DEFAULT_LOOK;
   const [live, setLive] = useState(false);
   const stageRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
@@ -281,9 +278,6 @@ export function AboutHeroSection() {
         <Title ref={titleRef}>{t('title')}</Title>
         <Footer>
           <Label>{t('basedIn')}</Label>
-          <Button $variant="tertiary" onClick={() => setLook(randomCharacter(look))}>
-            {t('generate')}
-          </Button>
           <Label>{t('workingGlobally')}</Label>
         </Footer>
       </Container>

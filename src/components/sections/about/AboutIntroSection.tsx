@@ -32,6 +32,11 @@ const Section = styled.section`
   width: 100%;
   margin-top: -${spacing[2000] - CLOSER}px;
 
+  /* More air before Experience on a tablet and phone. */
+  ${media.down('xl')} {
+    margin-bottom: ${spacing[1000]}px;
+  }
+
   ${media.down('m')} {
     margin-top: -${spacing[1000] - CLOSER}px;
   }
@@ -59,13 +64,16 @@ const Text = styled.div`
   ${media.down('xl')} {
     max-width: none;
     padding: 0 ${spacing[800]}px;
+    font-size: ${fontSize.heading.m}px;
+    line-height: ${lineHeight.heading.m}px;
   }
 
   ${media.down('m')} {
     gap: ${spacing[300]}px;
-    padding: 0 ${spacing[200]}px;
-    font-size: ${fontSize.heading.s}px;
-    line-height: ${lineHeight.heading.s}px;
+    /* Clear of the timeline's line, which runs down the left edge. */
+    padding: 0 ${spacing[500]}px;
+    font-size: ${fontSize.body.xl}px;
+    line-height: ${lineHeight.body.xl}px;
     letter-spacing: ${letterSpacing.s}px;
   }
 `;

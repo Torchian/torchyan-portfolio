@@ -5,6 +5,7 @@ import { Display, Text } from '@/components/primitives';
 import { spacing } from '@/styles/tokens/spacing';
 import { fontSize, lineHeight, letterSpacing } from '@/styles/tokens/typography';
 import { radius } from '@/styles/tokens/radius';
+import { media } from '@/styles/media';
 
 const Wrapper = styled.div`
   display: flex;
@@ -15,6 +16,12 @@ const Wrapper = styled.div`
 const CompanyName = styled(Display)`
   text-transform: uppercase;
   letter-spacing: ${letterSpacing.xxs}px;
+
+  /* A phone is too narrow for a long name at the desktop size: it ran off the edge. */
+  ${media.down('m')} {
+    font-size: ${fontSize.display.s}px;
+    line-height: ${lineHeight.display.s}px;
+  }
 `;
 
 const Tags = styled.div`
@@ -41,7 +48,7 @@ export interface ProjectMetaProps {
 export function ProjectMeta({ company, description, tags }: ProjectMetaProps) {
   return (
     <Wrapper>
-      <CompanyName $size="l">{company}</CompanyName>
+      <CompanyName $size="m">{company}</CompanyName>
       {description && (
         <Text $scale="body" $size="l" $color="var(--color-text-secondary)">
           {description}

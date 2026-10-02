@@ -34,8 +34,8 @@ import { WhatIDoCharacterWaiting } from './WhatIDoCharacterWaiting';
  * Five stages, the desktop's own, in order:
  *
  *   1. the face as a pencil sketch
- *   2. the sketch gives way to the drawing underneath, top to bottom
- *   3. the rest of the parts arrive
+ *   2. the sketch gives way to the bare face underneath, top to bottom
+ *   3. the parts arrive: brow, ears, eyes and the rest
  *   4. the colour comes in
  *   5. the glasses go on, and the green glow rises behind
  *
@@ -174,6 +174,10 @@ const Glow = styled.div`
   }
 `;
 
+/** How much larger the drawing is than its box would make it, and how far it sits below the header. */
+const FIGURE_SCALE = 1.1;
+const FIGURE_DROP = 20;
+
 /** The drawing: the screen under the header, with the words lying over its foot. */
 const Drawing = styled.div`
   display: flex;
@@ -185,7 +189,7 @@ const Drawing = styled.div`
     position: absolute;
     inset: 0;
     /* Clear of the fixed header; the words lie over the foot of it. */
-    padding-top: ${HEADER_HEIGHT + spacing[100]}px;
+    padding-top: ${HEADER_HEIGHT + spacing[100] + FIGURE_DROP}px;
     padding-bottom: 0;
   }
 `;
@@ -221,7 +225,7 @@ const WORDS_FALLBACK = 248;
  * whatever is left over, so every pixel reserved here comes straight off it.
  */
 const WORDS_BELOW = spacing[600];
-const WORDS_GAP = spacing[200];
+const WORDS_GAP = spacing[100];
 
 const Figure = styled.div`
   position: relative;
@@ -235,10 +239,13 @@ const Figure = styled.div`
      * The smallest viewport is the one it has to fit.
      */
     width: min(
-      100%,
-      ${FIGURE_MAX}px,
+      ${FIGURE_SCALE * 100}%,
+      ${FIGURE_SCALE * FIGURE_MAX}px,
       calc(
-        (100svh - ${HEADER_HEIGHT + spacing[100]}px - var(--words, ${WORDS_FALLBACK}px)) * ${FIT}
+        (
+            100svh - ${HEADER_HEIGHT + spacing[100] + FIGURE_DROP}px -
+              var(--words, ${WORDS_FALLBACK}px)
+          ) * ${FIT}
       )
     );
   }
@@ -384,10 +391,10 @@ export function WhatIDoMobileStage({ steps, hostRef }: WhatIDoMobileStageProps) 
 
   /*
    * How much of the bottom the words take, so the drawing can be sized to the
-   * rest of it rather than to a number picked by eye. Measured rather than
-   * assumed, because it is a translation: the longest step's title wraps to two
-   * lines in English and three in Russian, and a fixed reserve would either
-   * crop the drawing everywhere or let the beard through the title in one
+   * rest of it rather than to a number picked by eye. It is the last step's
+   * words that count: the beard only exists there, and it is the beard that
+   * must not reach the title. Measured rather than assumed, because it is a
+   * translation — the title wraps to a different number of lines in each
    * language.
    */
   useLayoutEffect(() => {
@@ -395,9 +402,9 @@ export function WhatIDoMobileStage({ steps, hostRef }: WhatIDoMobileStageProps) 
     if (!staged || !stage) return;
 
     const measure = () => {
-      const tallest = stepRefs.current.reduce((most, el) => Math.max(most, el?.offsetHeight ?? 0), 0);
-      if (!tallest) return;
-      stage.style.setProperty('--words', `${tallest + WORDS_BELOW + WORDS_GAP}px`);
+      const last = stepRefs.current[stepRefs.current.length - 1]?.offsetHeight ?? 0;
+      if (!last) return;
+      stage.style.setProperty('--words', `${last + WORDS_BELOW + WORDS_GAP}px`);
     };
 
     measure();
@@ -463,9 +470,9 @@ export function WhatIDoMobileStage({ steps, hostRef }: WhatIDoMobileStageProps) 
           written.pencil = cut;
         }
 
-        // The parts that wait come in as the sketch gives way, the way the
-        // desktop's second character enters — not before it, over the pencil.
-        const parts = (1 - value.pencil).toFixed(2);
+        // The parts that wait (brow, ear, eye) come in with the rest of them in
+        // the third stage — the second shows the bare face, without them.
+        const parts = value.reveal.toFixed(2);
         if (parts !== written.parts) {
           stage.style.setProperty('--parts', parts);
           written.parts = parts;

@@ -72,6 +72,8 @@ const Copy = styled.div`
 
   ${media.down('xl')} {
     max-width: none;
+    font-size: ${fontSize.heading.s}px;
+    line-height: ${lineHeight.heading.s}px;
   }
 
   ${media.down('m')} {
@@ -93,6 +95,8 @@ const Closing = styled.p`
 
   ${media.down('xl')} {
     max-width: none;
+    font-size: ${fontSize.heading.m}px;
+    line-height: ${lineHeight.heading.m}px;
   }
 `;
 

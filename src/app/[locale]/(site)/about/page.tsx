@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server';
 import { AboutHeroSection } from '@/components/sections/about/AboutHeroSection';
 import { AboutIntroSection } from '@/components/sections/about/AboutIntroSection';
 import { AboutTimelineSection } from '@/components/sections/about/AboutTimelineSection';
+import { AboutPracticeSection } from '@/components/sections/about/AboutPracticeSection';
 import { AboutPositioningSection } from '@/components/sections/about/AboutPositioningSection';
 import { resolveLocale, type LocaleParams } from '@/i18n/server';
 import { generatePageMetadata } from '@/lib/seo/metadata';
@@ -31,6 +32,7 @@ export default async function AboutPage({ params }: LocaleParams) {
       <AboutHeroSection />
       <AboutIntroSection />
       <AboutTimelineSection />
+      <AboutPracticeSection />
       <AboutPositioningSection />
     </main>
   );

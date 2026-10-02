@@ -31,8 +31,9 @@ import { border } from '@/styles/tokens/border';
  * Figma: Header (2562:2761) — screens 1920 / 1440 / 1280 / 1024 / 768 / 480 / 320.
  *  - 1280 frame and up: logo · centred link pill (Header Navigation, 1944:4109) · language,
  *    sound and music together at the right edge. From 1060px — see DESKTOP_HEADER_QUERY.
- *  - Below that (up to 1059px): logo · menu button (2562:2297). Language, sound and music are
- *    rows at the bottom of the menu panel.
+ *  - Below that (up to 1059px): logo · menu button (2562:2297) · sound · music · language, in
+ *    that order, at the right. Under NARROW_HEADER_QUERY (350px) they do not fit beside the
+ *    logo, so they are rows at the foot of the menu panel instead and nothing is unreachable.
  * The link pill marks the current page green with a green glow above it; the
  * glow follows the pointer while hovering the pill.
  * The bar carries no "Start a project" button: that action lives in the hero, the page
@@ -49,6 +50,7 @@ const NAV_LINKS = [
   { key: 'services', href: '/services' },
   { key: 'projects', href: '/projects' },
   { key: 'about', href: '/about' },
+  { key: 'contact', href: '/contact' },
 ] as const;
 
 /**
@@ -62,9 +64,8 @@ const NAV_LINKS = [
  * sat in that corner; the controls (a 94px language switcher and two 48px
  * toggles) are narrower than that button was, so there is room to spare.
  *
- * Below it the language switcher and the audio switches are rows in the menu
- * panel, so nothing becomes unreachable. Their placement is provisional (they are
- * not in the Figma file yet, see TODO.md §4).
+ * Below it the links are the menu panel's, the sound and music switches stay in the bar,
+ * and the language switcher is a row in the panel, so nothing becomes unreachable.
  */
 const DESKTOP_HEADER_QUERY = '(min-width: 1060px)';
 const desktopHeader = `@media ${DESKTOP_HEADER_QUERY}`;
@@ -80,12 +81,16 @@ function activeIndexFor(pathname: string) {
 }
 
 /** The header's side padding, which page content lines up with (e.g. the Projects rows' text). */
-export const HEADER_INLINE = { base: spacing[400], mobile: spacing[300] } as const;
+export const HEADER_INLINE = {
+  base: spacing[400],
+  tablet: spacing[300],
+  mobile: spacing[200],
+} as const;
 
 /** The fixed bar's height, for anything that has to start below it. */
 export const HEADER_HEIGHT = spacing[1000];
 
-const Header = styled.header<{ $bare?: boolean }>`
+const Header = styled.header`
   position: fixed;
   top: 0;
   left: 0;
@@ -113,16 +118,6 @@ const Header = styled.header<{ $bare?: boolean }>`
     -webkit-backdrop-filter: blur(16px);
   }
 
-  /* The About page opens on the character's own dark field and carries the
-     year rail up to the logo, so the strip would only smudge both. */
-  ${(p) =>
-    p.$bare &&
-    css`
-      &::before {
-        content: none;
-      }
-    `}
-
   /* The controls on the bar sit on that already-blurred strip, so their own
      glass blur would re-blur a blur: invisible, but each one is another full
      backdrop pass on every scroll frame. They keep their tint; only the panels
@@ -131,6 +126,11 @@ const Header = styled.header<{ $bare?: boolean }>`
   & > * a {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
+  }
+
+  /* The same three steps the sections use: 32 on a desktop, 24 up to 1024, 16 on a phone. */
+  ${media.down('xl')} {
+    padding: 0 ${HEADER_INLINE.tablet}px;
   }
 
   ${media.down('m')} {
@@ -201,6 +201,29 @@ const HeaderControls = styled.div`
   ${desktopHeader} {
     display: flex;
   }
+`;
+
+/**
+ * The bar's right end below the desktop bar: sound and music, then the menu button
+ * at the edge. Lifted above the open menu panel like the rest of the bar.
+ */
+const HeaderEnd = styled.div`
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: ${spacing[100]}px;
+
+  ${desktopHeader} {
+    display: none;
+  }
+`;
+
+const CompactControls = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${spacing[100]}px;
 `;
 
 const NavCenter = styled.nav`
@@ -428,7 +451,8 @@ const MenuItem = styled(Link)<{ $active?: boolean }>`
   }
 `;
 
-/* Provisional, like the panel: the language and sound settings under the links, behind one divider. */
+/* Provisional, like the panel: the language setting under the links, behind one divider. */
+
 const MenuSetting = styled.div`
   display: flex;
   align-items: center;
@@ -476,8 +500,6 @@ export function NavBar() {
     if (menuPanelRef.current?.contains(document.activeElement)) menuButtonRef.current?.focus();
     setMenuOpenOn(null);
   }, []);
-  const soundLabelId = useId();
-  const musicLabelId = useId();
 
   const lineReturnTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
 
@@ -584,7 +606,7 @@ export function NavBar() {
   }, [menuOpen, closeMenu]);
 
   return (
-    <Header ref={headerRef} $bare={onAbout}>
+    <Header ref={headerRef}>
       <LogoLink href="/" aria-label={t('home')} $accent={onAbout}>
         <LogoMark />
       </LogoLink>
@@ -618,19 +640,25 @@ export function NavBar() {
         <MusicToggle />
       </HeaderControls>
 
-      <MenuButton
-        ref={menuButtonRef}
-        type="button"
-        $open={menuOpen}
-        aria-expanded={menuOpen}
-        aria-controls={menuId}
-        aria-label={menuOpen ? t('closeMenu') : t('openMenu')}
-        onClick={() => setMenuOpenOn(menuOpen ? null : pathname)}
-      >
-        <span />
-        <span />
-        <span />
-      </MenuButton>
+      <HeaderEnd>
+        <CompactControls>
+          <SoundToggle />
+          <MusicToggle />
+        </CompactControls>
+        <MenuButton
+          ref={menuButtonRef}
+          type="button"
+          $open={menuOpen}
+          aria-expanded={menuOpen}
+          aria-controls={menuId}
+          aria-label={menuOpen ? t('closeMenu') : t('openMenu')}
+          onClick={() => setMenuOpenOn(menuOpen ? null : pathname)}
+        >
+          <span />
+          <span />
+          <span />
+        </MenuButton>
+      </HeaderEnd>
 
       <MenuPanel
         ref={menuPanelRef}
@@ -655,14 +683,6 @@ export function NavBar() {
         <MenuSetting>
           <span>{t('language')}</span>
           <LanguageSwitcher inline />
-        </MenuSetting>
-        <MenuSetting>
-          <span id={soundLabelId}>{t('sound')}</span>
-          <SoundToggle aria-labelledby={soundLabelId} />
-        </MenuSetting>
-        <MenuSetting>
-          <span id={musicLabelId}>{t('music')}</span>
-          <MusicToggle aria-labelledby={musicLabelId} />
         </MenuSetting>
       </MenuPanel>
     </Header>
