@@ -539,7 +539,8 @@
       "clients": "Direct clients",
       "employers": "Employers",
       "partners": "Through partner companies",
-      "product": "Product & teaching"
+      "product": "Product",
+      "teaching": "Teaching"
     }
   },
   "yearsMap": {

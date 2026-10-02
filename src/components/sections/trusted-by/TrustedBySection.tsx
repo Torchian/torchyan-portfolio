@@ -16,8 +16,10 @@ import { media } from '@/styles/media';
  * Mobile 480 (2670:12308).
  *
  * The logos are grouped by relationship, each group under a visible label —
- * direct clients, employers, projects through partner companies, and own
- * product & teaching — so no logo implies more than the relationship it had.
+ * direct clients, employers, projects through partner companies, own
+ * products, and teaching — so no logo implies more than the relationship it
+ * had. Product and teaching were one group until the founder asked for them
+ * split, since a product and a place taught at are not the same relationship.
  * Which logos appear, and in which group, is the founder's register in
  * facts/2026-09-30-founder-facts.md (F5). Logos don't link out: they are
  * evidence, not navigation, and several of the sites have changed since.
@@ -48,7 +50,7 @@ const logo = (
   ...options,
 });
 
-export type RelationshipGroup = 'clients' | 'employers' | 'partners' | 'product';
+export type RelationshipGroup = 'clients' | 'employers' | 'partners' | 'product' | 'teaching';
 
 /** The credibility set, by relationship. Shared with the Partners carousel on /projects. */
 export const TRUSTED_GROUPS: { id: RelationshipGroup; logos: TrustedLogo[] }[] = [
@@ -60,6 +62,7 @@ export const TRUSTED_GROUPS: { id: RelationshipGroup; logos: TrustedLogo[] }[] =
       logo('Brainstorm', 'Brainstorm'),
       logo('Infinity Rings', 'InfinitiRings'),
       logo('IT365', 'IT365'),
+      logo('Rostelecom', 'Rostelecom'),
     ],
   },
   {
@@ -70,6 +73,7 @@ export const TRUSTED_GROUPS: { id: RelationshipGroup; logos: TrustedLogo[] }[] =
       logo('Volo', 'Volo'),
       logo('TCO', 'TCO', { boxed: false }),
       logo('BrainRocket', 'BrainRocket'),
+      logo('SoftConstruct', 'SoftConstruct', { boxed: false }),
     ],
   },
   {
@@ -82,7 +86,15 @@ export const TRUSTED_GROUPS: { id: RelationshipGroup; logos: TrustedLogo[] }[] =
   },
   {
     id: 'product',
-    logos: [logo('SoulOne', 'SoulOne'), logo('Armenian Code Academy', 'ArmenianCodeAcademy')],
+    // myZcapital, Solomoon and Panika belong here too — no logo file for any
+    // of the three yet (see the PR for what's needed to add them).
+    logos: [logo('SoulOne', 'SoulOne')],
+  },
+  {
+    id: 'teaching',
+    // TCO is also an employer, above — both relationships are genuine, so it
+    // appears in both rather than picking one and understating the other.
+    logos: [logo('TCO', 'TCO', { boxed: false }), logo('Armenian Code Academy', 'ArmenianCodeAcademy')],
   },
 ];
 

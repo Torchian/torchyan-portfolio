@@ -63,6 +63,17 @@ const Section = styled.section`
  * Body L. Only here — every other section keeps the shared heading as drawn.
  */
 const SectionTitle = styled(SectionHeading)`
+  /*
+   * The title is already Display XL, the top of the whole scale — nothing to
+   * step up to. The subtitle has room: Heading S to Heading M.
+   */
+  ${media.up('xl')} {
+    p {
+      font-size: ${fontSize.heading.m}px;
+      line-height: ${lineHeight.heading.m}px;
+    }
+  }
+
   ${media.down('m')} {
     h2 {
       font-size: ${fontSize.heading.m}px;
@@ -147,6 +158,10 @@ const Center = styled.div`
 const CenterPanel = styled.div`
   grid-area: 1 / 1;
   opacity: 0;
+  /* Set by useCapabilityFit, only on the rare panel its own text is too wide
+     for the circle at this line's distance from the centre — every other
+     panel keeps the 1 this defaults to, untouched. */
+  transform: scale(var(--panel-fit-scale, 1));
   transition: opacity ${HOVER_TRANSITION};
 
   &[data-center-panel='default'] {
@@ -159,18 +174,22 @@ const CenterTitle = styled.p`
   margin: 0;
   font-family: ${fontFamily.display};
   font-weight: ${fontWeight.black};
-  font-size: ${fontSize.display.xl}px;
-  line-height: ${lineHeight.display.xl}px;
+  /*
+   * Display XL (96px), what this was drawn at, has no wrapping of "One
+   * accountable lead" that stays inside a 448px circle: "accountable" alone
+   * is 660px wide at that size — over the circle's full diameter, let alone a
+   * chord anywhere off its centre line. Display S is the largest size in the
+   * scale small enough that every line clears the circle at every width this
+   * title reaches (measured: the tightest line still has 24px to spare).
+   * fitCenterPanels is a backstop under this, not the fix for it — it only
+   * ever shrinks further, never un-shrinks a size chosen too small.
+   */
+  font-size: ${fontSize.display.s}px;
+  line-height: ${lineHeight.display.s}px;
   letter-spacing: ${letterSpacing.xxs}px;
   text-transform: uppercase;
   text-align: center;
   color: ${neutrals[100]};
-
-  /* Even Armenian's shortest fitting title ("Իմ գործը") is wider than the circle at 96px. */
-  :lang(hy) & {
-    font-size: ${fontSize.display.l}px;
-    line-height: ${lineHeight.display.l}px;
-  }
 `;
 
 const CenterSkills = styled.ul`
@@ -308,6 +327,63 @@ const Lines = styled.div`
 `;
 
 /**
+ * Clear of the circle's own curved edge, not just its bounding square: a line
+ * a long skill phrase sets can be short enough to sit inside the circle's
+ * 448×448 box and still have its corner past the round edge itself — the
+ * farther a line sits from the centre, the less of the box's own width the
+ * circle actually gives it.
+ */
+const PANEL_FIT_MARGIN_PX = 6;
+
+/**
+ * Keeps every line of every centre panel (the default title, and each card's
+ * skills, swapped in on hover) inside the circle's curve, not just its square
+ * bounding box. Four cards times three languages is more combinations than is
+ * practical to hand-check, and a line that clears the circle at one width can
+ * fail to at another once `--capabilities-scale` changes which words share a
+ * line — so this measures the real rendered lines on every layout pass rather
+ * than trusting a size picked once.
+ *
+ * For panel each line's distance from the circle's centre gives the width the
+ * circle actually allows there (Pythagoras on the circle's own radius); where
+ * a line is wider than that, the panel is scaled down by just enough to bring
+ * its widest offender inside it, with a small margin so a line never sits
+ * exactly on the edge. A panel every line already clears is left at 1 — scale
+ * only ever corrects the rare panel that needs it, never touches the rest.
+ */
+function fitCenterPanels(grid: HTMLDivElement) {
+  const center = grid.querySelector<HTMLElement>('[data-capabilities-center]');
+  if (!center) return;
+  const panels = center.querySelectorAll<HTMLElement>('[data-center-panel]');
+
+  // Reset before measuring: a stale scale from the last pass would measure
+  // its own shrunk lines and compound on every resize instead of settling.
+  panels.forEach((panel) => panel.style.removeProperty('--panel-fit-scale'));
+
+  const circle = center.getBoundingClientRect();
+  // Only the vertical offset enters the chord math below: both the panel and
+  // its text are centred on the circle's horizontal midline by the grid and
+  // text-align that place them, so a line's own centre is always there too.
+  const cy = circle.top + circle.height / 2;
+  const r = circle.width / 2;
+  const range = document.createRange();
+
+  panels.forEach((panel) => {
+    let factor = 1;
+    panel.querySelectorAll<HTMLElement>('p, li').forEach((el) => {
+      range.selectNodeContents(el);
+      for (const line of range.getClientRects()) {
+        const dy = Math.abs(line.top + line.height / 2 - cy);
+        const clearance = Math.sqrt(Math.max(0, r * r - dy * dy)) - PANEL_FIT_MARGIN_PX;
+        const halfWidth = line.width / 2;
+        if (halfWidth > 0 && clearance > 0) factor = Math.min(factor, clearance / halfWidth);
+      }
+    });
+    if (factor < 1) panel.style.setProperty('--panel-fit-scale', factor.toFixed(4));
+  });
+}
+
+/**
  * Fits the desktop layout to its width and keeps its geometry in sync:
  *  - scales the whole Figma frame (type, spacing, circle, cut-outs) by the
  *    largest factor ≤ 1 that fits the grid's width;
@@ -385,6 +461,8 @@ function useCapabilityGeometry(
         svg?.querySelector('path')?.setAttribute('d', shape.d);
         card.style.setProperty('--notch-span', `${shape.span}px`);
       });
+
+      fitCenterPanels(grid);
     };
 
     update();
@@ -417,7 +495,7 @@ export function CapabilitiesSection() {
         <Grid ref={gridRef}>
           {/* First in the DOM so the circle's title comes before the cards' titles;
               it's absolutely positioned, so the order doesn't affect layout. */}
-          <Center>
+          <Center data-capabilities-center>
             <CenterPanel data-center-panel="default">
               <CenterTitle>{t('title')}</CenterTitle>
             </CenterPanel>
