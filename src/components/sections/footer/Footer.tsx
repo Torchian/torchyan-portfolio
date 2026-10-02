@@ -46,16 +46,14 @@ const WORDMARK = { src: '/footer/name-wordmark.svg', width: 540, height: 77.2426
 const TAGLINE = { src: '/footer/name-tagline.svg', width: 51, height: 540 } as const;
 
 /*
- * Portrait: the same character the page is framed by — SideCharacters' right
- * one, grey, in its glasses and coat — rather than a second wireframe man who
- * was nobody else on the site. It is the half that shows there too: the page
- * sides never pair it with its own left half either (character-left.webp is a
- * different outfit entirely, Big Lebowski to this one's Matrix, not a
- * continuation of it) — pairing them here once left a seam of mismatched
- * colour straight down the middle of the face the moment the box was sized to
- * show where that seam fell.
+ * Portrait: the same character the Hero shows (character-portrait.webp, its
+ * own PORTRAIT) — the full, square drawing, not a side half. The two half
+ * crops (character-right/left.webp) are built for a figure standing at the
+ * screen's own edge with the rest of it off-screen; once this box had a size
+ * and a position of its own, a half crop inside it showed its own straight
+ * cut edge as a visible rectangle, not a figure that trails off the page.
  */
-const PORTRAIT = { src: '/hero/character-right.webp', width: 768, height: 1536 } as const;
+const PORTRAIT = { src: '/hero/character-portrait.webp', width: 1024, height: 1024 } as const;
 
 const LINK_TRANSITION = `${duration.slower} ${easing.spring}`;
 
@@ -266,7 +264,7 @@ const Portrait = styled.div`
   }
 `;
 
-const PortraitHalf = styled(Image)`
+const PortraitImage = styled(Image)`
   display: block;
   width: 100%;
   max-width: none;
@@ -584,7 +582,7 @@ export function Footer() {
   return (
     <FooterEl id="site-footer">
       <Portrait aria-hidden>
-        <PortraitHalf
+        <PortraitImage
           src={PORTRAIT.src}
           width={PORTRAIT.width}
           height={PORTRAIT.height}
