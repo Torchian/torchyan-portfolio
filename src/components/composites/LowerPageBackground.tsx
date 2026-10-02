@@ -25,22 +25,28 @@ export interface GlowArtwork {
  *  - Homepage "Background" (2670:10784): from the Capabilities section to the bottom of the footer.
  *  - Projects page "Background" (3155:9814): the whole page.
  *
- * Neither artwork is clipped to its span in Figma. Each bleeds past it, so it
- * does here too, and is only clipped at the page sides and bottom (where
- * nothing is visible to cut). The blurs are hundreds of units wide, so a
- * 1/8-scale raster looks identical to the vector and costs nothing to paint on
- * scroll, unlike live SVG blur filters.
+ * Both rasters are Figma's own render of that frame (the MCP server's
+ * screenshot, not a local re-export): the raw vector — nine overlapping
+ * Gaussian-blurred ellipses at 4-15% opacity apiece — renders correctly on
+ * Figma's own server but comes out as a ring of solid, saturated colour per
+ * ellipse (each one's blur never actually softening it) in a local Chromium
+ * at the extreme downscale a 1/8-scale raster needs, independent of which
+ * scale the render itself ran at — a renderer difference the next bake
+ * cannot assume away; measure the raster it produces before trusting it.
+ * Figma's frame screenshot is already clipped to the span, so neither
+ * artwork bleeds past it the way the hand-cropped vector export once would
+ * have — bleed is 0 on every edge until an un-clipped source exists.
  */
 export const GLOW_ARTWORKS: GlowArtwork[] = [
   {
     startSelector: '#capabilities',
     src: '/backgrounds/lower-page-glow.webp',
-    bleed: { top: 0.0871, right: 0.4583, bottom: 0.1278, left: 0.4238 },
+    bleed: { top: 0, right: 0, bottom: 0, left: 0 },
   },
   {
     startSelector: '#projects-hero',
     src: '/backgrounds/projects-page-glow.webp',
-    bleed: { top: 0.0592, right: 0.4583, bottom: 0.0869, left: 0.4583 },
+    bleed: { top: 0, right: 0, bottom: 0, left: 0 },
   },
 ];
 
