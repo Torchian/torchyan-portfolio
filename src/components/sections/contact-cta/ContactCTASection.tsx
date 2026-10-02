@@ -37,7 +37,7 @@ import { useTranslations } from 'next-intl';
  */
 
 const Section = styled.section`
-  padding: ${spacing[1000]}px 0;
+  padding: ${spacing[1000]}px 0 ${spacing[1500]}px;
 
   /* One screen on desktop: the form's own rhythm tightens to reach it. */
   ${media.up('xl')} {
@@ -49,7 +49,7 @@ const Section = styled.section`
   }
 
   ${media.down('m')} {
-    padding: ${spacing[600]}px 0;
+    padding: ${spacing[600]}px 0 ${spacing[1500]}px;
   }
 `;
 

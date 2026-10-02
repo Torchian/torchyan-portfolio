@@ -8,7 +8,6 @@ import Image from 'next/image';
 import { spacing } from '@/styles/tokens/spacing';
 import { neutrals, accents } from '@/styles/tokens/colors';
 import { fontSize, lineHeight, fontWeight, letterSpacing, fontFamily } from '@/styles/tokens/typography';
-import { breakpoints } from '@/styles/tokens/breakpoints';
 import { grid } from '@/styles/tokens/grid';
 import { media, mediaQueries } from '@/styles/media';
 import { duration, easing } from '@/styles/tokens/motion';
@@ -49,12 +48,14 @@ const TAGLINE = { src: '/footer/name-tagline.svg', width: 51, height: 540 } as c
 /*
  * Portrait: the same character the page is framed by — SideCharacters' right
  * one, grey, in its glasses and coat — rather than a second wireframe man who
- * was nobody else on the site. It is the half that shows there too, so the cut
- * down its middle is what hangs off the footer's right edge.
+ * was nobody else on the site. It is the half that shows there too: the page
+ * sides never pair it with its own left half either (character-left.webp is a
+ * different outfit entirely, Big Lebowski to this one's Matrix, not a
+ * continuation of it) — pairing them here once left a seam of mismatched
+ * colour straight down the middle of the face the moment the box was sized to
+ * show where that seam fell.
  */
 const PORTRAIT = { src: '/hero/character-right.webp', width: 768, height: 1536 } as const;
-/** The face's other half, whose cut is on its left edge: it carries on from PORTRAIT's right one. */
-const PORTRAIT_OTHER_HALF = { src: '/hero/character-left.webp' } as const;
 
 const LINK_TRANSITION = `${duration.slower} ${easing.spring}`;
 
@@ -240,53 +241,36 @@ const Portrait = styled.div`
   user-select: none;
 
   /*
-   * The cut runs down the character's middle, so the image's right edge IS that
-   * centre line — it has to sit on the footer's right edge, not past it, or the
-   * face is the first thing gone. Same as on the page sides, where the other
-   * half stands off screen.
-   *
-   * Then nudged on purpose, on every screen: 45px in from the right edge and
-   * 40px below the bottom one (the footer clips what hangs below).
+   * The cut runs down the character's middle, so the image's right edge IS
+   * that centre line — the same crop as on the page sides, where the other
+   * half stands off screen. Position and size past that are per-breakpoint,
+   * set by eye against the rebuilt footer rather than read off Figma, which
+   * (per the header comment) still shows the old wireframe here.
    */
-  right: 0;
+  right: 40px;
   bottom: 0;
+  width: 200px;
 
-  /* The 768 frame (481–768px). */
-  width: 340px;
-
-  /* The 480 frame (up to 480px). */
-  ${media.down('m')} {
-    width: 260px;
-  }
-
-  /* The 1024 frame (769–1024px). */
+  /* Tablet (769–1024px). */
   ${media.up('l')} {
-    width: 380px;
+    right: 90px;
+    bottom: -130px;
+    width: 360px;
   }
 
-  /* The 1440 frame (1025–1440px). */
+  /* Desktop (1025px and up). */
   ${media.up('xl')} {
-    width: 400px;
-  }
-
-  /* Interpolated from the 1440 frame to the 1920 frame (cqw = footer width), then held. */
-  ${media.up('xxxl')} {
-    width: min(420px, max(400px, calc(400px + (100cqw - ${breakpoints.xxl}px) * 0.041667)));
+    right: 160px;
+    bottom: -80px;
+    width: 300px;
   }
 `;
 
-/** Both halves of the face, one box wide each: the box is the first half, the second hangs off its right. */
 const PortraitHalf = styled(Image)`
   display: block;
   width: 100%;
   max-width: none;
   height: auto;
-
-  &[data-half='other'] {
-    position: absolute;
-    top: 0;
-    left: 100%;
-  }
 `;
 
 const Column = styled.div`
@@ -605,17 +589,7 @@ export function Footer() {
           width={PORTRAIT.width}
           height={PORTRAIT.height}
           alt=""
-          sizes="(min-width: 1441px) 420px, (min-width: 769px) 380px, (min-width: 481px) 340px, 260px"
-          loading="lazy"
-          draggable={false}
-        />
-        <PortraitHalf
-          data-half="other"
-          src={PORTRAIT_OTHER_HALF.src}
-          width={PORTRAIT.width}
-          height={PORTRAIT.height}
-          alt=""
-          sizes="(min-width: 1441px) 420px, (min-width: 769px) 380px, (min-width: 481px) 340px, 260px"
+          sizes="(min-width: 1025px) 300px, (min-width: 769px) 360px, 200px"
           loading="lazy"
           draggable={false}
         />
