@@ -7,6 +7,7 @@ import styled, { css } from 'styled-components';
 import { zIndex } from '@/styles/tokens/z-index';
 import { duration, easing } from '@/styles/tokens/motion';
 import { spacing } from '@/styles/tokens/spacing';
+import { subscribeScroll } from '@/lib/scroll-driver';
 import {
   fontSize,
   lineHeight,
@@ -106,13 +107,17 @@ const Header = styled.header`
      bottom. On a layer behind the contents rather than the header itself: a
      backdrop-filter on the header would make it the backdrop for every glass
      piece inside (the link pill, the language list hanging below it), and
-     they'd stop blurring the page. */
+     they'd stop blurring the page. At the very top of the page there's nothing
+     under the bar to darken or soften yet, so it fades in only once scrolling
+     starts (--header-scrim, written by the scroll effect below). */
   &::before {
     content: '';
     position: absolute;
     inset: 0;
     z-index: -1;
     pointer-events: none;
+    opacity: var(--header-scrim, 0);
+    transition: opacity ${duration.normal} ${easing.out};
     background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0));
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
@@ -536,6 +541,23 @@ export function NavBar() {
   useLayoutEffect(() => {
     applyLinePosition(lineIndex);
   }, [lineIndex, applyLinePosition]);
+
+  // The scrim/blur behind the bar fades in once the page has scrolled past its
+  // very top, instead of sitting there from the first frame with nothing yet to darken.
+  useEffect(() => {
+    const header = headerRef.current;
+    if (!header) return;
+    let last = '';
+    const unsubscribe = subscribeScroll<string>({
+      read: (frame) => (frame.y > 0 ? '1' : '0'),
+      write: (_frame, value) => {
+        if (value === last) return;
+        header.style.setProperty('--header-scrim', value);
+        last = value;
+      },
+    });
+    return unsubscribe;
+  }, []);
 
   useEffect(() => {
     const nav = navRef.current;

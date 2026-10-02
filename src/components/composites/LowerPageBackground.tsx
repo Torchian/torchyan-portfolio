@@ -134,7 +134,13 @@ export function LowerPageBackground({ artworks = GLOW_ARTWORKS }: LowerPageBackg
       if (!artwork || !start) return;
 
       const scopeRect = scope.getBoundingClientRect();
-      const spanTop = start.getBoundingClientRect().top - scopeRect.top;
+      // The span starts at the start element's own top edge, unless it has a
+      // previous sibling (the section before it in document order) — then at
+      // THAT element's bottom instead, so the glow covers the gap between the
+      // two sections rather than leaving it the plain page background.
+      const previous = start.previousElementSibling;
+      const spanTopEdge = previous ? previous.getBoundingClientRect().bottom : start.getBoundingClientRect().top;
+      const spanTop = spanTopEdge - scopeRect.top;
       const span = scopeRect.height - spanTop;
       const { bleed } = artwork;
       // The layer starts where the artwork does; the artwork keeps its designed position against the span.
