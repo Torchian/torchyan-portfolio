@@ -560,12 +560,13 @@
   },
   "contact": {
     "heading": "Tell me what you’re working on",
-    "intentLabel": "What do you need? (optional)",
+    "intentLabel": "What would you like to work on? (optional)",
     "intentOptions": [
-      "A website",
-      "A product interface",
-      "A design system",
-      "Improving something live",
+      "New website",
+      "Website redesign",
+      "Product or platform",
+      "Design system",
+      "Ongoing design & development",
       "Not sure yet"
     ],
     "nameLabel": "Անուն",
@@ -580,13 +581,13 @@
       "label": "Website or product link (optional)",
       "placeholder": "https://"
     },
-    "buildingLabel": "What’s happening, and what should change?",
-    "buildingPlaceholder": "A few lines on the business, the problem and any deadline",
-    "timelineLabel": "When do you need it? (optional)",
+    "buildingLabel": "Tell me about the project",
+    "buildingPlaceholder": "What are you building, changing, or trying to solve?",
+    "timelineLabel": "What’s your timeline? (optional)",
     "timelineOptions": [
       "Within a month",
-      "In 1–3 months",
-      "Just exploring"
+      "1–3 months",
+      "No fixed deadline"
     ],
     "submit": "Send message",
     "submitSending": "Ուղարկվում է…",

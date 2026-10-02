@@ -26,10 +26,11 @@ import { useTranslations } from 'next-intl';
  *  - Mobile (up to 480px): SemiBold 36; every field full width, intents one per line, timeline
  *    two per line.
  *
- * The fields follow the studio's qualification needs: what the visitor needs
- * (one of the four areas, or "not sure"), who they are, their company and site,
- * the situation, and timing. Project Stage was dropped — it duplicated the
- * first question. A budget field waits for the founder's price ranges.
+ * The fields follow the studio's qualification needs: what the visitor wants
+ * to work on (one of five areas, or "not sure yet"), who they are, their
+ * company and site, the situation, and timing. Project Stage was dropped — it
+ * duplicated the first question. A budget field waits for the founder's price
+ * ranges.
  *
  * Honest failure: success is shown only after the server accepted the message
  * (a 2xx). A validation error names the fields, a rate limit and a delivery
@@ -320,8 +321,15 @@ type FieldName = 'name' | 'email' | 'website' | 'message';
 type FieldIssue = 'required' | 'invalid';
 type FieldIssues = Partial<Record<FieldName, FieldIssue>>;
 
-/** Analytics labels for the "What do you need?" options, by index (contact.intentOptions). */
-const NEED_AREAS = ['website', 'product-interface', 'design-system', 'improve-live', 'not-sure'] as const;
+/** Analytics labels for the "What would you like to work on?" options, by index (contact.intentOptions). */
+const NEED_AREAS = [
+  'new-website',
+  'website-redesign',
+  'product-platform',
+  'design-system',
+  'ongoing-design-development',
+  'not-sure',
+] as const;
 
 /** Order in which the first invalid field takes focus. */
 const FIELD_ORDER: FieldName[] = ['name', 'email', 'website', 'message'];
