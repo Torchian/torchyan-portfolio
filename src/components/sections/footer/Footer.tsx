@@ -4,7 +4,6 @@
 import { useLayoutEffect, useRef } from 'react';
 import styled, { css } from 'styled-components';
 import { Link } from '@/i18n/navigation';
-import Image from 'next/image';
 import { spacing } from '@/styles/tokens/spacing';
 import { neutrals, accents } from '@/styles/tokens/colors';
 import { fontSize, lineHeight, fontWeight, letterSpacing, fontFamily } from '@/styles/tokens/typography';
@@ -26,9 +25,6 @@ import { useTranslations } from 'next-intl';
  *  - Up to 768px: the wordmark upright and the tagline under it (turned
  *    upright itself, since its artwork is vertical) at the container's full
  *    width, then the links, then the copyright.
- * The wireframe portrait sits in the footer's bottom corner, screen-blended,
- * behind the text — unchanged by this pass; Figma's redesign puts a different,
- * front-facing character there that would need its own baked still.
  */
 
 /** Word length on desktop — the link column's height, written by useNameLength. */
@@ -44,16 +40,6 @@ const NAME_LENGTH = 'var(--footer-name-length, 624px)';
  */
 const WORDMARK = { src: '/footer/name-wordmark.svg', width: 540, height: 77.2426 } as const;
 const TAGLINE = { src: '/footer/name-tagline.svg', width: 51, height: 540 } as const;
-
-/*
- * Portrait: the same character the Hero shows (character-portrait.webp, its
- * own PORTRAIT) — the full, square drawing, not a side half. The two half
- * crops (character-right/left.webp) are built for a figure standing at the
- * screen's own edge with the rest of it off-screen; once this box had a size
- * and a position of its own, a half crop inside it showed its own straight
- * cut edge as a visible rectangle, not a figure that trails off the page.
- */
-const PORTRAIT = { src: '/hero/character-portrait.webp', width: 1024, height: 1024 } as const;
 
 const LINK_TRANSITION = `${duration.slower} ${easing.spring}`;
 
@@ -83,10 +69,6 @@ const CONTACT_LINKS = [
 const FooterEl = styled.footer`
   position: relative;
   overflow: hidden;
-  /* Stacking context with the background in it: the portrait blends with the footer and stays behind the text. */
-  isolation: isolate;
-  /* Query container: the desktop portrait interpolates between frames on the footer's width. */
-  container-type: inline-size;
   /* Figma: dark/background/dark. Solid, so the lower-page glow stops at the footer's top edge. */
   background: ${neutrals[900]};
   padding: ${spacing[1000]}px 0;
@@ -218,57 +200,6 @@ const Tagline = styled.div`
       transform: none;
     }
   }
-`;
-
-const Portrait = styled.div`
-  position: absolute;
-  z-index: -1;
-  /* Wider than the footer in places by design; override the global img max-width. */
-  max-width: none;
-  /*
-   * The old wireframe was a bright white mesh; this character is the same
-   * drawing lit far lower — mean luminance 22 against 62, and 75 against 186 at
-   * the ninth decile. At the old 0.3 and hard-light it read as nothing: that
-   * blend darkens a backdrop under a dark source, which is most of this one.
-   * Screen only ever adds light, which is what a wireframe on black wants, and
-   * the opacity is raised to land at about the presence the old one had.
-   */
-  opacity: 0.55;
-  mix-blend-mode: screen;
-  pointer-events: none;
-  user-select: none;
-
-  /*
-   * The cut runs down the character's middle, so the image's right edge IS
-   * that centre line — the same crop as on the page sides, where the other
-   * half stands off screen. Position and size past that are per-breakpoint,
-   * set by eye against the rebuilt footer rather than read off Figma, which
-   * (per the header comment) still shows the old wireframe here.
-   */
-  right: 40px;
-  bottom: 0;
-  width: 200px;
-
-  /* Tablet (769–1024px). */
-  ${media.up('l')} {
-    right: 90px;
-    bottom: -130px;
-    width: 360px;
-  }
-
-  /* Desktop (1025px and up). */
-  ${media.up('xl')} {
-    right: 160px;
-    bottom: -80px;
-    width: 300px;
-  }
-`;
-
-const PortraitImage = styled(Image)`
-  display: block;
-  width: 100%;
-  max-width: none;
-  height: auto;
 `;
 
 const Column = styled.div`
@@ -581,18 +512,6 @@ export function Footer() {
 
   return (
     <FooterEl id="site-footer">
-      <Portrait aria-hidden>
-        <PortraitImage
-          src={PORTRAIT.src}
-          width={PORTRAIT.width}
-          height={PORTRAIT.height}
-          alt=""
-          sizes="(min-width: 1025px) 300px, (min-width: 769px) 360px, 200px"
-          loading="lazy"
-          draggable={false}
-        />
-      </Portrait>
-
       <Inner ref={innerRef}>
         <VisuallyHiddenText>{t('srName')}</VisuallyHiddenText>
 

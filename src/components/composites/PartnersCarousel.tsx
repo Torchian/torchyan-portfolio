@@ -27,12 +27,19 @@ export interface PartnerLogo {
   boxed?: boolean;
 }
 
-const logo = (name: string, file: string, options: Omit<PartnerLogo, 'name' | 'src'> = {}): PartnerLogo => ({
-  name,
-  src: `/logo/companies/${file}.svg`,
-  boxed: true,
-  ...options,
-});
+const logo = (
+  name: string,
+  file: string,
+  options: Omit<PartnerLogo, 'name' | 'src'> & { ext?: 'svg' | 'png' } = {},
+): PartnerLogo => {
+  const { ext = 'svg', ...rest } = options;
+  return {
+    name,
+    src: `/logo/companies/${file}.${ext}`,
+    boxed: true,
+    ...rest,
+  };
+};
 
 /**
  * The same credibility set as the homepage section (TrustedBySection's
@@ -48,6 +55,8 @@ export const PARTNERS: PartnerLogo[] = [
   logo('Volo', 'Volo'),
   logo('Brainstorm', 'Brainstorm'),
   logo('SoulOne', 'SoulOne'),
+  logo('Solomoon', 'Solomoon', { ext: 'png' }),
+  logo('Panika', 'Panika', { ext: 'png' }),
   logo('Benzeen', 'Benzeen'),
   logo('Infinity Rings', 'InfinitiRings'),
   logo('TCO', 'TCO', { boxed: false }),
