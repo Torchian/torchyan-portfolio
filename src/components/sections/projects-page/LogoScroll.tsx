@@ -12,7 +12,8 @@ import { media } from '@/styles/media';
  * (3753:17720, 320px). Two states, "Start" and "End": a grid of site
  * thumbnails sits behind the wordmark's "P" shape, masked to it, and pans
  * upward inside it as the page scrolls — Start shows the grid's top, End
- * (523px of travel, authored in Figma) shows further down it.
+ * shows its last row (see TRAVEL_PERCENT below for why that's not Figma's
+ * own authored 523px).
  *
  * The grid is one flattened raster (exported from the "Vector" layer, the
  * same image at both states — only its position differs) rather than the 20+
@@ -24,16 +25,29 @@ const GRID = { src: '/projects/logo-scroll/grid.webp', width: 960, height: 2066 
 const MASK_SRC = "url('/projects/logo-scroll/mask.svg')";
 
 /**
- * The grid's travel inside the mark, authored in Figma as 523px of a 904px-tall
- * image at the mark's 420px design size — expressed as a percentage of the
- * grid's own rendered height so one number holds at every breakpoint; a
- * percentage transform is relative to the element's own box, which already
- * scales with the mark's width.
+ * The grid's travel inside the mark, as a percentage of the grid's own
+ * rendered height (so one number holds at every breakpoint — a percentage
+ * transform is relative to the element's own box, which already scales with
+ * the mark's width). Figma authors this offset as a flat 523px of a
+ * (notionally) 904px-tall image, which undershoots: the grid is only ever
+ * exactly that tall, so 523px of travel leaves its last ~39px of that 904
+ * never scrolled into view — the mark's bottom reads as cut off rather than
+ * full of thumbnails. Travelling the image's own height short of the mark's
+ * instead (GRID.height − GRID.width, since the mark is square and the image
+ * fills its width) always lands exactly on the grid's last row.
  */
-const TRAVEL_PERCENT = (523 / 904) * 100;
+const TRAVEL_PERCENT = ((GRID.height - GRID.width) / GRID.height) * 100;
 
-/** How far (px) the page scrolls before the grid is fully panned to its End position. */
-const SCROLL_TRIGGER_DISTANCE = 600;
+/**
+ * How much of the mark's own remaining time on screen the pan uses — measured
+ * live (see useLogoScrollProgress) rather than a flat pixel distance, since a
+ * fixed distance either finishes with the mark still sitting there a while
+ * (reads as the pan stopping short, the original bug report here) or, picked
+ * too large, finishes after the mark has already scrolled out of view
+ * entirely. 0.85 leaves it fully revealed for the last stretch rather than
+ * snapping to End right as it exits.
+ */
+const VISIBLE_RANGE_FRACTION = 0.85;
 
 const Wrapper = styled.div`
   position: relative;
@@ -74,7 +88,14 @@ const Grid = styled(Image)`
   }
 `;
 
-/** Scroll-linked pan: 0 at the top of the page, 1 once scrolled SCROLL_TRIGGER_DISTANCE px. */
+/**
+ * Scroll-linked pan: 0 where the mark sits when it first comes into measure,
+ * 1 after VISIBLE_RANGE_FRACTION of the scrolling left before its bottom
+ * would reach the viewport's top — i.e. before it scrolls out of view,
+ * wherever that happens to land for this viewport and this hero's height.
+ * Measured on the first driven frame rather than at mount, since layout
+ * (fonts, images above it) can still be settling then.
+ */
 function useLogoScrollProgress(wrapperRef: React.RefObject<HTMLDivElement | null>) {
   useEffect(() => {
     const wrapper = wrapperRef.current;
@@ -84,10 +105,19 @@ function useLogoScrollProgress(wrapperRef: React.RefObject<HTMLDivElement | null
 
     const gate = createInViewGate(wrapper);
     let last = '';
+    let startY: number | null = null;
+    let triggerDistance = 0;
 
     const unsubscribe = subscribeScroll<string>({
       active: () => gate.current,
-      read: (frame) => Math.min(1, Math.max(0, frame.y / SCROLL_TRIGGER_DISTANCE)).toFixed(3),
+      read: (frame) => {
+        if (startY === null) {
+          startY = frame.y;
+          const documentBottom = frame.rect(wrapper).bottom + frame.y;
+          triggerDistance = Math.max(1, (documentBottom - frame.y) * VISIBLE_RANGE_FRACTION);
+        }
+        return Math.min(1, Math.max(0, (frame.y - startY) / triggerDistance)).toFixed(3);
+      },
       write: (_frame, progress) => {
         if (progress === last) return;
         wrapper.style.setProperty('--logo-scroll-progress', progress);
