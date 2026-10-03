@@ -27,9 +27,11 @@ import { AboutYearRail, RAIL_CLEAR, RAIL_SPACE } from './AboutYearRail';
  * whichever card is under the year marker, laid out as each frame has it:
  *  - 1920: cards 748 wide with their text indented 80, the gallery two
  *    columns beside them (900 wide).
- *  - tablet: the cards beside a single 408 column, sticky on the right.
- *  - phone: the cards run the width of the track and the gallery is a 244-tall
- *    strip that sticks to the top while they scroll under it.
+ *  - the 1280 frame and down (tablet and phone alike — the two-column grid
+ *    never fit the 1024-1280 range either): cards run single-column, full
+ *    width, and the gallery becomes a 244-tall strip docked beside the year
+ *    marker — 24px under where the marker itself sticks — with the cards
+ *    scrolling under it.
  *
  * The section is the page's ordinary centred container, so its heading lines up
  * with every other one. Only the rows the year marker rides beside — the strip
@@ -37,7 +39,7 @@ import { AboutYearRail, RAIL_CLEAR, RAIL_SPACE } from './AboutYearRail';
  * The year rail down the left edge is AboutYearRail.
  */
 
-/** Where the gallery stops sitting beside the cards and becomes a strip above them. */
+/** Phone-only spacing (Track's own gap and rail clearance). */
 const STACKED = media.down('m');
 /** Figma's gallery widths: 900 beside the 1920 frame's cards, 408 on a tablet. */
 const GALLERY = { desktop: 900, tablet: 408, strip: 244 } as const;
@@ -102,7 +104,8 @@ const Track = styled.div`
   }
 
   ${STACKED} {
-    gap: ${spacing[1000]}px;
+    /* No gap: the strip's bottom edge meets the cards directly. */
+    gap: 0;
     padding-left: ${RAIL_SPACE.mobile + RAIL_CLEAR - spacing[400]}px;
   }
 `;
@@ -382,15 +385,19 @@ const Shot = styled.div`
 `;
 
 /**
- * The phone frame's gallery: a strip at the top of the timeline that the cards
- * scroll under, showing the set of whichever card is in the middle.
+ * The strip: the phone and tablet frames' gallery. It docks beside the year
+ * marker rather than above it — 24px under where the marker itself sticks, so
+ * it reads as the marker's own companion rather than a separate band at the
+ * top of the page — and the cards scroll under it, showing the set of
+ * whichever one is in the middle. Left and width come from Track's own
+ * padding and 100% width, the same box the cards sit in.
  */
 const Strip = styled.div`
   display: none;
 
-  ${STACKED} {
+  ${media.down('xxl')} {
     position: sticky;
-    top: ${spacing[1000]}px;
+    top: calc(${spacing[2000]}px + 24px);
     z-index: 2;
     display: block;
     width: 100%;
