@@ -42,7 +42,7 @@ const STACKED = media.down('m');
 /** Figma's gallery widths: 900 beside the 1920 frame's cards, 408 on a tablet. */
 const GALLERY = { desktop: 900, tablet: 408, strip: 244 } as const;
 /** Where the gallery starts inside the 1376 container, which is where the cards stop. */
-const CARDS = { desktop: 640 } as const;
+const CARDS = { desktop: 640, tablet: 480 } as const;
 
 const Section = styled.section`
   position: relative;
@@ -66,8 +66,9 @@ const Container = styled.div`
   max-width: ${grid.maxWidth}px;
   padding: ${spacing[2000]}px ${spacing[400]}px 0 ${spacing[600]}px;
 
-  ${media.down('xl')} {
-    padding: 0 ${spacing[600]}px;
+  ${media.down('xxl')} {
+    gap: ${spacing[1250]}px;
+    padding: 0 ${spacing[300]}px 0 ${spacing[600]}px;
   }
 
   ${media.down('m')} {
@@ -96,8 +97,8 @@ const Track = styled.div`
     )
   );
 
-  ${media.down('xl')} {
-    padding-left: ${RAIL_SPACE.tablet + RAIL_CLEAR - spacing[600]}px;
+  ${media.down('xxl')} {
+    padding-left: ${RAIL_SPACE.mobile + RAIL_CLEAR}px;
   }
 
   ${STACKED} {
@@ -123,17 +124,16 @@ const Cards = styled.div`
   gap: ${spacing[500]}px;
   /* Figma: the card box reaches the gallery's left edge, 748 into the container. */
   max-width: ${CARDS.desktop}px;
-  padding-right: ${spacing[800]}px;
+  padding-right: ${spacing[400]}px;
 
   /* Beside the tablet gallery (408 and a 32 gap), in what the rail leaves. */
-  ${media.down('xl')} {
-    max-width: calc(100% - ${GALLERY.tablet + 32}px);
+  ${media.down('xxl')} {
+    max-width: none;
     padding-right: 0;
   }
 
   /* The phone frame runs the cards edge to edge with no gap between them. */
   ${STACKED} {
-    max-width: none;
     gap: 0;
   }
 `;
@@ -149,11 +149,6 @@ const Card = styled.article`
   flex-direction: column;
   gap: ${spacing[400]}px;
   padding: 0 0 ${spacing[800]}px 0;
-
-  ${media.down('xl')} {
-    gap: ${spacing[300]}px;
-    padding: ${spacing[300]}px 0 ${spacing[300]}px ${spacing[300]}px;
-  }
 `;
 
 const Heading = styled.header`
@@ -176,7 +171,7 @@ const Company = styled.h3`
   color: ${accents.primary};
 
   /* The tablet state sets it lighter as well as smaller. */
-  ${media.down('xl')} {
+  ${media.down('xxl')} {
     font-weight: ${fontWeight.medium};
     font-size: ${fontSize.heading.m}px;
     line-height: ${lineHeight.heading.m}px;
@@ -198,7 +193,7 @@ const Role = styled.p`
   letter-spacing: ${letterSpacing.xs}px;
   color: ${neutrals[100]};
 
-  ${media.down('xl')} {
+  ${media.down('xxl')} {
     font-size: ${fontSize.body.xl}px;
     line-height: ${lineHeight.body.xl}px;
     letter-spacing: ${letterSpacing.s}px;
@@ -238,7 +233,7 @@ const BlockLabel = styled.h4`
   letter-spacing: ${letterSpacing.s}px;
   color: ${neutrals[700]};
 
-  ${media.down('xl')} {
+  ${media.down('xxl')} {
     font-size: ${fontSize.body.l}px;
     line-height: ${lineHeight.body.l}px;
     letter-spacing: ${letterSpacing.m}px;
@@ -265,7 +260,7 @@ const BlockBody = styled.ul`
   letter-spacing: ${letterSpacing.xs}px;
   color: ${neutrals[100]};
 
-  ${media.down('xl')} {
+  ${media.down('xxl')} {
     padding-left: 24px;
     font-size: ${fontSize.body.l}px;
     line-height: ${lineHeight.body.l}px;
@@ -293,7 +288,7 @@ const Growth = styled.ul`
   letter-spacing: ${letterSpacing.s}px;
   color: ${neutrals[100]};
 
-  ${media.down('xl')} {
+  ${media.down('xxl')} {
     gap: ${spacing[300]}px;
     font-size: ${fontSize.body.l}px;
     line-height: ${lineHeight.body.l}px;
@@ -318,16 +313,10 @@ const GalleryColumn = styled.div`
   top: 0;
   bottom: 0;
   left: ${CARDS.desktop}px;
-  right: calc((100vw - min(100vw, ${grid.maxWidth}px)) / -2 - ${spacing[400]}px);
+  right: calc((100vw - min(100vw, ${grid.maxWidth}px)) / -2 - ${spacing[500]}px);
   pointer-events: none;
 
-  ${media.down('xl')} {
-    left: auto;
-    right: 0;
-    width: ${GALLERY.tablet}px;
-  }
-
-  ${STACKED} {
+  ${media.down('xxl')} {
     display: none;
   }
 `;
@@ -338,6 +327,10 @@ const Sticky = styled.div`
   top: ${spacing[1000]}px;
   height: min(1146px, 100svh - ${spacing[1000]}px);
   overflow: hidden;
+
+  ${media.down('xxl')} {
+    top: calc(${spacing[1000]}px + ${spacing[2000]}px + ${spacing[300]}px);
+  }
 `;
 
 const Set = styled.div`
@@ -369,7 +362,7 @@ const Column = styled.div`
   }
 
   /* The tablet frame's gallery is a single column. */
-  ${media.down('xl')} {
+  ${media.down('xxl')} {
     &:nth-child(2) {
       display: none;
     }

@@ -168,7 +168,6 @@ export function PageHeroSection({ namespace, id, children }: PageHeroSectionProp
         {children}
         <Description>
           <p>{t('lead')}</p>
-          <p>{t('body')}</p>
         </Description>
         <Points>
           {points.map((point) => (

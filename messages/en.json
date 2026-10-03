@@ -2,8 +2,8 @@
   "meta": {
     "siteName": "Torchyan",
     "titleTemplate": "%s | Torchyan",
-    "defaultTitle": "Torchyan — Digital Product Studio",
-    "description": "Founder-led studio for websites and digital products. Strategy, UX, design and engineering carried from first direction to production — then improved after launch.",
+    "defaultTitle": "Torchyan - Digital Product Studio",
+    "description": "Founder-led studio for websites and digital products. Strategy, UX, design and engineering carried from first direction to production - then improved after launch.",
     "jobTitle": "Founder, Torchyan",
     "about": {
       "title": "About",
@@ -11,11 +11,11 @@
     },
     "projects": {
       "title": "Work",
-      "description": "Website and product interface work with Picsart, SoulOne, Smartbet, Ginosi, Benzeen Auto Parts, World Education and Brainstorm — each with the exact role and relationship."
+      "description": "Website and product interface work with Picsart, SoulOne, Smartbet, Ginosi, Benzeen Auto Parts, World Education and Brainstorm - each with the exact role and relationship."
     },
     "services": {
       "title": "Services",
-      "description": "Websites, product interfaces, design systems and launch support — owned from direction to production by one accountable lead, with specialists when needed."
+      "description": "Websites, product interfaces, design systems and launch support - owned from direction to production by one accountable lead, with specialists when needed."
     },
     "contact": {
       "title": "Start a project",
@@ -67,7 +67,7 @@
   "hero": {
     "name": "Torchyan",
     "role": "Digital Product Studio",
-    "description": "Design & engineering for websites and digital products — from first direction to production code, led by one accountable founder.",
+    "description": "Design & engineering for websites and digital products - from first direction to production code, led by one accountable founder.",
     "cta": "Start a project",
     "secondaryCta": "See the work",
     "skillsLabel": "How a project moves",
@@ -83,11 +83,11 @@
   },
   "whatIDo": {
     "title": "How a project runs",
-    "subtitle": "One continuous chain, from the first question to the live product — no handoffs where quality gets lost.",
+    "subtitle": "One continuous chain, from the first question to the live product - no handoffs where quality gets lost.",
     "steps": [
       {
         "title": "Understand the business",
-        "description": "We start with what the business needs to achieve, who it serves and what’s in the way — before anything is designed."
+        "description": "We start with what the business needs to achieve, who it serves and what’s in the way - before anything is designed."
       },
       {
         "title": "Shape the structure",
@@ -95,7 +95,7 @@
       },
       {
         "title": "Design the experience",
-        "description": "Interfaces designed around real content and real users — clear, accessible and consistent."
+        "description": "Interfaces designed around real content and real users - clear, accessible and consistent."
       },
       {
         "title": "Build for production",
@@ -109,7 +109,7 @@
   },
   "selectedWork": {
     "title": "Selected work",
-    "subtitle": "Product companies, a brand I helped build and direct clients — each with the exact role.",
+    "subtitle": "Product companies, a brand I helped build and direct clients - each with the exact role.",
     "viewCase": "View case",
     "viewAllCases": "View all work",
     "allProjects": {
@@ -121,7 +121,7 @@
         "Websites"
       ],
       "title": "Commercial websites",
-      "description": "Front-end builds for hospitality, automotive and education businesses — Ginosi, Benzeen Auto Parts, World Education and Brainstorm.",
+      "description": "Front-end builds for hospitality, automotive and education businesses - Ginosi, Benzeen Auto Parts, World Education and Brainstorm.",
       "field": "Websites · 2018–now"
     }
   },
@@ -140,7 +140,7 @@
         "Product Owner"
       ],
       "title": "Gluten-free bakery brand",
-      "description": "Web and product design for an Armenian bakery brand — with day-to-day ownership of the product and the business behind it.",
+      "description": "Web and product design for an Armenian bakery brand - with day-to-day ownership of the product and the business behind it.",
       "field": "Food · Bakery",
       "story": [
         {
@@ -165,7 +165,7 @@
             [
               [
                 "Web and product design",
-                "Product ownership, with deep day-to-day involvement in the product and the business — not only its visual design",
+                "Product ownership, with deep day-to-day involvement in the product and the business - not only its visual design",
                 "Outreach and promotion"
               ]
             ]
@@ -183,7 +183,7 @@
           "label": "What it shows",
           "blocks": [
             [
-              "Ownership beyond the screen — design, product and business decisions, and getting a real brand in front of customers. It’s the full chain Torchyan offers clients."
+              "Ownership beyond the screen - design, product and business decisions, and getting a real brand in front of customers. It’s the full chain Torchyan offers clients."
             ]
           ]
         }
@@ -194,7 +194,7 @@
         "UI Developer"
       ],
       "title": "Company website",
-      "description": "Front-end implementation of Smartbet’s website from the design team’s layouts — responsive pages across products and company information.",
+      "description": "Front-end implementation of Smartbet’s website from the design team’s layouts - responsive pages across products and company information.",
       "field": "Website",
       "story": [
         {
@@ -254,7 +254,7 @@
           "label": "Relationship & role",
           "blocks": [
             [
-              "Direct client, April–May 2019. Front-end development — I built the website’s UI."
+              "Direct client, April–May 2019. Front-end development - I built the website’s UI."
             ]
           ]
         },
@@ -457,7 +457,7 @@
   },
   "capabilities": {
     "heading": "What you can hire Torchyan for",
-    "subtitle": "Four areas Torchyan takes responsibility for — each carried from direction to production, with specialists added when the work calls for them.",
+    "subtitle": "Four areas Torchyan takes responsibility for - each carried from direction to production, with specialists added when the work calls for them.",
     "cta": "See how we work",
     "title": "One accountable lead",
     "skillsLabel": "What {title} includes",
@@ -465,7 +465,7 @@
       {
         "title": "Websites",
         "text": "When the website no longer matches the business, or something new needs to launch: company sites, rebuilds and launch pages, owned from structure and content direction to a fast, maintainable build.",
-        "footnote": "A site that explains the business clearly — and that your team can update with confidence.",
+        "footnote": "A site that explains the business clearly - and that your team can update with confidence.",
         "skills": [
           "Direction & structure",
           "Content direction",
@@ -479,7 +479,7 @@
       },
       {
         "title": "Product interfaces",
-        "text": "When a product needs to be usable, consistent and shippable: UX and UI for web products, platforms and dashboards — designed and built in one continuous process.",
+        "text": "When a product needs to be usable, consistent and shippable: UX and UI for web products, platforms and dashboards - designed and built in one continuous process.",
         "footnote": "Interfaces your team can ship and extend, not just approve.",
         "skills": [
           "Discovery & user flows",
@@ -534,7 +534,7 @@
   },
   "trustedBy": {
     "title": "Who I’ve worked with",
-    "subtitle": "Direct clients, employers and projects through partner companies — every relationship shown as it was.",
+    "subtitle": "Direct clients, employers and projects through partner companies - every relationship shown as it was.",
     "groups": {
       "clients": "Direct clients",
       "employers": "Employers",
@@ -545,7 +545,7 @@
   },
   "yearsMap": {
     "title": "Based in Armenia. Working across markets.",
-    "subtitle": "Places I’ve worked with, for or through — not offices.",
+    "subtitle": "Places I’ve worked with, for or through - not offices.",
     "mapAlt": "World map of places where Torchyan’s founder has worked with clients and teams",
     "listLabel": "Places of past work",
     "locations": {
@@ -591,7 +591,7 @@
     ],
     "submit": "Send message",
     "submitSending": "Sending…",
-    "submitSuccess": "Thank you — your message has arrived. I’ll reply within 2 business days.",
+    "submitSuccess": "Thank you - your message has arrived. I’ll reply within 2 business days.",
     "errors": {
       "validation": "Please check the highlighted fields.",
       "rateLimited": "Too many messages in a short time. Please wait a little and try again, or email hello@torchyan.design.",
@@ -606,7 +606,7 @@
     "trapLabel": "Leave this field empty"
   },
   "footer": {
-    "srName": "Torchyan — Digital Product Studio, led by Stepan Torchyan",
+    "srName": "Torchyan - Digital Product Studio, led by Stepan Torchyan",
     "primary": "Studio",
     "social": "Social",
     "contacts": "Contact",
@@ -628,15 +628,14 @@
     "listLabel": "Projects",
     "dotsLabel": "Go to a project",
     "hero": {
-      "title": "Work, with the exact role",
-      "lead": "Every project here says what I actually did.",
-      "body": "Some of this work happened inside product companies, some directly for clients, some through partner companies. The relationship and role are listed on each one, so you can judge the experience for what it is.",
+      "title": "SELECTED WORK",
+      "lead": "A mix of product work, direct client projects and collaborations across design and engineering. Each case shows the context, my role and the part I was responsible for.",
       "points": [
-        "Product-scale UI engineering at Picsart",
-        "End-to-end design and product ownership at SoulOne",
-        "Front-end builds for hospitality, automotive and education websites",
-        "Accessibility, localization and performance in production",
-        "Design and engineering in the same hands"
+        "Product-scale UI engineering",
+        "Product ownership & web design",
+        "Commercial front-end delivery",
+        "Accessibility & localization",
+        "Design + engineering"
       ]
     },
     "showcase": {
@@ -684,7 +683,7 @@
           "relationship": "Founding team · 2025",
           "description": [
             "SoulOne is an Armenian bakery and food brand making gluten-free, eco-oriented cakes and desserts.",
-            "As web designer and product owner, I worked on web and product design and was involved in the business day to day — from product decisions to outreach."
+            "As web designer and product owner, I worked on web and product design and was involved in the business day to day - from product decisions to outreach."
           ],
           "stack": []
         },
@@ -805,7 +804,7 @@
           "situation": "Your site no longer reflects the business, is hard to update, or needs to support a launch or a new market.",
           "owns": [
             "Direction, structure and content planning",
-            "Brand and visual direction — with brand specialists for full identity work",
+            "Brand and visual direction - with brand specialists for full identity work",
             "UX, interface and motion design",
             "Front-end development and CMS setup",
             "Platform choice: custom (React / Next.js), Webflow, WordPress, Shopify or Shopware",
@@ -819,7 +818,7 @@
         },
         {
           "title": "Product interfaces",
-          "situation": "A product needs a usable, consistent interface — new, redesigned, or growing faster than its UI.",
+          "situation": "A product needs a usable, consistent interface - new, redesigned, or growing faster than its UI.",
           "owns": [
             "Product discovery and user flows",
             "UX architecture and research",
@@ -857,7 +856,7 @@
             "Deployment and hosting setup",
             "Performance and accessibility care",
             "Analytics and conversion measurement",
-            "SEO, launch promotion and marketing — with specialists",
+            "SEO, launch promotion and marketing - with specialists",
             "Improvements based on real usage",
             "Maintenance and ongoing support"
           ],
@@ -878,11 +877,11 @@
         },
         {
           "title": "Ongoing partnership",
-          "body": "Continued design and development after a first project — new pages and features, improvements, maintenance and support, with capacity agreed month by month."
+          "body": "Continued design and development after a first project - new pages and features, improvements, maintenance and support, with capacity agreed month by month."
         },
         {
           "title": "Diagnostic",
-          "body": "Not sure what needs fixing first? A focused review of your website or product — clarity, UX, performance, accessibility and SEO foundations — that ends with clear priorities and a recommended next step."
+          "body": "Not sure what needs fixing first? A focused review of your website or product - clarity, UX, performance, accessibility and SEO foundations - that ends with clear priorities and a recommended next step."
         }
       ]
     },
@@ -896,7 +895,7 @@
     },
     "specialists": {
       "title": "Specialists, when the project needs them",
-      "body": "Some projects need more than design and front-end. I bring in trusted, paid specialists — backend and system architecture, additional design, QA, project management, photography, SEO and marketing — and run them within one plan. You still have one point of contact."
+      "body": "Some projects need more than design and front-end. I bring in trusted, paid specialists - backend and system architecture, additional design, QA, project management, photography, SEO and marketing - and run them within one plan. You still have one point of contact."
     },
     "technology": {
       "title": "Technology follows the problem",
@@ -908,7 +907,7 @@
         "Ongoing social media or paid-ads management",
         "Guaranteed rankings, traffic or lead numbers",
         "Native iOS and Android apps",
-        "Backend development as a standalone service — it’s included through specialists when a project needs it"
+        "Backend development as a standalone service - it’s included through specialists when a project needs it"
       ]
     },
     "cta": {
@@ -936,7 +935,7 @@
         "A product interface or dashboard",
         "A design system for a growing team",
         "Improving something that’s already live",
-        "Not sure yet — we’ll work it out together"
+        "Not sure yet - we’ll work it out together"
       ]
     },
     "next": {
@@ -952,7 +951,7 @@
         },
         {
           "title": "A clear proposal",
-          "body": "You receive a scope and approach — or, if the problem isn’t clear yet, a suggested diagnostic first."
+          "body": "You receive a scope and approach - or, if the problem isn’t clear yet, a suggested diagnostic first."
         }
       ]
     },
@@ -975,7 +974,7 @@
       {
         "title": "What we collect",
         "body": [
-          "What you enter in the contact form: your name and work email, and — if you choose to give them — your company, a website link, what you need, your timeline and your message.",
+          "What you enter in the contact form: your name and work email, and - if you choose to give them - your company, a website link, what you need, your timeline and your message.",
           "Standard technical data needed to deliver the website, such as your browser type and the pages requested."
         ]
       },
@@ -1023,9 +1022,9 @@
       "basedIn": "Based in Armenia",
       "workingGlobally": "Working internationally",
       "cta": "See the work",
-      "intro": "I’m <name>Stepan Torchyan</name>, the founder of Torchyan — a designer and UI engineer. I’ve built interfaces inside product companies like Picsart and for clients in the US, Australia and Armenia.",
-      "execution": "Torchyan exists so that design decisions survive production. I carry each project from direction and UX to production code, and bring in trusted specialists when the work needs more than one person.",
-      "resilience": "You always know who’s responsible: me.",
+      "intro": "I’m <name>Stepan Torchyan</name>, the founder of Torchyan - a designer and UI engineer based in Armenia, and the founder of Torchyan. I work on digital products, websites and interface systems, usually somewhere between design and implementation.",
+      "execution": "That’s also how I see Torchyan: design and development shouldn’t feel like two separate steps. I like keeping the whole process connected, from the first idea to the final build. If a project needs more people, I bring in specialists I trust and keep everything moving in the same direction.",
+      "resilience": "At the end, the goal is simple: make things that look right, work well, and are built to last.",
       "cards": [
         "Product & web design",
         "UI engineering",
@@ -1037,7 +1036,7 @@
     },
     "timeline": {
       "title": "Experience",
-      "subtitle": "Product companies, partner companies and direct clients — the roles behind Torchyan.",
+      "subtitle": "Product companies, partner companies and direct clients - the roles behind Torchyan.",
       "focus": "What I did",
       "impact": "Result",
       "entries": {
@@ -1208,10 +1207,10 @@
     },
     "cta": {
       "intro": [
-        "Torchyan started from a simple observation: digital projects lose quality at the handoffs — between strategy and design, design and code, launch and everything after.",
+        "Torchyan started from a simple observation: digital projects lose quality at the handoffs - between strategy and design, design and code, launch and everything after.",
         "So I run each project as one continuous chain, and stay responsible for all of it.",
         "I use AI tools every day to research, prototype and build faster. The judgement, the design decisions and the accountability stay human.",
-        "The goal: websites and products that work the way they were designed to — and keep improving after launch."
+        "The goal: websites and products that work the way they were designed to - and keep improving after launch."
       ],
       "build": {
         "title": "Start a project",
@@ -1223,16 +1222,16 @@
         "body": "Case studies with the exact role on every project.",
         "cta": "See the work"
       },
-      "bottomLine": "Currently designing and building torchyan.design — and taking on new projects."
+      "bottomLine": "Currently designing and building torchyan.design - and taking on new projects."
     }
   },
   "caseStudy": {
     "picsart": {
       "hero": {
         "title": "Picsart",
-        "subtitle": "Growth & Marketplace — UI engineering at product scale",
+        "subtitle": "Growth & Marketplace - UI engineering at product scale",
         "description": [
-          "From October 2021 to February 2024, I worked as a Senior UI Engineer on picsart.com — first with the Growth team, then with Marketplace.",
+          "From October 2021 to February 2024, I worked as a Senior UI Engineer on picsart.com - first with the Growth team, then with Marketplace.",
           "The work: integrating the Picsart Design System, building the components it didn’t cover, adding right-to-left language support from scratch, and a large part of the accessibility work in my scope."
         ],
         "meta": [
@@ -1291,7 +1290,7 @@
                   ]
                 ],
                 [
-                  "Many teams ship to picsart.com at once. Each team has one person responsible for Design System integration — in my team’s scope, that was me."
+                  "Many teams ship to picsart.com at once. Each team has one person responsible for Design System integration - in my team’s scope, that was me."
                 ]
               ]
             }
@@ -1317,7 +1316,7 @@
               "title": "Ad Wizard",
               "blocks": [
                 [
-                  "A separate Growth product where people create visual and social content and adapt it to the formats each platform needs — text, imagery, titles and emoji in one editor."
+                  "A separate Growth product where people create visual and social content and adapt it to the formats each platform needs - text, imagery, titles and emoji in one editor."
                 ],
                 [
                   "As the Growth team’s primary UI developer, I implemented its interface in React, HTML/CSS, JSS and Styled Components."
@@ -1357,7 +1356,7 @@
                   "I implemented multilingual support, including RTL/LTR, from scratch for my scope."
                 ],
                 [
-                  "Instead of fixing left and right values page by page, I reworked layout direction around logical properties — inline and block, start and end — so a change of direction carries through the structure."
+                  "Instead of fixing left and right values page by page, I reworked layout direction around logical properties - inline and block, start and end - so a change of direction carries through the structure."
                 ]
               ]
             },

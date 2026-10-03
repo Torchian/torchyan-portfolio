@@ -32,7 +32,7 @@ export default async function AboutPage({ params }: LocaleParams) {
       <AboutHeroSection />
       <AboutIntroSection />
       <AboutTimelineSection />
-      <AboutPracticeSection />
+      {/* <AboutPracticeSection /> */}
       <AboutPositioningSection />
     </main>
   );

@@ -39,7 +39,7 @@ import { VisuallyHidden } from '@/components/primitives';
 
 /** Figma's Circle Text, one size per state, and the grid pitch around it. */
 const CIRCLE = {
-  desktop: { size: 156, gap: spacing[300], columns: 11 },
+  desktop: { size: 150, gap: spacing[200], columns: 11 },
   tablet: { size: 114, gap: spacing[200], columns: 8 },
   mobile: { size: 88, gap: spacing[50], columns: 5 },
 } as const;
@@ -59,12 +59,10 @@ const Section = styled.section`
   width: 100%;
   padding: ${spacing[1000]}px 0;
   /* The grid is wider than the page at every size, exactly as the frames draw it. */
-  overflow: hidden;
 
   /* Full screen on desktop: the field of circles fills the viewport, with the
      pill centred in the middle of it, rather than just as tall as the grid. */
   ${media.up('xl')} {
-    height: 100svh;
     justify-content: center;
   }
 
@@ -270,8 +268,8 @@ const Pill = styled.div`
   align-items: center;
   justify-content: center;
   gap: ${spacing[200]}px;
-  max-width: calc(100% - ${spacing[400] * 2}px);
-  padding: ${spacing[600]}px ${spacing[1000]}px;
+  max-width: calc(100% - ${spacing[100] * 2}px);
+  padding: ${spacing[200]}px ${spacing[400]}px;
   border-radius: ${radius.round}px;
   background: #0d1816;
   text-align: center;

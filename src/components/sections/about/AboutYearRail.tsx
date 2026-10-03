@@ -53,7 +53,7 @@ export const RAIL_WIDE = 1800;
  * the dot, and beside it the year with its phrase on a desktop narrower than
  * the wide frame, or the year alone on a tablet or phone.
  */
-export const RAIL_SPACE = { base: 264, tablet: 208, mobile: 156 } as const;
+export const RAIL_SPACE = { base: 248, tablet: 208, mobile: 156 } as const;
 /** What the timeline keeps clear after the marker before its own rows start. */
 export const RAIL_CLEAR = 16;
 /**
@@ -64,7 +64,7 @@ export const RAIL_CLEAR = 16;
 const LABEL_INSET = { base: 86, tablet: 78, mobile: 64 } as const;
 
 /** Figma: the line starts 51px down, just under the header logo. */
-const LINE_TOP = 51;
+const LINE_TOP = 63;
 
 /** Where the rail sits on the page — the line and the marker share the column. */
 const railColumn = css`
@@ -101,7 +101,7 @@ const Track = styled.div`
 const Line = styled.div`
   position: absolute;
   inset: 17px 0 0;
-  background: linear-gradient(to bottom, ${accents.primary} 0%, rgba(12, 175, 10, 0) 100%);
+  background: linear-gradient(to bottom, ${accents.primary} 0%, #0caf0a4f 30%, rgb(255 255 255 / 0%) 100%);
 
   /*
    * It continues the stem of the logo mark above it, which is a sixth of the
@@ -133,7 +133,7 @@ const Marker = styled.div`
   margin-top: var(--rail-head, 0px);
   display: flex;
   align-items: flex-start;
-  gap: ${spacing[300]}px;
+  gap: ${spacing[200]}px;
   /* Figma hangs the marker 22px to the left of the bar, centring the dot on the line. */
   margin-left: -22px;
   opacity: 0;
@@ -144,8 +144,9 @@ const Marker = styled.div`
   }
 
   /* Figma's Timeline Year sets the gap per state; the dot never changes size. */
-  ${media.down('xl')} {
-    gap: ${spacing[200]}px;
+  ${media.down('xxl')} {
+    gap: ${spacing[100]}px;
+    top: ${spacing[1500]}px;
   }
 
   ${media.down('m')} {
@@ -182,12 +183,22 @@ const Dot = styled.span`
     width: 52px;
     height: 52px;
     opacity: 0.2;
+
+    ${media.down('xxl')} {
+      width: 42px;
+      height: 42px;
+    }
   }
 
   span:nth-child(2) {
     width: 32.5px;
     height: 32.5px;
     opacity: 0.3;
+
+    ${media.down('xxl')} {
+      width: 28px;
+      height: 28px;
+    }
   }
 
   span:nth-child(3) {
@@ -195,7 +206,7 @@ const Dot = styled.span`
     height: 13px;
   }
 
-  ${media.down('xl')} {
+  ${media.down('xxl')} {
     margin-top: 10px;
   }
 
@@ -213,7 +224,7 @@ const Label = styled.div`
   gap: ${spacing[200]}px;
   width: ${RAIL_SPACE.base - LABEL_INSET.base}px;
 
-  ${media.down('xl')} {
+  ${media.down('xxl')} {
     gap: ${spacing[100]}px;
     width: ${RAIL_SPACE.tablet - LABEL_INSET.tablet}px;
   }
@@ -234,7 +245,7 @@ const Year = styled.span`
   white-space: nowrap;
   color: ${accents.primary};
 
-  ${media.down('xl')} {
+  ${media.down('xxl')} {
     font-weight: ${fontWeight.semibold};
     font-size: ${fontSize.display.s}px;
     line-height: ${lineHeight.display.s}px;
@@ -255,7 +266,7 @@ const Phrase = styled.span`
   letter-spacing: ${letterSpacing.s}px;
   color: ${neutrals[500]};
 
-  ${media.down('xl')} {
+  ${media.down('xxl')} {
     font-size: ${fontSize.body.l}px;
     line-height: ${lineHeight.body.l}px;
     letter-spacing: ${letterSpacing.m}px;
