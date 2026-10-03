@@ -350,11 +350,20 @@ const Sticky = styled.div`
   height: min(1146px, 100svh - ${spacing[1000]}px);
   overflow: hidden;
 
-  /* Below 1280 the box docks 24px under where the year marker itself sticks. */
+  /*
+   * Below 1280 the box docks 24px under the year marker's own bottom edge —
+   * not its top, which would run the box through the year and its phrase.
+   * --marker-height is AboutYearRail's own measurement of the marker it
+   * renders (it wraps differently per entry and per locale), published on
+   * the section the two share.
+   */
   ${media.down('xxl')} {
-    top: calc(${spacing[1500]}px + 24px);
+    top: calc(${spacing[1500]}px + var(--marker-height, 120px) + 24px);
     z-index: 2;
-    height: min(640px, 100svh - ${spacing[1500]}px - 24px - ${spacing[600]}px);
+    height: min(
+      640px,
+      100svh - ${spacing[1500]}px - var(--marker-height, 120px) - 24px - ${spacing[600]}px
+    );
     background: var(--color-bg-primary, #0b0915);
   }
 `;
