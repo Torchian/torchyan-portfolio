@@ -29,22 +29,31 @@ import { AboutYearRail, RAIL_CLEAR, RAIL_SPACE } from './AboutYearRail';
  *    columns beside them (900 wide).
  *  - the 1280 frame and down (tablet and phone alike — the two-column grid
  *    never fit the 1024-1280 range either): cards run single-column, full
- *    width, and the gallery becomes a 244-tall strip docked beside the year
- *    marker — 24px under where the marker itself sticks — with the cards
- *    scrolling under it.
+ *    width, and the gallery moves into the rail's own gutter — the column
+ *    the year marker sits in — as a single file of screenshots running top
+ *    to bottom, docked 24px under where the marker itself sticks, with the
+ *    cards scrolling under it.
  *
  * The section is the page's ordinary centred container, so its heading lines up
- * with every other one. Only the rows the year marker rides beside — the strip
- * and the cards — step right, by as much as the marker still needs (see Track).
- * The year rail down the left edge is AboutYearRail.
+ * with every other one. Only the rows the year marker rides beside — the
+ * gallery and the cards — step right, by as much as the marker still needs
+ * (see Track). The year rail down the left edge is AboutYearRail.
  */
 
 /** Phone-only spacing (Track's own gap and rail clearance). */
 const STACKED = media.down('m');
-/** Figma's gallery widths: 900 beside the 1920 frame's cards, 408 on a tablet. */
-const GALLERY = { desktop: 900, tablet: 408, strip: 244 } as const;
 /** Where the gallery starts inside the 1376 container, which is where the cards stop. */
 const CARDS = { desktop: 640, tablet: 480 } as const;
+/**
+ * The rail's own gutter below 1280 — same width Track reserves for it in its
+ * padding-left, so the gallery that moves in there lines up exactly with the
+ * year marker above it. Tablet and phone share one width (Track's own `xxl`
+ * rule does too); the phone-only STACKED rule narrows it by Track's step.
+ */
+const GUTTER = {
+  xxl: RAIL_SPACE.mobile + RAIL_CLEAR,
+  stacked: RAIL_SPACE.mobile + RAIL_CLEAR - spacing[400],
+} as const;
 
 const Section = styled.section`
   position: relative;
@@ -80,12 +89,13 @@ const Container = styled.div`
 `;
 
 /**
- * The rows the year marker rides beside — the gallery strip and the cards.
+ * The rows the year marker rides beside — the gallery and the cards.
  * Figma's 1920 frame parks the marker in the page's own 240px margin; narrower
  * than that there is no margin to park it in, so these rows step right by
  * whatever the marker still needs, while the section and its heading stay
  * centred. The step closes itself as the page's margin grows, so nothing jumps
- * at the width where the margin takes over.
+ * at the width where the margin takes over. Below 1280 this padding is the
+ * same gutter the gallery pulls itself back into (GUTTER).
  */
 const Track = styled.div`
   display: flex;
@@ -100,13 +110,11 @@ const Track = styled.div`
   );
 
   ${media.down('xxl')} {
-    padding-left: ${RAIL_SPACE.mobile + RAIL_CLEAR}px;
+    padding-left: ${GUTTER.xxl}px;
   }
 
   ${STACKED} {
-    /* No gap: the strip's bottom edge meets the cards directly. */
-    gap: 0;
-    padding-left: ${RAIL_SPACE.mobile + RAIL_CLEAR - spacing[400]}px;
+    padding-left: ${GUTTER.stacked}px;
   }
 `;
 
@@ -308,8 +316,12 @@ const Growth = styled.ul`
 /* ---------- Gallery ---------- */
 
 /**
- * Beside the cards, running to the right edge of the screen, with a sticky box
- * inside it: Figma's gallery is 900 wide and 1146 tall at 1920.
+ * Beside the cards at 1920 and up, running to the right edge of the screen,
+ * with a sticky box inside it: Figma's gallery is 900 wide and 1146 tall.
+ *
+ * Below that the two-column grid has nowhere to go, so the box moves into
+ * the rail's own gutter instead — pulled left out of Body by the gutter's
+ * own width, the same column the year marker sits in above it.
  */
 const GalleryColumn = styled.div`
   position: absolute;
@@ -320,7 +332,14 @@ const GalleryColumn = styled.div`
   pointer-events: none;
 
   ${media.down('xxl')} {
-    display: none;
+    left: -${GUTTER.xxl}px;
+    right: auto;
+    width: ${GUTTER.xxl - RAIL_CLEAR}px;
+  }
+
+  ${STACKED} {
+    left: -${GUTTER.stacked}px;
+    width: ${GUTTER.stacked - RAIL_CLEAR}px;
   }
 `;
 
@@ -331,8 +350,12 @@ const Sticky = styled.div`
   height: min(1146px, 100svh - ${spacing[1000]}px);
   overflow: hidden;
 
+  /* Below 1280 the box docks 24px under where the year marker itself sticks. */
   ${media.down('xxl')} {
-    top: calc(${spacing[1000]}px + ${spacing[2000]}px + ${spacing[300]}px);
+    top: calc(${spacing[1500]}px + 24px);
+    z-index: 2;
+    height: min(640px, 100svh - ${spacing[1500]}px - 24px - ${spacing[600]}px);
+    background: var(--color-bg-primary, #0b0915);
   }
 `;
 
@@ -384,53 +407,6 @@ const Shot = styled.div`
   }
 `;
 
-/**
- * The strip: the phone and tablet frames' gallery. It docks beside the year
- * marker rather than above it — 24px under where the marker itself sticks, so
- * it reads as the marker's own companion rather than a separate band at the
- * top of the page — and the cards scroll under it, showing the set of
- * whichever one is in the middle. Left and width come from Track's own
- * padding and 100% width, the same box the cards sit in.
- */
-const Strip = styled.div`
-  display: none;
-
-  ${media.down('xxl')} {
-    position: sticky;
-    top: calc(${spacing[2000]}px + 24px);
-    z-index: 2;
-    display: block;
-    width: 100%;
-    height: ${GALLERY.strip}px;
-    /* The cards pass under it, so it can't be see-through. */
-    background: var(--color-bg-primary, #0b0915);
-    overflow: hidden;
-  }
-`;
-
-/** Inside the strip the two columns lie side by side, as the mobile gallery has them. */
-const StripSet = styled.div`
-  position: absolute;
-  inset: 0;
-  display: flex;
-  gap: ${spacing[150]}px;
-  opacity: 0;
-  transition: opacity 400ms ease-out;
-
-  &[data-active='true'] {
-    opacity: 1;
-  }
-
-  > * {
-    flex: 1 1 0;
-    height: 100%;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
-`;
-
 function GallerySet({ entry, active }: { entry: TimelineEntry; active: boolean }) {
   return (
     <Set data-active={active} aria-hidden>
@@ -438,7 +414,7 @@ function GallerySet({ entry, active }: { entry: TimelineEntry; active: boolean }
         <Column key={c}>
           {column.map((image) => (
             <Shot key={image.src} style={{ aspectRatio: String(image.aspect) }}>
-              <Image src={image.src} alt="" fill sizes="(max-width: 1024px) 40vw, 50vw" />
+              <Image src={image.src} alt="" fill sizes="(max-width: 1280px) 200px, (max-width: 1920px) 40vw, 50vw" />
             </Shot>
           ))}
         </Column>
@@ -497,17 +473,6 @@ export function AboutTimelineSection() {
       <Container>
         <SectionHeading title={t('title')} subtitle={t('subtitle')} />
         <Track>
-          <Strip aria-hidden>
-            {entries.map((entry, index) => (
-              <StripSet key={entry.id} data-active={index === active}>
-                {entry.gallery.flat().map((image) => (
-                  <Shot key={image.src}>
-                    <Image src={image.src} alt="" fill sizes="33vw" />
-                  </Shot>
-                ))}
-              </StripSet>
-            ))}
-          </Strip>
           <Body>
             <Cards ref={cardsRef}>
               {entries.map((entry, index) => (
