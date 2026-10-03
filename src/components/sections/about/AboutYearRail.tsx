@@ -295,6 +295,7 @@ export interface AboutYearRailProps {
 export function AboutYearRail({ entries, active, sectionRef, cardsRef }: AboutYearRailProps) {
   const railRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
+  const markerRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
   const entry = entries[Math.min(active, entries.length - 1)];
 
@@ -302,7 +303,8 @@ export function AboutYearRail({ entries, active, sectionRef, cardsRef }: AboutYe
     const section = sectionRef.current;
     const rail = railRef.current;
     const track = trackRef.current;
-    if (!section || !rail || !track) return;
+    const marker = markerRef.current;
+    if (!section || !rail || !track || !marker) return;
 
     // The rail starts at the top of the page, which is this far above the
     // timeline; the marker starts further down still, where the cards do.
@@ -317,6 +319,17 @@ export function AboutYearRail({ entries, active, sectionRef, cardsRef }: AboutYe
     measure();
     const resize = new ResizeObserver(measure);
     resize.observe(document.documentElement);
+
+    // How tall the marker itself renders — the year and its phrase can wrap
+    // differently per entry and per locale — published on the section so
+    // anything else beside the rail (the timeline's own gallery) can clear
+    // it by that much rather than a guessed constant.
+    const measureMarker = () => {
+      section.style.setProperty('--marker-height', `${marker.getBoundingClientRect().height}px`);
+    };
+    measureMarker();
+    const markerResize = new ResizeObserver(measureMarker);
+    markerResize.observe(marker);
 
     // It shows for as long as the timeline is on screen, so it arrives with the
     // section's top edge rather than waiting for the section to fill the screen.
@@ -334,6 +347,7 @@ export function AboutYearRail({ entries, active, sectionRef, cardsRef }: AboutYe
 
     return () => {
       resize.disconnect();
+      markerResize.disconnect();
       shown.disconnect();
       unsubscribe();
     };
@@ -345,7 +359,7 @@ export function AboutYearRail({ entries, active, sectionRef, cardsRef }: AboutYe
         <Line />
       </Track>
       <Rail ref={railRef} aria-hidden>
-        <Marker data-visible={visible}>
+        <Marker ref={markerRef} data-visible={visible}>
           <Dot>
             <span />
             <span />
