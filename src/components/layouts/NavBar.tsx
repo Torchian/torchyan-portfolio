@@ -44,12 +44,11 @@ import { border } from '@/styles/tokens/border';
 
 /*
  * Home is the logo, so the pill carries only the pages a buyer compares:
- * Services, Work (the /projects route keeps its URL) and About. Three links
- * keep the pill no wider than it was.
+ * Services, Work and About. Three links keep the pill no wider than it was.
  */
 const NAV_LINKS = [
   { key: 'services', href: '/services' },
-  { key: 'projects', href: '/projects' },
+  { key: 'projects', href: '/work' },
   { key: 'about', href: '/about' },
   { key: 'contact', href: '/contact' },
 ] as const;

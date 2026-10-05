@@ -236,7 +236,7 @@ export function AreasSection() {
                       if (!project) return null;
                       return (
                         <li key={slug}>
-                          <Link href={`/projects/${slug}`} data-area={area.id}>
+                          <Link href={`/work/${slug}`} data-area={area.id}>
                             {project.company}
                           </Link>
                         </li>

@@ -90,6 +90,14 @@ const nextConfig: NextConfig = {
   async headers() {
     return [{ source: '/:path*', headers: securityHeaders }];
   },
+  // The Work page (and its case pages) moved from /projects to /work; keep
+  // old links and search results landing somewhere real.
+  async redirects() {
+    return [
+      { source: '/projects/:slug*', destination: '/work/:slug*', permanent: true },
+      { source: '/:locale(ru|hy)/projects/:slug*', destination: '/:locale/work/:slug*', permanent: true },
+    ];
+  },
 };
 
 export default withNextIntl(nextConfig);

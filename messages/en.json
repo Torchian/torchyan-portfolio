@@ -155,7 +155,7 @@
           "label": "Context",
           "blocks": [
             [
-              "SoulOne is an Armenian bakery and food brand focused on gluten-free, eco-oriented cakes, desserts and similar products."
+              "SoulOne is an Armenian bakery brand focused on gluten-free, eco-oriented cakes and desserts."
             ]
           ]
         },
@@ -164,9 +164,9 @@
           "blocks": [
             [
               [
-                "Web and product design",
-                "Product ownership, with deep day-to-day involvement in the product and the business - not only its visual design",
-                "Outreach and promotion"
+                "Website, product presentation and visual direction",
+                "Product and business decisions, day to day — not only the visual layer",
+                "Outreach and execution"
               ]
             ]
           ]
@@ -183,7 +183,7 @@
           "label": "What it shows",
           "blocks": [
             [
-              "Ownership beyond the screen - design, product and business decisions, and getting a real brand in front of customers. It’s the full chain Torchyan offers clients."
+              "Experience closer to building a business than delivering screens — design, product decisions, outreach and execution working together."
             ]
           ]
         }
@@ -209,7 +209,7 @@
           "label": "Context",
           "blocks": [
             [
-              "Smartbet’s website presents the company’s products and services."
+              "Smartbet’s design and development team had approved layouts ready to become a responsive production website."
             ]
           ]
         },
@@ -218,8 +218,9 @@
           "blocks": [
             [
               [
-                "Front-end implementation of the website from the design team’s layouts",
-                "Responsive, cross-browser pages"
+                "Translating the design accurately into working pages",
+                "Responsive behavior across browsers and screen sizes",
+                "Consistent interface behavior across the site"
               ]
             ]
           ]
@@ -236,7 +237,7 @@
           "label": "What it shows",
           "blocks": [
             [
-              "A faithful, production-ready build of a design team’s work, inside a cross-functional team."
+              "A focused implementation role where precision, clean structure and collaboration with designers mattered most."
             ]
           ]
         }
@@ -254,7 +255,7 @@
           "label": "Relationship & role",
           "blocks": [
             [
-              "Direct client, April–May 2019. Front-end development - I built the website’s UI."
+              "Direct client, April–May 2019. Front-end development — I built the website’s UI."
             ]
           ]
         },
@@ -262,7 +263,7 @@
           "label": "Context",
           "blocks": [
             [
-              "Ginosi runs serviced apartments and hotels, with locations internationally."
+              "Ginosi is an international serviced-apartment and hospitality business."
             ]
           ]
         },
@@ -271,7 +272,8 @@
           "blocks": [
             [
               [
-                "Built the website UI and front end"
+                "Responsive front end for the booking experience",
+                "Apartment listings, search and property-related interface states"
               ]
             ]
           ]
@@ -280,7 +282,7 @@
           "label": "Evidence",
           "blocks": [
             [
-              "Archived screenshots of the original build. The live site has since changed."
+              "The live website has changed since then, so the work shown here comes from archived screens of the original implementation."
             ]
           ]
         },
@@ -314,7 +316,7 @@
           "label": "Context",
           "blocks": [
             [
-              "Benzeen Auto Parts is an auto-parts business based in Los Angeles."
+              "Benzeen Auto Parts is an automotive e-commerce business in Los Angeles."
             ]
           ]
         },
@@ -323,9 +325,9 @@
           "blocks": [
             [
               [
-                "Full front-end implementation",
-                "Animations and interactive details",
-                "Input into design decisions during the build"
+                "Front-end implementation across the website",
+                "Responsive UI, interactions and animations",
+                "Input into design decisions during development"
               ]
             ]
           ]
@@ -342,7 +344,7 @@
           "label": "What it shows",
           "blocks": [
             [
-              "Complete front-end ownership of a commercial website, delivered through a partner company."
+              "Design and implementation evolving together — more than simply reproducing layouts."
             ]
           ]
         }
@@ -377,9 +379,8 @@
           "blocks": [
             [
               [
-                "Full UI and layout implementation",
-                "Animations",
-                "Some JavaScript functionality"
+                "Full UI implementation and responsive layouts",
+                "Animations and selected JavaScript interactions"
               ]
             ]
           ]
@@ -396,7 +397,7 @@
           "label": "What it shows",
           "blocks": [
             [
-              "Complete UI delivery for a direct client’s website."
+              "A compact project, and a good example of owning the complete presentation layer."
             ]
           ]
         }
@@ -414,7 +415,7 @@
           "label": "Relationship & role",
           "blocks": [
             [
-              "Direct client, May–August 2018. Front-end development."
+              "Direct client, May–July 2018. Front-end development."
             ]
           ]
         },
@@ -422,7 +423,7 @@
           "label": "Context",
           "blocks": [
             [
-              "Brainstorm is a company based in New York and Yerevan."
+              "Brainstorm’s own website, built from an existing design."
             ]
           ]
         },
@@ -431,7 +432,8 @@
           "blocks": [
             [
               [
-                "Full front-end development from a ready-made design"
+                "Front-end implementation end to end, from the supplied layouts",
+                "Working through the details needed for the design to behave correctly in the browser"
               ]
             ]
           ]
@@ -448,7 +450,7 @@
           "label": "What it shows",
           "blocks": [
             [
-              "Faithful implementation of an existing design, end to end."
+              "Faithful implementation of an existing design, end to end — the start of a longer working relationship with Brainstorm."
             ]
           ]
         }
