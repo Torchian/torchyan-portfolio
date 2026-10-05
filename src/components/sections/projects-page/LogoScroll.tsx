@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { media } from '@/styles/media';
 
@@ -16,6 +17,11 @@ import { media } from '@/styles/media';
  * a different slice of the grid shows through as the page scrolls — the
  * same reveal, done by the browser's own compositor on every frame rather
  * than a per-frame style write.
+ *
+ * Touch browsers don't honour `fixed` (iOS Safari draws it as `scroll`,
+ * Android Chrome is inconsistent), so there the component pins the grid
+ * itself: on scroll it offsets the background by the element's distance from
+ * the viewport top — exactly what `fixed` would have done.
  *
  * The grid is one flattened raster (exported from Figma's "Vector" layer,
  * the same image the two Start/End states differ only by panning) rather
@@ -48,6 +54,11 @@ const Wrapper = styled.div`
     background-attachment: scroll;
   }
 
+  &[data-pinned='js'] {
+    background-attachment: scroll;
+    background-position: center calc(var(--pan-y, 0) * 1px);
+  }
+
   ${media.down('xl')} {
     width: 420px;
     height: 420px;
@@ -61,6 +72,37 @@ const Wrapper = styled.div`
   }
 `;
 
+/** Where `background-attachment: fixed` can't be trusted. */
+const TOUCH_QUERY = '(hover: none), (pointer: coarse)';
+
 export function LogoScroll() {
-  return <Wrapper aria-hidden />;
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (!window.matchMedia(TOUCH_QUERY).matches) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    el.dataset.pinned = 'js';
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      el.style.setProperty('--pan-y', String(-el.getBoundingClientRect().top));
+    };
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', schedule);
+      window.removeEventListener('resize', schedule);
+      delete el.dataset.pinned;
+    };
+  }, []);
+
+  return <Wrapper ref={ref} aria-hidden />;
 }
