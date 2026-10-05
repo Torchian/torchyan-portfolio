@@ -499,19 +499,37 @@ function towards(from: number, to: number) {
  * 1px at any size. The chosen specialist's axis and node light up green.
  */
 const Scene = styled.div`
+  /* Three circles wide and two tall, the circle in the middle: room for the
+     scene to run out, so it can fade rather than be cut by the section. */
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  aspect-ratio: 1;
+  top: -50%;
+  left: -100%;
+  width: 300%;
+  aspect-ratio: 3 / 2;
   pointer-events: none;
+  /* Gone by the section's top and bottom edges (its padding above and below
+     the circle), so nothing ends on a hard line. */
+  --fade-out: ${spacing[1000]}px;
+  --fade-in: ${2 * spacing[1000]}px;
+  mask-image: linear-gradient(
+    to bottom,
+    transparent calc(25% - var(--fade-out)),
+    #000 calc(25% + var(--fade-in)),
+    #000 calc(75% - var(--fade-in)),
+    transparent calc(75% + var(--fade-out))
+  );
 
-  /* Ambient glow, and a green one that comes up with a choice. */
+  ${media.down('m')} {
+    --fade-out: ${spacing[600]}px;
+  }
+
+  /* Ambient glow, and a green one that comes up with a choice: the circle
+     plus 45% of it all round. */
   &::before,
   &::after {
     content: '';
     position: absolute;
-    inset: -45%;
+    inset: ${((0.5 - 0.45) / 2) * 100}% ${((1 - 0.45) / 3) * 100}%;
     border-radius: 50%;
     transition: opacity ${DURATION}ms ${EASE};
   }
@@ -642,7 +660,7 @@ function SpecialistScene({ active }: { active: ServiceId | null }) {
   const R = FRAME / 2;
   return (
     <Scene data-on={active !== null}>
-      <svg viewBox={`${-R} ${-R} ${FRAME} ${FRAME}`} aria-hidden>
+      <svg viewBox={`${-3 * R} ${-2 * R} ${3 * FRAME} ${2 * FRAME}`} aria-hidden>
         <defs>
           <linearGradient id="axis-fade" gradientUnits="userSpaceOnUse" x1={R + 144} x2={R * 3} y1="0" y2="0">
             <stop offset="0" stopColor="#f6f6f6" stopOpacity="0.22" />
