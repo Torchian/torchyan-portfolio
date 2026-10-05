@@ -1,21 +1,16 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import { useRef, useState } from "react";
-import styled, { createGlobalStyle } from "styled-components";
-import { useTranslations } from "next-intl";
-import { VisuallyHidden } from "@/components/primitives";
-import { spacing } from "@/styles/tokens/spacing";
-import {
-  fontFamily,
-  fontWeight,
-  fontSize,
-  lineHeight,
-  letterSpacing,
-} from "@/styles/tokens/typography";
-import { accents, neutrals } from "@/styles/tokens/colors";
-import { grid } from "@/styles/tokens/grid";
-import { media } from "@/styles/media";
+import Image from 'next/image';
+import { useRef, useState } from 'react';
+import styled, { createGlobalStyle } from 'styled-components';
+import { useTranslations } from 'next-intl';
+import { VisuallyHidden } from '@/components/primitives';
+import { spacing } from '@/styles/tokens/spacing';
+import { fontFamily, fontWeight, fontSize, lineHeight, letterSpacing } from '@/styles/tokens/typography';
+import { accents, neutrals } from '@/styles/tokens/colors';
+import { grid } from '@/styles/tokens/grid';
+import { media } from '@/styles/media';
+import { HEADER_HEIGHT } from '@/components/layouts/NavBar';
 
 /*
  * Figma: New Services (4105:15024) — Position=Default and one state per
@@ -35,7 +30,7 @@ import { media } from "@/styles/media";
  * it round the short way (the angle is accumulated, never wrapped).
  *
  * Everything is placed in the 1024 design frame and scales with it. Below
- * 800px of frame the middle keeps only the titles, and the details move under
+ * 720px of frame the middle keeps only the titles, and the details move under
  * the circle at a readable size.
  */
 
@@ -53,10 +48,10 @@ const HOLE_ACTIVE = 409.6 / 512;
 /** The cut, centred on the chosen specialist. */
 const GAP_DEG = 60;
 
-const EASE = "cubic-bezier(0.65, 0, 0.35, 1)";
+const EASE = 'cubic-bezier(0.65, 0, 0.35, 1)';
 const DURATION = 600;
 
-type ServiceId = "brand" | "backend" | "ai" | "marketing";
+type ServiceId = 'brand' | 'backend' | 'ai' | 'marketing';
 
 interface Specialist {
   id: ServiceId;
@@ -69,10 +64,10 @@ interface Specialist {
 
 /** In the order of the copy (servicesPage.teamServices.items). */
 const SPECIALISTS: Specialist[] = [
-  { id: "brand", src: "/services/specialists/brand.webp", angle: 180 },
-  { id: "backend", src: "/services/specialists/backend.webp", angle: 270 },
-  { id: "ai", src: "/services/specialists/ai.webp", angle: 90, mirror: true },
-  { id: "marketing", src: "/services/specialists/marketing.webp", angle: 0 },
+  { id: 'brand', src: '/services/specialists/brand.webp', angle: 180 },
+  { id: 'backend', src: '/services/specialists/backend.webp', angle: 270 },
+  { id: 'ai', src: '/services/specialists/ai.webp', angle: 90, mirror: true },
+  { id: 'marketing', src: '/services/specialists/marketing.webp', angle: 0 },
 ];
 
 interface ServiceCopy {
@@ -107,7 +102,7 @@ const Section = styled.section`
   align-items: center;
   padding: ${spacing[1000]}px 0;
 
-  ${media.down("m")} {
+  ${media.down('m')} {
     padding: ${spacing[600]}px 0;
   }
 `;
@@ -119,21 +114,33 @@ const Container = styled.div`
   width: 100%;
   max-width: ${grid.maxWidth}px;
   padding: 0 ${spacing[400]}px;
-  container-type: inline-size;
 
-  ${media.down("xl")} {
+  ${media.down('xl')} {
     padding: 0 ${spacing[300]}px;
   }
 
-  ${media.down("m")} {
+  ${media.down('m')} {
     padding: 0 ${spacing[200]}px;
   }
+`;
+
+/**
+ * The circle and what goes under it. The circle fits the screen below the
+ * header with a little room either side, so it's seen whole; it never drops
+ * below a phone's width, where the screen's height stops mattering. Its
+ * container queries key on this width — the circle's own.
+ */
+const Stage = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: min(100%, ${FRAME}px, max(320px, calc(100svh - ${HEADER_HEIGHT}px - ${2 * spacing[600]}px)));
+  container-type: inline-size;
 `;
 
 const Frame = styled.div`
   position: relative;
   width: 100%;
-  max-width: ${FRAME}px;
   aspect-ratio: 1;
   clip-path: circle(50%);
   container-type: inline-size;
@@ -153,11 +160,7 @@ const Ring = styled.div`
   --ring-hole: ${HOLE * 100}%;
   --ring-gap: 0deg;
   mask-image:
-    radial-gradient(
-      closest-side,
-      transparent calc(var(--ring-hole) - 0.3%),
-      #000 var(--ring-hole)
-    ),
+    radial-gradient(closest-side, transparent calc(var(--ring-hole) - 0.3%), #000 var(--ring-hole)),
     conic-gradient(
       from calc(var(--ring-at) - var(--ring-gap) / 2),
       transparent max(0deg, calc(var(--ring-gap) - 0.4deg)),
@@ -173,14 +176,14 @@ const Ring = styled.div`
     --ring-hole ${DURATION}ms ${EASE};
 
   &::after {
-    content: "";
+    content: '';
     ${fill}
     background: ${accents.primary};
     opacity: 0;
     transition: opacity ${DURATION}ms ${EASE};
   }
 
-  &[data-on="true"] {
+  &[data-on='true'] {
     --ring-hole: ${HOLE_ACTIVE * 100}%;
     --ring-gap: ${GAP_DEG}deg;
     transition:
@@ -214,7 +217,7 @@ const Disc = styled.div`
   transition: transform ${DURATION}ms ${EASE};
 
   &::after {
-    content: "";
+    content: '';
     ${fill}
     border-radius: 50%;
     background: ${accents.primary};
@@ -222,7 +225,7 @@ const Disc = styled.div`
     transition: opacity ${DURATION}ms ${EASE};
   }
 
-  &[data-on="true"] {
+  &[data-on='true'] {
     transform: translate(-50%, -50%) scale(${DISC_ACTIVE / DISC});
 
     &::after {
@@ -245,6 +248,8 @@ const Middle = styled.div`
   top: 50%;
   left: 50%;
   display: grid;
+  /* One shrinkable column: the list's unwrapped longest line mustn't widen it. */
+  grid-template-columns: minmax(0, 1fr);
   place-items: center;
   width: calc(${DISC} * var(--u));
   aspect-ratio: 1;
@@ -264,7 +269,7 @@ const Middle = styled.div`
       visibility 0s linear ${DURATION / 2}ms;
   }
 
-  > [data-shown="true"] {
+  > [data-shown='true'] {
     opacity: 1;
     visibility: visible;
     transition:
@@ -274,7 +279,7 @@ const Middle = styled.div`
 
   ${media.reducedMotion} {
     > *,
-    > [data-shown="true"] {
+    > [data-shown='true'] {
       transition: none;
     }
   }
@@ -302,7 +307,7 @@ const List = styled.ul`
     cursor: pointer;
   }
 
-  @container (width < 800px) {
+  @container (width < 720px) {
     font-size: max(13px, calc(${fontSize.heading.l} * var(--u)));
     line-height: 1.3;
     white-space: normal;
@@ -323,7 +328,7 @@ const ServiceTitle = styled.p`
   line-height: calc(${lineHeight.heading.l} * var(--u));
   letter-spacing: ${letterSpacing.xs}px;
 
-  @container (width < 800px) {
+  @container (width < 720px) {
     font-size: max(14px, calc(${fontSize.heading.l} * var(--u)));
     line-height: 1.3;
   }
@@ -335,7 +340,7 @@ const Details = styled.div`
   flex-direction: column;
   gap: calc(32 * var(--u));
 
-  @container (width < 800px) {
+  @container (width < 720px) {
     display: none;
   }
 `;
@@ -344,8 +349,8 @@ const Paragraphs = styled.div`
   display: flex;
   flex-direction: column;
   gap: calc(16 * var(--u));
-  font-size: calc(${fontSize.body.xl} * var(--u));
-  line-height: calc(${lineHeight.body.xl} * var(--u));
+  font-size: max(12px, calc(${fontSize.body.xl} * var(--u)));
+  line-height: max(16px, calc(${lineHeight.body.xl} * var(--u)));
   letter-spacing: ${letterSpacing.s}px;
 
   p {
@@ -360,8 +365,8 @@ const Bullets = styled.ul`
   margin: 0;
   padding: 0;
   list-style: none;
-  font-size: calc(${fontSize.body.l} * var(--u));
-  line-height: calc(${lineHeight.body.l} * var(--u));
+  font-size: max(12px, calc(${fontSize.body.l} * var(--u)));
+  line-height: max(15px, calc(${lineHeight.body.l} * var(--u)));
   letter-spacing: ${letterSpacing.s}px;
 `;
 
@@ -389,11 +394,11 @@ const Portrait = styled.button`
   transform-origin: 50% 100%;
   transition: transform ${DURATION}ms ${EASE};
 
-  &[data-state="on"] {
+  &[data-state='on'] {
     transform: translate(-50%, 0) scale(${PORTRAIT_ACTIVE / PORTRAIT});
   }
 
-  &[data-state="away"] {
+  &[data-state='away'] {
     transform: translate(-50%, calc(${AWAY} * var(--u))) scale(1);
   }
 
@@ -404,11 +409,11 @@ const Portrait = styled.button`
     transition: filter ${DURATION}ms ${EASE};
   }
 
-  &[data-mirror="true"] img {
+  &[data-mirror='true'] img {
     transform: scaleX(-1);
   }
 
-  &[data-state="on"] img {
+  &[data-state='on'] img {
     filter: grayscale(0);
   }
 
@@ -425,7 +430,7 @@ const Portrait = styled.button`
 const Below = styled.div`
   display: none;
 
-  @container (width < 800px) {
+  @container (width < 720px) {
     display: grid;
     width: 100%;
     max-width: 480px;
@@ -444,7 +449,7 @@ const Below = styled.div`
         visibility 0s linear ${DURATION / 2}ms;
     }
 
-    > [data-shown="true"] {
+    > [data-shown='true'] {
       opacity: 1;
       visibility: visible;
       transition:
@@ -484,8 +489,8 @@ function towards(from: number, to: number) {
 }
 
 export function ServicesSpecialists() {
-  const t = useTranslations("servicesPage.teamServices");
-  const items = t.raw("items") as ServiceCopy[];
+  const t = useTranslations('servicesPage.teamServices');
+  const items = t.raw('items') as ServiceCopy[];
   const [active, setActive] = useState<ServiceId | null>(null);
   const ringRef = useRef<HTMLDivElement>(null);
   // The cut's angle, never wrapped, so each move turns the short way.
@@ -497,17 +502,17 @@ export function ServicesSpecialists() {
     if (ring && specialist) {
       const next = towards(atRef.current, specialist.angle);
       atRef.current = next;
-      ring.style.setProperty("--ring-at", `${next}deg`);
+      ring.style.setProperty('--ring-at', `${next}deg`);
       // From rest the ring has no transition on its angle: make the jump land
       // before the ring turns on, so the cut opens in place.
-      if (!active) getComputedStyle(ring).getPropertyValue("--ring-at");
+      if (!active) getComputedStyle(ring).getPropertyValue('--ring-at');
     }
     setActive(id);
   };
 
   const toggle = (id: ServiceId) => () => choose(active === id ? null : id);
   const point = (id: ServiceId) => (e: React.PointerEvent) => {
-    if (e.pointerType === "mouse") choose(id);
+    if (e.pointerType === 'mouse') choose(id);
   };
 
   return (
@@ -515,97 +520,83 @@ export function ServicesSpecialists() {
       <RingProperties />
       <Container>
         <VisuallyHidden as="h2" id="team-services-title">
-          {t("title")}
+          {t('title')}
         </VisuallyHidden>
-        {/* The circle is a picture of the list below it, which is what assistive tech reads. */}
-        <Frame
-          aria-hidden
-          onPointerLeave={(e) => e.pointerType === "mouse" && choose(null)}
-        >
-          <Ring ref={ringRef} data-on={active !== null} />
-          <Disc data-on={active !== null} />
+        <Stage>
+          {/* The circle is a picture of the list below it, which is what assistive tech reads. */}
+          <Frame aria-hidden onPointerLeave={(e) => e.pointerType === 'mouse' && choose(null)}>
+            <Ring ref={ringRef} data-on={active !== null} />
+            <Disc data-on={active !== null} />
 
-          <Middle>
-            <List data-shown={active === null}>
-              {SPECIALISTS.map((s, i) => (
-                <li key={s.id}>
-                  <button
-                    type="button"
-                    tabIndex={-1}
-                    onPointerEnter={point(s.id)}
-                    onClick={toggle(s.id)}
-                  >
-                    {items[i]?.title}
-                  </button>
-                </li>
-              ))}
-            </List>
+            <Middle>
+              <List data-shown={active === null}>
+                {SPECIALISTS.map((s, i) => (
+                  <li key={s.id}>
+                    <button type="button" tabIndex={-1} onPointerEnter={point(s.id)} onClick={toggle(s.id)}>
+                      {items[i]?.title}
+                    </button>
+                  </li>
+                ))}
+              </List>
+              {SPECIALISTS.map((s, i) => {
+                const copy = items[i];
+                if (!copy) return null;
+                return (
+                  <Service key={s.id} data-shown={active === s.id}>
+                    <ServiceTitle>{copy.title}</ServiceTitle>
+                    <Details>
+                      <Paragraphs>
+                        <p>{copy.situation}</p>
+                        <p>{copy.outcome}</p>
+                      </Paragraphs>
+                      <Bullets>
+                        {copy.owns.map((line) => (
+                          <li key={line}>{line}</li>
+                        ))}
+                      </Bullets>
+                    </Details>
+                  </Service>
+                );
+              })}
+            </Middle>
+
+            {SPECIALISTS.map((s) => (
+              <Side key={s.id} style={{ transform: `rotate(${s.angle - 180}deg)` }}>
+                <Portrait
+                  type="button"
+                  data-state={active === s.id ? 'on' : active ? 'away' : 'rest'}
+                  data-mirror={s.mirror || undefined}
+                  tabIndex={-1}
+                  onPointerEnter={point(s.id)}
+                  onClick={toggle(s.id)}
+                >
+                  <Image src={s.src} alt="" fill sizes="(max-width: 1024px) 32vw, 320px" />
+                </Portrait>
+              </Side>
+            ))}
+          </Frame>
+
+          <Below aria-hidden>
+            <BelowText data-shown={active === null}>
+              <p>{t('hint')}</p>
+            </BelowText>
             {SPECIALISTS.map((s, i) => {
               const copy = items[i];
               if (!copy) return null;
               return (
-                <Service key={s.id} data-shown={active === s.id}>
-                  <ServiceTitle>{copy.title}</ServiceTitle>
-                  <Details>
-                    <Paragraphs>
-                      <p>{copy.situation}</p>
-                      <p>{copy.outcome}</p>
-                    </Paragraphs>
-                    <Bullets>
-                      {copy.owns.map((line) => (
-                        <li key={line}>{line}</li>
-                      ))}
-                    </Bullets>
-                  </Details>
-                </Service>
+                <BelowText key={s.id} data-shown={active === s.id}>
+                  <p>{copy.situation}</p>
+                  <p>{copy.outcome}</p>
+                  <ul>
+                    {copy.owns.map((line) => (
+                      <li key={line}>{line}</li>
+                    ))}
+                  </ul>
+                </BelowText>
               );
             })}
-          </Middle>
-
-          {SPECIALISTS.map((s) => (
-            <Side
-              key={s.id}
-              style={{ transform: `rotate(${s.angle - 180}deg)` }}
-            >
-              <Portrait
-                type="button"
-                data-state={active === s.id ? "on" : active ? "away" : "rest"}
-                data-mirror={s.mirror || undefined}
-                tabIndex={-1}
-                onPointerEnter={point(s.id)}
-                onClick={toggle(s.id)}
-              >
-                <Image
-                  src={s.src}
-                  alt=""
-                  fill
-                  sizes="(max-width: 1024px) 32vw, 320px"
-                />
-              </Portrait>
-            </Side>
-          ))}
-        </Frame>
-
-        <Below aria-hidden>
-          <BelowText data-shown={active === null}>
-            <p>{t("hint")}</p>
-          </BelowText>
-          {SPECIALISTS.map((s, i) => {
-            const copy = items[i];
-            if (!copy) return null;
-            return (
-              <BelowText key={s.id} data-shown={active === s.id}>
-                <p>{copy.situation}</p>
-                <p>{copy.outcome}</p>
-                <ul>
-                  {copy.owns.map((line) => (
-                    <li key={line}>{line}</li>
-                  ))}
-                </ul>
-              </BelowText>
-            );
-          })}
-        </Below>
+          </Below>
+        </Stage>
 
         <VisuallyHidden as="ul">
           {items.map((copy) => (
