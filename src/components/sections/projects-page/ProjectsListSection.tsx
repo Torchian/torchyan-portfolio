@@ -170,7 +170,7 @@ const Dots = styled.div`
  */
 const FIRST_ENTRANCE_COVER = 0.75;
 /** …less this much scroll, so it starts a little ahead of that. */
-const FIRST_ENTRANCE_EARLY_PX = 200;
+const FIRST_ENTRANCE_EARLY_PX = 450;
 
 /**
  * Which project a scroll position shows (-1: none yet, the stage is still
