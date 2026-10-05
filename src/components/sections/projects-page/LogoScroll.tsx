@@ -1,7 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { media } from '@/styles/media';
 
 /*
@@ -19,9 +18,13 @@ import { media } from '@/styles/media';
  * than a per-frame style write.
  *
  * Touch browsers don't honour `fixed` (iOS Safari draws it as `scroll`,
- * Android Chrome is inconsistent), so there the component pins the grid
- * itself: on scroll it offsets the background by the element's distance from
- * the viewport top — exactly what `fixed` would have done.
+ * Android Chrome is inconsistent). There the grid is a layer inside the mark,
+ * moved by a scroll-driven animation (`animation-timeline: view()`): it runs
+ * on the compositor in step with the scroll, so it can't lag the way a scroll
+ * listener does. Across the mark's whole pass through the viewport the layer
+ * travels from one screen above to the mark's own height below, which keeps
+ * its top on the viewport's top, as `fixed` would. A touch browser without
+ * scroll-driven animations gets the grid's top crop, standing still.
  *
  * The grid is one flattened raster (exported from Figma's "Vector" layer,
  * the same image the two Start/End states differ only by panning) rather
@@ -32,7 +35,24 @@ import { media } from '@/styles/media';
 const GRID_SRC = "url('/projects/logo-scroll/grid.webp')";
 const MASK_SRC = "url('/projects/logo-scroll/mask.svg')";
 
+const TOUCH = '@media (hover: none), (pointer: coarse)';
+const SCROLL_DRIVEN = '@supports (animation-timeline: view())';
+
+/** The grid layer's top follows the viewport's top from entry to exit. */
+const pan = keyframes`
+  from {
+    transform: translateY(-100vh);
+  }
+  to {
+    transform: translateY(var(--size));
+  }
+`;
+
 const Wrapper = styled.div`
+  --size: 480px;
+  position: relative;
+  overflow: clip;
+  view-timeline: --logo-scroll;
   flex: none;
   width: 480px;
   height: 480px;
@@ -54,55 +74,60 @@ const Wrapper = styled.div`
     background-attachment: scroll;
   }
 
-  &[data-pinned='js'] {
+  ${TOUCH} {
     background-attachment: scroll;
-    background-position: center calc(var(--pan-y, 0) * 1px);
+  }
+
+  ${SCROLL_DRIVEN} {
+    ${TOUCH} {
+      background-image: none;
+    }
   }
 
   ${media.down('xl')} {
+    --size: 420px;
     width: 420px;
     height: 420px;
     background-size: 420px auto;
   }
 
   ${media.down('m')} {
+    --size: 320px;
     width: 320px;
     height: 320px;
     background-size: 320px auto;
   }
 `;
 
-/** Where `background-attachment: fixed` can't be trusted. */
-const TOUCH_QUERY = '(hover: none), (pointer: coarse)';
+/** The touch-screen grid: absent elsewhere. */
+const Pan = styled.div`
+  display: none;
+
+  ${SCROLL_DRIVEN} {
+    ${TOUCH} {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
+      width: 100%;
+      aspect-ratio: 960 / 2066;
+      background-image: ${GRID_SRC};
+      background-size: 100% auto;
+      will-change: transform;
+      animation: ${pan} linear both;
+      animation-timeline: --logo-scroll;
+
+      ${media.reducedMotion} {
+        animation: none;
+      }
+    }
+  }
+`;
 
 export function LogoScroll() {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    if (!window.matchMedia(TOUCH_QUERY).matches) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    el.dataset.pinned = 'js';
-    let frame = 0;
-    const update = () => {
-      frame = 0;
-      el.style.setProperty('--pan-y', String(-el.getBoundingClientRect().top));
-    };
-    const schedule = () => {
-      if (!frame) frame = requestAnimationFrame(update);
-    };
-    update();
-    window.addEventListener('scroll', schedule, { passive: true });
-    window.addEventListener('resize', schedule);
-    return () => {
-      cancelAnimationFrame(frame);
-      window.removeEventListener('scroll', schedule);
-      window.removeEventListener('resize', schedule);
-      delete el.dataset.pinned;
-    };
-  }, []);
-
-  return <Wrapper ref={ref} aria-hidden />;
+  return (
+    <Wrapper aria-hidden>
+      <Pan />
+    </Wrapper>
+  );
 }
