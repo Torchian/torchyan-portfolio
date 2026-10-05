@@ -8,13 +8,17 @@ import type { CharacterClothes, GlassesStyle } from '@/components/composites/cha
 
 export type TimelineEntryId =
   | 'apricode'
+  | 'brainstorm'
   | 'tco'
   | 'volo'
   | 'softconstruct'
+  | 'panika'
   | 'smartbet'
   | 'picsart'
   | 'armenianCodeAcademy'
+  | 'brainrocket'
   | 'soulone'
+  | 'acentecom'
   | 'torchyan';
 
 /** An entry's copy, from messages/*.json under about.timeline.entries.<id>. */
@@ -58,12 +62,24 @@ const NONE: [GalleryImage[], GalleryImage[]] = [[], []];
 
 export const TIMELINE_ENTRIES: TimelineEntryConfig[] = [
   {
-    // Jun 2016 – Oct 2018
+    // Jun 2016 – May 2018
     id: 'apricode',
     year: '2016–2018',
     railYear: '2016',
     company: 'Apricode / MyZCapital',
     gallery: NONE,
+  },
+  {
+    // May–Jul 2018 project, then Jul–Dec 2018 role. Same company the Work
+    // page's Brainstorm case is built on.
+    id: 'brainstorm',
+    year: '2018',
+    railYear: '2018',
+    company: 'Brainstorm',
+    gallery: [
+      [shot('/selected-work/various/brainstormtech.webp', 1082 / 4096)],
+      [shot('/projects/collages/websites/brainstorm-services.webp', 673 / 2548)],
+    ],
   },
   {
     // Jan – Sep 2019. Benzeen Auto Parts was delivered through TCO.
@@ -90,6 +106,14 @@ export const TIMELINE_ENTRIES: TimelineEntryConfig[] = [
     year: '2020',
     railYear: '2020',
     company: 'SoftConstruct',
+    gallery: NONE,
+  },
+  {
+    // Dec 2020 – Feb 2023, alongside the roles that follow it.
+    id: 'panika',
+    year: '2020–2023',
+    railYear: '2020',
+    company: 'Panika Production',
     gallery: NONE,
   },
   {
@@ -121,11 +145,20 @@ export const TIMELINE_ENTRIES: TimelineEntryConfig[] = [
     ],
   },
   {
-    // Nov 2022 – Feb 2023, alongside Picsart.
+    // Nov 2022 – Feb 2023 teaching, alongside Picsart; interviewing lecturer
+    // candidates continued past that through 2024.
     id: 'armenianCodeAcademy',
     year: '2022–2023',
     railYear: '2022',
     company: 'Armenian Code Academy',
+    gallery: NONE,
+  },
+  {
+    // Jul – Oct 2024
+    id: 'brainrocket',
+    year: '2024',
+    railYear: '2024',
+    company: 'BrainRocket',
     gallery: NONE,
   },
   {
@@ -143,9 +176,17 @@ export const TIMELINE_ENTRIES: TimelineEntryConfig[] = [
     ],
   },
   {
+    // Mar – Jul 2026, remote contract.
+    id: 'acentecom',
+    year: '2026',
+    railYear: '2026',
+    company: 'Acentecom',
+    gallery: NONE,
+  },
+  {
     id: 'torchyan',
-    year: '2025–now',
-    railYear: '2025',
+    year: '2026–now',
+    railYear: '2026',
     company: 'Torchyan',
     gallery: NONE,
   },

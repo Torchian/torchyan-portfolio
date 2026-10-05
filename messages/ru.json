@@ -1086,30 +1086,41 @@
       "entries": {
         "apricode": {
           "stickyContent": "Foundation &\nStructure",
-          "role": "Frontend Web Developer / Web Designer",
-          "focus": "Front-end implementation from design mockups. Shopware e-commerce projects. Admin dashboards.",
-          "impact": "Solid responsive and cross-browser foundations. Early discipline in semantic, modular styling.",
+          "role": "Фронтенд-разработчик",
+          "focus": "Hands-on web development across client and self-initiated projects, building responsive interfaces from Photoshop designs with HTML, CSS, LESS/SCSS, JavaScript and jQuery. Worked closely with PHP back-end development and e-commerce platforms including Shopware and Shopify.",
+          "impact": "Projects included Justus Brown, 6ics Sneakers and myZcapital.",
           "coreGrowth": [
             "Точность",
             "Структура",
             "Системная архитектура CSS"
           ]
         },
+        "brainstorm": {
+          "stickyContent": "Platforms &\nPerformance",
+          "role": "Front-end Developer",
+          "focus": "First built Brainstorm’s own website, then continued on commercial projects including Scunci, By Robyn Blair, Off My Case and Gemmed. Worked across Shopify, Squarespace and custom front-end workflows using Liquid, Gulp, Git, InVision and Zeplin.",
+          "impact": "Growing focus on performance and browser rendering.",
+          "coreGrowth": [
+            "Platform range",
+            "Performance"
+          ]
+        },
         "tco": {
           "stickyContent": "Precision &\nDelivery",
           "role": "UI-разработчик",
-          "focus": "Front-end development for client websites, including Benzeen Auto Parts.",
-          "impact": "Full front-end delivery on commercial projects.",
+          "focus": "Led UI implementation across internal and client projects, with strong focus on semantic HTML, structured SCSS, BEM/OOCSS, responsive interfaces, accessibility and pixel-accurate execution. Worked in PHP and Angular environments and contributed to UX discussions.",
+          "impact": "Taught HTML/CSS to two groups of around ten students each. Benzeen was one of the main projects.",
           "coreGrowth": [
             "Точность",
-            "Структура"
+            "Структура",
+            "Доступность"
           ]
         },
         "volo": {
-          "stickyContent": "Масштаб и\nсогласованность",
-          "role": "Фронтенд-разработчик",
-          "focus": "Component-based UI. Cross-team collaboration. Performance and accessibility.",
-          "impact": "Production front-end applications with more reuse and consistency.",
+          "stickyContent": "Scale &\nConsistency",
+          "role": "UI-разработчик",
+          "focus": "Went deeper into component-based UI development, translating Figma and InVision designs into production interfaces and working closely with designers. Built front-end components with Vue.js.",
+          "impact": "Projects remain under NDA.",
           "coreGrowth": [
             "Точность",
             "Структура"
@@ -1117,12 +1128,23 @@
         },
         "softconstruct": {
           "stickyContent": "Systems &\nProduct UI",
-          "role": "Senior UI Engineer",
-          "focus": "UI engineering for complex product interfaces. Component-based front-end work.",
-          "impact": "Production UI for a large product company.",
+          "role": "Senior UI Developer",
+          "focus": "Worked on SoftConstruct’s betting platform, building dynamic interfaces with React, JavaScript, SCSS and JSS.",
+          "impact": "Focused on responsive behavior, semantic HTML, accessibility and WCAG-aligned implementation across complex product UI.",
           "coreGrowth": [
             "Precision",
-            "Structure"
+            "Structure",
+            "Accessibility"
+          ]
+        },
+        "panika": {
+          "stickyContent": "Design &\nOperations",
+          "role": "Designer / Media Projects Lead",
+          "focus": "A broader multidisciplinary role across design, media and operations. Worked on UI/UX, visual identities, logos, office and studio design, media projects and production coordination.",
+          "impact": "Helped manage an operational office supporting work across Germany, France and Spain, and a music studio.",
+          "coreGrowth": [
+            "Multidisciplinary",
+            "Operations"
           ]
         },
         "smartbet": {
@@ -1138,38 +1160,58 @@
         "picsart": {
           "stickyContent": "Platform &\nScale",
           "role": "Senior UI-инженер",
-          "focus": "Design System integration across picsart.com. Right-to-left localization built from scratch. Accessibility and performance work.",
-          "impact": "Consistent, accessible, multilingual UI in my scope. Faster Discovery pages.",
+          "focus": "Worked across Growth and Marketplace on picsart.com. Built scalable UI with React, JSS and Styled Components, with a focus on accessibility, responsive behavior and performance.",
+          "impact": "Later became a key contributor to Marketplace Design System integration, multilingual RTL/LTR support and UI consistency across product surfaces.",
           "coreGrowth": [
-            "Точность",
-            "Структура",
-            "Системная архитектура CSS"
+            "Дизайн-системы",
+            "Доступность",
+            "RTL/LTR"
           ]
         },
         "armenianCodeAcademy": {
           "stickyContent": "Teaching &\nStructure",
           "role": "Lecturer",
-          "focus": "Teaching UI development. Interviewing lecturer candidates.",
-          "impact": "Developers trained in modern front-end practice.",
+          "focus": "Taught HTML, CSS and web fundamentals to a group of around 20 students through practical exercises and structured coursework.",
+          "impact": "Continued interviewing and evaluating lecturer candidates after the teaching period, through 2024.",
           "coreGrowth": [
             "От сырого воркшопа к чётко структурированным знаниям"
+          ]
+        },
+        "brainrocket": {
+          "stickyContent": "Product &\nDelivery",
+          "role": "Senior UI Developer",
+          "focus": "Worked as a Senior UI Developer in a product environment, contributing to production UI.",
+          "impact": "Production front-end work for a product company.",
+          "coreGrowth": [
+            "Precision",
+            "Delivery"
           ]
         },
         "soulone": {
           "stickyContent": "Ownership &\nProduct",
           "role": "Web Designer & Product Owner",
-          "focus": "Web and product design. Day-to-day product ownership. Outreach and promotion.",
-          "impact": "A product designed and run end to end.",
+          "focus": "Worked directly on the product and business behind an Armenian gluten-free bakery brand, covering web and product design alongside day-to-day ownership.",
+          "impact": "Product decisions, outreach and promotion, not only the visual layer.",
           "coreGrowth": [
             "Ownership",
             "Product"
           ]
         },
+        "acentecom": {
+          "stickyContent": "Funnels &\nConversion",
+          "role": "Front-end Developer",
+          "focus": "Built and adapted e-commerce landing pages and sales funnels using Shopify and CheckoutChamp. Worked across checkout flows, product pages and campaign/funnel implementation.",
+          "impact": "Increasingly integrated AI tools into research, design and development workflows.",
+          "coreGrowth": [
+            "E-commerce",
+            "AI tooling"
+          ]
+        },
         "torchyan": {
           "stickyContent": "Studio &\nClients",
           "role": "Founder",
-          "focus": "Freelance and contract work, including CMS, landing-page and e-commerce projects. Designing and building torchyan.design.",
-          "impact": "Torchyan, a founder-led studio.",
+          "focus": "Building Torchyan as a founder-led digital product studio combining product and web design, UI engineering and production delivery.",
+          "impact": "Projects are led directly, with trusted specialists brought in when broader development, marketing or production expertise is needed.",
           "coreGrowth": [
             "Studio",
             "Accountability"
