@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 import styled, { css } from 'styled-components';
 import { SectionHeading } from '@/components/composites';
 import { spacing } from '@/styles/tokens/spacing';
-import { neutrals } from '@/styles/tokens/colors';
+import { accents, neutrals } from '@/styles/tokens/colors';
 import { fontFamily, fontWeight, fontSize, lineHeight, letterSpacing } from '@/styles/tokens/typography';
 import { duration, easing } from '@/styles/tokens/motion';
 import { grid } from '@/styles/tokens/grid';
@@ -162,7 +162,7 @@ const Groups = styled.div`
 
   /* Four groups share one screen with the heading on desktop. */
   ${media.up('xl')} {
-    gap: clamp(${spacing[200]}px, 3svh, ${spacing[600]}px);
+    gap: clamp(${spacing[200]}px, 4svh, ${spacing[600]}px);
   }
 
   ${media.down('m')} {
@@ -175,7 +175,7 @@ const Group = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: ${spacing[200]}px;
+  gap: ${spacing[100]}px;
 `;
 
 const GroupLabel = styled.h3`
@@ -186,7 +186,7 @@ const GroupLabel = styled.h3`
   line-height: ${lineHeight.body.m}px;
   letter-spacing: ${letterSpacing.xxl}px;
   text-transform: uppercase;
-  color: ${neutrals[500]};
+  color: ${accents.primary};
 `;
 
 /*

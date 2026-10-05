@@ -67,7 +67,7 @@
   "hero": {
     "name": "Torchyan",
     "role": "Digital Product Studio",
-    "description": "Design & engineering for websites and digital products - from first direction to production code, led by one accountable founder.",
+    "description": "Design and engineering for websites and digital products - from the first idea to a production-ready build.",
     "cta": "Start a project",
     "secondaryCta": "See the work",
     "skillsLabel": "How a project moves",
@@ -82,7 +82,7 @@
     ]
   },
   "whatIDo": {
-    "title": "How a project runs",
+    "title": "How the work moves",
     "subtitle": "One continuous chain, from the first question to the live product - no handoffs where quality gets lost.",
     "steps": [
       {
@@ -91,7 +91,7 @@
       },
       {
         "title": "Shape the structure",
-        "description": "Content, user flows and information architecture are set up so the product can grow without losing clarity."
+        "description": "Content, flows, information architecture and scope before visual decisions get expensive."
       },
       {
         "title": "Design the experience",
@@ -102,16 +102,16 @@
         "description": "The same decisions carried into code: responsive, fast, accessible and maintainable. Specialists join for backend, QA or SEO when the project needs them."
       },
       {
-        "title": "Launch and improve",
+        "title": "Launch, learn, improve",
         "description": "Deployment, measurement and ongoing improvements after go-live, so the product keeps pace with the business."
       }
     ]
   },
   "selectedWork": {
     "title": "Selected work",
-    "subtitle": "Product companies, a brand I helped build and direct clients - each with the exact role.",
+    "subtitle": "A mix of product work, direct client projects and brands I’ve helped build.",
     "viewCase": "View case",
-    "viewAllCases": "View all work",
+    "viewAllCases": "Explore all work",
     "allProjects": {
       "company": "All work",
       "roles": [
@@ -130,9 +130,9 @@
       "roles": [
         "Senior UI Engineer"
       ],
-      "title": "Growth & Marketplace",
-      "description": "UI engineering across Picsart Growth and Marketplace, including Design System integration, RTL/LTR localization, accessibility and performance work.",
-      "field": "Creative platform"
+      "title": "Creative Platform",
+      "description": "Product-scale UI engineering across picsart.com — Design System integration, UI architecture, RTL/LTR localization, accessibility and performance.",
+      "field": "Photo & Video Editing"
     },
     "soulone": {
       "roles": [
@@ -459,9 +459,9 @@
   },
   "capabilities": {
     "heading": "What you can hire Torchyan for",
-    "subtitle": "Four areas Torchyan takes responsibility for - each carried from direction to production, with specialists added when the work calls for them.",
+    "subtitle": "The exact scope changes from project to project. These are the areas I work across most often.",
     "cta": "See how we work",
-    "title": "One accountable lead",
+    "title": "One lead",
     "skillsLabel": "What {title} includes",
     "items": [
       {
@@ -489,8 +489,8 @@
           "Interface design",
           "Prototyping",
           "Front-end engineering",
-          "Localization & RTL",
-          "WCAG 2.1 AA-aligned accessibility",
+          "Localization / RTL / TTB",
+          "WCAG AA-aligned accessibility",
           "Backend with specialists"
         ]
       },
@@ -535,8 +535,8 @@
     ]
   },
   "trustedBy": {
-    "title": "Who I’ve worked with",
-    "subtitle": "Direct clients, employers and projects through partner companies - every relationship shown as it was.",
+    "title": "Worked with",
+    "subtitle": "Across full-time roles, direct client work, product ownership and collaborations.",
     "groups": {
       "clients": "Direct clients",
       "employers": "Employers",
@@ -547,7 +547,7 @@
   },
   "yearsMap": {
     "title": "Based in Armenia. Working across markets.",
-    "subtitle": "Places I’ve worked with, for or through - not offices.",
+    "subtitle": "A snapshot of the places connected to the work.",
     "mapAlt": "World map of places where Torchyan’s founder has worked with clients and teams",
     "listLabel": "Places of past work",
     "locations": {
@@ -613,8 +613,7 @@
     "social": "Social",
     "contacts": "Contact",
     "location": "Yerevan, Armenia",
-    "copyright": "© {year} Torchyan",
-    "rights": "All rights reserved",
+    "copyright": "© {year} Torchyan.  All rights reserved",
     "links": {
       "services": "Services",
       "projects": "Work",

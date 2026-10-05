@@ -413,8 +413,6 @@ const Location = styled.p`
 
 const Copyright = styled.div`
   display: flex;
-  justify-content: space-between;
-  gap: ${spacing[300]}px;
   order: 3;
   font-family: ${fontFamily.heading};
   font-weight: ${fontWeight.semibold};
@@ -578,7 +576,6 @@ export function Footer() {
 
           <Copyright>
             <p>{t('copyright', { year: String(new Date().getFullYear()) })}</p>
-            <p>{t('rights')}</p>
           </Copyright>
         </Column>
       </Inner>

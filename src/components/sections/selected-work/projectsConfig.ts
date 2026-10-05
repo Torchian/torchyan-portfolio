@@ -13,8 +13,8 @@ import { PICSART_GRID, SMARTBET_GRID, SOULONE_GRID, type IsometricGrid } from '.
 
 export type ProjectSlug =
   | 'picsart'
-  | 'soulone'
   | 'smartbet'
+  | 'soulone'
   | 'ginosi'
   | 'benzeen'
   | 'world-education'
@@ -138,20 +138,20 @@ export const PROJECTS: ProjectConfig[] = [
     card: { grid: PICSART_GRID, ctaFill: PICSART_GRADIENT },
   },
   {
-    slug: 'soulone',
-    company: 'SoulOne',
-    year: '2025',
-    gradient: SOULONE_GRADIENT,
-    images: toImages('soulone', SOULONE_IMAGES, 'SoulOne'),
-    card: { grid: SOULONE_GRID, ctaFill: SOULONE_GRADIENT },
-  },
-  {
     slug: 'smartbet',
     company: 'Smartbet',
     year: '2021',
     gradient: SMARTBET_GRADIENT,
     images: toImages('smartbet', SMARTBET_IMAGES, 'Smartbet'),
     card: { grid: SMARTBET_GRID, ctaFill: SMARTBET_GRADIENT },
+  },
+  {
+    slug: 'soulone',
+    company: 'SoulOne',
+    year: '2025',
+    gradient: SOULONE_GRADIENT,
+    images: toImages('soulone', SOULONE_IMAGES, 'SoulOne'),
+    card: { grid: SOULONE_GRID, ctaFill: SOULONE_GRADIENT },
   },
   {
     slug: 'ginosi',
