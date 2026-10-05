@@ -27,23 +27,24 @@ export const STAGE_SPLIT_QUERY = '(min-width: 768.02px) and (min-height: 720px)'
 
 /**
  * How tall the stacked row has to be to hold its own content. Measured on a
- * production build at 375 wide: the text block is 460px in English and Russian
- * and 590px in Armenian, so with the 104px gap under the header and the 48px
- * CTA the row needs 612px, or 742px in Armenian, before the collage band gets a
- * single pixel. Below that the band collapses to nothing and View Case Story
+ * production build at 360 wide — the narrowest real phone, and the widest of
+ * the three locales' text (ru and hy carry en's copy verbatim until they have
+ * their own translations, so all three measure the same today): Picsart, the
+ * longest row, needs 830 before its collage band is a worthwhile 60px rather
+ * than a handful of pixels. Below that the band thins out and View Case Story
  * drops off the bottom edge, out of reach — the row is pinned, so there is
  * nothing to scroll to reach it.
  *
- * 800 leaves the longest copy on the narrowest real phone (Armenian at 360
- * wide) a 62px band. It is deliberately not the height at which the text merely
- * fits: a band thinner than that is not worth staging for. Narrower than 360
- * needs more again (Armenian at 320 wide needs 840), but a 320px-wide device is
- * 568px tall, so it never reaches this threshold anyway.
+ * It is deliberately not the height at which the text merely fits: a band
+ * thinner than that is not worth staging for. Narrower than 360 needs more
+ * again, but a 320px-wide device is 568px tall, so it never reaches this
+ * threshold anyway. Re-measure Picsart's row (the longest copy) if its content
+ * changes again, or once ru/hy get real translations that may run longer.
  *
  * ProjectsListSection checks this against the row's real height rather than the
  * media query's; see smallViewportHeight there.
  */
-export const STACKED_STAGE_MIN_HEIGHT = 800;
+export const STACKED_STAGE_MIN_HEIGHT = 830;
 
 export const STAGE_STACKED_QUERY = `(max-width: 768px) and (min-height: ${STACKED_STAGE_MIN_HEIGHT}px)`;
 export const STAGE_QUERY = `${STAGE_SPLIT_QUERY}, ${STAGE_STACKED_QUERY}`;
