@@ -39,7 +39,7 @@ const Wrapper = styled.div`
   background-image: ${GRID_SRC};
   background-attachment: fixed;
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: top;
   background-size: 480px auto;
 
   /* Parallax reads as motion the page itself never asked for; a viewer who

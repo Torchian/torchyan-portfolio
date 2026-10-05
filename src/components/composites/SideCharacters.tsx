@@ -63,7 +63,7 @@ const VectorBg = styled.img`
 const SideCharacter = styled.div<{ $side: 'left' | 'right' }>`
   position: absolute;
   ${(p) => (p.$side === 'left' ? 'left: 0' : 'right: 0')};
-  bottom: 0;
+  bottom: -50px;
   width: calc(${HEIGHT} / 2);
   height: ${HEIGHT};
   z-index: 1;

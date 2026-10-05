@@ -756,11 +756,14 @@
       ],
       "ecosystemsLabel": "Platforms I’ve built on:",
       "ecosystems": [
-        "React & Next.js",
-        "Webflow",
+        "React",
+        "Next.js",
+        "Vue.js",
         "WordPress",
+        "Squarespace",
         "Shopify",
-        "Shopware"
+        "Shopware",
+        "CheckoutChamp"
       ]
     },
     "collaboration": {
