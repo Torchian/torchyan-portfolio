@@ -148,7 +148,7 @@ export interface PageHeroSectionProps {
   namespace: PageHeroNamespace;
   /** Prefix for the section and heading ids, unique per page. */
   id: string;
-  /** Between the title and the description — only the Projects hero has one (LogoScroll). */
+  /** Between the title and the description: Projects' LogoScroll, Services' team. */
   children?: React.ReactNode;
 }
 

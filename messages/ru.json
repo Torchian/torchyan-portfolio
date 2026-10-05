@@ -614,7 +614,6 @@
     "contacts": "Contact",
     "location": "Ереван, Армения",
     "copyright": "© {year} Torchyan",
-    "rights": "All rights reserved",
     "links": {
       "services": "Services",
       "projects": "Work",
@@ -833,7 +832,15 @@
         "Your product UI is inconsistent or slow to ship",
         "You want design and build carried by one continuous process",
         "You need a senior partner, not another vendor to manage"
-      ]
+      ],
+      "team": {
+        "label": "The team",
+        "lead": "Stepan Torchyan, lead",
+        "member1": "Brand Designer",
+        "member2": "Backend Engineer",
+        "aiAssistant": "AI Assistant",
+        "member3": "Marketing & SEO"
+      }
     },
     "areas": {
       "title": "What Torchyan takes on",
