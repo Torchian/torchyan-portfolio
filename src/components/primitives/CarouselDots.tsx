@@ -2,12 +2,10 @@
 
 import type { CSSProperties } from 'react';
 import styled from 'styled-components';
-import { glassSurface } from '@/styles/mixins';
 import { accents, neutrals } from '@/styles/tokens/colors';
 import { duration, easing } from '@/styles/tokens/motion';
 import { radius } from '@/styles/tokens/radius';
 import { spacing } from '@/styles/tokens/spacing';
-import { glass } from '@/styles/tokens/effects';
 
 /*
  * Figma: Dot indicator (3907:1260) and Carousel Dots, Direction=Vertical (3906:9704).
@@ -18,7 +16,7 @@ import { glass } from '@/styles/tokens/effects';
  * The sizes and colours ease between states rather than jumping.
  */
 
-const DOT = { rest: 6, hover: 12, active: 16 } as const;
+const DOT = { rest: 8, hover: 12, active: 16 } as const;
 /** Space between two dots' edges. */
 const DOT_GAP = 24;
 /** Space between the pill's ends and the first and last dot. */
@@ -34,7 +32,7 @@ const pillLength = (count: number) =>
   2 * END_INSET + DOT.active + DOT.hover + Math.max(0, count - 2) * DOT.rest + (count - 1) * DOT_GAP;
 
 const Pill = styled.div`
-  ${glassSurface}
+  background: ${neutrals[100]};
   position: relative;
   display: flex;
   flex-direction: column;
@@ -87,7 +85,7 @@ const DotButton = styled.button`
   background: none;
   cursor: pointer;
   --dot: ${DOT.rest}px;
-  --dot-color: ${neutrals[100]};
+  --dot-color: ${neutrals[700]};
   transition: height ${EASE};
 
   &::before {
@@ -106,13 +104,11 @@ const DotButton = styled.button`
   @media (hover: hover) and (pointer: fine) {
     &:hover {
       --dot: ${DOT.hover}px;
-      --dot-color: ${neutrals[100]};
     }
   }
 
   &:focus-visible {
     --dot: ${DOT.hover}px;
-    --dot-color: ${neutrals[100]};
     outline: none;
 
     &::before {

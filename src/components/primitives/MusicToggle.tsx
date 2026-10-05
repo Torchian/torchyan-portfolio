@@ -16,8 +16,8 @@ export function MusicToggle(props: MusicToggleProps) {
       label={t('label')}
       off="/vectors/sound/music-off.svg"
       on="/vectors/sound/music-on.svg"
-      offWash="rgba(213, 49, 49, 0.1)"
-      onWash="rgba(5, 132, 3, 0.1)"
+      offWash="rgba(213, 49, 49, 0.24)"
+      onWash="rgba(5, 132, 3, 0.24)"
     />
   );
 }

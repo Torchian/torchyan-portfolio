@@ -34,7 +34,7 @@ const Container = styled.div`
 
   ${media.down('m')} {
     gap: ${spacing[600]}px;
-    padding: ${spacing[1000]}px ${spacing[200]}px ${spacing[400]}px;
+    padding: ${spacing[600]}px ${spacing[200]}px ${spacing[400]}px;
   }
 `;
 

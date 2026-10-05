@@ -24,11 +24,11 @@ const Toggle = styled.button<{ $on: boolean; $offWash: string; $onWash: string }
   ${glassCircle}
   position: relative;
   background-color: ${(p) => (p.$on ? p.$onWash : p.$offWash)};
-  transition: background-color ${TRANSITION};
+  transition: transform ${TRANSITION}, background-color ${TRANSITION};
 
   ${media.hover} {
     &:hover {
-      background-color: transparent;
+      transform: scale(0.95);
     }
   }
 
@@ -48,6 +48,7 @@ const Badge = styled.img<{ $visible: boolean }>`
   transform: translate(-50%, -50%);
   opacity: ${(p) => (p.$visible ? 1 : 0)};
   transition: opacity ${TRANSITION};
+  filter: brightness(5);
 `;
 
 export interface AudioToggleProps
