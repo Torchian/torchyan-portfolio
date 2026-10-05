@@ -94,8 +94,12 @@ const nextConfig: NextConfig = {
   // old links and search results landing somewhere real.
   async redirects() {
     return [
-      { source: '/projects/:slug*', destination: '/work/:slug*', permanent: true },
-      { source: '/:locale(ru|hy)/projects/:slug*', destination: '/:locale/work/:slug*', permanent: true },
+      // Old page URLs only: assets under public/projects/ (logo grid, collages)
+      // are nested files and must keep serving from where they are.
+      { source: '/projects', destination: '/work', permanent: true },
+      { source: '/projects/:slug([a-z-]+)', destination: '/work/:slug', permanent: true },
+      { source: '/:locale(ru|hy)/projects', destination: '/:locale/work', permanent: true },
+      { source: '/:locale(ru|hy)/projects/:slug([a-z-]+)', destination: '/:locale/work/:slug', permanent: true },
     ];
   },
 };
