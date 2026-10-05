@@ -578,7 +578,7 @@ export function ProjectStickyCard({ project }: ProjectStickyCardProps) {
       field={`${content.field} · ${project.year}`}
       background={project.gradient}
       grid={project.card.grid}
-      href={`/projects/${project.slug}`}
+      href={`/work/${project.slug}`}
       cta={t('viewCase')}
       ctaFill={project.card.ctaFill}
     />
@@ -598,7 +598,7 @@ export function AllProjectsStickyCard() {
       description={content.description}
       field={content.field}
       grid={ALL_PROJECTS_GRID}
-      href="/projects"
+      href="/work"
       cta={t('viewAllCases')}
       ctaAppearance="dark"
     />

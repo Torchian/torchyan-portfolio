@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const content = (await getMessages({ locale })).projects[project.slug];
   return generatePageMetadata({
     locale,
-    path: `/projects/${slug}`,
+    path: `/work/${slug}`,
     siteName: t('siteName'),
     title: `${project.company} — ${content.title}`,
     description: content.description,

@@ -155,7 +155,7 @@
           "label": "Context",
           "blocks": [
             [
-              "SoulOne is an Armenian bakery and food brand focused on gluten-free, eco-oriented cakes, desserts and similar products."
+              "SoulOne is an Armenian bakery brand focused on gluten-free, eco-oriented cakes and desserts."
             ]
           ]
         },
@@ -164,9 +164,9 @@
           "blocks": [
             [
               [
-                "Web and product design",
-                "Product ownership, with deep day-to-day involvement in the product and the business - not only its visual design",
-                "Outreach and promotion"
+                "Website, product presentation and visual direction",
+                "Product and business decisions, day to day — not only the visual layer",
+                "Outreach and execution"
               ]
             ]
           ]
@@ -183,7 +183,7 @@
           "label": "What it shows",
           "blocks": [
             [
-              "Ownership beyond the screen - design, product and business decisions, and getting a real brand in front of customers. It’s the full chain Torchyan offers clients."
+              "Experience closer to building a business than delivering screens — design, product decisions, outreach and execution working together."
             ]
           ]
         }
@@ -209,7 +209,7 @@
           "label": "Context",
           "blocks": [
             [
-              "Smartbet’s website presents the company’s products and services."
+              "Smartbet’s design and development team had approved layouts ready to become a responsive production website."
             ]
           ]
         },
@@ -218,8 +218,9 @@
           "blocks": [
             [
               [
-                "Front-end implementation of the website from the design team’s layouts",
-                "Responsive, cross-browser pages"
+                "Translating the design accurately into working pages",
+                "Responsive behavior across browsers and screen sizes",
+                "Consistent interface behavior across the site"
               ]
             ]
           ]
@@ -236,7 +237,7 @@
           "label": "What it shows",
           "blocks": [
             [
-              "A faithful, production-ready build of a design team’s work, inside a cross-functional team."
+              "A focused implementation role where precision, clean structure and collaboration with designers mattered most."
             ]
           ]
         }
@@ -254,7 +255,7 @@
           "label": "Relationship & role",
           "blocks": [
             [
-              "Direct client, April–May 2019. Front-end development - I built the website’s UI."
+              "Direct client, April–May 2019. Front-end development — I built the website’s UI."
             ]
           ]
         },
@@ -262,7 +263,7 @@
           "label": "Context",
           "blocks": [
             [
-              "Ginosi runs serviced apartments and hotels, with locations internationally."
+              "Ginosi is an international serviced-apartment and hospitality business."
             ]
           ]
         },
@@ -271,7 +272,8 @@
           "blocks": [
             [
               [
-                "Built the website UI and front end"
+                "Responsive front end for the booking experience",
+                "Apartment listings, search and property-related interface states"
               ]
             ]
           ]
@@ -280,7 +282,7 @@
           "label": "Evidence",
           "blocks": [
             [
-              "Archived screenshots of the original build. The live site has since changed."
+              "The live website has changed since then, so the work shown here comes from archived screens of the original implementation."
             ]
           ]
         },
@@ -314,7 +316,7 @@
           "label": "Context",
           "blocks": [
             [
-              "Benzeen Auto Parts is an auto-parts business based in Los Angeles."
+              "Benzeen Auto Parts is an automotive e-commerce business in Los Angeles."
             ]
           ]
         },
@@ -323,9 +325,9 @@
           "blocks": [
             [
               [
-                "Full front-end implementation",
-                "Animations and interactive details",
-                "Input into design decisions during the build"
+                "Front-end implementation across the website",
+                "Responsive UI, interactions and animations",
+                "Input into design decisions during development"
               ]
             ]
           ]
@@ -342,7 +344,7 @@
           "label": "What it shows",
           "blocks": [
             [
-              "Complete front-end ownership of a commercial website, delivered through a partner company."
+              "Design and implementation evolving together — more than simply reproducing layouts."
             ]
           ]
         }
@@ -377,9 +379,8 @@
           "blocks": [
             [
               [
-                "Full UI and layout implementation",
-                "Animations",
-                "Some JavaScript functionality"
+                "Full UI implementation and responsive layouts",
+                "Animations and selected JavaScript interactions"
               ]
             ]
           ]
@@ -396,7 +397,7 @@
           "label": "What it shows",
           "blocks": [
             [
-              "Complete UI delivery for a direct client’s website."
+              "A compact project, and a good example of owning the complete presentation layer."
             ]
           ]
         }
@@ -414,7 +415,7 @@
           "label": "Relationship & role",
           "blocks": [
             [
-              "Direct client, May–August 2018. Front-end development."
+              "Direct client, May–July 2018. Front-end development."
             ]
           ]
         },
@@ -422,7 +423,7 @@
           "label": "Context",
           "blocks": [
             [
-              "Brainstorm is a company based in New York and Yerevan."
+              "Brainstorm’s own website, built from an existing design."
             ]
           ]
         },
@@ -431,7 +432,8 @@
           "blocks": [
             [
               [
-                "Full front-end development from a ready-made design"
+                "Front-end implementation end to end, from the supplied layouts",
+                "Working through the details needed for the design to behave correctly in the browser"
               ]
             ]
           ]
@@ -448,7 +450,7 @@
           "label": "What it shows",
           "blocks": [
             [
-              "Faithful implementation of an existing design, end to end."
+              "Faithful implementation of an existing design, end to end — the start of a longer working relationship with Brainstorm."
             ]
           ]
         }
@@ -649,15 +651,18 @@
           "roles": [
             "Senior UI Engineer"
           ],
-          "relationship": "Employee · 2021–2024",
+          "relationship": "Employee · Oct 2021 – Feb 2024",
           "description": [
-            "UI engineering for picsart.com across the Growth and Marketplace teams, including Design System integration, RTL/LTR localization, accessibility and performance work.",
-            "On Marketplace: Design System integration, team-specific components and RTL/LTR built from scratch. On Growth: performance and codebase optimization of the Discovery pages."
+            "Worked across Picsart’s Growth and Marketplace teams on production UI for picsart.com and related product surfaces.",
+            "On Growth, I focused on scalable front-end implementation, responsive behavior, accessibility and performance, including optimization work on Discovery pages.",
+            "Later, on Marketplace, I became the main Design System integration point for my team — integrating shared components, building missing product-specific UI, and implementing multilingual RTL/LTR support across my scope.",
+            "This period shaped a lot of how I think about UI today: design systems, accessibility, localization and production quality all have to work together."
           ],
           "stack": [
             "React",
             "JSS",
             "Styled Components",
+            "Design Systems",
             "RTL/LTR",
             "Accessibility"
           ]
@@ -667,12 +672,18 @@
           "roles": [
             "UI Developer"
           ],
-          "relationship": "Employee · 2021",
+          "relationship": "Employee · Aug–Oct 2021",
           "description": [
-            "Front-end implementation of the Smartbet website from the design team’s layouts, in a cross-functional team of designers and developers.",
-            "Responsive, cross-browser pages across the company’s products and company information."
+            "Worked with Smartbet’s design and development team to turn approved layouts into a responsive production website.",
+            "My responsibility was the UI layer: translating the design accurately into working pages, handling responsive behavior and making sure the interface behaved consistently across browsers and screen sizes.",
+            "A focused implementation role where precision, clean structure and collaboration with designers mattered most."
           ],
-          "stack": []
+          "stack": [
+            "UI Development",
+            "Responsive UI",
+            "Cross-browser",
+            "Accessibility"
+          ]
         },
         "soulone": {
           "title": "SoulOne",
@@ -680,60 +691,90 @@
             "Web Designer",
             "Product Owner"
           ],
-          "relationship": "Founding team · 2025",
+          "relationship": "Founding team · May–Oct 2025",
           "description": [
-            "SoulOne is an Armenian bakery and food brand making gluten-free, eco-oriented cakes and desserts.",
-            "As web designer and product owner, I worked on web and product design and was involved in the business day to day - from product decisions to outreach."
+            "SoulOne is an Armenian bakery brand focused on gluten-free, eco-oriented cakes and desserts.",
+            "I wasn’t involved only as a designer. I worked closely with the product and business day to day — shaping the website, product presentation, visual direction and decisions around how the brand should work online.",
+            "The project gave me experience much closer to building a business than simply delivering screens: design, product decisions, outreach and execution were all connected."
           ],
-          "stack": []
+          "stack": [
+            "Product Design",
+            "Web Design",
+            "Product Ownership",
+            "Brand",
+            "Launch"
+          ]
         },
         "ginosi": {
           "title": "Ginosi Apartels & Hotels",
           "roles": [
             "Front-end development"
           ],
-          "relationship": "Direct client · 2019",
+          "relationship": "Direct client · Apr–May 2019",
           "description": [
-            "The website front end for Ginosi, a serviced-apartment and hotel business with locations internationally.",
-            "I built the site’s UI. The live site has since changed; the screenshots show the original build."
+            "Built the website UI for Ginosi, an international serviced-apartment and hospitality business.",
+            "My work focused on translating the product and booking experience into a responsive front end, including apartment listings, search and property-related interface states."
           ],
-          "stack": []
+          "stack": [
+            "Hospitality",
+            "UI Development",
+            "Responsive Web",
+            "Client Work"
+          ]
         },
         "brainstorm": {
           "title": "Brainstorm",
           "roles": [
             "Front-end development"
           ],
-          "relationship": "Direct client · 2018",
+          "relationship": "Direct client · May–Jul 2018",
           "description": [
-            "The company website for Brainstorm, a company based in New York and Yerevan.",
-            "Full front-end development from a ready-made design. The live site has since changed; the screenshots show the original build."
+            "My relationship with Brainstorm started by building the company’s own website from an existing design.",
+            "I handled the front-end implementation end to end, translating the supplied layouts into a responsive production website and working through the details needed to make the design behave correctly in the browser.",
+            "The collaboration later developed into a working relationship, but this case focuses only on the original website project."
           ],
-          "stack": []
+          "stack": [
+            "Front-end",
+            "Responsive Web",
+            "Client Website",
+            "Design Implementation"
+          ]
         },
         "benzeen": {
           "title": "Benzeen Auto Parts",
           "roles": [
             "Front-end development"
           ],
-          "relationship": "Via TCO · 2019",
+          "relationship": "Via TCO · Mar–Oct 2019",
           "description": [
-            "The website for Benzeen, an auto-parts business in Los Angeles, delivered through TCO.",
-            "Full front-end implementation and animations, with input into design decisions."
+            "Worked on Benzeen Auto Parts, a Los Angeles automotive e-commerce project delivered through TCO.",
+            "I handled the front-end implementation across the website, including responsive UI, interactions and animations, while also contributing to design decisions during development.",
+            "This was more than simply reproducing layouts — design and implementation often evolved together while the product was being built."
           ],
-          "stack": []
+          "stack": [
+            "Front-end",
+            "Animations",
+            "UI Collaboration",
+            "Automotive"
+          ]
         },
         "worldEducation": {
           "title": "World Education",
           "roles": [
             "UI Developer"
           ],
-          "relationship": "Direct client · 2020",
+          "relationship": "Direct client · Mar–May 2020",
           "description": [
-            "The website for World Education, a direct client.",
-            "Full UI and layout implementation, animations and some JavaScript."
+            "Built the interface for World Education as a direct client project.",
+            "I was responsible for the full UI implementation, responsive layouts, animations and selected JavaScript interactions across the website.",
+            "It was a compact project, but a good example of owning the complete presentation layer rather than only individual screens or components."
           ],
-          "stack": []
+          "stack": [
+            "UI Development",
+            "Animation",
+            "JavaScript",
+            "Education"
+          ]
         }
       }
     },

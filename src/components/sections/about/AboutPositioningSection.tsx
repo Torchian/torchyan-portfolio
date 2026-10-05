@@ -126,7 +126,7 @@ export function AboutPositioningSection() {
               title: t('practice.title'),
               body: t('practice.body'),
               cta: t('practice.cta'),
-              href: '/projects',
+              href: '/work',
               ctaId: 'about-secondary',
             },
           ]}

@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: LocaleParams): Promise<Metada
   const t = await getTranslations({ locale, namespace: 'meta' });
   return generatePageMetadata({
     locale,
-    path: '/projects',
+    path: '/work',
     siteName: t('siteName'),
     title: t('projects.title'),
     description: t('projects.description'),
