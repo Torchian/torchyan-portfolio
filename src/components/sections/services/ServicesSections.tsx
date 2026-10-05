@@ -2,14 +2,12 @@
 
 import styled from 'styled-components';
 import { useTranslations } from 'next-intl';
-import { Link } from '@/i18n/navigation';
 import { InfoCard, InfoCardBody, InfoCardTitle, SectionHeading } from '@/components/composites';
 import { spacing } from '@/styles/tokens/spacing';
 import { fontFamily, fontWeight, fontSize, lineHeight, letterSpacing } from '@/styles/tokens/typography';
-import { accents, neutrals } from '@/styles/tokens/colors';
+import { neutrals } from '@/styles/tokens/colors';
 import { grid } from '@/styles/tokens/grid';
 import { media } from '@/styles/media';
-import { getProjectBySlug } from '@/components/sections/selected-work/projectsConfig';
 import { AREAS } from './servicesConfig';
 
 /*
@@ -19,7 +17,7 @@ import { AREAS } from './servicesConfig';
  * section, at more length.
  *
  *  - AreasSection: what Torchyan takes on — four areas, each with when it fits,
- *    what Torchyan owns, what you get, and the related case pages.
+ *    what Torchyan owns, and what you get.
  *  - StartSection: how an engagement can begin — three ways of working, not
  *    packages; scope is agreed once the project is understood.
  *  - ModelSection: who does the work (founder-led, specialists when needed),
@@ -161,30 +159,6 @@ const PartList = styled.ul`
   }
 `;
 
-const ProofLinks = styled.ul`
-  display: flex;
-  flex-wrap: wrap;
-  gap: ${spacing[100]}px ${spacing[300]}px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  font-family: ${fontFamily.body};
-  font-size: ${fontSize.body.l}px;
-  line-height: ${lineHeight.body.l}px;
-
-  a {
-    color: ${accents.primary};
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
-
-  a:focus-visible {
-    outline: 2px solid ${accents.primary};
-    outline-offset: 2px;
-    border-radius: 2px;
-  }
-`;
-
 interface AreaCopy {
   title: string;
   situation: string;
@@ -227,22 +201,6 @@ export function AreasSection() {
                       <li key={line}>{line}</li>
                     ))}
                   </PartList>
-                </AreaPart>
-                <AreaPart>
-                  <PartLabel>{t('proofLabel')}</PartLabel>
-                  <ProofLinks>
-                    {area.proof.map((slug) => {
-                      const project = getProjectBySlug(slug);
-                      if (!project) return null;
-                      return (
-                        <li key={slug}>
-                          <Link href={`/work/${slug}`} data-area={area.id}>
-                            {project.company}
-                          </Link>
-                        </li>
-                      );
-                    })}
-                  </ProofLinks>
                 </AreaPart>
               </AreaCard>
             );
