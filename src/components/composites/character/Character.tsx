@@ -190,6 +190,8 @@ interface LayerProps {
   /** CSS px of the frame the boxes are percentages of, at its widest. */
   frameWidth: number;
   priority?: boolean;
+  /** Names the slot (`data-layer`), so a parent can style one part, e.g. the glasses. */
+  name?: string;
 }
 
 /**
@@ -197,7 +199,7 @@ interface LayerProps {
  * the one it's replacing: the newcomer mounts hidden (`entering`), and once it
  * has loaded it fades in while the old one fades out (`leaving`) and is dropped.
  */
-function Layer({ shot, frameWidth, priority, depth, gaze, eager, onFirstLoad }: LayerProps) {
+function Layer({ shot, frameWidth, priority, depth, gaze, eager, onFirstLoad, name }: LayerProps) {
   const src = shot?.src ?? null;
   const [current, setCurrent] = useState(src);
   // The first paint (including the server HTML) shows its image straight away.
@@ -235,6 +237,7 @@ function Layer({ shot, frameWidth, priority, depth, gaze, eager, onFirstLoad }: 
       key={e.src}
       style={{ ...place(e.box), '--depth': depth } as CSSProperties}
       data-gaze={gaze || undefined}
+      data-layer={name}
     >
       <Img
         src={e.src}
@@ -299,6 +302,7 @@ export function Character({
   const head = shots.map(({ layer, shot }) => (
     <Layer
       key={layer}
+      name={layer}
       shot={shot}
       frameWidth={headWidth}
       priority={priority}
@@ -331,6 +335,7 @@ export function Character({
   return (
     <Frame {...frameProps} $aspect={`${FRAME.width} / ${FRAME.height}`} $designWidth={FRAME.width}>
       <Layer
+        name="body"
         shot={bodyShot}
         frameWidth={width}
         priority={priority}

@@ -15,8 +15,8 @@ import { media } from '@/styles/media';
  * Character as the About hero, turning towards the mouse. Four teammates stand
  * around it in black and white; pointing at one scales it up from its feet,
  * brings back its colour and fades its role in above its head, while everyone
- * else — the lead included — goes grey. With nobody pointed at, the lead is the
- * one in colour.
+ * else goes grey, the lead included (all but the lead's glasses, which keep
+ * their colour). With nobody pointed at, the lead is the one in colour.
  *
  * On a touch screen there's nothing to point with, so everybody is in colour
  * with their role showing.
@@ -158,15 +158,26 @@ const Lead = styled.div`
   transform: translateX(-50%);
   z-index: 5;
   pointer-events: none;
-  filter: grayscale(0);
-  ${colourTransition}
 
-  &[data-dimmed='true'] {
+  /* Greyed part by part rather than as a whole, so the glasses keep their colour. */
+  /* Filter only: the layers' transform follows the pointer and mustn't ease. */
+  [data-layer] {
+    filter: grayscale(0);
+    transition: filter ${TRANSITION};
+
+    ${media.reducedMotion} {
+      transition: none;
+    }
+  }
+
+  &[data-dimmed='true'] [data-layer]:not([data-layer='glasses']) {
     filter: grayscale(1);
   }
 
   ${TOUCH} {
-    filter: grayscale(0);
+    &[data-dimmed='true'] [data-layer] {
+      filter: grayscale(0);
+    }
   }
 `;
 
