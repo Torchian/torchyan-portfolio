@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server';
 import { PageHeroSection } from '@/components/sections/projects-page/ProjectsHeroSection';
 import { AreasSection, ModelSection, StartSection } from '@/components/sections/services/ServicesSections';
 import { ServicesTeam } from '@/components/sections/services/ServicesTeam';
+import { ServicesSpecialists } from '@/components/sections/services/ServicesSpecialists';
 import { CollaborationSection } from '@/components/sections/projects-page/CollaborationSection';
 import { resolveLocale, type LocaleParams } from '@/i18n/server';
 import { generatePageMetadata } from '@/lib/seo/metadata';
@@ -33,6 +34,7 @@ export default async function ServicesPage({ params }: LocaleParams) {
         <ServicesTeam />
       </PageHeroSection>
       <AreasSection />
+      <ServicesSpecialists />
       <StartSection />
       <ModelSection />
       <CollaborationSection

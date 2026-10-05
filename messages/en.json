@@ -917,6 +917,60 @@
         }
       ]
     },
+    "teamServices": {
+      "title": "More with the team",
+      "hint": "Tap a specialist to see what they take on.",
+      "items": [
+        {
+          "title": "Brand & identity",
+          "situation": "A new business, a rebrand, or a brand that doesn't hold together across channels.",
+          "outcome": "You get a brand people recognise everywhere, with guidelines your team can follow.",
+          "owns": [
+            "Brand strategy and positioning",
+            "Logo and identity system",
+            "Typography and colour",
+            "Brand guidelines",
+            "Marketing and social assets"
+          ]
+        },
+        {
+          "title": "Backend & integrations",
+          "situation": "The product needs real data, accounts, payments or connections to other systems.",
+          "outcome": "You get a reliable system behind the interface, and one team for front and back end.",
+          "owns": [
+            "API design and development",
+            "Databases and data models",
+            "Auth and payments",
+            "CRM, ERP and third-party integrations",
+            "Cloud infrastructure"
+          ]
+        },
+        {
+          "title": "AI integration",
+          "situation": "Repetitive work, support load or content that AI could take on.",
+          "outcome": "You get AI that solves a defined problem, at a predictable cost.",
+          "owns": [
+            "AI features in your product",
+            "Workflow automation",
+            "Content pipelines",
+            "Model and vendor choice",
+            "Privacy and cost guardrails"
+          ]
+        },
+        {
+          "title": "Marketing & SEO",
+          "situation": "The product exists but isn't being found, or isn't converting.",
+          "outcome": "You get traffic you can measure, and growth decisions based on data.",
+          "owns": [
+            "Technical and content SEO",
+            "Launch campaigns",
+            "Landing pages",
+            "Paid and organic strategy",
+            "Analytics and conversion tracking"
+          ]
+        }
+      ]
+    },
     "start": {
       "title": "How we can start",
       "subtitle": "No fixed packages. Scope, timeline and cost are agreed once we understand the project.",
