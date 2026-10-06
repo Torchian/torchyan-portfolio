@@ -245,10 +245,10 @@ const Hit = styled.div`
  * Drawn in the frame's own units; it reaches above the frame on purpose.
  */
 const BEAM_TOP = -FRAME.height;
-/** Where each beam stops: just over the head (each box's top, the lead's frame top). */
+/** Where each beam stops: behind each head, so the node hides under the portrait. */
 const BEAMS: { id: ActiveId; x: number; top: number }[] = [
   ...MEMBERS.map((m) => ({ id: m.id, x: m.x, top: FRAME.height - m.height + 24 })),
-  { id: 'lead' as const, x: LEAD.x, top: 8 },
+  { id: 'lead' as const, x: LEAD.x, top: 90 },
 ];
 
 const Beams = styled.svg`
