@@ -18,7 +18,7 @@ import { media } from '@/styles/media';
 import { zIndex } from '@/styles/tokens/z-index';
 import { useTranslations } from 'next-intl';
 import { DEFAULT_LOOK, type CharacterLook } from './aboutConfig';
-import { AboutSketch } from './AboutSketch';
+import { AboutWaveField } from './AboutWaveField';
 
 /*
  * Figma: About Hero (3983:1266 — Default / Tablet / Mobile).
@@ -268,8 +268,8 @@ export function AboutHeroSection() {
 
   return (
     <Section id="about" ref={sectionRef}>
+      <AboutWaveField />
       <CharacterStage ref={stageRef} aria-hidden>
-        <AboutSketch />
         <Character
           clothes={look.clothes}
           glasses={look.glasses}

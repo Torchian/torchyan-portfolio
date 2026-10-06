@@ -44,19 +44,21 @@ const Sheet = styled.svg`
 
   .frame {
     fill: none;
-    stroke: rgba(246, 246, 246, 0.14);
+    stroke: rgba(246, 246, 246, 0.06);
   }
 
   .picked {
-    fill: rgba(12, 175, 10, 0.08);
+    fill: rgba(12, 175, 10, 0.04);
     stroke: ${accents.primary};
+    stroke-opacity: 0.4;
+    /* Faint on purpose: the title and the description sit over the sheet. */
     opacity: 0;
     animation: ${pick} 9s ease-in-out infinite;
   }
 
   .crop {
     fill: none;
-    stroke: rgba(246, 246, 246, 0.4);
+    stroke: rgba(246, 246, 246, 0.25);
   }
 
   ${media.reducedMotion} {
