@@ -16,7 +16,6 @@ import { accents, neutrals } from '@/styles/tokens/colors';
 import { grid } from '@/styles/tokens/grid';
 import { media } from '@/styles/media';
 import { useTranslations } from 'next-intl';
-import { HeroFloor } from './HeroFloor';
 
 /*
  * Figma: hero_section — 1920 (3285:8498), 1440 (2670:10805), 1280 (2670:11152),
@@ -30,7 +29,7 @@ import { HeroFloor } from './HeroFloor';
  *    under the CTA; no skills row.
  *
  * From the 1024 frame up, both side portraits are SideCharacters (SiteLayout).
- * Under it all is the hero's own ground, a wireframe floor (HeroFloor).
+ * Under it all is the wireframe floor (HeroFloor), drawn in SideCharacters.
  */
 
 /** Baked with scripts/bake-character.py (Big Lebowski, no cap or glasses); see ADR 0005. */
@@ -342,7 +341,6 @@ export function HeroSection() {
   return (
     <Section aria-labelledby="hero-name">
       <Glow aria-hidden />
-      <HeroFloor />
 
       <Container>
         <Body>
