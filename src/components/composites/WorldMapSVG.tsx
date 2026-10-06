@@ -45,7 +45,7 @@ export interface WorldMapSVGProps {
   alt: string;
   /**
    * The home point, by id: drawn in the secondary pink, pinging, with a
-   * hairline route out to every other point.
+   * green pulse running out to every other point.
    */
   hub?: string;
 }
@@ -98,11 +98,6 @@ const Routes = styled.svg`
   height: 100%;
   overflow: visible;
   pointer-events: none;
-
-  .route {
-    fill: none;
-    stroke-width: 1;
-  }
 
   /* A short green dash running out along each route from home, over and over. */
   .pulse {
@@ -206,31 +201,11 @@ export function WorldMapSVG({ locations, alt, hub }: WorldMapSVGProps) {
       <MapImage src="/vectors/map.svg" alt={alt} />
       {home && (
         <Routes viewBox={`0 0 ${VIEW.width} ${VIEW.height}`} aria-hidden>
-          <defs>
-            {others.map((loc) => {
-              const id = loc.id ?? loc.label;
-              return (
-                <linearGradient
-                  key={id}
-                  id={`route-${id}`}
-                  gradientUnits="userSpaceOnUse"
-                  x1={(home.x / 100) * VIEW.width}
-                  y1={(home.y / 100) * VIEW.height}
-                  x2={(loc.x / 100) * VIEW.width}
-                  y2={(loc.y / 100) * VIEW.height}
-                >
-                  <stop offset="0" stopColor={accents.secondary} stopOpacity="0.55" />
-                  <stop offset="1" stopColor="#f6f6f6" stopOpacity="0.18" />
-                </linearGradient>
-              );
-            })}
-          </defs>
           {others.map((loc) => {
             const id = loc.id ?? loc.label;
             const d = route(home, loc);
             return (
               <g key={id}>
-                <path className="route" d={d} stroke={`url(#route-${id})`} vectorEffect="non-scaling-stroke" />
                 <path
                   className="pulse"
                   d={d}
