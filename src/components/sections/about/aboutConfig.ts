@@ -145,10 +145,19 @@ export const TIMELINE_ENTRIES: TimelineEntryConfig[] = [
     railYear: '2021',
     company: 'Smartbet',
     gallery: [
-      [shot('/projects/collages/smartbet/mobile-our-vision.webp', 486 / 864)],
+      [
+        shot('/projects/collages/smartbet/desktop-feed.webp', 1280 / 712),
+        shot('/projects/collages/smartbet/products-smart-sports.webp', 1280 / 709),
+        shot('/projects/collages/smartbet/gaming-casino.webp', 1280 / 709),
+        shot('/projects/collages/smartbet/platform-smart-connect.webp', 1280 / 709),
+        shot('/projects/collages/smartbet/careers.webp', 1280 / 709),
+      ],
       [
         shot('/projects/collages/smartbet/about-our-vision.webp', 1280 / 709),
+        shot('/projects/collages/smartbet/desktop-sports.webp', 1280 / 712),
         shot('/projects/collages/smartbet/products-overview.webp', 1280 / 709),
+        shot('/projects/collages/smartbet/desktop-virtuals.webp', 1280 / 712),
+        shot('/projects/collages/smartbet/platform-smart-control.webp', 1280 / 709),
       ],
     ],
   },
@@ -160,17 +169,17 @@ export const TIMELINE_ENTRIES: TimelineEntryConfig[] = [
     company: 'Picsart',
     gallery: [
       [
-        shot('/about/timeline/picsart/search-mobile.webp', 551 / 1200),
         shot('/about/timeline/picsart/search-desktop.webp', 1200 / 668),
-        shot('/about/timeline/picsart/stickers-mobile.webp', 551 / 1200),
         shot('/about/timeline/picsart/templates-themes.webp', 1200 / 668),
+        shot('/projects/collages/picsart/marketplace-home.webp', 1280 / 713),
         shot('/about/timeline/picsart/replays.webp', 1200 / 668),
+        shot('/projects/collages/picsart/marketplace-item.webp', 1280 / 713),
       ],
       [
         shot('/about/timeline/picsart/images-results.webp', 1200 / 668),
-        shot('/about/timeline/picsart/replays-mobile.webp', 551 / 1200),
+        shot('/projects/collages/picsart/discovery-templates.webp', 1280 / 712),
         shot('/about/timeline/picsart/creators.webp', 1200 / 668),
-        shot('/about/timeline/picsart/profile-mobile.webp', 551 / 1200),
+        shot('/projects/collages/picsart/marketplace-creator.webp', 1280 / 713),
         shot('/about/timeline/picsart/editor.webp', 1200 / 668),
       ],
     ],
