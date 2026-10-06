@@ -21,3 +21,5 @@ export type { LowerPageBackgroundProps } from './LowerPageBackground';
 export { SideCharacters } from './SideCharacters';
 export { CTACards } from './CTACards';
 export type { CTACardContent, CTATone } from './CTACards';
+export { OrbitScene, OrbitAnchor } from './OrbitScene';
+export type { OrbitSceneProps } from './OrbitScene';

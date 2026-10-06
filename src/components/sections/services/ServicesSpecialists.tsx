@@ -2,9 +2,10 @@
 
 import Image from 'next/image';
 import { useRef, useState } from 'react';
-import styled, { createGlobalStyle, keyframes } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import { useTranslations } from 'next-intl';
 import { VisuallyHidden } from '@/components/primitives';
+import { OrbitScene } from '@/components/composites/OrbitScene';
 import { spacing } from '@/styles/tokens/spacing';
 import { fontFamily, fontWeight, fontSize, lineHeight, letterSpacing } from '@/styles/tokens/typography';
 import { accents, neutrals } from '@/styles/tokens/colors';
@@ -493,21 +494,10 @@ function towards(from: number, to: number) {
 }
 
 /**
- * The scene around the circle, behind it: a glow, three orbits (one with a
- * dot travelling round it), and hairline axes running out from each
- * specialist towards the page's edges, ticked like a ruler. Drawn in the
- * circle's own units, centred on it, and left to spill past it; strokes stay
- * 1px at any size. The chosen specialist's axis and node light up green.
+ * The site's orbit scene (OrbitScene), with an axis out from each specialist,
+ * numbered; the chosen one's axis and node light up green.
  */
-const Scene = styled.div`
-  /* Three circles square, the circle in the middle: room for the scene to run
-     out past the section, top and bottom, and fade there. */
-  position: absolute;
-  top: -100%;
-  left: -100%;
-  width: 300%;
-  aspect-ratio: 1;
-  pointer-events: none;
+const SpecialistScene = styled(OrbitScene)`
   /* Whole from the section's padding inwards, so the top and bottom nodes and
      numbers show; then fading out over the next 260px, into the sections
      around it, rather than ending on a line. */
@@ -526,106 +516,6 @@ const Scene = styled.div`
     --solid: ${spacing[600]}px;
   }
 
-  /* Ambient glow, and a green one that comes up with a choice: the circle
-     plus 45% of it all round. */
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    inset: ${((1 - 0.45) / 3) * 100}%;
-    border-radius: 50%;
-    transition: opacity ${DURATION}ms ${EASE};
-  }
-
-  &::before {
-    background: radial-gradient(closest-side, rgba(43, 36, 92, 0.55), rgba(31, 26, 56, 0.25) 55%, transparent);
-  }
-
-  &::after {
-    background: radial-gradient(closest-side, rgba(12, 175, 10, 0.16), rgba(12, 175, 10, 0.05) 50%, transparent 75%);
-    opacity: 0;
-  }
-
-  &[data-on='true']::after {
-    opacity: 1;
-  }
-
-  svg {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    overflow: visible;
-  }
-
-  .orbit {
-    fill: none;
-    stroke: rgba(246, 246, 246, 0.09);
-  }
-
-  .orbit-dashed {
-    stroke-dasharray: 2 10;
-    stroke: rgba(246, 246, 246, 0.14);
-  }
-
-  .orbit-far {
-    stroke: rgba(246, 246, 246, 0.05);
-  }
-
-  .traveller {
-    transform-origin: 0 0;
-    animation: ${keyframes`to { transform: rotate(360deg); }`} 60s linear infinite;
-  }
-
-  .traveller circle {
-    fill: ${accents.primary};
-  }
-
-  .axis {
-    stroke-width: 1;
-    transition: opacity ${DURATION}ms ${EASE};
-  }
-
-  .axis-lit {
-    opacity: 0;
-  }
-
-  .ticks {
-    stroke: rgba(246, 246, 246, 0.12);
-  }
-
-  .node {
-    fill: ${neutrals[900]};
-    stroke: rgba(246, 246, 246, 0.35);
-    transition:
-      fill ${DURATION}ms ${EASE},
-      stroke ${DURATION}ms ${EASE};
-  }
-
-  .index {
-    font-family: ${fontFamily.heading};
-    font-weight: ${fontWeight.semibold};
-    font-size: 16px;
-    letter-spacing: 1px;
-    fill: rgba(246, 246, 246, 0.35);
-    transition: fill ${DURATION}ms ${EASE};
-  }
-
-  [data-on='true'] {
-    .axis-lit {
-      opacity: 1;
-    }
-
-    .node {
-      fill: ${accents.primary};
-      stroke: ${accents.primary};
-    }
-
-    .index {
-      fill: ${accents.primary};
-    }
-  }
-
   /* On a small circle the details sit under it, where an axis would cross them. */
   @container (width < 720px) {
     .axis,
@@ -634,91 +524,10 @@ const Scene = styled.div`
       display: none;
     }
   }
-
-  ${media.reducedMotion} {
-    .traveller {
-      animation: none;
-    }
-
-    &::after,
-    .axis,
-    .node,
-    .index {
-      transition: none;
-    }
-  }
 `;
 
-/** Ruler ticks along one axis, from just outside the orbits outwards. */
-function ticks(from: number, to: number) {
-  const marks: string[] = [];
-  for (let d = from; d <= to; d += 48) {
-    const long = (d - from) % 192 === 0;
-    marks.push(`M ${d} ${long ? -8 : -4} V ${long ? 8 : 4}`);
-  }
-  return marks.join(' ');
-}
-
-function SpecialistScene({ active }: { active: ServiceId | null }) {
-  const R = FRAME / 2;
-  return (
-    <Scene data-on={active !== null}>
-      <svg viewBox={`${-3 * R} ${-3 * R} ${3 * FRAME} ${3 * FRAME}`} aria-hidden>
-        <defs>
-          <linearGradient id="axis-fade" gradientUnits="userSpaceOnUse" x1={R + 144} x2={R * 3} y1="0" y2="0">
-            <stop offset="0" stopColor="#f6f6f6" stopOpacity="0.22" />
-            <stop offset="1" stopColor="#f6f6f6" stopOpacity="0" />
-          </linearGradient>
-          <linearGradient id="axis-lit" gradientUnits="userSpaceOnUse" x1={R + 144} x2={R * 2.2} y1="0" y2="0">
-            <stop offset="0" stopColor={accents.primary} stopOpacity="0.9" />
-            <stop offset="1" stopColor={accents.primary} stopOpacity="0" />
-          </linearGradient>
-        </defs>
-
-        <circle className="orbit" r={R + 72} vectorEffect="non-scaling-stroke" />
-        <circle className="orbit orbit-dashed" r={R + 176} vectorEffect="non-scaling-stroke" />
-        <circle className="orbit orbit-far" r={R + 320} vectorEffect="non-scaling-stroke" />
-        <g className="traveller">
-          <circle cx={R + 176} cy={0} r={4} />
-        </g>
-        <g className="traveller" style={{ animationDuration: '90s', animationDirection: 'reverse' }}>
-          <circle cx={0} cy={R + 320} r={3} opacity={0.6} />
-        </g>
-
-        {SPECIALISTS.map((s, i) => (
-          // Each axis is drawn pointing right, then turned to its specialist.
-          <g key={s.id} transform={`rotate(${s.angle - 90})`} data-on={active === s.id}>
-            <path
-              className="axis"
-              d={`M ${R + 144} 0 H ${R * 3}`}
-              stroke="url(#axis-fade)"
-              vectorEffect="non-scaling-stroke"
-            />
-            <path
-              className="axis axis-lit"
-              d={`M ${R + 144} 0 H ${R * 2.2}`}
-              stroke="url(#axis-lit)"
-              vectorEffect="non-scaling-stroke"
-            />
-            <path className="ticks" d={ticks(R + 176 + 48, R * 3)} vectorEffect="non-scaling-stroke" />
-            <circle className="node" cx={R + 72} cy={0} r={6} vectorEffect="non-scaling-stroke" />
-            {/* Beside its node, upright wherever the axis points; the axis carries on past it. */}
-            <text
-              className="index"
-              x={R + 118}
-              y={0}
-              transform={`rotate(${90 - s.angle} ${R + 118} 0)`}
-              textAnchor="middle"
-              dominantBaseline="central"
-            >
-              {String(i + 1).padStart(2, '0')}
-            </text>
-          </g>
-        ))}
-      </svg>
-    </Scene>
-  );
-}
+const AXES = SPECIALISTS.map((s) => s.angle);
+const NUMBERS = SPECIALISTS.map((_, i) => String(i + 1).padStart(2, '0'));
 
 export function ServicesSpecialists() {
   const t = useTranslations('servicesPage.teamServices');
@@ -755,7 +564,11 @@ export function ServicesSpecialists() {
           {t('title')}
         </VisuallyHidden>
         <Stage>
-          <SpecialistScene active={active} />
+          <SpecialistScene
+            axes={AXES}
+            labels={NUMBERS}
+            active={active ? SPECIALISTS.findIndex((s) => s.id === active) : null}
+          />
           {/* The circle is a picture of the list below it, which is what assistive tech reads. */}
           <Frame aria-hidden onPointerLeave={(e) => e.pointerType === 'mouse' && choose(null)}>
             <Ring ref={ringRef} data-on={active !== null} />

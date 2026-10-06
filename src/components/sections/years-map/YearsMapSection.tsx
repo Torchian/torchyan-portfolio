@@ -8,6 +8,8 @@ import { spacing } from '@/styles/tokens/spacing';
 import { media } from '@/styles/media';
 
 const Section = styled.section`
+  /* Home's orbit scene runs off the page's sides on a phone, cut there. */
+  overflow-x: clip;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -103,7 +105,7 @@ export function YearsMapSection({ id = 'years-map' }: YearsMapSectionProps) {
         <Content>
           <StyledSectionHeading id={titleId} title={t('title')} subtitle={t('subtitle')} />
           <MapWrapper>
-            <WorldMapSVG locations={locations} alt={t('mapAlt')} />
+            <WorldMapSVG locations={locations} alt={t('mapAlt')} hub="yerevan" />
           </MapWrapper>
           {/* The dots are hover-only; this is the same information for everyone else. */}
           <VisuallyHidden as="ul" aria-label={t('listLabel')}>
