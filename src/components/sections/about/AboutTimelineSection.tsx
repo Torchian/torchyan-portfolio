@@ -16,7 +16,7 @@ import { accents, neutrals } from '@/styles/tokens/colors';
 import { grid } from '@/styles/tokens/grid';
 import { media } from '@/styles/media';
 import { useMessages, useTranslations } from 'next-intl';
-import { TIMELINE_ENTRIES, type TimelineEntry, type TimelineEntryContent } from './aboutConfig';
+import { TIMELINE_ENTRIES, type GalleryImage, type TimelineEntry, type TimelineEntryContent } from './aboutConfig';
 import { AboutYearRail, RAIL_CLEAR, RAIL_SPACE } from './AboutYearRail';
 
 /*
@@ -440,13 +440,51 @@ const Shot = styled.div`
   }
 `;
 
+/**
+ * How tall each column has to run, in column widths, to fill the box: the box
+ * is about 2.6 column-widths tall, the second column starts 80px higher, and a
+ * little over covers the gaps.
+ */
+const FILL = 3.2;
+
+/**
+ * Lays an entry's screens out to fill both columns. Every screen goes to the
+ * column that is shorter so far, so tall ones balance short ones; then each
+ * column carries on with the entry's own screens again until it's full, so
+ * there's no empty space under them.
+ */
+function fillColumns(gallery: TimelineEntry['gallery']) {
+  const images = gallery.flat();
+  const columns: { image: GalleryImage; key: string }[][] = [[], []];
+  const height = [0, 0];
+  if (!images.length) return columns;
+  // Tallest first, so the long screens anchor the columns and the short ones even them out.
+  const order = [...images].sort((a, b) => a.aspect - b.aspect);
+  order.forEach((image) => {
+    const c = height[0] <= height[1] ? 0 : 1;
+    columns[c].push({ image, key: image.src });
+    height[c] += 1 / image.aspect;
+  });
+  for (let c = 0; c < 2; c++) {
+    // Repeat starting from the other column's screens, so a column doesn't show its own again first.
+    const pool = [...columns[1 - c], ...columns[c]].map((entry) => entry.image);
+    for (let i = 0; height[c] < FILL && i < 40; i++) {
+      const image = pool[i % pool.length];
+      columns[c].push({ image, key: `${image.src}#${i}` });
+      height[c] += 1 / image.aspect;
+    }
+  }
+  return columns;
+}
+
 function GallerySet({ entry, active }: { entry: TimelineEntry; active: boolean }) {
+  const columns = fillColumns(entry.gallery);
   return (
     <Set data-active={active} aria-hidden>
-      {entry.gallery.map((column, c) => (
+      {columns.map((column, c) => (
         <Column key={c}>
-          {column.map((image) => (
-            <Shot key={image.src} style={{ aspectRatio: String(image.aspect) }}>
+          {column.map(({ image, key }) => (
+            <Shot key={key} style={{ aspectRatio: String(image.aspect) }}>
               <Image src={image.src} alt="" fill sizes="(max-width: 1024px) 200px, (max-width: 1920px) 40vw, 50vw" />
             </Shot>
           ))}
