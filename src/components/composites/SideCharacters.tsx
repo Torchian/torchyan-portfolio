@@ -42,17 +42,6 @@ const Wrapper = styled.div`
   z-index: ${zIndex.base};
 `;
 
-const VectorBg = styled.img`
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  opacity: 0.1;
-  z-index: ${zIndex.behind};
-`;
-
 /**
  * The visible half of a character: 45vmin wide, 90vmin tall, on the screen
  * edge. It fades the character's own pixels to transparent near the bottom,
@@ -137,7 +126,6 @@ export function SideCharacters() {
 
   return (
     <Wrapper aria-hidden>
-      <VectorBg src="/hero/grid-lines.webp" alt="" />
       <SideCharacter $side="left" data-live={live}>
         {!stillsGone && <Still src={LEFT_SRC} alt="" {...HALF} sizes="45vmin" />}
         {liveWidth > 0 && (

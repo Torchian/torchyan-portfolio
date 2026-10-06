@@ -19,6 +19,8 @@ export interface MapDotProps {
   delay?: number;
   /** Animation duration in seconds */
   duration?: number;
+  /** The dot's colour; the home point is the secondary pink. */
+  color?: string;
 }
 
 /**
@@ -35,7 +37,7 @@ export interface MapDotProps {
  */
 const unit = (px: number) => `calc(${px}px * var(--map-scale, 1))`;
 
-const DotInner = styled.span`
+const DotInner = styled.span<{ $color: string }>`
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -48,13 +50,13 @@ const DotInner = styled.span`
     width: ${unit(32)};
     height: ${unit(32)};
     border-radius: 50%;
-    background: ${accents.primary};
+    background: ${(p) => p.$color};
     opacity: 0.1;
     transform: translate(-50%, -50%);
   }
 `;
 
-const Dot = styled.div<{ $x: number; $y: number; $delay: number; $duration: number }>`
+const Dot = styled.div<{ $x: number; $y: number; $delay: number; $duration: number; $color: string }>`
   position: absolute;
   left: ${(p) => p.$x}%;
   top: ${(p) => p.$y}%;
@@ -72,7 +74,7 @@ const Dot = styled.div<{ $x: number; $y: number; $delay: number; $duration: numb
     width: ${unit(24)};
     height: ${unit(24)};
     border-radius: 50%;
-    background: ${accents.primary};
+    background: ${(p) => p.$color};
     opacity: 0.3;
     transform: translate(-50%, -50%);
   }
@@ -85,18 +87,18 @@ const Dot = styled.div<{ $x: number; $y: number; $delay: number; $duration: numb
     width: ${unit(14)};
     height: ${unit(14)};
     border-radius: 50%;
-    background: ${accents.primary};
+    background: ${(p) => p.$color};
     box-shadow:
-      0 0 ${unit(12)} ${accents.primary},
-      0 0 ${unit(24)} rgba(12, 175, 10, 0.4);
+      0 0 ${unit(12)} ${(p) => p.$color},
+      0 0 ${unit(24)} color-mix(in srgb, ${(p) => p.$color} 40%, transparent);
     transform: translate(-50%, -50%);
   }
 `;
 
-export function MapDot({ x, y, title, delay = 0, duration = 1.5 }: MapDotProps) {
+export function MapDot({ x, y, title, delay = 0, duration = 1.5, color = accents.primary }: MapDotProps) {
   return (
-    <Dot $x={x} $y={y} $delay={delay} $duration={duration} title={title} aria-hidden>
-      <DotInner />
+    <Dot $x={x} $y={y} $delay={delay} $duration={duration} $color={color} title={title} aria-hidden>
+      <DotInner $color={color} />
     </Dot>
   );
 }

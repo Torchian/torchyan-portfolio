@@ -16,6 +16,7 @@ import { accents, neutrals } from '@/styles/tokens/colors';
 import { grid } from '@/styles/tokens/grid';
 import { media } from '@/styles/media';
 import { useTranslations } from 'next-intl';
+import { OrbitAnchor, OrbitScene } from '@/components/composites/OrbitScene';
 
 /*
  * Figma: hero_section — 1920 (3285:8498), 1440 (2670:10805), 1280 (2670:11152),
@@ -28,8 +29,8 @@ import { useTranslations } from 'next-intl';
  *  - 768 frame and below (up to 768px): a centred stack with one colour portrait
  *    under the CTA; no skills row.
  *
- * From the 1024 frame up, the lines background and both side portraits are
- * SideCharacters (SiteLayout); below it SideCharacters keeps only the lines.
+ * From the 1024 frame up, both side portraits are SideCharacters (SiteLayout).
+ * Behind the name is the site's orbit scene (OrbitScene), at every size.
  */
 
 /** Baked with scripts/bake-character.py (Big Lebowski, no cap or glasses); see ADR 0005. */
@@ -41,7 +42,10 @@ const Section = styled.section`
   flex-direction: column;
   min-height: 100svh;
   padding-top: ${spacing[1000]}px;
-  overflow: hidden;
+  /* The orbit scene runs off the page's sides, cut there, and fades out
+     below into the next section. */
+  isolation: isolate;
+  overflow-x: clip;
 `;
 
 /** Figma Hero Background: four blurred glows, pre-rendered. */
@@ -341,6 +345,10 @@ export function HeroSection() {
   return (
     <Section aria-labelledby="hero-name">
       <Glow aria-hidden />
+      {/* The site's orbit scene, behind the name; the hero's own glow stands in for its glow. */}
+      <OrbitAnchor style={{ left: '50%', top: '50%', width: 'min(760px, 80vw)', zIndex: 0 }}>
+        <OrbitScene glow={false} />
+      </OrbitAnchor>
 
       <Container>
         <Body>
