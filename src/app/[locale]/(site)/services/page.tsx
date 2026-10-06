@@ -30,7 +30,7 @@ export default async function ServicesPage({ params }: LocaleParams) {
 
   return (
     <main id="main-content">
-      <PageHeroSection namespace="servicesPage.hero" id="services" scene="min(620px, 48vw)">
+      <PageHeroSection namespace="servicesPage.hero" id="services">
         <ServicesTeam />
       </PageHeroSection>
       <AreasSection />

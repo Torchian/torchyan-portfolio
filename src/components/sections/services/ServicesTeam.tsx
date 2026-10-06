@@ -237,6 +237,167 @@ const Hit = styled.div`
   }
 `;
 
+/*
+ * Behind the team: a beam of light rising from each of them, a hairline that
+ * fades out on its way up past the title, with a node over the head; and the
+ * floor they stand on, a ruler running out to the page's edges with a long
+ * tick under each of them. Whoever is in colour has their beam lit green.
+ * Drawn in the frame's own units; it reaches above the frame on purpose.
+ */
+const BEAM_TOP = -FRAME.height;
+/** Where each beam stops: just over the head (each box's top, the lead's frame top). */
+const BEAMS: { id: ActiveId; x: number; top: number }[] = [
+  ...MEMBERS.map((m) => ({ id: m.id, x: m.x, top: FRAME.height - m.height + 24 })),
+  { id: 'lead' as const, x: LEAD.x, top: 8 },
+];
+
+const Beams = styled.svg`
+  position: absolute;
+  left: 0;
+  top: -100%;
+  width: 100%;
+  height: 200%;
+  overflow: visible;
+  pointer-events: none;
+
+  .beam {
+    stroke: url(#team-beam);
+    transition: opacity 400ms ease-out;
+  }
+
+  .beam-lit {
+    stroke: url(#team-beam-lit);
+    opacity: 0;
+    transition: opacity 400ms ease-out;
+  }
+
+  .glow {
+    fill: url(#team-beam-glow);
+    opacity: 0;
+    transition: opacity 400ms ease-out;
+  }
+
+  .node {
+    fill: #0b0915;
+    stroke: rgba(246, 246, 246, 0.4);
+    transition:
+      fill 400ms ease-out,
+      stroke 400ms ease-out;
+  }
+
+  .floor {
+    stroke: url(#team-floor);
+  }
+
+  .tick {
+    stroke: rgba(246, 246, 246, 0.14);
+  }
+
+  [data-active='true'] {
+    .beam {
+      opacity: 0;
+    }
+
+    .beam-lit,
+    .glow {
+      opacity: 1;
+    }
+
+    .node {
+      fill: #0caf0a;
+      stroke: #0caf0a;
+    }
+  }
+
+  ${media.reducedMotion} {
+    .beam,
+    .beam-lit,
+    .glow,
+    .node {
+      transition: none;
+    }
+  }
+`;
+
+/** Floor ticks every 32 design px, across three frames' width. */
+const FLOOR_TICKS = Array.from({ length: 121 }, (_, i) => -FRAME.width + i * 32);
+
+function TeamBeams({ active }: { active: ActiveId }) {
+  return (
+    <Beams viewBox={`0 ${BEAM_TOP} ${FRAME.width} ${FRAME.height * 2}`} preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="team-beam" gradientUnits="userSpaceOnUse" x1="0" x2="0" y1={BEAM_TOP} y2={FRAME.height}>
+          <stop offset="0" stopColor="#f6f6f6" stopOpacity="0" />
+          <stop offset="1" stopColor="#f6f6f6" stopOpacity="0.28" />
+        </linearGradient>
+        <linearGradient id="team-beam-lit" gradientUnits="userSpaceOnUse" x1="0" x2="0" y1={BEAM_TOP} y2={FRAME.height}>
+          <stop offset="0" stopColor="#0caf0a" stopOpacity="0" />
+          <stop offset="1" stopColor="#0caf0a" stopOpacity="0.9" />
+        </linearGradient>
+        <linearGradient
+          id="team-beam-glow"
+          gradientUnits="userSpaceOnUse"
+          x1="0"
+          x2="0"
+          y1={BEAM_TOP}
+          y2={FRAME.height}
+        >
+          <stop offset="0" stopColor="#0caf0a" stopOpacity="0" />
+          <stop offset="1" stopColor="#0caf0a" stopOpacity="0.12" />
+        </linearGradient>
+        <linearGradient
+          id="team-floor"
+          gradientUnits="userSpaceOnUse"
+          x1={-FRAME.width}
+          x2={FRAME.width * 2}
+          y1="0"
+          y2="0"
+        >
+          <stop offset="0" stopColor="#f6f6f6" stopOpacity="0" />
+          <stop offset="0.35" stopColor="#f6f6f6" stopOpacity="0.22" />
+          <stop offset="0.65" stopColor="#f6f6f6" stopOpacity="0.22" />
+          <stop offset="1" stopColor="#f6f6f6" stopOpacity="0" />
+        </linearGradient>
+      </defs>
+      <line
+        className="floor"
+        x1={-FRAME.width}
+        x2={FRAME.width * 2}
+        y1={FRAME.height}
+        y2={FRAME.height}
+        vectorEffect="non-scaling-stroke"
+      />
+      {FLOOR_TICKS.map((x) => (
+        <line
+          key={x}
+          className="tick"
+          x1={x}
+          x2={x}
+          y1={FRAME.height}
+          y2={FRAME.height + 8}
+          vectorEffect="non-scaling-stroke"
+        />
+      ))}
+      {BEAMS.map((b) => (
+        <g key={b.id} data-active={active === b.id}>
+          <rect className="glow" x={b.x - 40} width={80} y={BEAM_TOP} height={b.top - BEAM_TOP} />
+          <line className="beam" x1={b.x} x2={b.x} y1={BEAM_TOP} y2={b.top} vectorEffect="non-scaling-stroke" />
+          <line className="beam-lit" x1={b.x} x2={b.x} y1={BEAM_TOP} y2={b.top} vectorEffect="non-scaling-stroke" />
+          <line
+            className="tick"
+            x1={b.x}
+            x2={b.x}
+            y1={FRAME.height}
+            y2={FRAME.height + 18}
+            vectorEffect="non-scaling-stroke"
+          />
+          <circle className="node" cx={b.x} cy={b.top} r={4} vectorEffect="non-scaling-stroke" />
+        </g>
+      ))}
+    </Beams>
+  );
+}
+
 export function ServicesTeam() {
   const t = useTranslations('servicesPage.hero');
   const [active, setActive] = useState<ActiveId>('lead');
@@ -266,6 +427,7 @@ export function ServicesTeam() {
   return (
     <>
       <Frame aria-hidden onPointerLeave={() => setActive('lead')}>
+        <TeamBeams active={active} />
         {MEMBERS.map((m) => (
           <Person
             key={m.id}
