@@ -51,9 +51,9 @@ export interface TimelineEntryConfig {
 export type TimelineEntry = TimelineEntryConfig & TimelineEntryContent;
 
 /**
- * Each workplace shows only its own screens, or none: an entry with an empty
- * gallery leaves the sticky gallery blank while its card is on screen, which is
- * truer than borrowing another company's work. Roles and dates are the
+ * Each workplace shows its own screens. One without any (no material kept)
+ * leaves the gallery on the last workplace that had some, rather than going
+ * blank, until the next one with screens comes along. Roles and dates are the
  * founder's (LinkedIn-confirmed, facts/2026-09-30-founder-facts.md); entries run
  * in order of start date.
  */
@@ -67,7 +67,14 @@ export const TIMELINE_ENTRIES: TimelineEntryConfig[] = [
     year: '2016–2018',
     railYear: '2016',
     company: 'Apricode / MyZCapital',
-    gallery: NONE,
+    gallery: [
+      [shot('/about/timeline/apricode/myzcapital-home.webp', 1200 / 3062)],
+      [
+        shot('/about/timeline/apricode/myzcapital-polls.webp', 1200 / 676),
+        shot('/about/timeline/apricode/myzcapital-account.webp', 1200 / 1286),
+        shot('/about/timeline/apricode/myzcapital-dashboard.webp', 1200 / 564),
+      ],
+    ],
   },
   {
     // May–Jul 2018 project, then Jul–Dec 2018 role. Same company the Work
@@ -77,8 +84,12 @@ export const TIMELINE_ENTRIES: TimelineEntryConfig[] = [
     railYear: '2018',
     company: 'Brainstorm',
     gallery: [
-      [shot('/selected-work/various/brainstormtech.webp', 1082 / 4096)],
-      [shot('/projects/collages/websites/brainstorm-services.webp', 673 / 2548)],
+      [shot('/about/timeline/brainstorm/scunci-shop.webp', 1200 / 1894), shot('/about/timeline/brainstorm/offmycase-custom.webp', 1200 / 1523)],
+      [
+        shot('/about/timeline/brainstorm/brainstorm-studio.webp', 1200 / 570),
+        shot('/about/timeline/brainstorm/byrobynblair-customize.webp', 1200 / 1482),
+        shot('/about/timeline/brainstorm/gemmed-hoops.webp', 1200 / 1889),
+      ],
     ],
   },
   {
@@ -88,8 +99,12 @@ export const TIMELINE_ENTRIES: TimelineEntryConfig[] = [
     railYear: '2019',
     company: 'TCO',
     gallery: [
-      [shot('/projects/collages/websites/benzeen-wheel.webp', 673 / 2320)],
-      [shot('/selected-work/various/benzeen-alfa.webp', 1903 / 903)],
+      [shot('/about/timeline/tco/benzeen-wheel.webp', 1188 / 4096)],
+      [
+        shot('/about/timeline/tco/benzeen-alfa.webp', 1200 / 569),
+        shot('/about/timeline/tco/benzeen-cut-sheets.webp', 1200 / 2055),
+        shot('/about/timeline/tco/benzeen-alfa-parts.webp', 1200 / 569),
+      ],
     ],
   },
   {
@@ -114,7 +129,14 @@ export const TIMELINE_ENTRIES: TimelineEntryConfig[] = [
     year: '2020–2023',
     railYear: '2020',
     company: 'Panika Production',
-    gallery: NONE,
+    gallery: [
+      [shot('/about/timeline/panika/panika-contacts.webp', 1200 / 2063), shot('/about/timeline/panika/panika-mobile.webp', 1116 / 1688)],
+      [
+        shot('/about/timeline/panika/panika-films.webp', 1200 / 750),
+        shot('/about/timeline/panika/panika-showreel.webp', 1200 / 683),
+        shot('/about/timeline/panika/panika-home.webp', 1200 / 1067),
+      ],
+    ],
   },
   {
     // Aug – Oct 2021; a separate employer from SoftConstruct.
@@ -168,7 +190,8 @@ export const TIMELINE_ENTRIES: TimelineEntryConfig[] = [
     railYear: '2025',
     company: 'SoulOne',
     gallery: [
-      [shot('/selected-work/soulone/grid/s-b1.webp', 415 / 3618)],
+      // s-a1, not the 415px-wide s-b1: that one is upscaled past its pixels in the gallery.
+      [shot('/selected-work/soulone/grid/s-a1.webp', 1180 / 4096)],
       [
         shot('/selected-work/soulone/grid/s-a2.webp', 1366 / 1533),
         shot('/selected-work/soulone/grid/s-c3.webp', 1366 / 2754),
@@ -188,7 +211,13 @@ export const TIMELINE_ENTRIES: TimelineEntryConfig[] = [
     year: '2026–now',
     railYear: '2026',
     company: 'Torchyan',
-    gallery: NONE,
+    gallery: [
+      [shot('/about/timeline/torchyan/about.webp', 1440 / 900), shot('/about/timeline/torchyan/work.webp', 1440 / 900)],
+      [
+        shot('/about/timeline/torchyan/home.webp', 1440 / 900),
+        shot('/about/timeline/torchyan/services-team.webp', 1440 / 900),
+      ],
+    ],
   },
 ];
 

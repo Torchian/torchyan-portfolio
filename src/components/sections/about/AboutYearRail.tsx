@@ -366,7 +366,7 @@ export function AboutYearRail({ entries, active, sectionRef, cardsRef }: AboutYe
             <span />
           </Dot>
           <Label>
-            <Year>{entry.railYear}</Year>
+            <Year data-rail-year>{entry.railYear}</Year>
             <Phrase>{entry.stickyContent.replace(/\n/g, ' ')}</Phrase>
           </Label>
         </Marker>

@@ -27,8 +27,9 @@ import { AboutYearRail, RAIL_CLEAR, RAIL_SPACE } from './AboutYearRail';
  * whichever card is under the year marker, laid out as each frame has it:
  *  - 1920: cards 748 wide with their text indented 80, the gallery two
  *    columns beside them (900 wide).
- *  - the 1280 frame and down (tablet and phone alike — the two-column grid
- *    never fit the 1024-1280 range either): cards run single-column, full
+ *  - 1024–1280: the same, narrower — cards 480 wide in tablet type, the
+ *    gallery beside them.
+ *  - the 1024 frame and down (tablet and phone alike): cards run single-column, full
  *    width, and the gallery moves into the rail's own gutter — the column
  *    the year marker sits in — as a single file of screenshots running top
  *    to bottom, docked 24px under where the marker itself sticks, with the
@@ -42,6 +43,12 @@ import { AboutYearRail, RAIL_CLEAR, RAIL_SPACE } from './AboutYearRail';
 
 /** Phone-only spacing (Track's own gap and rail clearance). */
 const STACKED = media.down('m');
+/**
+ * Where the layout turns to the tablet frame's single column. Above it the
+ * desktop layout holds (cards beside a two-column gallery); between 1024 and
+ * 1280 it keeps the tablet type sizes and spacing, only the layout is desktop.
+ */
+const TABLET = media.down('xl');
 /** Where the gallery starts inside the 1376 container, which is where the cards stop. */
 const CARDS = { desktop: 640, tablet: 480 } as const;
 /**
@@ -57,6 +64,9 @@ const GUTTER = {
 
 const Section = styled.section`
   position: relative;
+  /* The gallery runs to the screen's edge and a little past it: cut it there.
+     (clip, not hidden, so the sticky gallery and marker still stick.) */
+  overflow-x: clip;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -109,7 +119,12 @@ const Track = styled.div`
     )
   );
 
+  /* The rail's label is tablet-sized from here (AboutYearRail), so it needs less room. */
   ${media.down('xxl')} {
+    padding-left: ${RAIL_SPACE.tablet + RAIL_CLEAR - spacing[400]}px;
+  }
+
+  ${TABLET} {
     padding-left: ${GUTTER.xxl}px;
   }
 
@@ -137,8 +152,13 @@ const Cards = styled.div`
   max-width: ${CARDS.desktop}px;
   padding-right: ${spacing[400]}px;
 
-  /* Beside the tablet gallery (408 and a 32 gap), in what the rail leaves. */
+  /* 1024–1280: still beside the gallery, narrower. */
   ${media.down('xxl')} {
+    max-width: ${CARDS.tablet}px;
+  }
+
+  /* The tablet frame: single-column cards, the gallery in the rail's gutter. */
+  ${TABLET} {
     max-width: none;
     padding-right: 0;
   }
@@ -332,6 +352,10 @@ const GalleryColumn = styled.div`
   pointer-events: none;
 
   ${media.down('xxl')} {
+    left: ${CARDS.tablet}px;
+  }
+
+  ${TABLET} {
     left: -${GUTTER.xxl}px;
     right: auto;
     width: ${GUTTER.xxl - RAIL_CLEAR}px;
@@ -351,13 +375,13 @@ const Sticky = styled.div`
   overflow: hidden;
 
   /*
-   * Below 1280 the box docks 24px under the year marker's own bottom edge —
+   * In the tablet frame the box docks 24px under the year marker's own bottom edge —
    * not its top, which would run the box through the year and its phrase.
    * --marker-height is AboutYearRail's own measurement of the marker it
    * renders (it wraps differently per entry and per locale), published on
    * the section the two share.
    */
-  ${media.down('xxl')} {
+  ${TABLET} {
     top: calc(${spacing[1500]}px + var(--marker-height, 120px) + 24px);
     z-index: 2;
     height: min(
@@ -397,7 +421,7 @@ const Column = styled.div`
   }
 
   /* The tablet frame's gallery is a single column. */
-  ${media.down('xxl')} {
+  ${TABLET} {
     &:nth-child(2) {
       display: none;
     }
@@ -423,7 +447,7 @@ function GallerySet({ entry, active }: { entry: TimelineEntry; active: boolean }
         <Column key={c}>
           {column.map((image) => (
             <Shot key={image.src} style={{ aspectRatio: String(image.aspect) }}>
-              <Image src={image.src} alt="" fill sizes="(max-width: 1280px) 200px, (max-width: 1920px) 40vw, 50vw" />
+              <Image src={image.src} alt="" fill sizes="(max-width: 1024px) 200px, (max-width: 1920px) 40vw, 50vw" />
             </Shot>
           ))}
         </Column>
@@ -447,29 +471,44 @@ export function AboutTimelineSection() {
   const cardsRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
 
-  // The card under the year marker owns the gallery and the rail: the topmost one
-  // still crossing the band that starts where the marker holds, so the year and
-  // the company name beside it always name the same workplace.
+  // An entry is the page's once its company name has reached the year's line
+  // (the middle of the year beside it on the rail): the year changes as each
+  // title arrives level with it.
   useEffect(() => {
     const cards = cardsRef.current;
-    if (!cards) return;
-    // A record only arrives for a card whose state changed, so the band's whole
-    // contents are kept here rather than read off one batch.
-    const crossing = new Map<number, boolean>();
-    const observer = new IntersectionObserver(
-      (records) => {
-        for (const record of records) {
-          const index = Number((record.target as HTMLElement).dataset.index);
-          crossing.set(index, record.isIntersecting);
-        }
-        const seen = [...crossing].filter(([, on]) => on).map(([index]) => index);
-        if (seen.length) setActive(Math.min(...seen));
-      },
-      { rootMargin: `-${spacing[1000]}px 0px -60% 0px` },
-    );
-    cards.querySelectorAll('[data-index]').forEach((card) => observer.observe(card));
-    return () => observer.disconnect();
+    const section = sectionRef.current;
+    if (!cards || !section) return;
+    const titles = [...cards.querySelectorAll<HTMLElement>('[data-index] h3')];
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const year = section.querySelector<HTMLElement>('[data-rail-year]');
+      if (!year) return;
+      const rect = year.getBoundingClientRect();
+      const line = rect.top + rect.height / 2;
+      let next = 0;
+      titles.forEach((title, index) => {
+        const box = title.getBoundingClientRect();
+        if (box.top + box.height / 2 <= line + 1) next = index;
+      });
+      setActive(next);
+    };
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', schedule);
+      window.removeEventListener('resize', schedule);
+    };
   }, []);
+
+  // The gallery stays on the latest workplace that has screens.
+  let shown = active;
+  while (shown > 0 && entries[shown].gallery.every((column) => column.length === 0)) shown -= 1;
 
   return (
     <Section ref={sectionRef}>
@@ -525,7 +564,7 @@ export function AboutTimelineSection() {
             <GalleryColumn aria-hidden>
               <Sticky>
                 {entries.map((entry, index) => (
-                  <GallerySet key={entry.id} entry={entry} active={index === active} />
+                  <GallerySet key={entry.id} entry={entry} active={index === shown} />
                 ))}
               </Sticky>
             </GalleryColumn>
