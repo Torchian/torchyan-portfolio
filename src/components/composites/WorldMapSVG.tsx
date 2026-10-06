@@ -45,7 +45,7 @@ export interface WorldMapSVGProps {
   alt: string;
   /**
    * The home point, by id: drawn in the secondary pink, pinging, with a
-   * green pulse running out to every other point.
+   * grey route out to every other point, with a green comet running along it.
    */
   hub?: string;
 }
@@ -53,9 +53,19 @@ export interface WorldMapSVGProps {
 /** The map's own frame, so routes drawn on it keep their shape at any width. */
 const VIEW = { width: 1550, height: 779 } as const;
 
+/** How long the green comet is, as a share of its route. */
+const TAIL = 0.3;
+/** The comet is stacked dashes, each shorter and brighter towards the head, so its tail fades out. */
+const LAYERS = [1, 0.75, 0.5, 0.3, 0.15].map((share) => share * TAIL);
+
+/*
+ * The heads run together from home to past the city, so the comet enters and
+ * leaves whole. Each layer's dash pattern (an empty gap of TAIL minus its
+ * length first) puts its head on the shared one.
+ */
 const travel = keyframes`
   from {
-    stroke-dashoffset: 0;
+    stroke-dashoffset: ${TAIL};
   }
   to {
     stroke-dashoffset: -1;
@@ -100,13 +110,17 @@ const Routes = styled.svg`
   pointer-events: none;
 
   /* A short green dash running out along each route from home, over and over. */
+  .route {
+    fill: none;
+  }
+
   .pulse {
     fill: none;
     stroke: ${accents.primary};
-    stroke-width: 2;
+    stroke-width: 1.5;
     stroke-linecap: round;
-    stroke-dasharray: 0.04 0.96;
-    animation: ${travel} 4s linear infinite;
+    stroke-opacity: 0.22;
+    animation: ${travel} 5s linear infinite;
   }
 
   /* Home sends out rings, like a radar. */
@@ -201,17 +215,43 @@ export function WorldMapSVG({ locations, alt, hub }: WorldMapSVGProps) {
       <MapImage src="/vectors/map.svg" alt={alt} />
       {home && (
         <Routes viewBox={`0 0 ${VIEW.width} ${VIEW.height}`} aria-hidden>
+          <defs>
+            {others.map((loc) => {
+              const id = loc.id ?? loc.label;
+              return (
+                <linearGradient
+                  key={id}
+                  id={`route-${id}`}
+                  gradientUnits="userSpaceOnUse"
+                  x1={(home.x / 100) * VIEW.width}
+                  y1={(home.y / 100) * VIEW.height}
+                  x2={(loc.x / 100) * VIEW.width}
+                  y2={(loc.y / 100) * VIEW.height}
+                >
+                  <stop offset="0" stopColor="#f6f6f6" stopOpacity="0.32" />
+                  <stop offset="1" stopColor="#f6f6f6" stopOpacity="0.06" />
+                </linearGradient>
+              );
+            })}
+          </defs>
           {others.map((loc) => {
             const id = loc.id ?? loc.label;
             const d = route(home, loc);
+            const delay = `${-((hash(id) % 5000) / 1000)}s`;
             return (
               <g key={id}>
-                <path
-                  className="pulse"
-                  d={d}
-                  pathLength={1}
-                  style={{ animationDelay: `${-((hash(id) % 4000) / 1000)}s` }}
-                />
+                {/* A grey route, fading out towards the city. */}
+                <path className="route" d={d} stroke={`url(#route-${id})`} vectorEffect="non-scaling-stroke" />
+                {/* A green comet running along it. */}
+                {LAYERS.map((len) => (
+                  <path
+                    key={len}
+                    className="pulse"
+                    d={d}
+                    pathLength={1}
+                    style={{ strokeDasharray: `0 ${TAIL - len} ${len} 2`, animationDelay: delay }}
+                  />
+                ))}
               </g>
             );
           })}

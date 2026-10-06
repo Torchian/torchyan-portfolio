@@ -28,8 +28,7 @@ const drift = keyframes`
 const Ground = styled.div`
   position: absolute;
   inset: 0;
-  /* Under everything on the page's first screen, the side characters included
-     (they live outside the hero, in SiteLayout, at the base layer). */
+  /* Under the side characters, in SideCharacters' own layer. */
   z-index: ${zIndex.behind};
   overflow: hidden;
   pointer-events: none;

@@ -7,6 +7,7 @@ import { zIndex } from '@/styles/tokens/z-index';
 import { media, mediaQueries } from '@/styles/media';
 import { Character, characterFade } from './character/Character';
 import { useLookAtPointer } from './character/useLookAtPointer';
+import { HeroFloor } from '@/components/sections/hero/HeroFloor';
 
 const HEIGHT = '90vmin'; // Responsive to screen (smaller of vw/vh)
 
@@ -126,6 +127,10 @@ export function SideCharacters() {
 
   return (
     <Wrapper aria-hidden>
+      {/* The hero's floor lives here, not in the hero: page content sits in an
+          isolated layer (SiteLayout's Page) above these characters, so from
+          there nothing can get under them. */}
+      <HeroFloor />
       <SideCharacter $side="left" data-live={live}>
         {!stillsGone && <Still src={LEFT_SRC} alt="" {...HALF} sizes="45vmin" />}
         {liveWidth > 0 && (
