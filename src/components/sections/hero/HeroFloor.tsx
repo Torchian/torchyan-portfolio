@@ -2,6 +2,7 @@
 
 import styled, { keyframes } from 'styled-components';
 import { media } from '@/styles/media';
+import { zIndex } from '@/styles/tokens/z-index';
 
 /*
  * The homepage hero's ground: a wireframe floor, like the wireframe pair
@@ -27,6 +28,9 @@ const drift = keyframes`
 const Ground = styled.div`
   position: absolute;
   inset: 0;
+  /* Under everything on the page's first screen, the side characters included
+     (they live outside the hero, in SiteLayout, at the base layer). */
+  z-index: ${zIndex.behind};
   overflow: hidden;
   pointer-events: none;
 `;
