@@ -7,8 +7,8 @@ import { accents, neutrals } from '@/styles/tokens/colors';
 import { grid } from '@/styles/tokens/grid';
 import { media } from '@/styles/media';
 import { useTranslations } from 'next-intl';
-import { OrbitAnchor, OrbitScene } from '@/components/composites/OrbitScene';
 import { LogoScroll } from './LogoScroll';
+import { ContactSheet } from './ContactSheet';
 
 /*
  * Figma: hero_section — 1920 (3155:9791), 1440 (3753:11172), 1024 (3753:14693),
@@ -19,7 +19,7 @@ import { LogoScroll } from './LogoScroll';
 
 const Section = styled.section`
   position: relative;
-  /* The orbit scene sits behind the content; it runs off the page's sides,
+  /* A page's backdrop sits behind the content; it runs off the page's sides,
      cut there, and fades out above and below into the sections around it. */
   isolation: isolate;
   overflow-x: clip;
@@ -29,12 +29,9 @@ const Section = styled.section`
   padding-top: ${spacing[1000]}px;
 `;
 
-/** The page's centrepiece, with the orbit scene centred on it. */
-const Visual = styled.div`
+/** The logo grid, with the contact sheet laid out around it. */
+const LogoStage = styled.div`
   position: relative;
-  display: flex;
-  justify-content: center;
-  width: 100%;
 `;
 
 const Container = styled.div`
@@ -164,15 +161,13 @@ export interface PageHeroSectionProps {
   id: string;
   /** Between the title and the description: Projects' LogoScroll, Services' team. */
   children?: React.ReactNode;
-  /** Sets the centrepiece in the orbit scene, a circle this wide (any CSS length). */
-  scene?: string;
 }
 
 /**
  * The Projects page hero (Figma 3155:9789), shared by Services and Contact:
  * same layout, each page's own copy.
  */
-export function PageHeroSection({ namespace, id, children, scene }: PageHeroSectionProps) {
+export function PageHeroSection({ namespace, id, children }: PageHeroSectionProps) {
   const t = useTranslations(namespace);
   const points = t.raw('points') as string[];
   const titleId = `${id}-title`;
@@ -181,16 +176,7 @@ export function PageHeroSection({ namespace, id, children, scene }: PageHeroSect
     <Section id={`${id}-hero`} aria-labelledby={titleId}>
       <Container>
         <Title id={titleId}>{t('title')}</Title>
-        {scene ? (
-          <Visual>
-            <OrbitAnchor style={{ left: '50%', top: '50%', width: scene }}>
-              <OrbitScene />
-            </OrbitAnchor>
-            {children}
-          </Visual>
-        ) : (
-          children
-        )}
+        {children}
         <Description>
           <p>{t('lead')}</p>
         </Description>
@@ -206,8 +192,11 @@ export function PageHeroSection({ namespace, id, children, scene }: PageHeroSect
 
 export function ProjectsHeroSection() {
   return (
-    <PageHeroSection namespace="projectsPage.hero" id="projects" scene="min(640px, 92vw)">
-      <LogoScroll />
+    <PageHeroSection namespace="projectsPage.hero" id="projects">
+      <LogoStage>
+        <ContactSheet />
+        <LogoScroll />
+      </LogoStage>
     </PageHeroSection>
   );
 }

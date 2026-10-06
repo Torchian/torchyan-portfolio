@@ -5,7 +5,6 @@ import styled, { keyframes } from 'styled-components';
 import { accents } from '@/styles/tokens/colors';
 import { media } from '@/styles/media';
 import { MapDot } from './MapDot';
-import { OrbitAnchor, OrbitScene } from './OrbitScene';
 import { usePauseOffscreen } from '@/hooks';
 
 /** The map width the dots were drawn against; the scale is this one over the real one. */
@@ -13,8 +12,6 @@ const DESIGN_MAP_WIDTH = 1200;
 
 const Wrapper = styled.div`
   position: relative;
-  /* Home's orbit scene sits behind the map. */
-  isolation: isolate;
   width: 100%;
   aspect-ratio: 1550 / 779;
   margin: 0 auto;
@@ -34,14 +31,21 @@ export interface MapLocation {
   year?: number | string;
   x: number;
   y: number;
+  /**
+   * How far the route from home bows, as a share of its length: positive
+   * towards the top of the map, negative towards the bottom. Points in the
+   * same direction from home take different bows, so their routes fan out
+   * rather than run over each other.
+   */
+  bow?: number;
 }
 
 export interface WorldMapSVGProps {
   locations: MapLocation[];
   alt: string;
   /**
-   * The home point, by id: drawn in the secondary pink, with a route out to
-   * every other point in the orbit scene's hairline style (OrbitScene).
+   * The home point, by id: drawn in the secondary pink, pinging, with a
+   * hairline route out to every other point.
    */
   hub?: string;
 }
@@ -55,6 +59,35 @@ const travel = keyframes`
   }
   to {
     stroke-dashoffset: -1;
+  }
+`;
+
+/** Lines of longitude and latitude every 15°, on the map's frame. */
+const MERIDIANS = Array.from({ length: 23 }, (_, i) => ((i + 1) * VIEW.width) / 24);
+const PARALLELS = Array.from({ length: 11 }, (_, i) => ((i + 1) * VIEW.height) / 12);
+
+const Graticule = styled.svg`
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  /* Strongest in the middle of the map, gone at its edges. */
+  mask-image: radial-gradient(closest-side, #000 40%, transparent);
+
+  line {
+    stroke: rgba(246, 246, 246, 0.06);
+  }
+`;
+
+const ping = keyframes`
+  from {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  to {
+    transform: scale(9);
+    opacity: 0;
   }
 `;
 
@@ -81,17 +114,26 @@ const Routes = styled.svg`
     animation: ${travel} 4s linear infinite;
   }
 
+  /* Home sends out rings, like a radar. */
+  .ping {
+    fill: none;
+    stroke: ${accents.secondary};
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: ${ping} 3.6s ease-out infinite;
+  }
+
   ${media.reducedMotion} {
-    .pulse {
+    .pulse,
+    .ping {
       display: none;
     }
   }
 `;
 
 /**
- * A route from home to a point: a shallow arc, bowed away from the equator
- * like a flight path, so the lines fan out rather than lie on top of one
- * another.
+ * A route from home to a point: a shallow arc, bowed like a flight path by the
+ * point's own bow.
  */
 function route(from: MapLocation, to: MapLocation) {
   const ax = (from.x / 100) * VIEW.width;
@@ -108,7 +150,7 @@ function route(from: MapLocation, to: MapLocation) {
     nx = -nx;
     ny = -ny;
   }
-  const bow = Math.min(length * 0.22, 160);
+  const bow = length * (to.bow ?? 0.15);
   const cx = (ax + bx) / 2 + nx * bow;
   const cy = (ay + by) / 2 + ny * bow;
   return `M ${ax.toFixed(1)} ${ay.toFixed(1)} Q ${cx.toFixed(1)} ${cy.toFixed(1)} ${bx.toFixed(1)} ${by.toFixed(1)}`;
@@ -153,11 +195,14 @@ export function WorldMapSVG({ locations, alt, hub }: WorldMapSVGProps) {
         pauseRef.current = node;
       }}
     >
-      {home && (
-        <OrbitAnchor style={{ left: `${home.x}%`, top: `${home.y}%`, width: '24%' }}>
-          <OrbitScene glow={false} />
-        </OrbitAnchor>
-      )}
+      <Graticule viewBox={`0 0 ${VIEW.width} ${VIEW.height}`} aria-hidden>
+        {MERIDIANS.map((x) => (
+          <line key={`m${x}`} x1={x} x2={x} y1={0} y2={VIEW.height} vectorEffect="non-scaling-stroke" />
+        ))}
+        {PARALLELS.map((y) => (
+          <line key={`p${y}`} x1={0} x2={VIEW.width} y1={y} y2={y} vectorEffect="non-scaling-stroke" />
+        ))}
+      </Graticule>
       <MapImage src="/vectors/map.svg" alt={alt} />
       {home && (
         <Routes viewBox={`0 0 ${VIEW.width} ${VIEW.height}`} aria-hidden>
@@ -195,6 +240,17 @@ export function WorldMapSVG({ locations, alt, hub }: WorldMapSVGProps) {
               </g>
             );
           })}
+          {[0, 1.2, 2.4].map((delay) => (
+            <circle
+              key={delay}
+              className="ping"
+              cx={(home.x / 100) * VIEW.width}
+              cy={(home.y / 100) * VIEW.height}
+              r={6}
+              vectorEffect="non-scaling-stroke"
+              style={{ animationDelay: `${delay}s` }}
+            />
+          ))}
         </Routes>
       )}
       {locations.map((loc) => {

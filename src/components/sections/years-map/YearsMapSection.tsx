@@ -8,8 +8,6 @@ import { spacing } from '@/styles/tokens/spacing';
 import { media } from '@/styles/media';
 
 const Section = styled.section`
-  /* Home's orbit scene runs off the page's sides on a phone, cut there. */
-  overflow-x: clip;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -74,14 +72,17 @@ type LocationId =
  */
 const LOCATIONS: (Omit<MapLocation, 'label'> & { id: LocationId })[] = [
   { id: 'yerevan', x: 59, y: 29 },
+  // The three US routes leave Yerevan in nearly the same direction, so their
+  // bows fan them out: San Francisco high, New York nearly straight, Los
+  // Angeles under the line.
   // Picsart, employer, Oct 2021 – Feb 2024.
-  { id: 'sanFrancisco', year: '2021–2024', x: 9, y: 31 },
+  { id: 'sanFrancisco', year: '2021–2024', x: 9, y: 31, bow: 0.38 },
   // Brainstorm, direct client, 2018.
-  { id: 'newYork', year: 2018, x: 24, y: 23 },
+  { id: 'newYork', year: 2018, x: 24, y: 23, bow: 0.08 },
   // Benzeen Auto Parts, through TCO, 2019.
-  { id: 'losAngeles', year: 2019, x: 11, y: 35 },
+  { id: 'losAngeles', year: 2019, x: 11, y: 35, bow: -0.14 },
   // Infinity Rings, direct client; no city on record, so the label is the country.
-  { id: 'australia', x: 92, y: 84 },
+  { id: 'australia', x: 92, y: 84, bow: 0.18 },
   // Rostelecom, client.
   { id: 'moscow', x: 58, y: 18 },
   // BrainRocket, employer.

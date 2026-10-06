@@ -18,7 +18,7 @@ import { media } from '@/styles/media';
 import { zIndex } from '@/styles/tokens/z-index';
 import { useTranslations } from 'next-intl';
 import { DEFAULT_LOOK, type CharacterLook } from './aboutConfig';
-import { OrbitAnchor, OrbitScene } from '@/components/composites/OrbitScene';
+import { AboutSketch } from './AboutSketch';
 
 /*
  * Figma: About Hero (3983:1266 — Default / Tablet / Mobile).
@@ -50,9 +50,8 @@ const Section = styled.section`
   align-items: center;
   min-height: 100svh;
   padding: ${spacing[1000]}px 0 ${spacing[400]}px;
-  /* The orbit scene sits behind everything; it runs off the page's sides,
-     cut there (only sideways: see below), and fades out under the hero. */
-  isolation: isolate;
+  /* On a phone the character is wider than the screen: cut it at the sides
+     (only sideways; the crown's reach above, explained below, stays). */
   overflow-x: clip;
   /*
    * Not \`overflow: hidden\`: the crown is DESIGNED to run above the section's
@@ -269,10 +268,8 @@ export function AboutHeroSection() {
 
   return (
     <Section id="about" ref={sectionRef}>
-      <OrbitAnchor style={{ left: '50%', top: '55%', width: 'min(900px, 92vw)' }}>
-        <OrbitScene />
-      </OrbitAnchor>
       <CharacterStage ref={stageRef} aria-hidden>
+        <AboutSketch />
         <Character
           clothes={look.clothes}
           glasses={look.glasses}
