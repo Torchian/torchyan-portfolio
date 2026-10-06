@@ -99,11 +99,6 @@ const Routes = styled.svg`
   overflow: visible;
   pointer-events: none;
 
-  .route {
-    fill: none;
-    stroke-width: 1;
-  }
-
   /* A short green dash running out along each route from home, over and over. */
   .pulse {
     fill: none;
