@@ -159,10 +159,19 @@ export const TIMELINE_ENTRIES: TimelineEntryConfig[] = [
     railYear: '2021',
     company: 'Picsart',
     gallery: [
-      [shot('/projects/collages/picsart/mobile-search-all.webp', 0.46)],
       [
-        shot('/projects/collages/picsart/editor-templates.webp', 1.8),
-        shot('/projects/collages/picsart/marketplace-home.webp', 1.8),
+        shot('/about/timeline/picsart/search-mobile.webp', 551 / 1200),
+        shot('/about/timeline/picsart/search-desktop.webp', 1200 / 668),
+        shot('/about/timeline/picsart/stickers-mobile.webp', 551 / 1200),
+        shot('/about/timeline/picsart/templates-themes.webp', 1200 / 668),
+        shot('/about/timeline/picsart/replays.webp', 1200 / 668),
+      ],
+      [
+        shot('/about/timeline/picsart/images-results.webp', 1200 / 668),
+        shot('/about/timeline/picsart/replays-mobile.webp', 551 / 1200),
+        shot('/about/timeline/picsart/creators.webp', 1200 / 668),
+        shot('/about/timeline/picsart/profile-mobile.webp', 551 / 1200),
+        shot('/about/timeline/picsart/editor.webp', 1200 / 668),
       ],
     ],
   },
@@ -190,11 +199,18 @@ export const TIMELINE_ENTRIES: TimelineEntryConfig[] = [
     railYear: '2025',
     company: 'SoulOne',
     gallery: [
-      // s-a1, not the 415px-wide s-b1: that one is upscaled past its pixels in the gallery.
-      [shot('/selected-work/soulone/grid/s-a1.webp', 1180 / 4096)],
+      // Sharpened (unsharp mask) re-exports of the SoulOne screens.
       [
-        shot('/selected-work/soulone/grid/s-a2.webp', 1366 / 1533),
-        shot('/selected-work/soulone/grid/s-c3.webp', 1366 / 2754),
+        shot('/about/timeline/soulone/hero.webp', 1200 / 858),
+        shot('/about/timeline/soulone/product.webp', 1200 / 3469),
+        shot('/about/timeline/soulone/body.webp', 1200 / 917),
+      ],
+      [
+        shot('/about/timeline/soulone/home.webp', 1200 / 1347),
+        shot('/about/timeline/soulone/cakes.webp', 837 / 1200),
+        shot('/about/timeline/soulone/yin-yang.webp', 1200 / 642),
+        shot('/about/timeline/soulone/guidance.webp', 1200 / 2419),
+        shot('/about/timeline/soulone/plans.webp', 1200 / 995),
       ],
     ],
   },
