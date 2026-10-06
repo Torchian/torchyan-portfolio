@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { Character, characterFade } from '@/components/composites/character/Character';
 import { useLookAtPointer } from '@/components/composites/character/useLookAtPointer';
 import { spacing } from '@/styles/tokens/spacing';
@@ -41,6 +41,90 @@ import { DEFAULT_LOOK, type CharacterLook } from './aboutConfig';
 const CHARACTER = 902;
 /** How much bigger than the frame the character renders, both mobile and up. */
 const GROW = 1.1;
+
+/** The glow's green: a softer mint than the site's accent, as r, g, b. */
+const GLOW = '64, 214, 160';
+
+const breathe = keyframes`
+  from {
+    transform: translate(-50%, -50%) scale(0.92);
+    opacity: 0.75;
+  }
+  to {
+    transform: translate(-50%, -50%) scale(1.08);
+    opacity: 1;
+  }
+`;
+
+const swirl = keyframes`
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+`;
+
+/**
+ * The aura: a wide, faint light behind everything in the hero, the title
+ * included, centred on the character's head and reaching far out past the
+ * section. A mint-to-pink radial glow that slowly breathes, and over it a
+ * blurred colour wheel turning very slowly, so the light drifts round the
+ * character. Only transforms and opacity animate, so it stays cheap.
+ */
+const Aura = styled.div`
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: 50%;
+    will-change: transform;
+  }
+
+  &::before {
+    width: 170vmax;
+    height: 170vmax;
+    background: radial-gradient(
+      closest-side,
+      rgba(${GLOW}, 0.16),
+      rgba(${GLOW}, 0.08) 22%,
+      rgba(198, 20, 230, 0.06) 45%,
+      transparent 75%
+    );
+    animation: ${breathe} 9s ease-in-out infinite alternate;
+  }
+
+  &::after {
+    width: 110vmax;
+    height: 110vmax;
+    background: conic-gradient(
+      from 0deg,
+      rgba(${GLOW}, 0.1),
+      transparent 25%,
+      rgba(198, 20, 230, 0.08) 50%,
+      transparent 75%,
+      rgba(${GLOW}, 0.1)
+    );
+    filter: blur(60px);
+    mask-image: radial-gradient(closest-side, #000 20%, transparent);
+    transform: translate(-50%, -50%);
+    animation: ${swirl} 60s linear infinite;
+  }
+
+  ${media.reducedMotion} {
+    &::before,
+    &::after {
+      animation: none;
+      transform: translate(-50%, -50%);
+    }
+  }
+`;
 
 const Section = styled.section`
   position: relative;
@@ -165,14 +249,14 @@ const CharacterStage = styled.div`
   /*
    * The glow: the character's own outline, lit. A drop-shadow follows the
    * image's transparent edges exactly, so the light starts on the outline all
-   * round (head, beard, shoulders) and fades out from it: bright green close
+   * round (head, beard, shoulders) and fades out from it: a soft mint close
    * in, then a softer haze turning pink. Kept tight: the box's fade mask cuts
    * anything past its edges, so a wider glow ends on a hard line.
    */
-  filter: drop-shadow(0 0 14px rgba(12, 175, 10, 0.55)) drop-shadow(0 0 36px rgba(198, 20, 230, 0.28));
+  filter: drop-shadow(0 0 14px rgba(${GLOW}, 0.5)) drop-shadow(0 0 36px rgba(198, 20, 230, 0.24));
 
   ${media.down('m')} {
-    filter: drop-shadow(0 0 8px rgba(12, 175, 10, 0.5)) drop-shadow(0 0 20px rgba(198, 20, 230, 0.25));
+    filter: drop-shadow(0 0 8px rgba(${GLOW}, 0.45)) drop-shadow(0 0 20px rgba(198, 20, 230, 0.22));
   }
 
   ${media.down('xl')} {
@@ -279,6 +363,7 @@ export function AboutHeroSection() {
 
   return (
     <Section id="about" ref={sectionRef}>
+      <Aura aria-hidden />
       <CharacterStage ref={stageRef} aria-hidden>
         <Character
           clothes={look.clothes}
