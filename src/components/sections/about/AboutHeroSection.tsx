@@ -18,7 +18,6 @@ import { media } from '@/styles/media';
 import { zIndex } from '@/styles/tokens/z-index';
 import { useTranslations } from 'next-intl';
 import { DEFAULT_LOOK, type CharacterLook } from './aboutConfig';
-import { AboutRays } from './AboutRays';
 
 /*
  * Figma: About Hero (3983:1266 — Default / Tablet / Mobile).
@@ -163,6 +162,18 @@ const CharacterStage = styled.div`
   pointer-events: none;
   z-index: ${zIndex.sticky};
   ${characterFade}
+  /*
+   * The glow: the character's own outline, lit. A drop-shadow follows the
+   * image's transparent edges exactly, so the light starts on the outline all
+   * round (head, beard, shoulders) and fades out from it: bright green close
+   * in, then a softer haze turning pink. Kept tight: the box's fade mask cuts
+   * anything past its edges, so a wider glow ends on a hard line.
+   */
+  filter: drop-shadow(0 0 14px rgba(12, 175, 10, 0.55)) drop-shadow(0 0 36px rgba(198, 20, 230, 0.28));
+
+  ${media.down('m')} {
+    filter: drop-shadow(0 0 8px rgba(12, 175, 10, 0.5)) drop-shadow(0 0 20px rgba(198, 20, 230, 0.25));
+  }
 
   ${media.down('xl')} {
     top: calc(var(--hero-title-end, 40%) - ${OVERLAP.tablet}px);
@@ -268,7 +279,6 @@ export function AboutHeroSection() {
 
   return (
     <Section id="about" ref={sectionRef}>
-      <AboutRays stage={stageRef} title={titleRef} />
       <CharacterStage ref={stageRef} aria-hidden>
         <Character
           clothes={look.clothes}
