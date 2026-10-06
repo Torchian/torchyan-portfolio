@@ -101,8 +101,9 @@ const Section = styled.section`
   flex-direction: column;
   align-items: center;
   padding: ${spacing[1000]}px 0;
-  /* The scene around the circle runs off the section's edges. */
-  overflow: clip;
+  /* The scene runs off the page's sides, cut there; above and below it fades
+     out over the sections around it. */
+  overflow-x: clip;
 
   ${media.down('m')} {
     padding: ${spacing[600]}px 0;
@@ -499,28 +500,30 @@ function towards(from: number, to: number) {
  * 1px at any size. The chosen specialist's axis and node light up green.
  */
 const Scene = styled.div`
-  /* Three circles wide and two tall, the circle in the middle: room for the
-     scene to run out, so it can fade rather than be cut by the section. */
+  /* Three circles square, the circle in the middle: room for the scene to run
+     out past the section, top and bottom, and fade there. */
   position: absolute;
-  top: -50%;
+  top: -100%;
   left: -100%;
   width: 300%;
-  aspect-ratio: 3 / 2;
+  aspect-ratio: 1;
   pointer-events: none;
-  /* Gone by the section's top and bottom edges (its padding above and below
-     the circle), so nothing ends on a hard line. */
-  --fade-out: ${spacing[1000]}px;
-  --fade-in: ${2 * spacing[1000]}px;
+  /* Whole from the section's padding inwards, so the top and bottom nodes and
+     numbers show; then fading out over the next 260px, into the sections
+     around it, rather than ending on a line. */
+  --reach: ${spacing[1000] + 260}px;
+  --solid: ${spacing[1000]}px;
   mask-image: linear-gradient(
     to bottom,
-    transparent calc(25% - var(--fade-out)),
-    #000 calc(25% + var(--fade-in)),
-    #000 calc(75% - var(--fade-in)),
-    transparent calc(75% + var(--fade-out))
+    transparent max(0%, calc(100% / 3 - var(--reach))),
+    #000 calc(100% / 3 - var(--solid)),
+    #000 calc(200% / 3 + var(--solid)),
+    transparent min(100%, calc(200% / 3 + var(--reach)))
   );
 
   ${media.down('m')} {
-    --fade-out: ${spacing[600]}px;
+    --reach: ${spacing[600] + 160}px;
+    --solid: ${spacing[600]}px;
   }
 
   /* Ambient glow, and a green one that comes up with a choice: the circle
@@ -529,7 +532,7 @@ const Scene = styled.div`
   &::after {
     content: '';
     position: absolute;
-    inset: ${((0.5 - 0.45) / 2) * 100}% ${((1 - 0.45) / 3) * 100}%;
+    inset: ${((1 - 0.45) / 3) * 100}%;
     border-radius: 50%;
     transition: opacity ${DURATION}ms ${EASE};
   }
@@ -660,7 +663,7 @@ function SpecialistScene({ active }: { active: ServiceId | null }) {
   const R = FRAME / 2;
   return (
     <Scene data-on={active !== null}>
-      <svg viewBox={`${-3 * R} ${-2 * R} ${3 * FRAME} ${2 * FRAME}`} aria-hidden>
+      <svg viewBox={`${-3 * R} ${-3 * R} ${3 * FRAME} ${3 * FRAME}`} aria-hidden>
         <defs>
           <linearGradient id="axis-fade" gradientUnits="userSpaceOnUse" x1={R + 144} x2={R * 3} y1="0" y2="0">
             <stop offset="0" stopColor="#f6f6f6" stopOpacity="0.22" />
