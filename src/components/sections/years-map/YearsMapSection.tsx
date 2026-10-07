@@ -61,7 +61,8 @@ type LocationId =
   | 'miami'
   | 'australia'
   | 'moscow'
-  | 'cyprus';
+  | 'cyprus'
+  | 'dortmund';
 
 /**
  * Places of past work — where a client, employer or partner company was —
@@ -87,6 +88,8 @@ const LOCATIONS: (Omit<MapLocation, 'label'> & { id: LocationId })[] = [
   { id: 'moscow', x: 58, y: 18 },
   // BrainRocket, employer.
   { id: 'cyprus', x: 56, y: 33 },
+  // Dortmund, Germany.
+  { id: 'dortmund', x: 49, y: 21 },
 ];
 
 export interface YearsMapSectionProps {

@@ -38,6 +38,9 @@ const SWAP_MS = 300;
 const Wrapper = styled.div`
   position: absolute;
   inset: 0;
+  /* Sideways only: the floor's 3D box projects far past the screen's sides and
+     would otherwise widen the page; up and down it may run free. */
+  overflow-x: clip;
   pointer-events: none;
   z-index: ${zIndex.base};
 `;
