@@ -93,7 +93,7 @@ const LOCATIONS: (Omit<MapLocation, 'label'> & { id: LocationId })[] = [
 ];
 
 export interface YearsMapSectionProps {
-  /** Unique per page; the homepage and /contact both show the map. */
+  /** Unique per page; the homepage and /start-a-project both show the map. */
   id?: string;
 }
 

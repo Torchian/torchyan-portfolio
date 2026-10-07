@@ -10,7 +10,7 @@ import { grid } from '@/styles/tokens/grid';
 import { media } from '@/styles/media';
 
 /*
- * /contact, after the form: what happens next (three steps, from the existing
+ * /start-a-project, after the form: what happens next (three steps, from the existing
  * info card) and the direct alternatives. The reach map follows on the page.
  */
 
