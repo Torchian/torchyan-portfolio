@@ -126,6 +126,8 @@ export async function POST(request: Request) {
   }
 
   const intent = optionLabel('intentOptions', body.intent);
+  // The /contact page's short form: a message, not a project brief.
+  const general = body.topic === 'message';
   const timeline = optionLabel('timelineOptions', body.timeline);
   const locale = ['en', 'ru', 'hy'].includes(String(body.locale)) ? String(body.locale) : 'unknown';
 
@@ -154,7 +156,7 @@ export async function POST(request: Request) {
         // So a reply in the mail client goes to them, not to the site's own
         // address — `from` has to stay on the verified domain.
         reply_to: email,
-        subject: `Torchyan — ${intent ?? 'New enquiry'} — ${company || name}`,
+        subject: `Torchyan — ${general ? 'Message' : (intent ?? 'New enquiry')} — ${company || name}`,
         text: lines.join('\n'),
       }),
     });

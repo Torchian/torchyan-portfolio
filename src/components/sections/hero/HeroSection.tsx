@@ -359,7 +359,7 @@ export function HeroSection() {
           <CtaSlot>
             {/* The green (secondary) style is the site's conversion colour, as on
                 the form's submit; the glass (primary) style is the quieter one. */}
-            <Button as={Link} href="/contact" $variant="secondary" data-cta="hero">
+            <Button as={Link} href="/start-a-project" $variant="secondary" data-cta="hero">
               {t('cta')}
             </Button>
             <Button as="a" href="#work" $variant="primary" data-cta="hero-secondary">

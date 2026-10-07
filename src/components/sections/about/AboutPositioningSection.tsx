@@ -118,7 +118,7 @@ export function AboutPositioningSection() {
               title: t('build.title'),
               body: t('build.body'),
               cta: t('build.cta'),
-              href: '/contact',
+              href: '/start-a-project',
               ctaId: 'about-primary',
             },
             {

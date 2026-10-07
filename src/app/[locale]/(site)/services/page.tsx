@@ -39,7 +39,7 @@ export default async function ServicesPage({ params }: LocaleParams) {
       <ModelSection />
       <CollaborationSection
         namespace="servicesPage.cta"
-        initiateHref="/contact"
+        initiateHref="/start-a-project"
         analyzeHref="/contact"
         ctaId="services"
         compact

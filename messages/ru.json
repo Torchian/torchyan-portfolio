@@ -18,6 +18,10 @@
       "description": "Websites, product interfaces, design systems and launch support — owned from direction to production by one accountable lead, with specialists when needed."
     },
     "contact": {
+      "title": "Contact",
+      "description": "Questions, collaborations or just saying hello: email, WhatsApp, Telegram, LinkedIn or Instagram, or a short message."
+    },
+    "startProject": {
       "title": "Start a project",
       "description": "Tell Torchyan what you’re building or what needs to change. You’ll get a reply within 2 business days."
     },
@@ -619,7 +623,8 @@
       "services": "Services",
       "projects": "Work",
       "about": "Обо мне",
-      "contact": "Start a project",
+      "startProject": "Start a project",
+      "contact": "Contact",
       "privacy": "Privacy"
     }
   },
@@ -1666,6 +1671,37 @@
           }
         ]
       }
+    }
+  },
+  "talkPage": {
+    "title": "Let’s talk",
+    "subtitle": "Have a question, an idea, or just want to get in touch? Send me a message - I read everything myself.",
+    "channels": {
+      "label": "Ways to reach me",
+      "body": "Best for general questions, collaborations and anything that doesn’t need a project brief.",
+      "listLabel": "Contact channels",
+      "opensInNewTab": "opens in a new tab",
+      "scanHint": "Scan with your phone, or select the icon.",
+      "items": {
+        "instagram": "Instagram",
+        "linkedin": "LinkedIn",
+        "telegram": "Telegram",
+        "whatsapp": "WhatsApp",
+        "email": "Email"
+      }
+    },
+    "form": {
+      "title": "Not sure where to start?",
+      "subtitle": "Send me a short note and we’ll figure out whether it needs a conversation, a project brief, or nothing complicated at all.",
+      "nameLabel": "Name",
+      "namePlaceholder": "Your name",
+      "emailLabel": "Email",
+      "emailPlaceholder": "Your email",
+      "messageLabel": "Message",
+      "messagePlaceholder": "What would you like to talk about?",
+      "submit": "Send message",
+      "submitSending": "Sending…",
+      "submitSuccess": "Thank you - your message has arrived. I’ll reply soon."
     }
   }
 }

@@ -89,7 +89,7 @@ export interface CollaborationSectionProps {
 
 export function CollaborationSection({
   namespace = 'projectsPage.collaboration',
-  initiateHref = '/contact',
+  initiateHref = '/start-a-project',
   analyzeHref = '/services',
   ctaId = 'collaboration',
   compact = false,

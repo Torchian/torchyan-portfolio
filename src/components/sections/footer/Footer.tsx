@@ -47,6 +47,7 @@ const PRIMARY_LINKS = [
   { key: 'services', href: '/services' },
   { key: 'projects', href: '/work' },
   { key: 'about', href: '/about' },
+  { key: 'startProject', href: '/start-a-project' },
   { key: 'contact', href: '/contact' },
   { key: 'privacy', href: '/privacy' },
 ] as const;
