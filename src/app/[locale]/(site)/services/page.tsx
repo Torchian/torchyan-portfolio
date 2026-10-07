@@ -30,10 +30,10 @@ export default async function ServicesPage({ params }: LocaleParams) {
 
   return (
     <main id="main-content">
-      <PageHeroSection namespace="servicesPage.hero" id="services">
+      <PageHeroSection namespace="servicesPage.hero" id="services" points={false}>
         <ServicesTeam />
       </PageHeroSection>
-      <AreasSection />
+      <AreasSection headless />
       <ServicesSpecialists />
       <StartSection />
       <ModelSection />
@@ -42,6 +42,7 @@ export default async function ServicesPage({ params }: LocaleParams) {
         initiateHref="/contact"
         analyzeHref="/contact"
         ctaId="services"
+        compact
       />
     </main>
   );

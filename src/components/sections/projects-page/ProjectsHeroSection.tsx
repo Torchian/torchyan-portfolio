@@ -161,13 +161,15 @@ export interface PageHeroSectionProps {
   id: string;
   /** Between the title and the description: Projects' LogoScroll, Services' team. */
   children?: React.ReactNode;
+  /** The row of short points under the lead. Services leaves it out. */
+  points?: boolean;
 }
 
 /**
  * The Projects page hero (Figma 3155:9789), shared by Services and Contact:
  * same layout, each page's own copy.
  */
-export function PageHeroSection({ namespace, id, children }: PageHeroSectionProps) {
+export function PageHeroSection({ namespace, id, children, points: showPoints = true }: PageHeroSectionProps) {
   const t = useTranslations(namespace);
   const points = t.raw('points') as string[];
   const titleId = `${id}-title`;
@@ -180,11 +182,13 @@ export function PageHeroSection({ namespace, id, children }: PageHeroSectionProp
         <Description>
           <p>{t('lead')}</p>
         </Description>
-        <Points>
-          {points.map((point) => (
-            <li key={point}>{point}</li>
-          ))}
-        </Points>
+        {showPoints && (
+          <Points>
+            {points.map((point) => (
+              <li key={point}>{point}</li>
+            ))}
+          </Points>
+        )}
       </Container>
     </Section>
   );

@@ -34,6 +34,10 @@ const Section = styled.section`
   ${media.down('m')} {
     padding: ${spacing[600]}px 0;
   }
+
+  &[data-headless] {
+    padding-top: ${spacing[600]}px;
+  }
 `;
 
 const Container = styled.div`
@@ -187,14 +191,18 @@ interface AreaCopy {
   outcomes: string[];
 }
 
-export function AreasSection() {
+/**
+ * `headless`: no heading of its own, straight on from the page hero above it,
+ * so the hero's lead reads as the cards' introduction (the Services page).
+ */
+export function AreasSection({ headless = false }: { headless?: boolean }) {
   const t = useTranslations('servicesPage.areas');
   const items = t.raw('items') as AreaCopy[];
 
   return (
-    <Section>
+    <Section data-headless={headless || undefined} data-joined={headless || undefined} aria-label={headless ? t('title') : undefined}>
       <Container>
-        <SectionHeading title={t('title')} subtitle={t('subtitle')} />
+        {!headless && <SectionHeading title={t('title')} subtitle={t('subtitle')} />}
         <AreaGrid>
           {AREAS.map((area, i) => {
             const copy = items[i];

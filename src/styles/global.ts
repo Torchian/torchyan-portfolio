@@ -113,6 +113,19 @@ export const GlobalStyle = createGlobalStyle`
     ${media.down('m')} {
       gap: ${spacing[1000]}px;
     }
+
+    /* A section that carries straight on from the one before it: no gap between. */
+    > [data-joined] {
+      margin-top: -${spacing[2000]}px;
+
+      ${media.down('xl')} {
+        margin-top: -${spacing[1500]}px;
+      }
+
+      ${media.down('m')} {
+        margin-top: -${spacing[1000]}px;
+      }
+    }
   }
 
   /*
