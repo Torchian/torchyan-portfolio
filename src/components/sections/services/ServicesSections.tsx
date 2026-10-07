@@ -5,10 +5,11 @@ import { useTranslations } from 'next-intl';
 import { InfoCard, InfoCardBody, InfoCardTitle, SectionHeading } from '@/components/composites';
 import { spacing } from '@/styles/tokens/spacing';
 import { fontFamily, fontWeight, fontSize, lineHeight, letterSpacing } from '@/styles/tokens/typography';
-import { neutrals } from '@/styles/tokens/colors';
+import { neutrals, transparents } from '@/styles/tokens/colors';
 import { grid } from '@/styles/tokens/grid';
 import { media } from '@/styles/media';
 import { AREAS } from './servicesConfig';
+import { radius } from '@/styles/tokens/radius';
 
 /*
  * The Services page body, built only from the site's existing pieces: the
@@ -28,7 +29,7 @@ const Section = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: ${spacing[1000]}px 0;
+  padding: ${spacing[1000]}px 0 0;
 
   ${media.down('m')} {
     padding: ${spacing[600]}px 0;
@@ -84,15 +85,16 @@ const CardRow = styled.ul`
 
 const AreaGrid = styled.ul`
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: ${spacing[600]}px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: ${spacing[300]}px;
   width: 100%;
   margin: 0;
   padding: 0;
   list-style: none;
 
   ${media.down('xl')} {
-    gap: ${spacing[300]}px;
+    gap: ${spacing[200]}px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   ${media.down('l')} {
@@ -101,11 +103,30 @@ const AreaGrid = styled.ul`
 `;
 
 /** A long-form info card: reads from the left at every size. */
-const AreaCard = styled(InfoCard)`
+const AreaCard = styled.li`
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  gap: ${spacing[300]}px;
+  min-width: 0;
+  padding: ${spacing[300]}px;
+  border-radius: ${radius.xxl}px;
+  background: ${transparents.transparent4};
   align-items: flex-start;
   text-align: left;
   /* The header is fixed, so an anchor jump must land below it. */
   scroll-margin-top: ${spacing[1000] + spacing[300]}px;
+
+  /* Below desktop the cards read from the left. */
+  ${media.down('xl')} {
+    gap: ${spacing[200]}px;
+  }
+
+  ${media.down('m')} {
+    gap: ${spacing[200]}px;
+    min-height: 160px;
+    padding: ${spacing[200]}px ${spacing[250]}px;
+  }
 `;
 
 const AreaPart = styled.div`
@@ -129,14 +150,14 @@ const PartLabel = styled.h4`
 const PartText = styled.p`
   margin: 0;
   font-family: ${fontFamily.body};
-  font-weight: ${fontWeight.regular};
-  font-size: ${fontSize.body.xl}px;
-  line-height: ${lineHeight.body.xl}px;
+  font-weight: ${fontWeight.medium};
+  font-size: ${fontSize.body.l}px;
+  line-height: ${lineHeight.body.l}px;
   color: ${neutrals[500]};
 
   ${media.down('m')} {
-    font-size: ${fontSize.body.l}px;
-    line-height: ${lineHeight.body.l}px;
+    font-size: ${fontSize.body.m}px;
+    line-height: ${lineHeight.body.m}px;
   }
 `;
 
@@ -154,8 +175,8 @@ const PartList = styled.ul`
   list-style: disc;
 
   ${media.down('m')} {
-    font-size: ${fontSize.body.l}px;
-    line-height: ${lineHeight.body.l}px;
+    font-size: ${fontSize.body.m}px;
+    line-height: ${lineHeight.body.m}px;
   }
 `;
 

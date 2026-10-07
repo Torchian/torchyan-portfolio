@@ -38,7 +38,6 @@ const SWAP_MS = 300;
 const Wrapper = styled.div`
   position: absolute;
   inset: 0;
-  overflow: hidden;
   pointer-events: none;
   z-index: ${zIndex.base};
 `;

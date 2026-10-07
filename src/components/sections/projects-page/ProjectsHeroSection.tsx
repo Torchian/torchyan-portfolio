@@ -59,7 +59,7 @@ const Title = styled.h1`
   letter-spacing: ${letterSpacing.xxs}px;
   text-align: center;
   text-transform: uppercase;
-  color: ${accents.secondary};
+  color: ${accents.primary};
 
   /* Only the desktop frames shout; below that the title is set as typed. */
   ${media.down('xl')} {

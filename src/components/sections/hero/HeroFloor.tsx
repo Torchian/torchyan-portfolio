@@ -17,7 +17,7 @@ import { zIndex } from '@/styles/tokens/z-index';
 
 const CELL = 80;
 /** Where the horizon sits, down the section: between the description and the buttons. */
-const HORIZON = '64%';
+const HORIZON = '12%';
 
 const drift = keyframes`
   to {
@@ -30,7 +30,6 @@ const Ground = styled.div`
   inset: 0;
   /* Under the side characters, in SideCharacters' own layer. */
   z-index: ${zIndex.behind};
-  overflow: hidden;
   pointer-events: none;
 `;
 
@@ -39,12 +38,12 @@ const Floor = styled.div`
   top: ${HORIZON};
   left: -50%;
   width: 200%;
-  height: 120%;
+  height: 46%;
   transform-origin: 50% 0;
   transform: perspective(520px) rotateX(72deg);
   background-image:
-    linear-gradient(to bottom, rgba(246, 246, 246, 0.14) 1px, transparent 1px),
-    linear-gradient(to right, rgba(246, 246, 246, 0.14) 1px, transparent 1px);
+    linear-gradient(to bottom, rgba(12, 175, 10, 0.14) 1px, transparent 1px),
+    linear-gradient(to right, rgba(12, 175, 10, 0.14) 1px, transparent 1px);
   background-size: ${CELL}px ${CELL}px;
   background-position:
     0 0,
@@ -60,7 +59,7 @@ const Floor = styled.div`
 
 const Horizon = styled.svg`
   position: absolute;
-  top: ${HORIZON};
+  top: 31%;
   left: 0;
   width: 100%;
   height: 24px;

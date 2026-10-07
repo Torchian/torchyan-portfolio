@@ -28,7 +28,7 @@ export const InfoCard = styled.li`
   align-items: center;
   gap: ${spacing[300]}px;
   min-width: 0;
-  padding: ${spacing[400]}px ${spacing[500]}px;
+  padding: ${spacing[300]}px ${spacing[400]}px;
   border-radius: ${radius.xxl}px;
   background: ${transparents.transparent4};
   font-family: ${fontFamily.heading};
@@ -39,8 +39,8 @@ export const InfoCard = styled.li`
   /* Below desktop the cards read from the left. */
   ${media.down('xl')} {
     align-items: flex-start;
-    gap: ${spacing[400]}px;
-    padding: ${spacing[400]}px;
+    gap: ${spacing[300]}px;
+    padding: ${spacing[300]}px;
     text-align: left;
   }
 
@@ -54,8 +54,8 @@ export const InfoCard = styled.li`
 export const InfoCardTitle = styled.h3`
   width: 100%;
   margin: 0;
-  font-size: ${fontSize.heading.l}px;
-  line-height: ${lineHeight.heading.l}px;
+  font-size: ${fontSize.heading.m}px;
+  line-height: ${lineHeight.heading.m}px;
   color: ${accents.primary};
 
   ${media.down('m')} {

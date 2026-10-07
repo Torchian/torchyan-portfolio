@@ -161,7 +161,7 @@ const fill = `
 const Ring = styled.div`
   ${fill}
   border-radius: 50%;
-  background: linear-gradient(to bottom, ${neutrals[900]}, ${neutrals[800]});
+  background: ${neutrals[900]};
   --ring-hole: ${HOLE * 100}%;
   --ring-gap: 0deg;
   mask-image:
@@ -217,7 +217,7 @@ const Disc = styled.div`
   width: calc(${DISC} * var(--u));
   aspect-ratio: 1;
   border-radius: 50%;
-  background: linear-gradient(to bottom, ${neutrals[900]}, ${neutrals[800]});
+  background: ${neutrals[900]};
   transform: translate(-50%, -50%);
   transition: transform ${DURATION}ms ${EASE};
 
@@ -510,6 +510,7 @@ const SpecialistScene = styled(OrbitScene)`
     #000 calc(200% / 3 + var(--solid)),
     transparent min(100%, calc(200% / 3 + var(--reach)))
   );
+  z-index: -1;
 
   ${media.down('m')} {
     --reach: ${spacing[600] + 160}px;
