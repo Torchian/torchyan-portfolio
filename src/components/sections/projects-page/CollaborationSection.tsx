@@ -32,6 +32,16 @@ const Section = styled.section`
     padding: ${spacing[600]}px 0;
     margin-bottom: ${spacing[600]}px;
   }
+
+  /* Tighter: the CTA follows on from the section above, and the footer comes soon after. */
+  &[data-compact] {
+    padding: ${spacing[1000]}px 0 0;
+    margin-bottom: ${spacing[800]}px;
+
+    ${media.down('m')} {
+      margin-bottom: ${spacing[600]}px;
+    }
+  }
 `;
 
 const Container = styled.div`
@@ -56,6 +66,10 @@ const Container = styled.div`
     gap: ${spacing[600]}px;
     padding: 0 ${spacing[200]}px;
   }
+
+  [data-compact] > & {
+    gap: ${spacing[600]}px;
+  }
 `;
 
 /** Closing two-card CTA blocks; each namespace has title, subtitle, initiate.* and analyze.*. */
@@ -69,6 +83,8 @@ export interface CollaborationSectionProps {
   analyzeHref?: string;
   /** Prefix for the analytics `cta_click` locations. */
   ctaId?: string;
+  /** Less room above, under the heading and before the footer. */
+  compact?: boolean;
 }
 
 export function CollaborationSection({
@@ -76,11 +92,12 @@ export function CollaborationSection({
   initiateHref = '/contact',
   analyzeHref = '/services',
   ctaId = 'collaboration',
+  compact = false,
 }: CollaborationSectionProps) {
   const t = useTranslations(namespace);
 
   return (
-    <Section>
+    <Section data-compact={compact || undefined} data-joined={compact || undefined}>
       <Container>
         <SectionHeading size="medium" title={t('title')} subtitle={t('subtitle')} />
         <CTACards
