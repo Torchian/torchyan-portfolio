@@ -1039,14 +1039,7 @@
     "hero": {
       "title": "Start a project",
       "lead": "Tell me what you’re building or what needs to change.",
-      "body": "You’ll get a reply from me directly, within 2 business days.",
-      "points": [
-        "A new website or a rebuild",
-        "A product interface or dashboard",
-        "A design system for a growing team",
-        "Improving something that’s already live",
-        "Not sure yet - we’ll work it out together"
-      ]
+      "body": "You’ll get a reply from me directly, within 2 business days."
     },
     "next": {
       "title": "What happens next",
@@ -1063,11 +1056,9 @@
           "title": "A clear proposal",
           "body": "You receive a scope and approach - or, if the problem isn’t clear yet, a suggested diagnostic first."
         }
-      ]
-    },
-    "direct": {
-      "title": "Prefer email?",
-      "body": "Write to <email>hello@torchyan.design</email>, or find me on <linkedin>LinkedIn</linkedin>."
+      ],
+      "subtitle": "From your message to a clear plan, in three steps.",
+      "question": "Just a question? <link>Send a quick message</link> instead."
     }
   },
   "privacyPage": {
@@ -1702,5 +1693,10 @@
       "submitSending": "Sending…",
       "submitSuccess": "Thank you - your message has arrived. I’ll reply soon."
     }
+  },
+  "homeContact": {
+    "title": "Let’s talk",
+    "subtitle": "Pick the channel that suits you - or, if you have a project in mind, tell me about it.",
+    "cta": "Start a project"
   }
 }

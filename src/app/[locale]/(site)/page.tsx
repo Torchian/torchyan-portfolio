@@ -6,7 +6,7 @@ import { SelectedWorkSection } from '@/components/sections/selected-work/Selecte
 import { CapabilitiesSection } from '@/components/sections/capabilities/CapabilitiesSection';
 import { TrustedBySection } from '@/components/sections/trusted-by/TrustedBySection';
 import { YearsMapSection } from '@/components/sections/years-map/YearsMapSection';
-import { ContactCTASection } from '@/components/sections/contact-cta/ContactCTASection';
+import { HomeContactSection } from '@/components/sections/contact/HomeContactSection';
 import { resolveLocale, type LocaleParams } from '@/i18n/server';
 import { generatePageMetadata } from '@/lib/seo/metadata';
 
@@ -34,7 +34,7 @@ export default async function HomePage({ params }: LocaleParams) {
       <CapabilitiesSection />
       <TrustedBySection />
       <YearsMapSection />
-      <ContactCTASection />
+      <HomeContactSection />
     </main>
   );
 }

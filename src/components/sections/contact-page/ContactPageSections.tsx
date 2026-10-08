@@ -1,18 +1,29 @@
 'use client';
 
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { useTranslations } from 'next-intl';
-import { InfoCard, InfoCardBody, InfoCardTitle, SectionHeading } from '@/components/composites';
+import { SectionHeading } from '@/components/composites';
+import { Link } from '@/i18n/navigation';
 import { spacing } from '@/styles/tokens/spacing';
-import { fontFamily, fontSize, lineHeight } from '@/styles/tokens/typography';
+import { fontFamily, fontSize, fontWeight, letterSpacing, lineHeight } from '@/styles/tokens/typography';
 import { accents, neutrals } from '@/styles/tokens/colors';
 import { grid } from '@/styles/tokens/grid';
 import { media } from '@/styles/media';
 
 /*
- * /start-a-project, after the form: what happens next (three steps, from the existing
- * info card) and the direct alternatives. The reach map follows on the page.
+ * /start-a-project, after the reach map: what happens once the form is sent.
+ * Three numbered stops on one track, in the map's language: a grey line with
+ * a green comet running along it, each stop lighting up as the comet reaches
+ * it. Across on desktop and tablet, down on phones. Under reduced motion the
+ * track stands still.
  */
+
+/** One run of the comet, stop to stop, and the pause before the next. */
+const CYCLE = 6;
+/** The share of a cycle the comet's head takes from the first stop to the last. */
+const RUN = 0.6;
+const NODE = 64;
+const NODE_PHONE = 48;
 
 const Section = styled.section`
   display: flex;
@@ -29,12 +40,13 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: ${spacing[800]}px;
+  gap: ${spacing[1000]}px;
   width: 100%;
   max-width: ${grid.maxWidth}px;
   padding: 0 ${spacing[400]}px;
 
   ${media.down('xl')} {
+    gap: ${spacing[800]}px;
     padding: 0 ${spacing[300]}px;
   }
 
@@ -44,33 +56,184 @@ const Container = styled.div`
   }
 `;
 
-const Steps = styled.ol`
-  display: flex;
-  align-items: stretch;
-  gap: ${spacing[600]}px;
+/*
+ * The comet is 40% of the track. In its own widths the track is 2.5, so the
+ * head sits on the first stop at -100% and on the last at 150%; by 250% the
+ * tail has left too.
+ */
+const runAcross = keyframes`
+  0% { transform: translateX(-100%); }
+  ${RUN * 100}% { transform: translateX(150%); }
+  ${(RUN + 0.2) * 100}%, 100% { transform: translateX(250%); }
+`;
+
+const runDown = keyframes`
+  0% { transform: translateY(-100%); }
+  ${RUN * 100}% { transform: translateY(150%); }
+  ${(RUN + 0.2) * 100}%, 100% { transform: translateY(250%); }
+`;
+
+/** A stop's ring flares as the head passes and settles back. */
+const flare = keyframes`
+  0% {
+    border-color: ${accents.primary};
+    box-shadow: 0 0 0 6px rgba(12, 175, 10, 0.16), 0 0 32px rgba(12, 175, 10, 0.35);
+  }
+  18%, 100% {
+    border-color: rgba(246, 246, 246, 0.16);
+    box-shadow: 0 0 0 0 rgba(12, 175, 10, 0);
+  }
+`;
+
+const Track = styled.ol`
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: ${spacing[400]}px;
   width: 100%;
   margin: 0;
   padding: 0;
   list-style: none;
 
-  ${media.down('xl')} {
-    gap: ${spacing[300]}px;
+  ${media.down('m')} {
+    grid-template-columns: minmax(0, 1fr);
+    gap: ${spacing[500]}px;
+  }
+`;
+
+/** The line, from the first stop's centre to the last's, under the stops. */
+const Line = styled.div`
+  position: absolute;
+  top: ${NODE / 2 - 0.5}px;
+  left: calc((100% - 2 * ${spacing[400]}px) / 6);
+  right: calc((100% - 2 * ${spacing[400]}px) / 6);
+  height: 1px;
+  overflow: hidden;
+  background: rgba(246, 246, 246, 0.14);
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 40%;
+    background: linear-gradient(to right, rgba(12, 175, 10, 0), ${accents.primary});
+    transform: translateX(-100%);
+    animation: ${runAcross} ${CYCLE}s linear infinite;
   }
 
-  ${media.down('l')} {
-    flex-direction: column;
+  ${media.down('m')} {
+    top: ${NODE_PHONE / 2}px;
+    bottom: ${NODE_PHONE / 2}px;
+    left: ${NODE_PHONE / 2 - 0.5}px;
+    right: auto;
+    width: 1px;
+    height: auto;
+    /* It runs on past the last stop, beside its text: let it fade out there. */
+    mask-image: linear-gradient(to bottom, #000 70%, transparent);
 
-    /* Stacked, each card takes its content's height: InfoCard's flex-basis of 0
-       with its phone min-height would otherwise cap it and let the text spill. */
-    > li {
-      flex: none;
+    &::after {
+      inset: 0 0 auto 0;
+      width: auto;
+      height: 40%;
+      background: linear-gradient(to bottom, rgba(12, 175, 10, 0), ${accents.primary});
+      transform: translateY(-100%);
+      animation-name: ${runDown};
+    }
+  }
+
+  ${media.reducedMotion} {
+    &::after {
+      animation: none;
+      opacity: 0;
     }
   }
 `;
 
-const Direct = styled.p`
+const Step = styled.li`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: ${spacing[300]}px;
+  text-align: center;
+
+  ${media.down('m')} {
+    display: grid;
+    grid-template-columns: ${NODE_PHONE}px minmax(0, 1fr);
+    align-items: start;
+    column-gap: ${spacing[300]}px;
+    text-align: left;
+  }
+`;
+
+const Node = styled.span`
+  display: grid;
+  place-items: center;
+  width: ${NODE}px;
+  height: ${NODE}px;
+  border: 1px solid rgba(246, 246, 246, 0.16);
+  border-radius: 50%;
+  background: ${neutrals[900]};
+  font-family: ${fontFamily.display};
+  font-weight: ${fontWeight.heading};
+  font-size: ${fontSize.body.xl}px;
+  line-height: 1;
+  color: ${accents.primary};
+  font-variant-numeric: tabular-nums;
+  animation: ${flare} ${CYCLE}s ease-out infinite;
+
+  ${media.down('m')} {
+    width: ${NODE_PHONE}px;
+    height: ${NODE_PHONE}px;
+    font-size: ${fontSize.body.l}px;
+  }
+
+  ${media.reducedMotion} {
+    animation: none;
+  }
+`;
+
+const StepText = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${spacing[100]}px;
+  max-width: 400px;
+
+  ${media.down('m')} {
+    padding-top: ${spacing[100]}px;
+  }
+`;
+
+const StepTitle = styled.h3`
   margin: 0;
-  max-width: 640px;
+  font-family: ${fontFamily.heading};
+  font-weight: ${fontWeight.semibold};
+  font-size: ${fontSize.heading.s}px;
+  line-height: ${lineHeight.heading.s}px;
+  letter-spacing: ${letterSpacing.xs}px;
+  color: ${neutrals[100]};
+
+  ${media.down('xl')} {
+    font-size: ${fontSize.body.xl}px;
+    line-height: ${lineHeight.body.xl}px;
+  }
+`;
+
+const StepBody = styled.p`
+  margin: 0;
+  font-family: ${fontFamily.body};
+  font-size: ${fontSize.body.l}px;
+  line-height: ${lineHeight.body.l}px;
+  color: ${neutrals[500]};
+
+  ${media.down('xl')} {
+    font-size: ${fontSize.body.m}px;
+    line-height: ${lineHeight.body.m}px;
+  }
+`;
+
+const Question = styled.p`
+  margin: 0;
   font-family: ${fontFamily.body};
   font-size: ${fontSize.body.xl}px;
   line-height: ${lineHeight.body.xl}px;
@@ -88,42 +251,41 @@ const Direct = styled.p`
     outline-offset: 2px;
     border-radius: 2px;
   }
+
+  ${media.down('m')} {
+    font-size: ${fontSize.body.l}px;
+    line-height: ${lineHeight.body.l}px;
+  }
 `;
 
-const EMAIL = 'hello@torchyan.design';
-const LINKEDIN = 'https://www.linkedin.com/in/torchian/';
-
 export function NextStepsSection() {
-  const t = useTranslations('contactPage');
-  const steps = t.raw('next.steps') as { title: string; body: string }[];
+  const t = useTranslations('contactPage.next');
+  const steps = t.raw('steps') as { title: string; body: string }[];
 
   return (
     <Section aria-labelledby="next-steps-title">
       <Container>
-        <SectionHeading id="next-steps-title" title={t('next.title')} />
-        <Steps>
-          {steps.map((step) => (
-            <InfoCard key={step.title}>
-              <InfoCardTitle>{step.title}</InfoCardTitle>
-              <InfoCardBody>{step.body}</InfoCardBody>
-            </InfoCard>
+        <SectionHeading id="next-steps-title" title={t('title')} subtitle={t('subtitle')} size="large" />
+        <Track>
+          <Line aria-hidden />
+          {steps.map((step, i) => (
+            <Step key={step.title}>
+              {/* Lit as the comet's head reaches it: the stops are evenly spaced along its run. */}
+              <Node aria-hidden style={{ animationDelay: `${((i / (steps.length - 1)) * RUN * CYCLE).toFixed(2)}s` }}>
+                {String(i + 1).padStart(2, '0')}
+              </Node>
+              <StepText>
+                <StepTitle>{step.title}</StepTitle>
+                <StepBody>{step.body}</StepBody>
+              </StepText>
+            </Step>
           ))}
-        </Steps>
-        <SectionHeading title={t('direct.title')} size="medium" />
-        <Direct>
-          {t.rich('direct.body', {
-            email: (chunks) => (
-              <a href={`mailto:${EMAIL}`} data-outbound="email">
-                {chunks}
-              </a>
-            ),
-            linkedin: (chunks) => (
-              <a href={LINKEDIN} target="_blank" rel="noopener noreferrer" data-outbound="linkedin">
-                {chunks}
-              </a>
-            ),
+        </Track>
+        <Question>
+          {t.rich('question', {
+            link: (chunks) => <Link href="/contact">{chunks}</Link>,
           })}
-        </Direct>
+        </Question>
       </Container>
     </Section>
   );

@@ -153,7 +153,7 @@ const Points = styled.ul`
 `;
 
 /** The pages that open with this hero; each has title, lead, body and five points in its messages. */
-export type PageHeroNamespace = 'projectsPage.hero' | 'servicesPage.hero' | 'contactPage.hero';
+export type PageHeroNamespace = 'projectsPage.hero' | 'servicesPage.hero';
 
 export interface PageHeroSectionProps {
   namespace: PageHeroNamespace;
@@ -166,7 +166,7 @@ export interface PageHeroSectionProps {
 }
 
 /**
- * The Projects page hero (Figma 3155:9789), shared by Services and Contact:
+ * The Projects page hero (Figma 3155:9789), shared by Services:
  * same layout, each page's own copy.
  */
 export function PageHeroSection({ namespace, id, children, points: showPoints = true }: PageHeroSectionProps) {
