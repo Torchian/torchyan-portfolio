@@ -2,6 +2,7 @@
 
 import { usePathname } from '@/i18n/navigation';
 import styled from 'styled-components';
+import { spacing } from '@/styles/tokens/spacing';
 import { NavBar } from './NavBar';
 import { CustomCursor } from './CustomCursor';
 import { Footer } from '@/components/sections/footer/Footer';
@@ -21,6 +22,8 @@ const Main = styled.div`
   position: relative;
   min-height: 100vh;
   z-index: 0;
+  /* Room between the last section and the footer, on every page. */
+  padding-bottom: ${spacing[1000]}px;
 `;
 
 export function SiteLayout({ children }: { children: React.ReactNode }) {
