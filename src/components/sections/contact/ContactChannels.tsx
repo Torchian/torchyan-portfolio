@@ -15,7 +15,9 @@ import { media } from '@/styles/media';
  * Figma: Contacts (4183:14298) — State=Default (4183:13142) and State2
  * (4183:14607). A ring of five contact channels around the lead, open at the
  * bottom where the lead stands. Pointing at a channel, or tabbing to it:
- *  - the ring lights up green in a 60° arc in front of it;
+ *  - the ring lights up in a 60° arc in front of it, in the channel's brand
+ *    colour (Instagram's gradient running along the arc; email keeps the
+ *    site's green);
  *  - the middle swaps "Ways to reach me" for the channel's name, a QR code to
  *    open it on a phone, and its handle;
  *  - the lead steps back a little (320 → 260), out of the QR's way.
@@ -59,7 +61,16 @@ interface Channel {
   /** The icon's box in design px. */
   icon: { width: number; height: number };
   external: boolean;
+  /** The lit arc's colours, along it clockwise: start, middle, end. One colour for a solid brand. */
+  tint: readonly [string, string, string];
 }
+
+/*
+ * Brand colours, from each brand's own guidelines: LinkedIn Blue #0A66C2,
+ * WhatsApp's #25D366, Telegram's #26A5E4, and the core of Instagram's gradient
+ * (orange #FA7E1E, pink #D62976, purple #962FBF).
+ */
+const solid = (color: string) => [color, color, color] as const;
 
 /** In reading order round the ring: top, then clockwise. */
 const CHANNELS: Channel[] = [
@@ -70,6 +81,7 @@ const CHANNELS: Channel[] = [
     handle: '@torchyan.design',
     icon: { width: 48, height: 48 },
     external: true,
+    tint: ['#FA7E1E', '#D62976', '#962FBF'],
   },
   {
     id: 'linkedin',
@@ -78,6 +90,7 @@ const CHANNELS: Channel[] = [
     handle: 'in/torchian',
     icon: { width: 48, height: 48 },
     external: true,
+    tint: solid('#0A66C2'),
   },
   {
     id: 'telegram',
@@ -86,6 +99,7 @@ const CHANNELS: Channel[] = [
     handle: '@stepan93t',
     icon: { width: 48, height: 40 },
     external: true,
+    tint: solid('#26A5E4'),
   },
   {
     id: 'whatsapp',
@@ -94,6 +108,7 @@ const CHANNELS: Channel[] = [
     handle: '+374 95 334719',
     icon: { width: 48, height: 48 },
     external: true,
+    tint: solid('#25D366'),
   },
   {
     id: 'email',
@@ -102,6 +117,7 @@ const CHANNELS: Channel[] = [
     handle: 'hello@torchyan.design',
     icon: { width: 48, height: 47 },
     external: false,
+    tint: solid(accents.primary),
   },
 ];
 
@@ -116,6 +132,21 @@ const ArcProperties = createGlobalStyle`
     syntax: '<angle>';
     inherits: false;
     initial-value: 0deg;
+  }
+  @property --arc-c1 {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: ${accents.primary};
+  }
+  @property --arc-c2 {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: ${accents.primary};
+  }
+  @property --arc-c3 {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: ${accents.primary};
   }
 `;
 
@@ -147,14 +178,24 @@ const Ring = styled.div`
   -webkit-mask-composite: source-in;
 `;
 
-/** The lit arc: the ring's own shape, cut down to ARC degrees round the chosen channel. */
+/**
+ * The lit arc: the ring's own shape, cut down to ARC degrees round the chosen
+ * channel, painted in its colours. The paint is a conic gradient laid along the
+ * arc's full width, so a gradient brand runs from one end of it to the other
+ * and the colours cross-fade as the arc swings to the next channel.
+ */
 const Arc = styled.div`
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  background: ${accents.primary};
   --arc-at: 0deg;
   --arc-width: 0deg;
+  background: conic-gradient(
+    from calc(var(--arc-at) - ${ARC / 2}deg),
+    var(--arc-c1),
+    var(--arc-c2) ${ARC / 2}deg,
+    var(--arc-c3) ${ARC}deg
+  );
   mask-image:
     ${ringShape},
     conic-gradient(
@@ -171,7 +212,10 @@ const Arc = styled.div`
     --arc-width: ${ARC}deg;
     transition:
       --arc-at ${DURATION}ms ${EASE},
-      --arc-width ${DURATION}ms ${EASE};
+      --arc-width ${DURATION}ms ${EASE},
+      --arc-c1 ${DURATION}ms ${EASE},
+      --arc-c2 ${DURATION}ms ${EASE},
+      --arc-c3 ${DURATION}ms ${EASE};
   }
 
   ${media.reducedMotion} {
@@ -399,8 +443,9 @@ export function ContactChannels({ titleAs = 'h2' }: ContactChannelsProps) {
       const next = towards(atRef.current, channel.angle);
       atRef.current = next;
       arc.style.setProperty('--arc-at', `${next}deg`);
-      // From rest the arc has no transition on its angle: let the jump land
-      // before the arc opens, so it opens in place.
+      channel.tint.forEach((color, i) => arc.style.setProperty(`--arc-c${i + 1}`, color));
+      // From rest the arc has no transition on its angle or colours: let the
+      // jump land before the arc opens, so it opens in place, already in colour.
       if (!active) getComputedStyle(arc).getPropertyValue('--arc-at');
     }
     setActive(id);
