@@ -73,14 +73,12 @@ const runDown = keyframes`
   ${(RUN + 0.2) * 100}%, 100% { transform: translateY(250%); }
 `;
 
-/** A stop's ring flares as the head passes and settles back. */
+/** A stop glows as the head passes and settles back. */
 const flare = keyframes`
   0% {
-    border-color: ${accents.primary};
-    box-shadow: 0 0 0 6px rgba(12, 175, 10, 0.16), 0 0 32px rgba(12, 175, 10, 0.35);
+    box-shadow: 0 0 0 6px rgba(12, 175, 10, 0.2), 0 0 32px rgba(12, 175, 10, 0.45);
   }
   18%, 100% {
-    border-color: rgba(246, 246, 246, 0.16);
     box-shadow: 0 0 0 0 rgba(12, 175, 10, 0);
   }
 `;
@@ -171,14 +169,15 @@ const Node = styled.span`
   place-items: center;
   width: ${NODE}px;
   height: ${NODE}px;
-  border: 1px solid rgba(246, 246, 246, 0.16);
+  /* A lighter rim on the green. */
+  border: 1px solid rgba(246, 246, 246, 0.24);
   border-radius: 50%;
-  background: ${neutrals[900]};
+  background: ${accents.primary};
   font-family: ${fontFamily.display};
   font-weight: ${fontWeight.heading};
   font-size: ${fontSize.body.xl}px;
   line-height: 1;
-  color: ${accents.primary};
+  color: ${neutrals[100]};
   font-variant-numeric: tabular-nums;
   animation: ${flare} ${CYCLE}s ease-out infinite;
 
