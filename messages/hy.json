@@ -1663,6 +1663,10 @@
       }
     }
   },
+  "caseMedia": {
+    "play": "Play video",
+    "pause": "Pause video"
+  },
   "talkPage": {
     "title": "Let’s talk",
     "subtitle": "Have a question, an idea, or just want to get in touch? Send me a message - I read everything myself.",

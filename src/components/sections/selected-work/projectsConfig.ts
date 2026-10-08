@@ -1,3 +1,4 @@
+import type { CaseVideo } from '@/components/sections/case-study/caseStudyConfig';
 import { PICSART_GRID, SMARTBET_GRID, SOULONE_GRID, type IsometricGrid } from './projectGrids';
 
 /**
@@ -11,14 +12,7 @@ import { PICSART_GRID, SMARTBET_GRID, SOULONE_GRID, type IsometricGrid } from '.
  * (projectGrids.ts), which is why only the featured projects have one.
  */
 
-export type ProjectSlug =
-  | 'picsart'
-  | 'smartbet'
-  | 'soulone'
-  | 'ginosi'
-  | 'benzeen'
-  | 'world-education'
-  | 'brainstorm';
+export type ProjectSlug = 'picsart' | 'smartbet' | 'soulone' | 'ginosi' | 'benzeen' | 'world-education' | 'brainstorm';
 
 /** A project's copy, from messages/*.json under projects.<slug>. */
 export interface ProjectContent {
@@ -41,7 +35,8 @@ export interface ProjectConfig {
   /** As shown on the card and the case page: a year or a span. */
   year: string;
   gradient: string;
-  images: { src: string; alt: string }[];
+  /** Screenshots for the short case; one with a `video` plays that recording instead (CaseMedia). */
+  images: { src: string; alt: string; video?: CaseVideo }[];
   /** Present for the projects featured on the homepage. */
   card?: ProjectCard;
 }
@@ -125,8 +120,7 @@ const BRAINSTORM_GRADIENT = 'linear-gradient(180deg, #5C4AC0 0%, #8A5FA0 100%)';
 const BENZEEN_GRADIENT = 'linear-gradient(180deg, #6B4A12 0%, #927F3D 100%)';
 const WORLD_EDUCATION_GRADIENT = 'linear-gradient(180deg, #5E5128 0%, #927F3D 100%)';
 
-const various = (files: string[], alt: string) =>
-  files.map((f) => ({ src: `/selected-work/various/${f}`, alt }));
+const various = (files: string[], alt: string) => files.map((f) => ({ src: `/selected-work/various/${f}`, alt }));
 
 export const PROJECTS: ProjectConfig[] = [
   {

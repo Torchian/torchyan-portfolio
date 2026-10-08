@@ -2,7 +2,6 @@
 
 import { useMessages } from 'next-intl';
 import styled from 'styled-components';
-import Image from 'next/image';
 import { Container } from '@/components/primitives';
 import { spacing } from '@/styles/tokens/spacing';
 import { fontSize, lineHeight, fontWeight, fontFamily } from '@/styles/tokens/typography';
@@ -12,6 +11,7 @@ import { grid } from '@/styles/tokens/grid';
 import { media } from '@/styles/media';
 import type { ProjectConfig } from '@/components/sections/selected-work/projectsConfig';
 import { CaseBlocks } from './CaseBlocks';
+import { CaseMedia } from './CaseMedia';
 import type { CaseBlock } from './caseStudyConfig';
 
 const Section = styled.section`
@@ -137,13 +137,7 @@ export function CaseStudyBodySection({ project }: CaseStudyBodySectionProps) {
           <ImagesGrid>
             {images.map((img, i) => (
               <ImageWrapper key={i}>
-                <Image
-                  src={img.src}
-                  alt={img.alt}
-                  fill
-                  sizes="(max-width: 480px) 100vw, 33vw"
-                  style={{ objectFit: 'cover', objectPosition: 'top' }}
-                />
+                <CaseMedia image={{ ...img, aspect: 4 / 3 }} alt={img.alt} sizes="(max-width: 480px) 100vw, 33vw" />
               </ImageWrapper>
             ))}
           </ImagesGrid>
