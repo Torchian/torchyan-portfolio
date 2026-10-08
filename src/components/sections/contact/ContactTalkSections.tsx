@@ -16,10 +16,9 @@ import { ContactChannels } from './ContactChannels';
 /*
  * Figma: Contact Page (4178:12149) — /contact, for anything that isn't a
  * project brief (that's /start-a-project).
- *  - hero_section (4178:12151): LET'S TALK, its lead, and the ring of contact
- *    channels (ContactChannels).
- *  - Contact (4180:12358): NOT SURE WHERE TO START? and a short form — name,
- *    email, message — through the same endpoint as the project form.
+ * LET'S TALK and its lead, then straight into a short form — name, email,
+ * message, through the same endpoint as the project form — and then the ring
+ * of contact channels (ContactChannels) for anyone who'd rather write directly.
  */
 
 const Section = styled.section`
@@ -57,8 +56,8 @@ const Heading = styled.div`
   text-align: center;
 `;
 
-/** Figma: display XL, Black, uppercase; the hero's in green, the form's in grey. */
-const Display = styled.h1<{ $tone: 'green' | 'grey' }>`
+/** Figma: display XL, Black, uppercase, green. */
+const Display = styled.h1`
   margin: 0;
   font-family: ${fontFamily.display};
   font-weight: ${fontWeight.black};
@@ -66,7 +65,7 @@ const Display = styled.h1<{ $tone: 'green' | 'grey' }>`
   line-height: ${lineHeight.display.xl}px;
   letter-spacing: ${letterSpacing.xxs}px;
   text-transform: uppercase;
-  color: ${(p) => (p.$tone === 'green' ? accents.primary : neutrals[500])};
+  color: ${accents.primary};
 
   ${media.down('xl')} {
     font-weight: ${fontWeight.heading};
@@ -82,15 +81,15 @@ const Display = styled.h1<{ $tone: 'green' | 'grey' }>`
   }
 `;
 
-const Lead = styled.p<{ $size: 'large' | 'small' }>`
+const Lead = styled.p`
   max-width: 1100px;
   margin: 0 auto;
   font-family: ${fontFamily.heading};
   font-weight: ${fontWeight.semibold};
-  font-size: ${(p) => (p.$size === 'large' ? fontSize.heading.l : fontSize.heading.s)}px;
-  line-height: ${(p) => (p.$size === 'large' ? lineHeight.heading.l : lineHeight.heading.s)}px;
+  font-size: ${fontSize.heading.l}px;
+  line-height: ${lineHeight.heading.l}px;
   letter-spacing: ${letterSpacing.xs}px;
-  color: ${(p) => (p.$size === 'large' ? neutrals[100] : neutrals[500])};
+  color: ${neutrals[100]};
 
   ${media.down('xl')} {
     font-size: ${fontSize.body.xl}px;
@@ -104,11 +103,10 @@ export function ContactHeroSection() {
     <Section aria-labelledby="talk-title">
       <Container>
         <Heading>
-          <Display id="talk-title" $tone="green">
-            {t('title')}
-          </Display>
-          <Lead $size="large">{t('subtitle')}</Lead>
+          <Display id="talk-title">{t('title')}</Display>
+          <Lead>{t('subtitle')}</Lead>
         </Heading>
+        <ContactForm />
         <ContactChannels />
       </Container>
     </Section>
@@ -117,38 +115,13 @@ export function ContactHeroSection() {
 
 /* ---------- The short form ---------- */
 
-const FormSection = styled.section`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: ${spacing[1000]}px 0;
-
-  ${media.down('m')} {
-    padding: ${spacing[600]}px 0;
-  }
-`;
-
-const FormContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${spacing[600]}px;
-  width: 100%;
-  max-width: ${grid.maxWidth}px;
-  padding: 0 ${spacing[400]}px;
-
-  ${media.down('xl')} {
-    padding: 0 ${spacing[300]}px;
-  }
-
-  ${media.down('m')} {
-    padding: 0 ${spacing[200]}px;
-  }
-`;
-
 const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: ${spacing[400]}px;
+  width: 100%;
+  /* #message lands below the fixed header. */
+  scroll-margin-top: ${spacing[1500]}px;
 
   /* Figma's CTA Primary runs the form's full width. */
   > button[type='submit'] {
@@ -248,7 +221,7 @@ type State = 'idle' | 'sending' | 'sent' | 'validation' | 'rate_limited' | 'deli
 const FIELDS: FieldName[] = ['name', 'email', 'message'];
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export function ContactFormSection() {
+function ContactForm() {
   const t = useTranslations('talkPage.form');
   const tShared = useTranslations('contact');
   const locale = useLocale();
@@ -343,92 +316,81 @@ export function ContactFormSection() {
             : null;
 
   return (
-    <FormSection id="message" aria-labelledby="talk-form-title">
-      <FormContainer>
-        <Heading>
-          <Display as="h2" id="talk-form-title" $tone="grey">
-            {t('title')}
-          </Display>
-          <Lead $size="small">{t('subtitle')}</Lead>
-        </Heading>
+    <Form id="message" aria-label={t('label')} onSubmit={onSubmit} noValidate>
+      <FieldRow>
+        <Field>
+          <FieldLabel htmlFor={id('name')}>{t('nameLabel')}</FieldLabel>
+          <TextInput
+            id={id('name')}
+            name="name"
+            type="text"
+            autoComplete="name"
+            required
+            maxLength={100}
+            placeholder={t('namePlaceholder')}
+            {...describe('name')}
+          />
+          {fieldError('name')}
+        </Field>
+        <Field>
+          <FieldLabel htmlFor={id('email')}>{t('emailLabel')}</FieldLabel>
+          <TextInput
+            id={id('email')}
+            name="email"
+            type="email"
+            autoComplete="email"
+            required
+            maxLength={254}
+            placeholder={t('emailPlaceholder')}
+            {...describe('email')}
+          />
+          {fieldError('email')}
+        </Field>
+      </FieldRow>
 
-        <Form onSubmit={onSubmit} noValidate>
-          <FieldRow>
-            <Field>
-              <FieldLabel htmlFor={id('name')}>{t('nameLabel')}</FieldLabel>
-              <TextInput
-                id={id('name')}
-                name="name"
-                type="text"
-                autoComplete="name"
-                required
-                maxLength={100}
-                placeholder={t('namePlaceholder')}
-                {...describe('name')}
-              />
-              {fieldError('name')}
-            </Field>
-            <Field>
-              <FieldLabel htmlFor={id('email')}>{t('emailLabel')}</FieldLabel>
-              <TextInput
-                id={id('email')}
-                name="email"
-                type="email"
-                autoComplete="email"
-                required
-                maxLength={254}
-                placeholder={t('emailPlaceholder')}
-                {...describe('email')}
-              />
-              {fieldError('email')}
-            </Field>
-          </FieldRow>
+      <Field>
+        <FieldLabel htmlFor={id('message')}>{t('messageLabel')}</FieldLabel>
+        <TextInput
+          as="textarea"
+          id={id('message')}
+          name="message"
+          required
+          maxLength={4000}
+          placeholder={t('messagePlaceholder')}
+          {...describe('message')}
+        />
+        {fieldError('message')}
+      </Field>
 
-          <Field>
-            <FieldLabel htmlFor={id('message')}>{t('messageLabel')}</FieldLabel>
-            <TextInput
-              as="textarea"
-              id={id('message')}
-              name="message"
-              required
-              maxLength={4000}
-              placeholder={t('messagePlaceholder')}
-              {...describe('message')}
-            />
-            {fieldError('message')}
-          </Field>
+      <Honeypot aria-hidden>
+        <label htmlFor={`talk-nickname-${uid}`}>{tShared('trapLabel')}</label>
+        <input id={`talk-nickname-${uid}`} name="nickname" type="text" tabIndex={-1} autoComplete="off" />
+      </Honeypot>
 
-          <Honeypot aria-hidden>
-            <label htmlFor={`talk-nickname-${uid}`}>{tShared('trapLabel')}</label>
-            <input id={`talk-nickname-${uid}`} name="nickname" type="text" tabIndex={-1} autoComplete="off" />
-          </Honeypot>
+      <PrivacyNote>
+        {tShared.rich('privacyNote', {
+          link: (chunks) => <Link href="/privacy">{chunks}</Link>,
+        })}
+      </PrivacyNote>
 
-          <PrivacyNote>
-            {tShared.rich('privacyNote', {
-              link: (chunks) => <Link href="/privacy">{chunks}</Link>,
-            })}
-          </PrivacyNote>
+      <Button
+        as="button"
+        type="submit"
+        $variant="secondary"
+        disabled={state === 'sending'}
+        aria-describedby={statusMessage ? statusId : undefined}
+      >
+        {state === 'sending' ? t('submitSending') : t('submit')}
+      </Button>
 
-          <Button
-            as="button"
-            type="submit"
-            $variant="secondary"
-            disabled={state === 'sending'}
-            aria-describedby={statusMessage ? statusId : undefined}
-          >
-            {state === 'sending' ? t('submitSending') : t('submit')}
-          </Button>
-
-          {/* Always in the page, so the announcement is heard when it fills. */}
-          <div role="status" aria-live="polite">
-            {statusMessage && (
-              <Status id={statusId} $tone={state === 'sent' ? 'success' : 'error'}>
-                {statusMessage}
-              </Status>
-            )}
-          </div>
-        </Form>
-      </FormContainer>
-    </FormSection>
+      {/* Always in the page, so the announcement is heard when it fills. */}
+      <div role="status" aria-live="polite">
+        {statusMessage && (
+          <Status id={statusId} $tone={state === 'sent' ? 'success' : 'error'}>
+            {statusMessage}
+          </Status>
+        )}
+      </div>
+    </Form>
   );
 }

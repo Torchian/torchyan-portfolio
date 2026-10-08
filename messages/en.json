@@ -1691,8 +1691,7 @@
       }
     },
     "form": {
-      "title": "Not sure where to start?",
-      "subtitle": "Send me a short note and we’ll figure out whether it needs a conversation, a project brief, or nothing complicated at all.",
+      "label": "Send a message",
       "nameLabel": "Name",
       "namePlaceholder": "Your name",
       "emailLabel": "Email",
