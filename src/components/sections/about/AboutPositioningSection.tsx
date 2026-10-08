@@ -3,13 +3,7 @@
 import styled from 'styled-components';
 import { CTACards } from '@/components/composites';
 import { spacing } from '@/styles/tokens/spacing';
-import {
-  fontFamily,
-  fontWeight,
-  fontSize,
-  lineHeight,
-  letterSpacing,
-} from '@/styles/tokens/typography';
+import { fontFamily, fontSize, lineHeight, letterSpacing } from '@/styles/tokens/typography';
 import { neutrals } from '@/styles/tokens/colors';
 import { grid } from '@/styles/tokens/grid';
 import { media } from '@/styles/media';
@@ -80,25 +74,6 @@ const Copy = styled.div`
   }
 `;
 
-const Closing = styled.p`
-  max-width: 1024px;
-  margin: 0;
-  font-family: ${fontFamily.heading};
-  font-weight: ${fontWeight.semibold};
-  /* Figma: 36/48 on every frame. */
-  font-size: ${fontSize.heading.l}px;
-  line-height: ${lineHeight.heading.l}px;
-  letter-spacing: ${letterSpacing.xs}px;
-  text-align: center;
-  color: ${neutrals[700]};
-
-  ${media.down('xl')} {
-    max-width: none;
-    font-size: ${fontSize.heading.m}px;
-    line-height: ${lineHeight.heading.m}px;
-  }
-`;
-
 export function AboutPositioningSection() {
   const t = useTranslations('about.cta');
   const intro = t.raw('intro') as string[];
@@ -131,7 +106,6 @@ export function AboutPositioningSection() {
             },
           ]}
         />
-        <Closing>{t('bottomLine')}</Closing>
       </Container>
     </Section>
   );

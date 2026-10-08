@@ -50,6 +50,11 @@ const Updated = styled.p`
 const Part = styled.section`
   margin-bottom: ${spacing[500]}px;
 
+  &:last-child,
+  &:last-child > :last-child {
+    margin-bottom: 0;
+  }
+
   h2 {
     margin: 0 0 ${spacing[150]}px;
     font-family: ${fontFamily.heading};
