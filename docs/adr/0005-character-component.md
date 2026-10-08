@@ -58,6 +58,18 @@ The hero's side characters look at the mouse: the eyes move in their sockets, an
 - **Black and white:** the right character gets `grayscale` (CSS `grayscale(1)`), which uses the same Rec. 709 weights as the baked still.
 - **Measured at 1440 on a retina screen:** 60fps (17ms per frame) through pointer sweeps; no style writes once settled. At rest the live characters match the stills to an average difference of about 4/255.
 
+## Head v3 (2026-10-08)
+
+The head art was refreshed (new colours, eyes, texture) and delivered as one flat render instead of Figma parts. It is the same face — pupils, nose, mouth and outline land within 1–3px of v2 once scaled — so it's cut with the v2 parts as the template.
+
+- **Cut:** `scripts/cut-character.py <render> --version v3` lines the render up with the head frame by the pupils (so the glasses and cap still fit), gives every pixel to the part that shows there in v2, and writes `public/character/v3/head/*.webp` plus the boxes in `characterLayout.json`. Put back together, the parts match the render to a mean 0.1/255.
+- **Template and source:** the v2 head parts moved to `scripts/character/template/`; the render is `scripts/character/head-v3-source.webp` (lossless). The cap and the glasses stay v2.
+- **What a flat render can't give:**
+  - The face under the beard isn't in it. v3's chin and lips under the beard are v2's, moved into the new colours (v2's Lab detail, v3's low-frequency colour). Only What I Do's bare-face step shows it; everywhere else the beard covers it.
+  - Eyes and ears where the face covers them are continued from what shows (OpenCV Telea), so the turn and the gaze never uncover an edge.
+- **Stills:** the hero's side characters and the phone portrait were re-baked with the same recipes, so the stills still match the live layers they crossfade into.
+- **If the beardless face arrives**, cut it the same way and swap the face's lower half for it; nothing else changes.
+
 ## Options considered
 
 ### A: Layered raster parts (chosen)

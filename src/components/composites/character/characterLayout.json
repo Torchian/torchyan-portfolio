@@ -34,52 +34,52 @@
   ],
   "parts": {
     "eye-left": {
-      "src": "/character/v2/head/eye-left.webp",
+      "src": "/character/v3/head/eye-left.webp",
       "x": 255.0,
       "y": 275.0,
       "width": 83.0,
       "height": 42.0
     },
     "eye-right": {
-      "src": "/character/v2/head/eye-right.webp",
+      "src": "/character/v3/head/eye-right.webp",
       "x": 82.0,
-      "y": 274.64,
+      "y": 274.5,
       "width": 80.0,
       "height": 41.0
     },
     "ear-right": {
-      "src": "/character/v2/head/ear-right.webp",
-      "x": 10.46,
-      "y": 279.93,
-      "width": 57.0,
-      "height": 147.0
+      "src": "/character/v3/head/ear-right.webp",
+      "x": 9.5,
+      "y": 282.0,
+      "width": 58.0,
+      "height": 145.0
     },
     "ear-left": {
-      "src": "/character/v2/head/ear-left.webp",
-      "x": 350.11,
-      "y": 279.96,
-      "width": 56.5,
-      "height": 146.5
+      "src": "/character/v3/head/ear-left.webp",
+      "x": 350.0,
+      "y": 277.5,
+      "width": 63.0,
+      "height": 149.0
     },
     "face": {
-      "src": "/character/v2/head/face.webp",
+      "src": "/character/v3/head/face.webp",
       "x": 14.5,
       "y": 38.0,
       "width": 391.0,
       "height": 571.5
     },
     "brow-left": {
-      "src": "/character/v2/head/brow-left.webp",
-      "x": 237.05,
-      "y": 223.1,
+      "src": "/character/v3/head/brow-left.webp",
+      "x": 237.0,
+      "y": 223.0,
       "width": 120.5,
       "height": 44.5
     },
     "brow-right": {
-      "src": "/character/v2/head/brow-right.webp",
-      "x": 63.52,
-      "y": 226.81,
-      "width": 112.5,
+      "src": "/character/v3/head/brow-right.webp",
+      "x": 63.5,
+      "y": 227.0,
+      "width": 113.0,
       "height": 37.5
     },
     "cap": {
@@ -90,11 +90,11 @@
       "height": 273.5
     },
     "beard": {
-      "src": "/character/v2/head/beard.webp",
+      "src": "/character/v3/head/beard.webp",
       "x": 47.0,
-      "y": 395.0,
-      "width": 325.5,
-      "height": 383.0
+      "y": 392.5,
+      "width": 331.5,
+      "height": 387.5
     }
   },
   "glasses": {

@@ -44,8 +44,9 @@ npm run build && npm run start
 | `npm run images` | Right-sizes new project images and converts them to WebP. `-- --dry` reports without changing anything. |
 | `npm run push` | `git push` with a larger buffer, for pushes with big assets. |
 
-Two Python scripts bake the character artwork: `scripts/bake-character.py` and
-`scripts/export-character.py`. See `docs/adr/0005-character-component.md`.
+Python scripts make the character artwork: `scripts/cut-character.py` (head parts
+from a flat render), `scripts/export-character.py` (bodies and glasses from Figma)
+and `scripts/bake-character.py` (stills). See `docs/adr/0005-character-component.md`.
 
 ### Design tokens are generated
 
