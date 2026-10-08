@@ -82,6 +82,9 @@ const nextConfig: NextConfig = {
     // px, so 2560 covers it at 2x.
     deviceSizes: [640, 828, 1080, 1280, 1920, 2560],
     imageSizes: [64, 128, 256, 384],
+    // 75 by default; 85 for the Selected Work screenshot tiles, whose small
+    // text blurs at 75.
+    qualities: [75, 85],
     // Keep encoded variants for 31 days instead of the default 4 hours, so
     // they aren't re-encoded all day. When you replace an image, give the new
     // file a new name (see scripts/optimize-images.ts).

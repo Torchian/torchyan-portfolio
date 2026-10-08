@@ -92,32 +92,32 @@ export const SMARTBET_GRID: IsometricGrid = {
     {
       width: 640,
       images: [
-        smartbet('Screenshot 2025-11-05 at 17.31.10 15.28.58.png', SMARTBET_SHOT),
-        smartbet('Products - Smart Sports.png', SMARTBET_PAGE),
-        smartbet('Platform Proiducts - Smart Connect.png', SMARTBET_PAGE),
-        smartbet('Screenshot 2025-11-05 at 17.32.26 15.28.58.png', SMARTBET_SHOT),
-        smartbet('Home.png', SMARTBET_PAGE),
+        smartbet('Screenshot 2025-11-05 at 17.31.10 15.28.58.webp', SMARTBET_SHOT),
+        smartbet('Products - Smart Sports.webp', SMARTBET_PAGE),
+        smartbet('Platform Proiducts - Smart Connect.webp', SMARTBET_PAGE),
+        smartbet('Screenshot 2025-11-05 at 17.32.26 15.28.58.webp', SMARTBET_SHOT),
+        smartbet('Home.webp', SMARTBET_PAGE),
       ],
       center: { desktop: [540.45, 754.71], hover: [228.69, 574.71], tablet: [447.8, 713.64], mobile: [263.18, 688.5] },
     },
     {
       width: 243.196,
       images: [
-        smartbet('Kaboom.png', SMARTBET_PHONE),
-        smartbet('Smart Sports Copy 3.png', SMARTBET_PHONE),
-        smartbet('Smart Feed.png', SMARTBET_PHONE),
-        smartbet('About Company - Our Mission.png', SMARTBET_PHONE),
+        smartbet('Kaboom.webp', SMARTBET_PHONE),
+        smartbet('Smart Sports Copy 3.webp', SMARTBET_PHONE),
+        smartbet('Smart Feed.webp', SMARTBET_PHONE),
+        smartbet('About Company - Our Mission.webp', SMARTBET_PHONE),
       ],
       center: { desktop: [544.48, 283.43], hover: [830.27, 448.43], tablet: [451.07, 331.29], mobile: [274.32, 392.68] },
     },
     {
       width: 640,
       images: [
-        smartbet('Providers.png', SMARTBET_PAGE),
-        smartbet('Screenshot 2025-11-05 at 17.33.22 15.28.58.png', SMARTBET_SHOT),
-        smartbet('Careers.png', SMARTBET_PAGE),
-        smartbet('Gaming Proiducts - Casino.png', SMARTBET_PAGE),
-        smartbet('About - Our Vision.png', SMARTBET_PAGE),
+        smartbet('Providers.webp', SMARTBET_PAGE),
+        smartbet('Screenshot 2025-11-05 at 17.33.22 15.28.58.webp', SMARTBET_SHOT),
+        smartbet('Careers.webp', SMARTBET_PAGE),
+        smartbet('Gaming Proiducts - Casino.webp', SMARTBET_PAGE),
+        smartbet('About - Our Vision.webp', SMARTBET_PAGE),
       ],
       center: { desktop: [1426.53, 319.09], hover: [906.92, 19.09], tablet: [560.47, 10.22], mobile: [99.15, -10.72] },
     },
@@ -137,22 +137,22 @@ export const PICSART_GRID: IsometricGrid = {
     {
       width: 640,
       images: [
-        picsart('Screenshot 2026-01-26 at 19.54.03.png', PICSART_PAGE),
-        picsart('Screenshot 2026-01-26 at 19.55.01.png', PICSART_PAGE),
-        picsart('Screenshot 2026-01-26 at 19.54.41.png', PICSART_PAGE),
-        picsart('Screenshot 2026-01-26 at 20.05.59.png', PICSART_PAGE),
-        picsart('Screenshot 2025-11-05 at 17.23.58.png', PICSART_PAGE),
+        picsart('Screenshot 2026-01-26 at 19.54.03.webp', PICSART_PAGE),
+        picsart('Screenshot 2026-01-26 at 19.55.01.webp', PICSART_PAGE),
+        picsart('Screenshot 2026-01-26 at 19.54.41.webp', PICSART_PAGE),
+        picsart('Screenshot 2026-01-26 at 20.05.59.webp', PICSART_PAGE),
+        picsart('Screenshot 2025-11-05 at 17.23.58.webp', PICSART_PAGE),
       ],
       center: { desktop: [525.49, 14.68], hover: [58.7, 284.18], tablet: [398.41, 5.38], mobile: [280.13, 4.31] },
     },
     {
       width: 170.938,
       images: [
-        picsart('Screenshot 2026-01-26 at 20.22.35.png', 830 / 1804),
-        picsart('Screenshot 2026-01-26 at 20.22.48.png', 830 / 1804),
-        picsart('Screenshot 2026-01-26 at 20.07.43.png', 830 / 1712),
-        picsart('Screenshot 2026-01-26 at 20.11.32.png', 830 / 1806),
-        picsart('Screenshot 2026-01-26 at 20.11.54.png', 830 / 1806),
+        picsart('Screenshot 2026-01-26 at 20.22.35.webp', 830 / 1804),
+        picsart('Screenshot 2026-01-26 at 20.22.48.webp', 830 / 1804),
+        picsart('Screenshot 2026-01-26 at 20.07.43.webp', 830 / 1712),
+        picsart('Screenshot 2026-01-26 at 20.11.32.webp', 830 / 1806),
+        picsart('Screenshot 2026-01-26 at 20.11.54.webp', 830 / 1806),
       ],
       /* Hover isn't in the Figma variant (it only moves the first column): 400px up-right, against the
          outer columns like Smartbet and Soulone, short of where the column's lower end would show. */
@@ -161,11 +161,11 @@ export const PICSART_GRID: IsometricGrid = {
     {
       width: 640,
       images: [
-        picsart('Screenshot 2026-01-26 at 20.00.55.png', PICSART_PAGE),
-        picsart('Screenshot 2026-01-26 at 20.02.34.png', PICSART_PAGE),
-        picsart('Screenshot 2025-11-05 at 17.24.57.png', PICSART_PAGE),
-        picsart('Screenshot 2026-01-26 at 19.24.48.png', PICSART_PAGE),
-        picsart('Screenshot 2026-01-26 at 20.05.59.png', PICSART_PAGE),
+        picsart('Screenshot 2026-01-26 at 20.00.55.webp', PICSART_PAGE),
+        picsart('Screenshot 2026-01-26 at 20.02.34.webp', PICSART_PAGE),
+        picsart('Screenshot 2025-11-05 at 17.24.57.webp', PICSART_PAGE),
+        picsart('Screenshot 2026-01-26 at 19.24.48.webp', PICSART_PAGE),
+        picsart('Screenshot 2026-01-26 at 20.05.59.webp', PICSART_PAGE),
       ],
       /* Hover isn't in the Figma variant either: 220px down-left with the first column, short of where
          its upper end would show. */
@@ -187,26 +187,26 @@ export const SOULONE_GRID: IsometricGrid = {
     {
       width: 640,
       images: [
-        soulone('s-a1.webp', 640 / 1707.58, { position: '50% 4%' }),
-        soulone('s-a2.webp', 640 / 712.84, { position: '50% 32%' }),
+        soulone('s-a1-v2.webp', 640 / 1707.58, { position: '50% 4%' }),
+        soulone('s-a2-v2.webp', 640 / 712.84, { position: '50% 32%' }),
       ],
       center: { desktop: [777.86, 891.78], hover: [-347.97, 241.78], tablet: [504.23, 728.22], mobile: [440.32, 760.16] },
     },
     {
       width: 243.196,
       images: [
-        soulone('s-b1.webp', 243.196 / 528.023, { position: TOP }),
-        soulone('s-b2.webp', 243.196 / 1412.61, { position: '50% 79%' }),
-        soulone('s-b3.webp', 243.196 / 825.699, { position: TOP }),
+        soulone('s-b1-v2.webp', 243.196 / 528.023, { position: TOP }),
+        soulone('s-b2-v2.webp', 243.196 / 1412.61, { position: '50% 79%' }),
+        soulone('s-b3-v2.webp', 243.196 / 825.699, { position: TOP }),
       ],
       center: { desktop: [165.2, 64.45], hover: [1117.83, 614.45], tablet: [941.13, 581.79], mobile: [386.22, 402.64] },
     },
     {
       width: 640,
       images: [
-        soulone('s-c1.webp', 640 / 610.893, { position: TOP }),
-        soulone('s-c2.webp', 640 / 857.64, { position: '50% 81.5%' }),
-        soulone('s-c3.webp', 640 / 929.539, { position: TOP }),
+        soulone('s-c1-v2.webp', 640 / 610.893, { position: TOP }),
+        soulone('s-c2-v2.webp', 640 / 857.64, { position: '50% 81.5%' }),
+        soulone('s-c3-v2.webp', 640 / 929.539, { position: TOP }),
       ],
       center: { desktop: [1668.73, 458.92], hover: [1062.52, 108.92], tablet: [821.14, 113.85], mobile: [359.78, 61.08] },
     },
