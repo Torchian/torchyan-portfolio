@@ -22,8 +22,8 @@ const HALF = { width: 768, height: 1536 } as const;
 // Lazy (next/image's default), not priority: the pair is hidden on phones, and a
 // preload would fetch them there anyway. On screens that show them they're in
 // view from the first layout, so lazy loading starts them straight away.
-const LEFT_SRC = '/hero/character-left.webp';
-const RIGHT_SRC = '/hero/character-right.webp';
+const LEFT_SRC = '/hero/character-left-v3.webp';
+const RIGHT_SRC = '/hero/character-right-v3.webp';
 
 /**
  * Where the characters come alive: the stills are swapped for the live,

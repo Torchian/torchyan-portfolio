@@ -33,7 +33,7 @@ import { useTranslations } from 'next-intl';
  */
 
 /** Baked with scripts/bake-character.py (Big Lebowski, no cap or glasses); see ADR 0005. */
-const PORTRAIT = { src: '/hero/character-portrait.webp', width: 1024, height: 1024 } as const;
+const PORTRAIT = { src: '/hero/character-portrait-v3.webp', width: 1024, height: 1024 } as const;
 
 const Section = styled.section`
   position: relative;

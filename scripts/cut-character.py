@@ -14,23 +14,24 @@ the character picks it up without code changes.
   2. Gives every pixel to the part that shows there in the template
      (scripts/character/template: the v2 parts from Figma). Pixels just outside
      the template's outline go to the nearest part.
-  3. Fills what a flat picture can't have: the eyes and ears where the face
-     covers them (continued from what shows), and the face under the beard,
-     which is the template's own chin and lips, recoloured with the new art's
-     colours. The beard covers it whenever it's shown, but What I Do shows the
-     face alone first.
+  3. Fills what a flat picture can't have: the face under the beard, which is
+     the template's own chin and lips in the new art's colours and line style.
+     The beard covers it whenever it's shown, but What I Do shows the face
+     alone first. The face, ears, eyebrows and beard move together on the
+     site (DEPTH in characterLayout.ts), so nothing else is ever uncovered.
   4. Writes trimmed WebP parts at 2x the head frame to
      public/character/<version>/head/ and their boxes into characterLayout.json.
      The cap and the glasses aren't in the picture and are left as they are.
 
-Needs Pillow, numpy, scipy, scikit-image and opencv-python. Check the result
+Needs Pillow, numpy, scipy and scikit-image. Check the result
 before shipping it (--preview writes a sheet: full head, bare face, other parts).
 """
 import argparse
+import hashlib
+import io
 import json
 from pathlib import Path
 
-import cv2
 import numpy as np
 from PIL import Image
 from scipy import ndimage
@@ -53,12 +54,8 @@ BEARD_GROW_HOLE = 9
 # The face's outline is a glowing rim a few px wide; pixels this close outside
 # the template's outline are rim, and must move with the face, not an ear.
 FACE_RIM = 8
-# How far each ear continues under the face (2x px). At a full turn the face
-# moves ~14px further than the ears (DEPTH 0.6 vs 0.35 x TURN_X 26), so this
-# has to be more than that, with a soft end beyond it.
-EAR_UNDER = 24
-EAR_FADE = 10
-EAR_TAPER = 24     # rows over which that strip fades in and out at the ear's top and bottom
+# How far each ear keeps the source under the face's edge (2x px).
+EAR_UNDER = 6
 # The template's mouth, in 2x head-frame px: the lips (centre x, y, radii) keep
 # their own lines; the rest of the hidden face takes a coarser mesh, scaled
 # about `centre` by MESH_SCALE to match the new art's line spacing.
@@ -225,7 +222,7 @@ def face_under_beard(tpl, rgb, a, own, beard):
 def split_ear(tpl, rgb, a, own, name):
     """Where the face's rim ends and the ear begins, row by row: the dark crease
     between them. Everything on the face's side goes to the face, so its rim
-    turns with it; the ear's root goes on under the face, in shadow."""
+    turns with it; the ear keeps a few px of the source under the face's edge."""
     right = name == 'ear-left'          # the character's left ear is on the picture's right
     ear_t = tpl[name][..., 3] > 0.3
     face_t = tpl['face'][..., 3] > 0.5
@@ -257,58 +254,20 @@ def split_ear(tpl, rgb, a, own, name):
     own[name] = np.where(band, pair * ear_side, own[name])
 
     shows = np.clip(a * own[name], 0, 1)
-    # Under the face: the ear's root, in shadow. Mirroring the ear itself there
-    # drew a second, flipped ear (a "V" in the bowl) the moment the head turned,
-    # so it's the ear's own darkest tone near the crease instead, as tall as the
-    # ear's front edge in each row: opaque for EAR_UNDER px, then fading.
+    # Under the face's edge: the source's own pixels, a few px wide. The ear and
+    # the face move together (DEPTH), so this is never uncovered; it only keeps
+    # the two soft edges from leaving a hairline where they meet, and where the
+    # ear is drawn over the face (What I Do) it's the same pixels as the face's.
     side = 1 if right else -1
-    shade = np.zeros((len(ys), 3), np.float32)
-    edge_a = np.zeros(len(ys), np.float32)
-    for i, (y, c) in enumerate(zip(ys, np.round(cs).astype(int))):
-        xs = c + side * np.arange(1, 13)
-        xs = xs[(xs >= 0) & (xs < W)]
-        px = rgb[y, xs][shows[y, xs] > 0.6]
-        if len(px):
-            lum = px @ np.array([0.2126, 0.7152, 0.0722], np.float32)
-            shade[i] = px[lum <= np.percentile(lum, 30)].mean(0)
-        edge_a[i] = shows[y, c + side * np.arange(1, 4)].max() if 0 <= c + side * 3 < W else 0
-    have = edge_a > 0.3
-    if have.any():
-        idx = np.arange(len(ys))
-        for ch in range(3):
-            shade[:, ch] = np.interp(idx, idx[have], shade[have, ch])
-    shade = ndimage.gaussian_filter1d(shade, 6, axis=0) * 0.8
-    # Only where the ear really meets the face, tapering at the top and bottom,
-    # so the strip never pokes out above or below the ear.
-    lab, n = ndimage.label(edge_a > 0.3)
-    if n:
-        keep = lab == (np.bincount(lab[lab > 0]).argmax())
-        idx = np.where(keep)[0]
-        taper = np.zeros(len(ys), np.float32)
-        span = np.arange(idx[0], idx[-1] + 1)
-        taper[span] = np.clip(np.minimum(span - idx[0], idx[-1] - span) / EAR_TAPER, 0, 1)
-        edge_a = edge_a * taper
-    edge_a = ndimage.gaussian_filter1d(edge_a, 2)
-    # The ear's front edge, smoothed down the ear: per-row pixels stretched sideways read as streaks.
-    edge_rgb = np.array([rgb[y, min(max(c + side * 2, 0), W - 1)] for y, c in zip(ys, np.round(cs).astype(int))])
-    edge_rgb = ndimage.gaussian_filter1d(edge_rgb, 5, axis=0)
     part_rgb = rgb.copy()
     part_a = shows.copy()
-    under = np.zeros((H, W), bool)
-    for i, (y, c) in enumerate(zip(ys, np.round(cs).astype(int))):
-        edge = edge_rgb[i]
-        for d in range(EAR_UNDER + EAR_FADE):
-            x = c - side * d                              # under the face
-            if not 0 <= x < W:
-                continue
-            fade = 1.0 if d < EAR_UNDER else 1 - (d - EAR_UNDER + 1) / (EAR_FADE + 1)
-            mix = min(1.0, d / 10)                        # from the ear's edge into the shadow
-            part_rgb[y, x] = edge * (1 - mix) + shade[i] * mix
-            part_a[y, x] = max(part_a[y, x], edge_a[i] * fade)
-            under[y, x] = True
-    # Row by row leaves stair-steps where the ear ends; soften them.
-    zone = ndimage.binary_dilation(under, iterations=3) & ~(shows > 0.6)
-    part_a = np.where(zone, np.minimum(part_a, ndimage.gaussian_filter(part_a, 1.5)), part_a)
+    for y, c in zip(ys, np.round(cs).astype(int)):
+        if shows[y, min(max(c + side * 2, 0), W - 1)] < 0.3:
+            continue
+        for d in range(EAR_UNDER):
+            x = c - side * d
+            if 0 <= x < W:
+                part_a[y, x] = max(part_a[y, x], a[y, x])
     return part_rgb, part_a
 
 
@@ -331,17 +290,16 @@ def cut(src_path):
         parts[name] = split_ear(tpl, rgb, a, own, name)
     parts['face'] = face_under_beard(tpl, rgb, a, own, np.clip(ext['beard'], 0, 1))
 
-    # Eyes sit under the face: continue what shows into what it covers, so they
-    # can move in their sockets without an edge appearing.
+    # Eyes: what shows, plus the source's own pixels where the template eye goes
+    # under the face. In <Character /> they sit under the face and only peek out
+    # as the gaze moves; in What I Do they're drawn over it, where these are the
+    # face's own pixels, so nothing changes.
     covers = ndimage.gaussian_filter(tpl['face'][..., 3], 1) > 0.3
-    bgr = cv2.cvtColor((rgb * 255).astype(np.uint8), cv2.COLOR_RGB2BGR)
     for name in ('eye-left', 'eye-right'):
         tpl_a = tpl[name][..., 3]
         shows = np.clip(a * own[name], 0, 1)
         hidden = (tpl_a > 0.02) & (shows <= 0.6) & covers
-        filled = cv2.inpaint(bgr, hidden.astype(np.uint8) * 255, 5, cv2.INPAINT_TELEA)
-        part_rgb = cv2.cvtColor(filled, cv2.COLOR_BGR2RGB).astype(np.float32) / 255
-        parts[name] = (part_rgb, np.maximum(shows, np.where(hidden, tpl_a, 0)))
+        parts[name] = (rgb, np.maximum(shows, np.where(hidden, np.minimum(tpl_a, a), 0)))
     return parts, new
 
 
@@ -349,16 +307,23 @@ def write(parts, version):
     layout = json.loads(LAYOUT.read_text())
     out_dir = PUBLIC / 'character' / version / 'head'
     out_dir.mkdir(parents=True, exist_ok=True)
+    # Each file is named after its content: the site caches resized images for
+    # 31 days (next.config.ts), so a part that changes needs a new URL.
+    for old in out_dir.glob('*.webp'):
+        old.unlink()
     for name, (rgb, alpha) in parts.items():
         a8 = (np.clip(alpha, 0, 1) * 255 + 0.5).astype(np.uint8)
         a8[a8 < ALPHA_FLOOR] = 0
         img = Image.fromarray(np.dstack([(np.clip(rgb, 0, 1) * 255 + 0.5).astype(np.uint8), a8]), 'RGBA')
         bbox = img.getchannel('A').getbbox()
         img = img.crop(bbox)
-        path = out_dir / f'{name}.webp'
-        img.save(path, 'WEBP', quality=85, method=6, alpha_quality=90)
+        buf = io.BytesIO()
+        img.save(buf, 'WEBP', quality=85, method=6, alpha_quality=90)
+        digest = hashlib.sha1(buf.getvalue()).hexdigest()[:8]
+        path = out_dir / f'{name}.{digest}.webp'
+        path.write_bytes(buf.getvalue())
         layout['parts'][name] = {
-            'src': f'/character/{version}/head/{name}.webp',
+            'src': f'/character/{version}/head/{path.name}',
             'x': round(bbox[0] / SCALE, 2),
             'y': round(bbox[1] / SCALE, 2),
             'width': round(img.width / SCALE, 2),

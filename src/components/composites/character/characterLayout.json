@@ -34,49 +34,49 @@
   ],
   "parts": {
     "eye-left": {
-      "src": "/character/v3/head/eye-left.webp",
+      "src": "/character/v3/head/eye-left.cc5857e6.webp",
       "x": 255.0,
       "y": 275.0,
       "width": 83.0,
       "height": 42.0
     },
     "eye-right": {
-      "src": "/character/v3/head/eye-right.webp",
+      "src": "/character/v3/head/eye-right.83f0a3eb.webp",
       "x": 82.0,
       "y": 274.5,
       "width": 80.0,
       "height": 41.0
     },
     "ear-right": {
-      "src": "/character/v3/head/ear-right.webp",
+      "src": "/character/v3/head/ear-right.9ec0da61.webp",
       "x": 9.5,
       "y": 280.0,
-      "width": 62.5,
+      "width": 49.5,
       "height": 142.5
     },
     "ear-left": {
-      "src": "/character/v3/head/ear-left.webp",
-      "x": 347.5,
+      "src": "/character/v3/head/ear-left.78e056df.webp",
+      "x": 360.5,
       "y": 277.5,
-      "width": 65.5,
+      "width": 52.5,
       "height": 143.0
     },
     "face": {
-      "src": "/character/v3/head/face.webp",
+      "src": "/character/v3/head/face.b9447bbf.webp",
       "x": 14.5,
       "y": 38.0,
       "width": 391.0,
       "height": 571.5
     },
     "brow-left": {
-      "src": "/character/v3/head/brow-left.webp",
+      "src": "/character/v3/head/brow-left.6a238c5d.webp",
       "x": 237.0,
       "y": 223.0,
       "width": 120.5,
       "height": 44.5
     },
     "brow-right": {
-      "src": "/character/v3/head/brow-right.webp",
+      "src": "/character/v3/head/brow-right.15d03210.webp",
       "x": 63.5,
       "y": 227.0,
       "width": 112.5,
@@ -90,7 +90,7 @@
       "height": 273.5
     },
     "beard": {
-      "src": "/character/v3/head/beard.webp",
+      "src": "/character/v3/head/beard.9ed35a2f.webp",
       "x": 47.0,
       "y": 392.5,
       "width": 331.5,

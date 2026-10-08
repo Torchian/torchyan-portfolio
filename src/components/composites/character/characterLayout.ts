@@ -39,18 +39,24 @@ export interface PercentBox {
  * How near each layer sits, 0 (back) to 1 (front), for the look-at-the-pointer
  * motion (Character's `motion`): nearer layers travel further, so the head
  * reads as turning. The body barely moves.
+ *
+ * The face, ears, eyebrows and beard move as one: since v3 they're cut from one
+ * flat render (scripts/cut-character.py), so nothing exists under where they
+ * overlap, and any difference in travel opened a gap at the ears or slid the
+ * beard's mouth hole off the lips. The turn is carried by the head against the
+ * body, the tilt, the eyes' gaze, and the cap and glasses sliding over the face.
  */
 export const DEPTH: Record<HeadLayer | 'body', number> = {
   body: 0.12,
-  'ear-left': 0.35,
-  'ear-right': 0.35,
+  'ear-left': 0.6,
+  'ear-right': 0.6,
   'eye-left': 0.6,
   'eye-right': 0.6,
   face: 0.6,
-  'brow-left': 0.65,
-  'brow-right': 0.65,
+  'brow-left': 0.6,
+  'brow-right': 0.6,
   cap: 0.7,
-  beard: 0.8,
+  beard: 0.6,
   glasses: 1,
 };
 

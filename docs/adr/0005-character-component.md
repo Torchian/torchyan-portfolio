@@ -66,9 +66,11 @@ The head art was refreshed (new colours, eyes, texture) and delivered as one fla
 - **Template and source:** the v2 head parts moved to `scripts/character/template/`; the render is `scripts/character/head-v3-source.webp` (lossless). The cap and the glasses stay v2.
 - **What a flat render can't give:**
   - The face under the beard isn't in it. There, v3's face is v2's chin and lips with the new art's colour (carried down each column, since the face is teal on one side and orange on the other), its line contrast, and a mesh drawn 1.25x coarser away from the lips to match its line spacing. It's matched to the source where the two meet, so no outline shows. Only What I Do's bare-face step shows it; everywhere else the beard covers it.
-  - Ears: the face's glowing rim goes with the face (the split follows the dark crease between rim and ear), and each ear's root continues ~24px under the face as a soft shadow in the ear's own darkest tone, tapering at the top and bottom, then fades. Mirroring the ear there drew a second, flipped ear. At a full turn the face moves ~14px further than the ears, so the join never opens.
-  - Eyes where the face covers them are continued from what shows (OpenCV Telea), so the gaze never uncovers an edge.
-- **Stills:** the hero's side characters and the phone portrait were re-baked with the same recipes, so the stills still match the live layers they crossfade into.
+  - Ears: the face's glowing rim goes with the face (the split follows the dark crease between rim and ear).
+  - **Face, ears, eyebrows and beard move as one** (`DEPTH` 0.6). In v2 they travelled at different depths (ears 0.35, brows 0.65, beard 0.8) over a complete Figma face; from a flat render nothing exists where they overlap, so any difference opened a gap at the ears and slid the beard's mouth hole off the lips. Two earlier attempts to paint the hidden ear (a mirrored ear, then a shadow) both showed as soon as the head turned. The turn is now carried by the head against the body, the tilt, the gaze, and the glasses and cap sliding over the face.
+  - Eyes and ears keep a few px of the source under the face's edge, so in What I Do (where they're drawn over the face) they're the face's own pixels.
+- **Stills:** the hero's side characters and the phone portrait were re-baked with the same recipes (now `*-v3.webp`), so the stills still match the live layers they crossfade into.
+- **File names:** resized images are cached for 31 days (`next.config.ts`), so the cut parts are named by content hash (`face.<hash>.webp`) and the stills got new names; a re-cut never shows a stale part.
 - **If the beardless face arrives**, cut it the same way and swap the face's lower half for it; nothing else changes.
 
 ## Options considered
