@@ -58,6 +58,7 @@ FACE_RIM = 8
 # has to be more than that, with a soft end beyond it.
 EAR_UNDER = 24
 EAR_FADE = 10
+EAR_TAPER = 24     # rows over which that strip fades in and out at the ear's top and bottom
 # The template's mouth, in 2x head-frame px: the lips (centre x, y, radii) keep
 # their own lines; the rest of the hidden face takes a coarser mesh, scaled
 # about `centre` by MESH_SCALE to match the new art's line spacing.
@@ -224,7 +225,7 @@ def face_under_beard(tpl, rgb, a, own, beard):
 def split_ear(tpl, rgb, a, own, name):
     """Where the face's rim ends and the ear begins, row by row: the dark crease
     between them. Everything on the face's side goes to the face, so its rim
-    turns with it; the ear goes on under the face, mirrored across the crease."""
+    turns with it; the ear's root goes on under the face, in shadow."""
     right = name == 'ear-left'          # the character's left ear is on the picture's right
     ear_t = tpl[name][..., 3] > 0.3
     face_t = tpl['face'][..., 3] > 0.5
@@ -256,21 +257,54 @@ def split_ear(tpl, rgb, a, own, name):
     own[name] = np.where(band, pair * ear_side, own[name])
 
     shows = np.clip(a * own[name], 0, 1)
-    # Under the face: the ear's own texture mirrored across the crease, shaded a
-    # little deeper the further it goes in (it's tucked under the face), opaque
-    # for EAR_UNDER px, then fading out.
+    # Under the face: the ear's root, in shadow. Mirroring the ear itself there
+    # drew a second, flipped ear (a "V" in the bowl) the moment the head turned,
+    # so it's the ear's own darkest tone near the crease instead, as tall as the
+    # ear's front edge in each row: opaque for EAR_UNDER px, then fading.
+    side = 1 if right else -1
+    shade = np.zeros((len(ys), 3), np.float32)
+    edge_a = np.zeros(len(ys), np.float32)
+    for i, (y, c) in enumerate(zip(ys, np.round(cs).astype(int))):
+        xs = c + side * np.arange(1, 13)
+        xs = xs[(xs >= 0) & (xs < W)]
+        px = rgb[y, xs][shows[y, xs] > 0.6]
+        if len(px):
+            lum = px @ np.array([0.2126, 0.7152, 0.0722], np.float32)
+            shade[i] = px[lum <= np.percentile(lum, 30)].mean(0)
+        edge_a[i] = shows[y, c + side * np.arange(1, 4)].max() if 0 <= c + side * 3 < W else 0
+    have = edge_a > 0.3
+    if have.any():
+        idx = np.arange(len(ys))
+        for ch in range(3):
+            shade[:, ch] = np.interp(idx, idx[have], shade[have, ch])
+    shade = ndimage.gaussian_filter1d(shade, 6, axis=0) * 0.8
+    # Only where the ear really meets the face, tapering at the top and bottom,
+    # so the strip never pokes out above or below the ear.
+    lab, n = ndimage.label(edge_a > 0.3)
+    if n:
+        keep = lab == (np.bincount(lab[lab > 0]).argmax())
+        idx = np.where(keep)[0]
+        taper = np.zeros(len(ys), np.float32)
+        span = np.arange(idx[0], idx[-1] + 1)
+        taper[span] = np.clip(np.minimum(span - idx[0], idx[-1] - span) / EAR_TAPER, 0, 1)
+        edge_a = edge_a * taper
+    edge_a = ndimage.gaussian_filter1d(edge_a, 2)
+    # The ear's front edge, smoothed down the ear: per-row pixels stretched sideways read as streaks.
+    edge_rgb = np.array([rgb[y, min(max(c + side * 2, 0), W - 1)] for y, c in zip(ys, np.round(cs).astype(int))])
+    edge_rgb = ndimage.gaussian_filter1d(edge_rgb, 5, axis=0)
     part_rgb = rgb.copy()
     part_a = shows.copy()
     under = np.zeros((H, W), bool)
-    for y, c in zip(ys, np.round(cs).astype(int)):
+    for i, (y, c) in enumerate(zip(ys, np.round(cs).astype(int))):
+        edge = edge_rgb[i]
         for d in range(EAR_UNDER + EAR_FADE):
-            x = c - d if right else c + d                 # under the face
-            m = c + 1 + d if right else c - 1 - d         # its mirror on the ear
-            if not (0 <= x < W and 0 <= m < W):
+            x = c - side * d                              # under the face
+            if not 0 <= x < W:
                 continue
             fade = 1.0 if d < EAR_UNDER else 1 - (d - EAR_UNDER + 1) / (EAR_FADE + 1)
-            part_rgb[y, x] = rgb[y, m] * (0.8 - 0.3 * d / (EAR_UNDER + EAR_FADE))
-            part_a[y, x] = max(part_a[y, x], shows[y, m] * fade)
+            mix = min(1.0, d / 10)                        # from the ear's edge into the shadow
+            part_rgb[y, x] = edge * (1 - mix) + shade[i] * mix
+            part_a[y, x] = max(part_a[y, x], edge_a[i] * fade)
             under[y, x] = True
     # Row by row leaves stair-steps where the ear ends; soften them.
     zone = ndimage.binary_dilation(under, iterations=3) & ~(shows > 0.6)

@@ -51,14 +51,14 @@
       "src": "/character/v3/head/ear-right.webp",
       "x": 9.5,
       "y": 280.0,
-      "width": 66.5,
+      "width": 62.5,
       "height": 142.5
     },
     "ear-left": {
       "src": "/character/v3/head/ear-left.webp",
-      "x": 350.0,
+      "x": 347.5,
       "y": 277.5,
-      "width": 63.0,
+      "width": 65.5,
       "height": 143.0
     },
     "face": {
