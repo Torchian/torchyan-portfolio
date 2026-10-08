@@ -69,7 +69,7 @@ const Card = styled(InfoCard)`
   }
 `;
 
-export function CaseStudyBlueprint({ copy }: { copy: CaseStudyCopy['blueprint'] }) {
+export function CaseStudyBlueprint({ copy }: { copy: NonNullable<CaseStudyCopy['blueprint']> }) {
   return (
     <Section>
       <Container>

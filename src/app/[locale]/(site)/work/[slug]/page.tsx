@@ -61,8 +61,8 @@ export default async function ProjectPage({ params }: PageProps) {
       <main id="main-content">
         <CaseStudyHero copy={copy.hero} carousel={imagery.carousel} />
         <CaseStudyTimeline copy={copy.timeline} gallery={imagery.timeline} />
-        <CaseStudyBlueprint copy={copy.blueprint} />
-        <CaseStudyArchitecture copy={copy.architecture} images={imagery.useCases} />
+        {copy.blueprint && <CaseStudyBlueprint copy={copy.blueprint} />}
+        {copy.architecture && <CaseStudyArchitecture copy={copy.architecture} images={imagery.useCases} />}
         <CollaborationSection ctaId={`case-${project.slug}`} />
         <TrackCaseView slug={project.slug} />
       </main>

@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { Fragment, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { SectionHeading } from '@/components/composites';
@@ -11,6 +10,7 @@ import { grid } from '@/styles/tokens/grid';
 import { media } from '@/styles/media';
 import { CaseBlocks } from './CaseBlocks';
 import type { CaseImage, CaseStudyCopy, GallerySet } from './caseStudyConfig';
+import { CaseMedia } from './CaseMedia';
 
 /*
  * Figma: Timeline — 1920 (3155:10993), 1024 (3920:8968), 480 (3921:10881);
@@ -205,7 +205,7 @@ const GalleryShot = styled.div<{ $grow: number }>`
 function Shot({ image, grow, width }: { image: CaseImage; grow: number; width: number }) {
   return (
     <GalleryShot $grow={grow}>
-      <Image src={image.src} alt="" fill sizes={`${width}px`} draggable={false} />
+      <CaseMedia image={image} sizes={`${width}px`} />
     </GalleryShot>
   );
 }
@@ -228,13 +228,7 @@ const InlineShot = styled.div`
   }
 `;
 
-export function CaseStudyTimeline({
-  copy,
-  gallery,
-}: {
-  copy: CaseStudyCopy['timeline'];
-  gallery: GallerySet[];
-}) {
+export function CaseStudyTimeline({ copy, gallery }: { copy: CaseStudyCopy['timeline']; gallery: GallerySet[] }) {
   const stepRefs = useRef<(HTMLLIElement | null)[]>([]);
   const [active, setActive] = useState(0);
   // Only the set on show and the one fading out are mounted (plus the next,
@@ -286,14 +280,15 @@ export function CaseStudyTimeline({
                 ))}
                 {gallery[s] && (
                   <InlineShot>
-                    <Image src={gallery[s].side[0].src} alt="" fill sizes="480px" draggable={false} />
+                    <CaseMedia image={gallery[s].side[0]} sizes="480px" />
                   </InlineShot>
                 )}
               </li>
             ))}
           </Steps>
 
-          <GalleryColumn aria-hidden>
+          {/* Screenshots carry empty alt text; a recording's pause button stays reachable. */}
+          <GalleryColumn>
             <Gallery>
               {gallery.map((set, s) => (
                 <Fragment key={s}>

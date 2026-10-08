@@ -4,16 +4,28 @@
  * messages/*.json under caseStudy.<slug>; a project gets the page once it has
  * both an entry here and its copy.
  *
- * Only Picsart has the full case. Its galleries and use-case images are Picsart
+ * A case needs a hero and a timeline; the principles cards (blueprint) and
+ * the "In detail" use cases (architecture) are left out when a project has no
+ * material for them. Only Picsart has the full case. Its galleries and use-case images are Picsart
  * screenshots, matched to each step as closely as the repo's set allows.
  */
 
 import type { ProjectSlug } from '@/components/sections/selected-work/projectsConfig';
 
+/** A short screen recording, played muted and looped in place of a screenshot (CaseMedia). */
+export interface CaseVideo {
+  /** MP4 (H.264), under public/. */
+  src: string;
+  /** Its first frame as an image: shown before it plays, and to reduced-motion visitors. */
+  poster: string;
+}
+
 export interface CaseImage {
   src: string;
   /** Width ÷ height of the screenshot. */
   aspect: number;
+  /** Shown instead of the screenshot where the slot can play it (not in the hero carousel). */
+  video?: CaseVideo;
 }
 
 /** What the sticky Timeline gallery shows for one step: a tall image, and two beside it. */
@@ -128,8 +140,8 @@ export interface CaseStudyCopy {
     /** Each step is one card, or a run of phases that share a gallery set. */
     steps: { phase?: string; title: string; blocks: CaseBlock[] }[][];
   };
-  blueprint: { title: string; subtitle: string; cards: { title: string; body: string }[] };
-  architecture: {
+  blueprint?: { title: string; subtitle: string; cards: { title: string; body: string }[] };
+  architecture?: {
     title: string;
     subtitle: string;
     useCases: { title: string; blocks: CaseBlock[] }[];

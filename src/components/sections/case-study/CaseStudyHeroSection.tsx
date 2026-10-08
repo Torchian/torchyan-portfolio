@@ -73,11 +73,7 @@ export function CaseStudyHeroSection({ project }: CaseStudyHeroSectionProps) {
   return (
     <Section $gradient={project.gradient}>
       <Content>
-        <ProjectMeta
-          company={project.company}
-          description={content.title}
-          tags={content.roles}
-        />
+        <ProjectMeta company={project.company} description={content.title} tags={content.roles} />
         <Title as="p">{content.description}</Title>
         <MetaRow>
           <span>{content.field}</span>

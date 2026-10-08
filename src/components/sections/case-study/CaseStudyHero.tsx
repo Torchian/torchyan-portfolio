@@ -265,11 +265,7 @@ const Carousel = styled.div`
  * row goes from its left edge to its right, the second the other way, the third
  * covers the second half only (Figma's Start and End states).
  */
-const ROW_TRAVEL = [
-  'var(--p, 0.5)',
-  'calc(1 - var(--p, 0.5))',
-  'calc(0.5 + var(--p, 0.5) * 0.5)',
-];
+const ROW_TRAVEL = ['var(--p, 0.5)', 'calc(1 - var(--p, 0.5))', 'calc(0.5 + var(--p, 0.5) * 0.5)'];
 
 const Row = styled.ul<{ $row: number }>`
   display: flex;
@@ -321,9 +317,12 @@ function CaseCarousel({ rows }: { rows: CaseImage[][] }) {
       },
     });
     // The rows are layers only while the carousel is near the screen.
-    const live = new IntersectionObserver(([entry]) => {
-      el.dataset.live = String(entry.isIntersecting);
-    }, { rootMargin: '50% 0px' });
+    const live = new IntersectionObserver(
+      ([entry]) => {
+        el.dataset.live = String(entry.isIntersecting);
+      },
+      { rootMargin: '50% 0px' },
+    );
     live.observe(el);
     return () => {
       unsubscribe();

@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { useEffect, useRef } from 'react';
 import styled, { css } from 'styled-components';
 import { SectionHeading } from '@/components/composites';
@@ -12,6 +11,7 @@ import { radius } from '@/styles/tokens/radius';
 import { media } from '@/styles/media';
 import { CaseBlocks } from './CaseBlocks';
 import type { CaseImage, CaseStudyCopy } from './caseStudyConfig';
+import { CaseMedia } from './CaseMedia';
 
 /*
  * Figma: Visual System Architecture — 1920 (3155:11151), 1024 (3920:9126),
@@ -181,7 +181,7 @@ function UseCase({
   blocks,
   image,
   imageSide,
-}: CaseStudyCopy['architecture']['useCases'][number] & { image?: CaseImage; imageSide: Side }) {
+}: NonNullable<CaseStudyCopy['architecture']>['useCases'][number] & { image?: CaseImage; imageSide: Side }) {
   const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -210,8 +210,8 @@ function UseCase({
         <Body blocks={blocks} />
       </Text>
       {image && (
-        <Media $side={imageSide} aria-hidden>
-          <Image src={image.src} alt="" fill sizes="(max-width: 480px) 100vw, 50vw" draggable={false} />
+        <Media $side={imageSide}>
+          <CaseMedia image={image} sizes="(max-width: 480px) 100vw, 50vw" position="top left" />
         </Media>
       )}
     </Row>
@@ -222,7 +222,7 @@ export function CaseStudyArchitecture({
   copy,
   images,
 }: {
-  copy: CaseStudyCopy['architecture'];
+  copy: NonNullable<CaseStudyCopy['architecture']>;
   images: CaseImage[];
 }) {
   return (
@@ -232,12 +232,7 @@ export function CaseStudyArchitecture({
       </HeadingWrap>
       <Rows>
         {copy.useCases.map((useCase, i) => (
-          <UseCase
-            key={useCase.title}
-            {...useCase}
-            image={images[i]}
-            imageSide={i % 2 === 0 ? 'right' : 'left'}
-          />
+          <UseCase key={useCase.title} {...useCase} image={images[i]} imageSide={i % 2 === 0 ? 'right' : 'left'} />
         ))}
       </Rows>
     </Section>
