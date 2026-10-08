@@ -49,6 +49,20 @@ TOP_DOWN = ['beard', 'brow-left', 'brow-right', 'face', 'ear-left', 'ear-right',
 # The beard keeps its whisker tips: its template is widened this much (2x px)
 # inside the outline, so what reads as beard in the new art stays with it.
 BEARD_GROW = 5
+BEARD_GROW_HOLE = 9
+# The face's outline is a glowing rim a few px wide; pixels this close outside
+# the template's outline are rim, and must move with the face, not an ear.
+FACE_RIM = 8
+# How far each ear continues under the face (2x px). At a full turn the face
+# moves ~14px further than the ears (DEPTH 0.6 vs 0.35 x TURN_X 26), so this
+# has to be more than that, with a soft end beyond it.
+EAR_UNDER = 24
+EAR_FADE = 10
+# The template's mouth, in 2x head-frame px: the lips (centre x, y, radii) keep
+# their own lines; the rest of the hidden face takes a coarser mesh, scaled
+# about `centre` by MESH_SCALE to match the new art's line spacing.
+MOUTH = {'lips': (430, 980, 170, 60), 'centre': (430, 1060)}
+MESH_SCALE = 1.25
 
 
 def disk(r):
@@ -111,13 +125,21 @@ def align(src, tpl):
 def ownership(tpl, new_alpha):
     """How much of each pixel each part owns (sums to 1 wherever the new art is)."""
     alpha = {k: tpl[k][..., 3].copy() for k in TOP_DOWN}
-    alpha['beard'] = np.maximum(alpha['beard'], ndimage.grey_dilation(alpha['beard'], footprint=disk(BEARD_GROW)))
+    grown = ndimage.grey_dilation(alpha['beard'], footprint=disk(BEARD_GROW))
+    # Inside the mouth hole the whiskers reach further; they go with the beard too.
+    solid = alpha['beard'] > 0.5
+    hole = ndimage.binary_fill_holes(solid) & ~solid
+    grown = np.where(hole, ndimage.grey_dilation(alpha['beard'], footprint=disk(BEARD_GROW_HOLE)), grown)
+    alpha['beard'] = np.maximum(alpha['beard'], grown)
     union = np.max(np.stack(list(alpha.values())), 0)
     hard = np.zeros((H, W), np.int32)
     for i, k in enumerate(reversed(TOP_DOWN)):
         hard[alpha[k] > 0.5] = i + 1
     _, (iy, ix) = ndimage.distance_transform_edt(hard == 0, return_indices=True)
     near = hard[iy, ix]
+    face_label = len(TOP_DOWN) - TOP_DOWN.index('face')
+    near_face = ndimage.distance_transform_edt(alpha['face'] < 0.5) <= FACE_RIM
+    near[(union < 0.5) & near_face] = face_label
     ext = {}
     for i, k in enumerate(reversed(TOP_DOWN)):
         e = alpha[k].copy()
@@ -133,17 +155,127 @@ def ownership(tpl, new_alpha):
     return own, ext
 
 
-def colour_field(img, mask, sigmas=(12, 30, 70, 160, 400)):
-    """The low-frequency colour of `img` where `mask`, carried outward into the rest."""
+def colour_field(img, mask, sy, sx, levels=(1, 2, 4, 8, 16)):
+    """The low-frequency colour of `img` where `mask`, carried outward into the rest.
+
+    Anisotropic: the face is teal on one side and orange on the other, split down
+    the middle, so colour is carried mostly down each column, not across.
+    """
     out = np.zeros_like(img)
     filled = np.zeros(mask.shape, np.float32)
-    for s in sigmas:
+    for k in levels:
+        s = (sy * k, sx * k)
         num = np.dstack([ndimage.gaussian_filter(img[..., c] * mask, s) for c in range(img.shape[2])])
         den = ndimage.gaussian_filter(mask, s)
-        weight = np.clip(den / 0.2, 0, 1) * (1 - filled)
+        weight = np.clip(den / 0.15, 0, 1) * (1 - filled)
         out += num / np.maximum(den, 1e-6)[..., None] * weight[..., None]
         filled += weight
     return out / np.maximum(filled, 1e-6)[..., None]
+
+
+def detail(lum, mask, s=3):
+    """The lines: luminance minus its local average."""
+    return lum - ndimage.gaussian_filter(lum * mask, s) / np.maximum(ndimage.gaussian_filter(mask, s), 1e-6)
+
+
+def face_under_beard(tpl, rgb, a, own, beard):
+    """The face, whole: what the source shows, and the template's chin and lips
+    where the beard hides it, in the source's colours and line contrast, matched
+    to the source where the two meet so no outline shows."""
+    old = tpl['face']
+    old_a = old[..., 3]
+    shows = np.clip(a * own['face'], 0, 1)
+    brows = (tpl['brow-left'][..., 3] > 0.02) | (tpl['brow-right'][..., 3] > 0.02)
+    skin = (shows > 0.95) & (old_a > 0.95) & ~brows
+    skin = ndimage.binary_erosion(skin, iterations=2).astype(np.float32)
+    lab_new = color.rgb2lab(rgb)
+    lab_old = color.rgb2lab(np.clip(old[..., :3], 0, 1))
+    # Colour: the source's, carried down from the cheeks and lips; form: the template's.
+    syn = lab_old - colour_field(lab_old, (old_a > 0.9).astype(np.float32), 30, 6) + colour_field(lab_new, skin, 30, 6)
+    # Lines: the template's mesh is ~25% finer than the new art's, so away from the
+    # lips (and the jaw's outline) it's drawn 1.25x coarser, then set to the
+    # source's line contrast.
+    d_new = detail(lab_new[..., 0], skin)
+    d_old = detail(lab_old[..., 0], (old_a > 0.5).astype(np.float32))
+    yy, xx = np.mgrid[0:H, 0:W]
+    cx, cy = MOUTH['centre']
+    coarse = ndimage.map_coordinates(d_old, [cy + (yy - cy) / MESH_SCALE, cx + (xx - cx) / MESH_SCALE], order=1, mode='nearest')
+    hidden = (beard > 0.3) & (old_a > 0.5)
+    coarse *= np.std(d_old[hidden]) / np.std(coarse[hidden])
+    lx, ly, rx, ry = MOUTH['lips']
+    keep = np.clip(1.6 - np.hypot((xx - lx) / rx, (yy - ly) / ry), 0, 1)
+    keep = np.maximum(keep, np.clip(1 - ndimage.distance_transform_edt(old_a > 0.5) / 12, 0, 1))
+    lines = d_old * keep + coarse * (1 - keep)
+    gain = float(np.std(d_new[skin > 0][::7]) / np.std(d_old[hidden][::7]))
+    syn[..., 0] += lines * gain - d_old
+    # Where they meet: the difference to the source, fading out ~20px into the hidden part.
+    edge = ndimage.binary_dilation(skin > 0) & ~ndimage.binary_erosion(skin > 0, iterations=14)
+    diff = colour_field(lab_new - syn, edge.astype(np.float32), 5, 5, levels=(1, 2, 4))
+    syn += diff * np.exp(-ndimage.distance_transform_edt(skin == 0) / 22)[..., None]
+    under = np.clip(color.lab2rgb(syn), 0, 1)
+    cover = (1 - shows / np.maximum(a, 1e-3)) * (old_a > 0.02)
+    k = np.where(skin > 0, 0, np.clip(ndimage.gaussian_filter(cover, 2.5), 0, 1))
+    face_rgb = rgb * (1 - k[..., None]) + under * k[..., None]
+    face_alpha = np.where(old_a < 0.02, shows, np.maximum(shows, old_a * beard))
+    print(f'face under the beard: line contrast x{gain:.2f}')
+    return face_rgb, face_alpha
+
+
+def split_ear(tpl, rgb, a, own, name):
+    """Where the face's rim ends and the ear begins, row by row: the dark crease
+    between them. Everything on the face's side goes to the face, so its rim
+    turns with it; the ear goes on under the face, mirrored across the crease."""
+    right = name == 'ear-left'          # the character's left ear is on the picture's right
+    ear_t = tpl[name][..., 3] > 0.3
+    face_t = tpl['face'][..., 3] > 0.5
+    lum = ndimage.gaussian_filter(0.2126 * rgb[..., 0] + 0.7152 * rgb[..., 1] + 0.0722 * rgb[..., 2], (4, 1))
+    crease = {}
+    for y in np.where(ear_t.any(1))[0]:
+        cols = np.where(face_t[y])[0]
+        if not len(cols):
+            continue
+        e = cols.max() if right else cols.min()
+        # The rim sits just outside the template's outline on the right, just inside it on the left.
+        xs = np.arange(e + 2, e + 15) if right else np.arange(e - 8, e + 5)
+        xs = xs[a[y, xs] > 0.5]
+        if len(xs):
+            crease[y] = xs[np.argmin(lum[y, xs])]
+    ys = np.array(sorted(crease))
+    cs = ndimage.median_filter(np.array([crease[y] for y in ys], float), size=31, mode='nearest')
+    cs = ndimage.uniform_filter1d(cs, 15, mode='nearest')
+
+    xx = np.arange(W)[None, :]
+    band = np.zeros((H, W), bool)
+    band[ys] = np.abs(xx - cs[:, None]) <= 40
+    c_map = np.zeros(H)
+    c_map[ys] = cs
+    # A soft, 1px split, so the face's edge here is as clean as the rest of its outline.
+    ear_side = np.clip(((xx - c_map[:, None]) if right else (c_map[:, None] - xx)) + 0.5, 0, 1) * band
+    pair = own['face'] + own[name]
+    own['face'] = np.where(band, pair * (1 - ear_side), own['face'])
+    own[name] = np.where(band, pair * ear_side, own[name])
+
+    shows = np.clip(a * own[name], 0, 1)
+    # Under the face: the ear's own texture mirrored across the crease, shaded a
+    # little deeper the further it goes in (it's tucked under the face), opaque
+    # for EAR_UNDER px, then fading out.
+    part_rgb = rgb.copy()
+    part_a = shows.copy()
+    under = np.zeros((H, W), bool)
+    for y, c in zip(ys, np.round(cs).astype(int)):
+        for d in range(EAR_UNDER + EAR_FADE):
+            x = c - d if right else c + d                 # under the face
+            m = c + 1 + d if right else c - 1 - d         # its mirror on the ear
+            if not (0 <= x < W and 0 <= m < W):
+                continue
+            fade = 1.0 if d < EAR_UNDER else 1 - (d - EAR_UNDER + 1) / (EAR_FADE + 1)
+            part_rgb[y, x] = rgb[y, m] * (0.8 - 0.3 * d / (EAR_UNDER + EAR_FADE))
+            part_a[y, x] = max(part_a[y, x], shows[y, m] * fade)
+            under[y, x] = True
+    # Row by row leaves stair-steps where the ear ends; soften them.
+    zone = ndimage.binary_dilation(under, iterations=3) & ~(shows > 0.6)
+    part_a = np.where(zone, np.minimum(part_a, ndimage.gaussian_filter(part_a, 1.5)), part_a)
+    return part_rgb, part_a
 
 
 def cut(src_path):
@@ -160,31 +292,19 @@ def cut(src_path):
     for k in ('beard', 'brow-left', 'brow-right'):
         parts[k] = (rgb, a * own[k])
 
-    # The face: what shows, plus the template's chin and lips under the beard,
-    # moved into the new art's colours (Lab detail of the old, colour of the new).
-    old = tpl['face']
-    face_a_old = old[..., 3]
-    beard = np.clip(ext['beard'], 0, 1)
-    shows = np.clip(a * own['face'], 0, 1)
-    skin = (shows > 0.9).astype(np.float32)
-    lab_new = color.rgb2lab(rgb)
-    lab_old = color.rgb2lab(np.clip(old[..., :3], 0, 1))
-    under = color.lab2rgb(lab_old - colour_field(lab_old, (face_a_old > 0.9).astype(np.float32))
-                          + colour_field(lab_new, skin))
-    k = np.where(skin > 0, 0, np.clip(ndimage.gaussian_filter(beard, 2), 0, 1))
-    face_rgb = rgb * (1 - k[..., None]) + under * k[..., None]
-    face_alpha = np.where(face_a_old < 0.02, shows, np.maximum(shows, face_a_old * beard))
-    parts['face'] = (face_rgb, face_alpha)
+    # Ears first: they hand the face's rim back to the face.
+    for name in ('ear-left', 'ear-right'):
+        parts[name] = split_ear(tpl, rgb, a, own, name)
+    parts['face'] = face_under_beard(tpl, rgb, a, own, np.clip(ext['beard'], 0, 1))
 
-    # Eyes and ears sit under the face: continue what shows into what it covers,
-    # so the head can turn and the eyes can move without an edge appearing.
-    covers = ndimage.gaussian_filter(face_a_old, 1) > 0.3
+    # Eyes sit under the face: continue what shows into what it covers, so they
+    # can move in their sockets without an edge appearing.
+    covers = ndimage.gaussian_filter(tpl['face'][..., 3], 1) > 0.3
     bgr = cv2.cvtColor((rgb * 255).astype(np.uint8), cv2.COLOR_RGB2BGR)
-    for name in ('ear-left', 'ear-right', 'eye-left', 'eye-right'):
+    for name in ('eye-left', 'eye-right'):
         tpl_a = tpl[name][..., 3]
         shows = np.clip(a * own[name], 0, 1)
-        mine = shows > 0.6
-        hidden = (tpl_a > 0.02) & ~mine & covers
+        hidden = (tpl_a > 0.02) & (shows <= 0.6) & covers
         filled = cv2.inpaint(bgr, hidden.astype(np.uint8) * 255, 5, cv2.INPAINT_TELEA)
         part_rgb = cv2.cvtColor(filled, cv2.COLOR_BGR2RGB).astype(np.float32) / 255
         parts[name] = (part_rgb, np.maximum(shows, np.where(hidden, tpl_a, 0)))

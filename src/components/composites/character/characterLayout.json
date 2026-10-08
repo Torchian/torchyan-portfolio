@@ -50,16 +50,16 @@
     "ear-right": {
       "src": "/character/v3/head/ear-right.webp",
       "x": 9.5,
-      "y": 282.0,
-      "width": 58.0,
-      "height": 145.0
+      "y": 280.0,
+      "width": 66.5,
+      "height": 142.5
     },
     "ear-left": {
       "src": "/character/v3/head/ear-left.webp",
       "x": 350.0,
       "y": 277.5,
       "width": 63.0,
-      "height": 149.0
+      "height": 143.0
     },
     "face": {
       "src": "/character/v3/head/face.webp",
@@ -79,7 +79,7 @@
       "src": "/character/v3/head/brow-right.webp",
       "x": 63.5,
       "y": 227.0,
-      "width": 113.0,
+      "width": 112.5,
       "height": 37.5
     },
     "cap": {
