@@ -453,24 +453,38 @@ const GridCTA = styled(CTASecondary)`
   transform: translate(-50%, -50%);
 `;
 
-/** Tile widths per screen, for the image `sizes` hint. */
-function tileSizes(widths: Record<GridScreen, number>) {
-  const px = (width: number) => `${Math.ceil(width)}px`;
-  return `${mediaQueries.down('m')} ${px(widths.mobile)}, ${mediaQueries.down('xl')} ${px(widths.tablet)}, ${px(widths.desktop)}`;
+/**
+ * How much larger than its frame width a tile is drawn. The card's scroll
+ * magnify adds up to MAGNIFY; the isometric projection (rotate 30°, skew -30°,
+ * scaleY 86.6%) also stretches a tile by √1.5 ≈ 1.22 along one diagonal, so
+ * its screen pixels there are that much denser than its width suggests.
+ */
+const DRAWN = { isometric: Math.sqrt(1.5) * (1 + MAGNIFY), flat: 1 + MAGNIFY } as const;
+
+/**
+ * Tile widths per screen, for the image `sizes` hint. The frame is scaled to
+ * cover the media box, which is about as wide as the viewport, so a tile is
+ * its share of the frame's width in vw, times how much larger it's drawn.
+ * Frame px here would ask for a copy about a third too small, and screenshot
+ * text goes soft.
+ */
+function tileSizes(widths: Record<GridScreen, number>, drawn: number) {
+  const vw = (screen: GridScreen) => `${((widths[screen] / GRID_FRAMES[screen].width) * 100 * drawn).toFixed(1)}vw`;
+  return `${mediaQueries.down('m')} ${vw('mobile')}, ${mediaQueries.down('xl')} ${vw('tablet')}, ${vw('desktop')}`;
 }
+
+/** Above next/image's default 75: small screenshot text stays crisp (next.config.ts allows it). */
+const TILE_QUALITY = 85;
 
 function Tiles({ images, sizes }: { images: GridImage[]; sizes: string }) {
   return images.map((image, i) => (
-    <Tile
-      key={i}
-      $only={image.only}
-      style={{ '--tile-aspect': image.aspect } as React.CSSProperties}
-    >
+    <Tile key={i} $only={image.only} style={{ '--tile-aspect': image.aspect } as React.CSSProperties}>
       <Image
         src={image.src}
         alt=""
         fill
         sizes={sizes}
+        quality={TILE_QUALITY}
         style={{ objectFit: 'cover', objectPosition: image.position }}
       />
     </Tile>
@@ -485,11 +499,14 @@ function GridStage({ grid }: { grid: ProjectGrid }) {
             <IsometricColumnBox key={i} style={isometricVars(grid, column)}>
               <Tiles
                 images={column.images}
-                sizes={tileSizes({
-                  desktop: column.width * grid.scale.desktop,
-                  tablet: column.width * grid.scale.tablet,
-                  mobile: column.width * grid.scale.mobile,
-                })}
+                sizes={tileSizes(
+                  {
+                    desktop: column.width * grid.scale.desktop,
+                    tablet: column.width * grid.scale.tablet,
+                    mobile: column.width * grid.scale.mobile,
+                  },
+                  DRAWN.isometric,
+                )}
               />
             </IsometricColumnBox>
           ))
@@ -497,11 +514,14 @@ function GridStage({ grid }: { grid: ProjectGrid }) {
             <FlatColumnBox key={i} style={flatVars(column)}>
               <Tiles
                 images={column.images}
-                sizes={tileSizes({
-                  desktop: column.frame.desktop.width,
-                  tablet: column.frame.tablet.width,
-                  mobile: column.frame.mobile.width,
-                })}
+                sizes={tileSizes(
+                  {
+                    desktop: column.frame.desktop.width,
+                    tablet: column.frame.tablet.width,
+                    mobile: column.frame.mobile.width,
+                  },
+                  DRAWN.flat,
+                )}
               />
             </FlatColumnBox>
           ))}
@@ -526,7 +546,19 @@ interface StickyCardProps {
   ctaAppearance?: CTASecondaryProps['appearance'];
 }
 
-function StickyCard({ company, roles, title, description, field, background, grid, href, cta, ctaFill, ctaAppearance }: StickyCardProps) {
+function StickyCard({
+  company,
+  roles,
+  title,
+  description,
+  field,
+  background,
+  grid,
+  href,
+  cta,
+  ctaFill,
+  ctaAppearance,
+}: StickyCardProps) {
   return (
     <CardWrapper data-project-card $background={background}>
       <Container>
