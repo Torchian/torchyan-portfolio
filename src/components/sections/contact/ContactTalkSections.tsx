@@ -97,19 +97,39 @@ const Lead = styled.p`
   }
 `;
 
+interface TalkOpenerProps {
+  /** Id for the h1, so the section is labelled by it. */
+  titleId: string;
+  title: string;
+  lead: string;
+  children: React.ReactNode;
+}
+
+/**
+ * The opener /contact and /start-a-project share: a green display title, its
+ * lead, then the page's own content (a form, the channels) in one section.
+ */
+export function TalkOpener({ titleId, title, lead, children }: TalkOpenerProps) {
+  return (
+    <Section aria-labelledby={titleId}>
+      <Container>
+        <Heading>
+          <Display id={titleId}>{title}</Display>
+          <Lead>{lead}</Lead>
+        </Heading>
+        {children}
+      </Container>
+    </Section>
+  );
+}
+
 export function ContactHeroSection() {
   const t = useTranslations('talkPage');
   return (
-    <Section aria-labelledby="talk-title">
-      <Container>
-        <Heading>
-          <Display id="talk-title">{t('title')}</Display>
-          <Lead>{t('subtitle')}</Lead>
-        </Heading>
-        <ContactForm />
-        <ContactChannels />
-      </Container>
-    </Section>
+    <TalkOpener titleId="talk-title" title={t('title')} lead={t('subtitle')}>
+      <ContactForm />
+      <ContactChannels />
+    </TalkOpener>
   );
 }
 

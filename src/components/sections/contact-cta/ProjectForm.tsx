@@ -11,20 +11,17 @@ import { useLocale } from 'next-intl';
 import { spacing } from '@/styles/tokens/spacing';
 import { fontSize, lineHeight, fontWeight, fontFamily, letterSpacing } from '@/styles/tokens/typography';
 import { neutrals } from '@/styles/tokens/colors';
-import { grid } from '@/styles/tokens/grid';
 import { media } from '@/styles/media';
 import { useTranslations } from 'next-intl';
 
 /*
- * Figma: Contact — Desktop 1920 (2836:5878), 1440 (2670:11025), 1280 (2670:11372),
- * Tablet 1024 (2670:11695), Mobile 480 (2670:12337).
+ * The project form on /start-a-project, under the page's opener (TalkOpener).
+ * Figma: Contact (2836:5878 and its 1440/1280/1024/480 frames) for the fields;
+ * the heading beside it is gone, the page title now introduces it.
  *
- *  - Desktop (from 1025px): heading beside the form, one word per line — Black 96 uppercase in the
- *    1440 and 1920 frames, Bold 72 in the 1280 frame.
- *  - Tablet (481–1024px): heading above the form as a wrapping SemiBold 58 line; Name and Email
- *    share a row, as do Company and Website.
- *  - Mobile (up to 480px): SemiBold 36; every field full width, intents one per line, timeline
- *    two per line.
+ *  - Desktop and tablet: Name and Email share a row, as do Company and Website.
+ *  - Mobile (up to 480px): every field full width, intents one per line,
+ *    timeline two per line.
  *
  * The fields follow the studio's qualification needs: what the visitor wants
  * to work on (one of five areas, or "not sure yet"), who they are, their
@@ -36,89 +33,6 @@ import { useTranslations } from 'next-intl';
  * (a 2xx). A validation error names the fields, a rate limit and a delivery
  * failure each say what happened and offer the email address instead.
  */
-
-const Section = styled.section`
-  padding: ${spacing[1000]}px 0 ${spacing[1500]}px;
-
-  /* One screen on desktop: the form's own rhythm tightens to reach it. */
-  ${media.up('xl')} {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-height: 100svh;
-    padding: ${spacing[1000]}px 0 ${spacing[1250]}px;
-  }
-
-  ${media.down('m')} {
-    padding: ${spacing[600]}px 0 ${spacing[1500]}px;
-  }
-`;
-
-const Inner = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${spacing[800]}px;
-  /* 1440px of content in the 1920 frame; 32px sides in the 1440 frame. */
-  max-width: ${grid.maxWidth + 2 * spacing[400]}px;
-  margin: 0 auto;
-  padding: 0 ${spacing[400]}px;
-
-  ${media.between('m', 'xl')} {
-    padding: 0 ${spacing[300]}px;
-  }
-
-  ${media.down('m')} {
-    gap: ${spacing[500]}px;
-    padding: 0 ${spacing[200]}px;
-  }
-
-  ${media.up('xl')} {
-    flex-direction: row;
-    align-items: flex-start;
-  }
-
-  ${media.up('xxxl')} {
-    gap: ${spacing[600]}px;
-  }
-`;
-
-const Heading = styled.h2`
-  margin: 0;
-  font-family: ${fontFamily.heading};
-  font-weight: ${fontWeight.semibold};
-  font-size: ${fontSize.heading.l}px;
-  line-height: ${lineHeight.heading.l}px;
-  letter-spacing: ${letterSpacing.xs}px;
-  color: ${neutrals[500]};
-
-  ${media.up('m')} {
-    padding-right: ${spacing[500]}px;
-    font-family: ${fontFamily.display};
-    font-size: ${fontSize.display.s}px;
-    line-height: ${lineHeight.display.s}px;
-  }
-
-  /* One word per line beside the form. */
-  ${media.up('xl')} {
-    flex: none;
-    white-space: nowrap;
-    font-weight: ${fontWeight.heading};
-    font-size: ${fontSize.display.s}px;
-    line-height: ${lineHeight.display.s}px;
-
-    span {
-      display: block;
-    }
-  }
-
-  ${media.up('xxl')} {
-    font-weight: ${fontWeight.black};
-    font-size: ${fontSize.display.m}px;
-    line-height: ${lineHeight.display.m}px;
-    letter-spacing: ${letterSpacing.xxs}px;
-    text-transform: uppercase;
-  }
-`;
 
 /**
  * The honeypot. Not `display: none`: some bots skip what a browser would not
@@ -135,8 +49,8 @@ const Honeypot = styled.div`
 `;
 
 /**
- * The result of a submission, announced as well as shown: `role="status"` is
- * polite, so a screen reader reads it once the field it is in has settled.
+ * The result of a submission, announced as well as shown: it fills a polite
+ * live region that is always in the page, so a screen reader reads it once.
  */
 const Status = styled.p<{ $tone: 'success' | 'error' }>`
   margin: 0;
@@ -181,20 +95,15 @@ const PrivacyNote = styled.p`
 
 const Form = styled.form`
   display: flex;
-  flex: 1;
   flex-direction: column;
-  gap: ${spacing[300]}px;
+  gap: ${spacing[400]}px;
+  width: 100%;
   min-width: 0;
+  /* #project lands below the fixed header. */
+  scroll-margin-top: ${spacing[1500]}px;
 
-  /* Six labelled groups and a submit have to share one screen, so the rhythm
-     between them follows its height rather than staying at the frame's 32. */
-  ${media.up('xl')} {
-    gap: clamp(${spacing[300]}px, 2.2svh, ${spacing[400]}px);
-
-    textarea {
-      height: clamp(56px, 8svh, 86px);
-      min-height: 0;
-    }
+  ${media.down('m')} {
+    gap: ${spacing[300]}px;
   }
 
   /* The submit spans the form (the Button itself sizes to its content). */
@@ -212,10 +121,6 @@ const Field = styled.div`
   gap: ${spacing[200]}px;
   min-width: 0;
 
-  ${media.up('xl')} {
-    gap: ${spacing[100]}px;
-  }
-
   ${media.down('m')} {
     gap: ${spacing[100]}px;
   }
@@ -229,12 +134,6 @@ const FieldLabel = styled.label`
   letter-spacing: ${letterSpacing.xs}px;
   color: ${neutrals[100]};
 
-  /* Holds the frame's 24 on a normal screen; gives a little on a short one. */
-  ${media.up('xl')} {
-    font-size: clamp(${fontSize.body.l}px, 2.7svh, ${fontSize.body.xl}px);
-    line-height: clamp(${lineHeight.body.l}px, 3.6svh, ${lineHeight.body.xl}px);
-  }
-
   ${media.down('m')} {
     font-size: ${fontSize.body.xl}px;
   }
@@ -245,10 +144,6 @@ const Options = styled.div`
   flex-wrap: wrap;
   align-items: flex-start;
   gap: ${spacing[200]}px;
-
-  ${media.up('xl')} {
-    gap: clamp(${spacing[100]}px, 1.2svh, ${spacing[200]}px);
-  }
 `;
 
 /** Intents keep their own width; one per line on mobile. */
@@ -340,7 +235,7 @@ const FIELD_INPUT_ID: Record<FieldName, string> = {
   message: 'contact-message',
 };
 
-export function ContactCTASection() {
+export function ProjectForm() {
   const [intent, setIntent] = useState<string | null>(null);
   const [timeline, setTimeline] = useState<string | null>(null);
   const [state, setState] = useState<SubmitState>('idle');
@@ -350,14 +245,13 @@ export function ContactCTASection() {
   const locale = useLocale();
   const pathname = usePathname() ?? '';
   const statusId = useId();
-  const headingWords = t('heading').split(' ');
 
   const intentOptions = t.raw('intentOptions') as string[];
   const timelineOptions = t.raw('timelineOptions') as string[];
 
   const area = () => {
     const index = intent === null ? -1 : intentOptions.indexOf(intent);
-    return index >= 0 ? NEED_AREAS[index] ?? 'unknown' : 'none';
+    return index >= 0 ? (NEED_AREAS[index] ?? 'unknown') : 'none';
   };
 
   const onFirstFocus = () => {
@@ -382,9 +276,7 @@ export function ContactCTASection() {
 
   /** aria wiring for a validated field. */
   const describe = (field: FieldName) =>
-    issues[field]
-      ? { 'aria-invalid': true as const, 'aria-describedby': `${FIELD_INPUT_ID[field]}-error` }
-      : {};
+    issues[field] ? { 'aria-invalid': true as const, 'aria-describedby': `${FIELD_INPUT_ID[field]}-error` } : {};
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -463,140 +355,130 @@ export function ContactCTASection() {
             : null;
 
   return (
-    <Section id="contact" aria-labelledby="contact-heading">
-      <Inner>
-        <Heading id="contact-heading">
-          {headingWords.map((word, i) => (
-            <span key={i}>
-              {word}
-              {i < headingWords.length - 1 ? ' ' : ''}
-            </span>
-          ))}
-        </Heading>
+    <Form id="project" aria-label={t('heading')} onSubmit={onSubmit} onFocus={onFirstFocus} noValidate>
+      <OptionGroup
+        id="contact-intent"
+        label={t('intentLabel')}
+        options={intentOptions}
+        value={intent}
+        onChange={(value) => {
+          setIntent(value);
+          const index = intentOptions.indexOf(value);
+          trackEvent('service_interest', { area: NEED_AREAS[index] ?? 'unknown' });
+        }}
+      />
 
-        <Form onSubmit={onSubmit} onFocus={onFirstFocus} noValidate>
-          <OptionGroup
-            id="contact-intent"
-            label={t('intentLabel')}
-            options={intentOptions}
-            value={intent}
-            onChange={(value) => {
-              setIntent(value);
-              const index = intentOptions.indexOf(value);
-              trackEvent('service_interest', { area: NEED_AREAS[index] ?? 'unknown' });
-            }}
+      <FieldRow>
+        <Field>
+          <FieldLabel htmlFor="contact-name">{t('nameLabel')}</FieldLabel>
+          <TextInput
+            id="contact-name"
+            name="name"
+            type="text"
+            autoComplete="name"
+            required
+            maxLength={100}
+            placeholder={t('namePlaceholder')}
+            {...describe('name')}
           />
-
-          <FieldRow>
-            <Field>
-              <FieldLabel htmlFor="contact-name">{t('nameLabel')}</FieldLabel>
-              <TextInput
-                id="contact-name"
-                name="name"
-                type="text"
-                autoComplete="name"
-                required
-                maxLength={100}
-                placeholder={t('namePlaceholder')}
-                {...describe('name')}
-              />
-              {fieldError('name')}
-            </Field>
-            <Field>
-              <FieldLabel htmlFor="contact-email">{t('emailLabel')}</FieldLabel>
-              <TextInput
-                id="contact-email"
-                name="email"
-                type="email"
-                autoComplete="email"
-                required
-                maxLength={254}
-                placeholder={t('emailPlaceholder')}
-                {...describe('email')}
-              />
-              {fieldError('email')}
-            </Field>
-          </FieldRow>
-
-          <FieldRow>
-            <Field>
-              <FieldLabel htmlFor="contact-company">{t('companyField.label')}</FieldLabel>
-              <TextInput
-                id="contact-company"
-                name="company"
-                type="text"
-                autoComplete="organization"
-                maxLength={200}
-                placeholder={t('companyField.placeholder')}
-              />
-            </Field>
-            <Field>
-              <FieldLabel htmlFor="contact-website">{t('websiteField.label')}</FieldLabel>
-              <TextInput
-                id="contact-website"
-                name="website"
-                type="url"
-                inputMode="url"
-                autoComplete="url"
-                maxLength={300}
-                placeholder={t('websiteField.placeholder')}
-                {...describe('website')}
-              />
-              {fieldError('website')}
-            </Field>
-          </FieldRow>
-
-          <Field>
-            <FieldLabel htmlFor="contact-message">{t('buildingLabel')}</FieldLabel>
-            <TextInput
-              as="textarea"
-              id="contact-message"
-              name="message"
-              required
-              maxLength={4000}
-              placeholder={t('buildingPlaceholder')}
-              {...describe('message')}
-            />
-            {fieldError('message')}
-          </Field>
-
-          <OptionGroup
-            id="contact-timeline"
-            label={t('timelineLabel')}
-            options={timelineOptions}
-            value={timeline}
-            onChange={setTimeline}
-            stretch
+          {fieldError('name')}
+        </Field>
+        <Field>
+          <FieldLabel htmlFor="contact-email">{t('emailLabel')}</FieldLabel>
+          <TextInput
+            id="contact-email"
+            name="email"
+            type="email"
+            autoComplete="email"
+            required
+            maxLength={254}
+            placeholder={t('emailPlaceholder')}
+            {...describe('email')}
           />
+          {fieldError('email')}
+        </Field>
+      </FieldRow>
 
-          <Honeypot aria-hidden>
-            <label htmlFor="contact-nickname">{t('trapLabel')}</label>
-            <input id="contact-nickname" name="nickname" type="text" tabIndex={-1} autoComplete="off" />
-          </Honeypot>
+      <FieldRow>
+        <Field>
+          <FieldLabel htmlFor="contact-company">{t('companyField.label')}</FieldLabel>
+          <TextInput
+            id="contact-company"
+            name="company"
+            type="text"
+            autoComplete="organization"
+            maxLength={200}
+            placeholder={t('companyField.placeholder')}
+          />
+        </Field>
+        <Field>
+          <FieldLabel htmlFor="contact-website">{t('websiteField.label')}</FieldLabel>
+          <TextInput
+            id="contact-website"
+            name="website"
+            type="url"
+            inputMode="url"
+            autoComplete="url"
+            maxLength={300}
+            placeholder={t('websiteField.placeholder')}
+            {...describe('website')}
+          />
+          {fieldError('website')}
+        </Field>
+      </FieldRow>
 
-          <PrivacyNote>
-            {t.rich('privacyNote', {
-              link: (chunks) => <Link href="/privacy">{chunks}</Link>,
-            })}
-          </PrivacyNote>
+      <Field>
+        <FieldLabel htmlFor="contact-message">{t('buildingLabel')}</FieldLabel>
+        <TextInput
+          as="textarea"
+          id="contact-message"
+          name="message"
+          required
+          maxLength={4000}
+          placeholder={t('buildingPlaceholder')}
+          {...describe('message')}
+        />
+        {fieldError('message')}
+      </Field>
 
-          <Button
-            as="button"
-            type="submit"
-            $variant="secondary"
-            disabled={state === 'sending'}
-            aria-describedby={statusMessage ? statusId : undefined}
-          >
-            {state === 'sending' ? t('submitSending') : t('submit')}
-          </Button>
+      <OptionGroup
+        id="contact-timeline"
+        label={t('timelineLabel')}
+        options={timelineOptions}
+        value={timeline}
+        onChange={setTimeline}
+        stretch
+      />
 
-          {statusMessage && (
-            <Status id={statusId} role="status" $tone={state === 'sent' ? 'success' : 'error'}>
-              {statusMessage}
-            </Status>
-          )}
-        </Form>
-      </Inner>
-    </Section>
+      <Honeypot aria-hidden>
+        <label htmlFor="contact-nickname">{t('trapLabel')}</label>
+        <input id="contact-nickname" name="nickname" type="text" tabIndex={-1} autoComplete="off" />
+      </Honeypot>
+
+      <PrivacyNote>
+        {t.rich('privacyNote', {
+          link: (chunks) => <Link href="/privacy">{chunks}</Link>,
+        })}
+      </PrivacyNote>
+
+      <Button
+        as="button"
+        type="submit"
+        $variant="secondary"
+        disabled={state === 'sending'}
+        aria-describedby={statusMessage ? statusId : undefined}
+      >
+        {state === 'sending' ? t('submitSending') : t('submit')}
+      </Button>
+
+      {/* Always in the page, so the announcement is heard when it fills. */}
+      <div role="status" aria-live="polite">
+        {statusMessage && (
+          <Status id={statusId} $tone={state === 'sent' ? 'success' : 'error'}>
+            {statusMessage}
+          </Status>
+        )}
+      </div>
+    </Form>
   );
 }

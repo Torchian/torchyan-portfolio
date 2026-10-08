@@ -363,7 +363,12 @@ const place = (angle: number) => {
   };
 };
 
-export function ContactChannels() {
+interface ContactChannelsProps {
+  /** The (visually hidden) heading's level: h3 where the section has a visible h2 of its own. */
+  titleAs?: 'h2' | 'h3';
+}
+
+export function ContactChannels({ titleAs = 'h2' }: ContactChannelsProps) {
   const t = useTranslations('talkPage.channels');
   const [active, setActive] = useState<ChannelId | null>(null);
   const [live, setLive] = useState(false);
@@ -436,7 +441,7 @@ export function ContactChannels() {
       </Lead>
 
       {/* The heading and the description, for everyone: the picture in the middle is aria-hidden. */}
-      <VisuallyHidden as="h2" id="contact-channels-title">
+      <VisuallyHidden as={titleAs} id="contact-channels-title">
         {t('label')}
       </VisuallyHidden>
       <VisuallyHidden as="p">{t('body')}</VisuallyHidden>
