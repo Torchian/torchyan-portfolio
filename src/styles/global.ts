@@ -114,6 +114,13 @@ export const GlobalStyle = createGlobalStyle`
       gap: ${spacing[1000]}px;
     }
 
+    /* The page's last section brings no space of its own: the layout puts
+       exactly 80px between it and the footer (SiteLayout). */
+    > :last-child {
+      padding-bottom: 0;
+      margin-bottom: 0;
+    }
+
     /* A section that carries straight on from the one before it: no gap between. */
     > [data-joined] {
       margin-top: -${spacing[2000]}px;

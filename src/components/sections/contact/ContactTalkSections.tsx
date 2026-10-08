@@ -25,7 +25,16 @@ const Section = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: ${spacing[1000]}px;
+  /* The bottom padding is the section's, so it drops when this is the page's last section. */
+  padding: ${spacing[1000]}px 0 ${spacing[1000]}px;
+
+  ${media.down('xl')} {
+    padding-bottom: ${spacing[800]}px;
+  }
+
+  ${media.down('m')} {
+    padding-bottom: ${spacing[600]}px;
+  }
 `;
 
 const Container = styled.div`
@@ -35,16 +44,16 @@ const Container = styled.div`
   gap: ${spacing[1000]}px;
   width: 100%;
   max-width: ${grid.maxWidth}px;
-  padding: ${spacing[1500]}px ${spacing[400]}px ${spacing[1000]}px;
+  padding: ${spacing[1500]}px ${spacing[400]}px 0;
 
   ${media.down('xl')} {
     gap: ${spacing[800]}px;
-    padding: ${spacing[1000]}px ${spacing[300]}px ${spacing[800]}px;
+    padding: ${spacing[1000]}px ${spacing[300]}px 0;
   }
 
   ${media.down('m')} {
     gap: ${spacing[600]}px;
-    padding: ${spacing[1000]}px ${spacing[200]}px ${spacing[600]}px;
+    padding: ${spacing[1000]}px ${spacing[200]}px 0;
   }
 `;
 
