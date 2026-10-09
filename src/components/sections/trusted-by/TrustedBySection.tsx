@@ -66,6 +66,7 @@ export const TRUSTED_GROUPS: { id: RelationshipGroup; logos: TrustedLogo[] }[] =
       logo('Infinity Rings', 'InfinitiRings'),
       logo('IT365', 'IT365'),
       logo('Rostelecom', 'Rostelecom'),
+      logo('Adrasheg', 'Adrasheg'),
     ],
   },
   {
@@ -85,11 +86,14 @@ export const TRUSTED_GROUPS: { id: RelationshipGroup; logos: TrustedLogo[] }[] =
       logo('Benzeen Auto Parts', 'Benzeen'),
       logo('By Robyn Blair', 'byRobinblair'),
       logo('Scunci', 'Scunci'),
+      logo('Gemmed', 'Gemmed', { ext: 'png' }),
+      logo('Off My Case', 'OffMyCase'),
+      logo('myZcapital', 'myZcapital', { ext: 'png', height: 40 }),
+      logo('Fortinet', 'Fortinet'),
     ],
   },
   {
     id: 'product',
-    // myZcapital belongs here too — no logo file for it yet.
     logos: [logo('SoulOne', 'SoulOne'), logo('Solomoon', 'Solomoon', { ext: 'png' }), logo('Panika', 'Panika', { ext: 'png' })],
   },
   {

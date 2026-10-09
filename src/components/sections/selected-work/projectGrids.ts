@@ -174,7 +174,9 @@ export const PICSART_GRID: IsometricGrid = {
   ],
 };
 
-/* ---------- Soulone ---------- */
+/* ---------- Soulone ----------
+ * Screens picked in Figma (4205:34678–34705), whole and at their source size.
+ */
 
 const soulone = tiles('soulone/grid');
 const TOP = '50% 0%';
@@ -187,26 +189,27 @@ export const SOULONE_GRID: IsometricGrid = {
     {
       width: 640,
       images: [
-        soulone('s-a1-v2.webp', 640 / 1707.58, { position: '50% 4%' }),
-        soulone('s-a2-v2.webp', 640 / 712.84, { position: '50% 32%' }),
+        soulone('s-a1-v3.webp', 1110 / 2537, { position: TOP }),
+        soulone('s-a2-v3.webp', 1110 / 782, { position: TOP }),
       ],
       center: { desktop: [777.86, 891.78], hover: [-347.97, 241.78], tablet: [504.23, 728.22], mobile: [440.32, 760.16] },
     },
     {
       width: 243.196,
       images: [
-        soulone('s-b1-v2.webp', 243.196 / 528.023, { position: TOP }),
-        soulone('s-b2-v2.webp', 243.196 / 1412.61, { position: '50% 79%' }),
-        soulone('s-b3-v2.webp', 243.196 / 825.699, { position: TOP }),
+        soulone('s-b1-v3.webp', 258 / 565, { position: TOP }),
+        soulone('s-b2-v3.webp', 259 / 624, { position: TOP }),
+        soulone('s-b3-v3.webp', 271 / 854.197, { position: TOP }),
+        soulone('s-b4-v3.webp', 259 / 994.766, { position: TOP }),
       ],
       center: { desktop: [165.2, 64.45], hover: [1117.83, 614.45], tablet: [941.13, 581.79], mobile: [386.22, 402.64] },
     },
     {
       width: 640,
       images: [
-        soulone('s-c1-v2.webp', 640 / 610.893, { position: TOP }),
-        soulone('s-c2-v2.webp', 640 / 857.64, { position: '50% 81.5%' }),
-        soulone('s-c3-v2.webp', 640 / 929.539, { position: TOP }),
+        soulone('s-c1-v3.webp', 1110 / 1646, { position: TOP }),
+        soulone('s-c2-v3.webp', 1110 / 903, { position: TOP }),
+        soulone('s-c3-v3.webp', 1110 / 671, { position: TOP }),
       ],
       center: { desktop: [1668.73, 458.92], hover: [1062.52, 108.92], tablet: [821.14, 113.85], mobile: [359.78, 61.08] },
     },
