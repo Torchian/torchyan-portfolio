@@ -214,23 +214,29 @@ export const SOULONE_GRID: IsometricGrid = {
 };
 
 /* ---------- All projects ----------
- * One screen from each of eleven projects (Figma: the "all works" picks in each
- * project's frame), sized at 1200px wide. Every column runs through all eleven
- * in its own order, so no screen shows twice across the card at rest, and each
- * stacks well past the frame (its offset, the hover slide, and the narrower
- * tablet and phone columns) without running out.
+ * Seventeen screens picked in Figma across eleven projects, each shown once,
+ * sized at 1200px wide. Benzeen, Gemmed and Solomoon (their longer screens) run further
+ * down their pages than the Figma crop, so the columns fill without repeats. Each column is long enough to stay filled past the
+ * frame: its offset, the desktop hover slide, and the narrower tablet and
+ * phone columns.
  */
 
 const ALL_WORK: Record<string, number> = {
-  benzeen: 1200 / 1285,
+  'benzeen-parts': 1200 / 1980,
   gemmed: 1200 / 746,
+  'gemmed-style': 1200 / 2388,
   'world-education': 1200 / 668,
   scunci: 1094 / 1712,
   ginosi: 1200 / 791,
+  'ginosi-404': 1200 / 833,
   'off-my-case': 1200 / 640,
+  'off-my-case-custom': 1200 / 687,
   solomoon: 1200 / 689,
+  'solomoon-catalog': 1200 / 2443,
   'infinity-rings': 1200 / 668,
+  'infinity-rings-ring': 1200 / 668,
   'by-robyn-blair': 848 / 460,
+  'by-robyn-blair-shop': 1200 / 570,
   myzcapital: 1200 / 677,
   adrasheg: 1200 / 570,
 };
@@ -245,17 +251,11 @@ export const ALL_PROJECTS_GRID: FlatGrid = {
   columns: [
     {
       images: [
-        work('benzeen'),
-        work('gemmed'),
+        work('benzeen-parts'),
         work('world-education'),
-        work('scunci'),
-        work('ginosi'),
         work('off-my-case'),
         work('solomoon'),
-        work('infinity-rings'),
         work('by-robyn-blair'),
-        work('myzcapital'),
-        work('adrasheg'),
       ],
       frame: {
         desktop: { left: 0, top: 0, width: 336.25 },
@@ -268,15 +268,9 @@ export const ALL_PROJECTS_GRID: FlatGrid = {
       images: [
         work('scunci'),
         work('ginosi'),
-        work('off-my-case'),
-        work('solomoon'),
+        work('off-my-case-custom'),
         work('infinity-rings'),
-        work('by-robyn-blair'),
         work('myzcapital'),
-        work('adrasheg'),
-        work('benzeen'),
-        work('gemmed'),
-        work('world-education'),
       ],
       frame: {
         desktop: { left: 368.25, top: -306, width: 336.25 },
@@ -287,17 +281,10 @@ export const ALL_PROJECTS_GRID: FlatGrid = {
     },
     {
       images: [
-        work('solomoon'),
-        work('infinity-rings'),
-        work('by-robyn-blair'),
-        work('myzcapital'),
-        work('adrasheg'),
-        work('benzeen'),
-        work('gemmed'),
-        work('world-education'),
-        work('scunci'),
-        work('ginosi'),
-        work('off-my-case'),
+        work('gemmed-style'),
+        work('ginosi-404'),
+        work('infinity-rings-ring'),
+        work('by-robyn-blair-shop'),
       ],
       frame: {
         desktop: { left: 736.5, top: 0, width: 336.25 },
@@ -308,16 +295,8 @@ export const ALL_PROJECTS_GRID: FlatGrid = {
     },
     {
       images: [
-        work('myzcapital'),
+        work('solomoon-catalog'),
         work('adrasheg'),
-        work('world-education'),
-        work('by-robyn-blair'),
-        work('off-my-case'),
-        work('ginosi'),
-        work('solomoon'),
-        work('infinity-rings'),
-        work('scunci'),
-        work('benzeen'),
         work('gemmed'),
       ],
       frame: {
