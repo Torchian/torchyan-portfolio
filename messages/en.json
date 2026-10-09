@@ -1186,17 +1186,6 @@
           "title": "Performance & upkeep",
           "body": "Speed, accessibility, and who maintains it after launch."
         }
-      ],
-      "ecosystemsLabel": "Platforms I’ve built on:",
-      "ecosystems": [
-        "React",
-        "Next.js",
-        "Vue.js",
-        "WordPress",
-        "Squarespace",
-        "Shopify",
-        "Shopware",
-        "CheckoutChamp"
       ]
     },
     "collaboration": {
@@ -1254,7 +1243,7 @@
             "Brand and visual direction - with brand specialists for full identity work",
             "UX, interface and motion design",
             "Front-end development and CMS setup",
-            "Platform choice: custom (React / Next.js), Webflow, WordPress, Shopify or Shopware",
+            "Platform choice: a custom build, a CMS or a commerce platform",
             "SEO foundations, analytics and launch"
           ],
           "outcomes": [
@@ -1400,12 +1389,11 @@
     },
     "technology": {
       "title": "Technology follows the problem",
-      "body": "The platform is chosen during discovery, based on your content workflow, integrations, performance needs, budget and who will maintain it. Experience includes React and Next.js, Webflow, WordPress, Shopify and Shopware."
+      "body": "The platform is chosen during discovery, based on your content workflow, integrations, performance needs, budget and who will maintain it."
     },
     "boundaries": {
       "title": "What Torchyan doesn’t do",
       "items": [
-        "Ongoing social media or paid-ads management",
         "Guaranteed rankings, traffic or lead numbers",
         "Native iOS and Android apps"
       ]
@@ -3145,5 +3133,20 @@
     "title": "Let’s talk",
     "subtitle": "Pick the channel that suits you - or, if you have a project in mind, tell me about it.",
     "cta": "Start a project"
+  },
+  "platforms": {
+    "label": "Platforms I’ve built on:",
+    "items": [
+      "React",
+      "Next.js",
+      "Angular",
+      "Vue.js",
+      "Webflow",
+      "WordPress",
+      "Squarespace",
+      "Shopify",
+      "Shopware",
+      "CheckoutChamp"
+    ]
   }
 }

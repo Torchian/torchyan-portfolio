@@ -1,11 +1,14 @@
 'use client';
 
 import styled from 'styled-components';
-import { Badge } from '@/components/primitives';
-import { InfoCard as Card, InfoCardBody as CardBody, InfoCardTitle as CardTitle, SectionHeading } from '@/components/composites';
+import {
+  InfoCard as Card,
+  InfoCardBody as CardBody,
+  InfoCardTitle as CardTitle,
+  PlatformList,
+  SectionHeading,
+} from '@/components/composites';
 import { spacing } from '@/styles/tokens/spacing';
-import { fontFamily, fontWeight, fontSize, lineHeight, letterSpacing } from '@/styles/tokens/typography';
-import { neutrals } from '@/styles/tokens/colors';
 import { grid } from '@/styles/tokens/grid';
 import { media } from '@/styles/media';
 import { useTranslations } from 'next-intl';
@@ -68,73 +71,9 @@ const Cards = styled.ul`
   }
 `;
 
-const Ecosystems = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${spacing[300]}px;
-  width: 100%;
-`;
-
-const EcosystemsLabel = styled.p`
-  margin: 0;
-  font-family: ${fontFamily.heading};
-  font-weight: ${fontWeight.semibold};
-  font-size: ${fontSize.heading.s}px;
-  line-height: ${lineHeight.heading.s}px;
-  letter-spacing: ${letterSpacing.xs}px;
-  text-align: center;
-  color: ${neutrals[100]};
-
-  /* A step down on a phone, with the cards above it. */
-  ${media.down('m')} {
-    font-size: ${fontSize.body.xl}px;
-    line-height: ${lineHeight.body.xl}px;
-  }
-`;
-
-const EcosystemList = styled.ul`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: ${spacing[300]}px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-
-  li {
-    display: flex;
-  }
-
-  /* The badge steps down a size with the breakpoint (Large → Medium → Small). */
-  ${media.down('xl')} {
-    gap: ${spacing[200]}px;
-
-    li > * {
-      height: 24px;
-      padding: ${spacing[50]}px ${spacing[200]}px;
-      font-size: ${fontSize.body.l}px;
-      line-height: ${lineHeight.body.l}px;
-      letter-spacing: ${letterSpacing.m}px;
-    }
-  }
-
-  ${media.down('m')} {
-    gap: ${spacing[150]}px;
-
-    li > * {
-      height: 22px;
-      padding: ${spacing[50]}px ${spacing[150]}px;
-      font-size: ${fontSize.body.m}px;
-      line-height: ${lineHeight.body.m}px;
-      letter-spacing: ${letterSpacing.s}px;
-    }
-  }
-`;
-
 export function PerspectiveSection() {
   const t = useTranslations('projectsPage.perspective');
   const modes = t.raw('modes') as { title: string; body: string }[];
-  const ecosystems = t.raw('ecosystems') as string[];
 
   return (
     <Section>
@@ -148,16 +87,7 @@ export function PerspectiveSection() {
             </Card>
           ))}
         </Cards>
-        <Ecosystems>
-          <EcosystemsLabel>{t('ecosystemsLabel')}</EcosystemsLabel>
-          <EcosystemList>
-            {ecosystems.map((item) => (
-              <li key={item}>
-                <Badge $size="large">{item}</Badge>
-              </li>
-            ))}
-          </EcosystemList>
-        </Ecosystems>
+        <PlatformList />
       </Container>
     </Section>
   );
