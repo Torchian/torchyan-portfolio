@@ -63,7 +63,7 @@ export default async function ProjectPage({ params }: PageProps) {
         <CaseStudyTimeline copy={copy.timeline} gallery={imagery.timeline} />
         {copy.blueprint && <CaseStudyBlueprint copy={copy.blueprint} />}
         {copy.architecture && <CaseStudyArchitecture copy={copy.architecture} images={imagery.useCases} />}
-        <CollaborationSection ctaId={`case-${project.slug}`} />
+        <CollaborationSection ctaId={`case-${project.slug}`} tight />
         <TrackCaseView slug={project.slug} />
       </main>
     );
@@ -73,7 +73,7 @@ export default async function ProjectPage({ params }: PageProps) {
     <main id="main-content">
       <CaseStudyHeroSection project={project} />
       <CaseStudyBodySection project={project} />
-      <CollaborationSection ctaId={`case-${project.slug}`} />
+      <CollaborationSection ctaId={`case-${project.slug}`} tight />
       <TrackCaseView slug={project.slug} />
     </main>
   );

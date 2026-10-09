@@ -213,19 +213,31 @@ export const SOULONE_GRID: IsometricGrid = {
   ],
 };
 
-/* ---------- All projects (Various) ----------
- * The commercial websites behind the card's copy: Ginosi, Benzeen Auto Parts,
- * World Education and Brainstorm, from their case pages' screens. Each column
- * is stacked well past the frame (its offset, plus the distance it slides on
- * hover, plus room for the narrower tablet and phone columns), so no column
- * ever runs out and leaves an empty band.
+/* ---------- All projects ----------
+ * One screen from each of eleven projects (Figma: the "all works" picks in each
+ * project's frame), sized at 1200px wide. Every column runs through all eleven
+ * in its own order, so no screen shows twice across the card at rest, and each
+ * stacks well past the frame (its offset, the hover slide, and the narrower
+ * tablet and phone columns) without running out.
  */
 
-const various = tiles('various');
-const VARIOUS_LISTING = 1903 / 903;
-const shot = (project: string, file: string, width: number, height: number): GridImage => ({
-  src: `/projects/cases/${project}/${file}.webp`,
-  aspect: width / height,
+const ALL_WORK: Record<string, number> = {
+  benzeen: 1200 / 1285,
+  gemmed: 1200 / 746,
+  'world-education': 1200 / 668,
+  scunci: 1094 / 1712,
+  ginosi: 1200 / 791,
+  'off-my-case': 1200 / 640,
+  solomoon: 1200 / 689,
+  'infinity-rings': 1200 / 668,
+  'by-robyn-blair': 848 / 460,
+  myzcapital: 1200 / 677,
+  adrasheg: 1200 / 570,
+};
+const work = (name: string): GridImage => ({
+  src: `/selected-work/all-work/${name}.webp`,
+  aspect: ALL_WORK[name],
+  position: '50% 0%',
 });
 
 export const ALL_PROJECTS_GRID: FlatGrid = {
@@ -233,11 +245,17 @@ export const ALL_PROJECTS_GRID: FlatGrid = {
   columns: [
     {
       images: [
-        shot('brainstorm', 'services', 1416, 2396),
-        shot('benzeen', 'more-parts', 1356, 1608),
-        shot('world-education', 'blog', 2480, 1268),
-        shot('benzeen', 'stock-lexus', 1356, 1688),
-        shot('world-education', 'how-to', 2482, 1380),
+        work('benzeen'),
+        work('gemmed'),
+        work('world-education'),
+        work('scunci'),
+        work('ginosi'),
+        work('off-my-case'),
+        work('solomoon'),
+        work('infinity-rings'),
+        work('by-robyn-blair'),
+        work('myzcapital'),
+        work('adrasheg'),
       ],
       frame: {
         desktop: { left: 0, top: 0, width: 336.25 },
@@ -248,13 +266,17 @@ export const ALL_PROJECTS_GRID: FlatGrid = {
     },
     {
       images: [
-        shot('world-education', 'hero', 2482, 1380),
-        various('ginosi-search.webp', 1920 / 1265),
-        shot('benzeen', 'home-hero', 1356, 970),
-        shot('brainstorm', 'home', 1416, 1330),
-        shot('world-education', 'connect', 2482, 1380),
-        shot('benzeen', 'categories', 1356, 876),
-        various('ginosi-apartel.webp', VARIOUS_LISTING),
+        work('scunci'),
+        work('ginosi'),
+        work('off-my-case'),
+        work('solomoon'),
+        work('infinity-rings'),
+        work('by-robyn-blair'),
+        work('myzcapital'),
+        work('adrasheg'),
+        work('benzeen'),
+        work('gemmed'),
+        work('world-education'),
       ],
       frame: {
         desktop: { left: 368.25, top: -306, width: 336.25 },
@@ -265,12 +287,17 @@ export const ALL_PROJECTS_GRID: FlatGrid = {
     },
     {
       images: [
-        shot('brainstorm', 'home-projects', 1416, 1858),
-        shot('benzeen', 'wheel', 1356, 1452),
-        shot('world-education', 'about', 2482, 1380),
-        various('ginosi-apartel.webp', VARIOUS_LISTING),
-        shot('benzeen', 'cut-sheets', 1358, 1156),
-        shot('brainstorm', 'careers', 1416, 1182),
+        work('solomoon'),
+        work('infinity-rings'),
+        work('by-robyn-blair'),
+        work('myzcapital'),
+        work('adrasheg'),
+        work('benzeen'),
+        work('gemmed'),
+        work('world-education'),
+        work('scunci'),
+        work('ginosi'),
+        work('off-my-case'),
       ],
       frame: {
         desktop: { left: 736.5, top: 0, width: 336.25 },
@@ -281,13 +308,17 @@ export const ALL_PROJECTS_GRID: FlatGrid = {
     },
     {
       images: [
-        shot('world-education', 'services-map', 2482, 1380),
-        various('ginosi-apartel.webp', VARIOUS_LISTING),
-        shot('benzeen', 'recent-arrivals', 1356, 1508),
-        shot('brainstorm', 'services-design', 1416, 1426),
-        shot('world-education', 'insights', 2478, 1162),
-        various('ginosi-search.webp', 1920 / 1265),
-        shot('benzeen', 'quote', 1354, 1466),
+        work('myzcapital'),
+        work('adrasheg'),
+        work('world-education'),
+        work('by-robyn-blair'),
+        work('off-my-case'),
+        work('ginosi'),
+        work('solomoon'),
+        work('infinity-rings'),
+        work('scunci'),
+        work('benzeen'),
+        work('gemmed'),
       ],
       frame: {
         desktop: { left: 1104.75, top: -303, width: 336.25 },

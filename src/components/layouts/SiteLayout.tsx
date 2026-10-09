@@ -3,6 +3,7 @@
 import { usePathname } from '@/i18n/navigation';
 import styled from 'styled-components';
 import { spacing } from '@/styles/tokens/spacing';
+import { media } from '@/styles/media';
 import { NavBar } from './NavBar';
 import { CustomCursor } from './CustomCursor';
 import { Footer } from '@/components/sections/footer/Footer';
@@ -23,7 +24,15 @@ const Main = styled.div`
   min-height: 100vh;
   z-index: 0;
   /* Room between the last section and the footer, on every page. */
-  padding-bottom: ${spacing[1000]}px;
+  padding-bottom: ${spacing[2000]}px;
+
+  ${media.down('xl')} {
+    padding-bottom: ${spacing[1250]}px;
+  }
+
+  ${media.down('m')} {
+    padding-bottom: ${spacing[1000]}px;
+  }
 `;
 
 export function SiteLayout({ children }: { children: React.ReactNode }) {
