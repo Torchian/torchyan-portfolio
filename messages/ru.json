@@ -144,7 +144,7 @@
         "Product Owner"
       ],
       "title": "Gluten-free bakery brand",
-      "description": "Web and product design for an Armenian bakery brand — with day-to-day ownership of the product and the business behind it.",
+      "description": "Brand direction and an interactive e-commerce website concept for an Armenian gluten-free bakery.",
       "field": "Food · Bakery",
       "story": [
         {
@@ -197,8 +197,8 @@
       "roles": [
         "UI Developer"
       ],
-      "title": "Company website",
-      "description": "Front-end implementation of Smartbet’s website from the design team’s layouts — responsive pages across products and company information.",
+      "title": "Animated company website",
+      "description": "The UI for every page of Smartbet’s animated company and product website, built from the design team’s layouts - with a reusable SCSS foundation and JavaScript transitions.",
       "field": "Website",
       "story": [
         {
@@ -1067,15 +1067,15 @@
           ],
           "relationship": "Employee · Aug–Oct 2021",
           "description": [
-            "Worked with Smartbet’s design and development team to turn approved layouts into a responsive production website.",
-            "My responsibility was the UI layer: translating the design accurately into working pages, handling responsive behavior and making sure the interface behaved consistently across browsers and screen sizes.",
+            "Worked with Smartbet’s design and development team as UI Developer, turning approved layouts into an animated, responsive website.",
+            "I implemented the UI for every page, set up a reusable atomic/BEM-based SCSS structure with styling tokens, and built the JavaScript animations and transitions between pages and product sections.",
             "A focused implementation role where precision, clean structure and collaboration with designers mattered most."
           ],
           "stack": [
             "UI Development",
             "Responsive UI",
-            "Cross-browser",
-            "Accessibility"
+            "SCSS system",
+            "Animations"
           ]
         },
         "soulone": {
@@ -1086,16 +1086,15 @@
           ],
           "relationship": "Founding team · May–Oct 2025",
           "description": [
-            "SoulOne is an Armenian bakery brand focused on gluten-free, eco-oriented cakes and desserts.",
-            "I wasn’t involved only as a designer. I worked closely with the product and business day to day — shaping the website, product presentation, visual direction and decisions around how the brand should work online.",
-            "The project gave me experience much closer to building a business than simply delivering screens: design, product decisions, outreach and execution were all connected."
+            "SoulOne is an Armenian bakery making gluten-free cakes and dessert balls, already supplying several cafés when I joined.",
+            "As Web Designer and Product Owner, I set its brand direction - palette, typography and tone of voice - and designed an e-commerce website concept with interactive Figma prototypes, web copy and social visuals.",
+            "The website stayed a concept and wasn’t launched, but the work went well beyond screens: brand, product communication and prototyping together."
           ],
           "stack": [
-            "Product Design",
+            "Brand Direction",
             "Web Design",
-            "Product Ownership",
-            "Brand",
-            "Launch"
+            "Prototyping",
+            "Product Ownership"
           ]
         },
         "ginosi": {
@@ -1120,17 +1119,17 @@
           "roles": [
             "Front-end development"
           ],
-          "relationship": "Direct client · May–Jul 2018",
+          "relationship": "Outsourced project · May–Jul 2018",
           "description": [
-            "My relationship with Brainstorm started by building the company’s own website from an existing design.",
-            "I handled the front-end implementation end to end, translating the supplied layouts into a responsive production website and working through the details needed to make the design behave correctly in the browser.",
-            "The collaboration later developed into a working relationship, but this case focuses only on the original website project."
+            "My relationship with Brainstorm started with an outsourced assignment: building the agency’s own website while its design was still being developed.",
+            "I built the front end in HTML, CSS and JavaScript, with custom animation and hand-written scroll-driven interactions.",
+            "The project led Brainstorm to invite me onto its team; this case focuses on the original website."
           ],
           "stack": [
             "Front-end",
-            "Responsive Web",
-            "Client Website",
-            "Design Implementation"
+            "Custom Animation",
+            "Scroll Interactions",
+            "Responsive Web"
           ]
         },
         "benzeen": {
@@ -1138,16 +1137,16 @@
           "roles": [
             "Front-end development"
           ],
-          "relationship": "Via TCO · Mar–Oct 2019",
+          "relationship": "Via TCO · Mar–Aug 2019",
           "description": [
             "Worked on Benzeen Auto Parts, a Los Angeles automotive e-commerce project delivered through TCO.",
-            "I handled the front-end implementation across the website, including responsive UI, interactions and animations, while also contributing to design decisions during development.",
-            "This was more than simply reproducing layouts — design and implementation often evolved together while the product was being built."
+            "I implemented the UI across the website - responsive layouts, interactions, animations and selected JavaScript logic - and integrated Google AMP, in a custom Angular build rather than a CMS.",
+            "Designers kept adding and updating pages during development, so design and implementation moved forward together."
           ],
           "stack": [
-            "Front-end",
+            "Angular",
             "Animations",
-            "UI Collaboration",
+            "Google AMP",
             "Automotive"
           ]
         },
@@ -1159,8 +1158,8 @@
           "relationship": "Direct client · Mar–May 2020",
           "description": [
             "Built the interface for World Education as a direct client project.",
-            "I was responsible for the full UI implementation, responsive layouts, animations and selected JavaScript interactions across the website.",
-            "It was a compact project, but a good example of owning the complete presentation layer rather than only individual screens or components."
+            "I built most of the website’s front end - responsive layouts, animations and interaction work - with another contributor handling part of the JavaScript logic.",
+            "It was a compact project, but a good example of owning the presentation layer rather than only individual screens or components."
           ],
           "stack": [
             "UI Development",
@@ -1408,8 +1407,7 @@
       "items": [
         "Ongoing social media or paid-ads management",
         "Guaranteed rankings, traffic or lead numbers",
-        "Native iOS and Android apps",
-        "Backend development as a standalone service — it’s included through specialists when a project needs it"
+        "Native iOS and Android apps"
       ]
     },
     "cta": {
@@ -1637,12 +1635,12 @@
           ]
         },
         "soulone": {
-          "stickyContent": "Ownership &\nProduct",
+          "stickyContent": "Brand &\nProduct",
           "role": "Web Designer & Product Owner",
-          "focus": "Worked directly on the product and business behind an Armenian gluten-free bakery brand, covering web and product design alongside day-to-day ownership.",
-          "impact": "Product decisions, outreach and promotion, not only the visual layer.",
+          "focus": "Set the brand direction and designed an e-commerce website concept for an Armenian gluten-free bakery - palette, typography, tone of voice, web copy and interactive Figma prototypes.",
+          "impact": "Brand and product thinking for an existing business; the website stayed a concept.",
           "coreGrowth": [
-            "Ownership",
+            "Brand",
             "Product"
           ]
         },
