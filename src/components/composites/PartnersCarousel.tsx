@@ -67,6 +67,11 @@ export const PARTNERS: PartnerLogo[] = [
   logo('BrainRocket', 'BrainRocket'),
   logo('Scunci', 'Scunci'),
   logo('Armenian Code Academy', 'ArmenianCodeAcademy'),
+  logo('Gemmed', 'Gemmed', { ext: 'png' }),
+  logo('Off My Case', 'OffMyCase'),
+  logo('myZcapital', 'myZcapital', { ext: 'png', height: 40 }),
+  logo('Fortinet', 'Fortinet'),
+  logo('Adrasheg', 'Adrasheg'),
 ];
 
 export type CarouselDirection = 'ltr' | 'rtl';
