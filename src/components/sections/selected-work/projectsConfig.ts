@@ -58,6 +58,8 @@ export interface ProjectConfig {
   images: { src: string; alt: string; aspect?: number; video?: CaseVideo; caption?: string }[];
   /** Listed under "More projects" on the Work page, with its first image as the cover. */
   more?: boolean;
+  /** The brand's white mark, shown on the right of the short case's hero. */
+  logo?: string;
   /** Present for the projects featured on the homepage. */
   card?: ProjectCard;
 }
@@ -218,6 +220,7 @@ PROJECTS.push(
     year: '2016–2018',
     gradient: 'linear-gradient(180deg, #14325C 0%, #23707F 100%)',
     more: true,
+    logo: '/logo/companies/myZcapital.png',
     images: cases('myzcapital', 'myZcapital', [
       ['home', 2512, 1416],
       ['poll', 2560, 1442],
@@ -236,6 +239,7 @@ PROJECTS.push(
     year: '',
     gradient: 'linear-gradient(180deg, #120E22 0%, #5B2A86 100%)',
     more: true,
+    logo: '/logo/companies/Solomoon.png',
     images: cases('solomon', 'Solomoon', [
       ['home-hero', 2560, 1226],
       ['home-top', 2560, 1517],
@@ -254,6 +258,7 @@ PROJECTS.push(
     year: '',
     gradient: 'linear-gradient(180deg, #151515 0%, #6E5A38 100%)',
     more: true,
+    logo: '/logo/companies/InfinitiRings.svg',
     images: cases('infinity-rings', 'Infinity Rings admin, with order details blurred', [
       ['collections', 1940, 1080],
       ['configurator', 1940, 1080],
@@ -272,6 +277,7 @@ PROJECTS.push(
     year: '2020–2023',
     gradient: 'linear-gradient(180deg, #161616 0%, #7A1E2C 100%)',
     more: true,
+    logo: '/logo/companies/Panika.png',
     images: (
       [
         ['panika-home', 1200, 1067],
@@ -292,6 +298,7 @@ PROJECTS.push(
     year: '2018',
     gradient: 'linear-gradient(180deg, #5E1F45 0%, #A8457A 100%)',
     more: true,
+    logo: '/logo/companies/byRobinblair.svg',
     images: cases('by-robyn-blair', 'By Robyn Blair', [
       ['home-hero', 1272, 690],
       ['home', 1272, 1950],
@@ -310,6 +317,7 @@ PROJECTS.push(
     year: '2018',
     gradient: 'linear-gradient(180deg, #4A2129 0%, #9E5560 100%)',
     more: true,
+    logo: '/logo/companies/OffMyCase.svg',
     images: cases('off-my-case', 'Off My Case', [
       ['home', 1827, 852],
       ['customize', 1824, 1044],
@@ -325,6 +333,7 @@ PROJECTS.push(
     year: '2018',
     gradient: 'linear-gradient(180deg, #2E241A 0%, #7D6142 100%)',
     more: true,
+    logo: '/logo/companies/Gemmed.png',
     images: cases('gemmed', 'Gemmed', [
       ['home', 1506, 936],
       ['bundles', 1508, 1002],
@@ -342,6 +351,7 @@ PROJECTS.push(
     year: '2018',
     gradient: 'linear-gradient(180deg, #1E1E1E 0%, #8E1B30 100%)',
     more: true,
+    logo: '/logo/companies/Scunci.svg',
     images: cases('scunci', 'Scunci', [
       ['home', 1094, 1478],
       ['collaborations', 1094, 1712],
@@ -373,6 +383,7 @@ PROJECTS.push({
   year: '',
   gradient: 'linear-gradient(180deg, #1B1B1F 0%, #4A3F6B 100%)',
   more: true,
+  logo: '/logo/logo.svg',
   images: [
     graphic('solomoon', 2560, 1922, 'Solomoon - logo and app icons'),
     graphic('photo-booth', 2560, 2647, 'The Photo Booth Co. - logo and ads'),

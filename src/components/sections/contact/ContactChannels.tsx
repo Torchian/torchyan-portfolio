@@ -2,9 +2,10 @@
 
 /* eslint-disable @next/next/no-img-element -- small decorative SVGs; next/image adds nothing here */
 import { useEffect, useMemo, useRef, useState, type FocusEvent } from 'react';
-import styled, { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle, keyframes } from 'styled-components';
 import { useTranslations } from 'next-intl';
 import { VisuallyHidden } from '@/components/primitives';
+import { usePauseOffscreen } from '@/hooks';
 import { Character } from '@/components/composites/character/Character';
 import { useLookAtPointer } from '@/components/composites/character/useLookAtPointer';
 import { fontFamily, fontWeight, fontSize, letterSpacing } from '@/styles/tokens/typography';
@@ -153,9 +154,106 @@ const ArcProperties = createGlobalStyle`
 /** Anything that can point: the lead follows it. */
 const POINTER_QUERY = '(hover: hover) and (pointer: fine)';
 
-const Frame = styled.div`
+/*
+ * The stage: the circle's box, with the signal rippling out behind it. The
+ * circle itself is clipped to its round shape, so the ripples live out here.
+ */
+const Stage = styled.div`
   position: relative;
   width: min(100%, ${FRAME}px);
+  aspect-ratio: 1;
+`;
+
+const WAVES = 5;
+/** One ripple's whole life, and the gap between one ripple and the next. */
+const WAVE_PERIOD = 10;
+const WAVE_GAP = WAVE_PERIOD / WAVES;
+
+/** A ripple leaves the circle's edge, thins and slows as it spreads, and is gone by the time it reaches the glow's rim. */
+const ripple = keyframes`
+  0% {
+    opacity: 0;
+    transform: scale(var(--from));
+  }
+  12% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+`;
+
+/** The glow under it breathes once per ripple. */
+const breathe = keyframes`
+  0%, 100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+`;
+
+/**
+ * Box is the circle plus 30% all round; --from is the circle's own edge within
+ * it. The colours go round the brands (Instagram, LinkedIn, Telegram, WhatsApp,
+ * the site's green); pointing at a channel turns every ripple that channel's
+ * colour. Under reduced motion they stand still as faint rings.
+ */
+const Waves = styled.div`
+  --from: ${1 / 1.6};
+  position: absolute;
+  inset: -30%;
+  pointer-events: none;
+  /* Whole near the circle, gone before the box's edge. */
+  mask-image: radial-gradient(closest-side, #000 45%, transparent 100%);
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 22%;
+    border-radius: 50%;
+    background: radial-gradient(
+      closest-side,
+      color-mix(in srgb, var(--wave-tint, ${accents.primary}) 22%, transparent),
+      transparent 70%
+    );
+    animation: ${breathe} ${WAVE_GAP * 2}s ease-in-out infinite;
+    transition: background 0.6s ease;
+  }
+
+  span {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1px solid var(--wave-tint, var(--ring));
+    box-shadow:
+      0 0 32px color-mix(in srgb, var(--wave-tint, var(--ring)) 50%, transparent),
+      inset 0 0 32px color-mix(in srgb, var(--wave-tint, var(--ring)) 26%, transparent);
+    opacity: 0;
+    transform: scale(var(--from));
+    animation: ${ripple} ${WAVE_PERIOD}s cubic-bezier(0.2, 0.6, 0.3, 1) infinite;
+    transition: border-color 0.6s ease;
+    will-change: transform, opacity;
+  }
+
+  ${media.reducedMotion} {
+    &::before {
+      animation: none;
+    }
+
+    span {
+      animation: none;
+      opacity: 0.22;
+      transform: scale(calc(var(--from) + (1 - var(--from)) * var(--rest)));
+      will-change: auto;
+    }
+  }
+`;
+
+const Frame = styled.div`
+  position: relative;
+  width: 100%;
   aspect-ratio: 1;
   clip-path: circle(50%);
   container-type: inline-size;
@@ -455,63 +553,82 @@ export function ContactChannels({ titleAs = 'h2' }: ContactChannelsProps) {
     if (!event.currentTarget.contains(event.relatedTarget as Node | null)) choose(null);
   };
 
+  const stageRef = usePauseOffscreen<HTMLDivElement>();
+  const lit = CHANNELS.find((c) => c.id === active);
+
   return (
-    <Frame
-      data-active={active !== null}
-      onPointerLeave={(e) => {
-        if (e.pointerType === 'mouse' && !e.currentTarget.contains(document.activeElement)) choose(null);
-      }}
-    >
-      <ArcProperties />
-      <Ring aria-hidden />
-      <Arc ref={arcRef} data-on={active !== null} aria-hidden />
-      <Disc aria-hidden />
-
-      <Middle aria-hidden>
-        <Rest data-shown={active === null}>
-          <Title>{t('label')}</Title>
-          <Body>{t('body')}</Body>
-        </Rest>
-        {CHANNELS.map((c) => (
-          <Detail key={c.id} data-shown={active === c.id}>
-            <Title>{t(`items.${c.id}`)}</Title>
-            <Qr src={`/contact/qr-${c.id}.svg`} alt="" width={110} height={110} loading="lazy" />
-            <Handle>{c.handle}</Handle>
-          </Detail>
+    <Stage ref={stageRef} style={lit ? ({ '--wave-tint': lit.tint[1] } as React.CSSProperties) : undefined}>
+      <Waves aria-hidden>
+        {CHANNELS.map((c, i) => (
+          <span
+            key={c.id}
+            style={
+              {
+                '--ring': c.tint[1],
+                '--rest': (i + 1) / WAVES,
+                animationDelay: `${-i * WAVE_GAP}s`,
+              } as React.CSSProperties
+            }
+          />
         ))}
-      </Middle>
+      </Waves>
+      <Frame
+        data-active={active !== null}
+        onPointerLeave={(e) => {
+          if (e.pointerType === 'mouse' && !e.currentTarget.contains(document.activeElement)) choose(null);
+        }}
+      >
+        <ArcProperties />
+        <Ring aria-hidden />
+        <Arc ref={arcRef} data-on={active !== null} aria-hidden />
+        <Disc aria-hidden />
 
-      <Lead ref={leadRef} data-on={active !== null} aria-hidden>
-        <Character clothes="default" glasses="matrix" cap={false} width={LEAD.rest} motion={live} />
-      </Lead>
+        <Middle aria-hidden>
+          <Rest data-shown={active === null}>
+            <Title>{t('label')}</Title>
+            <Body>{t('body')}</Body>
+          </Rest>
+          {CHANNELS.map((c) => (
+            <Detail key={c.id} data-shown={active === c.id}>
+              <Title>{t(`items.${c.id}`)}</Title>
+              <Qr src={`/contact/qr-${c.id}.svg`} alt="" width={110} height={110} loading="lazy" />
+              <Handle>{c.handle}</Handle>
+            </Detail>
+          ))}
+        </Middle>
 
-      {/* The heading and the description, for everyone: the picture in the middle is aria-hidden. */}
-      <VisuallyHidden as={titleAs} id="contact-channels-title">
-        {t('label')}
-      </VisuallyHidden>
-      <VisuallyHidden as="p">{t('body')}</VisuallyHidden>
+        <Lead ref={leadRef} data-on={active !== null} aria-hidden>
+          <Character clothes="default" glasses="matrix" cap={false} width={LEAD.rest} motion={live} />
+        </Lead>
 
-      <List aria-labelledby="contact-channels-title" onBlur={onBlur}>
-        {CHANNELS.map((c) => {
-          const name = t(`items.${c.id}`);
-          return (
-            <li key={c.id}>
-              <ChannelLink
-                href={c.href}
-                {...(c.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                aria-label={`${name}: ${c.handle}${c.external ? ` (${t('opensInNewTab')})` : ''}`}
-                data-outbound={c.id}
-                data-on={active === c.id}
-                style={{ ...place(c.angle), '--icon-w': c.icon.width } as React.CSSProperties}
-                onPointerEnter={(e) => e.pointerType === 'mouse' && choose(c.id)}
-                onFocus={() => choose(c.id)}
-              >
-                <img src={`/contact/${c.id}.svg`} alt="" width={c.icon.width} height={c.icon.height} />
-              </ChannelLink>
-            </li>
-          );
-        })}
-      </List>
-    </Frame>
+        {/* The heading and the description, for everyone: the picture in the middle is aria-hidden. */}
+        <VisuallyHidden as={titleAs} id="contact-channels-title">
+          {t('label')}
+        </VisuallyHidden>
+        <VisuallyHidden as="p">{t('body')}</VisuallyHidden>
+
+        <List aria-labelledby="contact-channels-title" onBlur={onBlur}>
+          {CHANNELS.map((c) => {
+            const name = t(`items.${c.id}`);
+            return (
+              <li key={c.id}>
+                <ChannelLink
+                  href={c.href}
+                  {...(c.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                  aria-label={`${name}: ${c.handle}${c.external ? ` (${t('opensInNewTab')})` : ''}`}
+                  data-outbound={c.id}
+                  data-on={active === c.id}
+                  style={{ ...place(c.angle), '--icon-w': c.icon.width } as React.CSSProperties}
+                  onPointerEnter={(e) => e.pointerType === 'mouse' && choose(c.id)}
+                  onFocus={() => choose(c.id)}
+                >
+                  <img src={`/contact/${c.id}.svg`} alt="" width={c.icon.width} height={c.icon.height} />
+                </ChannelLink>
+              </li>
+            );
+          })}
+        </List>
+      </Frame>
+    </Stage>
   );
 }

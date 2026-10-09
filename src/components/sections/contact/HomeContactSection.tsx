@@ -19,6 +19,8 @@ const Section = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* The channel ring's ripples spread past the circle: cut them at the screen's edge, not past it. */
+  overflow-x: clip;
   padding: ${spacing[1000]}px 0 ${spacing[1500]}px;
 
   ${media.down('m')} {
