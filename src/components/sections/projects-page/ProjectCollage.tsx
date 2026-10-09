@@ -1,6 +1,7 @@
 'use client';
 
 /* eslint-disable @next/next/no-img-element -- pre-sized decorative WebP, placed by hand */
+import { useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { neutrals } from '@/styles/tokens/colors';
 import { media } from '@/styles/media';
@@ -126,11 +127,39 @@ const MIRROR: Record<CollageTilt, CollageTilt> = {
   none: 'none',
 };
 
+/**
+ * Whether the collage's box is within a screen of the viewport. Most of a
+ * column sits outside that box, clipped, and the browser counts a clipped image
+ * as never visible: its lazy loading never fires, and the screens at a column's
+ * ends stayed empty. Once the box is near, every screen loads.
+ */
+function useNear() {
+  const sentinel = useRef<HTMLSpanElement>(null);
+  const [near, setNear] = useState(false);
+  useEffect(() => {
+    const box = sentinel.current?.parentElement;
+    if (!box) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        setNear(true);
+        observer.disconnect();
+      },
+      { rootMargin: '100% 0px' },
+    );
+    observer.observe(box);
+    return () => observer.disconnect();
+  }, []);
+  return [sentinel, near] as const;
+}
+
 export function ProjectCollage({ collage, mirrored = false }: ProjectCollageProps) {
   const frameWidth = (collage.frame ?? COLLAGE_FRAME).width;
   const tilt = mirrored ? MIRROR[collage.tilt] : collage.tilt;
+  const [sentinel, near] = useNear();
   return (
     <>
+      <span ref={sentinel} hidden />
       {collage.stacks.map((stack, i) => (
         <Stack
           key={i}
@@ -158,7 +187,7 @@ export function ProjectCollage({ collage, mirrored = false }: ProjectCollageProp
               $outlined={image.outlined}
               style={{ aspectRatio: `${image.width} / ${image.height}` }}
             >
-              <img src={image.src} alt="" loading="lazy" decoding="async" />
+              <img src={image.src} alt="" loading={near ? 'eager' : 'lazy'} decoding="async" />
             </Shot>
           ))}
         </Stack>

@@ -24,6 +24,7 @@ export interface GlowArtwork {
  * Figma page backgrounds: large blurred ellipses behind the content.
  *  - Homepage "Background" (2670:10784): from the Capabilities section to the bottom of the footer.
  *  - Projects page "Background" (3155:9814): the whole page.
+ * The two also sit behind /start-a-project and /contact (entries below).
  *
  * Both rasters are Figma's own render of that frame (the MCP server's
  * screenshot, not a local re-export): the raw vector — nine overlapping
@@ -45,6 +46,19 @@ export const GLOW_ARTWORKS: GlowArtwork[] = [
   },
   {
     startSelector: '#projects-hero',
+    src: '/backgrounds/projects-page-glow.webp',
+    bleed: { top: 0, right: 0, bottom: 0, left: 0 },
+  },
+  // The same two artworks on the two pages that open with a form: the
+  // homepage's violet glow behind /start-a-project, the Work page's warmer
+  // plum one behind /contact. Each runs from the top of the page to the footer.
+  {
+    startSelector: '[aria-labelledby="start-project-title"]',
+    src: '/backgrounds/lower-page-glow.webp',
+    bleed: { top: 0, right: 0, bottom: 0, left: 0 },
+  },
+  {
+    startSelector: '[aria-labelledby="talk-title"]',
     src: '/backgrounds/projects-page-glow.webp',
     bleed: { top: 0, right: 0, bottom: 0, left: 0 },
   },

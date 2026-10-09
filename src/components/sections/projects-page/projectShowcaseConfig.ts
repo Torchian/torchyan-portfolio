@@ -150,6 +150,75 @@ function tiltedCollage(wideA: CollageImage[], phones: CollageImage[], wideB: Col
   };
 }
 
+/**
+ * A column of screens, each shown once, in the order given. Unlike `fill` it
+ * never repeats a screen: if the ones given don't reach the length the row
+ * needs it stops the build, so a row can't ship with bare background showing
+ * at the end of a column. `need` is that length in design px, measured from the
+ * columns' tilted footprint against the 908 × 708 frame (not the full
+ * `column.height`, most of which sits past the frame's edge).
+ */
+function solid(
+  label: string,
+  column: { width: number; gap: number },
+  images: CollageImage[],
+  need: number,
+) {
+  const length = images.reduce(
+    (sum, image, i) => sum + (column.width * image.height) / image.width + (i ? column.gap : 0),
+    0,
+  );
+  if (length < need) {
+    throw new Error(`${label}: its screens run ${Math.round(length)} px, the row needs ${need}`);
+  }
+  return images;
+}
+
+/**
+ * With no phone screens: two big desktop columns, 640 wide, centred on the
+ * frame and staggered along their length. Tilted, two of the Picsart row's 516px
+ * columns leave a third of the frame bare; at 640 the pair covers it all, with
+ * only the gap between them showing. Placed by centre, the box as tall as its
+ * screens, so each needs 1300 px of them.
+ */
+const TWO_A = { x: 256.5, y: 139.5, width: 640, gap: 32 };
+const TWO_B = { x: 651.5, y: 568.5, width: 640, gap: 32 };
+const TWO_NEED = 1300;
+/** With phones: the Picsart geometry; A and the phone column fill their full length, B needs 1350 of its 1534. */
+const THREE_NEED = { A: 1534, phones: 1534, B: 1350 } as const;
+
+/** Two big columns, every screen shown once. */
+function twoColumns(label: string, left: CollageImage[], right: CollageImage[]): Collage {
+  return {
+    tilt: 'clockwise',
+    frame: FRAME,
+    stacks: [
+      { ...TWO_A, images: solid(`${label} left`, TWO_A, left, TWO_NEED) },
+      { ...TWO_B, images: solid(`${label} right`, TWO_B, right, TWO_NEED) },
+    ],
+  };
+}
+
+/** Wide, phone, wide — as `tiltedCollage`, with every screen shown once. */
+function threeColumns(label: string, wideA: CollageImage[], phones: CollageImage[], wideB: CollageImage[]): Collage {
+  return {
+    tilt: 'clockwise',
+    frame: FRAME,
+    stacks: [
+      { ...COLUMN_A, images: solid(`${label} A`, COLUMN_A, wideA, THREE_NEED.A) },
+      { ...COLUMN_PHONE, images: solid(`${label} phones`, COLUMN_PHONE, phones, THREE_NEED.phones) },
+      { ...COLUMN_B, images: solid(`${label} B`, COLUMN_B, wideB, THREE_NEED.B) },
+    ],
+  };
+}
+
+/** A screen chosen in Figma for a project's row (public/projects/collages/work/<project>/), at its pixel size. */
+const work = (project: string, name: string, width: number, height: number): CollageImage => ({
+  src: `/projects/collages/work/${project}/${name}.webp`,
+  width,
+  height,
+});
+
 /** An image anywhere under public/, at its own pixel size (its aspect ratio is all that's used). */
 const img = (src: string, width: number, height: number): CollageImage => ({ src, width, height });
 
@@ -193,28 +262,52 @@ const SOULONE = tiltedCollage(
   [img('/selected-work/soulone/grid/s-c3-v2.webp', 1366, 2754), img('/selected-work/soulone/grid/s-c2-v2.webp', 1333, 4096)],
 );
 
-const GINOSI = tiltedCollage(
-  [img('/selected-work/various/ginosi-search.webp', 1920, 1265), img('/projects/collages/websites/ginosi-downtown.webp', 673, 319)],
-  [],
-  [img('/selected-work/various/ginosi-apartel.webp', 1903, 903), img('/projects/collages/websites/ginosi-search.webp', 673, 443)],
+/*
+ * The four website rows: screens picked from each project's Figma set, each
+ * shown once. Ginosi, Brainstorm and Benzeen have no phone screens, so two big
+ * desktop columns; World Education has them, so three.
+ */
+const GINOSI = twoColumns(
+  'Ginosi',
+  [work('ginosi', 'hero', 1064, 498), work('ginosi', 'blog', 1296, 1656), work('ginosi', 'careers', 1296, 2198)],
+  [work('ginosi', 'gallery', 1284, 610), work('ginosi', 'search', 1296, 1542), work('ginosi', 'locations', 1294, 1754)],
 );
 
-const BRAINSTORM = tiltedCollage(
-  [img('/selected-work/various/brainstormtech.webp', 1082, 4096)],
-  [],
-  [img('/projects/collages/websites/brainstorm-services.webp', 673, 2548)],
+const BRAINSTORM = twoColumns(
+  'Brainstorm',
+  [work('brainstorm', 'build', 1400, 2369), work('brainstorm', 'ideas', 1400, 1837), work('brainstorm', 'talk', 1400, 660)],
+  [work('brainstorm', 'round2', 1400, 1837), work('brainstorm', 'graphic', 1400, 1410), work('brainstorm', 'imagine', 1400, 1315)],
 );
 
-const BENZEEN = tiltedCollage(
-  [img('/selected-work/various/benzeen-alfa.webp', 1903, 903), img('/projects/collages/websites/benzeen-wheel.webp', 673, 2320)],
-  [],
-  [img('/selected-work/various/benzeen-wheel.webp', 1188, 4096)],
+const BENZEEN = twoColumns(
+  'Benzeen',
+  [work('benzeen', 'home', 1356, 970), work('benzeen', 'listing', 1356, 1688), work('benzeen', 'cutsheets', 1358, 1156)],
+  [work('benzeen', 'product', 1356, 1452), work('benzeen', 'quote', 1354, 1466), work('benzeen', 'categories', 1356, 876)],
 );
 
-const WORLD_EDUCATION = tiltedCollage(
-  [img('/selected-work/various/world-services.webp', 3584, 1994), img('/selected-work/various/world-study.webp', 3584, 1994)],
-  [],
-  [img('/selected-work/various/world-study.webp', 3584, 1994), img('/selected-work/various/world-services.webp', 3584, 1994)],
+const WORLD_EDUCATION = threeColumns(
+  'World Education',
+  [
+    work('world-education', 'connect', 1241, 690),
+    work('world-education', 'services', 1241, 690),
+    work('world-education', 'article', 1241, 690),
+    work('world-education', 'howto', 1241, 690),
+    work('world-education', 'about', 1241, 690),
+  ],
+  [
+    work('world-education-mobile', 'pricing', 342, 1188),
+    work('world-education-mobile', 'about', 342, 1124),
+    work('world-education-mobile', 'studyabroad9', 342, 1070),
+    work('world-education-mobile', 'studyabroad7', 342, 1052),
+    work('world-education-mobile', 'studyabroad6', 342, 982),
+  ],
+  [
+    work('world-education', 'prices', 1241, 690),
+    work('world-education', 'discover', 1241, 690),
+    work('world-education', 'blog', 1240, 634),
+    work('world-education', 'insights', 1239, 581),
+    work('world-education', 'partners', 1238, 489),
+  ],
 );
 
 /** Each row hands its closing colour to the next, so the list reads as one gradient. */

@@ -21,8 +21,8 @@ export async function generateMetadata({ params }: LocaleParams): Promise<Metada
 
 /*
  * The one destination for every "Start a project": the form first, under the
- * same opener as /contact; then the reach map, trust that supports the form
- * rather than competing with it; then what happens once it's sent.
+ * same opener as /contact; then what happens once it's sent; then the reach
+ * map, trust that supports the form rather than competing with it.
  */
 export default async function StartProjectPage({ params }: LocaleParams) {
   const locale = await resolveLocale(params);
@@ -33,8 +33,8 @@ export default async function StartProjectPage({ params }: LocaleParams) {
       <TalkOpener titleId="start-project-title" title={t('title')} lead={`${t('lead')} ${t('body')}`}>
         <ProjectForm />
       </TalkOpener>
-      <YearsMapSection id="reach" />
       <NextStepsSection />
+      <YearsMapSection id="reach" />
     </main>
   );
 }
