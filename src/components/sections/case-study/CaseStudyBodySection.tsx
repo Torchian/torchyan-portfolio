@@ -16,11 +16,20 @@ import { CaseBlocks } from './CaseBlocks';
 import { CaseMedia } from './CaseMedia';
 import type { CaseBlock } from './caseStudyConfig';
 
+/*
+ * Joined to the hero (no page gap between them): the story starts half the
+ * usual distance below the band. Nothing below it either, so the page gap
+ * alone leads on to the closing CTA.
+ */
 const Section = styled.section`
-  padding: ${spacing[1000]}px 0;
+  padding: ${spacing[1500]}px 0 0;
+
+  ${media.down('xl')} {
+    padding-top: ${spacing[1250]}px;
+  }
 
   ${media.down('m')} {
-    padding: ${spacing[600]}px 0;
+    padding-top: ${spacing[800]}px;
   }
 `;
 
@@ -142,7 +151,7 @@ export function CaseStudyBodySection({ project }: CaseStudyBodySectionProps) {
   const images = project.images;
 
   return (
-    <Section>
+    <Section data-joined>
       <Content>
         {story.length > 0 && (
           <Story>

@@ -42,6 +42,11 @@ const Section = styled.section`
       margin-bottom: ${spacing[600]}px;
     }
   }
+
+  /* Closing a case: the page gap alone above it. */
+  &[data-tight] {
+    padding-top: 0;
+  }
 `;
 
 const Container = styled.div`
@@ -70,6 +75,23 @@ const Container = styled.div`
   [data-compact] > & {
     gap: ${spacing[600]}px;
   }
+
+  /* Half the usual room between the heading and the cards. */
+  [data-tight] > & {
+    gap: ${spacing[500]}px;
+
+    ${media.up('xxxl')} {
+      gap: ${spacing[1000]}px;
+    }
+
+    ${media.down('xl')} {
+      gap: ${spacing[400]}px;
+    }
+
+    ${media.down('m')} {
+      gap: ${spacing[300]}px;
+    }
+  }
 `;
 
 /** Closing two-card CTA blocks; each namespace has title, subtitle, initiate.* and analyze.*. */
@@ -85,6 +107,8 @@ export interface CollaborationSectionProps {
   ctaId?: string;
   /** Less room above, under the heading and before the footer. */
   compact?: boolean;
+  /** A case page's close: no room of its own above, half the room under the heading. */
+  tight?: boolean;
 }
 
 export function CollaborationSection({
@@ -93,11 +117,16 @@ export function CollaborationSection({
   analyzeHref = '/services',
   ctaId = 'collaboration',
   compact = false,
+  tight = false,
 }: CollaborationSectionProps) {
   const t = useTranslations(namespace);
 
   return (
-    <Section data-compact={compact || undefined} data-joined={compact || undefined}>
+    <Section
+      data-compact={compact || undefined}
+      data-joined={compact || undefined}
+      data-tight={tight || undefined}
+    >
       <Container>
         <SectionHeading size="medium" title={t('title')} subtitle={t('subtitle')} />
         <CTACards

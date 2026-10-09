@@ -115,7 +115,7 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     /* The page's last section brings no space of its own: the layout puts
-       exactly 80px between it and the footer (SiteLayout). */
+       exactly 160px (tablet 100, phone 80) between it and the footer (SiteLayout). */
     > :last-child {
       padding-bottom: 0;
       margin-bottom: 0;
