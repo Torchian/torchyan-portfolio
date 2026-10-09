@@ -81,8 +81,12 @@ export function CaseStudyHeroSection({ project }: CaseStudyHeroSectionProps) {
         <Title as="p">{content.description}</Title>
         <MetaRow>
           <span>{content.field}</span>
-          <span aria-hidden>·</span>
-          <span>{project.year}</span>
+          {project.year && (
+            <>
+              <span aria-hidden>·</span>
+              <span>{project.year}</span>
+            </>
+          )}
         </MetaRow>
       </Content>
     </Section>
