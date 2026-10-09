@@ -144,7 +144,7 @@
         "Product Owner"
       ],
       "title": "Gluten-free bakery brand",
-      "description": "Web and product design for an Armenian bakery brand — with day-to-day ownership of the product and the business behind it.",
+      "description": "Brand direction and an interactive e-commerce website concept for an Armenian gluten-free bakery.",
       "field": "Food · Bakery",
       "story": [
         {
@@ -197,8 +197,8 @@
       "roles": [
         "UI Developer"
       ],
-      "title": "Company website",
-      "description": "Front-end implementation of Smartbet’s website from the design team’s layouts — responsive pages across products and company information.",
+      "title": "Animated company website",
+      "description": "The UI for every page of Smartbet’s animated company and product website, built from the design team’s layouts - with a reusable SCSS foundation and JavaScript transitions.",
       "field": "Website",
       "story": [
         {
@@ -312,7 +312,7 @@
           "label": "Relationship & role",
           "blocks": [
             [
-              "Through TCO (then my employer), March–October 2019. Front-end development."
+              "Through TCO (then my employer), March–August 2019. Front-end development."
             ]
           ]
         },
@@ -455,6 +455,394 @@
           "blocks": [
             [
               "Faithful implementation of an existing design, end to end — the start of a longer working relationship with Brainstorm."
+            ]
+          ]
+        }
+      ]
+    },
+    "myzcapital": {
+      "roles": [
+        "Product Designer",
+        "Front-end Developer"
+      ],
+      "title": "Gamified survey platform",
+      "description": "Original product design and the full front end for a US-focused survey platform, where people answered polls and earned Z coins.",
+      "field": "Surveys · Rewards",
+      "story": [
+        {
+          "label": "Relationship & role",
+          "blocks": [
+            [
+              "Designer and front-end developer. An early product, designed and built while I was at Apricode (2016–2018)."
+            ]
+          ]
+        },
+        {
+          "label": "Context",
+          "blocks": [
+            [
+              "A US-focused survey platform: people completed polls and questions and earned internal Z coins."
+            ]
+          ]
+        },
+        {
+          "label": "What I did",
+          "blocks": [
+            [
+              [
+                "The product design and the full front-end UI",
+                "Survey and poll screens",
+                "Points, rewards and membership views",
+                "A front end working with the backend platform"
+              ]
+            ]
+          ]
+        },
+        {
+          "label": "What it shows",
+          "blocks": [
+            [
+              "The first product I designed and implemented end to end on the front end - an early example of owning an interface completely."
+            ]
+          ]
+        }
+      ]
+    },
+    "solomoon": {
+      "roles": [
+        "Brand Designer",
+        "UI/UX Designer"
+      ],
+      "title": "Digital keys store",
+      "description": "The logo, visual language and product UI/UX for an e-commerce platform selling activation keys for games and software.",
+      "field": "E-commerce · Games",
+      "story": [
+        {
+          "label": "Relationship & role",
+          "blocks": [
+            [
+              "Brand and UI/UX designer. I designed the product; I didn’t build its front end."
+            ]
+          ]
+        },
+        {
+          "label": "Context",
+          "blocks": [
+            [
+              "An e-commerce platform selling digital activation keys for games and software."
+            ]
+          ]
+        },
+        {
+          "label": "What I did",
+          "blocks": [
+            [
+              [
+                "The logo and the complete visual language: typography, colour and interface",
+                "The UI/UX of the homepage, catalogue and product pages"
+              ]
+            ]
+          ]
+        },
+        {
+          "label": "What it shows",
+          "blocks": [
+            [
+              "Ownership of an e-commerce visual system, from the brand identity to the key shopping screens."
+            ]
+          ]
+        }
+      ]
+    },
+    "infinity-rings": {
+      "roles": [
+        "UI Designer",
+        "Front-end Developer"
+      ],
+      "title": "Operations platform",
+      "description": "A refreshed design and the full UI for the internal administration system of an Australian ring manufacturer - not its public store.",
+      "field": "Jewellery · Internal tools",
+      "story": [
+        {
+          "label": "Relationship & role",
+          "blocks": [
+            [
+              "Direct client, in Australia. I updated the existing visual design and implemented the entire UI of the administration system."
+            ]
+          ]
+        },
+        {
+          "label": "Context",
+          "blocks": [
+            [
+              "An Australian manufacturer and seller of precious-metal rings, running its products and orders through an existing web application."
+            ]
+          ]
+        },
+        {
+          "label": "What I did",
+          "blocks": [
+            [
+              [
+                "Product management: item creation and import, collections, materials and variants, pricing and thumbnails",
+                "Order management, with statuses through production to delivery",
+                "Data-heavy forms, filters, sidebars and drag-and-drop areas"
+              ]
+            ]
+          ]
+        },
+        {
+          "label": "The challenge",
+          "blocks": [
+            [
+              "Modernising an old application with a large existing data model, while keeping the workflows and integrations it already relied on. Adapting those structures was, in places, harder than starting from scratch."
+            ]
+          ]
+        },
+        {
+          "label": "About the screens",
+          "blocks": [
+            [
+              "Order, store and customer details, model numbers and prices are blurred."
+            ]
+          ]
+        }
+      ]
+    },
+    "panika": {
+      "roles": [
+        "Designer",
+        "Media Projects Lead"
+      ],
+      "title": "Creative production",
+      "description": "Visual design and creative production for film, music and sound projects with Armenian and German artists.",
+      "field": "Media · Production",
+      "story": [
+        {
+          "label": "Relationship & role",
+          "blocks": [
+            [
+              "Designer, media projects lead and operations coordinator, December 2020 – February 2023."
+            ]
+          ]
+        },
+        {
+          "label": "Context",
+          "blocks": [
+            [
+              "Creative and media production: a film, and music and sound for Armenian and German artists."
+            ]
+          ]
+        },
+        {
+          "label": "What I did",
+          "blocks": [
+            [
+              [
+                "Visual identity and promotional materials",
+                "Website and social graphics",
+                "Media assets",
+                "Coordination across creative projects and offices"
+              ]
+            ]
+          ]
+        },
+        {
+          "label": "What it shows",
+          "blocks": [
+            [
+              "Cross-disciplinary creative and operational experience, beyond digital UI."
+            ]
+          ]
+        }
+      ]
+    },
+    "by-robyn-blair": {
+      "roles": [
+        "Front-end Developer"
+      ],
+      "title": "Candy-art storefront",
+      "description": "The Shopify front end across the store’s pages, built at Brainstorm for an art and decor brand.",
+      "field": "E-commerce · Art",
+      "story": [
+        {
+          "label": "Relationship & role",
+          "blocks": [
+            [
+              "Front-end developer at Brainstorm, July–December 2018. By Robyn Blair was a Brainstorm client."
+            ]
+          ]
+        },
+        {
+          "label": "Context",
+          "blocks": [
+            [
+              "By Robyn Blair sells decor and art products - original and custom works of candy art."
+            ]
+          ]
+        },
+        {
+          "label": "What I did",
+          "blocks": [
+            [
+              "The Shopify front end across roughly five or six pages of the store."
+            ]
+          ]
+        }
+      ]
+    },
+    "off-my-case": {
+      "roles": [
+        "Front-end Developer"
+      ],
+      "title": "Custom phone-case store",
+      "description": "The full Shopify storefront UI, including a configurator for personalised phone cases.",
+      "field": "E-commerce · Accessories",
+      "story": [
+        {
+          "label": "Relationship & role",
+          "blocks": [
+            [
+              "Front-end developer at Brainstorm, July–December 2018. Off My Case was a Brainstorm client."
+            ]
+          ]
+        },
+        {
+          "label": "Context",
+          "blocks": [
+            [
+              "Off My Case sells phone cases that customers personalise themselves."
+            ]
+          ]
+        },
+        {
+          "label": "What I did",
+          "blocks": [
+            [
+              [
+                "The full Shopify storefront UI",
+                "A configurator for personalised cases: text, symbols, their placement and colours"
+              ]
+            ]
+          ]
+        },
+        {
+          "label": "What it shows",
+          "blocks": [
+            [
+              "The strongest interaction work among the Brainstorm stores - a customiser people use to design their own case."
+            ]
+          ]
+        }
+      ]
+    },
+    "gemmed": {
+      "roles": [
+        "Front-end Developer"
+      ],
+      "title": "Jewellery storefront",
+      "description": "The full Shopify storefront front end for a jewellery and accessories brand.",
+      "field": "E-commerce · Jewellery",
+      "story": [
+        {
+          "label": "Relationship & role",
+          "blocks": [
+            [
+              "Front-end developer at Brainstorm, July–December 2018. Gemmed was a Brainstorm client."
+            ]
+          ]
+        },
+        {
+          "label": "Context",
+          "blocks": [
+            [
+              "Gemmed sells jewellery and accessories, with bundles and shop-the-look collections."
+            ]
+          ]
+        },
+        {
+          "label": "What I did",
+          "blocks": [
+            [
+              "The full Shopify storefront front end."
+            ]
+          ]
+        }
+      ]
+    },
+    "scunci": {
+      "roles": [
+        "Front-end Developer"
+      ],
+      "title": "Hair-accessories website",
+      "description": "Selected pages of Scunci’s Squarespace website, built at Brainstorm.",
+      "field": "Beauty · Accessories",
+      "story": [
+        {
+          "label": "Relationship & role",
+          "blocks": [
+            [
+              "Front-end developer at Brainstorm, July–December 2018. Scunci was a Brainstorm client."
+            ]
+          ]
+        },
+        {
+          "label": "Context",
+          "blocks": [
+            [
+              "Scunci makes hair accessories."
+            ]
+          ]
+        },
+        {
+          "label": "What I did",
+          "blocks": [
+            [
+              "Selected pages of the website, on Squarespace - not the whole site."
+            ]
+          ]
+        }
+      ]
+    },
+    "graphic-design": {
+      "roles": [
+        "Logo Designer",
+        "Graphic Designer"
+      ],
+      "title": "Identity and poster design",
+      "description": "Logos and identity pieces for a range of brands, and a series of social posters.",
+      "field": "Graphic design",
+      "story": [
+        {
+          "label": "What it is",
+          "blocks": [
+            [
+              "A selection of graphic work outside websites and products: logos and identity pieces, and a series of social posters."
+            ]
+          ]
+        },
+        {
+          "label": "Logos",
+          "blocks": [
+            [
+              [
+                "Solomoon",
+                "The Photo Booth Co.",
+                "Serani",
+                "Wallbrick",
+                "Dental Clinic CRM",
+                "Easy Process",
+                "AKN",
+                "European Floors of Houston"
+              ]
+            ]
+          ]
+        },
+        {
+          "label": "Posters",
+          "blocks": [
+            [
+              "Social posters for Живые вещи, each in a story and a square format."
             ]
           ]
         }
@@ -679,15 +1067,15 @@
           ],
           "relationship": "Employee · Aug–Oct 2021",
           "description": [
-            "Worked with Smartbet’s design and development team to turn approved layouts into a responsive production website.",
-            "My responsibility was the UI layer: translating the design accurately into working pages, handling responsive behavior and making sure the interface behaved consistently across browsers and screen sizes.",
+            "Worked with Smartbet’s design and development team as UI Developer, turning approved layouts into an animated, responsive website.",
+            "I implemented the UI for every page, set up a reusable atomic/BEM-based SCSS structure with styling tokens, and built the JavaScript animations and transitions between pages and product sections.",
             "A focused implementation role where precision, clean structure and collaboration with designers mattered most."
           ],
           "stack": [
             "UI Development",
             "Responsive UI",
-            "Cross-browser",
-            "Accessibility"
+            "SCSS system",
+            "Animations"
           ]
         },
         "soulone": {
@@ -698,16 +1086,15 @@
           ],
           "relationship": "Founding team · May–Oct 2025",
           "description": [
-            "SoulOne is an Armenian bakery brand focused on gluten-free, eco-oriented cakes and desserts.",
-            "I wasn’t involved only as a designer. I worked closely with the product and business day to day — shaping the website, product presentation, visual direction and decisions around how the brand should work online.",
-            "The project gave me experience much closer to building a business than simply delivering screens: design, product decisions, outreach and execution were all connected."
+            "SoulOne is an Armenian bakery making gluten-free cakes and dessert balls, already supplying several cafés when I joined.",
+            "As Web Designer and Product Owner, I set its brand direction - palette, typography and tone of voice - and designed an e-commerce website concept with interactive Figma prototypes, web copy and social visuals.",
+            "The website stayed a concept and wasn’t launched, but the work went well beyond screens: brand, product communication and prototyping together."
           ],
           "stack": [
-            "Product Design",
+            "Brand Direction",
             "Web Design",
-            "Product Ownership",
-            "Brand",
-            "Launch"
+            "Prototyping",
+            "Product Ownership"
           ]
         },
         "ginosi": {
@@ -732,17 +1119,17 @@
           "roles": [
             "Front-end development"
           ],
-          "relationship": "Direct client · May–Jul 2018",
+          "relationship": "Outsourced project · May–Jul 2018",
           "description": [
-            "My relationship with Brainstorm started by building the company’s own website from an existing design.",
-            "I handled the front-end implementation end to end, translating the supplied layouts into a responsive production website and working through the details needed to make the design behave correctly in the browser.",
-            "The collaboration later developed into a working relationship, but this case focuses only on the original website project."
+            "My relationship with Brainstorm started with an outsourced assignment: building the agency’s own website while its design was still being developed.",
+            "I built the front end in HTML, CSS and JavaScript, with custom animation and hand-written scroll-driven interactions.",
+            "The project led Brainstorm to invite me onto its team; this case focuses on the original website."
           ],
           "stack": [
             "Front-end",
-            "Responsive Web",
-            "Client Website",
-            "Design Implementation"
+            "Custom Animation",
+            "Scroll Interactions",
+            "Responsive Web"
           ]
         },
         "benzeen": {
@@ -750,16 +1137,16 @@
           "roles": [
             "Front-end development"
           ],
-          "relationship": "Via TCO · Mar–Oct 2019",
+          "relationship": "Via TCO · Mar–Aug 2019",
           "description": [
             "Worked on Benzeen Auto Parts, a Los Angeles automotive e-commerce project delivered through TCO.",
-            "I handled the front-end implementation across the website, including responsive UI, interactions and animations, while also contributing to design decisions during development.",
-            "This was more than simply reproducing layouts — design and implementation often evolved together while the product was being built."
+            "I implemented the UI across the website - responsive layouts, interactions, animations and selected JavaScript logic - and integrated Google AMP, in a custom Angular build rather than a CMS.",
+            "Designers kept adding and updating pages during development, so design and implementation moved forward together."
           ],
           "stack": [
-            "Front-end",
+            "Angular",
             "Animations",
-            "UI Collaboration",
+            "Google AMP",
             "Automotive"
           ]
         },
@@ -771,8 +1158,8 @@
           "relationship": "Direct client · Mar–May 2020",
           "description": [
             "Built the interface for World Education as a direct client project.",
-            "I was responsible for the full UI implementation, responsive layouts, animations and selected JavaScript interactions across the website.",
-            "It was a compact project, but a good example of owning the complete presentation layer rather than only individual screens or components."
+            "I built most of the website’s front end - responsive layouts, animations and interaction work - with another contributor handling part of the JavaScript logic.",
+            "It was a compact project, but a good example of owning the presentation layer rather than only individual screens or components."
           ],
           "stack": [
             "UI Development",
@@ -825,6 +1212,10 @@
         "body": "Four areas, each carried from direction to production.",
         "cta": "See services"
       }
+    },
+    "more": {
+      "title": "More projects",
+      "subtitle": "Smaller pieces of work: stores, products and tools, each with a short write-up."
     }
   },
   "servicesPage": {
@@ -1016,8 +1407,7 @@
       "items": [
         "Ongoing social media or paid-ads management",
         "Guaranteed rankings, traffic or lead numbers",
-        "Native iOS and Android apps",
-        "Backend development as a standalone service — it’s included through specialists when a project needs it"
+        "Native iOS and Android apps"
       ]
     },
     "cta": {
@@ -1119,13 +1509,13 @@
   },
   "about": {
     "hero": {
-      "title": "One accountable lead, from first sketch to production",
+      "title": "Ten years between design and code",
       "basedIn": "Ապրում եմ Հայաստանում",
       "workingGlobally": "Working internationally",
       "cta": "See the work",
-      "intro": "I’m <name>Stepan Torchyan</name>, the founder of Torchyan — a designer and UI engineer. I’ve built interfaces inside product companies like Picsart and for clients in the US, Australia and Armenia.",
-      "execution": "Torchyan exists so that design decisions survive production. I carry each project from direction and UX to production code, and bring in trusted specialists when the work needs more than one person.",
-      "resilience": "You always know who’s responsible: me.",
+      "intro": "I’m <name>Stepan Torchyan</name> — a designer and UI engineer based in Armenia, and the founder of Torchyan. I work on digital products, websites and interface systems, usually somewhere between design and implementation.",
+      "execution": "That’s also how I see Torchyan: design and development shouldn’t feel like two separate steps. I like keeping the whole process connected, from the first idea to the final build. If a project needs more people, I bring in specialists I trust and keep everything moving in the same direction.",
+      "resilience": "At the end, the goal is simple: make things that look right, work well, and are built to last.",
       "cards": [
         "Product & web design",
         "UI engineering",
@@ -1245,12 +1635,12 @@
           ]
         },
         "soulone": {
-          "stickyContent": "Ownership &\nProduct",
+          "stickyContent": "Brand &\nProduct",
           "role": "Web Designer & Product Owner",
-          "focus": "Worked directly on the product and business behind an Armenian gluten-free bakery brand, covering web and product design alongside day-to-day ownership.",
-          "impact": "Product decisions, outreach and promotion, not only the visual layer.",
+          "focus": "Set the brand direction and designed an e-commerce website concept for an Armenian gluten-free bakery - palette, typography, tone of voice, web copy and interactive Figma prototypes.",
+          "impact": "Brand and product thinking for an existing business; the website stayed a concept.",
           "coreGrowth": [
-            "Ownership",
+            "Brand",
             "Product"
           ]
         },
@@ -1658,6 +2048,1060 @@
                 "A separate Growth product for creating visual and social content and adapting it to each platform’s formats. As the team’s primary UI developer, I implemented its interface in React, HTML/CSS, JSS and Styled Components."
               ]
             ]
+          }
+        ]
+      }
+    },
+    "smartbet": {
+      "hero": {
+        "title": "Smartbet",
+        "subtitle": "An animated company and product website - sports, gaming, platform products and services",
+        "description": [
+          "From August to October 2021, I worked as a UI Developer at Smartbet, in a team of designers and developers. The design team supplied approved layouts; I implemented the UI for every page of the website, including the responsive versions.",
+          "Alongside the page builds, I set up a reusable atomic/BEM-based SCSS structure with styling tokens, and implemented the JavaScript animations and transitions between pages and product sections."
+        ],
+        "meta": [
+          {
+            "label": "Role:",
+            "items": [
+              "UI Developer",
+              "Employee"
+            ]
+          },
+          {
+            "label": "Scope:",
+            "items": [
+              "Every website page",
+              "Responsive UI",
+              "SCSS structure and tokens",
+              "Animations and transitions"
+            ]
+          },
+          {
+            "label": "Team:",
+            "items": [
+              "Designers and developers"
+            ]
+          },
+          {
+            "label": "Stack:",
+            "items": [
+              "HTML",
+              "CSS",
+              "SCSS",
+              "JavaScript"
+            ]
+          }
+        ]
+      },
+      "timeline": {
+        "title": "What the work involved",
+        "subtitle": [
+          "Smartbet’s website presents distinct product families - sports, gaming and platform tools - alongside solutions, payment methods, providers and company pages.",
+          "The designs were approved; my job was to turn every page into working, responsive, animated UI."
+        ],
+        "steps": [
+          [
+            {
+              "title": "Context",
+              "blocks": [
+                [
+                  "Approved designs were ready for front-end implementation. The website covered:",
+                  [
+                    "Sports products",
+                    "Gaming products",
+                    "Platform tools",
+                    "Solutions, payment methods and providers",
+                    "Company pages"
+                  ]
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "A UI foundation",
+              "blocks": [
+                [
+                  "A reusable SCSS structure, organised with atomic/BEM naming and styling tokens, so every page drew on the same rules."
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "Product pages",
+              "blocks": [
+                [
+                  "Every approved layout implemented across the sports, gaming and platform categories."
+                ],
+                [
+                  "Each product family has its own visual theme, inside one consistent site structure."
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "Motion",
+              "blocks": [
+                [
+                  "JavaScript animations and transitions that move titles, imagery and coloured section accents together as visitors go from page to page and product to product."
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "Supporting sections, on every screen",
+              "blocks": [
+                [
+                  "Services, solutions, providers, payment methods and company pages, their content entering in stages."
+                ],
+                [
+                  "Every page adapted across screen sizes, with navigation, typography and UI patterns kept aligned."
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "What changed",
+              "blocks": [
+                [
+                  [
+                    "The UI implemented across every page of the website",
+                    "Animated page states and transitions between product families",
+                    "One reusable styling foundation for the whole site"
+                  ]
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "What this shows",
+              "blocks": [
+                [
+                  [
+                    "End-to-end responsibility for the website UI - not the backend or the product design",
+                    "A reusable styling foundation alongside motion-heavy implementation",
+                    "Accurate collaboration with a design team on a visually complex, multi-section site"
+                  ]
+                ]
+              ]
+            }
+          ]
+        ]
+      },
+      "blueprint": {
+        "title": "Principles",
+        "subtitle": "What the build held to, page after page.",
+        "cards": [
+          {
+            "title": "Design fidelity",
+            "body": "Approved layouts translated accurately into working pages."
+          },
+          {
+            "title": "Reusability",
+            "body": "Atomic/BEM-based styling and tokens, shared by every page."
+          },
+          {
+            "title": "Consistent motion",
+            "body": "Transitions that stay coherent across product families."
+          },
+          {
+            "title": "Responsive structure",
+            "body": "The same experience, preserved across screen sizes."
+          },
+          {
+            "title": "Visual consistency",
+            "body": "Navigation, typography and UI patterns kept aligned."
+          }
+        ]
+      },
+      "architecture": {
+        "title": "In detail",
+        "subtitle": "Five parts of the build, and how each was approached.",
+        "useCases": [
+          {
+            "title": "1. Moving between products",
+            "blocks": [
+              [
+                "Going from one product to another changes titles, imagery and coloured section accents at once."
+              ],
+              [
+                "I implemented those transitions in JavaScript, so incoming and outgoing content hand over in step."
+              ]
+            ]
+          },
+          {
+            "title": "2. Different product identities",
+            "blocks": [
+              [
+                "Sports, gaming and platform sections each carry their own visual theme."
+              ],
+              [
+                "They share one site structure, so navigation and layout stay familiar while colour and imagery change."
+              ]
+            ]
+          },
+          {
+            "title": "3. A hero in motion",
+            "blocks": [
+              [
+                "The homepage opens on a continuously moving, shape-changing visual object, set alongside the hero content."
+              ]
+            ]
+          },
+          {
+            "title": "4. The navigation overlay",
+            "blocks": [
+              [
+                "A full-page menu, grouped by product category, that opens and closes as an animated state."
+              ]
+            ]
+          },
+          {
+            "title": "5. Staged content",
+            "blocks": [
+              [
+                "Service illustrations, support details, and the provider and payment grids enter progressively rather than all at once."
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    "soulone": {
+      "hero": {
+        "title": "SoulOne",
+        "subtitle": "Brand direction and an interactive e-commerce website concept for an Armenian gluten-free bakery",
+        "description": [
+          "From May to October 2025, I worked with SoulOne as Web Designer and Product Owner, as part of its founding team. The bakery was already making gluten-free cakes and dessert balls and supplying several cafés.",
+          "I designed the website and its interactive Figma prototypes, and set the colour palette, typography, tone of voice, website copy and social-media visuals. The website stayed a concept: it was not built or launched, and the business later stopped trading."
+        ],
+        "meta": [
+          {
+            "label": "Role:",
+            "items": [
+              "Web Designer",
+              "Product Owner"
+            ]
+          },
+          {
+            "label": "Scope:",
+            "items": [
+              "Brand direction",
+              "Website UX/UI concept",
+              "Interactive prototypes",
+              "Web copy",
+              "Social visuals"
+            ]
+          },
+          {
+            "label": "Team:",
+            "items": [
+              "Founding team, with the bakery’s owner"
+            ]
+          },
+          {
+            "label": "Tools:",
+            "items": [
+              "Figma"
+            ]
+          }
+        ]
+      },
+      "timeline": {
+        "title": "What the work involved",
+        "subtitle": [
+          "SoulOne already had products and customers.",
+          "It needed a coherent identity, a clear voice and an online presentation to match."
+        ],
+        "steps": [
+          [
+            {
+              "title": "Context",
+              "blocks": [
+                [
+                  "An existing bakery - not a business started from zero - with gluten-free cakes and dessert balls already supplied to cafés."
+                ],
+                [
+                  "The task: a more coherent visual identity, tone of voice and online product presentation, and a website concept."
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "Brand foundations",
+              "blocks": [
+                [
+                  "Tone of voice, colour palette and typography, set first so every later screen and post drew on them."
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "Messaging",
+              "blocks": [
+                [
+                  "Website messaging and product copy, written in that voice."
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "The homepage",
+              "blocks": [
+                [
+                  "Product ranges, the brand story, product benefits and calls to action."
+                ],
+                [
+                  "Cakes and dessert balls side by side, with a Build Your Box concept."
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "Product pages",
+              "blocks": [
+                [
+                  "Detail views with imagery, price, quantities, ingredients, nutrition and allergens, and related products."
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "Prototype and social",
+              "blocks": [
+                [
+                  "Interactive Figma prototypes for product image states and transitions, and visuals for social media."
+                ],
+                [
+                  "An alternative logo was explored too; the original logo was kept."
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "What changed",
+              "blocks": [
+                [
+                  [
+                    "A visual direction: palette, typography and tone of voice",
+                    "A complete website UI concept, with interactive prototypes",
+                    "Website copy and social creative"
+                  ]
+                ],
+                [
+                  "The website itself was not built or launched, so there are no sales or conversion figures to report."
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "What this shows",
+              "blocks": [
+                [
+                  [
+                    "Range beyond screens: brand direction, UX/UI, product communication and prototyping",
+                    "Product involvement in an existing business, not only its visuals"
+                  ]
+                ]
+              ]
+            }
+          ]
+        ]
+      },
+      "blueprint": {
+        "title": "What the designs prioritise",
+        "subtitle": "The choices that run through the concept.",
+        "cards": [
+          {
+            "title": "Food first",
+            "body": "Photography of the cakes leads every page."
+          },
+          {
+            "title": "An easy range",
+            "body": "Cakes and dessert balls stay simple to browse."
+          },
+          {
+            "title": "Details in reach",
+            "body": "Ingredients and product details are easy to find."
+          },
+          {
+            "title": "One voice",
+            "body": "Colour, typography and tone stay consistent."
+          },
+          {
+            "title": "Shown, not described",
+            "body": "Commerce interactions are visible in the prototype."
+          }
+        ]
+      },
+      "architecture": {
+        "title": "In detail",
+        "subtitle": "Design problems, and the solutions the concept proposes.",
+        "useCases": [
+          {
+            "title": "1. A disconnected brand",
+            "blocks": [
+              [
+                "The bakery’s presentation didn’t hang together."
+              ],
+              [
+                "A defined palette, typography and tone of voice gave every touchpoint the same footing."
+              ]
+            ]
+          },
+          {
+            "title": "2. Two ranges, one shop",
+            "blocks": [
+              [
+                "Cakes and dessert balls needed to sit side by side."
+              ],
+              [
+                "Structured homepage and product sections, and a Build Your Box concept, bring them together."
+              ]
+            ]
+          },
+          {
+            "title": "3. Explaining each product",
+            "blocks": [
+              [
+                "Detailed product pages with imagery, price, ingredients, allergens and related items."
+              ]
+            ]
+          },
+          {
+            "title": "4. Interactions before development",
+            "blocks": [
+              [
+                "Figma prototype states and transitions show how the site would behave, before any of it is built."
+              ]
+            ]
+          },
+          {
+            "title": "5. The logo",
+            "blocks": [
+              [
+                "I designed an alternative logo; the owner chose to keep the existing one."
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    "ginosi": {
+      "hero": {
+        "title": "Ginosi",
+        "subtitle": "Full front-end implementation for an international serviced-apartment booking website",
+        "description": [
+          "Ginosi offered serviced apartments in several cities and countries. Its website let visitors search for accommodation and reserve apartments.",
+          "Working directly with the client in April–May 2019, I joined when the visual design was already in place and implemented the full front end under a tight schedule - turning the supplied designs into the working booking-site UI."
+        ],
+        "meta": [
+          {
+            "label": "Role:",
+            "items": [
+              "Front-end Developer",
+              "Direct client"
+            ]
+          },
+          {
+            "label": "Scope:",
+            "items": [
+              "The entire front-end UI",
+              "Search and listings",
+              "Property pages",
+              "Responsive behaviour"
+            ]
+          },
+          {
+            "label": "Design:",
+            "items": [
+              "Supplied by the client"
+            ]
+          }
+        ]
+      },
+      "timeline": {
+        "title": "What the work involved",
+        "subtitle": [
+          "An established accommodation business, with its booking website already designed.",
+          "It needed all of it built as a working front end, quickly."
+        ],
+        "steps": [
+          [
+            {
+              "title": "Context",
+              "blocks": [
+                [
+                  "Ginosi’s visual design already existed. What it needed was a front end that worked."
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "From designs to structure",
+              "blocks": [
+                [
+                  "The supplied designs reviewed, then turned into a shared layout and styling for every page."
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "Search, listings and properties",
+              "blocks": [
+                [
+                  "The accommodation search, the listings and the property pages - the core of the booking experience."
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "Every screen size",
+              "blocks": [
+                [
+                  "Responsive behaviour across the site, then the finished front end handed over."
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "What changed",
+              "blocks": [
+                [
+                  "The entire front-end UI, delivered within a very short timeframe - sooner than the client had asked for."
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "What this shows",
+              "blocks": [
+                [
+                  [
+                    "End-to-end ownership of the presentation layer",
+                    "Speed of execution",
+                    "Implementing another designer’s work accurately"
+                  ]
+                ]
+              ]
+            }
+          ]
+        ]
+      },
+      "blueprint": {
+        "title": "Principles",
+        "subtitle": "What a fast build still held to.",
+        "cards": [
+          {
+            "title": "Faithful to the design",
+            "body": "The approved visual design, implemented as drawn."
+          },
+          {
+            "title": "Consistent patterns",
+            "body": "Common patterns kept the same across every page."
+          },
+          {
+            "title": "Reliable delivery",
+            "body": "A tight schedule, met without cutting corners."
+          },
+          {
+            "title": "Every screen size",
+            "body": "An interface that works on every screen."
+          }
+        ]
+      }
+    },
+    "benzeen": {
+      "hero": {
+        "title": "Benzeen Auto Parts",
+        "subtitle": "UI and interaction engineering for a custom automotive e-commerce site, built alongside an evolving design",
+        "description": [
+          "Benzeen Auto Parts was an automotive e-commerce project for a business in Los Angeles, delivered through TCO in 2019. Designers kept preparing and updating pages while development was underway.",
+          "I implemented the UI across the website - interactive behaviour, animations and selected JavaScript logic - and integrated Google AMP. It was my first e-commerce project outside a traditional CMS."
+        ],
+        "meta": [
+          {
+            "label": "Role:",
+            "items": [
+              "UI Developer",
+              "Through TCO"
+            ]
+          },
+          {
+            "label": "Scope:",
+            "items": [
+              "Every page’s UI",
+              "Interactions and animations",
+              "JavaScript logic",
+              "Google AMP"
+            ]
+          },
+          {
+            "label": "Stack:",
+            "items": [
+              "Angular",
+              "Sass/SCSS",
+              "BEM",
+              "JavaScript",
+              "Google AMP"
+            ]
+          }
+        ]
+      },
+      "timeline": {
+        "title": "What the work involved",
+        "subtitle": [
+          "A custom e-commerce build, not a CMS theme.",
+          "New page designs kept arriving while the site was being built."
+        ],
+        "steps": [
+          [
+            {
+              "title": "Context",
+              "blocks": [
+                [
+                  "A custom, non-CMS e-commerce build in Angular. Design updates and new page concepts arrived while development was already underway."
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "Structure and shared styling",
+              "blocks": [
+                [
+                  "Page structure and shared styling first, written in Sass/SCSS with BEM."
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "Alongside the designers",
+              "blocks": [
+                [
+                  "Pages implemented and updated as the designs changed, in step with the design team."
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "The storefront",
+              "blocks": [
+                [
+                  "The UI across the whole store: browsing by make, recent arrivals, stock and part pages, quotes and the customer account."
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "Interaction and AMP",
+              "blocks": [
+                [
+                  "Animations and JavaScript behaviour across the site, and Google AMP integrated for supported mobile content."
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "What changed",
+              "blocks": [
+                [
+                  [
+                    "The UI implemented across the site",
+                    "Interactive behaviour and animations",
+                    "Google AMP integrated"
+                  ]
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "What this shows",
+              "blocks": [
+                [
+                  [
+                    "Full UI implementation for custom e-commerce",
+                    "Close collaboration with designers while the design moved",
+                    "Animation work, and experience with non-CMS Angular projects"
+                  ]
+                ]
+              ]
+            }
+          ]
+        ]
+      },
+      "blueprint": {
+        "title": "Principles",
+        "subtitle": "How the build kept up with a moving design.",
+        "cards": [
+          {
+            "title": "Stay aligned",
+            "body": "Design and implementation kept in step as requirements changed."
+          },
+          {
+            "title": "Structured styling",
+            "body": "BEM and SCSS, so new pages fit the existing ones."
+          },
+          {
+            "title": "Deliberate details",
+            "body": "Interaction details built with intention, not left to chance."
+          },
+          {
+            "title": "One storefront",
+            "body": "A large product surface kept consistent throughout."
+          }
+        ]
+      },
+      "architecture": {
+        "title": "In detail",
+        "subtitle": "Two parts of the work, and how each was approached.",
+        "useCases": [
+          {
+            "title": "1. A design that kept changing",
+            "blocks": [
+              [
+                "New pages were still being designed while the site was built."
+              ],
+              [
+                "Iterative implementation, on structured Sass/BEM patterns, let new and updated pages slot into what already existed."
+              ]
+            ]
+          },
+          {
+            "title": "2. Google AMP",
+            "blocks": [
+              [
+                "I integrated Google AMP into the project for the mobile content it supported, alongside the main Angular build."
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    "brainstorm": {
+      "hero": {
+        "title": "Brainstorm",
+        "subtitle": "Custom front-end and scroll-driven interaction work for Brainstorm’s agency website",
+        "description": [
+          "It began in 2018 as an outsourced assignment: building Brainstorm’s own agency website while its design was still being developed.",
+          "I built the website UI in HTML, CSS and vanilla JavaScript, with custom animation and hand-written scroll-event logic. The finished site led Brainstorm to invite me onto its team, where I went on to work on client stores - those are separate projects."
+        ],
+        "meta": [
+          {
+            "label": "Role:",
+            "items": [
+              "Front-end Developer"
+            ]
+          },
+          {
+            "label": "Relationship:",
+            "items": [
+              "Outsourced project, May–Jul 2018",
+              "Then employee, Jul–Dec 2018"
+            ]
+          },
+          {
+            "label": "Scope:",
+            "items": [
+              "Agency website UI",
+              "Custom animation",
+              "Scroll-driven interactions",
+              "Responsive layouts"
+            ]
+          },
+          {
+            "label": "Stack:",
+            "items": [
+              "HTML",
+              "CSS",
+              "JavaScript"
+            ]
+          }
+        ]
+      },
+      "timeline": {
+        "title": "What the work involved",
+        "subtitle": [
+          "Brainstorm needed its own site built while the design was still taking shape."
+        ],
+        "steps": [
+          [
+            {
+              "title": "Context",
+              "blocks": [
+                [
+                  "The agency’s own website, with the design still being developed and refined as the front end was built."
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "An evolving design",
+              "blocks": [
+                [
+                  "Working directly with the design as it changed, rather than waiting for a final version."
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "Layouts and responsive UI",
+              "blocks": [
+                [
+                  "Every layout implemented and made responsive, in step with the visual concept."
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "Custom animation",
+              "blocks": [
+                [
+                  "Animation built as part of the experience, not added on top of it."
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "Scroll-triggered events",
+              "blocks": [
+                [
+                  "Scroll-driven events and transitions, coded by hand in JavaScript rather than taken from generic animation templates."
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "What changed",
+              "blocks": [
+                [
+                  [
+                    "An animated, custom front-end site for the agency",
+                    "An invitation to join Brainstorm as a developer"
+                  ]
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "What this shows",
+              "blocks": [
+                [
+                  [
+                    "Independent front-end delivery",
+                    "Custom JavaScript motion, implemented by hand",
+                    "A client engagement that grew into a longer working relationship"
+                  ]
+                ]
+              ]
+            }
+          ]
+        ]
+      },
+      "blueprint": {
+        "title": "Principles",
+        "subtitle": "How the site was built while its design was still moving.",
+        "cards": [
+          {
+            "title": "Work with the design",
+            "body": "Build directly against an evolving design."
+          },
+          {
+            "title": "Motion with a job",
+            "body": "Animation as a working part of the experience."
+          },
+          {
+            "title": "Explicit scrolling",
+            "body": "Scroll interactions controlled in code, not by templates."
+          },
+          {
+            "title": "Responsive concept",
+            "body": "Responsive behaviour kept true to the visual idea."
+          }
+        ]
+      },
+      "architecture": {
+        "title": "In detail",
+        "subtitle": "Two parts of the work, and how each was approached.",
+        "useCases": [
+          {
+            "title": "1. Scroll-driven animation, by hand",
+            "blocks": [
+              [
+                "The site’s animation and interactions are driven by scrolling."
+              ],
+              [
+                "Rather than relying on generic animation templates, I implemented the JavaScript event behaviour myself, so each page animates the way it was meant to."
+              ]
+            ]
+          },
+          {
+            "title": "2. A design still taking shape",
+            "blocks": [
+              [
+                "The designs were still evolving while the front end was underway."
+              ],
+              [
+                "Building in step with them meant the finished site matched the final design, not an early draft of it."
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    "world-education": {
+      "hero": {
+        "title": "World Education",
+        "subtitle": "Responsive UI implementation for an international education-services platform",
+        "description": [
+          "World Education connects schools, agents, students, parents, teachers and service providers around education, university admissions, tests, guides and scholarship information.",
+          "Working directly with the client from March to May 2020, I built most of the website’s front end as UI Developer, including responsive layouts and animations; some of the JavaScript logic was handled by another contributor. The site still runs in much the same form."
+        ],
+        "meta": [
+          {
+            "label": "Role:",
+            "items": [
+              "UI Developer",
+              "Direct client"
+            ]
+          },
+          {
+            "label": "Scope:",
+            "items": [
+              "Front-end UI",
+              "Responsive layouts",
+              "Animations",
+              "Interaction work"
+            ]
+          },
+          {
+            "label": "Team:",
+            "items": [
+              "With another contributor on JavaScript logic"
+            ]
+          }
+        ]
+      },
+      "timeline": {
+        "title": "What the work involved",
+        "subtitle": [
+          "An education platform serving many audiences at once.",
+          "It needed a clear, usable multi-page site for its services and information."
+        ],
+        "steps": [
+          [
+            {
+              "title": "Context",
+              "blocks": [
+                [
+                  "A platform for schools, agents, students, parents, teachers and service providers, needing a website that presents its services and information clearly."
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "Responsive page structure",
+              "blocks": [
+                [
+                  "The designs translated into responsive page structures."
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "Content and services",
+              "blocks": [
+                [
+                  "Content and service sections built out across the site."
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "Animation and interaction",
+              "blocks": [
+                [
+                  "Animations, and UI interactions integrated into the pages."
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "What changed",
+              "blocks": [
+                [
+                  [
+                    "The primary front end and its animations, delivered",
+                    "A site still running in much the same form"
+                  ]
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "What this shows",
+              "blocks": [
+                [
+                  "Full responsibility for the presentation layer of a conventional commercial client website."
+                ]
+              ]
+            }
+          ]
+        ]
+      },
+      "blueprint": {
+        "title": "Principles",
+        "subtitle": "What kept a content-heavy site easy to use.",
+        "cards": [
+          {
+            "title": "Easy to scan",
+            "body": "Educational content laid out to be scanned quickly."
+          },
+          {
+            "title": "Clear structure",
+            "body": "A responsive structure that holds on every screen."
+          },
+          {
+            "title": "Motion that serves",
+            "body": "Animation that never hides the information."
+          },
+          {
+            "title": "Consistent patterns",
+            "body": "The same UI patterns from page to page."
           }
         ]
       }

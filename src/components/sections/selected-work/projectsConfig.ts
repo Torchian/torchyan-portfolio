@@ -12,7 +12,23 @@ import { PICSART_GRID, SMARTBET_GRID, SOULONE_GRID, type IsometricGrid } from '.
  * (projectGrids.ts), which is why only the featured projects have one.
  */
 
-export type ProjectSlug = 'picsart' | 'smartbet' | 'soulone' | 'ginosi' | 'benzeen' | 'world-education' | 'brainstorm';
+export type ProjectSlug =
+  | 'picsart'
+  | 'smartbet'
+  | 'soulone'
+  | 'ginosi'
+  | 'benzeen'
+  | 'world-education'
+  | 'brainstorm'
+  | 'myzcapital'
+  | 'solomoon'
+  | 'infinity-rings'
+  | 'panika'
+  | 'by-robyn-blair'
+  | 'off-my-case'
+  | 'gemmed'
+  | 'scunci'
+  | 'graphic-design';
 
 /** A project's copy, from messages/*.json under projects.<slug>. */
 export interface ProjectContent {
@@ -32,11 +48,16 @@ export interface ProjectCard {
 export interface ProjectConfig {
   slug: ProjectSlug;
   company: string;
-  /** As shown on the card and the case page: a year or a span. */
+  /** As shown on the card and the case page: a year or a span; empty when it isn't confirmed. */
   year: string;
   gradient: string;
-  /** Screenshots for the short case; one with a `video` plays that recording instead (CaseMedia). */
-  images: { src: string; alt: string; video?: CaseVideo }[];
+  /**
+   * Screenshots for the short case, shown at their own shape (`aspect`, width ÷
+   * height; 4:3 when absent). One with a `video` plays that recording instead (CaseMedia).
+   */
+  images: { src: string; alt: string; aspect?: number; video?: CaseVideo; caption?: string }[];
+  /** Listed under "More projects" on the Work page, with its first image as the cover. */
+  more?: boolean;
   /** Present for the projects featured on the homepage. */
   card?: ProjectCard;
 }
@@ -176,6 +197,210 @@ export const PROJECTS: ProjectConfig[] = [
     images: various(['brainstormtech.webp'], 'Brainstorm website'),
   },
 ];
+
+/** A short project's screenshots, at their own size (public/projects/cases/<folder>). */
+const cases = (folder: string, alt: string, files: [name: string, width: number, height: number][]) =>
+  files.map(([name, width, height]) => ({
+    src: `/projects/cases/${folder}/${name}.webp`,
+    alt,
+    aspect: width / height,
+  }));
+
+/*
+ * The short projects: one or two sections of story and their screens, listed
+ * under "More projects" on the Work page. From the founder's answers; dates
+ * that aren't confirmed are left empty rather than guessed.
+ */
+PROJECTS.push(
+  {
+    slug: 'myzcapital',
+    company: 'myZcapital',
+    year: '2016–2018',
+    gradient: 'linear-gradient(180deg, #14325C 0%, #23707F 100%)',
+    more: true,
+    images: cases('myzcapital', 'myZcapital', [
+      ['home', 2512, 1416],
+      ['poll', 2560, 1442],
+      ['polls', 2560, 1428],
+      ['trending', 2560, 2180],
+      ['how-it-works', 2560, 1471],
+      ['results', 2560, 1204],
+      ['balance', 2560, 2741],
+      ['purchase', 2560, 2309],
+      ['membership', 2560, 1694],
+    ]),
+  },
+  {
+    slug: 'solomoon',
+    company: 'Solomoon',
+    year: '',
+    gradient: 'linear-gradient(180deg, #120E22 0%, #5B2A86 100%)',
+    more: true,
+    images: cases('solomon', 'Solomoon', [
+      ['home-hero', 2560, 1226],
+      ['home-top', 2560, 1517],
+      ['categories', 2560, 1254],
+      ['catalogue', 2560, 1576],
+      ['product', 2298, 1320],
+      ['product-related', 2298, 1494],
+      ['popular', 2298, 1526],
+      ['news', 2560, 2260],
+      ['product-description', 2298, 1178],
+    ]),
+  },
+  {
+    slug: 'infinity-rings',
+    company: 'Infinity Rings',
+    year: '',
+    gradient: 'linear-gradient(180deg, #151515 0%, #6E5A38 100%)',
+    more: true,
+    images: cases('infinity-rings', 'Infinity Rings admin, with order details blurred', [
+      ['collections', 1940, 1080],
+      ['configurator', 1940, 1080],
+      ['configurator-stones', 1940, 1080],
+      ['orders', 1938, 1080],
+      ['orders-detail', 1940, 1080],
+      ['archive', 1940, 1080],
+      ['add-ring', 1940, 1080],
+      ['import', 1938, 1080],
+      ['add-ring-full', 2560, 4005],
+    ]),
+  },
+  {
+    slug: 'panika',
+    company: 'Panika Production',
+    year: '2020–2023',
+    gradient: 'linear-gradient(180deg, #161616 0%, #7A1E2C 100%)',
+    more: true,
+    images: (
+      [
+        ['panika-home', 1200, 1067],
+        ['panika-films', 1200, 750],
+        ['panika-showreel', 1200, 683],
+        ['panika-mobile', 1116, 1688],
+        ['panika-contacts', 1200, 2063],
+      ] as const
+    ).map(([name, width, height]) => ({
+      src: `/about/timeline/panika/${name}.webp`,
+      alt: 'Panika Production',
+      aspect: width / height,
+    })),
+  },
+  {
+    slug: 'by-robyn-blair',
+    company: 'By Robyn Blair',
+    year: '2018',
+    gradient: 'linear-gradient(180deg, #5E1F45 0%, #A8457A 100%)',
+    more: true,
+    images: cases('by-robyn-blair', 'By Robyn Blair', [
+      ['home-hero', 1272, 690],
+      ['home', 1272, 1950],
+      ['sweeten', 1176, 1329],
+      ['customize', 2560, 2259],
+      ['lookbook', 1176, 2073],
+      ['lookbook-rooms', 1176, 1965],
+      ['shop', 2544, 1209],
+      ['enquiry', 2560, 1204],
+      ['press', 2560, 3601],
+    ]),
+  },
+  {
+    slug: 'off-my-case',
+    company: 'Off My Case',
+    year: '2018',
+    gradient: 'linear-gradient(180deg, #4A2129 0%, #9E5560 100%)',
+    more: true,
+    images: cases('off-my-case', 'Off My Case', [
+      ['home', 1827, 852],
+      ['customize', 1824, 1044],
+      ['product', 1956, 1044],
+      ['product-info', 1956, 1044],
+      ['cart', 1479, 921],
+      ['instagram', 1827, 1869],
+    ]),
+  },
+  {
+    slug: 'gemmed',
+    company: 'Gemmed',
+    year: '2018',
+    gradient: 'linear-gradient(180deg, #2E241A 0%, #7D6142 100%)',
+    more: true,
+    images: cases('gemmed', 'Gemmed', [
+      ['home', 1506, 936],
+      ['bundles', 1508, 1002],
+      ['shop-by-style', 1506, 1464],
+      ['shop-all', 1836, 2688],
+      ['product', 1836, 1064],
+      ['product-more', 1836, 1206],
+      ['kits', 1228, 750],
+      ['shop-the-look', 1228, 2706],
+    ]),
+  },
+  {
+    slug: 'scunci',
+    company: 'Scunci',
+    year: '2018',
+    gradient: 'linear-gradient(180deg, #1E1E1E 0%, #8E1B30 100%)',
+    more: true,
+    images: cases('scunci', 'Scunci', [
+      ['home', 1094, 1478],
+      ['collaborations', 1094, 1712],
+      ['home-video', 1094, 1376],
+      ['collab', 2420, 1728],
+      ['tutorials', 2420, 1138],
+      ['retailers', 2420, 3822],
+      ['newsletter-popup', 2394, 1138],
+      ['newsletter', 1096, 624],
+    ]),
+  },
+);
+
+/*
+ * Graphic design: identity boards and social posters (Figma: Logos, section
+ * 2809:2481). Captions name the brand each piece was made for.
+ */
+const graphic = (name: string, width: number, height: number, caption: string) => ({
+  src: `/projects/cases/graphic-design/${name}.webp`,
+  alt: caption,
+  aspect: width / height,
+  caption,
+});
+const POSTERS = 'Social posters for Живые вещи';
+
+PROJECTS.push({
+  slug: 'graphic-design',
+  company: 'Logos & posters',
+  year: '',
+  gradient: 'linear-gradient(180deg, #1B1B1F 0%, #4A3F6B 100%)',
+  more: true,
+  images: [
+    graphic('solomoon', 2560, 1922, 'Solomoon - logo and app icons'),
+    graphic('photo-booth', 2560, 2647, 'The Photo Booth Co. - logo and ads'),
+    graphic('serani', 2560, 1990, 'Serani - logo'),
+    graphic('wallbrick', 2560, 1468, 'Wallbrick - logo'),
+    graphic('dc-crm', 2560, 1356, 'Dental Clinic CRM - logo and business card'),
+    graphic('easy-process', 2560, 1028, 'Easy Process - logo concepts'),
+    graphic('akn', 2458, 1364, 'AKN - logo'),
+    graphic('european-floors', 1792, 1805, 'European Floors of Houston - logo'),
+    graphic('story-05', 1080, 1920, POSTERS),
+    graphic('story-09', 1080, 1080, POSTERS),
+    graphic('story-07', 1080, 1920, POSTERS),
+    graphic('story-08', 1080, 1080, POSTERS),
+    graphic('story-10', 1080, 1920, POSTERS),
+    graphic('story-11', 1080, 1080, POSTERS),
+    graphic('story-12', 1080, 1920, POSTERS),
+    graphic('story-13', 1080, 1080, POSTERS),
+    graphic('story-14', 1080, 1920, POSTERS),
+    graphic('story-15', 1080, 1080, POSTERS),
+    graphic('story-16', 1080, 1920, POSTERS),
+    graphic('story-17', 1080, 1080, POSTERS),
+    graphic('story-18', 1080, 1920, POSTERS),
+    graphic('story-19', 1080, 1080, POSTERS),
+  ],
+});
+
+/** The short projects listed under "More projects", in order. */
+export const MORE_PROJECTS = PROJECTS.filter((p) => p.more);
 
 /** The homepage Selected Work cards, in order. */
 export const FEATURED_PROJECTS = PROJECTS.filter((p): p is FeaturedProject => Boolean(p.card));

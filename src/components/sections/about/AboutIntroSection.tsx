@@ -15,7 +15,8 @@ import { useTranslations } from 'next-intl';
 
 /*
  * Figma: About Me Info — 1920 (2973:16233), 1024 (3960:15393), 480 (3983:11074).
- * Three centred paragraphs under the hero, the name picked out in green.
+ * Three centred paragraphs under the hero, the name picked out in green. Each
+ * is its own part: well apart, with a short hairline between them.
  */
 
 /**
@@ -45,7 +46,7 @@ const Section = styled.section`
 const Text = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${spacing[400]}px;
+  gap: ${spacing[800]}px;
   width: 100%;
   max-width: 1024px;
   font-family: ${fontFamily.heading};
@@ -61,20 +62,45 @@ const Text = styled.div`
     margin: 0;
   }
 
+  /* The hairline sits halfway between two parts. */
+  p + p {
+    position: relative;
+  }
+
+  p + p::before {
+    content: '';
+    position: absolute;
+    top: calc(${spacing[800]}px / -2);
+    left: 50%;
+    width: 48px;
+    height: 1px;
+    background: rgba(246, 246, 246, 0.2);
+    transform: translateX(-50%);
+  }
+
   ${media.down('xl')} {
+    gap: ${spacing[600]}px;
     max-width: none;
     padding: 0 ${spacing[800]}px;
     font-size: ${fontSize.heading.m}px;
     line-height: ${lineHeight.heading.m}px;
+
+    p + p::before {
+      top: calc(${spacing[600]}px / -2);
+    }
   }
 
   ${media.down('m')} {
-    gap: ${spacing[300]}px;
+    gap: ${spacing[500]}px;
     /* Clear of the timeline's line, which runs down the left edge. */
     padding: 0 ${spacing[500]}px;
     font-size: ${fontSize.body.xl}px;
     line-height: ${lineHeight.body.xl}px;
     letter-spacing: ${letterSpacing.s}px;
+
+    p + p::before {
+      top: calc(${spacing[500]}px / -2);
+    }
   }
 `;
 

@@ -294,8 +294,10 @@ const Shot = styled.li`
   height: var(--row);
   overflow: hidden;
 
+  /* A long page capture is framed from its top. */
   img {
     object-fit: cover;
+    object-position: top;
   }
 `;
 

@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server';
 import { PartnersCarousel } from '@/components/composites';
 import { ProjectsHeroSection } from '@/components/sections/projects-page/ProjectsHeroSection';
 import { ProjectsListSection } from '@/components/sections/projects-page/ProjectsListSection';
+import { MoreProjectsSection } from '@/components/sections/projects-page/MoreProjectsSection';
 import { PerspectiveSection } from '@/components/sections/projects-page/PerspectiveSection';
 import { CollaborationSection } from '@/components/sections/projects-page/CollaborationSection';
 import { resolveLocale, type LocaleParams } from '@/i18n/server';
@@ -31,6 +32,7 @@ export default async function ProjectsPage({ params }: LocaleParams) {
     <main id="main-content">
       <ProjectsHeroSection />
       <ProjectsListSection />
+      <MoreProjectsSection />
       <PartnersCarousel />
       <PerspectiveSection />
       <CollaborationSection />

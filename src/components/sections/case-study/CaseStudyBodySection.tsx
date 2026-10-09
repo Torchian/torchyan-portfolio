@@ -1,5 +1,7 @@
 'use client';
 
+import { Fragment } from 'react';
+
 import { useMessages } from 'next-intl';
 import styled from 'styled-components';
 import { Container } from '@/components/primitives';
@@ -28,29 +30,48 @@ const Content = styled(Container)`
   gap: ${spacing[800]}px;
 `;
 
+/** Screens at their own shape, in columns that fill top to bottom (a masonry). */
 const ImagesGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: ${spacing[400]}px;
+  columns: 3 320px;
+  column-gap: ${spacing[400]}px;
   width: 100%;
   max-width: ${grid.maxWidth}px;
   margin: 0 auto;
 
   ${media.down('m')} {
-    grid-template-columns: 1fr;
-    gap: ${spacing[300]}px;
+    columns: 1;
   }
 `;
 
+/** A captioned piece: the image, then a line naming what it is. */
+const Figure = styled.figure`
+  margin: 0 0 ${spacing[400]}px;
+  break-inside: avoid;
+
+  > div {
+    margin-bottom: ${spacing[150]}px;
+  }
+
+  figcaption {
+    font-family: ${fontFamily.body};
+    font-size: ${fontSize.body.m}px;
+    line-height: ${lineHeight.body.m}px;
+    color: ${neutrals[500]};
+  }
+`;
+
+/** A very long page capture is shown from its top, no taller than about two screens. */
 const ImageWrapper = styled.div`
   position: relative;
+  break-inside: avoid;
+  margin-bottom: ${spacing[400]}px;
   border-radius: ${radius.l}px;
   overflow: hidden;
-  aspect-ratio: 4/3;
+  aspect-ratio: max(var(--aspect, 1.3333), 0.6);
   background: ${neutrals[800]};
 
-  img {
-    object-fit: cover;
+  ${media.down('m')} {
+    margin-bottom: ${spacing[300]}px;
   }
 `;
 
@@ -118,7 +139,7 @@ export interface CaseStudyBodySectionProps {
 export function CaseStudyBodySection({ project }: CaseStudyBodySectionProps) {
   const content = useMessages().projects[project.slug] as { story?: StoryPart[] };
   const story = content.story ?? [];
-  const images = project.images.slice(0, 9);
+  const images = project.images;
 
   return (
     <Section>
@@ -135,11 +156,26 @@ export function CaseStudyBodySection({ project }: CaseStudyBodySectionProps) {
         )}
         {images.length > 0 && (
           <ImagesGrid>
-            {images.map((img, i) => (
-              <ImageWrapper key={i}>
-                <CaseMedia image={{ ...img, aspect: 4 / 3 }} alt={img.alt} sizes="(max-width: 480px) 100vw, 33vw" />
-              </ImageWrapper>
-            ))}
+            {images.map((img, i) => {
+              const media = (
+                <ImageWrapper style={{ '--aspect': img.aspect ?? 4 / 3 } as React.CSSProperties}>
+                  <CaseMedia
+                    image={{ ...img, aspect: img.aspect ?? 4 / 3 }}
+                    alt={img.alt}
+                    sizes="(max-width: 480px) 100vw, 33vw"
+                  />
+                </ImageWrapper>
+              );
+              // A captioned piece is a figure, its caption under the image.
+              return img.caption ? (
+                <Figure key={i}>
+                  {media}
+                  <figcaption>{img.caption}</figcaption>
+                </Figure>
+              ) : (
+                <Fragment key={i}>{media}</Fragment>
+              );
+            })}
           </ImagesGrid>
         )}
       </Content>
