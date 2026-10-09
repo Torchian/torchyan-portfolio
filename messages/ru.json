@@ -1509,13 +1509,13 @@
   },
   "about": {
     "hero": {
-      "title": "One accountable lead, from first sketch to production",
+      "title": "Ten years between design and code",
       "basedIn": "Живу в Армении",
       "workingGlobally": "Working internationally",
       "cta": "See the work",
-      "intro": "I’m <name>Stepan Torchyan</name>, the founder of Torchyan — a designer and UI engineer. I’ve built interfaces inside product companies like Picsart and for clients in the US, Australia and Armenia.",
-      "execution": "Torchyan exists so that design decisions survive production. I carry each project from direction and UX to production code, and bring in trusted specialists when the work needs more than one person.",
-      "resilience": "You always know who’s responsible: me.",
+      "intro": "I’m <name>Stepan Torchyan</name> — a designer and UI engineer based in Armenia, and the founder of Torchyan. I work on digital products, websites and interface systems, usually somewhere between design and implementation.",
+      "execution": "That’s also how I see Torchyan: design and development shouldn’t feel like two separate steps. I like keeping the whole process connected, from the first idea to the final build. If a project needs more people, I bring in specialists I trust and keep everything moving in the same direction.",
+      "resilience": "At the end, the goal is simple: make things that look right, work well, and are built to last.",
       "cards": [
         "Product & web design",
         "UI engineering",

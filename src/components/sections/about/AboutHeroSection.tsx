@@ -180,6 +180,8 @@ const Title = styled.h1`
   text-align: center;
   /* Only the 1920 frame shouts; the tablet and phone frames set it as typed. */
   text-transform: uppercase;
+  /* Even lines rather than one word left on its own. */
+  text-wrap: balance;
   color: ${neutrals[100]};
 
   ${media.down('xl')} {
