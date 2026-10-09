@@ -1,5 +1,7 @@
 'use client';
 
+import { Fragment } from 'react';
+
 import { useMessages } from 'next-intl';
 import styled from 'styled-components';
 import { Container } from '@/components/primitives';
@@ -38,6 +40,23 @@ const ImagesGrid = styled.div`
 
   ${media.down('m')} {
     columns: 1;
+  }
+`;
+
+/** A captioned piece: the image, then a line naming what it is. */
+const Figure = styled.figure`
+  margin: 0 0 ${spacing[400]}px;
+  break-inside: avoid;
+
+  > div {
+    margin-bottom: ${spacing[150]}px;
+  }
+
+  figcaption {
+    font-family: ${fontFamily.body};
+    font-size: ${fontSize.body.m}px;
+    line-height: ${lineHeight.body.m}px;
+    color: ${neutrals[500]};
   }
 `;
 
@@ -120,7 +139,7 @@ export interface CaseStudyBodySectionProps {
 export function CaseStudyBodySection({ project }: CaseStudyBodySectionProps) {
   const content = useMessages().projects[project.slug] as { story?: StoryPart[] };
   const story = content.story ?? [];
-  const images = project.images.slice(0, 9);
+  const images = project.images;
 
   return (
     <Section>
@@ -137,15 +156,26 @@ export function CaseStudyBodySection({ project }: CaseStudyBodySectionProps) {
         )}
         {images.length > 0 && (
           <ImagesGrid>
-            {images.map((img, i) => (
-              <ImageWrapper key={i} style={{ '--aspect': img.aspect ?? 4 / 3 } as React.CSSProperties}>
-                <CaseMedia
-                  image={{ ...img, aspect: img.aspect ?? 4 / 3 }}
-                  alt={img.alt}
-                  sizes="(max-width: 480px) 100vw, 33vw"
-                />
-              </ImageWrapper>
-            ))}
+            {images.map((img, i) => {
+              const media = (
+                <ImageWrapper style={{ '--aspect': img.aspect ?? 4 / 3 } as React.CSSProperties}>
+                  <CaseMedia
+                    image={{ ...img, aspect: img.aspect ?? 4 / 3 }}
+                    alt={img.alt}
+                    sizes="(max-width: 480px) 100vw, 33vw"
+                  />
+                </ImageWrapper>
+              );
+              // A captioned piece is a figure, its caption under the image.
+              return img.caption ? (
+                <Figure key={i}>
+                  {media}
+                  <figcaption>{img.caption}</figcaption>
+                </Figure>
+              ) : (
+                <Fragment key={i}>{media}</Fragment>
+              );
+            })}
           </ImagesGrid>
         )}
       </Content>

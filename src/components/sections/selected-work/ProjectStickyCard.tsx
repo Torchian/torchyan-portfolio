@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { useMessages, useTranslations } from 'next-intl';
 import styled, { css, type RuleSet } from 'styled-components';
@@ -476,7 +477,7 @@ function tileSizes(widths: Record<GridScreen, number>, drawn: number) {
 /** Above next/image's default 75: small screenshot text stays crisp (next.config.ts allows it). */
 const TILE_QUALITY = 85;
 
-function Tiles({ images, sizes }: { images: GridImage[]; sizes: string }) {
+function Tiles({ images, sizes, near }: { images: GridImage[]; sizes: string; near: boolean }) {
   return images.map((image, i) => (
     <Tile key={i} $only={image.only} style={{ '--tile-aspect': image.aspect } as React.CSSProperties}>
       <Image
@@ -485,19 +486,47 @@ function Tiles({ images, sizes }: { images: GridImage[]; sizes: string }) {
         fill
         sizes={sizes}
         quality={TILE_QUALITY}
+        loading={near ? 'eager' : 'lazy'}
         style={{ objectFit: 'cover', objectPosition: image.position }}
       />
     </Tile>
   ));
 }
 
+/**
+ * Whether the card is within a couple of screens of the viewport. The tiles
+ * can't rely on the browser's lazy loading: most of them sit outside the
+ * card's clipped media box, so the browser counts them as never visible and
+ * never loads them, and the columns showed empty bands. Once the card is near,
+ * every tile loads; cards further down the page wait.
+ */
+function useNear() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [near, setNear] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || near) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setNear(true);
+      },
+      { rootMargin: '200% 0px' },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [near]);
+  return [ref, near] as const;
+}
+
 function GridStage({ grid }: { grid: ProjectGrid }) {
+  const [ref, near] = useNear();
   return (
-    <Stage aria-hidden>
+    <Stage ref={ref} aria-hidden>
       {grid.kind === 'isometric'
         ? grid.columns.map((column, i) => (
             <IsometricColumnBox key={i} style={isometricVars(grid, column)}>
               <Tiles
+                near={near}
                 images={column.images}
                 sizes={tileSizes(
                   {
@@ -513,6 +542,7 @@ function GridStage({ grid }: { grid: ProjectGrid }) {
         : grid.columns.map((column, i) => (
             <FlatColumnBox key={i} style={flatVars(column)}>
               <Tiles
+                near={near}
                 images={column.images}
                 sizes={tileSizes(
                   {

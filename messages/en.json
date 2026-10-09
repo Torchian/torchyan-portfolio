@@ -803,6 +803,50 @@
           ]
         }
       ]
+    },
+    "graphic-design": {
+      "roles": [
+        "Logo Designer",
+        "Graphic Designer"
+      ],
+      "title": "Identity and poster design",
+      "description": "Logos and identity pieces for a range of brands, and a series of social posters.",
+      "field": "Graphic design",
+      "story": [
+        {
+          "label": "What it is",
+          "blocks": [
+            [
+              "A selection of graphic work outside websites and products: logos and identity pieces, and a series of social posters."
+            ]
+          ]
+        },
+        {
+          "label": "Logos",
+          "blocks": [
+            [
+              [
+                "Solomoon",
+                "The Photo Booth Co.",
+                "Serani",
+                "Wallbrick",
+                "Dental Clinic CRM",
+                "Easy Process",
+                "AKN",
+                "European Floors of Houston"
+              ]
+            ]
+          ]
+        },
+        {
+          "label": "Posters",
+          "blocks": [
+            [
+              "Social posters for Живые вещи, each in a story and a square format."
+            ]
+          ]
+        }
+      ]
     }
   },
   "capabilities": {
@@ -1471,7 +1515,7 @@
       "basedIn": "Based in Armenia",
       "workingGlobally": "Working internationally",
       "cta": "See the work",
-      "intro": "I’m <name>Stepan Torchyan</name>, the founder of Torchyan - a designer and UI engineer based in Armenia, and the founder of Torchyan. I work on digital products, websites and interface systems, usually somewhere between design and implementation.",
+      "intro": "I’m <name>Stepan Torchyan</name>, a designer and UI engineer based in Armenia, and the founder of Torchyan. I work on digital products, websites and interface systems, usually somewhere between design and implementation.",
       "execution": "That’s also how I see Torchyan: design and development shouldn’t feel like two separate steps. I like keeping the whole process connected, from the first idea to the final build. If a project needs more people, I bring in specialists I trust and keep everything moving in the same direction.",
       "resilience": "At the end, the goal is simple: make things that look right, work well, and are built to last.",
       "cards": [

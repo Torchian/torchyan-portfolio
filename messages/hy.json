@@ -803,6 +803,50 @@
           ]
         }
       ]
+    },
+    "graphic-design": {
+      "roles": [
+        "Logo Designer",
+        "Graphic Designer"
+      ],
+      "title": "Identity and poster design",
+      "description": "Logos and identity pieces for a range of brands, and a series of social posters.",
+      "field": "Graphic design",
+      "story": [
+        {
+          "label": "What it is",
+          "blocks": [
+            [
+              "A selection of graphic work outside websites and products: logos and identity pieces, and a series of social posters."
+            ]
+          ]
+        },
+        {
+          "label": "Logos",
+          "blocks": [
+            [
+              [
+                "Solomoon",
+                "The Photo Booth Co.",
+                "Serani",
+                "Wallbrick",
+                "Dental Clinic CRM",
+                "Easy Process",
+                "AKN",
+                "European Floors of Houston"
+              ]
+            ]
+          ]
+        },
+        {
+          "label": "Posters",
+          "blocks": [
+            [
+              "Social posters for Живые вещи, each in a story and a square format."
+            ]
+          ]
+        }
+      ]
     }
   },
   "capabilities": {

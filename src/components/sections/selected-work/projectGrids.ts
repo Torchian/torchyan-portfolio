@@ -214,20 +214,31 @@ export const SOULONE_GRID: IsometricGrid = {
 };
 
 /* ---------- All projects (Various) ----------
- * Only the commercial websites in the approved proof inventory: Ginosi,
- * Benzeen Auto Parts, World Education and Brainstorm. The Scunci, back-office
- * and gaming-dashboard shots were taken out (not part of that inventory).
+ * The commercial websites behind the card's copy: Ginosi, Benzeen Auto Parts,
+ * World Education and Brainstorm, from their case pages' screens. Each column
+ * is stacked well past the frame (its offset, plus the distance it slides on
+ * hover, plus room for the narrower tablet and phone columns), so no column
+ * ever runs out and leaves an empty band.
  */
 
 const various = tiles('various');
 const VARIOUS_LISTING = 1903 / 903;
-const VARIOUS_WORLD = 3584 / 1994;
+const shot = (project: string, file: string, width: number, height: number): GridImage => ({
+  src: `/projects/cases/${project}/${file}.webp`,
+  aspect: width / height,
+});
 
 export const ALL_PROJECTS_GRID: FlatGrid = {
   kind: 'flat',
   columns: [
     {
-      images: [various('benzeen-wheel.webp', 1188 / 4096)],
+      images: [
+        shot('brainstorm', 'services', 1416, 2396),
+        shot('benzeen', 'more-parts', 1356, 1608),
+        shot('world-education', 'blog', 2480, 1268),
+        shot('benzeen', 'stock-lexus', 1356, 1688),
+        shot('world-education', 'how-to', 2482, 1380),
+      ],
       frame: {
         desktop: { left: 0, top: 0, width: 336.25 },
         tablet: { left: -58, top: -116, width: 255 },
@@ -237,11 +248,13 @@ export const ALL_PROJECTS_GRID: FlatGrid = {
     },
     {
       images: [
-        various('world-study.webp', VARIOUS_WORLD),
+        shot('world-education', 'hero', 2482, 1380),
         various('ginosi-search.webp', 1920 / 1265),
-        various('ginosi-apartel.webp', VARIOUS_LISTING, { only: 'mobile' }),
-        various('benzeen-alfa.webp', VARIOUS_LISTING),
-        various('world-services.webp', VARIOUS_WORLD, { only: 'mobile' }),
+        shot('benzeen', 'home-hero', 1356, 970),
+        shot('brainstorm', 'home', 1416, 1330),
+        shot('world-education', 'connect', 2482, 1380),
+        shot('benzeen', 'categories', 1356, 876),
+        various('ginosi-apartel.webp', VARIOUS_LISTING),
       ],
       frame: {
         desktop: { left: 368.25, top: -306, width: 336.25 },
@@ -251,7 +264,14 @@ export const ALL_PROJECTS_GRID: FlatGrid = {
       hoverTop: 0,
     },
     {
-      images: [various('brainstormtech.webp', 1082 / 4096)],
+      images: [
+        shot('brainstorm', 'home-projects', 1416, 1858),
+        shot('benzeen', 'wheel', 1356, 1452),
+        shot('world-education', 'about', 2482, 1380),
+        various('ginosi-apartel.webp', VARIOUS_LISTING),
+        shot('benzeen', 'cut-sheets', 1358, 1156),
+        shot('brainstorm', 'careers', 1416, 1182),
+      ],
       frame: {
         desktop: { left: 736.5, top: 0, width: 336.25 },
         tablet: { left: 501, top: -48, width: 254 },
@@ -261,11 +281,13 @@ export const ALL_PROJECTS_GRID: FlatGrid = {
     },
     {
       images: [
-        various('world-services.webp', VARIOUS_WORLD),
-        various('world-study.webp', VARIOUS_WORLD),
+        shot('world-education', 'services-map', 2482, 1380),
         various('ginosi-apartel.webp', VARIOUS_LISTING),
-        various('benzeen-alfa.webp', VARIOUS_LISTING),
+        shot('benzeen', 'recent-arrivals', 1356, 1508),
+        shot('brainstorm', 'services-design', 1416, 1426),
+        shot('world-education', 'insights', 2478, 1162),
         various('ginosi-search.webp', 1920 / 1265),
+        shot('benzeen', 'quote', 1354, 1466),
       ],
       frame: {
         desktop: { left: 1104.75, top: -303, width: 336.25 },
