@@ -1,5 +1,9 @@
 """Figma fills -> tight-cropped WebP parts + characterLayout.json.
 
+The head parts (face, eyes, eyebrows, ears, beard) no longer come from here:
+since v3 they are cut from a flat render by scripts/cut-character.py. A full
+run of this script puts the v2 Figma head back; use --only for new outfits.
+
 Run when the character art changes in Figma:
   1. `get_design_context` (Figma MCP) on Character Body 3871:1230, Character Head
      3183:6631 and character_glasses 3875:1182, and download each image URL into

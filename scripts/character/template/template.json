@@ -1,0 +1,61 @@
+{
+  "$comment": "The v2 head parts (Figma export, ADR 0005), kept as the cutting template for scripts/cut-character.py: their shapes say which pixel of a new flat render belongs to which part, and the face fills in what the beard hides. Boxes are px of the 420x780 head frame; images are 2x.",
+  "parts": {
+    "eye-left": {
+      "x": 255.0,
+      "y": 275.0,
+      "width": 83.0,
+      "height": 42.0,
+      "file": "eye-left.webp"
+    },
+    "eye-right": {
+      "x": 82.0,
+      "y": 274.64,
+      "width": 80.0,
+      "height": 41.0,
+      "file": "eye-right.webp"
+    },
+    "ear-right": {
+      "x": 10.46,
+      "y": 279.93,
+      "width": 57.0,
+      "height": 147.0,
+      "file": "ear-right.webp"
+    },
+    "ear-left": {
+      "x": 350.11,
+      "y": 279.96,
+      "width": 56.5,
+      "height": 146.5,
+      "file": "ear-left.webp"
+    },
+    "face": {
+      "x": 14.5,
+      "y": 38.0,
+      "width": 391.0,
+      "height": 571.5,
+      "file": "face.webp"
+    },
+    "brow-left": {
+      "x": 237.05,
+      "y": 223.1,
+      "width": 120.5,
+      "height": 44.5,
+      "file": "brow-left.webp"
+    },
+    "brow-right": {
+      "x": 63.52,
+      "y": 226.81,
+      "width": 112.5,
+      "height": 37.5,
+      "file": "brow-right.webp"
+    },
+    "beard": {
+      "x": 47.0,
+      "y": 395.0,
+      "width": 325.5,
+      "height": 383.0,
+      "file": "beard.webp"
+    }
+  }
+}
