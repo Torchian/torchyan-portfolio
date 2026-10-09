@@ -1,5 +1,6 @@
 export { SectionHeading } from './SectionHeading';
 export { InfoCard, InfoCardTitle, InfoCardBody } from './InfoCard';
+export { PlatformList } from './PlatformList';
 export type { SectionHeadingProps } from './SectionHeading';
 export { PartnersCarousel, PARTNERS } from './PartnersCarousel';
 export type { PartnersCarouselProps, PartnerLogo, CarouselDirection } from './PartnersCarousel';

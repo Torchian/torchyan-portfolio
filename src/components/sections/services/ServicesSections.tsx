@@ -2,7 +2,7 @@
 
 import styled from 'styled-components';
 import { useTranslations } from 'next-intl';
-import { InfoCard, InfoCardBody, InfoCardTitle, SectionHeading } from '@/components/composites';
+import { InfoCard, InfoCardBody, InfoCardTitle, PlatformList, SectionHeading } from '@/components/composites';
 import { spacing } from '@/styles/tokens/spacing';
 import { fontFamily, fontWeight, fontSize, lineHeight, letterSpacing } from '@/styles/tokens/typography';
 import { neutrals, transparents } from '@/styles/tokens/colors';
@@ -335,6 +335,7 @@ export function ModelSection() {
             </ModelCard>
           ))}
         </CardRow>
+        <PlatformList />
         <Boundaries>
           <BoundariesTitle>{t('boundaries.title')}</BoundariesTitle>
           <BoundaryList>
