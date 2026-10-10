@@ -415,6 +415,11 @@ const Detail = styled.div`
 const Qr = styled.img`
   width: calc(110 * var(--u));
   height: calc(110 * var(--u));
+
+  /* About 30px on the narrowest phones: too small to scan, and it crowds the button out of the circle. */
+  @container (width < 320px) {
+    display: none;
+  }
 `;
 
 /**
@@ -427,7 +432,7 @@ const Open = styled.a`
   align-items: center;
   justify-content: center;
   min-height: 32px;
-  padding: ${spacing[50]}px ${spacing[200]}px;
+  padding: ${spacing[50]}px ${spacing[150]}px;
   border-radius: 999px;
   background: ${accents.primary};
   font-family: ${fontFamily.heading};
@@ -437,11 +442,25 @@ const Open = styled.a`
   letter-spacing: ${letterSpacing.s}px;
   color: ${neutrals[100]};
   text-decoration: none;
-  white-space: nowrap;
+  /* Never wider than the middle: a longer label (Russian "Написать письмо")
+     wraps rather than runs out of the circle. */
+  max-width: 100%;
+  text-align: center;
+  text-wrap: balance;
   pointer-events: none;
 
   [data-shown='true'] > & {
     pointer-events: auto;
+  }
+
+  /* On a phone the middle is about 160px across: a smaller button, two short
+     lines at most, keeps every corner of it inside the circle. */
+  @container (width < 420px) {
+    min-height: 26px;
+    padding: 2px 10px;
+    font-size: 12px;
+    line-height: 14px;
+    letter-spacing: 0;
   }
 
   @container (width >= 560px) {

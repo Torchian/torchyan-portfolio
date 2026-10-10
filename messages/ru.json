@@ -806,78 +806,78 @@
     }
   },
   "capabilities": {
-    "heading": "What you can hire Torchyan for",
-    "subtitle": "Four areas Torchyan takes responsibility for — each carried from direction to production, with specialists added when the work calls for them.",
-    "cta": "See how we work",
-    "title": "One accountable lead",
-    "skillsLabel": "What {title} includes",
+    "heading": "Что можно заказать у Torchyan",
+    "subtitle": "Точный объём работ зависит от проекта. Вот направления, в которых я работаю чаще всего.",
+    "cta": "Как мы работаем",
+    "title": "Один лидер",
+    "skillsLabel": "Что входит: {title}",
     "items": [
       {
-        "title": "Websites",
-        "text": "When the website no longer matches the business, or something new needs to launch: company sites, rebuilds and launch pages, owned from structure and content direction to a fast, maintainable build.",
-        "footnote": "A site that explains the business clearly — and that your team can update with confidence.",
+        "title": "Сайты",
+        "text": "Когда сайт больше не соответствует бизнесу или нужно запустить что-то новое: корпоративные сайты, редизайн и лендинги — от структуры и работы с контентом до быстрой и удобной в поддержке сборки.",
+        "footnote": "Сайт, который ясно объясняет бизнес и который Ваша команда может уверенно обновлять.",
         "skills": [
-          "Direction & structure",
-          "Content direction",
-          "Brand & visual direction",
-          "UX & interface design",
-          "Motion & interaction",
-          "Front-end & CMS build",
-          "SEO foundations",
-          "Launch & handover"
+          "Направление и структура",
+          "Работа с контентом",
+          "Бренд и визуальное направление",
+          "UX и дизайн интерфейсов",
+          "Анимация и взаимодействие",
+          "Фронтенд и CMS",
+          "Основы SEO",
+          "Запуск и передача проекта"
         ]
       },
       {
-        "title": "Product interfaces",
-        "text": "When a product needs to be usable, consistent and shippable: UX and UI for web products, platforms and dashboards — designed and built in one continuous process.",
-        "footnote": "Interfaces your team can ship and extend, not just approve.",
+        "title": "Интерфейсы продуктов",
+        "text": "Когда продукт должен быть удобным, последовательным и готовым к выпуску: UX и UI для веб-продуктов, платформ и информационных панелей — от дизайна до реализации в едином процессе.",
+        "footnote": "Интерфейсы, которые Ваша команда может выпускать и развивать, а не просто согласовывать.",
         "skills": [
-          "Discovery & user flows",
-          "UX architecture",
-          "Interface design",
-          "Prototyping",
-          "Front-end engineering",
-          "Localization & RTL",
-          "WCAG 2.1 AA-aligned accessibility",
-          "Backend with specialists"
+          "Исследование и пользовательские сценарии",
+          "UX-архитектура",
+          "Дизайн интерфейсов",
+          "Прототипирование",
+          "Фронтенд-разработка",
+          "Локализация / RTL / TTB",
+          "Доступность по стандарту WCAG AA",
+          "Бэкенд — со специалистами"
         ]
       },
       {
-        "title": "Design systems",
-        "text": "When every new screen looks slightly different and slows the team down: foundations, components and documentation that design and engineering both use.",
-        "footnote": "Consistency that holds as the team and the product grow.",
+        "title": "Дизайн-системы",
+        "text": "Когда каждый новый экран выглядит чуть иначе и тормозит команду: основы, компоненты и документация, которыми пользуются и дизайн, и разработка.",
+        "footnote": "Единообразие, которое сохраняется по мере роста команды и продукта.",
         "skills": [
-          "UI review",
-          "Tokens & foundations",
-          "Component library",
-          "States & variants",
-          "Theming",
-          "Code integration",
-          "Documentation",
-          "Adoption support"
+          "Аудит интерфейса",
+          "Токены и основы",
+          "Библиотека компонентов",
+          "Состояния и варианты",
+          "Темизация",
+          "Интеграция в код",
+          "Документация",
+          "Поддержка внедрения"
         ]
       },
       {
-        "title": "Launch & improvement",
+        "title": "Запуск и развитие",
         "text": {
-          "lead": "After go-live, the work continues:",
+          "lead": "После запуска работа продолжается:",
           "items": [
-            "Performance and accessibility care",
-            "Analytics and measurement",
-            "SEO and launch marketing, with specialists",
-            "Improvements based on real usage"
+            "Забота о производительности и доступности",
+            "Аналитика и измерения",
+            "SEO и маркетинг запуска — со специалистами",
+            "Улучшения на основе реального использования"
           ]
         },
-        "footnote": "A product that keeps improving instead of slowly going out of date.",
+        "footnote": "Продукт, который продолжает улучшаться, а не медленно устаревает.",
         "skills": [
-          "Deployment",
-          "Performance",
-          "Analytics setup",
-          "Conversion improvements",
+          "Деплой",
+          "Производительность",
+          "Настройка аналитики",
+          "Рост конверсии",
           "SEO",
-          "Launch promotion",
-          "Maintenance",
-          "Ongoing support"
+          "Продвижение запуска",
+          "Сопровождение",
+          "Постоянная поддержка"
         ]
       }
     ]
@@ -3065,24 +3065,24 @@
     "title": "Let’s talk",
     "subtitle": "Have a question, an idea, or just want to get in touch? Send me a message - I read everything myself.",
     "channels": {
-      "label": "Ways to reach me",
-      "body": "Best for general questions, collaborations and anything that doesn’t need a project brief.",
-      "listLabel": "Contact channels",
-      "opensInNewTab": "opens in a new tab",
-      "scanHint": "Scan with your phone, or select the icon.",
+      "label": "Как со мной связаться",
+      "body": "Подходит для общих вопросов, предложений о сотрудничестве и всего, что не требует брифа по проекту.",
+      "listLabel": "Каналы связи",
+      "opensInNewTab": "откроется в новой вкладке",
+      "scanHint": "Отсканируйте телефоном или нажмите на иконку.",
       "items": {
         "instagram": "Instagram",
         "linkedin": "LinkedIn",
         "telegram": "Telegram",
         "whatsapp": "WhatsApp",
-        "email": "Email"
+        "email": "Эл. почта"
       },
       "actions": {
-        "instagram": "Open",
-        "linkedin": "Open",
-        "telegram": "Message",
-        "whatsapp": "Message",
-        "email": "Write"
+        "instagram": "Открыть",
+        "linkedin": "Открыть",
+        "telegram": "Написать",
+        "whatsapp": "Написать",
+        "email": "Написать письмо"
       }
     },
     "form": {
@@ -3099,9 +3099,9 @@
     }
   },
   "homeContact": {
-    "title": "Let’s talk",
-    "subtitle": "Pick the channel that suits you - or, if you have a project in mind, tell me about it.",
-    "cta": "Start a project"
+    "title": "Давайте поговорим",
+    "subtitle": "Выберите удобный канал — или, если у Вас есть проект, расскажите о нём.",
+    "cta": "Начать проект"
   },
   "platforms": {
     "label": "Платформы и технологии, с которыми я работал",
