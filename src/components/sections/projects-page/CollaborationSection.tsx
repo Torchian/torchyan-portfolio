@@ -109,6 +109,13 @@ export interface CollaborationSectionProps {
   compact?: boolean;
   /** A case page's close: no room of its own above, half the room under the heading. */
   tight?: boolean;
+  /** A case page: the second card steps to the project before or after this one instead. */
+  pager?: { previous: ProjectStep; next: ProjectStep };
+}
+
+export interface ProjectStep {
+  name: string;
+  href: string;
 }
 
 export function CollaborationSection({
@@ -118,8 +125,10 @@ export function CollaborationSection({
   ctaId = 'collaboration',
   compact = false,
   tight = false,
+  pager,
 }: CollaborationSectionProps) {
   const t = useTranslations(namespace);
+  const tPager = useTranslations('projectsPage.pager');
 
   return (
     <Section
@@ -139,14 +148,34 @@ export function CollaborationSection({
               href: initiateHref,
               ctaId: `${ctaId}-primary`,
             },
-            {
-              tone: 'pink',
-              title: t('analyze.title'),
-              body: t('analyze.body'),
-              cta: t('analyze.cta'),
-              href: analyzeHref,
-              ctaId: `${ctaId}-secondary`,
-            },
+            pager
+              ? {
+                  tone: 'pink',
+                  title: tPager('title'),
+                  body: tPager('body'),
+                  cta: tPager('next', { name: pager.next.name }),
+                  href: pager.next.href,
+                  links: [
+                    {
+                      label: tPager('previous', { name: pager.previous.name }),
+                      href: pager.previous.href,
+                      ctaId: `${ctaId}-previous`,
+                    },
+                    {
+                      label: tPager('next', { name: pager.next.name }),
+                      href: pager.next.href,
+                      ctaId: `${ctaId}-next`,
+                    },
+                  ],
+                }
+              : {
+                  tone: 'pink',
+                  title: t('analyze.title'),
+                  body: t('analyze.body'),
+                  cta: t('analyze.cta'),
+                  href: analyzeHref,
+                  ctaId: `${ctaId}-secondary`,
+                },
           ]}
         />
       </Container>

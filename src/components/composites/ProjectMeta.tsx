@@ -1,5 +1,6 @@
 'use client';
 
+import type { ReactNode } from 'react';
 import styled from 'styled-components';
 import { Badge, Display } from '@/components/primitives';
 import { spacing } from '@/styles/tokens/spacing';
@@ -74,14 +75,17 @@ const Tags = styled.ul`
 
 export interface ProjectMetaProps {
   company: string;
+  /** Shown straight under the company's name: a case hero puts the brand's mark here on smaller screens. */
+  mark?: ReactNode;
   description?: string;
   tags?: string[];
 }
 
-export function ProjectMeta({ company, description, tags }: ProjectMetaProps) {
+export function ProjectMeta({ company, mark, description, tags }: ProjectMetaProps) {
   return (
     <Wrapper>
       <CompanyName $size="m">{company}</CompanyName>
+      {mark}
       {description && <Subtitle>{description}</Subtitle>}
       {tags && tags.length > 0 && (
         <Tags>

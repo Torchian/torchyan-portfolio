@@ -27,8 +27,8 @@ const Section = styled.section<{ $gradient: string }>`
 
 /*
  * Text on the left; the brand's own mark on the right, where the band would
- * otherwise stand empty. A phone has no room beside the text: the mark sits
- * above it, small.
+ * otherwise stand empty. A tablet and a phone have no room beside the text:
+ * the mark sits under the name, small.
  */
 const Content = styled(Container)`
   display: grid;
@@ -38,10 +38,6 @@ const Content = styled(Container)`
   row-gap: ${spacing[600]}px;
 
   ${media.down('xl')} {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 220px);
-  }
-
-  ${media.down('m')} {
     grid-template-columns: minmax(0, 1fr);
   }
 `;
@@ -53,7 +49,12 @@ const Text = styled.div`
   min-width: 0;
 `;
 
-/** The mark, centred in its column, as large as the column allows (never more than its own pixels need). */
+/**
+ * The mark, centred in its column, as large as the column allows (never more
+ * than its own pixels need). On a tablet and a phone there's no column to
+ * spare beside the text, and a mark on its own above the name read as a stray:
+ * it moves under the name instead (UnderName).
+ */
 const Logo = styled.div`
   align-self: center;
 
@@ -65,19 +66,29 @@ const Logo = styled.div`
   }
 
   ${media.down('xl')} {
+    display: none;
+  }
+`;
+
+const UnderName = styled.div`
+  display: none;
+
+  ${media.down('xl')} {
+    display: block;
+
     img {
-      height: 140px;
+      display: block;
+      width: auto;
+      max-width: 100%;
+      height: 64px;
+      object-fit: contain;
+      object-position: left center;
     }
   }
 
   ${media.down('m')} {
-    order: -1;
-
     img {
-      width: auto;
-      max-width: 100%;
       height: 48px;
-      object-position: left center;
     }
   }
 `;
@@ -125,7 +136,19 @@ export function CaseStudyHeroSection({ project }: CaseStudyHeroSectionProps) {
     <Section $gradient={project.gradient}>
       <Content>
         <Text>
-          <ProjectMeta company={project.company} description={content.title} tags={content.roles} />
+          <ProjectMeta
+            company={project.company}
+            mark={
+              project.logo && (
+                <UnderName>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={project.logo} alt="" />
+                </UnderName>
+              )
+            }
+            description={content.title}
+            tags={content.roles}
+          />
           <Title as="p">{content.description}</Title>
           <MetaRow>
             <span>{content.field}</span>
