@@ -135,7 +135,7 @@
         "Senior UI Engineer"
       ],
       "title": "Growth & Marketplace",
-      "description": "UI engineering across Picsart Growth and Marketplace, including Design System integration, RTL/LTR localization, accessibility and performance work.",
+      "description": "UI ծրագրավորում Picsart-ի Growth և Marketplace թիմերում՝ դիզայն համակարգի բաղադրիչների ինտեգրում, պրոդուկտին հատուկ ինտերֆեյսների ստեղծում, հասանելիության, RTL/LTR տեղայնացման և արագագործության բարելավման աշխատանքներ։",
       "field": "Creative platform"
     },
     "soulone": {
@@ -942,7 +942,7 @@
     ],
     "submit": "Ուղարկել հաղորդագրություն",
     "submitSending": "Ուղարկվում է…",
-    "submitSuccess": "Thank you — your message has arrived. I’ll reply within 2 business days.",
+    "submitSuccess": "Շնորհակալություն։ Ձեր հաղորդագրությունն ուղարկվել է։ Կպատասխանեմ երկու աշխատանքային օրվա ընթացքում։",
     "errors": {
       "validation": "Խնդրում ենք ստուգել ընդգծված դաշտերը։",
       "rateLimited": "Կարճ ժամանակում չափազանց շատ հաղորդագրություններ եք ուղարկել։ Մի փոքր սպասեք և փորձեք կրկին կամ գրեք hello@torchyan.design հասցեին։",
@@ -979,14 +979,14 @@
     "listLabel": "Նախագծեր",
     "dotsLabel": "Անցնել նախագծին",
     "hero": {
-      "title": "Work, with the exact role",
-      "lead": "Every project here says what I actually did.",
+      "title": "ԸՆՏՐՎԱԾ ՆԱԽԱԳԾԵՐ",
+      "lead": "Պրոդուկտային աշխատանքների, հաճախորդների նախագծերի և դիզայնի ու UI ծրագրավորման ոլորտներում համագործակցությունների ընտրանի։ Այստեղ ներկայացված են յուրաքանչյուր նախագծի խնդիրները, որոշումներն ու իմ ներդրումը։",
       "points": [
-        "Product-scale UI engineering at Picsart",
-        "End-to-end design and product ownership at SoulOne",
-        "Front-end builds for hospitality, automotive and education websites",
-        "Accessibility, localization and performance in production",
-        "Design and engineering in the same hands"
+        "UI ծրագրավորում մասշտաբային պրոդուկտների համար",
+        "Պրոդուկտի կառավարում և վեբ դիզայն",
+        "Front-end ծրագրավորում բիզնեսի համար",
+        "Հասանելիություն և տեղայնացում",
+        "Դիզայն և ծրագրավորում"
       ]
     },
     "showcase": {
@@ -1387,7 +1387,7 @@
         },
         {
           "title": "Հստակ առաջարկ",
-          "body": "You receive a scope and approach — or, if the problem isn’t clear yet, a suggested diagnostic first."
+          "body": "Կստանաք առաջարկ՝ աշխատանքների շրջանակի և իրականացման մոտեցման վերաբերյալ։ Եթե նախագծի մանրամասները դեռ հստակ չեն, կարող եմ նախ առաջարկել նպատակային վերլուծություն։"
         }
       ],
       "subtitle": "Երեք քայլ՝ Ձեր հաղորդագրությունից մինչև հստակ պլան։",
@@ -1408,7 +1408,7 @@
       {
         "title": "Ինչ տվյալներ ենք հավաքում",
         "body": [
-          "What you enter in the contact form: your name and work email, and — if you choose to give them — your company, a website link, what you need, your timeline and your message.",
+          "Մենք ստանում ենք Ձեր նշած անունը, աշխատանքային էլ. փոստի հասցեն և հաղորդագրությունը, ինչպես նաև Ձեր տրամադրած լրացուցիչ տվյալները՝ ընկերության անվանումը, կայքի կամ պրոդուկտի հղումը, նախագծի տեսակը և ժամկետները, եթե դրանք նշում եք։",
           "Կայքի աշխատանքի համար անհրաժեշտ սովորական տեխնիկական տվյալներ, օրինակ՝ դիտարկչի տեսակը և այցելած էջերը։"
         ]
       },
@@ -1470,7 +1470,7 @@
     },
     "timeline": {
       "title": "Փորձ",
-      "subtitle": "Product companies, partner companies and direct clients — the roles behind Torchyan.",
+      "subtitle": "Աշխատանք պրոդուկտային թիմերի, գործընկեր ընկերությունների և անմիջական հաճախորդների նախագծերի հետ․ փորձ, որի հիման վրա ստեղծվել է Torchyan-ը։",
       "focus": "Ինչով եմ զբաղվել",
       "impact": "Արդյունք",
       "entries": {
@@ -1683,10 +1683,10 @@
     },
     "cta": {
       "intro": [
-        "Torchyan started from a simple observation: digital projects lose quality at the handoffs — between strategy and design, design and code, launch and everything after.",
+        "Torchyan-ը ծնվել է մի պարզ դիտարկումից․ դիզայնն ու ծրագրավորումն ավելի լավ արդյունք են տալիս, երբ որոշումները փոխկապակցված են առաջին գաղափարից մինչև գործարկում։",
         "Նախագծի բոլոր փուլերը պահում եմ փոխկապակցված՝ առաջին քննարկումից մինչև արդյունքի հանձնում, և պատասխանատու եմ իմ ղեկավարած աշխատանքի համար։",
         "Ամեն օր օգտագործում եմ AI գործիքներ՝ հետազոտությունը, նախատիպավորումն ու ծրագրավորումն արագացնելու համար։ Սակայն գնահատականը, դիզայնի որոշումներն ու պատասխանատվությունն իմն են։",
-        "The goal: websites and products that work the way they were designed to — and keep improving after launch."
+        "Նպատակը կայքեր ու պրոդուկտներ ստեղծելն է, որոնք աշխատում են այնպես, ինչպես նախատեսված է, մանրակրկիտ մշակված են և պատրաստ են հետագա զարգացմանը գործարկումից հետո։"
       ],
       "build": {
         "title": "Սկսել նախագիծ",

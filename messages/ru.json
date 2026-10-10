@@ -135,7 +135,7 @@
         "Senior UI Engineer"
       ],
       "title": "Growth & Marketplace",
-      "description": "UI engineering across Picsart Growth and Marketplace, including Design System integration, RTL/LTR localization, accessibility and performance work.",
+      "description": "UI-разработка для команд Growth и Marketplace в Picsart: интеграция компонентов дизайн-системы, создание интерфейсов под задачи продукта, поддержка доступности и RTL/LTR-локализации, работа над производительностью.",
       "field": "Creative platform"
     },
     "soulone": {
@@ -942,7 +942,7 @@
     ],
     "submit": "Отправить сообщение",
     "submitSending": "Отправляю…",
-    "submitSuccess": "Thank you — your message has arrived. I’ll reply within 2 business days.",
+    "submitSuccess": "Спасибо! Сообщение отправлено. Я отвечу в течение двух рабочих дней.",
     "errors": {
       "validation": "Проверьте выделенные поля.",
       "rateLimited": "Слишком много сообщений за короткое время. Подождите немного и попробуйте снова или напишите на hello@torchyan.design.",
@@ -979,14 +979,14 @@
     "listLabel": "Проекты",
     "dotsLabel": "Перейти к проекту",
     "hero": {
-      "title": "Work, with the exact role",
-      "lead": "Every project here says what I actually did.",
+      "title": "ИЗБРАННЫЕ ПРОЕКТЫ",
+      "lead": "Подборка продуктовых проектов, работ для клиентов и совместных проектов на пересечении дизайна и UI-разработки. Здесь — задачи, решения и мой вклад в каждый проект.",
       "points": [
-        "Product-scale UI engineering at Picsart",
-        "End-to-end design and product ownership at SoulOne",
-        "Front-end builds for hospitality, automotive and education websites",
-        "Accessibility, localization and performance in production",
-        "Design and engineering in the same hands"
+        "UI-разработка для масштабных продуктов",
+        "Управление продуктом и веб-дизайн",
+        "Фронтенд-разработка для бизнеса",
+        "Доступность и локализация",
+        "Дизайн и разработка"
       ]
     },
     "showcase": {
@@ -1387,7 +1387,7 @@
         },
         {
           "title": "Понятное предложение",
-          "body": "You receive a scope and approach — or, if the problem isn’t clear yet, a suggested diagnostic first."
+          "body": "Вы получите предложение по объёму работ и подходу к задаче. Если детали проекта пока неясны, сначала могу предложить предметный анализ."
         }
       ],
       "subtitle": "Три шага от Вашего сообщения до понятного плана.",
@@ -1408,7 +1408,7 @@
       {
         "title": "Какие данные мы собираем",
         "body": [
-          "What you enter in the contact form: your name and work email, and — if you choose to give them — your company, a website link, what you need, your timeline and your message.",
+          "Мы получаем указанные Вами имя, рабочий email и сообщение, а также дополнительные сведения, если Вы их предоставите: название компании, ссылку на сайт или продукт, тип проекта и сроки.",
           "Стандартные технические данные, необходимые для работы сайта, например тип браузера и запрошенные страницы."
         ]
       },
@@ -1470,7 +1470,7 @@
     },
     "timeline": {
       "title": "Опыт",
-      "subtitle": "Product companies, partner companies and direct clients — the roles behind Torchyan.",
+      "subtitle": "Продуктовые команды, компании-партнёры и прямые клиентские проекты — опыт, на котором строится Torchyan.",
       "focus": "Чем занимался",
       "impact": "Результат",
       "entries": {
@@ -1683,10 +1683,10 @@
     },
     "cta": {
       "intro": [
-        "Torchyan started from a simple observation: digital projects lose quality at the handoffs — between strategy and design, design and code, launch and everything after.",
+        "Torchyan вырос из простого наблюдения: дизайн и разработка дают лучший результат, когда решения согласованы от первой идеи до запуска.",
         "Я связываю все этапы проекта — от первого разговора до результата — и отвечаю за работу, которую веду.",
         "Каждый день использую AI-инструменты, чтобы быстрее исследовать, прототипировать и разрабатывать. Но оценка, дизайн-решения и ответственность остаются за мной.",
-        "The goal: websites and products that work the way they were designed to — and keep improving after launch."
+        "Цель — создавать сайты и продукты, которые работают так, как задумано, продуманы до деталей и готовы к дальнейшему развитию после запуска."
       ],
       "build": {
         "title": "Начать проект",

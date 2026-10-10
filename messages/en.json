@@ -135,7 +135,7 @@
         "Senior UI Engineer"
       ],
       "title": "Creative Platform",
-      "description": "Product-scale UI engineering across picsart.com — Design System integration, UI architecture, RTL/LTR localization, accessibility and performance.",
+      "description": "UI engineering for Picsart’s Growth and Marketplace teams — integrating Design System components, building product-specific UI, and supporting accessibility, RTL/LTR localization and performance.",
       "field": "Photo & Video Editing"
     },
     "soulone": {
@@ -942,7 +942,7 @@
     ],
     "submit": "Send message",
     "submitSending": "Sending…",
-    "submitSuccess": "Thank you - your message has arrived. I’ll reply within 2 business days.",
+    "submitSuccess": "Thank you — your message has been sent. I’ll reply within 2 business days.",
     "errors": {
       "validation": "Please check the highlighted fields.",
       "rateLimited": "Too many messages in a short time. Please wait a little and try again, or email hello@torchyan.design.",
@@ -980,13 +980,13 @@
     "dotsLabel": "Go to a project",
     "hero": {
       "title": "SELECTED WORK",
-      "lead": "A mix of product work, direct client projects and collaborations across design and engineering. Each case shows the context, my role and the part I was responsible for.",
+      "lead": "A selection of product work, direct client projects and collaborations across design and UI engineering. Explore the challenges, decisions and work behind each project.",
       "points": [
-        "Product-scale UI engineering",
+        "UI engineering at scale",
         "Product ownership & web design",
-        "Commercial front-end delivery",
+        "Commercial front-end development",
         "Accessibility & localization",
-        "Design + engineering"
+        "Design & engineering"
       ]
     },
     "showcase": {
@@ -1387,7 +1387,7 @@
         },
         {
           "title": "A clear proposal",
-          "body": "You receive a scope and approach - or, if the problem isn’t clear yet, a suggested diagnostic first."
+          "body": "You’ll receive a proposed scope and approach. If the brief needs more clarity, I may suggest a focused diagnostic first."
         }
       ],
       "subtitle": "From your message to a clear plan, in three steps.",
@@ -1408,7 +1408,7 @@
       {
         "title": "What we collect",
         "body": [
-          "What you enter in the contact form: your name and work email, and - if you choose to give them - your company, a website link, what you need, your timeline and your message.",
+          "We collect the name, work email and message you submit, plus any optional details you provide, such as your company, website or product link, project type and timeline.",
           "Standard technical data needed to deliver the website, such as your browser type and the pages requested."
         ]
       },
@@ -1470,7 +1470,7 @@
     },
     "timeline": {
       "title": "Experience",
-      "subtitle": "Product companies, partner companies and direct clients - the roles behind Torchyan.",
+      "subtitle": "Product teams, partner companies and direct client projects — the experience behind Torchyan.",
       "focus": "What I did",
       "impact": "Result",
       "entries": {
@@ -1683,10 +1683,10 @@
     },
     "cta": {
       "intro": [
-        "Torchyan started from a simple observation: digital projects lose quality at the handoffs - between strategy and design, design and code, launch and everything after.",
+        "Torchyan grew from a simple observation: design and development work better when decisions stay connected from the first idea through launch.",
         "I keep each project connected from the first conversation through delivery, and stay accountable for the work I lead.",
         "I use AI tools every day to research, prototype and build faster. The judgement, design decisions and accountability remain mine.",
-        "The goal: websites and products that work the way they were designed to - and keep improving after launch."
+        "The goal: websites and products that work as intended, are thoughtfully built, and can keep improving after launch."
       ],
       "build": {
         "title": "Start a project",
