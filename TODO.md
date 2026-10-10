@@ -43,7 +43,7 @@ must be done before the maintenance gate comes off.
 - [ ] **Live contact test** — **P0 · Owner** — Resend variables in Vercel production; send one message through `/contact` and confirm it arrives. Then confirm `hello@torchyan.design` receives mail — the form's error messages point to it. (2026-10-01: forwarding to the founder's inbox is set up through ImprovMX, free plan, MX + SPF records at GoDaddy; send one test mail from another address to close this. Reply-as `hello@` needs a real mailbox, P2.)
 - [ ] **Vercel Web Analytics** — **P0 · Owner** — enable Web Analytics for the project in the Vercel dashboard, and confirm custom events are available on the plan.
 - [ ] **Footer role lettering** — **P0 · Design** — `public/footer/name-designer-engineer.svg` still reads "Designer × Engineer"; replace with "Digital Product Studio" lettering at the same size.
-- [ ] **Default social image** — **P0 · Design** — `public/og/default.jpg` is the corrected portfolio card (the "DESISN" typo is fixed) but still reads "Designer × Engineer" and "AI-powered experiences". New 1200×630 artwork: Torchyan · Digital Product Studio.
+- [x] **Default social image** — **P0 · Design** — `public/og/default.jpg` is now the Torchyan · Digital Product Studio card (1200×630).
 - [ ] **Screens to confirm** — **P1 · Owner** — the Smartbet screens on its card, row and case are the ones you implemented; Ad Wizard has no screenshots yet (its case step shows Picsart editor screens).
 - [ ] **"Built with" per project** — **P1 · Owner** — only Picsart has a confirmed stack; the other rows hide the line until one is added to `projectsPage.showcase.items.<key>.stack`.
 
