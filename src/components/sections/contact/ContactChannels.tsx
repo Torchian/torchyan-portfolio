@@ -21,7 +21,7 @@ import { media } from '@/styles/media';
  *    colour (Instagram's gradient running along the arc; email keeps the
  *    site's green);
  *  - the middle swaps "Ways to reach me" for the channel's name, a QR code to
- *    open it on a phone, and its handle;
+ *    open it on a phone, and a short link to open it here;
  *  - the lead steps back a little (320 → 260), out of the QR's way.
  *
  * The arc is the Services specialists' ring (ServicesSpecialists): a conic
@@ -450,14 +450,6 @@ const Open = styled.a`
   }
 `;
 
-const Handle = styled.p`
-  margin: 0;
-  font-size: max(12px, calc(${fontSize.heading.s} * var(--u)));
-  line-height: 1.33;
-  letter-spacing: ${letterSpacing.xs}px;
-  overflow-wrap: anywhere;
-`;
-
 /** The lead, standing in the ring's open bottom; steps back for the QR code. */
 const Lead = styled.div`
   position: absolute;
@@ -662,7 +654,6 @@ export function ContactChannels({ titleAs = 'h2' }: ContactChannelsProps) {
             <Detail key={c.id} data-shown={active === c.id}>
               <Title>{t(`items.${c.id}`)}</Title>
               <Qr src={`/contact/qr-${c.id}.svg`} alt="" width={110} height={110} loading="lazy" />
-              <Handle>{c.handle}</Handle>
               {/* The icons are the accessible links; this one is for the pointer. */}
               <Open
                 href={c.href}

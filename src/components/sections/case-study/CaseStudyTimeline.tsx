@@ -51,6 +51,7 @@ const Container = styled.div`
 
   ${media.down('m')} {
     gap: ${spacing[600]}px;
+    padding: 0 ${spacing[200]}px;
   }
 `;
 

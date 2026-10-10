@@ -174,12 +174,12 @@ export function CTACards({ cards, className }: { cards: CTACardContent[]; classN
             </CardText>
             {card.links ? (
               <CtaRow>
-                {card.links.map((link, i) => (
+                {card.links.map((link) => (
                   <Button
                     key={link.href}
                     as={Link}
                     href={link.href}
-                    $variant={i === card.links!.length - 1 ? (card.tone === 'green' ? 'secondary' : 'secondaryPink') : 'primary'}
+                    $variant={card.tone === 'green' ? 'secondary' : 'secondaryPink'}
                     data-cta={link.ctaId}
                   >
                     {link.label}

@@ -3,6 +3,7 @@
 import { useMessages } from 'next-intl';
 import styled from 'styled-components';
 import { Container } from '@/components/primitives';
+import { HEADER_INLINE } from '@/components/layouts/NavBar';
 import { spacing } from '@/styles/tokens/spacing';
 import { fontSize, lineHeight, fontWeight, fontFamily } from '@/styles/tokens/typography';
 import { neutrals } from '@/styles/tokens/colors';
@@ -35,6 +36,17 @@ const Content = styled(Container)`
   display: flex;
   flex-direction: column;
   gap: ${spacing[800]}px;
+
+  /* Lined up with the header: its own three steps (32, 24, 16). */
+  padding-inline: ${HEADER_INLINE.base}px;
+
+  ${media.down('xl')} {
+    padding-inline: ${HEADER_INLINE.tablet}px;
+  }
+
+  ${media.down('m')} {
+    padding-inline: ${HEADER_INLINE.mobile}px;
+  }
 `;
 
 /*
