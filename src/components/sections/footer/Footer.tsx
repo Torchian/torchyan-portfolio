@@ -10,7 +10,7 @@ import { fontSize, lineHeight, fontWeight, letterSpacing, fontFamily } from '@/s
 import { grid } from '@/styles/tokens/grid';
 import { media, mediaQueries } from '@/styles/media';
 import { duration, easing } from '@/styles/tokens/motion';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 /*
  * Figma: Footer — Desktop 1920 (4037:14070), Tablet 1024 (4037:14206),
@@ -42,6 +42,14 @@ const WORDMARK = { src: '/footer/name-wordmark.svg', width: 540, height: 77.2426
 const TAGLINE = { src: '/footer/name-tagline.svg', width: 51, height: 540 } as const;
 /** The same words laid out as a row, for the phone, where they sit under the wordmark. */
 const TAGLINE_ROW = { src: '/footer/name-tagline-row.svg', width: 540, height: 51 } as const;
+
+/**
+ * The tagline is lettering, not text, so each language has its own pair of
+ * files, drawn in the same 540 × 51 frame as the English one: `name-tagline.svg`
+ * is English, `name-tagline.ru.svg` and `.hy.svg` the others.
+ */
+const taglineFile = (src: string, locale: string) =>
+  locale === 'ru' || locale === 'hy' ? src.replace('.svg', `.${locale}.svg`) : src;
 
 const LINK_TRANSITION = `${duration.slower} ${easing.spring}`;
 
@@ -507,6 +515,7 @@ export function Footer() {
   useNameLength(innerRef, columnRef);
   const t = useTranslations('footer');
   const tLinks = useTranslations('footer.links');
+  const locale = useLocale();
 
   return (
     <FooterEl id="site-footer">
@@ -520,8 +529,8 @@ export function Footer() {
             </div>
           </Wordmark>
           <Tagline>
-            <img {...TAGLINE} alt="" />
-            <img {...TAGLINE_ROW} alt="" />
+            <img {...TAGLINE} src={taglineFile(TAGLINE.src, locale)} alt="" />
+            <img {...TAGLINE_ROW} src={taglineFile(TAGLINE_ROW.src, locale)} alt="" />
           </Tagline>
         </NameBlock>
 

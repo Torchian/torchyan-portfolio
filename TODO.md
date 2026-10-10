@@ -42,7 +42,7 @@ must be done before the maintenance gate comes off.
 - [ ] **Privacy notice: data controller** — **P0 · Owner** — add the legal name, form and registration to `privacyPage.sections[0]`, and have the notice reviewed (including whether an EU representative is needed).
 - [ ] **Live contact test** — **P0 · Owner** — Resend variables in Vercel production; send one message through `/contact` and confirm it arrives. Then confirm `hello@torchyan.design` receives mail — the form's error messages point to it. (2026-10-01: forwarding to the founder's inbox is set up through ImprovMX, free plan, MX + SPF records at GoDaddy; send one test mail from another address to close this. Reply-as `hello@` needs a real mailbox, P2.)
 - [ ] **Vercel Web Analytics** — **P0 · Owner** — enable Web Analytics for the project in the Vercel dashboard, and confirm custom events are available on the plan.
-- [ ] **Footer role lettering** — **P0 · Design** — `public/footer/name-designer-engineer.svg` still reads "Designer × Engineer"; replace with "Digital Product Studio" lettering at the same size.
+- [x] **Footer role lettering** — **P0 · Design** — the footer tagline reads "Digital Product Studio" in English, and `name-tagline.ru.svg` / `name-tagline.hy.svg` carry the Russian and Armenian lettering.
 - [x] **Default social image** — **P0 · Design** — `public/og/default.jpg` is now the Torchyan · Digital Product Studio card (1200×630).
 - [ ] **Screens to confirm** — **P1 · Owner** — the Smartbet screens on its card, row and case are the ones you implemented; Ad Wizard has no screenshots yet (its case step shows Picsart editor screens).
 - [ ] **"Built with" per project** — **P1 · Owner** — only Picsart has a confirmed stack; the other rows hide the line until one is added to `projectsPage.showcase.items.<key>.stack`.
@@ -229,7 +229,7 @@ English is the default; Russian and Armenian live under `/ru` and `/hy`.
 
 - [ ] **Native review of the RU and HY copy** — **P1 · Decision** — `messages/ru.json` and `messages/hy.json` are drafts. Check tone and terminology before launch, then run `npm run check:messages`.
 - [ ] **Armenian typography** — **P2 · Design + Dev** — Bainsley only ships 400 and 700, so Medium and Black text on /hy renders Regular or Bold. Review the display headings, and add `:lang(hy)` letter-spacing overrides if Gilroy's tracking looks off.
-- [ ] **Footer name artwork is English only** — **P2 · Design + Decision** — STEPAN, TORCHYAN and "Designer × Engineer" are SVG lettering. Decide whether /ru and /hy need their own.
+- [x] **Footer name artwork per language** — **P2 · Design** — done: Russian and Armenian taglines (vectorised from the supplied lockups) are chosen by locale in `Footer.tsx`.
 
 ---
 
