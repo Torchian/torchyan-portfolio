@@ -315,7 +315,11 @@ function startMusic() {
   if (!channel) return;
   if (!sound) {
     void decode(MUSIC.src).then(() => {
-      if (ctx?.state === 'running') startMusic();
+      // Only once it really decoded. decode() swallows a failure so a later play
+      // can retry, which made this a loop wherever the browser can't decode the
+      // track (Chromium without AAC, some Linux Firefox builds): the 0.9 MB file
+      // fetched and failed again many times a second. The next wake retries.
+      if (decoded.has(MUSIC.src) && ctx?.state === 'running') startMusic();
     });
     return;
   }
