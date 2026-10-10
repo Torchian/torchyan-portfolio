@@ -1707,34 +1707,34 @@
         "subtitle": "Growth & Marketplace — UI engineering at product scale",
         "description": [
           "From October 2021 to February 2024, I worked as a Senior UI Engineer on picsart.com — first with the Growth team, then with Marketplace.",
-          "The work: integrating the Picsart Design System, building the components it didn’t cover, adding right-to-left language support from scratch, and a large part of the accessibility work in my scope."
+          "Իմ աշխատանքը ներառում էր Picsart-ի դիզայն համակարգի ներդրումը, համակարգում բացակայող բաղադրիչների ստեղծումը, աջից ձախ գրությամբ լեզուների աջակցության իրականացումը զրոյից և հասանելիության աշխատանքների զգալի մասը՝ իմ պատասխանատվության շրջանակում։"
         ],
         "meta": [
           {
-            "label": "Role:",
+            "label": "Դերը՝",
             "items": [
               "Senior UI Engineer",
-              "Employee"
+              "Ընկերության աշխատակից"
             ]
           },
           {
-            "label": "Scope:",
+            "label": "Աշխատանքների շրջանակը՝",
             "items": [
-              "Design System integration",
-              "RTL/LTR localization",
-              "Accessibility",
-              "Performance"
+              "Դիզայն համակարգի ինտեգրում",
+              "RTL/LTR տեղայնացում",
+              "Հասանելիություն",
+              "Արագագործություն"
             ]
           },
           {
-            "label": "Teams:",
+            "label": "Թիմեր՝",
             "items": [
               "Growth (2021–2023)",
               "Marketplace (2023–2024)"
             ]
           },
           {
-            "label": "Stack:",
+            "label": "Տեխնոլոգիաներ՝",
             "items": [
               "React",
               "JSS",
@@ -1745,23 +1745,23 @@
         ]
       },
       "timeline": {
-        "title": "What the work involved",
+        "title": "Ինչ էր ներառում աշխատանքը",
         "subtitle": [
-          "picsart.com is a large product surface, shipped by many teams at once.",
-          "My job was to keep the UI in my team’s scope consistent, accessible and ready for every language."
+          "picsart.com-ը մեծածավալ պրոդուկտային հարթակ է, որի վրա միաժամանակ աշխատում են բազմաթիվ թիմեր։",
+          "Իմ խնդիրն էր իմ թիմի պատասխանատվության շրջանակում ապահովել UI-ի միասնականությունը, հասանելիությունն ու պատրաստ լինելը բոլոր աջակցվող լեզուների համար։"
         ],
         "steps": [
           [
             {
-              "title": "Context",
+              "title": "Նախապատմություն",
               "blocks": [
                 [
-                  "Picsart’s website serves many products and page types:",
+                  "Picsart-ի կայքում ներկայացված են տարբեր պրոդուկտներ և էջերի տեսակներ՝",
                   [
-                    "Marketing and business pages",
-                    "Marketplace and Discovery",
-                    "The editor and Mini Apps",
-                    "Growth products such as Ad Wizard"
+                    "Մարքեթինգային և բիզնես էջեր",
+                    "Marketplace և Discovery",
+                    "Խմբագրիչ և Mini Apps",
+                    "Growth պրոդուկտներ, այդ թվում՝ Ad Wizard"
                   ]
                 ],
                 [
@@ -1772,15 +1772,15 @@
           ],
           [
             {
-              "title": "Growth team, 2021–2023",
+              "title": "Growth թիմ, 2021–2023",
               "blocks": [
                 [
-                  "I was the team’s primary UI developer, focused on the Picsart website:",
+                  "Ես թիմի հիմնական UI ծրագրավորողն էի և հիմնականում աշխատում էի Picsart-ի կայքի վրա՝",
                   [
-                    "Modular, scalable UI in React, JSS and Styled Components",
-                    "Responsive, cross-browser implementation",
-                    "Accessibility work",
-                    "Code reviews for performance, maintainability and best practice"
+                    "Մոդուլային, մասշտաբելի UI՝ React, JSS և Styled Components տեխնոլոգիաներով",
+                    "Ադապտիվ և տարբեր բրաուզերների հետ համատեղելի իրականացում",
+                    "Հասանելիության բարելավումներ",
+                    "Կոդի վերանայում՝ արագագործության, սպասարկելիության և լավագույն պրակտիկաների շեշտադրմամբ"
                   ]
                 ]
               ]
@@ -1794,41 +1794,41 @@
                   "A separate Growth product where people create visual and social content and adapt it to the formats each platform needs — text, imagery, titles and emoji in one editor."
                 ],
                 [
-                  "As the Growth team’s primary UI developer, I implemented its interface in React, HTML/CSS, JSS and Styled Components."
+                  "Որպես Growth թիմի հիմնական UI ծրագրավորող՝ իրականացրել եմ դրա ինտերֆեյսը React, HTML/CSS, JSS և Styled Components տեխնոլոգիաներով։"
                 ]
               ]
             }
           ],
           [
             {
-              "phase": "Phase 1",
-              "title": "Design System integration",
+              "phase": "Փուլ 1",
+              "title": "Դիզայն համակարգի ինտեգրում",
               "blocks": [
                 [
-                  "I was the main UI and Design System integration owner for picsart.com and selected product branches in my team:",
+                  "Իմ թիմում ես էի հիմնական պատասխանատուն picsart.com-ի և առանձին պրոդուկտային ուղղությունների UI-ի ու դիզայն համակարգի ինտեգրման համար՝",
                   [
-                    "Integrated shared components across business pages, the editor and Mini Apps",
-                    "Placed supplied components and templates as product required"
+                    "Ընդհանուր բաղադրիչները ներդրել եմ բիզնես էջերում, խմբագրիչում և Mini Apps-ում",
+                    "Տրամադրված բաղադրիչներն ու ձևանմուշները կիրառել եմ պրոդուկտի պահանջներին համապատասխան"
                   ]
                 ]
               ]
             },
             {
-              "phase": "Phase 2",
-              "title": "Components the system didn’t cover",
+              "phase": "Փուլ 2",
+              "title": "Բաղադրիչներ, որոնք դիզայն համակարգում չկային",
               "blocks": [
                 [
-                  "The shared components came from the Design System team.",
-                  "When a need wasn’t covered, I built the missing components for our product branch, matched to the system so the product still felt like one."
+                  "Ընդհանուր բաղադրիչները տրամադրում էր Design System թիմը։",
+                  "Եթե անհրաժեշտ լուծումը համակարգում չկար, մեր պրոդուկտային ուղղության համար ստեղծում էի բացակայող բաղադրիչները՝ համապատասխանեցնելով դրանք ընդհանուր համակարգին, որպեսզի ինտերֆեյսը մնա միասնական։"
                 ]
               ]
             },
             {
-              "phase": "Phase 3",
-              "title": "Right-to-left languages",
+              "phase": "Փուլ 3",
+              "title": "Աջից ձախ գրությամբ լեզուներ",
               "blocks": [
                 [
-                  "I implemented multilingual support, including RTL/LTR, from scratch for my scope."
+                  "Իմ պատասխանատվության շրջանակում զրոյից իրականացրել եմ բազմալեզու աջակցություն՝ ներառյալ RTL/LTR-ը։"
                 ],
                 [
                   "Instead of fixing left and right values page by page, I reworked layout direction around logical properties — inline and block, start and end — so a change of direction carries through the structure."
@@ -1836,47 +1836,47 @@
               ]
             },
             {
-              "phase": "Phase 4",
-              "title": "Accessibility",
+              "phase": "Փուլ 4",
+              "title": "Հասանելիություն",
               "blocks": [
                 [
-                  "Accessibility was only minimally in place when I started. I handled a large part of the WCAG implementation work in my scope, building it into components rather than adding it afterwards."
+                  "Երբ սկսեցի աշխատել, հասանելիությունը միայն մասամբ էր իրականացված։ Իմ պատասխանատվության շրջանակում կատարել եմ WCAG-ի ներդրման աշխատանքների զգալի մասը՝ պահանջները ներառելով հենց բաղադրիչների մեջ, ոչ թե ավելացնելով հետո։"
                 ]
               ]
             },
             {
-              "phase": "Phase 5",
-              "title": "Responsive and cross-browser",
+              "phase": "Փուլ 5",
+              "title": "Ադապտիվություն և տարբեր բրաուզերների աջակցություն",
               "blocks": [
                 [
-                  "Every component checked across breakpoints and browsers, so pages behaved the same for every visitor."
+                  "Յուրաքանչյուր բաղադրիչ ստուգել եմ տարբեր էկրանների չափերի և բրաուզերների վրա, որպեսզի էջերը բոլոր այցելուների համար հետևողական աշխատեն։"
                 ]
               ]
             }
           ],
           [
             {
-              "title": "Performance",
+              "title": "Արագագործություն",
               "blocks": [
                 [
-                  "On the Growth team, I optimized the Discovery pages and their codebase."
+                  "Growth թիմում օպտիմալացրել եմ Discovery էջերն ու դրանց կոդային բազան։"
                 ],
                 [
-                  "Pages were measured before and after; the figures aren’t published here."
+                  "Էջերի արագությունը չափվել է փոփոխություններից առաջ և հետո. կոնկրետ ցուցանիշներն այստեղ չեն հրապարակվում։"
                 ]
               ]
             }
           ],
           [
             {
-              "title": "What changed",
+              "title": "Ինչ փոխվեց",
               "blocks": [
                 [
                   [
-                    "Right-to-left languages supported structurally, not by manual fixes",
-                    "Marketplace pages consistent with the shared Design System",
-                    "Accessibility built into components in my scope",
-                    "Faster Discovery pages"
+                    "RTL լեզուների կառուցվածքային աջակցություն՝ ձեռքով ուղղումների փոխարեն",
+                    "Marketplace-ի էջերը համապատասխանեցվել են ընդհանուր դիզայն համակարգին",
+                    "Հասանելիությունը ներառվել է իմ պատասխանատվության շրջանակի բաղադրիչներում",
+                    "Discovery-ի ավելի արագ էջեր"
                   ]
                 ]
               ]
@@ -1884,13 +1884,13 @@
           ],
           [
             {
-              "title": "What this shows",
+              "title": "Ինչ է ցույց տալիս նախագիծը",
               "blocks": [
                 [
                   [
-                    "Work at product scale, inside large teams and shared systems",
-                    "Localization and accessibility treated as structure, not patches",
-                    "The same standards applied to every Torchyan project"
+                    "Մեծ մասշտաբի պրոդուկտի վրա աշխատանք՝ մեծ թիմերում և ընդհանուր համակարգերում",
+                    "Տեղայնացումն ու հասանելիությունը՝ որպես կառուցվածքի հիմք, ոչ թե ուշացած շտկումներ",
+                    "Նույն ստանդարտները կիրառվում են Torchyan-ի յուրաքանչյուր նախագծում"
                   ]
                 ]
               ]
@@ -1899,88 +1899,88 @@
         ]
       },
       "blueprint": {
-        "title": "Integration principles",
-        "subtitle": "How the shared Design System was carried into the pages in my scope.",
+        "title": "Ինտեգրման սկզբունքներ",
+        "subtitle": "Ինչպես էր ընդհանուր դիզայն համակարգը ներդրվում իմ պատասխանատվության շրջանակի էջերում։",
         "cards": [
           {
-            "title": "Shared first",
-            "body": "Use Design System components wherever they fit; build new ones only for real gaps."
+            "title": "Նախ՝ ընդհանուր բաղադրիչները",
+            "body": "Օգտագործել դիզայն համակարգի բաղադրիչները ամենուր, որտեղ դրանք համապատասխանում են խնդրին, իսկ նորերը ստեղծել միայն իրական բացերի դեպքում։"
           },
           {
-            "title": "Match the system",
-            "body": "New components follow the shared tokens, spacing and states."
+            "title": "Հետևել համակարգին",
+            "body": "Նոր բաղադրիչները հետևում են ընդհանուր թոքեններին, բացատներին և վիճակներին։"
           },
           {
-            "title": "Direction-agnostic layout",
-            "body": "Logical properties instead of left and right, so RTL works structurally."
+            "title": "Դասավորություն՝ անկախ գրության ուղղությունից",
+            "body": "CSS-ի տրամաբանական հատկություններ՝ ֆիքսված left և right-ի փոխարեն, որպեսզի RTL-ն աշխատի կառուցվածքային մակարդակում։"
           },
           {
-            "title": "Accessible by default",
-            "body": "Accessibility considered in every component, not added later."
+            "title": "Հասանելիություն՝ ի սկզբանե",
+            "body": "Հասանելիությունը հաշվի է առնվում յուրաքանչյուր բաղադրիչում, ոչ թե ավելացվում վերջում։"
           },
           {
-            "title": "Responsive everywhere",
-            "body": "Every component checked across breakpoints and browsers."
+            "title": "Ադապտիվություն՝ ամենուր",
+            "body": "Յուրաքանչյուր բաղադրիչ ստուգվում է տարբեր էկրանների և բրաուզերների վրա։"
           }
         ]
       },
       "architecture": {
-        "title": "In detail",
-        "subtitle": "Five parts of the work, and how each was approached.",
+        "title": "Մանրամասն",
+        "subtitle": "Աշխատանքի հինգ ուղղություն և դրանցից յուրաքանչյուրի մոտեցումը։",
         "useCases": [
           {
-            "title": "1. RTL/LTR layout logic",
+            "title": "1. RTL/LTR դասավորության տրամաբանություն",
             "blocks": [
               [
-                "Switching a page between left-to-right and right-to-left usually means hunting down every left and right value."
+                "Էջի գրության ուղղությունը ձախից աջից աջից ձախ փոխելիս սովորաբար պետք է գտնել բոլոր left և right արժեքները։"
               ],
               [
-                "I rebuilt the layout direction around logical properties:",
+                "Դասավորության ուղղության տրամաբանությունը վերակառուցել եմ CSS-ի տրամաբանական հատկությունների հիման վրա՝",
                 [
-                  "margin-inline and padding-inline instead of left and right",
-                  "inset-inline-start and inset-inline-end for positioning",
-                  "Direction set once, at the root"
+                  "margin-inline և padding-inline՝ left և right-ի փոխարեն",
+                  "inset-inline-start և inset-inline-end՝ դիրքավորման համար",
+                  "Գրության ուղղությունը սահմանվում է մեկ անգամ՝ արմատային մակարդակում"
                 ]
               ],
               [
-                "A direction change now carries through the structure instead of being patched page by page."
+                "Այժմ ուղղության փոփոխությունն ազդում է ամբողջ կառուցվածքի վրա՝ առանց յուրաքանչյուր էջն առանձին շտկելու։"
               ]
             ]
           },
           {
-            "title": "2. Design System integration",
+            "title": "2. Դիզայն համակարգի ինտեգրում",
             "blocks": [
               [
-                "Shared components from the Design System team, integrated across:",
+                "Design System թիմի ընդհանուր բաղադրիչները ներդրվել են՝",
                 [
-                  "Business and product pages",
-                  "The editor",
+                  "Բիզնես և պրոդուկտային էջեր",
+                  "Խմբագրիչ",
                   "Mini Apps"
                 ]
               ],
               [
-                "Placement followed product direction; consistency across branches was my responsibility in my team’s scope."
+                "Բաղադրիչների տեղադրումը որոշվում էր պրոդուկտի պահանջներով. իմ թիմի շրջանակում տարբեր ուղղությունների միջև միասնականության համար պատասխանատու էի ես։"
               ]
             ]
           },
           {
-            "title": "3. Components the system didn’t cover",
+            "title": "3. Համակարգում բացակայող բաղադրիչները",
             "blocks": [
               [
-                "Some Marketplace needs weren’t in the shared system. For those, I built team-specific components that:",
+                "Marketplace-ի որոշ պահանջների համար ընդհանուր համակարգում պատրաստ լուծումներ չկային։ Այդ դեպքերում ստեղծում էի մեր թիմի բաղադրիչները, որոնք՝",
                 [
-                  "Use the shared tokens",
-                  "Follow the same states and spacing",
-                  "Stay responsive and accessible"
+                  "Օգտագործում են ընդհանուր թոքենները",
+                  "Պահպանում են նույն վիճակներն ու բացատները",
+                  "Մնում են ադապտիվ և հասանելի"
                 ]
               ]
             ]
           },
           {
-            "title": "4. Accessibility implementation",
+            "title": "4. Հասանելիության իրականացում",
             "blocks": [
               [
-                "From a minimal starting point, accessibility became part of the components in my scope rather than a late fix. I handled a large part of that WCAG implementation work myself."
+                "Սկզբում հասանելիության աջակցությունը սահմանափակ էր, սակայն իմ պատասխանատվության շրջանակում այն դարձավ բաղադրիչների մաս, ոչ թե ուշացած շտկում։ WCAG-ի հետ կապված այդ աշխատանքների զգալի մասը կատարել եմ անձամբ։"
               ]
             ]
           },
@@ -1988,7 +1988,7 @@
             "title": "5. Ad Wizard",
             "blocks": [
               [
-                "A separate Growth product for creating visual and social content and adapting it to each platform’s formats. As the team’s primary UI developer, I implemented its interface in React, HTML/CSS, JSS and Styled Components."
+                "Growth թիմի առանձին պրոդուկտ՝ վիզուալ և սոցիալական բովանդակություն ստեղծելու և տարբեր հարթակների ձևաչափերին հարմարեցնելու համար։ Որպես թիմի հիմնական UI ծրագրավորող՝ դրա ինտերֆեյսը իրականացրել եմ React, HTML/CSS, JSS և Styled Components տեխնոլոգիաներով։"
               ]
             ]
           }
@@ -1998,36 +1998,36 @@
     "smartbet": {
       "hero": {
         "title": "Smartbet",
-        "subtitle": "An animated company and product website - sports, gaming, platform products and services",
+        "subtitle": "Անիմացիոն կայք ընկերության և նրա պրոդուկտների համար՝ սպորտ, խաղեր, հարթակային լուծումներ և ծառայություններ",
         "description": [
-          "From August to October 2021, I worked as a UI Developer at Smartbet, in a team of designers and developers. The design team supplied approved layouts; I implemented the UI for every page of the website, including the responsive versions.",
-          "Alongside the page builds, I set up a reusable atomic/BEM-based SCSS structure with styling tokens, and implemented the JavaScript animations and transitions between pages and product sections."
+          "2021 թվականի օգոստոսից հոկտեմբեր Smartbet-ում աշխատել եմ որպես UI ծրագրավորող՝ դիզայներների և ծրագրավորողների թիմում։ Դիզայներները տրամադրել էին հաստատված մակետները, իսկ ես իրականացրել եմ կայքի բոլոր էջերի UI-ը՝ ներառյալ ադապտիվ տարբերակները։",
+          "Բացի էջերից, ստեղծել եմ բազմակի օգտագործման SCSS կառուցվածք՝ ատոմային մոտեցմամբ, BEM-ով և ոճավորման թոքեններով, ինչպես նաև իրականացրել եմ JavaScript անիմացիաներն ու անցումները էջերի և պրոդուկտային բաժինների միջև։"
         ],
         "meta": [
           {
-            "label": "Role:",
+            "label": "Դերը՝",
             "items": [
-              "UI Developer",
-              "Employee"
+              "UI ծրագրավորող",
+              "Ընկերության աշխատակից"
             ]
           },
           {
-            "label": "Scope:",
+            "label": "Աշխատանքների շրջանակը՝",
             "items": [
-              "Every website page",
-              "Responsive UI",
-              "SCSS structure and tokens",
-              "Animations and transitions"
+              "Կայքի բոլոր էջերը",
+              "Ադապտիվ UI",
+              "SCSS կառուցվածք և թոքեններ",
+              "Անիմացիաներ և անցումներ"
             ]
           },
           {
-            "label": "Team:",
+            "label": "Թիմը՝",
             "items": [
-              "Designers and developers"
+              "Դիզայներներ և ծրագրավորողներ"
             ]
           },
           {
-            "label": "Stack:",
+            "label": "Տեխնոլոգիաներ՝",
             "items": [
               "HTML",
               "CSS",
@@ -2038,24 +2038,24 @@
         ]
       },
       "timeline": {
-        "title": "What the work involved",
+        "title": "Ինչ էր ներառում աշխատանքը",
         "subtitle": [
-          "Smartbet’s website presents distinct product families - sports, gaming and platform tools - alongside solutions, payment methods, providers and company pages.",
-          "The designs were approved; my job was to turn every page into working, responsive, animated UI."
+          "Smartbet-ի կայքում ներկայացված են պրոդուկտների տարբեր ուղղություններ՝ սպորտային, խաղային և հարթակային, ինչպես նաև լուծումներ, վճարման եղանակներ, մատակարարներ և տեղեկություններ ընկերության մասին։",
+          "Դիզայնն արդեն հաստատված էր։ Իմ խնդիրն էր յուրաքանչյուր էջ վերածել գործող, ադապտիվ և անիմացիոն ինտերֆեյսի։"
         ],
         "steps": [
           [
             {
-              "title": "Context",
+              "title": "Նախապատմություն",
               "blocks": [
                 [
-                  "Approved designs were ready for front-end implementation. The website covered:",
+                  "Պատրաստ մակետները պետք էր իրականացնել Front-end-ում։ Կայքը ներառում էր՝",
                   [
-                    "Sports products",
-                    "Gaming products",
-                    "Platform tools",
-                    "Solutions, payment methods and providers",
-                    "Company pages"
+                    "Սպորտային պրոդուկտներ",
+                    "Խաղային պրոդուկտներ",
+                    "Հարթակային գործիքներ",
+                    "Լուծումներ, վճարման եղանակներ և մատակարարներ",
+                    "Ընկերության էջեր"
                   ]
                 ]
               ]
@@ -2063,59 +2063,59 @@
           ],
           [
             {
-              "title": "A UI foundation",
+              "title": "UI-ի հիմքը",
               "blocks": [
                 [
-                  "A reusable SCSS structure, organised with atomic/BEM naming and styling tokens, so every page drew on the same rules."
+                  "Բազմակի օգտագործման SCSS կառուցվածք՝ ատոմային մոտեցմամբ, BEM անվանակոչմամբ և ոճավորման թոքեններով. բոլոր էջերը հիմնվում էին ընդհանուր կանոնների վրա։"
                 ]
               ]
             }
           ],
           [
             {
-              "title": "Product pages",
+              "title": "Պրոդուկտների էջեր",
               "blocks": [
                 [
-                  "Every approved layout implemented across the sports, gaming and platform categories."
+                  "Իրականացրել եմ սպորտային, խաղային և հարթակային բաժինների բոլոր հաստատված մակետները։"
                 ],
                 [
-                  "Each product family has its own visual theme, inside one consistent site structure."
+                  "Պրոդուկտների յուրաքանչյուր ուղղությունն ունի իր վիզուալ թեման՝ կայքի միասնական կառուցվածքի շրջանակում։"
                 ]
               ]
             }
           ],
           [
             {
-              "title": "Motion",
+              "title": "Անիմացիաներ",
               "blocks": [
                 [
-                  "JavaScript animations and transitions that move titles, imagery and coloured section accents together as visitors go from page to page and product to product."
+                  "JavaScript անիմացիաներն ու անցումները համաժամանակյա փոխում են վերնագրերը, պատկերները և բաժինների գունային շեշտադրումները՝ էջերից կամ պրոդուկտներից մյուսին անցնելիս։"
                 ]
               ]
             }
           ],
           [
             {
-              "title": "Supporting sections, on every screen",
+              "title": "Լրացուցիչ բաժիններ՝ տարբեր էկրանների համար",
               "blocks": [
                 [
-                  "Services, solutions, providers, payment methods and company pages, their content entering in stages."
+                  "Ծառայություններ, լուծումներ, մատակարարներ, վճարման եղանակներ և ընկերության էջեր՝ փուլերով հայտնվող բովանդակությամբ։"
                 ],
                 [
-                  "Every page adapted across screen sizes, with navigation, typography and UI patterns kept aligned."
+                  "Բոլոր էջերը հարմարեցված են տարբեր էկրանների, իսկ նավիգացիան, տառատեսակներն ու UI լուծումները պահպանել են միասնականությունը։"
                 ]
               ]
             }
           ],
           [
             {
-              "title": "What changed",
+              "title": "Ինչ փոխվեց",
               "blocks": [
                 [
                   [
-                    "The UI implemented across every page of the website",
-                    "Animated page states and transitions between product families",
-                    "One reusable styling foundation for the whole site"
+                    "Կայքի բոլոր էջերի UI-ը իրականացվեց",
+                    "Էջերի անիմացիոն վիճակներ և անցումներ պրոդուկտային ուղղությունների միջև",
+                    "Ոճավորման միասնական, բազմակի օգտագործման համակարգ ամբողջ կայքի համար"
                   ]
                 ]
               ]
@@ -2123,13 +2123,13 @@
           ],
           [
             {
-              "title": "What this shows",
+              "title": "Ինչ է ցույց տալիս նախագիծը",
               "blocks": [
                 [
                   [
-                    "End-to-end responsibility for the website UI - not the backend or the product design",
-                    "A reusable styling foundation alongside motion-heavy implementation",
-                    "Accurate collaboration with a design team on a visually complex, multi-section site"
+                    "Ամբողջ կայքի UI-ի պատասխանատվություն՝ առանց Backend-ի կամ պրոդուկտի դիզայնի",
+                    "Բազմակի օգտագործման ոճավորման համակարգ և բարդ անիմացիաներ",
+                    "Ճշգրիտ համագործակցություն դիզայներների հետ՝ վիզուալ առումով բարդ, բազմաբաժին կայքի վրա աշխատելիս"
                   ]
                 ]
               ]
@@ -2138,78 +2138,78 @@
         ]
       },
       "blueprint": {
-        "title": "Principles",
-        "subtitle": "What the build held to, page after page.",
+        "title": "Սկզբունքներ",
+        "subtitle": "Մոտեցումներ, որոնց հետևել եմ յուրաքանչյուր էջում։",
         "cards": [
           {
-            "title": "Design fidelity",
-            "body": "Approved layouts translated accurately into working pages."
+            "title": "Դիզայնի ճշգրիտ իրականացում",
+            "body": "Հաստատված մակետները ճշգրիտ վերածվել են գործող էջերի։"
           },
           {
-            "title": "Reusability",
-            "body": "Atomic/BEM-based styling and tokens, shared by every page."
+            "title": "Բազմակի օգտագործում",
+            "body": "Ատոմային/BEM ոճավորում և թոքեններ՝ ընդհանուր բոլոր էջերի համար։"
           },
           {
-            "title": "Consistent motion",
-            "body": "Transitions that stay coherent across product families."
+            "title": "Հետևողական անիմացիա",
+            "body": "Անցումները պահպանում են միասնական տրամաբանություն պրոդուկտային տարբեր ուղղությունների միջև։"
           },
           {
-            "title": "Responsive structure",
-            "body": "The same experience, preserved across screen sizes."
+            "title": "Ադապտիվ կառուցվածք",
+            "body": "Նույն փորձառությունը՝ տարբեր չափերի էկրաններին։"
           },
           {
-            "title": "Visual consistency",
-            "body": "Navigation, typography and UI patterns kept aligned."
+            "title": "Վիզուալ միասնականություն",
+            "body": "Նավիգացիան, տառատեսակներն ու UI լուծումները համահունչ են միմյանց։"
           }
         ]
       },
       "architecture": {
-        "title": "In detail",
-        "subtitle": "Five parts of the build, and how each was approached.",
+        "title": "Մանրամասն",
+        "subtitle": "Ծրագրավորման հինգ մաս և դրանց իրականացման մոտեցումները։",
         "useCases": [
           {
-            "title": "1. Moving between products",
+            "title": "1. Անցումներ պրոդուկտների միջև",
             "blocks": [
               [
-                "Going from one product to another changes titles, imagery and coloured section accents at once."
+                "Մի պրոդուկտից մյուսին անցնելիս միաժամանակ փոխվում են վերնագրերը, պատկերներն ու բաժինների գունային շեշտադրումները։"
               ],
               [
-                "I implemented those transitions in JavaScript, so incoming and outgoing content hand over in step."
+                "Այս անցումները JavaScript-ով իրականացրել եմ այնպես, որ հեռացող և հայտնվող բովանդակությունը շարժվի համաժամանակյա։"
               ]
             ]
           },
           {
-            "title": "2. Different product identities",
+            "title": "2. Պրոդուկտների տարբեր վիզուալ ինքնություններ",
             "blocks": [
               [
-                "Sports, gaming and platform sections each carry their own visual theme."
+                "Սպորտային, խաղային և հարթակային բաժիններն ունեն իրենց վիզուալ թեմաները։"
               ],
               [
-                "They share one site structure, so navigation and layout stay familiar while colour and imagery change."
+                "Միևնույն ժամանակ կառուցվածքը ընդհանուր է. նավիգացիան ու դասավորությունը մնում են ծանոթ, փոխվում են գույներն ու պատկերները։"
               ]
             ]
           },
           {
-            "title": "3. A hero in motion",
+            "title": "3. Շարժման մեջ գտնվող առաջին էկրան",
             "blocks": [
               [
-                "The homepage opens on a continuously moving, shape-changing visual object, set alongside the hero content."
+                "Գլխավոր էջի առաջին էկրանին, հիմնական բովանդակության կողքին, անընդհատ շարժվում և ձևը փոխում է վիզուալ օբյեկտը։"
               ]
             ]
           },
           {
-            "title": "4. The navigation overlay",
+            "title": "4. Ամբողջ էկրանով մենյու",
             "blocks": [
               [
-                "A full-page menu, grouped by product category, that opens and closes as an animated state."
+                "Ամբողջ էկրանով մենյուն խմբավորված է ըստ պրոդուկտների կատեգորիաների և բացվում ու փակվում է անիմացիայով։"
               ]
             ]
           },
           {
-            "title": "5. Staged content",
+            "title": "5. Բովանդակության փուլային հայտնվելը",
             "blocks": [
               [
-                "Service illustrations, support details, and the provider and payment grids enter progressively rather than all at once."
+                "Ծառայությունների նկարազարդումները, աջակցության տեղեկությունները, մատակարարների և վճարման եղանակների ցանցերը հայտնվում են փուլերով, ոչ թե միանգամից։"
               ]
             ]
           }
@@ -2219,37 +2219,37 @@
     "soulone": {
       "hero": {
         "title": "SoulOne",
-        "subtitle": "Brand direction and an interactive e-commerce website concept for an Armenian gluten-free bakery",
+        "subtitle": "Բրենդի վիզուալ ուղղություն և ինտերակտիվ առցանց խանութի կոնցեպտ՝ հայկական առանց գլյուտենի հացաբուլկեղենի բրենդի համար",
         "description": [
-          "From May to October 2025, I worked with SoulOne as Web Designer and Product Owner, as part of its founding team. The bakery was already making gluten-free cakes and dessert balls and supplying several cafés.",
-          "I designed the website and its interactive Figma prototypes, and set the colour palette, typography, tone of voice, website copy and social-media visuals. The website stayed a concept: it was not built or launched, and the business later stopped trading."
+          "2025 թվականի մայիսից հոկտեմբեր SoulOne-ի հետ աշխատել եմ որպես վեբ դիզայներ և Product Owner՝ նախագծի հիմնադիր թիմի կազմում։ Հացաբուլկեղենի բրենդն արդեն պատրաստում էր առանց գլյուտենի տորթեր ու դեսերտային գնդիկներ և մատակարարում մի քանի սրճարանների։",
+          "Ես մշակել եմ կայքի դիզայնն ու ինտերակտիվ նախատիպերը Figma-ում, սահմանել գունային գամման, տառատեսակները, հաղորդակցության ոճը, կայքի տեքստերը և սոցիալական ցանցերի վիզուալները։ Կայքը մնացել է կոնցեպտ՝ չի ծրագրավորվել և չի գործարկվել, իսկ ավելի ուշ բիզնեսը դադարեցրել է գործունեությունը։"
         ],
         "meta": [
           {
-            "label": "Role:",
+            "label": "Դերը՝",
             "items": [
-              "Web Designer",
+              "Վեբ դիզայներ",
               "Product Owner"
             ]
           },
           {
-            "label": "Scope:",
+            "label": "Աշխատանքների շրջանակը՝",
             "items": [
-              "Brand direction",
-              "Website UX/UI concept",
-              "Interactive prototypes",
-              "Web copy",
-              "Social visuals"
+              "Բրենդի վիզուալ ուղղություն",
+              "Կայքի UX/UI կոնցեպտ",
+              "Ինտերակտիվ նախատիպեր",
+              "Կայքի տեքստեր",
+              "Սոցիալական ցանցերի վիզուալներ"
             ]
           },
           {
-            "label": "Team:",
+            "label": "Թիմը՝",
             "items": [
-              "Founding team, with the bakery’s owner"
+              "Նախագծի թիմը՝ հացաբուլկեղենի բրենդի սեփականատիրոջ հետ"
             ]
           },
           {
-            "label": "Tools:",
+            "label": "Գործիքներ՝",
             "items": [
               "Figma"
             ]
@@ -2257,106 +2257,106 @@
         ]
       },
       "timeline": {
-        "title": "What the work involved",
+        "title": "Ինչ էր ներառում աշխատանքը",
         "subtitle": [
-          "SoulOne already had products and customers.",
-          "It needed a coherent identity, a clear voice and an online presentation to match."
+          "SoulOne-ն արդեն ուներ ապրանքներ և հաճախորդներ։",
+          "Բրենդին անհրաժեշտ էին միասնական վիզուալ ոճ, հստակ հաղորդակցություն և դրանց համապատասխան առցանց ներկայացում։"
         ],
         "steps": [
           [
             {
-              "title": "Context",
+              "title": "Նախապատմություն",
               "blocks": [
                 [
-                  "An existing bakery - not a business started from zero - with gluten-free cakes and dessert balls already supplied to cafés."
+                  "Արդեն գործող բիզնես, ոչ թե զրոյից ստեղծվող նախագիծ. առանց գլյուտենի տորթերն ու դեսերտային գնդիկները մատակարարվում էին սրճարաններին։"
                 ],
                 [
-                  "The task: a more coherent visual identity, tone of voice and online product presentation, and a website concept."
+                  "Խնդիրն էր մշակել ավելի միասնական վիզուալ ոճ, հաղորդակցության տոն և ապրանքների առցանց ներկայացում, ինչպես նաև կայքի կոնցեպտ։"
                 ]
               ]
             }
           ],
           [
             {
-              "title": "Brand foundations",
+              "title": "Բրենդի հիմքը",
               "blocks": [
                 [
-                  "Tone of voice, colour palette and typography, set first so every later screen and post drew on them."
+                  "Նախ սահմանել եմ հաղորդակցության ոճը, գունային գամման ու տառատեսակները, որոնց վրա հիմնվում էին հետագա էկրաններն ու հրապարակումները։"
                 ]
               ]
             }
           ],
           [
             {
-              "title": "Messaging",
+              "title": "Հաղորդակցություն",
               "blocks": [
                 [
-                  "Website messaging and product copy, written in that voice."
+                  "Կայքի տեքստերն ու ապրանքների նկարագրությունները՝ բրենդի միասնական հաղորդակցական ոճով։"
                 ]
               ]
             }
           ],
           [
             {
-              "title": "The homepage",
+              "title": "Գլխավոր էջ",
               "blocks": [
                 [
-                  "Product ranges, the brand story, product benefits and calls to action."
+                  "Ապրանքների տեսականի, բրենդի պատմություն, արտադրանքի առավելություններ և գործողության կոչեր։"
                 ],
                 [
-                  "Cakes and dessert balls side by side, with a Build Your Box concept."
+                  "Տորթերն ու դեսերտային գնդիկները՝ մեկ կայքում, ներառյալ Build Your Box կոնցեպտը։"
                 ]
               ]
             }
           ],
           [
             {
-              "title": "Product pages",
+              "title": "Ապրանքների էջեր",
               "blocks": [
                 [
-                  "Detail views with imagery, price, quantities, ingredients, nutrition and allergens, and related products."
+                  "Մանրամասն էջեր՝ լուսանկարներով, գնով, քանակով, բաղադրությամբ, սննդային արժեքով, ալերգեններով և նմանատիպ ապրանքներով։"
                 ]
               ]
             }
           ],
           [
             {
-              "title": "Prototype and social",
+              "title": "Նախատիպեր և սոցիալական ցանցեր",
               "blocks": [
                 [
-                  "Interactive Figma prototypes for product image states and transitions, and visuals for social media."
+                  "Ինտերակտիվ Figma նախատիպեր՝ ապրանքի պատկերների փոփոխվող վիճակներով և անցումներով, ինչպես նաև սոցիալական ցանցերի վիզուալներ։"
                 ],
                 [
-                  "An alternative logo was explored too; the original logo was kept."
+                  "Մշակել եմ նաև այլընտրանքային լոգո, սակայն որոշվել է պահպանել նախորդը։"
                 ]
               ]
             }
           ],
           [
             {
-              "title": "What changed",
+              "title": "Ինչ փոխվեց",
               "blocks": [
                 [
                   [
-                    "A visual direction: palette, typography and tone of voice",
-                    "A complete website UI concept, with interactive prototypes",
-                    "Website copy and social creative"
+                    "Վիզուալ ուղղություն՝ գույներ, տառատեսակներ և հաղորդակցության ոճ",
+                    "Կայքի ամբողջական UI կոնցեպտ՝ ինտերակտիվ նախատիպերով",
+                    "Կայքի տեքստեր և սոցիալական ցանցերի գրաֆիկա"
                   ]
                 ],
                 [
-                  "The website itself was not built or launched, so there are no sales or conversion figures to report."
+                  "Կայքը չի ծրագրավորվել և չի գործարկվել, ուստի վաճառքների կամ կոնվերսիայի ցուցանիշներ ներկայացնելու հիմք չկա։"
                 ]
               ]
             }
           ],
           [
             {
-              "title": "What this shows",
+              "title": "Ինչ է ցույց տալիս նախագիծը",
               "blocks": [
                 [
                   [
-                    "Range beyond screens: brand direction, UX/UI, product communication and prototyping",
-                    "Product involvement in an existing business, not only its visuals"
+                    "Էկրաններից դուրս աշխատանք՝ բրենդի վիզուալ ուղղություն, UX/UI, պրոդուկտի հաղորդակցություն և նախատիպերի ստեղծում",
+                    "Մասնակցություն գործող բիզնեսի պրոդուկտային խնդիրներին, ոչ միայն վիզուալ ձևավորմանը"
                   ]
                 ]
               ]
@@ -2365,78 +2365,78 @@
         ]
       },
       "blueprint": {
-        "title": "What the designs prioritise",
-        "subtitle": "The choices that run through the concept.",
+        "title": "Դիզայնի առաջնահերթությունները",
+        "subtitle": "Որոշումներ, որոնք միավորում են ամբողջ կոնցեպտը։",
         "cards": [
           {
-            "title": "Food first",
-            "body": "Photography of the cakes leads every page."
+            "title": "Ապրանքը՝ առաջին պլանում",
+            "body": "Յուրաքանչյուր էջում առաջին հերթին աչքի են ընկնում տորթերի լուսանկարները։"
           },
           {
-            "title": "An easy range",
-            "body": "Cakes and dessert balls stay simple to browse."
+            "title": "Հասկանալի տեսականի",
+            "body": "Տորթերն ու դեսերտային գնդիկները հեշտ է դիտել և ընտրել։"
           },
           {
-            "title": "Details in reach",
-            "body": "Ingredients and product details are easy to find."
+            "title": "Տեղեկությունները՝ հասանելի",
+            "body": "Բաղադրությունն ու ապրանքի մանրամասները հեշտ է գտնել։"
           },
           {
-            "title": "One voice",
-            "body": "Colour, typography and tone stay consistent."
+            "title": "Բրենդի միասնական ձայն",
+            "body": "Գույները, տառատեսակներն ու հաղորդակցության ոճը մնում են միասնական։"
           },
           {
-            "title": "Shown, not described",
-            "body": "Commerce interactions are visible in the prototype."
+            "title": "Ցույց տալ, ոչ թե նկարագրել",
+            "body": "Խանութի ինտերակտիվ վարքը ցուցադրված է նախատիպում։"
           }
         ]
       },
       "architecture": {
-        "title": "In detail",
-        "subtitle": "Design problems, and the solutions the concept proposes.",
+        "title": "Մանրամասն",
+        "subtitle": "Դիզայնի խնդիրներն ու կոնցեպտում առաջարկված լուծումները։",
         "useCases": [
           {
-            "title": "1. A disconnected brand",
+            "title": "1. Բրենդի ոչ միասնական կերպար",
             "blocks": [
               [
-                "The bakery’s presentation didn’t hang together."
+                "Հացաբուլկեղենի բրենդի ներկայացումը միասնական չէր։"
               ],
               [
-                "A defined palette, typography and tone of voice gave every touchpoint the same footing."
+                "Սահմանված գունային գամման, տառատեսակներն ու հաղորդակցության ոճը ընդհանուր հիմք ստեղծեցին բրենդի բոլոր նյութերի համար։"
               ]
             ]
           },
           {
-            "title": "2. Two ranges, one shop",
+            "title": "2. Երկու տեսականի՝ մեկ խանութ",
             "blocks": [
               [
-                "Cakes and dessert balls needed to sit side by side."
+                "Անհրաժեշտ էր տորթերն ու դեսերտային գնդիկները ներկայացնել միասին։"
               ],
               [
-                "Structured homepage and product sections, and a Build Your Box concept, bring them together."
+                "Մշակված գլխավոր էջը, ապրանքների բաժիններն ու Build Your Box կոնցեպտը միավորեցին դրանք։"
               ]
             ]
           },
           {
-            "title": "3. Explaining each product",
+            "title": "3. Ներկայացնել յուրաքանչյուր ապրանքը",
             "blocks": [
               [
-                "Detailed product pages with imagery, price, ingredients, allergens and related items."
+                "Մանրամասն էջեր՝ պատկերներով, գներով, բաղադրիչներով, ալերգեններով և հարակից ապրանքներով։"
               ]
             ]
           },
           {
-            "title": "4. Interactions before development",
+            "title": "4. Փոխազդեցությունները՝ ծրագրավորումից առաջ",
             "blocks": [
               [
-                "Figma prototype states and transitions show how the site would behave, before any of it is built."
+                "Figma նախատիպի վիճակներն ու անցումները ցույց են տալիս, թե ինչպես պետք է աշխատի կայքը՝ նախքան ծրագրավորման մեկնարկը։"
               ]
             ]
           },
           {
-            "title": "5. The logo",
+            "title": "5. Լոգոն",
             "blocks": [
               [
-                "I designed an alternative logo; the owner chose to keep the existing one."
+                "Մշակել եմ այլընտրանքային լոգո, բայց սեփականատերը որոշեց պահպանել գործողը։"
               ]
             ]
           }
@@ -2446,102 +2446,102 @@
     "ginosi": {
       "hero": {
         "title": "Ginosi",
-        "subtitle": "Full front-end implementation for an international serviced-apartment booking website",
+        "subtitle": "Միջազգային ապարտամենտների ամրագրման կայքի ամբողջական Front-end ծրագրավորում",
         "description": [
-          "Ginosi offered serviced apartments in several cities and countries. Its website let visitors search for accommodation and reserve apartments.",
-          "Working directly with the client in April–May 2019, I joined when the visual design was already in place and implemented the full front end under a tight schedule - turning the supplied designs into the working booking-site UI."
+          "Ginosi-ն տարբեր քաղաքներում ու երկրներում առաջարկում էր սպասարկվող ապարտամենտներ։ Կայքում այցելուները կարող էին որոնել կացարան և ամրագրել ապարտամենտներ։",
+          "2019 թվականի ապրիլ–մայիս ամիսներին անմիջապես աշխատել եմ պատվիրատուի հետ։ Կայքի վիզուալ դիզայնն արդեն պատրաստ էր, և սեղմ ժամկետներում իրականացրել եմ ամբողջ Front-end-ը՝ տրամադրված մակետները վերածելով ամրագրման գործող ինտերֆեյսի։"
         ],
         "meta": [
           {
-            "label": "Role:",
+            "label": "Դերը՝",
             "items": [
-              "Front-end Developer",
-              "Direct client"
+              "Front-end ծրագրավորող",
+              "Անմիջական պատվիրատու"
             ]
           },
           {
-            "label": "Scope:",
+            "label": "Աշխատանքների շրջանակը՝",
             "items": [
-              "The entire front-end UI",
-              "Search and listings",
-              "Property pages",
-              "Responsive behaviour"
+              "Ամբողջ Front-end ինտերֆեյսը",
+              "Որոնում և կացարանների ցանկեր",
+              "Կացարանների էջեր",
+              "Ադապտիվ դասավորություն"
             ]
           },
           {
-            "label": "Design:",
+            "label": "Դիզայնը՝",
             "items": [
-              "Supplied by the client"
+              "Տրամադրվել է պատվիրատուի կողմից"
             ]
           }
         ]
       },
       "timeline": {
-        "title": "What the work involved",
+        "title": "Ինչ էր ներառում աշխատանքը",
         "subtitle": [
-          "An established accommodation business, with its booking website already designed.",
-          "It needed all of it built as a working front end, quickly."
+          "Գործող կացարանների բիզնես, որի ամրագրման կայքի դիզայնն արդեն պատրաստ էր։",
+          "Անհրաժեշտ էր արագ իրականացնել ամբողջ Front-end-ը։"
         ],
         "steps": [
           [
             {
-              "title": "Context",
+              "title": "Նախապատմություն",
               "blocks": [
                 [
-                  "Ginosi’s visual design already existed. What it needed was a front end that worked."
+                  "Ginosi-ի վիզուալ դիզայնն արդեն պատրաստ էր։ Պետք էր այն վերածել գործող Front-end-ի։"
                 ]
               ]
             }
           ],
           [
             {
-              "title": "From designs to structure",
+              "title": "Մակետներից՝ կառուցվածք",
               "blocks": [
                 [
-                  "The supplied designs reviewed, then turned into a shared layout and styling for every page."
+                  "Ուսումնասիրել եմ տրամադրված մակետները և դրանց հիման վրա մշակել բոլոր էջերի ընդհանուր կառուցվածքն ու ոճավորումը։"
                 ]
               ]
             }
           ],
           [
             {
-              "title": "Search, listings and properties",
+              "title": "Որոնում, ցանկեր և կացարաններ",
               "blocks": [
                 [
-                  "The accommodation search, the listings and the property pages - the core of the booking experience."
+                  "Կացարանների որոնումը, առաջարկների ցանկերը և ապարտամենտների էջերը՝ ամրագրման գործընթացի հիմքը։"
                 ]
               ]
             }
           ],
           [
             {
-              "title": "Every screen size",
+              "title": "Տարբեր էկրանների համար",
               "blocks": [
                 [
-                  "Responsive behaviour across the site, then the finished front end handed over."
+                  "Կայքը հարմարեցրել եմ տարբեր էկրանների չափերին և հանձնել պատրաստ Front-end-ը։"
                 ]
               ]
             }
           ],
           [
             {
-              "title": "What changed",
+              "title": "Ինչ փոխվեց",
               "blocks": [
                 [
-                  "The entire front-end UI, delivered within a very short timeframe - sooner than the client had asked for."
+                  "Ամբողջ Front-end ինտերֆեյսը պատրաստ էր շատ կարճ ժամկետում՝ պատվիրատուի ակնկալածից շուտ։"
                 ]
               ]
             }
           ],
           [
             {
-              "title": "What this shows",
+              "title": "Ինչ է ցույց տալիս նախագիծը",
               "blocks": [
                 [
                   [
-                    "End-to-end ownership of the presentation layer",
-                    "Speed of execution",
-                    "Implementing another designer’s work accurately"
+                    "Օգտատիրոջ ինտերֆեյսի ամբողջական իրականացում",
+                    "Իրականացման բարձր արագություն",
+                    "Այլ դիզայների աշխատանքի ճշգրիտ իրականացում"
                   ]
                 ]
               ]
@@ -2550,24 +2550,24 @@
         ]
       },
       "blueprint": {
-        "title": "Principles",
-        "subtitle": "What a fast build still held to.",
+        "title": "Սկզբունքներ",
+        "subtitle": "Ինչն էր կարևոր մնում նույնիսկ արագ մշակման ընթացքում։",
         "cards": [
           {
-            "title": "Faithful to the design",
-            "body": "The approved visual design, implemented as drawn."
+            "title": "Հավատարիմ դիզայնին",
+            "body": "Հաստատված վիզուալ դիզայնը ճշգրիտ վերածվել է գործող ինտերֆեյսի։"
           },
           {
-            "title": "Consistent patterns",
-            "body": "Common patterns kept the same across every page."
+            "title": "Միասնական լուծումներ",
+            "body": "Ընդհանուր տարրերը բոլոր էջերում պահպանել են միասնական տեսքն ու վարքը։"
           },
           {
-            "title": "Reliable delivery",
-            "body": "A tight schedule, met without cutting corners."
+            "title": "Հուսալի իրականացում",
+            "body": "Սեղմ ժամկետները պահպանվել են՝ առանց որակի հաշվին զիջումների։"
           },
           {
-            "title": "Every screen size",
-            "body": "An interface that works on every screen."
+            "title": "Ցանկացած էկրանի համար",
+            "body": "Ինտերֆեյս, որն աշխատում է տարբեր չափերի էկրաններին։"
           }
         ]
       }
@@ -2575,30 +2575,30 @@
     "benzeen": {
       "hero": {
         "title": "Benzeen Auto Parts",
-        "subtitle": "UI and interaction engineering for a custom automotive e-commerce site, built alongside an evolving design",
+        "subtitle": "UI և ինտերակտիվ տարրերի ծրագրավորում ավտոպահեստամասերի առցանց խանութի համար՝ զուգահեռ զարգացող դիզայնով",
         "description": [
-          "Benzeen Auto Parts was an automotive e-commerce project for a business in Los Angeles, delivered through TCO in 2019. Designers kept preparing and updating pages while development was underway.",
-          "I implemented the UI across the website - interactive behaviour, animations and selected JavaScript logic - and integrated Google AMP. It was my first e-commerce project outside a traditional CMS."
+          "Benzeen Auto Parts-ը Լոս Անջելեսում գործող ավտոպահեստամասերի առցանց վաճառքի բիզնեսի նախագիծ էր, որի վրա 2019 թվականին աշխատել եմ TCO-ի միջոցով։ Դիզայներները շարունակում էին նոր էջեր պատրաստել և գործողները թարմացնել ծրագրավորման ընթացքում։",
+          "Իրականացրել եմ ամբողջ կայքի ինտերֆեյսը՝ ներառյալ ինտերակտիվ վարքը, անիմացիաները և JavaScript տրամաբանության մի մասը, ինչպես նաև ներդրել եմ Google AMP։ Սա իմ առաջին e-commerce նախագիծն էր՝ առանց ավանդական CMS-ի։"
         ],
         "meta": [
           {
-            "label": "Role:",
+            "label": "Դերը՝",
             "items": [
-              "UI Developer",
-              "Through TCO"
+              "UI ծրագրավորող",
+              "TCO-ի միջոցով"
             ]
           },
           {
-            "label": "Scope:",
+            "label": "Աշխատանքների շրջանակը՝",
             "items": [
-              "Every page’s UI",
-              "Interactions and animations",
-              "JavaScript logic",
+              "Բոլոր էջերի UI-ը",
+              "Ինտերակտիվություն և անիմացիաներ",
+              "JavaScript տրամաբանություն",
               "Google AMP"
             ]
           },
           {
-            "label": "Stack:",
+            "label": "Տեխնոլոգիաներ՝",
             "items": [
               "Angular",
               "Sass/SCSS",
@@ -2610,71 +2610,71 @@
         ]
       },
       "timeline": {
-        "title": "What the work involved",
+        "title": "Ինչ էր ներառում աշխատանքը",
         "subtitle": [
-          "A custom e-commerce build, not a CMS theme.",
-          "New page designs kept arriving while the site was being built."
+          "Անհատական e-commerce մշակում, ոչ թե պատրաստի CMS ձևանմուշ։",
+          "Նոր էջերի մակետները ստացվում էին կայքի ծրագրավորման ընթացքում։"
         ],
         "steps": [
           [
             {
-              "title": "Context",
+              "title": "Նախապատմություն",
               "blocks": [
                 [
-                  "A custom, non-CMS e-commerce build in Angular. Design updates and new page concepts arrived while development was already underway."
+                  "Angular-ով անհատական e-commerce նախագիծ՝ առանց CMS-ի։ Էջերի նոր կոնցեպտներն ու դիզայնի փոփոխությունները հայտնվում էին ծրագրավորումն սկսելուց հետո։"
                 ]
               ]
             }
           ],
           [
             {
-              "title": "Structure and shared styling",
+              "title": "Կառուցվածք և ընդհանուր ոճավորում",
               "blocks": [
                 [
-                  "Page structure and shared styling first, written in Sass/SCSS with BEM."
+                  "Նախ մշակել եմ էջերի կառուցվածքն ու ընդհանուր ոճավորումը՝ օգտագործելով Sass/SCSS և BEM մեթոդաբանությունը։"
                 ]
               ]
             }
           ],
           [
             {
-              "title": "Alongside the designers",
+              "title": "Դիզայներների հետ զուգահեռ",
               "blocks": [
                 [
-                  "Pages implemented and updated as the designs changed, in step with the design team."
+                  "Իրականացրել և թարմացրել եմ էջերը մակետների փոփոխություններին զուգընթաց՝ աշխատելով դիզայնի թիմի հետ։"
                 ]
               ]
             }
           ],
           [
             {
-              "title": "The storefront",
+              "title": "Առցանց խանութ",
               "blocks": [
                 [
-                  "The UI across the whole store: browsing by make, recent arrivals, stock and part pages, quotes and the customer account."
+                  "Ամբողջ խանութի ինտերֆեյսը՝ որոնում ըստ մեքենայի մակնիշի, նոր ապրանքներ, առկա պահեստամասեր, ապրանքի էջեր, գնային հարցումներ և օգտատիրոջ հաշիվ։"
                 ]
               ]
             }
           ],
           [
             {
-              "title": "Interaction and AMP",
+              "title": "Ինտերակտիվություն և AMP",
               "blocks": [
                 [
-                  "Animations and JavaScript behaviour across the site, and Google AMP integrated for supported mobile content."
+                  "Կայքի անիմացիաներն ու JavaScript տրամաբանությունը, ինչպես նաև Google AMP-ի ներդրումը աջակցվող բջջային բովանդակության համար։"
                 ]
               ]
             }
           ],
           [
             {
-              "title": "What changed",
+              "title": "Ինչ փոխվեց",
               "blocks": [
                 [
                   [
-                    "The UI implemented across the site",
-                    "Interactive behaviour and animations",
-                    "Google AMP integrated"
+                    "Կայքի բոլոր էջերի ինտերֆեյսը իրականացվեց",
+                    "Ինտերակտիվ վարք և անիմացիաներ",
+                    "Google AMP-ի ներդրում"
                   ]
                 ]
               ]
@@ -2682,13 +2682,13 @@
           ],
           [
             {
-              "title": "What this shows",
+              "title": "Ինչ է ցույց տալիս նախագիծը",
               "blocks": [
                 [
                   [
-                    "Full UI implementation for custom e-commerce",
-                    "Close collaboration with designers while the design moved",
-                    "Animation work, and experience with non-CMS Angular projects"
+                    "Ոչ ստանդարտ առցանց խանութի ամբողջական UI իրականացում",
+                    "Սերտ համագործակցություն դիզայներների հետ՝ մակետների փոփոխությունների ընթացքում",
+                    "Անիմացիաներ և Angular-ով՝ առանց CMS-ի, նախագծի փորձ"
                   ]
                 ]
               ]
@@ -2697,39 +2697,39 @@
         ]
       },
       "blueprint": {
-        "title": "Principles",
-        "subtitle": "How the build kept up with a moving design.",
+        "title": "Սկզբունքներ",
+        "subtitle": "Ինչպես էր ծրագրավորումը համընթաց գնում փոփոխվող դիզայնին։",
         "cards": [
           {
-            "title": "Stay aligned",
-            "body": "Design and implementation kept in step as requirements changed."
+            "title": "Աշխատել համահունչ",
+            "body": "Դիզայնն ու իրականացումը համահունչ էին մնում պահանջների փոփոխությանը զուգընթաց։"
           },
           {
-            "title": "Structured styling",
-            "body": "BEM and SCSS, so new pages fit the existing ones."
+            "title": "Կառուցվածքային ոճավորում",
+            "body": "BEM-ն ու SCSS-ն օգնում էին նոր էջերը ներդնել գոյություն ունեցող համակարգում։"
           },
           {
-            "title": "Deliberate details",
-            "body": "Interaction details built with intention, not left to chance."
+            "title": "Մտածված մանրամասներ",
+            "body": "Ինտերակտիվ մանրամասները մշակված էին նպատակային, ոչ թե թողնված պատահականության։"
           },
           {
-            "title": "One storefront",
-            "body": "A large product surface kept consistent throughout."
+            "title": "Միասնական խանութ",
+            "body": "Մեծածավալ ինտերֆեյսը ամբողջ կայքում պահպանում էր միասնականությունը։"
           }
         ]
       },
       "architecture": {
-        "title": "In detail",
-        "subtitle": "Two parts of the work, and how each was approached.",
+        "title": "Մանրամասն",
+        "subtitle": "Աշխատանքի երկու ուղղություն և դրանց իրականացման մոտեցումները։",
         "useCases": [
           {
-            "title": "1. A design that kept changing",
+            "title": "1. Անընդհատ փոփոխվող դիզայն",
             "blocks": [
               [
-                "New pages were still being designed while the site was built."
+                "Նոր էջերը շարունակում էին նախագծվել, երբ կայքի ծրագրավորումն արդեն ընթացքի մեջ էր։"
               ],
               [
-                "Iterative implementation, on structured Sass/BEM patterns, let new and updated pages slot into what already existed."
+                "Կառուցվածքային Sass/BEM լուծումների վրա հիմնված փուլային իրականացումը թույլ էր տալիս նոր և թարմացված էջերը ներառել արդեն գոյություն ունեցող կառուցվածքում։"
               ]
             ]
           },
@@ -2737,7 +2737,7 @@
             "title": "2. Google AMP",
             "blocks": [
               [
-                "I integrated Google AMP into the project for the mobile content it supported, alongside the main Angular build."
+                "Google AMP-ը ներդրել եմ աջակցվող բջջային բովանդակության համար՝ հիմնական Angular տարբերակին զուգահեռ։"
               ]
             ]
           }
@@ -2747,36 +2747,36 @@
     "brainstorm": {
       "hero": {
         "title": "Brainstorm",
-        "subtitle": "Custom front-end and scroll-driven interaction work for Brainstorm’s agency website",
+        "subtitle": "Անհատական Front-end և scroll անիմացիաներ Brainstorm գործակալության կայքի համար",
         "description": [
-          "It began in 2018 as an outsourced assignment: building Brainstorm’s own agency website while its design was still being developed.",
-          "I built the website UI in HTML, CSS and vanilla JavaScript, with custom animation and hand-written scroll-event logic. The finished site led Brainstorm to invite me onto its team, where I went on to work on client stores - those are separate projects."
+          "Ամեն ինչ սկսվեց 2018 թվականին՝ որպես արտաքին պատվեր. ես ծրագրավորում էի Brainstorm գործակալության կայքը, մինչ դրա դիզայնը դեռ մշակվում էր։",
+          "Կայքի UI-ը իրականացրել եմ HTML, CSS և մաքուր JavaScript-ով՝ անհատական անիմացիաներով և ձեռքով գրված scroll event-ների տրամաբանությամբ։ Կայքի ավարտից հետո Brainstorm-ը հրավիրեց ինձ միանալ թիմին, որտեղ աշխատել եմ հաճախորդների առցանց խանութների վրա։ Դրանք առանձին նախագծեր են։"
         ],
         "meta": [
           {
-            "label": "Role:",
+            "label": "Դերը՝",
             "items": [
-              "Front-end Developer"
+              "Front-end ծրագրավորող"
             ]
           },
           {
-            "label": "Relationship:",
+            "label": "Համագործակցության ձևը՝",
             "items": [
-              "Outsourced project, May–Jul 2018",
-              "Then employee, Jul–Dec 2018"
+              "Արտաքին պատվեր, 2018 թ. մայիս–հուլիս",
+              "Այնուհետև աշխատակից, 2018 թ. հուլիս–դեկտեմբեր"
             ]
           },
           {
-            "label": "Scope:",
+            "label": "Աշխատանքների շրջանակը՝",
             "items": [
-              "Agency website UI",
-              "Custom animation",
-              "Scroll-driven interactions",
-              "Responsive layouts"
+              "Գործակալության կայքի UI-ը",
+              "Անհատական անիմացիաներ",
+              "Scroll-ով կառավարվող փոխազդեցություններ",
+              "Ադապտիվ դասավորություններ"
             ]
           },
           {
-            "label": "Stack:",
+            "label": "Տեխնոլոգիաներ՝",
             "items": [
               "HTML",
               "CSS",
@@ -2786,69 +2786,69 @@
         ]
       },
       "timeline": {
-        "title": "What the work involved",
+        "title": "Ինչ էր ներառում աշխատանքը",
         "subtitle": [
-          "Brainstorm needed its own site built while the design was still taking shape."
+          "Brainstorm-ին անհրաժեշտ էր սեփական կայք, մինչ դիզայնը դեռ ձևավորվում էր։"
         ],
         "steps": [
           [
             {
-              "title": "Context",
+              "title": "Նախապատմություն",
               "blocks": [
                 [
-                  "The agency’s own website, with the design still being developed and refined as the front end was built."
+                  "Գործակալության սեփական կայքը, որի դիզայնը մշակվում և հստակեցվում էր Front-end-ին զուգահեռ։"
                 ]
               ]
             }
           ],
           [
             {
-              "title": "An evolving design",
+              "title": "Զարգացող դիզայն",
               "blocks": [
                 [
-                  "Working directly with the design as it changed, rather than waiting for a final version."
+                  "Աշխատել եմ փոփոխվող մակետներով՝ չսպասելով վերջնական տարբերակին։"
                 ]
               ]
             }
           ],
           [
             {
-              "title": "Layouts and responsive UI",
+              "title": "Մակետներ և ադապտիվ UI",
               "blocks": [
                 [
-                  "Every layout implemented and made responsive, in step with the visual concept."
+                  "Իրականացրել եմ բոլոր մակետները՝ հարմարեցնելով տարբեր էկրաններին և պահպանելով վիզուալ կոնցեպտը։"
                 ]
               ]
             }
           ],
           [
             {
-              "title": "Custom animation",
+              "title": "Անհատական անիմացիաներ",
               "blocks": [
                 [
-                  "Animation built as part of the experience, not added on top of it."
+                  "Անիմացիան օգտատիրոջ փորձառության մաս էր, ոչ թե պարզապես ձևավորում։"
                 ]
               ]
             }
           ],
           [
             {
-              "title": "Scroll-triggered events",
+              "title": "Scroll իրադարձություններ",
               "blocks": [
                 [
-                  "Scroll-driven events and transitions, coded by hand in JavaScript rather than taken from generic animation templates."
+                  "Scroll-ի ժամանակ գործող անիմացիաներն ու անցումները ձեռքով ծրագրավորել եմ JavaScript-ով՝ առանց պատրաստի անիմացիոն ձևանմուշների։"
                 ]
               ]
             }
           ],
           [
             {
-              "title": "What changed",
+              "title": "Ինչ փոխվեց",
               "blocks": [
                 [
                   [
-                    "An animated, custom front-end site for the agency",
-                    "An invitation to join Brainstorm as a developer"
+                    "Գործակալության անհատական անիմացիոն կայք",
+                    "Հրավեր միանալու Brainstorm թիմին որպես ծրագրավորող"
                   ]
                 ]
               ]
@@ -2856,13 +2856,13 @@
           ],
           [
             {
-              "title": "What this shows",
+              "title": "Ինչ է ցույց տալիս նախագիծը",
               "blocks": [
                 [
                   [
-                    "Independent front-end delivery",
-                    "Custom JavaScript motion, implemented by hand",
-                    "A client engagement that grew into a longer working relationship"
+                    "Ինքնուրույն Front-end իրականացում",
+                    "Ձեռքով գրված անհատական JavaScript անիմացիաներ",
+                    "Հաճախորդի նախագիծ, որը վերածվեց երկարաժամկետ համագործակցության"
                   ]
                 ]
               ]
@@ -2871,50 +2871,50 @@
         ]
       },
       "blueprint": {
-        "title": "Principles",
-        "subtitle": "How the site was built while its design was still moving.",
+        "title": "Սկզբունքներ",
+        "subtitle": "Ինչպես էր կայքը կառուցվում դիզայնի մշակմանը զուգահեռ։",
         "cards": [
           {
-            "title": "Work with the design",
-            "body": "Build directly against an evolving design."
+            "title": "Աշխատել դիզայնին զուգահեռ",
+            "body": "Ինտերֆեյսը մշակել դեռ փոփոխվող մակետների հիման վրա։"
           },
           {
-            "title": "Motion with a job",
-            "body": "Animation as a working part of the experience."
+            "title": "Նպատակային անիմացիա",
+            "body": "Անիմացիան՝ որպես կայքի հետ փոխազդեցության գործուն մաս։"
           },
           {
-            "title": "Explicit scrolling",
-            "body": "Scroll interactions controlled in code, not by templates."
+            "title": "Scroll-ի կառավարում",
+            "body": "Scroll փոխազդեցությունները կառավարվում են կոդով, ոչ թե ձևանմուշներով։"
           },
           {
-            "title": "Responsive concept",
-            "body": "Responsive behaviour kept true to the visual idea."
+            "title": "Ադապտիվ կոնցեպտ",
+            "body": "Տարբեր էկրանների համար հարմարեցումը պահպանում է սկզբնական վիզուալ գաղափարը։"
           }
         ]
       },
       "architecture": {
-        "title": "In detail",
-        "subtitle": "Two parts of the work, and how each was approached.",
+        "title": "Մանրամասն",
+        "subtitle": "Մշակման երկու մաս և դրանց մոտեցումները։",
         "useCases": [
           {
-            "title": "1. Scroll-driven animation, by hand",
+            "title": "1. Scroll անիմացիաներ՝ ձեռքով",
             "blocks": [
               [
-                "The site’s animation and interactions are driven by scrolling."
+                "Կայքի անիմացիաներն ու ինտերակտիվությունը կառավարվում են scroll-ով։"
               ],
               [
-                "Rather than relying on generic animation templates, I implemented the JavaScript event behaviour myself, so each page animates the way it was meant to."
+                "Պատրաստի ձևանմուշների փոխարեն ես ինքս եմ գրել JavaScript իրադարձությունների մշակման տրամաբանությունը, որպեսզի յուրաքանչյուր էջի անիմացիան աշխատի ըստ մտահղացման։"
               ]
             ]
           },
           {
-            "title": "2. A design still taking shape",
+            "title": "2. Դիզայնը՝ մշակման ընթացքում",
             "blocks": [
               [
-                "The designs were still evolving while the front end was underway."
+                "Մակետները շարունակում էին փոխվել, երբ Front-end-ի ծրագրավորումն արդեն ընթացքի մեջ էր։"
               ],
               [
-                "Building in step with them meant the finished site matched the final design, not an early draft of it."
+                "Զուգահեռ աշխատանքը թույլ տվեց, որ պատրաստ կայքը համապատասխանի վերջնական դիզայնին, այլ ոչ թե դրա վաղ տարբերակին։"
               ]
             ]
           }
@@ -2924,91 +2924,91 @@
     "world-education": {
       "hero": {
         "title": "World Education",
-        "subtitle": "Responsive UI implementation for an international education-services platform",
+        "subtitle": "Միջազգային կրթական հարթակի ադապտիվ ինտերֆեյսի իրականացում",
         "description": [
-          "World Education connects schools, agents, students, parents, teachers and service providers around education, university admissions, tests, guides and scholarship information.",
-          "Working directly with the client from March to May 2020, I built most of the website’s front end as UI Developer, including responsive layouts and animations; some of the JavaScript logic was handled by another contributor. The site still runs in much the same form."
+          "World Education-ը միավորում է դպրոցներին, կրթական գործակալներին, ուսանողներին, ծնողներին, ուսուցիչներին և ծառայություններ մատուցողներին։ Հարթակը ներկայացնում է տեղեկություններ կրթության, համալսարան ընդունվելու, քննությունների, ուղեցույցների և կրթաթոշակների մասին։",
+          "2020 թվականի մարտից մայիս անմիջապես աշխատել եմ պատվիրատուի հետ որպես UI ծրագրավորող։ Իրականացրել եմ կայքի Front-end-ի հիմնական մասը՝ ներառյալ ադապտիվ դասավորությունն ու անիմացիաները։ JavaScript տրամաբանության մի մասի վրա աշխատել է մեկ այլ ծրագրավորող։ Կայքը մինչ օրս գործում է գրեթե նույն տեսքով։"
         ],
         "meta": [
           {
-            "label": "Role:",
+            "label": "Դերը՝",
             "items": [
-              "UI Developer",
-              "Direct client"
+              "UI ծրագրավորող",
+              "Անմիջական պատվիրատու"
             ]
           },
           {
-            "label": "Scope:",
+            "label": "Աշխատանքների շրջանակը՝",
             "items": [
-              "Front-end UI",
-              "Responsive layouts",
-              "Animations",
-              "Interaction work"
+              "Front-end ինտերֆեյս",
+              "Ադապտիվ դասավորություններ",
+              "Անիմացիաներ",
+              "Ինտերակտիվ տարրեր"
             ]
           },
           {
-            "label": "Team:",
+            "label": "Թիմը՝",
             "items": [
-              "With another contributor on JavaScript logic"
+              "JavaScript տրամաբանության մի մասը՝ մեկ այլ ծրագրավորողի մասնակցությամբ"
             ]
           }
         ]
       },
       "timeline": {
-        "title": "What the work involved",
+        "title": "Ինչ էր ներառում աշխատանքը",
         "subtitle": [
-          "An education platform serving many audiences at once.",
-          "It needed a clear, usable multi-page site for its services and information."
+          "Կրթական հարթակ՝ օգտատերերի տարբեր խմբերի համար։",
+          "Հարթակին անհրաժեշտ էր պարզ և հարմար բազմաէջ կայք՝ ծառայություններն ու տեղեկությունները ներկայացնելու համար։"
         ],
         "steps": [
           [
             {
-              "title": "Context",
+              "title": "Նախապատմություն",
               "blocks": [
                 [
-                  "A platform for schools, agents, students, parents, teachers and service providers, needing a website that presents its services and information clearly."
+                  "Դպրոցների, գործակալների, ուսանողների, ծնողների, ուսուցիչների և ծառայություններ մատուցողների համար նախատեսված հարթակ, որին անհրաժեշտ էր ծառայություններն ու տեղեկությունները հստակ ներկայացնող կայք։"
                 ]
               ]
             }
           ],
           [
             {
-              "title": "Responsive page structure",
+              "title": "Էջերի ադապտիվ կառուցվածք",
               "blocks": [
                 [
-                  "The designs translated into responsive page structures."
+                  "Դիզայնը վերածել եմ տարբեր էկրաններին հարմարվող էջերի կառուցվածքի։"
                 ]
               ]
             }
           ],
           [
             {
-              "title": "Content and services",
+              "title": "Բովանդակություն և ծառայություններ",
               "blocks": [
                 [
-                  "Content and service sections built out across the site."
+                  "Իրականացրել եմ կայքի բովանդակային և ծառայությունների բաժինները։"
                 ]
               ]
             }
           ],
           [
             {
-              "title": "Animation and interaction",
+              "title": "Անիմացիաներ և փոխազդեցություններ",
               "blocks": [
                 [
-                  "Animations, and UI interactions integrated into the pages."
+                  "Էջերի ինտերֆեյսում ավելացրել եմ անիմացիաներ և ինտերակտիվ տարրեր։"
                 ]
               ]
             }
           ],
           [
             {
-              "title": "What changed",
+              "title": "Ինչ փոխվեց",
               "blocks": [
                 [
                   [
-                    "The primary front end and its animations, delivered",
-                    "A site still running in much the same form"
+                    "Front-end-ի հիմնական մասը և անիմացիաները իրականացվել ու հանձնվել են պատվիրատուին",
+                    "Կայքը մինչ օրս աշխատում է գրեթե նույն տեսքով"
                   ]
                 ]
               ]
@@ -3016,10 +3016,10 @@
           ],
           [
             {
-              "title": "What this shows",
+              "title": "Ինչ է ցույց տալիս նախագիծը",
               "blocks": [
                 [
-                  "Full responsibility for the presentation layer of a conventional commercial client website."
+                  "Ամբողջական կոմերցիոն կայքի ինտերֆեյսի իրականացում, ոչ թե միայն առանձին էկրանների կամ բաղադրիչների մշակում։"
                 ]
               ]
             }
@@ -3027,24 +3027,24 @@
         ]
       },
       "blueprint": {
-        "title": "Principles",
-        "subtitle": "What kept a content-heavy site easy to use.",
+        "title": "Սկզբունքներ",
+        "subtitle": "Ինչն օգնեց մեծ ծավալի տեղեկություններով կայքը հարմար պահել։",
         "cards": [
           {
-            "title": "Easy to scan",
-            "body": "Educational content laid out to be scanned quickly."
+            "title": "Հեշտ դիտվող բովանդակություն",
+            "body": "Կրթական տեղեկությունները դասավորված են այնպես, որ դրանք հնարավոր լինի արագ դիտարկել։"
           },
           {
-            "title": "Clear structure",
-            "body": "A responsive structure that holds on every screen."
+            "title": "Հստակ կառուցվածք",
+            "body": "Ադապտիվ կառուցվածք, որը պահպանվում է տարբեր էկրաններին։"
           },
           {
-            "title": "Motion that serves",
-            "body": "Animation that never hides the information."
+            "title": "Նպատակային անիմացիա",
+            "body": "Անիմացիան չի խանգարում տեղեկությունների ընկալմանը։"
           },
           {
-            "title": "Consistent patterns",
-            "body": "The same UI patterns from page to page."
+            "title": "Միասնական UI լուծումներ",
+            "body": "Նույն UI լուծումները պահպանվում են էջից էջ։"
           }
         ]
       }

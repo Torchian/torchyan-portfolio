@@ -1707,34 +1707,34 @@
         "subtitle": "Growth & Marketplace — UI engineering at product scale",
         "description": [
           "From October 2021 to February 2024, I worked as a Senior UI Engineer on picsart.com — first with the Growth team, then with Marketplace.",
-          "The work: integrating the Picsart Design System, building the components it didn’t cover, adding right-to-left language support from scratch, and a large part of the accessibility work in my scope."
+          "Моя работа: интеграция дизайн-системы Picsart, создание недостающих компонентов, внедрение поддержки языков с письмом справа налево с нуля и значительная часть задач по доступности в зоне моей ответственности."
         ],
         "meta": [
           {
-            "label": "Role:",
+            "label": "Роль:",
             "items": [
               "Senior UI Engineer",
-              "Employee"
+              "Сотрудник компании"
             ]
           },
           {
-            "label": "Scope:",
+            "label": "Объём работ:",
             "items": [
-              "Design System integration",
-              "RTL/LTR localization",
-              "Accessibility",
-              "Performance"
+              "Интеграция дизайн-системы",
+              "Локализация RTL/LTR",
+              "Доступность",
+              "Производительность"
             ]
           },
           {
-            "label": "Teams:",
+            "label": "Команды:",
             "items": [
               "Growth (2021–2023)",
               "Marketplace (2023–2024)"
             ]
           },
           {
-            "label": "Stack:",
+            "label": "Стек:",
             "items": [
               "React",
               "JSS",
@@ -1745,23 +1745,23 @@
         ]
       },
       "timeline": {
-        "title": "What the work involved",
+        "title": "Из чего состояла работа",
         "subtitle": [
-          "picsart.com is a large product surface, shipped by many teams at once.",
-          "My job was to keep the UI in my team’s scope consistent, accessible and ready for every language."
+          "picsart.com — масштабная продуктовая платформа, над которой одновременно работают многие команды.",
+          "Моя задача — сохранять единообразие, доступность и готовность UI в зоне ответственности команды для всех поддерживаемых языков."
         ],
         "steps": [
           [
             {
-              "title": "Context",
+              "title": "Контекст",
               "blocks": [
                 [
-                  "Picsart’s website serves many products and page types:",
+                  "На сайте Picsart представлены разные продукты и типы страниц:",
                   [
-                    "Marketing and business pages",
-                    "Marketplace and Discovery",
-                    "The editor and Mini Apps",
-                    "Growth products such as Ad Wizard"
+                    "Маркетинговые и бизнес-страницы",
+                    "Marketplace и Discovery",
+                    "Редактор и Mini Apps",
+                    "Продукты Growth, включая Ad Wizard"
                   ]
                 ],
                 [
@@ -1772,15 +1772,15 @@
           ],
           [
             {
-              "title": "Growth team, 2021–2023",
+              "title": "Команда Growth, 2021–2023",
               "blocks": [
                 [
-                  "I was the team’s primary UI developer, focused on the Picsart website:",
+                  "Я был основным UI-разработчиком команды и работал преимущественно над сайтом Picsart:",
                   [
-                    "Modular, scalable UI in React, JSS and Styled Components",
-                    "Responsive, cross-browser implementation",
-                    "Accessibility work",
-                    "Code reviews for performance, maintainability and best practice"
+                    "Модульный, масштабируемый UI на React, JSS и Styled Components",
+                    "Адаптивная и кроссбраузерная реализация",
+                    "Работа над доступностью",
+                    "Код-ревью с акцентом на производительность, поддержку и лучшие практики"
                   ]
                 ]
               ]
@@ -1794,41 +1794,41 @@
                   "A separate Growth product where people create visual and social content and adapt it to the formats each platform needs — text, imagery, titles and emoji in one editor."
                 ],
                 [
-                  "As the Growth team’s primary UI developer, I implemented its interface in React, HTML/CSS, JSS and Styled Components."
+                  "Как основной UI-разработчик команды Growth я реализовал его интерфейс с помощью React, HTML/CSS, JSS и Styled Components."
                 ]
               ]
             }
           ],
           [
             {
-              "phase": "Phase 1",
-              "title": "Design System integration",
+              "phase": "Этап 1",
+              "title": "Интеграция дизайн-системы",
               "blocks": [
                 [
-                  "I was the main UI and Design System integration owner for picsart.com and selected product branches in my team:",
+                  "В своей команде я был основным ответственным за UI и интеграцию дизайн-системы на picsart.com и в отдельных продуктовых направлениях:",
                   [
-                    "Integrated shared components across business pages, the editor and Mini Apps",
-                    "Placed supplied components and templates as product required"
+                    "Интегрировал общие компоненты в бизнес-страницы, редактор и Mini Apps",
+                    "Использовал предоставленные компоненты и шаблоны в соответствии с требованиями продукта"
                   ]
                 ]
               ]
             },
             {
-              "phase": "Phase 2",
-              "title": "Components the system didn’t cover",
+              "phase": "Этап 2",
+              "title": "Компоненты за пределами дизайн-системы",
               "blocks": [
                 [
-                  "The shared components came from the Design System team.",
-                  "When a need wasn’t covered, I built the missing components for our product branch, matched to the system so the product still felt like one."
+                  "Общие компоненты предоставляла команда Design System.",
+                  "Если нужного решения не было, я создавал недостающие компоненты для нашего продуктового направления, согласуя их с системой, чтобы интерфейс оставался целостным."
                 ]
               ]
             },
             {
-              "phase": "Phase 3",
-              "title": "Right-to-left languages",
+              "phase": "Этап 3",
+              "title": "Языки с письмом справа налево",
               "blocks": [
                 [
-                  "I implemented multilingual support, including RTL/LTR, from scratch for my scope."
+                  "В зоне своей ответственности я с нуля реализовал многоязычность, включая RTL/LTR."
                 ],
                 [
                   "Instead of fixing left and right values page by page, I reworked layout direction around logical properties — inline and block, start and end — so a change of direction carries through the structure."
@@ -1836,47 +1836,47 @@
               ]
             },
             {
-              "phase": "Phase 4",
-              "title": "Accessibility",
+              "phase": "Этап 4",
+              "title": "Доступность",
               "blocks": [
                 [
-                  "Accessibility was only minimally in place when I started. I handled a large part of the WCAG implementation work in my scope, building it into components rather than adding it afterwards."
+                  "Когда я начал, доступность была реализована лишь частично. Я выполнил значительную часть задач по внедрению WCAG в своей зоне ответственности, закладывая требования в сами компоненты, а не добавляя их позже."
                 ]
               ]
             },
             {
-              "phase": "Phase 5",
-              "title": "Responsive and cross-browser",
+              "phase": "Этап 5",
+              "title": "Адаптивность и кроссбраузерность",
               "blocks": [
                 [
-                  "Every component checked across breakpoints and browsers, so pages behaved the same for every visitor."
+                  "Проверял каждый компонент на разных разрешениях и в разных браузерах, чтобы страницы вели себя одинаково для всех посетителей."
                 ]
               ]
             }
           ],
           [
             {
-              "title": "Performance",
+              "title": "Производительность",
               "blocks": [
                 [
-                  "On the Growth team, I optimized the Discovery pages and their codebase."
+                  "В команде Growth я оптимизировал страницы Discovery и их кодовую базу."
                 ],
                 [
-                  "Pages were measured before and after; the figures aren’t published here."
+                  "Скорость страниц измерялась до и после изменений; конкретные показатели здесь не публикуются."
                 ]
               ]
             }
           ],
           [
             {
-              "title": "What changed",
+              "title": "Что изменилось",
               "blocks": [
                 [
                   [
-                    "Right-to-left languages supported structurally, not by manual fixes",
-                    "Marketplace pages consistent with the shared Design System",
-                    "Accessibility built into components in my scope",
-                    "Faster Discovery pages"
+                    "Структурная поддержка языков RTL, а не ручные исправления",
+                    "Страницы Marketplace приведены к общей дизайн-системе",
+                    "Доступность заложена в компоненты моей зоны ответственности",
+                    "Более быстрые страницы Discovery"
                   ]
                 ]
               ]
@@ -1884,13 +1884,13 @@
           ],
           [
             {
-              "title": "What this shows",
+              "title": "Что показывает проект",
               "blocks": [
                 [
                   [
-                    "Work at product scale, inside large teams and shared systems",
-                    "Localization and accessibility treated as structure, not patches",
-                    "The same standards applied to every Torchyan project"
+                    "Работа над продуктом большого масштаба в крупных командах и общих системах",
+                    "Локализация и доступность как основа архитектуры, а не поздние исправления",
+                    "Те же стандарты применяются в каждом проекте Torchyan"
                   ]
                 ]
               ]
@@ -1899,88 +1899,88 @@
         ]
       },
       "blueprint": {
-        "title": "Integration principles",
-        "subtitle": "How the shared Design System was carried into the pages in my scope.",
+        "title": "Принципы интеграции",
+        "subtitle": "Как общая дизайн-система внедрялась на страницах моей зоны ответственности.",
         "cards": [
           {
-            "title": "Shared first",
-            "body": "Use Design System components wherever they fit; build new ones only for real gaps."
+            "title": "Сначала общие компоненты",
+            "body": "Использовать компоненты дизайн-системы везде, где они подходят; создавать новые только при реальной необходимости."
           },
           {
-            "title": "Match the system",
-            "body": "New components follow the shared tokens, spacing and states."
+            "title": "Следовать системе",
+            "body": "Новые компоненты используют общие токены, отступы и состояния."
           },
           {
-            "title": "Direction-agnostic layout",
-            "body": "Logical properties instead of left and right, so RTL works structurally."
+            "title": "Независимость от направления текста",
+            "body": "Логические CSS-свойства вместо жёстких left и right, чтобы RTL поддерживался на уровне структуры."
           },
           {
-            "title": "Accessible by default",
-            "body": "Accessibility considered in every component, not added later."
+            "title": "Доступность по умолчанию",
+            "body": "Доступность учитывается в каждом компоненте, а не добавляется в конце."
           },
           {
-            "title": "Responsive everywhere",
-            "body": "Every component checked across breakpoints and browsers."
+            "title": "Адаптивность везде",
+            "body": "Каждый компонент проверяется на разных экранах и в разных браузерах."
           }
         ]
       },
       "architecture": {
-        "title": "In detail",
-        "subtitle": "Five parts of the work, and how each was approached.",
+        "title": "Подробности",
+        "subtitle": "Пять направлений работы и подход к каждому.",
         "useCases": [
           {
-            "title": "1. RTL/LTR layout logic",
+            "title": "1. Логика RTL/LTR",
             "blocks": [
               [
-                "Switching a page between left-to-right and right-to-left usually means hunting down every left and right value."
+                "При переключении страницы с письма слева направо на письмо справа налево обычно приходится искать каждое значение left и right."
               ],
               [
-                "I rebuilt the layout direction around logical properties:",
+                "Я перестроил логику направления на основе CSS logical properties:",
                 [
-                  "margin-inline and padding-inline instead of left and right",
-                  "inset-inline-start and inset-inline-end for positioning",
-                  "Direction set once, at the root"
+                  "margin-inline и padding-inline вместо left и right",
+                  "inset-inline-start и inset-inline-end для позиционирования",
+                  "Направление задаётся один раз на корневом уровне"
                 ]
               ],
               [
-                "A direction change now carries through the structure instead of being patched page by page."
+                "Теперь смена направления применяется ко всей структуре, а не исправляется отдельно на каждой странице."
               ]
             ]
           },
           {
-            "title": "2. Design System integration",
+            "title": "2. Интеграция дизайн-системы",
             "blocks": [
               [
-                "Shared components from the Design System team, integrated across:",
+                "Общие компоненты от команды Design System интегрированы в:",
                 [
-                  "Business and product pages",
-                  "The editor",
+                  "Бизнес- и продуктовые страницы",
+                  "Редактор",
                   "Mini Apps"
                 ]
               ],
               [
-                "Placement followed product direction; consistency across branches was my responsibility in my team’s scope."
+                "Расположение компонентов определялось потребностями продукта; за согласованность между направлениями в своей команде отвечал я."
               ]
             ]
           },
           {
-            "title": "3. Components the system didn’t cover",
+            "title": "3. Компоненты, которых не было в системе",
             "blocks": [
               [
-                "Some Marketplace needs weren’t in the shared system. For those, I built team-specific components that:",
+                "Некоторых решений для Marketplace не было в общей системе. Для них я создавал компоненты своей команды, которые:",
                 [
-                  "Use the shared tokens",
-                  "Follow the same states and spacing",
-                  "Stay responsive and accessible"
+                  "Используют общие токены",
+                  "Соблюдают те же состояния и отступы",
+                  "Остаются адаптивными и доступными"
                 ]
               ]
             ]
           },
           {
-            "title": "4. Accessibility implementation",
+            "title": "4. Реализация доступности",
             "blocks": [
               [
-                "From a minimal starting point, accessibility became part of the components in my scope rather than a late fix. I handled a large part of that WCAG implementation work myself."
+                "При минимальной исходной поддержке доступности она стала частью компонентов в моей зоне ответственности, а не поздней правкой. Значительную часть этой работы по WCAG я выполнил сам."
               ]
             ]
           },
@@ -1988,7 +1988,7 @@
             "title": "5. Ad Wizard",
             "blocks": [
               [
-                "A separate Growth product for creating visual and social content and adapting it to each platform’s formats. As the team’s primary UI developer, I implemented its interface in React, HTML/CSS, JSS and Styled Components."
+                "Отдельный продукт команды Growth для создания визуального контента и публикаций в соцсетях с адаптацией под форматы разных платформ. Как основной UI-разработчик команды я реализовал его интерфейс на React, HTML/CSS, JSS и Styled Components."
               ]
             ]
           }
@@ -1998,36 +1998,36 @@
     "smartbet": {
       "hero": {
         "title": "Smartbet",
-        "subtitle": "An animated company and product website - sports, gaming, platform products and services",
+        "subtitle": "Анимированный сайт компании и её продуктов — спорт, игры, платформенные решения и сервисы",
         "description": [
-          "From August to October 2021, I worked as a UI Developer at Smartbet, in a team of designers and developers. The design team supplied approved layouts; I implemented the UI for every page of the website, including the responsive versions.",
-          "Alongside the page builds, I set up a reusable atomic/BEM-based SCSS structure with styling tokens, and implemented the JavaScript animations and transitions between pages and product sections."
+          "С августа по октябрь 2021 года я работал UI-разработчиком в Smartbet в команде дизайнеров и разработчиков. Дизайнеры предоставляли утверждённые макеты, а я реализовал UI всех страниц сайта, включая адаптивные версии.",
+          "Помимо страниц я выстроил переиспользуемую структуру SCSS на основе атомарного подхода и BEM со стилевыми токенами, а также реализовал JavaScript-анимации и переходы между страницами и разделами продуктов."
         ],
         "meta": [
           {
-            "label": "Role:",
+            "label": "Роль:",
             "items": [
-              "UI Developer",
-              "Employee"
+              "UI-разработчик",
+              "Сотрудник компании"
             ]
           },
           {
-            "label": "Scope:",
+            "label": "Объём работ:",
             "items": [
-              "Every website page",
-              "Responsive UI",
-              "SCSS structure and tokens",
-              "Animations and transitions"
+              "Все страницы сайта",
+              "Адаптивный UI",
+              "Структура SCSS и токены",
+              "Анимации и переходы"
             ]
           },
           {
-            "label": "Team:",
+            "label": "Команда:",
             "items": [
-              "Designers and developers"
+              "Дизайнеры и разработчики"
             ]
           },
           {
-            "label": "Stack:",
+            "label": "Стек:",
             "items": [
               "HTML",
               "CSS",
@@ -2038,24 +2038,24 @@
         ]
       },
       "timeline": {
-        "title": "What the work involved",
+        "title": "Из чего состояла работа",
         "subtitle": [
-          "Smartbet’s website presents distinct product families - sports, gaming and platform tools - alongside solutions, payment methods, providers and company pages.",
-          "The designs were approved; my job was to turn every page into working, responsive, animated UI."
+          "Сайт Smartbet представляет разные линейки продуктов — спортивные, игровые и платформенные — а также решения, способы оплаты, провайдеров и информацию о компании.",
+          "Дизайн уже был утверждён. Моя задача — превратить каждую страницу в работающий, адаптивный и анимированный интерфейс."
         ],
         "steps": [
           [
             {
-              "title": "Context",
+              "title": "Контекст",
               "blocks": [
                 [
-                  "Approved designs were ready for front-end implementation. The website covered:",
+                  "Готовые макеты нужно было реализовать во фронтенде. Сайт включал:",
                   [
-                    "Sports products",
-                    "Gaming products",
-                    "Platform tools",
-                    "Solutions, payment methods and providers",
-                    "Company pages"
+                    "Спортивные продукты",
+                    "Игровые продукты",
+                    "Платформенные инструменты",
+                    "Решения, способы оплаты и провайдеры",
+                    "Корпоративные страницы"
                   ]
                 ]
               ]
@@ -2063,59 +2063,59 @@
           ],
           [
             {
-              "title": "A UI foundation",
+              "title": "Основа UI",
               "blocks": [
                 [
-                  "A reusable SCSS structure, organised with atomic/BEM naming and styling tokens, so every page drew on the same rules."
+                  "Переиспользуемая структура SCSS с атомарным подходом, BEM-именованием и стилевыми токенами: все страницы опирались на общие правила."
                 ]
               ]
             }
           ],
           [
             {
-              "title": "Product pages",
+              "title": "Страницы продуктов",
               "blocks": [
                 [
-                  "Every approved layout implemented across the sports, gaming and platform categories."
+                  "Реализовал все утверждённые макеты в спортивном, игровом и платформенном разделах."
                 ],
                 [
-                  "Each product family has its own visual theme, inside one consistent site structure."
+                  "У каждой линейки продуктов — своя визуальная тема в рамках единой структуры сайта."
                 ]
               ]
             }
           ],
           [
             {
-              "title": "Motion",
+              "title": "Анимации",
               "blocks": [
                 [
-                  "JavaScript animations and transitions that move titles, imagery and coloured section accents together as visitors go from page to page and product to product."
+                  "JavaScript-анимации и переходы синхронно меняют заголовки, изображения и цветовые акценты разделов при переходе между страницами и продуктами."
                 ]
               ]
             }
           ],
           [
             {
-              "title": "Supporting sections, on every screen",
+              "title": "Дополнительные разделы на разных экранах",
               "blocks": [
                 [
-                  "Services, solutions, providers, payment methods and company pages, their content entering in stages."
+                  "Сервисы, решения, провайдеры, способы оплаты и страницы компании с поэтапным появлением контента."
                 ],
                 [
-                  "Every page adapted across screen sizes, with navigation, typography and UI patterns kept aligned."
+                  "Все страницы адаптированы под разные экраны, а навигация, типографика и UI-паттерны остаются согласованными."
                 ]
               ]
             }
           ],
           [
             {
-              "title": "What changed",
+              "title": "Что изменилось",
               "blocks": [
                 [
                   [
-                    "The UI implemented across every page of the website",
-                    "Animated page states and transitions between product families",
-                    "One reusable styling foundation for the whole site"
+                    "UI реализован на всех страницах сайта",
+                    "Анимированные состояния страниц и переходы между линейками продуктов",
+                    "Единая переиспользуемая система стилей для всего сайта"
                   ]
                 ]
               ]
@@ -2123,13 +2123,13 @@
           ],
           [
             {
-              "title": "What this shows",
+              "title": "Что показывает проект",
               "blocks": [
                 [
                   [
-                    "End-to-end responsibility for the website UI - not the backend or the product design",
-                    "A reusable styling foundation alongside motion-heavy implementation",
-                    "Accurate collaboration with a design team on a visually complex, multi-section site"
+                    "Ответственность за UI всего сайта — без бэкенда и продуктового дизайна",
+                    "Переиспользуемая система стилей и сложные анимации",
+                    "Точное взаимодействие с дизайнерами при работе над визуально сложным многораздельным сайтом"
                   ]
                 ]
               ]
@@ -2138,78 +2138,78 @@
         ]
       },
       "blueprint": {
-        "title": "Principles",
-        "subtitle": "What the build held to, page after page.",
+        "title": "Принципы",
+        "subtitle": "Подход, которого я придерживался от страницы к странице.",
         "cards": [
           {
-            "title": "Design fidelity",
-            "body": "Approved layouts translated accurately into working pages."
+            "title": "Точность реализации дизайна",
+            "body": "Утверждённые макеты точно перенесены в работающие страницы."
           },
           {
-            "title": "Reusability",
-            "body": "Atomic/BEM-based styling and tokens, shared by every page."
+            "title": "Переиспользование",
+            "body": "Атомарные/BEM-стили и токены, общие для всех страниц."
           },
           {
-            "title": "Consistent motion",
-            "body": "Transitions that stay coherent across product families."
+            "title": "Последовательная анимация",
+            "body": "Переходы сохраняют общую логику между разными линейками продуктов."
           },
           {
-            "title": "Responsive structure",
-            "body": "The same experience, preserved across screen sizes."
+            "title": "Адаптивная структура",
+            "body": "Один и тот же опыт на разных размерах экрана."
           },
           {
-            "title": "Visual consistency",
-            "body": "Navigation, typography and UI patterns kept aligned."
+            "title": "Визуальное единство",
+            "body": "Навигация, типографика и UI-паттерны согласованы между собой."
           }
         ]
       },
       "architecture": {
-        "title": "In detail",
-        "subtitle": "Five parts of the build, and how each was approached.",
+        "title": "Подробности",
+        "subtitle": "Пять частей разработки и подход к каждой из них.",
         "useCases": [
           {
-            "title": "1. Moving between products",
+            "title": "1. Переходы между продуктами",
             "blocks": [
               [
-                "Going from one product to another changes titles, imagery and coloured section accents at once."
+                "При переходе от одного продукта к другому одновременно меняются заголовки, изображения и цветовые акценты разделов."
               ],
               [
-                "I implemented those transitions in JavaScript, so incoming and outgoing content hand over in step."
+                "Я реализовал эти переходы на JavaScript так, чтобы уходящий и появляющийся контент двигались согласованно."
               ]
             ]
           },
           {
-            "title": "2. Different product identities",
+            "title": "2. Разные визуальные характеры продуктов",
             "blocks": [
               [
-                "Sports, gaming and platform sections each carry their own visual theme."
+                "Спортивные, игровые и платформенные разделы имеют собственные визуальные темы."
               ],
               [
-                "They share one site structure, so navigation and layout stay familiar while colour and imagery change."
+                "При этом они используют общую структуру: навигация и компоновка остаются привычными, а цвета и изображения меняются."
               ]
             ]
           },
           {
-            "title": "3. A hero in motion",
+            "title": "3. Анимированный первый экран",
             "blocks": [
               [
-                "The homepage opens on a continuously moving, shape-changing visual object, set alongside the hero content."
+                "На главной странице рядом с контентом первого экрана находится постоянно движущийся визуальный объект, меняющий форму."
               ]
             ]
           },
           {
-            "title": "4. The navigation overlay",
+            "title": "4. Меню на весь экран",
             "blocks": [
               [
-                "A full-page menu, grouped by product category, that opens and closes as an animated state."
+                "Полноэкранное меню сгруппировано по категориям продуктов и анимированно открывается и закрывается."
               ]
             ]
           },
           {
-            "title": "5. Staged content",
+            "title": "5. Поэтапное появление контента",
             "blocks": [
               [
-                "Service illustrations, support details, and the provider and payment grids enter progressively rather than all at once."
+                "Иллюстрации сервисов, сведения о поддержке, сетки провайдеров и способов оплаты появляются последовательно, а не все сразу."
               ]
             ]
           }
@@ -2219,37 +2219,37 @@
     "soulone": {
       "hero": {
         "title": "SoulOne",
-        "subtitle": "Brand direction and an interactive e-commerce website concept for an Armenian gluten-free bakery",
+        "subtitle": "Визуальное направление бренда и интерактивный концепт интернет-магазина для армянской безглютеновой пекарни",
         "description": [
-          "From May to October 2025, I worked with SoulOne as Web Designer and Product Owner, as part of its founding team. The bakery was already making gluten-free cakes and dessert balls and supplying several cafés.",
-          "I designed the website and its interactive Figma prototypes, and set the colour palette, typography, tone of voice, website copy and social-media visuals. The website stayed a concept: it was not built or launched, and the business later stopped trading."
+          "С мая по октябрь 2025 года я работал с SoulOne как веб-дизайнер и Product Owner в составе команды проекта. Пекарня уже производила безглютеновые торты и десертные шарики и поставляла их в несколько кафе.",
+          "Я разработал дизайн сайта и интерактивные прототипы в Figma, определил цветовую палитру, типографику, тон коммуникации, тексты сайта и визуалы для соцсетей. Сайт остался концептом: его не разрабатывали и не запускали, а позже бизнес прекратил работу."
         ],
         "meta": [
           {
-            "label": "Role:",
+            "label": "Роль:",
             "items": [
-              "Web Designer",
+              "Веб-дизайнер",
               "Product Owner"
             ]
           },
           {
-            "label": "Scope:",
+            "label": "Объём работ:",
             "items": [
-              "Brand direction",
-              "Website UX/UI concept",
-              "Interactive prototypes",
-              "Web copy",
-              "Social visuals"
+              "Визуальное направление бренда",
+              "UX/UI-концепт сайта",
+              "Интерактивные прототипы",
+              "Тексты сайта",
+              "Визуалы для соцсетей"
             ]
           },
           {
-            "label": "Team:",
+            "label": "Команда:",
             "items": [
-              "Founding team, with the bakery’s owner"
+              "Команда проекта вместе с владельцем пекарни"
             ]
           },
           {
-            "label": "Tools:",
+            "label": "Инструменты:",
             "items": [
               "Figma"
             ]
@@ -2257,106 +2257,106 @@
         ]
       },
       "timeline": {
-        "title": "What the work involved",
+        "title": "Из чего состояла работа",
         "subtitle": [
-          "SoulOne already had products and customers.",
-          "It needed a coherent identity, a clear voice and an online presentation to match."
+          "У SoulOne уже были продукты и покупатели.",
+          "Бренду требовались целостный визуальный стиль, понятный голос и соответствующая онлайн-презентация."
         ],
         "steps": [
           [
             {
-              "title": "Context",
+              "title": "Контекст",
               "blocks": [
                 [
-                  "An existing bakery - not a business started from zero - with gluten-free cakes and dessert balls already supplied to cafés."
+                  "Уже работавшая пекарня, а не бизнес с нуля: безглютеновые торты и десертные шарики поставлялись в кафе."
                 ],
                 [
-                  "The task: a more coherent visual identity, tone of voice and online product presentation, and a website concept."
+                  "Задача: сделать визуальный стиль, тон коммуникации и онлайн-презентацию продуктов более целостными, а также разработать концепт сайта."
                 ]
               ]
             }
           ],
           [
             {
-              "title": "Brand foundations",
+              "title": "Основа бренда",
               "blocks": [
                 [
-                  "Tone of voice, colour palette and typography, set first so every later screen and post drew on them."
+                  "Сначала определил тон коммуникации, цветовую палитру и типографику — основу для следующих экранов и публикаций."
                 ]
               ]
             }
           ],
           [
             {
-              "title": "Messaging",
+              "title": "Коммуникация",
               "blocks": [
                 [
-                  "Website messaging and product copy, written in that voice."
+                  "Тексты сайта и описания продуктов, написанные в едином тоне бренда."
                 ]
               ]
             }
           ],
           [
             {
-              "title": "The homepage",
+              "title": "Главная страница",
               "blocks": [
                 [
-                  "Product ranges, the brand story, product benefits and calls to action."
+                  "Линейки продуктов, история бренда, преимущества продукции и призывы к действию."
                 ],
                 [
-                  "Cakes and dessert balls side by side, with a Build Your Box concept."
+                  "Торты и десертные шарики рядом, включая концепт Build Your Box."
                 ]
               ]
             }
           ],
           [
             {
-              "title": "Product pages",
+              "title": "Страницы продуктов",
               "blocks": [
                 [
-                  "Detail views with imagery, price, quantities, ingredients, nutrition and allergens, and related products."
+                  "Подробные карточки с фотографиями, ценой, количеством, составом, пищевой ценностью, аллергенами и похожими продуктами."
                 ]
               ]
             }
           ],
           [
             {
-              "title": "Prototype and social",
+              "title": "Прототипы и соцсети",
               "blocks": [
                 [
-                  "Interactive Figma prototypes for product image states and transitions, and visuals for social media."
+                  "Интерактивные Figma-прототипы со сменой изображений продукта и переходами, а также визуалы для соцсетей."
                 ],
                 [
-                  "An alternative logo was explored too; the original logo was kept."
+                  "Также предложил альтернативный логотип; в итоге оставили первоначальный."
                 ]
               ]
             }
           ],
           [
             {
-              "title": "What changed",
+              "title": "Что изменилось",
               "blocks": [
                 [
                   [
-                    "A visual direction: palette, typography and tone of voice",
-                    "A complete website UI concept, with interactive prototypes",
-                    "Website copy and social creative"
+                    "Визуальное направление: цвета, типографика и тон коммуникации",
+                    "Полный UI-концепт сайта с интерактивными прототипами",
+                    "Тексты сайта и графика для соцсетей"
                   ]
                 ],
                 [
-                  "The website itself was not built or launched, so there are no sales or conversion figures to report."
+                  "Сам сайт не был разработан или запущен, поэтому показателей продаж и конверсии нет."
                 ]
               ]
             }
           ],
           [
             {
-              "title": "What this shows",
+              "title": "Что показывает проект",
               "blocks": [
                 [
                   [
-                    "Range beyond screens: brand direction, UX/UI, product communication and prototyping",
-                    "Product involvement in an existing business, not only its visuals"
+                    "Работа шире отдельных экранов: визуальное направление бренда, UX/UI, продуктовая коммуникация и прототипирование",
+                    "Участие в продуктовых задачах действующего бизнеса, а не только в визуальном оформлении"
                   ]
                 ]
               ]
@@ -2365,78 +2365,78 @@
         ]
       },
       "blueprint": {
-        "title": "What the designs prioritise",
-        "subtitle": "The choices that run through the concept.",
+        "title": "Приоритеты в дизайне",
+        "subtitle": "Решения, объединяющие весь концепт.",
         "cards": [
           {
-            "title": "Food first",
-            "body": "Photography of the cakes leads every page."
+            "title": "Продукт на первом месте",
+            "body": "На каждой странице внимание привлекают фотографии тортов."
           },
           {
-            "title": "An easy range",
-            "body": "Cakes and dessert balls stay simple to browse."
+            "title": "Понятный ассортимент",
+            "body": "Торты и десертные шарики легко просматривать."
           },
           {
-            "title": "Details in reach",
-            "body": "Ingredients and product details are easy to find."
+            "title": "Информация под рукой",
+            "body": "Состав и подробности продукта легко найти."
           },
           {
-            "title": "One voice",
-            "body": "Colour, typography and tone stay consistent."
+            "title": "Единый голос бренда",
+            "body": "Цвета, типографика и тон коммуникации остаются едиными."
           },
           {
-            "title": "Shown, not described",
-            "body": "Commerce interactions are visible in the prototype."
+            "title": "Показать, а не рассказать",
+            "body": "Интерактивность магазина показана в прототипе."
           }
         ]
       },
       "architecture": {
-        "title": "In detail",
-        "subtitle": "Design problems, and the solutions the concept proposes.",
+        "title": "Подробности",
+        "subtitle": "Дизайнерские задачи и решения, предложенные в концепте.",
         "useCases": [
           {
-            "title": "1. A disconnected brand",
+            "title": "1. Разрозненный образ бренда",
             "blocks": [
               [
-                "The bakery’s presentation didn’t hang together."
+                "В презентации пекарни не хватало цельности."
               ],
               [
-                "A defined palette, typography and tone of voice gave every touchpoint the same footing."
+                "Продуманная палитра, типографика и тон коммуникации создали общую основу для всех материалов бренда."
               ]
             ]
           },
           {
-            "title": "2. Two ranges, one shop",
+            "title": "2. Две линейки — один магазин",
             "blocks": [
               [
-                "Cakes and dessert balls needed to sit side by side."
+                "Торты и десертные шарики нужно было представить рядом."
               ],
               [
-                "Structured homepage and product sections, and a Build Your Box concept, bring them together."
+                "Продуманная главная, разделы продуктов и концепт Build Your Box объединили их."
               ]
             ]
           },
           {
-            "title": "3. Explaining each product",
+            "title": "3. Рассказать о каждом продукте",
             "blocks": [
               [
-                "Detailed product pages with imagery, price, ingredients, allergens and related items."
+                "Подробные страницы с изображениями, ценами, ингредиентами, аллергенами и сопутствующими продуктами."
               ]
             ]
           },
           {
-            "title": "4. Interactions before development",
+            "title": "4. Взаимодействия до разработки",
             "blocks": [
               [
-                "Figma prototype states and transitions show how the site would behave, before any of it is built."
+                "Состояния и переходы в Figma-прототипе показывают, как должен работать сайт до начала разработки."
               ]
             ]
           },
           {
-            "title": "5. The logo",
+            "title": "5. Логотип",
             "blocks": [
               [
-                "I designed an alternative logo; the owner chose to keep the existing one."
+                "Я разработал альтернативный логотип, но владелец решил оставить существующий."
               ]
             ]
           }
@@ -2446,102 +2446,102 @@
     "ginosi": {
       "hero": {
         "title": "Ginosi",
-        "subtitle": "Full front-end implementation for an international serviced-apartment booking website",
+        "subtitle": "Полная фронтенд-разработка международного сайта бронирования апартаментов",
         "description": [
-          "Ginosi offered serviced apartments in several cities and countries. Its website let visitors search for accommodation and reserve apartments.",
-          "Working directly with the client in April–May 2019, I joined when the visual design was already in place and implemented the full front end under a tight schedule - turning the supplied designs into the working booking-site UI."
+          "Ginosi предлагала апартаменты с обслуживанием в разных городах и странах. На сайте посетители могли искать жильё и бронировать апартаменты.",
+          "Я работал напрямую с клиентом в апреле–мае 2019 года. Дизайн сайта уже был готов, и в сжатые сроки я реализовал весь фронтенд, превратив предоставленные макеты в работающий интерфейс для бронирования."
         ],
         "meta": [
           {
-            "label": "Role:",
+            "label": "Роль:",
             "items": [
-              "Front-end Developer",
-              "Direct client"
+              "Фронтенд-разработчик",
+              "Прямой клиент"
             ]
           },
           {
-            "label": "Scope:",
+            "label": "Объём работ:",
             "items": [
-              "The entire front-end UI",
-              "Search and listings",
-              "Property pages",
-              "Responsive behaviour"
+              "Весь фронтенд-интерфейс",
+              "Поиск и списки объектов",
+              "Страницы объектов",
+              "Адаптивность"
             ]
           },
           {
-            "label": "Design:",
+            "label": "Дизайн:",
             "items": [
-              "Supplied by the client"
+              "Предоставлен клиентом"
             ]
           }
         ]
       },
       "timeline": {
-        "title": "What the work involved",
+        "title": "Из чего состояла работа",
         "subtitle": [
-          "An established accommodation business, with its booking website already designed.",
-          "It needed all of it built as a working front end, quickly."
+          "Работающий гостиничный бизнес с уже готовым дизайном сайта бронирования.",
+          "Нужно было быстро реализовать весь фронтенд."
         ],
         "steps": [
           [
             {
-              "title": "Context",
+              "title": "Контекст",
               "blocks": [
                 [
-                  "Ginosi’s visual design already existed. What it needed was a front end that worked."
+                  "Визуальный дизайн Ginosi уже существовал. Оставалось сделать работающий фронтенд."
                 ]
               ]
             }
           ],
           [
             {
-              "title": "From designs to structure",
+              "title": "От макетов к структуре",
               "blocks": [
                 [
-                  "The supplied designs reviewed, then turned into a shared layout and styling for every page."
+                  "Изучил предоставленные макеты и на их основе выстроил общую структуру страниц и стили."
                 ]
               ]
             }
           ],
           [
             {
-              "title": "Search, listings and properties",
+              "title": "Поиск, списки и объекты",
               "blocks": [
                 [
-                  "The accommodation search, the listings and the property pages - the core of the booking experience."
+                  "Поиск жилья, списки предложений и страницы апартаментов — основа процесса бронирования."
                 ]
               ]
             }
           ],
           [
             {
-              "title": "Every screen size",
+              "title": "Для разных экранов",
               "blocks": [
                 [
-                  "Responsive behaviour across the site, then the finished front end handed over."
+                  "Адаптировал сайт под разные размеры экранов и передал готовый фронтенд."
                 ]
               ]
             }
           ],
           [
             {
-              "title": "What changed",
+              "title": "Что изменилось",
               "blocks": [
                 [
-                  "The entire front-end UI, delivered within a very short timeframe - sooner than the client had asked for."
+                  "Весь фронтенд-интерфейс был готов за очень короткий срок — раньше, чем ожидал клиент."
                 ]
               ]
             }
           ],
           [
             {
-              "title": "What this shows",
+              "title": "Что показывает проект",
               "blocks": [
                 [
                   [
-                    "End-to-end ownership of the presentation layer",
-                    "Speed of execution",
-                    "Implementing another designer’s work accurately"
+                    "Полная ответственность за пользовательский интерфейс",
+                    "Высокая скорость реализации",
+                    "Точная реализация чужого дизайна"
                   ]
                 ]
               ]
@@ -2550,24 +2550,24 @@
         ]
       },
       "blueprint": {
-        "title": "Principles",
-        "subtitle": "What a fast build still held to.",
+        "title": "Принципы",
+        "subtitle": "Что оставалось важным даже при быстрой разработке.",
         "cards": [
           {
-            "title": "Faithful to the design",
-            "body": "The approved visual design, implemented as drawn."
+            "title": "Точность по макетам",
+            "body": "Утверждённый визуальный дизайн точно перенесён в работающий интерфейс."
           },
           {
-            "title": "Consistent patterns",
-            "body": "Common patterns kept the same across every page."
+            "title": "Единые паттерны",
+            "body": "Общие элементы оставались одинаковыми на всех страницах."
           },
           {
-            "title": "Reliable delivery",
-            "body": "A tight schedule, met without cutting corners."
+            "title": "Надёжная сдача проекта",
+            "body": "Сжатые сроки соблюдены без ущерба для качества."
           },
           {
-            "title": "Every screen size",
-            "body": "An interface that works on every screen."
+            "title": "Для любого экрана",
+            "body": "Интерфейс, который работает на экранах разных размеров."
           }
         ]
       }
@@ -2575,30 +2575,30 @@
     "benzeen": {
       "hero": {
         "title": "Benzeen Auto Parts",
-        "subtitle": "UI and interaction engineering for a custom automotive e-commerce site, built alongside an evolving design",
+        "subtitle": "Разработка UI и интерактивных элементов для автомобильного интернет-магазина с постоянно обновляющимся дизайном",
         "description": [
-          "Benzeen Auto Parts was an automotive e-commerce project for a business in Los Angeles, delivered through TCO in 2019. Designers kept preparing and updating pages while development was underway.",
-          "I implemented the UI across the website - interactive behaviour, animations and selected JavaScript logic - and integrated Google AMP. It was my first e-commerce project outside a traditional CMS."
+          "Benzeen Auto Parts — проект автомобильной e-commerce-компании из Лос-Анджелеса, над которым я работал через TCO в 2019 году. Дизайнеры продолжали готовить новые страницы и обновлять существующие уже в процессе разработки.",
+          "Я реализовал интерфейс всего сайта, включая интерактивность, анимации и часть JavaScript-логики, а также интегрировал Google AMP. Это был мой первый e-commerce проект за пределами традиционной CMS."
         ],
         "meta": [
           {
-            "label": "Role:",
+            "label": "Роль:",
             "items": [
-              "UI Developer",
-              "Through TCO"
+              "UI-разработчик",
+              "Через TCO"
             ]
           },
           {
-            "label": "Scope:",
+            "label": "Объём работ:",
             "items": [
-              "Every page’s UI",
-              "Interactions and animations",
-              "JavaScript logic",
+              "UI всех страниц",
+              "Интерактивность и анимации",
+              "JavaScript-логика",
               "Google AMP"
             ]
           },
           {
-            "label": "Stack:",
+            "label": "Стек:",
             "items": [
               "Angular",
               "Sass/SCSS",
@@ -2610,71 +2610,71 @@
         ]
       },
       "timeline": {
-        "title": "What the work involved",
+        "title": "Из чего состояла работа",
         "subtitle": [
-          "A custom e-commerce build, not a CMS theme.",
-          "New page designs kept arriving while the site was being built."
+          "Индивидуальная e-commerce-разработка, а не шаблон CMS.",
+          "Новые макеты страниц поступали уже во время разработки сайта."
         ],
         "steps": [
           [
             {
-              "title": "Context",
+              "title": "Контекст",
               "blocks": [
                 [
-                  "A custom, non-CMS e-commerce build in Angular. Design updates and new page concepts arrived while development was already underway."
+                  "Индивидуальный e-commerce-проект на Angular без CMS. Новые концепции страниц и изменения дизайна появлялись уже после начала разработки."
                 ]
               ]
             }
           ],
           [
             {
-              "title": "Structure and shared styling",
+              "title": "Структура и общие стили",
               "blocks": [
                 [
-                  "Page structure and shared styling first, written in Sass/SCSS with BEM."
+                  "Сначала выстроил структуру страниц и общие стили на Sass/SCSS с методологией BEM."
                 ]
               ]
             }
           ],
           [
             {
-              "title": "Alongside the designers",
+              "title": "Вместе с дизайнерами",
               "blocks": [
                 [
-                  "Pages implemented and updated as the designs changed, in step with the design team."
+                  "Реализовывал и обновлял страницы по мере изменения макетов, работая параллельно с командой дизайна."
                 ]
               ]
             }
           ],
           [
             {
-              "title": "The storefront",
+              "title": "Интернет-магазин",
               "blocks": [
                 [
-                  "The UI across the whole store: browsing by make, recent arrivals, stock and part pages, quotes and the customer account."
+                  "Интерфейс всего магазина: выбор по марке автомобиля, новые поступления, наличие деталей, карточки товаров, запросы цен и личный кабинет."
                 ]
               ]
             }
           ],
           [
             {
-              "title": "Interaction and AMP",
+              "title": "Интерактивность и AMP",
               "blocks": [
                 [
-                  "Animations and JavaScript behaviour across the site, and Google AMP integrated for supported mobile content."
+                  "Анимации и JavaScript-логика на сайте, а также Google AMP для поддерживаемого мобильного контента."
                 ]
               ]
             }
           ],
           [
             {
-              "title": "What changed",
+              "title": "Что изменилось",
               "blocks": [
                 [
                   [
-                    "The UI implemented across the site",
-                    "Interactive behaviour and animations",
-                    "Google AMP integrated"
+                    "Интерфейс реализован на всех страницах сайта",
+                    "Интерактивное поведение и анимации",
+                    "Интеграция Google AMP"
                   ]
                 ]
               ]
@@ -2682,13 +2682,13 @@
           ],
           [
             {
-              "title": "What this shows",
+              "title": "Что показывает проект",
               "blocks": [
                 [
                   [
-                    "Full UI implementation for custom e-commerce",
-                    "Close collaboration with designers while the design moved",
-                    "Animation work, and experience with non-CMS Angular projects"
+                    "Полная UI-реализация нестандартного интернет-магазина",
+                    "Тесная работа с дизайнерами при изменении макетов",
+                    "Анимации и опыт работы с Angular-проектом без CMS"
                   ]
                 ]
               ]
@@ -2697,39 +2697,39 @@
         ]
       },
       "blueprint": {
-        "title": "Principles",
-        "subtitle": "How the build kept up with a moving design.",
+        "title": "Принципы",
+        "subtitle": "Как разработка успевала за меняющимся дизайном.",
         "cards": [
           {
-            "title": "Stay aligned",
-            "body": "Design and implementation kept in step as requirements changed."
+            "title": "Оставаться в одном ритме",
+            "body": "Дизайн и реализация оставались согласованными по мере изменения требований."
           },
           {
-            "title": "Structured styling",
-            "body": "BEM and SCSS, so new pages fit the existing ones."
+            "title": "Структурированные стили",
+            "body": "BEM и SCSS помогали вписывать новые страницы в существующую систему."
           },
           {
-            "title": "Deliberate details",
-            "body": "Interaction details built with intention, not left to chance."
+            "title": "Продуманные детали",
+            "body": "Интерактивные элементы реализованы осмысленно, а не оставлены на случай."
           },
           {
-            "title": "One storefront",
-            "body": "A large product surface kept consistent throughout."
+            "title": "Единый магазин",
+            "body": "Большой интерфейс оставался последовательным на всём сайте."
           }
         ]
       },
       "architecture": {
-        "title": "In detail",
-        "subtitle": "Two parts of the work, and how each was approached.",
+        "title": "Подробности",
+        "subtitle": "Два направления работы и подход к каждому из них.",
         "useCases": [
           {
-            "title": "1. A design that kept changing",
+            "title": "1. Дизайн, который постоянно менялся",
             "blocks": [
               [
-                "New pages were still being designed while the site was built."
+                "Новые страницы продолжали проектировать, когда разработка сайта уже шла."
               ],
               [
-                "Iterative implementation, on structured Sass/BEM patterns, let new and updated pages slot into what already existed."
+                "Итеративная реализация на структурированных Sass/BEM-паттернах позволяла добавлять новые и обновлённые страницы без нарушения существующей структуры."
               ]
             ]
           },
@@ -2737,7 +2737,7 @@
             "title": "2. Google AMP",
             "blocks": [
               [
-                "I integrated Google AMP into the project for the mobile content it supported, alongside the main Angular build."
+                "Я интегрировал Google AMP для поддерживаемого мобильного контента параллельно с основной Angular-версией."
               ]
             ]
           }
@@ -2747,36 +2747,36 @@
     "brainstorm": {
       "hero": {
         "title": "Brainstorm",
-        "subtitle": "Custom front-end and scroll-driven interaction work for Brainstorm’s agency website",
+        "subtitle": "Кастомная фронтенд-разработка и скролл-анимации для сайта агентства Brainstorm",
         "description": [
-          "It began in 2018 as an outsourced assignment: building Brainstorm’s own agency website while its design was still being developed.",
-          "I built the website UI in HTML, CSS and vanilla JavaScript, with custom animation and hand-written scroll-event logic. The finished site led Brainstorm to invite me onto its team, where I went on to work on client stores - those are separate projects."
+          "Всё началось в 2018 году с аутсорс-проекта: я разрабатывал собственный сайт агентства Brainstorm, пока его дизайн ещё создавался.",
+          "Я реализовал UI сайта на HTML, CSS и чистом JavaScript — с кастомными анимациями и вручную написанной логикой событий прокрутки. После завершения сайта Brainstorm пригласила меня в команду, где я работал над интернет-магазинами клиентов. Это отдельные проекты."
         ],
         "meta": [
           {
-            "label": "Role:",
+            "label": "Роль:",
             "items": [
-              "Front-end Developer"
+              "Фронтенд-разработчик"
             ]
           },
           {
-            "label": "Relationship:",
+            "label": "Формат сотрудничества:",
             "items": [
-              "Outsourced project, May–Jul 2018",
-              "Then employee, Jul–Dec 2018"
+              "Аутсорс-проект, май–июль 2018",
+              "Затем сотрудник, июль–декабрь 2018"
             ]
           },
           {
-            "label": "Scope:",
+            "label": "Объём работ:",
             "items": [
-              "Agency website UI",
-              "Custom animation",
-              "Scroll-driven interactions",
-              "Responsive layouts"
+              "UI сайта агентства",
+              "Кастомные анимации",
+              "Интерактивность при прокрутке",
+              "Адаптивная вёрстка"
             ]
           },
           {
-            "label": "Stack:",
+            "label": "Стек:",
             "items": [
               "HTML",
               "CSS",
@@ -2786,69 +2786,69 @@
         ]
       },
       "timeline": {
-        "title": "What the work involved",
+        "title": "Из чего состояла работа",
         "subtitle": [
-          "Brainstorm needed its own site built while the design was still taking shape."
+          "Brainstorm нужен был собственный сайт, хотя дизайн ещё продолжал формироваться."
         ],
         "steps": [
           [
             {
-              "title": "Context",
+              "title": "Контекст",
               "blocks": [
                 [
-                  "The agency’s own website, with the design still being developed and refined as the front end was built."
+                  "Сайт самого агентства, дизайн которого разрабатывался и уточнялся параллельно с фронтендом."
                 ]
               ]
             }
           ],
           [
             {
-              "title": "An evolving design",
+              "title": "Развивающийся дизайн",
               "blocks": [
                 [
-                  "Working directly with the design as it changed, rather than waiting for a final version."
+                  "Работал с макетами по мере их изменения, не дожидаясь окончательной версии."
                 ]
               ]
             }
           ],
           [
             {
-              "title": "Layouts and responsive UI",
+              "title": "Макеты и адаптивный UI",
               "blocks": [
                 [
-                  "Every layout implemented and made responsive, in step with the visual concept."
+                  "Реализовал все макеты с адаптивной вёрсткой, сохраняя визуальную концепцию."
                 ]
               ]
             }
           ],
           [
             {
-              "title": "Custom animation",
+              "title": "Кастомные анимации",
               "blocks": [
                 [
-                  "Animation built as part of the experience, not added on top of it."
+                  "Анимация была частью пользовательского опыта, а не отдельным украшением."
                 ]
               ]
             }
           ],
           [
             {
-              "title": "Scroll-triggered events",
+              "title": "События прокрутки",
               "blocks": [
                 [
-                  "Scroll-driven events and transitions, coded by hand in JavaScript rather than taken from generic animation templates."
+                  "Анимации и переходы при прокрутке я запрограммировал вручную на JavaScript, без готовых шаблонов анимаций."
                 ]
               ]
             }
           ],
           [
             {
-              "title": "What changed",
+              "title": "Что изменилось",
               "blocks": [
                 [
                   [
-                    "An animated, custom front-end site for the agency",
-                    "An invitation to join Brainstorm as a developer"
+                    "Кастомный сайт агентства с анимациями",
+                    "Приглашение присоединиться к Brainstorm как разработчик"
                   ]
                 ]
               ]
@@ -2856,13 +2856,13 @@
           ],
           [
             {
-              "title": "What this shows",
+              "title": "Что показывает проект",
               "blocks": [
                 [
                   [
-                    "Independent front-end delivery",
-                    "Custom JavaScript motion, implemented by hand",
-                    "A client engagement that grew into a longer working relationship"
+                    "Самостоятельная фронтенд-разработка",
+                    "Кастомная анимация на JavaScript, написанная вручную",
+                    "Клиентский проект, переросший в длительное сотрудничество"
                   ]
                 ]
               ]
@@ -2871,50 +2871,50 @@
         ]
       },
       "blueprint": {
-        "title": "Principles",
-        "subtitle": "How the site was built while its design was still moving.",
+        "title": "Принципы",
+        "subtitle": "Как сайт создавался параллельно с его дизайном.",
         "cards": [
           {
-            "title": "Work with the design",
-            "body": "Build directly against an evolving design."
+            "title": "Работать вместе с дизайном",
+            "body": "Разрабатывать интерфейс по макетам, которые ещё меняются."
           },
           {
-            "title": "Motion with a job",
-            "body": "Animation as a working part of the experience."
+            "title": "Анимация с задачей",
+            "body": "Анимация как функциональная часть взаимодействия с сайтом."
           },
           {
-            "title": "Explicit scrolling",
-            "body": "Scroll interactions controlled in code, not by templates."
+            "title": "Контроль прокрутки",
+            "body": "Скролл-взаимодействия управляются кодом, а не шаблонами."
           },
           {
-            "title": "Responsive concept",
-            "body": "Responsive behaviour kept true to the visual idea."
+            "title": "Адаптивная концепция",
+            "body": "Адаптивное поведение сохраняет исходную визуальную идею."
           }
         ]
       },
       "architecture": {
-        "title": "In detail",
-        "subtitle": "Two parts of the work, and how each was approached.",
+        "title": "Подробности",
+        "subtitle": "Две части разработки и подход к каждой из них.",
         "useCases": [
           {
-            "title": "1. Scroll-driven animation, by hand",
+            "title": "1. Скролл-анимации вручную",
             "blocks": [
               [
-                "The site’s animation and interactions are driven by scrolling."
+                "Анимации и интерактивность сайта зависят от прокрутки."
               ],
               [
-                "Rather than relying on generic animation templates, I implemented the JavaScript event behaviour myself, so each page animates the way it was meant to."
+                "Вместо готовых шаблонов я сам написал обработчики JavaScript-событий, чтобы каждая страница анимировалась так, как было задумано."
               ]
             ]
           },
           {
-            "title": "2. A design still taking shape",
+            "title": "2. Дизайн в процессе разработки",
             "blocks": [
               [
-                "The designs were still evolving while the front end was underway."
+                "Макеты продолжали меняться, когда фронтенд уже разрабатывался."
               ],
               [
-                "Building in step with them meant the finished site matched the final design, not an early draft of it."
+                "Параллельная работа позволила итоговому сайту соответствовать финальному дизайну, а не его раннему черновику."
               ]
             ]
           }
@@ -2924,91 +2924,91 @@
     "world-education": {
       "hero": {
         "title": "World Education",
-        "subtitle": "Responsive UI implementation for an international education-services platform",
+        "subtitle": "Адаптивный интерфейс международной образовательной платформы",
         "description": [
-          "World Education connects schools, agents, students, parents, teachers and service providers around education, university admissions, tests, guides and scholarship information.",
-          "Working directly with the client from March to May 2020, I built most of the website’s front end as UI Developer, including responsive layouts and animations; some of the JavaScript logic was handled by another contributor. The site still runs in much the same form."
+          "World Education объединяет школы, образовательных агентов, студентов, родителей, преподавателей и поставщиков услуг. Платформа помогает разобраться с образованием, поступлением в университеты, тестами, руководствами и стипендиями.",
+          "С марта по май 2020 года я напрямую работал с клиентом как UI-разработчик. Реализовал большую часть фронтенда сайта, включая адаптивную вёрстку и анимации. Часть JavaScript-логики выполнял другой разработчик. Сайт до сих пор работает практически в прежнем виде."
         ],
         "meta": [
           {
-            "label": "Role:",
+            "label": "Роль:",
             "items": [
-              "UI Developer",
-              "Direct client"
+              "UI-разработчик",
+              "Прямой клиент"
             ]
           },
           {
-            "label": "Scope:",
+            "label": "Объём работ:",
             "items": [
-              "Front-end UI",
-              "Responsive layouts",
-              "Animations",
-              "Interaction work"
+              "Фронтенд-интерфейс",
+              "Адаптивная вёрстка",
+              "Анимации",
+              "Интерактивные элементы"
             ]
           },
           {
-            "label": "Team:",
+            "label": "Команда:",
             "items": [
-              "With another contributor on JavaScript logic"
+              "Часть JavaScript-логики — совместно с другим разработчиком"
             ]
           }
         ]
       },
       "timeline": {
-        "title": "What the work involved",
+        "title": "Из чего состояла работа",
         "subtitle": [
-          "An education platform serving many audiences at once.",
-          "It needed a clear, usable multi-page site for its services and information."
+          "Образовательная платформа для разных групп пользователей.",
+          "Ей нужен был понятный многостраничный сайт, представляющий услуги и информацию."
         ],
         "steps": [
           [
             {
-              "title": "Context",
+              "title": "Контекст",
               "blocks": [
                 [
-                  "A platform for schools, agents, students, parents, teachers and service providers, needing a website that presents its services and information clearly."
+                  "Платформа для школ, агентов, студентов, родителей, преподавателей и поставщиков услуг, которой нужен сайт с понятной подачей услуг и информации."
                 ]
               ]
             }
           ],
           [
             {
-              "title": "Responsive page structure",
+              "title": "Адаптивная структура страниц",
               "blocks": [
                 [
-                  "The designs translated into responsive page structures."
+                  "Перенёс дизайн в адаптивную структуру страниц."
                 ]
               ]
             }
           ],
           [
             {
-              "title": "Content and services",
+              "title": "Контент и услуги",
               "blocks": [
                 [
-                  "Content and service sections built out across the site."
+                  "Реализовал блоки контента и услуг на страницах сайта."
                 ]
               ]
             }
           ],
           [
             {
-              "title": "Animation and interaction",
+              "title": "Анимации и взаимодействия",
               "blocks": [
                 [
-                  "Animations, and UI interactions integrated into the pages."
+                  "Добавил анимации и интерактивные элементы в интерфейс страниц."
                 ]
               ]
             }
           ],
           [
             {
-              "title": "What changed",
+              "title": "Что изменилось",
               "blocks": [
                 [
                   [
-                    "The primary front end and its animations, delivered",
-                    "A site still running in much the same form"
+                    "Основная часть фронтенда и анимации реализованы и переданы клиенту",
+                    "Сайт по-прежнему работает почти в том же виде"
                   ]
                 ]
               ]
@@ -3016,10 +3016,10 @@
           ],
           [
             {
-              "title": "What this shows",
+              "title": "Что показывает проект",
               "blocks": [
                 [
-                  "Full responsibility for the presentation layer of a conventional commercial client website."
+                  "Ответственность за весь интерфейс обычного коммерческого сайта, а не только за отдельные экраны или компоненты."
                 ]
               ]
             }
@@ -3027,24 +3027,24 @@
         ]
       },
       "blueprint": {
-        "title": "Principles",
-        "subtitle": "What kept a content-heavy site easy to use.",
+        "title": "Принципы",
+        "subtitle": "Что помогло сохранить удобство сайта с большим объёмом информации.",
         "cards": [
           {
-            "title": "Easy to scan",
-            "body": "Educational content laid out to be scanned quickly."
+            "title": "Легко просматривать",
+            "body": "Образовательная информация организована так, чтобы её можно было быстро просмотреть."
           },
           {
-            "title": "Clear structure",
-            "body": "A responsive structure that holds on every screen."
+            "title": "Понятная структура",
+            "body": "Адаптивная структура, сохраняющаяся на разных экранах."
           },
           {
-            "title": "Motion that serves",
-            "body": "Animation that never hides the information."
+            "title": "Анимация по делу",
+            "body": "Анимация не мешает воспринимать информацию."
           },
           {
-            "title": "Consistent patterns",
-            "body": "The same UI patterns from page to page."
+            "title": "Единые интерфейсные решения",
+            "body": "Одинаковые UI-паттерны от страницы к странице."
           }
         ]
       }
