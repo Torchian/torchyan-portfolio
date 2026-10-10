@@ -806,78 +806,78 @@
     }
   },
   "capabilities": {
-    "heading": "What you can hire Torchyan for",
-    "subtitle": "Four areas Torchyan takes responsibility for — each carried from direction to production, with specialists added when the work calls for them.",
-    "cta": "See how we work",
-    "title": "One accountable lead",
-    "skillsLabel": "What {title} includes",
+    "heading": "Ինչ կարելի է պատվիրել Torchyan-ից",
+    "subtitle": "Աշխատանքների ճշգրիտ ծավալը կախված է նախագծից։ Ահա այն ուղղությունները, որոնցով ես աշխատում եմ առավել հաճախ։",
+    "cta": "Ինչպես ենք աշխատում",
+    "title": "Մեկ ղեկավար",
+    "skillsLabel": "Ինչ է ներառում՝ {title}",
     "items": [
       {
-        "title": "Websites",
-        "text": "When the website no longer matches the business, or something new needs to launch: company sites, rebuilds and launch pages, owned from structure and content direction to a fast, maintainable build.",
-        "footnote": "A site that explains the business clearly — and that your team can update with confidence.",
+        "title": "Կայքեր",
+        "text": "Երբ կայքն այլևս չի համապատասխանում բիզնեսին կամ պետք է նոր բան գործարկել՝ կորպորատիվ կայքեր, վերակառուցում և լենդինգներ՝ կառուցվածքից և բովանդակության ուղղորդումից մինչև արագ և հեշտ սպասարկվող իրականացում։",
+        "footnote": "Կայք, որը հստակ բացատրում է բիզնեսը և որը Ձեր թիմը կարող է վստահ թարմացնել։",
         "skills": [
-          "Direction & structure",
-          "Content direction",
-          "Brand & visual direction",
-          "UX & interface design",
-          "Motion & interaction",
-          "Front-end & CMS build",
-          "SEO foundations",
-          "Launch & handover"
+          "Ուղղություն և կառուցվածք",
+          "Բովանդակության ուղղորդում",
+          "Բրենդ և վիզուալ ուղղություն",
+          "UX և ինտերֆեյսների դիզայն",
+          "Անիմացիա և փոխազդեցություն",
+          "Front-end և CMS",
+          "SEO հիմքեր",
+          "Գործարկում և հանձնում"
         ]
       },
       {
-        "title": "Product interfaces",
-        "text": "When a product needs to be usable, consistent and shippable: UX and UI for web products, platforms and dashboards — designed and built in one continuous process.",
-        "footnote": "Interfaces your team can ship and extend, not just approve.",
+        "title": "Պրոդուկտների ինտերֆեյսներ",
+        "text": "Երբ պրոդուկտը պետք է լինի հարմար, հետևողական և գործարկման պատրաստ՝ UX և UI վեբ պրոդուկտների, հարթակների և ինֆորմացիոն վահանակների համար՝ դիզայնից մինչև իրականացում մեկ անընդհատ գործընթացում։",
+        "footnote": "Ինտերֆեյսներ, որոնք Ձեր թիմը կարող է գործարկել և զարգացնել, այլ ոչ միայն հաստատել։",
         "skills": [
-          "Discovery & user flows",
-          "UX architecture",
-          "Interface design",
-          "Prototyping",
-          "Front-end engineering",
-          "Localization & RTL",
-          "WCAG 2.1 AA-aligned accessibility",
-          "Backend with specialists"
+          "Հետազոտություն և օգտատիրոջ սցենարներ",
+          "UX ճարտարապետություն",
+          "Ինտերֆեյսների դիզայն",
+          "Նախատիպավորում",
+          "Front-end ծրագրավորում",
+          "Լոկալիզացիա / RTL / TTB",
+          "Հասանելիություն՝ WCAG AA ստանդարտով",
+          "Backend՝ մասնագետների հետ"
         ]
       },
       {
-        "title": "Design systems",
-        "text": "When every new screen looks slightly different and slows the team down: foundations, components and documentation that design and engineering both use.",
-        "footnote": "Consistency that holds as the team and the product grow.",
+        "title": "Դիզայն համակարգեր",
+        "text": "Երբ յուրաքանչյուր նոր էկրան փոքր-ինչ այլ տեսք ունի և դանդաղեցնում է թիմին՝ հիմքեր, կոմպոնենտներ և փաստաթղթեր, որոնցով օգտվում են և՛ դիզայնը, և՛ ծրագրավորումը։",
+        "footnote": "Հետևողականություն, որը պահպանվում է թիմի և պրոդուկտի աճին զուգընթաց։",
         "skills": [
-          "UI review",
-          "Tokens & foundations",
-          "Component library",
-          "States & variants",
-          "Theming",
-          "Code integration",
-          "Documentation",
-          "Adoption support"
+          "Ինտերֆեյսի աուդիտ",
+          "Թոքեններ և հիմքեր",
+          "Կոմպոնենտների գրադարան",
+          "Վիճակներ և տարբերակներ",
+          "Թեմաներ",
+          "Ինտեգրացիա կոդում",
+          "Փաստաթղթեր",
+          "Ներդրման աջակցություն"
         ]
       },
       {
-        "title": "Launch & improvement",
+        "title": "Գործարկում և զարգացում",
         "text": {
-          "lead": "After go-live, the work continues:",
+          "lead": "Գործարկումից հետո աշխատանքը շարունակվում է՝",
           "items": [
-            "Performance and accessibility care",
-            "Analytics and measurement",
-            "SEO and launch marketing, with specialists",
-            "Improvements based on real usage"
+            "Արագագործության և հասանելիության խնամք",
+            "Վերլուծություն և չափումներ",
+            "SEO և գործարկման մարքեթինգ՝ մասնագետների հետ",
+            "Բարելավումներ՝ հիմնված իրական օգտագործման վրա"
           ]
         },
-        "footnote": "A product that keeps improving instead of slowly going out of date.",
+        "footnote": "Պրոդուկտ, որը շարունակում է բարելավվել, այլ ոչ թե աստիճանաբար հնանում։",
         "skills": [
-          "Deployment",
-          "Performance",
-          "Analytics setup",
-          "Conversion improvements",
+          "Տեղադրում",
+          "Արագագործություն",
+          "Վերլուծության կարգավորում",
+          "Կոնվերսիայի բարելավում",
           "SEO",
-          "Launch promotion",
-          "Maintenance",
-          "Ongoing support"
+          "Գործարկման առաջխաղացում",
+          "Սպասարկում",
+          "Շարունակական աջակցություն"
         ]
       }
     ]
@@ -3065,24 +3065,24 @@
     "title": "Let’s talk",
     "subtitle": "Have a question, an idea, or just want to get in touch? Send me a message - I read everything myself.",
     "channels": {
-      "label": "Ways to reach me",
-      "body": "Best for general questions, collaborations and anything that doesn’t need a project brief.",
-      "listLabel": "Contact channels",
-      "opensInNewTab": "opens in a new tab",
-      "scanHint": "Scan with your phone, or select the icon.",
+      "label": "Ինչպես կապ հաստատել ինձ հետ",
+      "body": "Հարմար է ընդհանուր հարցերի, համագործակցության առաջարկների և այն ամենի համար, ինչ նախագծի բրիֆ չի պահանջում։",
+      "listLabel": "Կապի ուղիներ",
+      "opensInNewTab": "կբացվի նոր ներդիրում",
+      "scanHint": "Սկանավորեք հեռախոսով կամ սեղմեք պատկերակի վրա։",
       "items": {
         "instagram": "Instagram",
         "linkedin": "LinkedIn",
         "telegram": "Telegram",
         "whatsapp": "WhatsApp",
-        "email": "Email"
+        "email": "Էլ. փոստ"
       },
       "actions": {
-        "instagram": "Open",
-        "linkedin": "Open",
-        "telegram": "Message",
-        "whatsapp": "Message",
-        "email": "Write"
+        "instagram": "Բացել",
+        "linkedin": "Բացել",
+        "telegram": "Գրել",
+        "whatsapp": "Գրել",
+        "email": "Գրել նամակ"
       }
     },
     "form": {
@@ -3099,9 +3099,9 @@
     }
   },
   "homeContact": {
-    "title": "Let’s talk",
-    "subtitle": "Pick the channel that suits you - or, if you have a project in mind, tell me about it.",
-    "cta": "Start a project"
+    "title": "Եկեք խոսենք",
+    "subtitle": "Ընտրեք Ձեզ հարմար ալիքը կամ, եթե ունեք նախագիծ, պատմեք դրա մասին։",
+    "cta": "Սկսել նախագիծ"
   },
   "platforms": {
     "label": "Հարթակներ և տեխնոլոգիաներ, որոնցով աշխատել եմ",
