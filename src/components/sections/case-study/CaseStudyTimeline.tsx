@@ -182,12 +182,14 @@ const GallerySetView = styled.div`
   }
 `;
 
-const GalleryCol = styled.div`
+/** `$share`: of the gallery's width — a phone's screen takes 30, the desktop pair the rest. */
+const GalleryCol = styled.div<{ $share: number }>`
   display: flex;
-  flex: 1 1 0;
+  flex: ${(p) => p.$share} 1 0;
   flex-direction: column;
   gap: inherit;
   min-width: 0;
+  overflow: hidden;
 `;
 
 /** One image of a set; `grow` shares the column's height (Figma 292 : 216 on the right). */
@@ -202,6 +204,31 @@ const GalleryShot = styled.div<{ $grow: number }>`
     object-position: top;
   }
 `;
+
+/**
+ * A phone's screen in the narrow column: the column's full width at its own
+ * shape, never cropped at the sides; the next ones follow it down and the
+ * column cuts the last at its bottom edge.
+ */
+const PhoneShot = styled.div`
+  position: relative;
+  flex: none;
+  overflow: hidden;
+
+  img {
+    object-fit: cover;
+    object-position: top;
+  }
+`;
+
+/** A phone screen and the case's next ones, enough to run the column's height. */
+function phoneRun(gallery: GallerySet[], s: number) {
+  const main = gallery[s].main;
+  const after = [...gallery.slice(s + 1), ...gallery.slice(0, s)]
+    .map((set) => set.main)
+    .filter((image) => image.phone && image.src !== main.src);
+  return [main, ...after.slice(0, 3)];
+}
 
 function Shot({ image, grow, width }: { image: CaseImage; grow: number; width: number }) {
   return (
@@ -295,12 +322,20 @@ export function CaseStudyTimeline({ copy, gallery }: { copy: CaseStudyCopy['time
                 <Fragment key={s}>
                   {(s === active || s === previous || s === active + 1) && (
                     <GallerySetView data-active={s === active}>
-                      <GalleryCol>
-                        <Shot image={set.main} grow={1} width={450} />
+                      <GalleryCol $share={set.main.phone ? 30 : 50}>
+                        {set.main.phone ? (
+                          phoneRun(gallery, s).map((image, i) => (
+                            <PhoneShot key={`${image.src}-${i}`} style={{ aspectRatio: String(image.aspect) }}>
+                              <CaseMedia image={image} sizes="300px" />
+                            </PhoneShot>
+                          ))
+                        ) : (
+                          <Shot image={set.main} grow={1} width={450} />
+                        )}
                       </GalleryCol>
-                      <GalleryCol>
-                        <Shot image={set.side[0]} grow={292} width={450} />
-                        <Shot image={set.side[1]} grow={216} width={450} />
+                      <GalleryCol $share={set.main.phone ? 70 : 50}>
+                        <Shot image={set.side[0]} grow={292} width={set.main.phone ? 640 : 450} />
+                        <Shot image={set.side[1]} grow={216} width={set.main.phone ? 640 : 450} />
                       </GalleryCol>
                     </GallerySetView>
                   )}
