@@ -1,22 +1,16 @@
-"use client";
+'use client';
 
 /* eslint-disable @next/next/no-img-element */
-import { useLayoutEffect, useRef } from "react";
-import styled, { css } from "styled-components";
-import { Link } from "@/i18n/navigation";
-import { spacing } from "@/styles/tokens/spacing";
-import { neutrals, accents } from "@/styles/tokens/colors";
-import {
-  fontSize,
-  lineHeight,
-  fontWeight,
-  letterSpacing,
-  fontFamily,
-} from "@/styles/tokens/typography";
-import { grid } from "@/styles/tokens/grid";
-import { media, mediaQueries } from "@/styles/media";
-import { duration, easing } from "@/styles/tokens/motion";
-import { useLocale, useTranslations } from "next-intl";
+import { useLayoutEffect, useRef } from 'react';
+import styled, { css } from 'styled-components';
+import { Link } from '@/i18n/navigation';
+import { spacing } from '@/styles/tokens/spacing';
+import { neutrals, accents } from '@/styles/tokens/colors';
+import { fontSize, lineHeight, fontWeight, letterSpacing, fontFamily } from '@/styles/tokens/typography';
+import { grid } from '@/styles/tokens/grid';
+import { media, mediaQueries } from '@/styles/media';
+import { duration, easing } from '@/styles/tokens/motion';
+import { useLocale, useTranslations } from 'next-intl';
 
 /*
  * Figma: Footer — Desktop 1920 (4037:14070), Tablet 1024 (4037:14206),
@@ -34,7 +28,7 @@ import { useLocale, useTranslations } from "next-intl";
  */
 
 /** Word length on desktop — the link column's height, written by useNameLength. */
-const NAME_LENGTH = "var(--footer-name-length, 624px)";
+const NAME_LENGTH = 'var(--footer-name-length, 624px)';
 
 /**
  * The logo, as two pieces of outlined lettering, each kept at its own native
@@ -44,22 +38,10 @@ const NAME_LENGTH = "var(--footer-name-length, 624px)";
  * onto its side to run the link column's height and the tagline, already
  * vertical, stands beside it unrotated.
  */
-const WORDMARK = {
-  src: "/footer/name-wordmark.svg",
-  width: 540,
-  height: 77.2426,
-} as const;
-const TAGLINE = {
-  src: "/footer/name-tagline.svg",
-  width: 51,
-  height: 540,
-} as const;
+const WORDMARK = { src: '/footer/name-wordmark.svg', width: 540, height: 77.2426 } as const;
+const TAGLINE = { src: '/footer/name-tagline.svg', width: 51, height: 540 } as const;
 /** The same words laid out as a row, for the phone, where they sit under the wordmark. */
-const TAGLINE_ROW = {
-  src: "/footer/name-tagline-row.svg",
-  width: 540,
-  height: 51,
-} as const;
+const TAGLINE_ROW = { src: '/footer/name-tagline-row.svg', width: 540, height: 51 } as const;
 
 /**
  * The tagline is lettering, not text, so each language has its own pair of
@@ -67,44 +49,30 @@ const TAGLINE_ROW = {
  * is English, `name-tagline.ru.svg` and `.hy.svg` the others.
  */
 const taglineFile = (src: string, locale: string) =>
-  locale === "ru" || locale === "hy"
-    ? src.replace(".svg", `.${locale}.svg`)
-    : src;
+  locale === 'ru' || locale === 'hy' ? src.replace('.svg', `.${locale}.svg`) : src;
 
 const LINK_TRANSITION = `${duration.slower} ${easing.spring}`;
 
 const PRIMARY_LINKS = [
-  { key: "services", href: "/services" },
-  { key: "projects", href: "/work" },
-  { key: "about", href: "/about" },
-  { key: "startProject", href: "/start-a-project" },
-  { key: "contact", href: "/contact" },
-  { key: "privacy", href: "/privacy" },
+  { key: 'services', href: '/services' },
+  { key: 'projects', href: '/work' },
+  { key: 'about', href: '/about' },
+  { key: 'startProject', href: '/start-a-project' },
+  { key: 'contact', href: '/contact' },
+  { key: 'privacy', href: '/privacy' },
 ] as const;
 
 /** `channel` names the outbound_contact analytics event (src/lib/analytics/track.ts). */
 const SOCIAL_LINKS = [
-  {
-    label: "Instagram",
-    href: "https://www.instagram.com/torchian_/",
-    channel: "instagram",
-  },
-  {
-    label: "LinkedIn",
-    href: "https://www.linkedin.com/in/torchian/",
-    channel: "linkedin",
-  },
+  { label: 'Instagram', href: 'https://www.instagram.com/torchian_/', channel: 'instagram' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/torchian/', channel: 'linkedin' },
 ];
 
 const CONTACT_LINKS = [
   // On the site's own domain. It needs a forwarder in the registrar's DNS
   // before it receives anything — see docs/setup/domain-email-hosting.md.
-  {
-    label: "hello@torchyan.design",
-    href: "mailto:hello@torchyan.design",
-    channel: "email",
-  },
-  { label: "+374 95 334 719", href: "tel:+37495334719", channel: "phone" },
+  { label: 'hello@torchyan.design', href: 'mailto:hello@torchyan.design', channel: 'email' },
+  { label: '+374 95 334 719', href: 'tel:+37495334719', channel: 'phone' },
 ];
 
 /* ─── Layout ─────────────────────────────────────────────────────────────── */
@@ -116,11 +84,11 @@ const FooterEl = styled.footer`
   background: ${neutrals[900]};
   padding: ${spacing[1000]}px 0;
 
-  ${media.between("l", "xl")} {
+  ${media.between('l', 'xl')} {
     padding: ${spacing[500]}px 0;
   }
 
-  ${media.down("l")} {
+  ${media.down('l')} {
     padding: ${spacing[500]}px 0 ${spacing[300]}px;
   }
 `;
@@ -134,21 +102,21 @@ const Inner = styled.div`
   margin: 0 auto;
   padding: 0 ${spacing[400]}px;
 
-  ${media.between("l", "xl")} {
+  ${media.between('l', 'xl')} {
     padding: 0 ${spacing[300]}px;
   }
 
-  ${media.down("m")} {
+  ${media.down('m')} {
     padding: 0 ${spacing[200]}px;
   }
 
-  ${media.up("l")} {
+  ${media.up('l')} {
     flex-direction: row;
     align-items: flex-start;
     gap: ${spacing[600]}px;
   }
 
-  ${media.up("xl")} {
+  ${media.up('xl')} {
     gap: ${spacing[1500]}px;
   }
 `;
@@ -163,7 +131,7 @@ const NameBlock = styled.div`
   flex-direction: column;
   gap: ${spacing[300]}px;
 
-  ${media.up("l")} {
+  ${media.up('l')} {
     flex: none;
     flex-direction: row;
     align-items: flex-start;
@@ -186,14 +154,12 @@ const Wordmark = styled.div`
     height: auto;
   }
 
-  ${media.up("l")} {
+  ${media.up('l')} {
     display: flex;
     flex: none;
     align-items: center;
     justify-content: center;
-    width: calc(
-      ${NAME_LENGTH} * ${(WORDMARK.height / WORDMARK.width).toFixed(6)}
-    );
+    width: calc(${NAME_LENGTH} * ${(WORDMARK.height / WORDMARK.width).toFixed(6)});
     height: ${NAME_LENGTH};
 
     > div {
@@ -228,11 +194,9 @@ const Tagline = styled.div`
     display: none;
   }
 
-  ${media.up("l")} {
+  ${media.up('l')} {
     flex: none;
-    width: calc(
-      ${NAME_LENGTH} * ${(TAGLINE.width / TAGLINE.height).toFixed(6)}
-    );
+    width: calc(${NAME_LENGTH} * ${(TAGLINE.width / TAGLINE.height).toFixed(6)});
     height: ${NAME_LENGTH};
 
     img:first-child {
@@ -249,7 +213,7 @@ const Tagline = styled.div`
 const Column = styled.div`
   display: contents;
 
-  ${media.up("l")} {
+  ${media.up('l')} {
     display: flex;
     flex: 1;
     flex-direction: column;
@@ -272,7 +236,7 @@ const Groups = styled.div`
   padding-left: ${spacing[150]}px;
 
   /* Desktop: the groups join the column's own gap, alongside the copyright. */
-  ${media.up("l")} {
+  ${media.up('l')} {
     display: contents;
   }
 `;
@@ -300,7 +264,7 @@ const GroupTitle = styled.h2`
 
 const LinkList = styled.ul<{ $stacked?: boolean }>`
   display: flex;
-  flex-direction: ${(p) => (p.$stacked ? "column" : "row")};
+  flex-direction: ${(p) => (p.$stacked ? 'column' : 'row')};
   flex-wrap: wrap;
   align-items: flex-start;
   /* Figma's tablet and mobile frames agree on 16px row-gap, 48px column-gap;
@@ -310,7 +274,7 @@ const LinkList = styled.ul<{ $stacked?: boolean }>`
   padding: 0;
   list-style: none;
 
-  ${media.up("xl")} {
+  ${media.up('xl')} {
     column-gap: ${spacing[800]}px;
   }
 
@@ -355,7 +319,7 @@ const bracketLink = css`
   &::before,
   &::after {
     /* Decorative — empty alt text keeps screen readers from announcing the brackets. */
-    content: "[" / "";
+    content: '[' / '';
     position: absolute;
     top: 0;
     transition:
@@ -392,14 +356,14 @@ const bracketLink = css`
     ${bracketsOpen}
   }
 
-  ${media.down("l")} {
+  ${media.down('l')} {
     --bracket-offset: 8px;
     font-weight: ${fontWeight.semibold};
     font-size: ${fontSize.heading.s}px;
     line-height: ${lineHeight.heading.s}px;
   }
 
-  ${media.down("m")} {
+  ${media.down('m')} {
     --bracket-offset: 5.5px;
     font-weight: ${fontWeight.semibold};
     font-size: ${fontSize.body.l}px;
@@ -436,13 +400,13 @@ const Location = styled.p`
   }
 
   /* Tablet keeps the gap and the pin's box, but drops to SemiBold 24/32. */
-  ${media.down("l")} {
+  ${media.down('l')} {
     font-weight: ${fontWeight.semibold};
     font-size: ${fontSize.heading.s}px;
     line-height: ${lineHeight.heading.s}px;
   }
 
-  ${media.down("m")} {
+  ${media.down('m')} {
     gap: ${spacing[100]}px;
     font-size: ${fontSize.body.l}px;
     line-height: ${lineHeight.body.l}px;
@@ -470,7 +434,7 @@ const Copyright = styled.div`
     white-space: nowrap;
   }
 
-  ${media.down("m")} {
+  ${media.down('m')} {
     gap: ${spacing[200]}px;
     font-size: ${fontSize.body.m}px;
     line-height: ${lineHeight.body.m}px;
@@ -483,7 +447,7 @@ const Copyright = styled.div`
     }
   }
 
-  ${media.up("l")} {
+  ${media.up('l')} {
     justify-content: flex-start;
     gap: ${spacing[800]}px;
   }
@@ -516,13 +480,13 @@ function useNameLength(
     const inner = innerRef.current;
     const column = columnRef.current;
     if (!inner || !column) return;
-    const desktop = window.matchMedia(mediaQueries.up("l"));
+    const desktop = window.matchMedia(mediaQueries.up('l'));
     let width = 0;
     let seen: number[] = [];
 
     const update = () => {
       if (!desktop.matches) {
-        inner.style.removeProperty("--footer-name-length");
+        inner.style.removeProperty('--footer-name-length');
         seen = [];
         return;
       }
@@ -534,7 +498,7 @@ function useNameLength(
       if (height === 0) return;
       const length = seen.includes(height) ? Math.max(height, ...seen) : height;
       if (!seen.includes(height)) seen.push(height);
-      inner.style.setProperty("--footer-name-length", `${length}px`);
+      inner.style.setProperty('--footer-name-length', `${length}px`);
     };
 
     update();
@@ -549,14 +513,14 @@ export function Footer() {
   const innerRef = useRef<HTMLDivElement>(null);
   const columnRef = useRef<HTMLDivElement>(null);
   useNameLength(innerRef, columnRef);
-  const t = useTranslations("footer");
-  const tLinks = useTranslations("footer.links");
+  const t = useTranslations('footer');
+  const tLinks = useTranslations('footer.links');
   const locale = useLocale();
 
   return (
     <FooterEl id="site-footer">
       <Inner ref={innerRef}>
-        <VisuallyHiddenText>{t("srName")}</VisuallyHiddenText>
+        <VisuallyHiddenText>{t('srName')}</VisuallyHiddenText>
 
         <NameBlock aria-hidden>
           <Wordmark>
@@ -566,31 +530,25 @@ export function Footer() {
           </Wordmark>
           <Tagline>
             <img {...TAGLINE} src={taglineFile(TAGLINE.src, locale)} alt="" />
-            <img
-              {...TAGLINE_ROW}
-              src={taglineFile(TAGLINE_ROW.src, locale)}
-              alt=""
-            />
+            <img {...TAGLINE_ROW} src={taglineFile(TAGLINE_ROW.src, locale)} alt="" />
           </Tagline>
         </NameBlock>
 
         <Column ref={columnRef}>
           <Groups>
             <Group as="nav" aria-labelledby="footer-primary">
-              <GroupTitle id="footer-primary">{t("primary")}</GroupTitle>
+              <GroupTitle id="footer-primary">{t('primary')}</GroupTitle>
               <LinkList>
                 {PRIMARY_LINKS.map((item) => (
                   <li key={item.key}>
-                    <InternalLink href={item.href}>
-                      {tLinks(item.key)}
-                    </InternalLink>
+                    <InternalLink href={item.href}>{tLinks(item.key)}</InternalLink>
                   </li>
                 ))}
               </LinkList>
             </Group>
 
             <Group as="nav" aria-labelledby="footer-social">
-              <GroupTitle id="footer-social">{t("social")}</GroupTitle>
+              <GroupTitle id="footer-social">{t('social')}</GroupTitle>
               <LinkList $stacked>
                 {SOCIAL_LINKS.map((item) => (
                   <li key={item.label}>
@@ -608,7 +566,7 @@ export function Footer() {
             </Group>
 
             <Group as="address">
-              <GroupTitle as="p">{t("contacts")}</GroupTitle>
+              <GroupTitle as="p">{t('contacts')}</GroupTitle>
               <LinkList $stacked>
                 {CONTACT_LINKS.map((item) => (
                   <li key={item.label}>
@@ -622,12 +580,12 @@ export function Footer() {
 
             <Location>
               <img src="/footer/location-pin.svg" alt="" aria-hidden />
-              <span>{t("location")}</span>
+              <span>{t('location')}</span>
             </Location>
           </Groups>
 
           <Copyright>
-            <p>{t("copyright", { year: String(new Date().getFullYear()) })}</p>
+            <p>{t('copyright', { year: String(new Date().getFullYear()) })}</p>
           </Copyright>
         </Column>
       </Inner>
