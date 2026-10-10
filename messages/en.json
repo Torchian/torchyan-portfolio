@@ -1401,7 +1401,7 @@
       {
         "title": "Who is responsible",
         "body": [
-          "Torchyan, led by Stepan Torchyan in Yerevan, Armenia, is responsible for the personal data described in this notice.",
+          "Stepan Torchyan, an individual based in Yerevan, Armenia, operates Torchyan and is responsible for the personal data described in this notice.",
           "Contact for anything about your data: hello@torchyan.design."
         ]
       },
@@ -1409,7 +1409,8 @@
         "title": "What we collect",
         "body": [
           "We collect the name, work email and message you submit, plus any optional details you provide, such as your company, website or product link, project type and timeline.",
-          "Standard technical data needed to deliver the website, such as your browser type and the pages requested."
+          "Standard technical data needed to deliver the website, such as your browser type and the pages requested.",
+          "When you send a message, your IP address is checked briefly in server memory to limit repeated submissions. It is not saved with your message."
         ]
       },
       {
@@ -1419,21 +1420,23 @@
         ]
       },
       {
-        "title": "Analytics",
+        "title": "Cookies and analytics",
         "body": [
-          "Vercel Web Analytics measures visits in aggregate. It does not use cookies, and visitors are identified only by a temporary hash that is discarded after 24 hours. The site does not use Google Analytics or Yandex Metrica."
+          "Vercel Web Analytics measures visits in aggregate. It does not use cookies, and visitors are identified only by a temporary hash that is discarded after 24 hours. The site does not use Google Analytics or Yandex Metrica.",
+          "The site sets one functional cookie, NEXT_LOCALE, which remembers your language choice (en, ru or hy) for one year. The language is first chosen from the country your request comes from, and only the language code is stored. The cookie does not identify you and is not used for tracking."
         ]
       },
       {
         "title": "Who processes it",
         "body": [
-          "Vercel hosts the website and provides the analytics. Resend delivers contact-form messages by email. ImprovMX forwards messages sent to hello@torchyan.design to our inbox."
+          "Vercel hosts the website and provides the analytics. Resend delivers contact-form messages by email. ImprovMX forwards messages sent to hello@torchyan.design to our inbox, which is held with an email provider.",
+          "Some of these providers operate outside Armenia, including in the United States, so your data may be processed there."
         ]
       },
       {
         "title": "How long we keep it",
         "body": [
-          "Enquiries are kept for 24 months, then deleted."
+          "Enquiries are kept for up to 24 months after our last contact, unless the law requires a longer period, and are then deleted."
         ]
       },
       {
