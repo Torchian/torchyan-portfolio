@@ -27,8 +27,7 @@ export type ProjectSlug =
   | 'by-robyn-blair'
   | 'off-my-case'
   | 'gemmed'
-  | 'scunci'
-  | 'graphic-design';
+  | 'scunci';
 
 /** A project's copy, from messages/*.json under projects.<slug>. */
 export interface ProjectContent {
@@ -364,51 +363,6 @@ PROJECTS.push(
     ]),
   },
 );
-
-/*
- * Graphic design: identity boards and social posters (Figma: Logos, section
- * 2809:2481). Captions name the brand each piece was made for.
- */
-const graphic = (name: string, width: number, height: number, caption: string) => ({
-  src: `/projects/cases/graphic-design/${name}.webp`,
-  alt: caption,
-  aspect: width / height,
-  caption,
-});
-const POSTERS = 'Social posters for Живые вещи';
-
-PROJECTS.push({
-  slug: 'graphic-design',
-  company: 'Logos & posters',
-  year: '',
-  gradient: 'linear-gradient(180deg, #1B1B1F 0%, #4A3F6B 100%)',
-  more: true,
-  logo: '/logo/logo.svg',
-  images: [
-    graphic('solomoon', 2560, 1922, 'Solomoon - logo and app icons'),
-    graphic('photo-booth', 2560, 2647, 'The Photo Booth Co. - logo and ads'),
-    graphic('serani', 2560, 1990, 'Serani - logo'),
-    graphic('wallbrick', 2560, 1468, 'Wallbrick - logo'),
-    graphic('dc-crm', 2560, 1356, 'Dental Clinic CRM - logo and business card'),
-    graphic('easy-process', 2560, 1028, 'Easy Process - logo concepts'),
-    graphic('akn', 2458, 1364, 'AKN - logo'),
-    graphic('european-floors', 1792, 1805, 'European Floors of Houston - logo'),
-    graphic('story-05', 1080, 1920, POSTERS),
-    graphic('story-09', 1080, 1080, POSTERS),
-    graphic('story-07', 1080, 1920, POSTERS),
-    graphic('story-08', 1080, 1080, POSTERS),
-    graphic('story-10', 1080, 1920, POSTERS),
-    graphic('story-11', 1080, 1080, POSTERS),
-    graphic('story-12', 1080, 1920, POSTERS),
-    graphic('story-13', 1080, 1080, POSTERS),
-    graphic('story-14', 1080, 1920, POSTERS),
-    graphic('story-15', 1080, 1080, POSTERS),
-    graphic('story-16', 1080, 1920, POSTERS),
-    graphic('story-17', 1080, 1080, POSTERS),
-    graphic('story-18', 1080, 1920, POSTERS),
-    graphic('story-19', 1080, 1080, POSTERS),
-  ],
-});
 
 /** The short projects listed under "More projects", in order. */
 export const MORE_PROJECTS = PROJECTS.filter((p) => p.more);
