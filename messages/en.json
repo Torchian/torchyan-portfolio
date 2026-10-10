@@ -3122,11 +3122,11 @@
         "email": "Email"
       },
       "actions": {
-        "instagram": "Open Instagram",
-        "linkedin": "Open LinkedIn",
-        "telegram": "Message on Telegram",
-        "whatsapp": "Message on WhatsApp",
-        "email": "Write an email"
+        "instagram": "Open",
+        "linkedin": "Open",
+        "telegram": "Message",
+        "whatsapp": "Message",
+        "email": "Write"
       }
     },
     "form": {

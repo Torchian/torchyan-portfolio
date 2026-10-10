@@ -2,6 +2,7 @@
 
 import styled from 'styled-components';
 import { Container } from '@/components/primitives';
+import { HEADER_INLINE } from '@/components/layouts/NavBar';
 import { ProjectMeta } from '@/components/composites';
 import { spacing } from '@/styles/tokens/spacing';
 import { fontSize, lineHeight, fontWeight, fontFamily } from '@/styles/tokens/typography';
@@ -36,6 +37,17 @@ const Content = styled(Container)`
   align-items: end;
   column-gap: ${spacing[800]}px;
   row-gap: ${spacing[600]}px;
+
+  /* Lined up with the header: its own three steps (32, 24, 16). */
+  padding-inline: ${HEADER_INLINE.base}px;
+
+  ${media.down('xl')} {
+    padding-inline: ${HEADER_INLINE.tablet}px;
+  }
+
+  ${media.down('m')} {
+    padding-inline: ${HEADER_INLINE.mobile}px;
+  }
 
   ${media.down('xl')} {
     grid-template-columns: minmax(0, 1fr);
