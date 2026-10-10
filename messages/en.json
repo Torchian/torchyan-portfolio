@@ -1173,95 +1173,89 @@
     "hero": {
       "title": "Design and engineering, under one accountable lead",
       "lead": "Torchyan takes responsibility for websites and digital products from direction to production.",
-      "body": "You don’t have to coordinate separate strategists, designers, developers and specialists. One person leads the work, keeps every decision connected, and stays accountable from the first call to launch and beyond.",
+      "body": "You don’t need to coordinate separate strategists, designers and developers. I lead the project, keep the decisions connected and bring in specialists when needed — from our first conversation through launch and beyond.",
       "points": [
         "Your website no longer matches your business",
         "You’re launching a product, a service or a new market",
         "Your product UI is inconsistent or slow to ship",
         "You want design and build carried by one continuous process",
-        "You need a senior partner, not another vendor to manage"
+        "You need an experienced partner who can lead the work"
       ],
       "team": {
         "label": "The team",
-        "lead": "Stepan Torchyan, lead",
+        "lead": "Stepan Torchyan, founder & project lead",
         "member1": "Brand & Identity",
         "member2": "Backend & APIs",
-        "aiAssistant": "AI Assistant",
+        "aiAssistant": "AI Assistants",
         "member3": "Marketing & SEO"
       }
     },
     "areas": {
       "title": "What Torchyan takes on",
-      "subtitle": "Four areas, each carried end to end. The exact scope depends on your project.",
+      "subtitle": "Four connected areas of work. We define the right scope for each project.",
       "situationLabel": "When it fits",
       "ownsLabel": "What Torchyan owns",
       "outcomesLabel": "What you get",
       "items": [
         {
           "title": "Websites",
-          "situation": "Your site no longer reflects the business, is hard to update, or needs to support a launch or a new market.",
+          "situation": "Your business needs a new website, your current site no longer reflects what you offer, or you’re entering a new market.",
           "owns": [
-            "Direction, structure and content planning",
-            "Brand and visual direction - with brand specialists for full identity work",
-            "UX, interface and motion design",
-            "Front-end development and CMS setup",
-            "Platform choice: a custom build, a CMS or a commerce platform",
-            "SEO foundations, analytics and launch"
+            "Website strategy",
+            "Content structure",
+            "UX/UI design",
+            "Responsive front-end development",
+            "Launch coordination"
           ],
           "outcomes": [
-            "A site that explains the business clearly",
-            "Fast, accessible and responsive on every device",
-            "A setup your team can update"
-          ]
+            "A clear, consistent and maintainable website designed to support your business."
+          ],
+          "summary": "Websites built around your business goals, your audience and the content that matters — from structure and visual design to development and launch."
         },
         {
-          "title": "Product interfaces",
-          "situation": "A product needs a usable, consistent interface - new, redesigned, or growing faster than its UI.",
+          "title": "Product Interfaces",
+          "situation": "You’re building a new product, redesigning an existing one, or improving a complex interface.",
           "owns": [
-            "Product discovery and user flows",
-            "UX architecture and research",
-            "Interface design and prototyping",
-            "Front-end engineering in your stack",
-            "Localization, including right-to-left languages",
-            "Accessibility aligned with WCAG 2.1 AA",
-            "Backend and system architecture through trusted specialists"
+            "User flows",
+            "Information architecture",
+            "Interface design",
+            "Interaction design",
+            "Front-end UI implementation"
           ],
           "outcomes": [
-            "Interfaces people understand",
-            "UI your engineers can ship and extend"
-          ]
+            "Clear, consistent interfaces and production-ready components that support the way your product works."
+          ],
+          "summary": "Interfaces for digital products, dashboards and complex workflows — designed around real users and implemented with attention to detail."
         },
         {
-          "title": "Design systems",
-          "situation": "Screens drift apart as the team grows, and every new feature restyles the same components.",
+          "title": "Design Systems",
+          "situation": "Your product is growing, interfaces are becoming inconsistent, or design and development teams need a shared foundation.",
           "owns": [
-            "UI review and gap analysis",
-            "Tokens and foundations",
-            "Component design and code",
-            "States, variants and theming",
-            "Integration into existing products",
-            "Documentation for design and engineering"
+            "Design tokens",
+            "Component architecture",
+            "Reusable UI components",
+            "Interaction states",
+            "Implementation guidance"
           ],
           "outcomes": [
-            "One source of truth for design and code",
-            "Faster, more consistent delivery"
-          ]
+            "A practical system that improves consistency, makes maintenance easier and supports future development."
+          ],
+          "summary": "Reusable interface foundations that connect design and development, helping teams build consistently without solving the same problems repeatedly."
         },
         {
-          "title": "Launch & improvement",
-          "situation": "Launch is the start, not the end: the product needs to perform, be found and keep improving.",
+          "title": "Launch & Growth",
+          "situation": "You’re preparing for launch, need to improve an existing website, or want ongoing support as your business grows.",
           "owns": [
-            "Deployment and hosting setup",
-            "Performance and accessibility care",
-            "Analytics and conversion measurement",
-            "SEO, launch promotion and marketing - with specialists",
-            "Improvements based on real usage",
-            "Maintenance and ongoing support"
+            "Launch coordination",
+            "Front-end performance improvements",
+            "UX refinements",
+            "Analytics planning",
+            "Collaboration with SEO or marketing specialists when needed"
           ],
           "outcomes": [
-            "A product that keeps pace with the business",
-            "Decisions based on data, not guesses"
-          ]
+            "A clearer launch process and a practical plan for improving your digital product over time."
+          ],
+          "summary": "The work doesn’t end when a website or product goes live. We can continue improving performance, content, usability and visibility based on real needs and measured results."
         }
       ]
     },
@@ -1321,19 +1315,19 @@
     },
     "start": {
       "title": "How we can start",
-      "subtitle": "No fixed packages. Scope, timeline and cost are agreed once we understand the project.",
+      "subtitle": "No fixed packages. We’ll agree on the scope, timeline and cost once we understand your project.",
       "items": [
         {
           "title": "Defined project",
-          "body": "A clear goal with a clear end: a new website, a rebuild, a launch, a product interface or a design system. Scope, timeline and cost are agreed before work starts."
+          "body": "A specific goal, a clear scope and an agreed delivery plan. Suitable for new websites, redesigns, product features or interface development."
         },
         {
           "title": "Ongoing partnership",
-          "body": "Continued design and development after a first project - new pages and features, improvements, maintenance and support, with capacity agreed month by month."
+          "body": "Continuous design and development support for teams that need regular improvements, new features or reliable UI engineering."
         },
         {
-          "title": "Diagnostic",
-          "body": "Not sure what needs fixing first? A focused review of your website or product - clarity, UX, performance, accessibility and SEO foundations - that ends with clear priorities and a recommended next step."
+          "title": "Analysis & Recommendations",
+          "body": "A focused review of your website or product to identify usability, design or front-end issues and define practical next steps."
         }
       ]
     },
@@ -1342,27 +1336,26 @@
       "subtitle": "One accountable lead, specialists when the project needs them, and technology chosen for the problem."
     },
     "founder": {
-      "title": "You work with the person responsible",
-      "body": "Torchyan is led by Stepan Torchyan, a designer and UI engineer. I lead every engagement from the first call to launch and stay accountable for the result. There’s no account manager between you and the work."
+      "title": "Direct collaboration",
+      "body": "You work directly with the person leading your project. Decisions stay clear, communication stays simple and you’re always part of the process."
     },
     "specialists": {
-      "title": "Specialists, when the project needs them",
-      "body": "Some projects need more than design and front-end. I bring in trusted, paid specialists - backend and system architecture, additional design, QA, project management, photography, SEO and marketing - and run them within one plan. You still have one point of contact."
+      "title": "Specialists when needed",
+      "body": "I lead the core work and involve specialists for specific tasks, such as backend development, QA, SEO or marketing, when the project requires them."
     },
     "technology": {
       "title": "Technology follows the problem",
-      "body": "The platform is chosen during discovery, based on your content workflow, integrations, performance needs, budget and who will maintain it."
+      "body": "The tools and technologies are chosen around the project’s requirements, not the other way around."
     },
     "boundaries": {
-      "title": "What Torchyan doesn’t do",
+      "title": "Scope & Collaboration",
       "items": [
-        "Guaranteed rankings, traffic or lead numbers",
-        "Native iOS and Android apps"
+        "Every project is different. I lead design and front-end work directly, while tasks outside my core expertise are handled with the right specialists when needed. Responsibilities, deliverables and timelines are agreed before the work begins."
       ]
     },
     "cta": {
       "title": "Ready when you are",
-      "subtitle": "Tell me what you’re building or what needs to change.",
+      "subtitle": "Have a project in mind? Tell me what you’re building or what needs to change.",
       "initiate": {
         "title": "Start a project",
         "body": "A website, a product interface, a design system, or improving what’s live. I reply within 2 business days.",

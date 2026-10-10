@@ -1171,207 +1171,200 @@
   },
   "servicesPage": {
     "hero": {
-      "title": "Design and engineering, under one accountable lead",
-      "lead": "Torchyan takes responsibility for websites and digital products from direction to production.",
-      "body": "You don’t have to coordinate separate strategists, designers, developers and specialists. One person leads the work, keeps every decision connected, and stays accountable from the first call to launch and beyond.",
+      "title": "Դիզայն և ծրագրավորում՝ մեկ պատասխանատուի ղեկավարությամբ",
+      "lead": "Torchyan-ը ստանձնում է կայքերի և թվային պրոդուկտների նախագծերի իրականացումը՝ ուղղության ընտրությունից մինչև գործարկում։",
+      "body": "Ձեզ հարկավոր չէ ինքնուրույն համակարգել դիզայներների, ծրագրավորողների և այլ մասնագետների աշխատանքը։ Ես ղեկավարում եմ նախագիծը, ապահովում որոշումների փոխկապակցվածությունը և անհրաժեշտության դեպքում ներգրավում համապատասխան մասնագետների՝ առաջին քննարկումից մինչև գործարկում և հետագա զարգացում։",
       "points": [
-        "Your website no longer matches your business",
-        "You’re launching a product, a service or a new market",
-        "Your product UI is inconsistent or slow to ship",
-        "You want design and build carried by one continuous process",
-        "You need a senior partner, not another vendor to manage"
+        "Ձեր կայքն այլևս չի արտացոլում Ձեր բիզնեսի մակարդակն ու հնարավորությունները",
+        "Դուք նոր պրոդուկտ կամ ծառայություն եք գործարկում կամ մուտք եք գործում նոր շուկա",
+        "Ձեր պրոդուկտի ինտերֆեյսը միասնական չէ, իսկ փոփոխությունները չափազանց դանդաղ են իրականացվում",
+        "Դուք ցանկանում եք, որ դիզայնն ու ծրագրավորումը լինեն մեկ միասնական գործընթացի մաս",
+        "Ձեզ պետք է փորձառու մասնագետ, որը կստանձնի իրականացման պատասխանատվությունը"
       ],
       "team": {
-        "label": "The team",
-        "lead": "Stepan Torchyan, lead",
-        "member1": "Brand & Identity",
-        "member2": "Backend & APIs",
-        "aiAssistant": "AI Assistant",
-        "member3": "Marketing & SEO"
+        "label": "Թիմ",
+        "lead": "Ստեփան Թորչյան, հիմնադիր և նախագծերի ղեկավար",
+        "member1": "Բրենդինգ և վիզուալ ինքնություն",
+        "member2": "Backend և API",
+        "aiAssistant": "AI օգնականներ",
+        "member3": "Մարքեթինգ և SEO"
       }
     },
     "areas": {
-      "title": "What Torchyan takes on",
-      "subtitle": "Four areas, each carried end to end. The exact scope depends on your project.",
-      "situationLabel": "When it fits",
-      "ownsLabel": "What Torchyan owns",
-      "outcomesLabel": "What you get",
+      "title": "Ինչով է զբաղվում Torchyan-ը",
+      "subtitle": "Չորս փոխկապակցված ուղղություն։ Աշխատանքների շրջանակը որոշվում է Ձեր նախագծի խնդիրներից ելնելով։",
+      "situationLabel": "Երբ է սա անհրաժեշտ",
+      "ownsLabel": "Ինչի համար է պատասխանատու Torchyan-ը",
+      "outcomesLabel": "Ինչ եք ստանում",
       "items": [
         {
-          "title": "Websites",
-          "situation": "Your site no longer reflects the business, is hard to update, or needs to support a launch or a new market.",
+          "title": "Կայքեր",
+          "situation": "Ձեզ նոր կայք է պետք, գործող կայքն այլևս չի արտացոլում Ձեր բիզնեսը, կամ Դուք մուտք եք գործում նոր շուկա։",
           "owns": [
-            "Direction, structure and content planning",
-            "Brand and visual direction — with brand specialists for full identity work",
-            "UX, interface and motion design",
-            "Front-end development and CMS setup",
-            "Platform choice: a custom build, a CMS or a commerce platform",
-            "SEO foundations, analytics and launch"
+            "Կայքի ռազմավարություն",
+            "Բովանդակության կառուցվածք",
+            "UX/UI դիզայն",
+            "Տարբեր էկրաններին հարմարվող Front-end ծրագրավորում",
+            "Գործարկման համակարգում"
           ],
           "outcomes": [
-            "A site that explains the business clearly",
-            "Fast, accessible and responsive on every device",
-            "A setup your team can update"
-          ]
+            "Հասկանալի, միասնական և հեշտ սպասարկվող կայք, որն օգնում է լուծել բիզնեսի խնդիրները։"
+          ],
+          "summary": "Ստեղծում ենք կայքեր՝ հաշվի առնելով Ձեր բիզնեսի նպատակները, լսարանի կարիքներն ու բովանդակությունը՝ կառուցվածքից և վիզուալ դիզայնից մինչև ծրագրավորում և գործարկում։"
         },
         {
-          "title": "Product interfaces",
-          "situation": "A product needs a usable, consistent interface — new, redesigned, or growing faster than its UI.",
+          "title": "Պրոդուկտների ինտերֆեյսներ",
+          "situation": "Դուք ստեղծում եք նոր պրոդուկտ, վերանախագծում եք գործողը կամ ցանկանում եք բարելավել բարդ ինտերֆեյսը։",
           "owns": [
-            "Product discovery and user flows",
-            "UX architecture and research",
-            "Interface design and prototyping",
-            "Front-end engineering in your stack",
-            "Localization, including right-to-left languages",
-            "Accessibility aligned with WCAG 2.1 AA",
-            "Backend and system architecture through trusted specialists"
+            "Օգտատիրոջ գործողությունների սցենարներ",
+            "Տեղեկատվական կառուցվածք",
+            "Ինտերֆեյսների դիզայն",
+            "Փոխազդեցությունների դիզայն",
+            "Front-end UI ծրագրավորում"
           ],
           "outcomes": [
-            "Interfaces people understand",
-            "UI your engineers can ship and extend"
-          ]
+            "Հասկանալի և միասնական ինտերֆեյսներ ու գործարկման պատրաստ բաղադրիչներ, որոնք համապատասխանում են Ձեր պրոդուկտի աշխատանքին։"
+          ],
+          "summary": "Նախագծում ենք թվային պրոդուկտների, կառավարման վահանակների և բարդ աշխատանքային գործընթացների ինտերֆեյսներ՝ հիմնվելով օգտատերերի իրական կարիքների վրա և ուշադրություն դարձնելով մանրամասներին։"
         },
         {
-          "title": "Design systems",
-          "situation": "Screens drift apart as the team grows, and every new feature restyles the same components.",
+          "title": "Դիզայն համակարգեր",
+          "situation": "Ձեր պրոդուկտը զարգանում է, ինտերֆեյսները կորցնում են միասնականությունը, կամ դիզայնի և ծրագրավորման թիմերին անհրաժեշտ է ընդհանուր համակարգ։",
           "owns": [
-            "UI review and gap analysis",
-            "Tokens and foundations",
-            "Component design and code",
-            "States, variants and theming",
-            "Integration into existing products",
-            "Documentation for design and engineering"
+            "Դիզայն թոքեններ",
+            "Բաղադրիչների ճարտարապետություն",
+            "Բազմակի օգտագործման UI բաղադրիչներ",
+            "Փոխազդեցության վիճակներ",
+            "Ներդրման ուղեցույցներ"
           ],
           "outcomes": [
-            "One source of truth for design and code",
-            "Faster, more consistent delivery"
-          ]
+            "Գործնական համակարգ, որն ապահովում է ինտերֆեյսների միասնականությունը, հեշտացնում սպասարկումը և նպաստում պրոդուկտի հետագա զարգացմանը։"
+          ],
+          "summary": "Ստեղծում ենք բազմակի օգտագործման ինտերֆեյսային հիմք, որը կապում է դիզայնն ու ծրագրավորումը և օգնում թիմերին աշխատել հետևողականորեն՝ առանց նույն խնդիրները կրկին լուծելու։"
         },
         {
-          "title": "Launch & improvement",
-          "situation": "Launch is the start, not the end: the product needs to perform, be found and keep improving.",
+          "title": "Գործարկում և զարգացում",
+          "situation": "Դուք պատրաստվում եք գործարկման, ցանկանում եք բարելավել գործող կայքը կամ Ձեր բիզնեսի զարգացման ընթացքում շարունակական աջակցություն եք փնտրում։",
           "owns": [
-            "Deployment and hosting setup",
-            "Performance and accessibility care",
-            "Analytics and conversion measurement",
-            "SEO, launch promotion and marketing — with specialists",
-            "Improvements based on real usage",
-            "Maintenance and ongoing support"
+            "Գործարկման համակարգում",
+            "Front-end արագագործության բարելավում",
+            "UX-ի կատարելագործում",
+            "Վերլուծական տվյալների հավաքագրման պլանավորում",
+            "Անհրաժեշտության դեպքում համագործակցություն SEO-ի կամ մարքեթինգի մասնագետների հետ"
           ],
           "outcomes": [
-            "A product that keeps pace with the business",
-            "Decisions based on data, not guesses"
-          ]
+            "Գործարկման հստակ գործընթաց և կայքի կամ պրոդուկտի հետագա բարելավման գործնական պլան։"
+          ],
+          "summary": "Աշխատանքը չի ավարտվում կայքի կամ պրոդուկտի գործարկմամբ։ Կարող ենք շարունակել բարելավել արագագործությունը, բովանդակությունը, օգտագործման հարմարավետությունն ու տեսանելիությունը՝ հիմնվելով իրական կարիքների և չափելի արդյունքների վրա։"
         }
       ]
     },
     "teamServices": {
-      "title": "More with the team",
-      "hint": "Tap a specialist to see what they take on.",
+      "title": "Ավելին՝ թիմի հետ",
+      "hint": "Սեղմեք մասնագետի վրա՝ տեսնելու, թե ինչով է նա զբաղվում։",
       "items": [
         {
-          "title": "Brand & identity",
-          "situation": "A new business, a rebrand, or a brand that doesn't hold together across channels.",
-          "outcome": "You get a brand people recognise everywhere, with guidelines your team can follow.",
+          "title": "Բրենդ և ինքնություն",
+          "situation": "Նոր բիզնես, ռեբրենդինգ կամ բրենդ, որը ալիքներում միասնական չի երևում։",
+          "outcome": "Դուք ստանում եք ամենուր ճանաչելի բրենդ և ուղեցույց, որին կարող է հետևել Ձեր թիմը։",
           "owns": [
-            "Brand strategy and positioning",
-            "Logo and identity system",
-            "Typography and colour",
-            "Brand guidelines",
-            "Marketing and social assets"
+            "Բրենդ ռազմավարություն և դիրքավորում",
+            "Լոգոտիպ և ինքնության համակարգ",
+            "Տառատեսակներ և գույն",
+            "Բրենդի ուղեցույց",
+            "Մարքեթինգային և սոցիալական ցանցերի նյութեր"
           ]
         },
         {
-          "title": "Backend & integrations",
-          "situation": "The product needs real data, accounts, payments or connections to other systems.",
-          "outcome": "You get a reliable system behind the interface, and one team for front and back end.",
+          "title": "Backend և ինտեգրացիաներ",
+          "situation": "Պրոդուկտին պետք են իրական տվյալներ, հաշիվներ, վճարումներ կամ կապ այլ համակարգերի հետ։",
+          "outcome": "Դուք ստանում եք հուսալի համակարգ ինտերֆեյսի հետևում և մեկ թիմ front-end-ի և backend-ի համար։",
           "owns": [
-            "API design and development",
-            "Databases and data models",
-            "Auth and payments",
-            "CRM, ERP and third-party integrations",
-            "Cloud infrastructure"
+            "API-ի նախագծում և ծրագրավորում",
+            "Տվյալների բազաներ և տվյալների մոդելներ",
+            "Մուտք և վճարումներ",
+            "CRM, ERP և երրորդ կողմի ինտեգրացիաներ",
+            "Ամպային ենթակառուցվածք"
           ]
         },
         {
-          "title": "AI integration",
-          "situation": "Repetitive work, support load or content that AI could take on.",
-          "outcome": "You get AI that solves a defined problem, at a predictable cost.",
+          "title": "AI ինտեգրացիա",
+          "situation": "Կրկնվող աշխատանք, աջակցության ծանրաբեռնվածություն կամ բովանդակություն, որը կարող է ստանձնել արհեստական բանականությունը։",
+          "outcome": "Դուք ստանում եք AI, որը լուծում է հստակ խնդիր՝ կանխատեսելի արժեքով։",
           "owns": [
-            "AI features in your product",
-            "Workflow automation",
-            "Content pipelines",
-            "Model and vendor choice",
-            "Privacy and cost guardrails"
+            "AI գործառույթներ Ձեր պրոդուկտում",
+            "Աշխատանքային գործընթացների ավտոմատացում",
+            "Բովանդակության պայպլայններ",
+            "Մոդելների և մատակարարների ընտրություն",
+            "Գաղտնիություն և ծախսերի վերահսկում"
           ]
         },
         {
-          "title": "Marketing & SEO",
-          "situation": "The product exists but isn't being found, or isn't converting.",
-          "outcome": "You get traffic you can measure, and growth decisions based on data.",
+          "title": "Մարքեթինգ և SEO",
+          "situation": "Պրոդուկտը կա, բայց այն չեն գտնում կամ այն չի կոնվերտացնում։",
+          "outcome": "Դուք ստանում եք չափելի թրաֆիկ և աճի որոշումներ՝ հիմնված տվյալների վրա։",
           "owns": [
-            "Technical and content SEO",
-            "Launch campaigns",
-            "Landing pages",
-            "Paid and organic strategy",
-            "Analytics and conversion tracking"
+            "Տեխնիկական և բովանդակային SEO",
+            "Գործարկման քարոզարշավներ",
+            "Լենդինգներ",
+            "Վճարովի և օրգանիկ ռազմավարություն",
+            "Վերլուծություն և կոնվերսիաների հետևում"
           ]
         }
       ]
     },
     "start": {
-      "title": "How we can start",
-      "subtitle": "No fixed packages. Scope, timeline and cost are agreed once we understand the project.",
+      "title": "Ինչպես կարող ենք սկսել",
+      "subtitle": "Առանց ֆիքսված փաթեթների։ Սկզբում հասկանում ենք Ձեր խնդիրը, այնուհետև համաձայնեցնում աշխատանքների ծավալը, ժամկետներն ու արժեքը։",
       "items": [
         {
-          "title": "Defined project",
-          "body": "A clear goal with a clear end: a new website, a rebuild, a launch, a product interface or a design system. Scope, timeline and cost are agreed before work starts."
+          "title": "Հստակ սահմանված աշխատանքներով նախագիծ",
+          "body": "Սահմանում ենք նպատակը, աշխատանքների շրջանակն ու իրականացման պլանը։ Հարմար է նոր կայքերի, վերանախագծման, պրոդուկտի նոր հնարավորությունների և ինտերֆեյսների մշակման համար։"
         },
         {
-          "title": "Ongoing partnership",
-          "body": "Continued design and development after a first project — new pages and features, improvements, maintenance and support, with capacity agreed month by month."
+          "title": "Երկարաժամկետ համագործակցություն",
+          "body": "Դիզայնի և ծրագրավորման շարունակական աջակցություն այն թիմերին, որոնց անհրաժեշտ են պարբերական բարելավումներ, նոր հնարավորություններ և որակյալ UI իրականացում։"
         },
         {
-          "title": "Diagnostic",
-          "body": "Not sure what needs fixing first? A focused review of your website or product — clarity, UX, performance, accessibility and SEO foundations — that ends with clear priorities and a recommended next step."
+          "title": "Վերլուծություն և առաջարկություններ",
+          "body": "Կայքի կամ պրոդուկտի նպատակային ուսումնասիրություն՝ օգտագործման հարմարավետության, դիզայնի և Front-end-ի խնդիրները բացահայտելու և հետագա քայլերը որոշելու համար։"
         }
       ]
     },
     "model": {
-      "title": "How Torchyan works",
-      "subtitle": "One accountable lead, specialists when the project needs them, and technology chosen for the problem."
+      "title": "Ինչպես է աշխատում Torchyan-ը",
+      "subtitle": "Մեկ պատասխանատու ղեկավար, մասնագետներ՝ երբ նախագծին պետք են, և տեխնոլոգիաներ՝ ընտրված խնդրի համար։"
     },
     "founder": {
-      "title": "You work with the person responsible",
-      "body": "Torchyan is led by Stepan Torchyan, a designer and UI engineer. I lead every engagement from the first call to launch and stay accountable for the result. There’s no account manager between you and the work."
+      "title": "Անմիջական համագործակցություն",
+      "body": "Դուք անմիջապես շփվում եք նախագիծը ղեկավարող մասնագետի հետ։ Որոշումները մնում են հստակ, հաղորդակցությունը՝ պարզ, իսկ Դուք ներգրավված եք աշխատանքի բոլոր փուլերում։"
     },
     "specialists": {
-      "title": "Specialists, when the project needs them",
-      "body": "Some projects need more than design and front-end. I bring in trusted, paid specialists — backend and system architecture, additional design, QA, project management, photography, SEO and marketing — and run them within one plan. You still have one point of contact."
+      "title": "Մասնագետներ՝ ըստ անհրաժեշտության",
+      "body": "Ես ղեկավարում եմ հիմնական աշխատանքը և անհրաժեշտության դեպքում ներգրավում մասնագետների կոնկրետ խնդիրների համար՝ Backend ծրագրավորում, թեստավորում, SEO կամ մարքեթինգ։"
     },
     "technology": {
-      "title": "Technology follows the problem",
-      "body": "The platform is chosen during discovery, based on your content workflow, integrations, performance needs, budget and who will maintain it."
+      "title": "Տեխնոլոգիաները՝ ըստ խնդրի",
+      "body": "Գործիքներն ու տեխնոլոգիաներն ընտրվում են նախագծի պահանջներից ելնելով, ոչ թե հակառակը։"
     },
     "boundaries": {
-      "title": "What Torchyan doesn’t do",
+      "title": "Աշխատանքների շրջանակը և համագործակցությունը",
       "items": [
-        "Guaranteed rankings, traffic or lead numbers",
-        "Native iOS and Android apps"
+        "Յուրաքանչյուր նախագիծ ունի իր առանձնահատկությունները։ Ես անձամբ ղեկավարում եմ դիզայնի և Front-end ծրագրավորման աշխատանքները, իսկ իմ հիմնական մասնագիտացումից դուրս խնդիրների համար անհրաժեշտության դեպքում ներգրավում եմ համապատասխան մասնագետների։ Պարտականությունները, արդյունքներն ու ժամկետները համաձայնեցվում են մինչև աշխատանքի մեկնարկը։"
       ]
     },
     "cta": {
-      "title": "Ready when you are",
-      "subtitle": "Tell me what you’re building or what needs to change.",
+      "title": "Պատրաստ եմ քննարկել Ձեր նախագիծը",
+      "subtitle": "Ունե՞ք գաղափար կամ խնդիր։ Պատմեք, թե ինչ եք ցանկանում ստեղծել կամ բարելավել։",
       "initiate": {
-        "title": "Start a project",
-        "body": "A website, a product interface, a design system, or improving what’s live. I reply within 2 business days.",
-        "cta": "Start a project"
+        "title": "Սկսել նախագիծ",
+        "body": "Կայք, պրոդուկտի ինտերֆեյս, դիզայն համակարգ կամ արդեն աշխատողի բարելավում։ Պատասխանում եմ երկու աշխատանքային օրվա ընթացքում։",
+        "cta": "Սկսել նախագիծ"
       },
       "analyze": {
-        "title": "Not sure where to start?",
-        "body": "Describe the situation and choose “Not sure yet”. A diagnostic may be the right first step.",
-        "cta": "Get in touch"
+        "title": "Չգիտե՞ք՝ որտեղից սկսել",
+        "body": "Նկարագրեք իրավիճակը և ընտրեք «Դեռ վստահ չեմ»։ Ախտորոշումը կարող է լինել ճիշտ առաջին քայլը։",
+        "cta": "Կապ հաստատել"
       }
     }
   },
