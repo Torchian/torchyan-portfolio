@@ -285,8 +285,8 @@ const BRAINSTORM = twoColumns(
 
 const BENZEEN = twoColumns(
   'Benzeen',
-  [work('benzeen', 'about', 793, 1084), work('benzeen', 'contact', 1358, 1150), work('benzeen', 'recent-arrivals', 1084, 1206)],
-  [work('benzeen', 'homepage', 1356, 970), work('benzeen', 'cut-sheets', 1358, 1156), work('benzeen', 'wheel', 1188, 1272)],
+  [work('benzeen', 'homepage', 1356, 970), work('benzeen', 'wheel', 1188, 1272), work('benzeen', 'cut-sheets', 1358, 1156)],
+  [work('benzeen', 'about', 793, 1084), work('benzeen', 'recent-arrivals', 1084, 1206), work('benzeen', 'contact', 1358, 1150)],
 );
 
 const WORLD_EDUCATION = threeColumns(

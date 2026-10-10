@@ -97,6 +97,12 @@ export interface ScrollSteppingOptions {
  *  - A one-finger move is cancelled as soon as it has moved at all, before it
  *    has travelled far enough to count as a swipe: Safari commits to its own
  *    scroll on the first few pixels, and once it has, later cancels do nothing.
+ *  - A gesture the page already took can't be taken back. Chrome lets only the
+ *    first wheel event of a gesture be cancelled: one that starts above the
+ *    track (in the hero) scrolls the page, and the rest of it, momentum and
+ *    all, arrives uncancellable. Left alone, one flick ran through every stop.
+ *    So the stop it settles on is held: while such a gesture goes on, any
+ *    scroll it makes is put straight back.
  */
 export function useScrollStepping(
   trackRef: RefObject<HTMLElement | null>,
@@ -126,6 +132,9 @@ export function useScrollStepping(
     /** A gesture made while a step was playing, waiting for it to finish. */
     let queued: 1 | -1 | 0 = 0;
     let queueTimer: ReturnType<typeof setTimeout> | undefined;
+    /** The stop last moved to, held against an uncancellable gesture until `holdUntil`. */
+    let stopY: number | null = null;
+    let holdUntil = 0;
 
     const geometry = () => {
       // A stop is the track's own height over the stops, never `innerHeight`.
@@ -155,6 +164,7 @@ export function useScrollStepping(
     const scrollToStop = (index: number) => {
       const { screen, top } = geometry();
       const target = Math.round(top + index * screen);
+      stopY = target;
       cancelScroll();
       if (!animate) {
         beginProgrammaticScroll();
@@ -238,7 +248,7 @@ export function useScrollStepping(
         if (ready && !spent) queue(direction);
         return true;
       }
-      const { progress } = geometry();
+      const { progress, screen, top } = geometry();
       if (!inside(progress)) {
         engaged = false;
         return false;
@@ -248,11 +258,19 @@ export function useScrollStepping(
       const settled = Math.abs(progress - current) < 0.01;
 
       // Arriving (carried in from above or below): settle on the stop at hand,
-      // and let that be this gesture's step.
+      // and let that be this gesture's step. Coming in at the top it's the
+      // first stop, coming in at the bottom the last, even when a fast scroll
+      // has already carried the page a little past it.
       if (!engaged) {
         engaged = true;
-        if (!settled) stepTo(current);
-        else spent = true;
+        let entry = current;
+        if (direction > 0 && progress < 1.5) entry = 0;
+        if (direction < 0 && progress > count - 2.5) entry = count - 1;
+        if (!settled || entry !== current) stepTo(entry);
+        else {
+          stopY = Math.round(top + current * screen);
+          spent = true;
+        }
         return true;
       }
 
@@ -309,7 +327,23 @@ export function useScrollStepping(
       if (wheelSlowing) wheelTrough = Math.min(wheelTrough, wheelSpeed);
       lastWheelAt = now;
       wheelTravel += e.deltaY;
-      if (gesture(direction, Math.abs(wheelTravel) >= WHEEL_THRESHOLD)) e.preventDefault();
+      if (gesture(direction, Math.abs(wheelTravel) >= WHEEL_THRESHOLD)) {
+        // Cancelled, the page doesn't move. Not cancellable (the gesture began
+        // outside the track), it will: hold the stop until the gesture is over.
+        if (e.cancelable) e.preventDefault();
+        else holdUntil = performance.now() + GESTURE_GAP_MS;
+      } else {
+        holdUntil = 0;
+      }
+    };
+
+    /** Puts back any scroll an uncancellable gesture makes while a stop is held. */
+    const onScroll = () => {
+      if (raf || stopY === null || performance.now() > holdUntil) return;
+      if (Math.abs(window.scrollY - stopY) <= 1) return;
+      beginProgrammaticScroll();
+      window.scrollTo({ top: stopY, behavior: 'instant' });
+      endProgrammaticScroll();
     };
 
     const onKey = (e: KeyboardEvent) => {
@@ -361,6 +395,7 @@ export function useScrollStepping(
       listening = on;
       if (on) {
         window.addEventListener('wheel', onWheel, { passive: false });
+        window.addEventListener('scroll', onScroll, { passive: true });
         window.addEventListener('keydown', onKey);
         window.addEventListener('touchstart', onTouchStart, { passive: true });
         window.addEventListener('touchmove', onTouchMove, { passive: false });
@@ -368,6 +403,7 @@ export function useScrollStepping(
         window.addEventListener('touchcancel', onTouchEnd, { passive: true });
       } else {
         window.removeEventListener('wheel', onWheel);
+        window.removeEventListener('scroll', onScroll);
         window.removeEventListener('keydown', onKey);
         window.removeEventListener('touchstart', onTouchStart);
         window.removeEventListener('touchmove', onTouchMove);
@@ -375,6 +411,7 @@ export function useScrollStepping(
         window.removeEventListener('touchcancel', onTouchEnd);
         engaged = false;
         pinching = false;
+        holdUntil = 0;
       }
     };
     const near = new IntersectionObserver(([entry]) => listen(entry.isIntersecting), {
@@ -390,7 +427,7 @@ export function useScrollStepping(
       write: () => {},
       onIdle: () => {
         if (raf) return;
-        const { progress } = geometry();
+        const { progress, screen, top } = geometry();
         if (!inside(progress)) {
           engaged = false;
           return;
@@ -400,6 +437,7 @@ export function useScrollStepping(
         engaged = true;
         const nearest = Math.round(progress);
         if (Math.abs(progress - nearest) > 0.005) scrollToStop(nearest);
+        else stopY = Math.round(top + nearest * screen);
       },
     });
 
