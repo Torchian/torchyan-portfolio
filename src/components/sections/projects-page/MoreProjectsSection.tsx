@@ -109,7 +109,7 @@ const Top = styled.div`
   }
 `;
 
-/** The first screen, read from its top-left corner; held a little close until the card is pointed at. */
+/** The project's picture, centred; held a little close until the card is pointed at. */
 const Shot = styled.div`
   position: relative;
   flex: none;
@@ -119,8 +119,8 @@ const Shot = styled.div`
 
   img {
     object-fit: cover;
-    object-position: left top;
-    transform-origin: left top;
+    object-position: center;
+    transform-origin: center;
     transition: transform ${DURATION}ms ${EASE};
   }
 
@@ -245,7 +245,7 @@ export function MoreProjectsSection() {
         <Cards>
           {MORE_PROJECTS.map((project) => {
             const content = projects[project.slug];
-            const cover = project.images[0];
+            const cover = project.cover ?? project.images[0]?.src;
             return (
               <li key={project.slug}>
                 <Card href={`/work/${project.slug}`} data-cta={`more-${project.slug}`}>
@@ -262,7 +262,7 @@ export function MoreProjectsSection() {
                   <Shot>
                     {cover && (
                       <Image
-                        src={cover.src}
+                        src={cover}
                         alt=""
                         fill
                         sizes="(max-width: 768px) 100vw, 50vw"

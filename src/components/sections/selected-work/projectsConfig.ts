@@ -55,8 +55,10 @@ export interface ProjectConfig {
    * height; 4:3 when absent). One with a `video` plays that recording instead (CaseMedia).
    */
   images: { src: string; alt: string; aspect?: number; video?: CaseVideo; caption?: string }[];
-  /** Listed under "More projects" on the Work page, with its first image as the cover. */
+  /** Listed under "More projects" on the Work page. */
   more?: boolean;
+  /** That card's picture, when it isn't the first screen (public/projects/covers/, picked in Figma). */
+  cover?: string;
   /** The brand's white mark, shown on the right of the short case's hero. */
   logo?: string;
   /** Present for the projects featured on the homepage. */
@@ -238,6 +240,7 @@ PROJECTS.push(
     year: '2022',
     gradient: 'linear-gradient(180deg, #120E22 0%, #5B2A86 100%)',
     more: true,
+    cover: '/projects/covers/solomoon.webp',
     logo: '/logo/companies/Solomoon.png',
     images: cases('solomon', 'Solomoon', [
       ['home-hero', 2560, 1226],
@@ -276,6 +279,7 @@ PROJECTS.push(
     year: '2021',
     gradient: 'linear-gradient(180deg, #161616 0%, #7A1E2C 100%)',
     more: true,
+    cover: '/projects/covers/panika.webp',
     logo: '/logo/companies/Panika.png',
     images: (
       [
@@ -316,6 +320,7 @@ PROJECTS.push(
     year: '2018',
     gradient: 'linear-gradient(180deg, #4A2129 0%, #9E5560 100%)',
     more: true,
+    cover: '/projects/covers/off-my-case.webp',
     logo: '/logo/companies/OffMyCase.svg',
     images: cases('off-my-case', 'Off My Case', [
       ['home', 1827, 852],
@@ -350,6 +355,7 @@ PROJECTS.push(
     year: '2018',
     gradient: 'linear-gradient(180deg, #1E1E1E 0%, #8E1B30 100%)',
     more: true,
+    cover: '/projects/covers/scunci.webp',
     logo: '/logo/companies/Scunci.svg',
     images: cases('scunci', 'Scunci', [
       ['home', 1094, 1478],
