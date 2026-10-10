@@ -253,13 +253,13 @@ const SMARTBET = tiltedCollage(
   ),
 );
 
-const SOULONE = tiltedCollage(
-  [img('/selected-work/soulone/grid/s-c1-v2.webp', 1366, 3949), img('/selected-work/soulone/grid/s-a2-v2.webp', 1366, 1533)],
-  [
-    img('/selected-work/soulone/grid/s-b1-v2.webp', 415, 3618),
-    img('/selected-work/soulone/grid/s-b3-v2.webp', 415, 3559),
-  ],
-  [img('/selected-work/soulone/grid/s-c3-v2.webp', 1366, 2754), img('/selected-work/soulone/grid/s-c2-v2.webp', 1333, 4096)],
+/** SoulOne's Figma board (4205:34708): every screen once. */
+const so = (name: string, width: number, height: number) => img(`/projects/sets/soulone/${name}.webp`, width, height);
+const SOULONE = threeColumns(
+  'SoulOne',
+  [so('hero', 1600, 1128), so('story', 1600, 2372), so('product', 1600, 2432)],
+  [so('m-home', 402, 3509), so('m-cakes-card', 421, 1327)],
+  [so('cakes-1', 1024, 880), so('catalogue', 1600, 2460), so('customize', 1600, 966)],
 );
 
 /*

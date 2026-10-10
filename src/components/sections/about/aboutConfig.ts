@@ -207,18 +207,18 @@ export const TIMELINE_ENTRIES: TimelineEntryConfig[] = [
     railYear: '2025',
     company: 'SoulOne',
     gallery: [
-      // Sharpened (unsharp mask) re-exports of the SoulOne screens.
       [
-        shot('/about/timeline/soulone/hero.webp', 1200 / 858),
-        shot('/about/timeline/soulone/product.webp', 1200 / 3469),
-        shot('/about/timeline/soulone/body.webp', 1200 / 917),
+        shot('/projects/sets/soulone/hero.webp', 1600 / 1128),
+        shot('/projects/sets/soulone/product.webp', 1600 / 2432),
+        shot('/projects/sets/soulone/body-plan.webp', 1600 / 1301),
+        shot('/projects/sets/soulone/balls.webp', 1024 / 1300),
       ],
       [
-        shot('/about/timeline/soulone/home.webp', 1200 / 1347),
-        shot('/about/timeline/soulone/cakes.webp', 837 / 1200),
-        shot('/about/timeline/soulone/yin-yang.webp', 1200 / 642),
-        shot('/about/timeline/soulone/guidance.webp', 1200 / 2419),
-        shot('/about/timeline/soulone/plans.webp', 1200 / 995),
+        shot('/projects/sets/soulone/nutritionist.webp', 1600 / 1205),
+        shot('/projects/sets/soulone/cakes-1.webp', 1024 / 880),
+        shot('/projects/sets/soulone/yin-yang.webp', 1600 / 854),
+        shot('/projects/sets/soulone/guidance.webp', 1600 / 968),
+        shot('/projects/sets/soulone/customize.webp', 1600 / 966),
       ],
     ],
   },
