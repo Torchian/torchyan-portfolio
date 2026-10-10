@@ -140,54 +140,54 @@
     },
     "soulone": {
       "roles": [
-        "Web Designer",
-        "Product Owner"
+        "Веб-дизайнер",
+        "Владелец продукта"
       ],
-      "title": "Gluten-free bakery brand",
-      "description": "Brand direction and an interactive e-commerce website concept for an Armenian gluten-free bakery.",
-      "field": "Food · Bakery",
+      "title": "Бренд безглютеновых десертов",
+      "description": "Разработка визуального направления бренда и интерактивного концепта интернет-магазина для армянской пекарни безглютеновых десертов.",
+      "field": "Еда · Пекарня",
       "story": [
         {
-          "label": "Relationship & role",
+          "label": "Формат сотрудничества и роль",
           "blocks": [
             [
-              "Founding team, May–October 2025. Web designer and product owner."
+              "Команда проекта, май–октябрь 2025. Веб-дизайнер и Product Owner."
             ]
           ]
         },
         {
-          "label": "Context",
+          "label": "Контекст",
           "blocks": [
             [
-              "SoulOne is an Armenian bakery brand focused on gluten-free, eco-oriented cakes and desserts."
+              "SoulOne — армянский бренд безглютеновых тортов и десертов, ориентированный на натуральные ингредиенты."
             ]
           ]
         },
         {
-          "label": "What I did",
+          "label": "Что я сделал",
           "blocks": [
             [
               [
-                "Website, product presentation and visual direction",
-                "Product and business decisions, day to day — not only the visual layer",
-                "Outreach and execution"
+                "Дизайн сайта, представление продуктов и визуальное направление",
+                "Участие в повседневных продуктовых и бизнес-решениях — не только визуальная часть",
+                "Работа с коммуникацией и реализацией задач"
               ]
             ]
           ]
         },
         {
-          "label": "Evidence",
+          "label": "Материалы",
           "blocks": [
             [
-              "Product and website screens from the project."
+              "Утверждённые макеты сайта и интерактивные прототипы Figma; сайт не был запущен."
             ]
           ]
         },
         {
-          "label": "What it shows",
+          "label": "Что показывает проект",
           "blocks": [
             [
-              "Experience closer to building a business than delivering screens — design, product decisions, outreach and execution working together."
+              "Опыт, выходящий за рамки экранов: визуальный стиль, продуктовые решения, коммуникация и реализация задач в рамках одного бизнеса."
             ]
           ]
         }
@@ -195,53 +195,53 @@
     },
     "smartbet": {
       "roles": [
-        "UI Developer"
+        "UI-разработчик"
       ],
-      "title": "Animated company website",
-      "description": "The UI for every page of Smartbet’s animated company and product website, built from the design team’s layouts - with a reusable SCSS foundation and JavaScript transitions.",
-      "field": "Website",
+      "title": "Сайт компании с анимациями",
+      "description": "По утверждённым макетам команды дизайна реализовал UI всех страниц анимированного сайта Smartbet, выстроив переиспользуемую архитектуру SCSS/БЭМ и переходы на JavaScript.",
+      "field": "Сайт",
       "story": [
         {
-          "label": "Relationship & role",
+          "label": "Формат сотрудничества и роль",
           "blocks": [
             [
-              "Employee, August–October 2021. UI developer in a cross-functional team of designers and developers."
+              "Сотрудник, август–октябрь 2021. UI-разработчик в команде дизайнеров и разработчиков."
             ]
           ]
         },
         {
-          "label": "Context",
+          "label": "Контекст",
           "blocks": [
             [
-              "Smartbet’s design and development team had approved layouts ready to become a responsive production website."
+              "Команда дизайна и разработки Smartbet подготовила и утвердила макеты для адаптивного сайта."
             ]
           ]
         },
         {
-          "label": "What I did",
+          "label": "Что я сделал",
           "blocks": [
             [
               [
-                "Translating the design accurately into working pages",
-                "Responsive behavior across browsers and screen sizes",
-                "Consistent interface behavior across the site"
+                "Точная реализация макетов в работающих страницах",
+                "Адаптивность для разных браузеров и размеров экрана",
+                "JavaScript-анимации и согласованные переходы между страницами и продуктовыми разделами"
               ]
             ]
           ]
         },
         {
-          "label": "Evidence",
+          "label": "Материалы",
           "blocks": [
             [
-              "Screens I implemented."
+              "Реализованные мной экраны."
             ]
           ]
         },
         {
-          "label": "What it shows",
+          "label": "Что показывает проект",
           "blocks": [
             [
-              "A focused implementation role where precision, clean structure and collaboration with designers mattered most."
+              "Точность UI-реализации, чистая структура и сотрудничество с дизайнерами."
             ]
           ]
         }
@@ -249,52 +249,52 @@
     },
     "ginosi": {
       "roles": [
-        "Front-end development"
+        "Фронтенд-разработка"
       ],
-      "title": "Website front end",
-      "description": "The website UI for a serviced-apartment and hotel business.",
-      "field": "Hospitality",
+      "title": "Фронтенд сайта",
+      "description": "Полная фронтенд-разработка сайта международной компании по бронированию апартаментов на основе готового дизайна.",
+      "field": "Гостиничный бизнес",
       "story": [
         {
-          "label": "Relationship & role",
+          "label": "Формат сотрудничества и роль",
           "blocks": [
             [
-              "Direct client, April–May 2019. Front-end development — I built the website’s UI."
+              "Прямой клиент, апрель–май 2019. Полностью реализовал фронтенд сайта."
             ]
           ]
         },
         {
-          "label": "Context",
+          "label": "Контекст",
           "blocks": [
             [
-              "Ginosi is an international serviced-apartment and hospitality business."
+              "Ginosi — международная компания, предлагающая апартаменты с обслуживанием и услуги размещения."
             ]
           ]
         },
         {
-          "label": "What I did",
+          "label": "Что я сделал",
           "blocks": [
             [
               [
-                "Responsive front end for the booking experience",
-                "Apartment listings, search and property-related interface states"
+                "Адаптивный фронтенд для бронирования",
+                "Каталог апартаментов, поиск и состояния интерфейса карточек объектов"
               ]
             ]
           ]
         },
         {
-          "label": "Evidence",
+          "label": "Материалы",
           "blocks": [
             [
-              "The live website has changed since then, so the work shown here comes from archived screens of the original implementation."
+              "С тех пор работающий сайт изменился, поэтому здесь показаны архивные экраны первоначальной реализации."
             ]
           ]
         },
         {
-          "label": "What it shows",
+          "label": "Что показывает проект",
           "blocks": [
             [
-              "Front-end delivery for an international hospitality website."
+              "Полная фронтенд-разработка международного сайта бронирования в сжатые сроки."
             ]
           ]
         }
@@ -302,53 +302,53 @@
     },
     "benzeen": {
       "roles": [
-        "Front-end development"
+        "Фронтенд-разработка"
       ],
-      "title": "Website front end",
-      "description": "Full front-end implementation for an auto-parts business, delivered through TCO.",
-      "field": "Automotive",
+      "title": "Фронтенд сайта",
+      "description": "Полная реализация фронтенда автомобильного интернет-магазина на Angular через TCO.",
+      "field": "Автомобили",
       "story": [
         {
-          "label": "Relationship & role",
+          "label": "Формат сотрудничества и роль",
           "blocks": [
             [
-              "Through TCO (then my employer), March–August 2019. Front-end development."
+              "Через TCO (моего работодателя), март–август 2019. Фронтенд-разработка."
             ]
           ]
         },
         {
-          "label": "Context",
+          "label": "Контекст",
           "blocks": [
             [
-              "Benzeen Auto Parts is an automotive e-commerce business in Los Angeles."
+              "Benzeen Auto Parts — интернет-магазин автозапчастей в Лос-Анджелесе."
             ]
           ]
         },
         {
-          "label": "What I did",
+          "label": "Что я сделал",
           "blocks": [
             [
               [
-                "Front-end implementation across the website",
-                "Responsive UI, interactions and animations",
-                "Input into design decisions during development"
+                "Реализация фронтенда всех страниц сайта",
+                "Адаптивный UI, интерактивные элементы и анимации",
+                "Angular, SCSS/БЭМ, JavaScript-логика и интеграция Google AMP"
               ]
             ]
           ]
         },
         {
-          "label": "Evidence",
+          "label": "Материалы",
           "blocks": [
             [
-              "Project screens and materials."
+              "Экраны и материалы проекта."
             ]
           ]
         },
         {
-          "label": "What it shows",
+          "label": "Что показывает проект",
           "blocks": [
             [
-              "Design and implementation evolving together — more than simply reproducing layouts."
+              "Дизайн и реализация развивались параллельно — работа не ограничивалась переносом готовых макетов."
             ]
           ]
         }
@@ -356,52 +356,52 @@
     },
     "world-education": {
       "roles": [
-        "UI Developer"
+        "UI-разработчик"
       ],
-      "title": "Company website",
-      "description": "Full UI implementation, animations and interactive details.",
-      "field": "Education",
+      "title": "Сайт компании",
+      "description": "Полная UI-реализация, анимации и интерактивные детали.",
+      "field": "Образование",
       "story": [
         {
-          "label": "Relationship & role",
+          "label": "Формат сотрудничества и роль",
           "blocks": [
             [
-              "Direct client, March–May 2020. UI developer."
+              "Прямой клиент, март–май 2020. UI-разработчик."
             ]
           ]
         },
         {
-          "label": "Context",
+          "label": "Контекст",
           "blocks": [
             [
-              "World Education came to me directly for its website."
+              "World Education объединяет студентов, родителей, школы, агентов, преподавателей и поставщиков услуг в сфере образования."
             ]
           ]
         },
         {
-          "label": "What I did",
+          "label": "Что я сделал",
           "blocks": [
             [
               [
-                "Full UI implementation and responsive layouts",
-                "Animations and selected JavaScript interactions"
+                "Реализация UI и адаптивной вёрстки",
+                "Анимации и отдельные интеракции на JavaScript"
               ]
             ]
           ]
         },
         {
-          "label": "Evidence",
+          "label": "Материалы",
           "blocks": [
             [
-              "Screenshots of the build."
+              "Скриншоты реализованного сайта."
             ]
           ]
         },
         {
-          "label": "What it shows",
+          "label": "Что показывает проект",
           "blocks": [
             [
-              "A compact project, and a good example of owning the complete presentation layer."
+              "Пример проекта, где я отвечал за реализацию интерфейсной части целиком."
             ]
           ]
         }
@@ -409,52 +409,52 @@
     },
     "brainstorm": {
       "roles": [
-        "Front-end development"
+        "Фронтенд-разработка"
       ],
-      "title": "Company website",
-      "description": "Full front-end development from a ready-made design.",
-      "field": "Company website",
+      "title": "Сайт агентства",
+      "description": "Полная фронтенд-разработка сайта агентства Brainstorm параллельно с созданием дизайна.",
+      "field": "Сайт компании",
       "story": [
         {
-          "label": "Relationship & role",
+          "label": "Формат сотрудничества и роль",
           "blocks": [
             [
-              "Direct client, May–July 2018. Front-end development."
+              "Аутсорс-проект, май–июль 2018. Фронтенд-разработчик; позже был приглашён в команду агентства."
             ]
           ]
         },
         {
-          "label": "Context",
+          "label": "Контекст",
           "blocks": [
             [
-              "Brainstorm’s own website, built from an existing design."
+              "Сайт агентства Brainstorm, где дизайн и разработка шли параллельно."
             ]
           ]
         },
         {
-          "label": "What I did",
+          "label": "Что я сделал",
           "blocks": [
             [
               [
-                "Front-end implementation end to end, from the supplied layouts",
-                "Working through the details needed for the design to behave correctly in the browser"
+                "Полная фронтенд-разработка по предоставленным макетам",
+                "Кастомные JavaScript-анимации и вручную реализованные scroll-интеракции"
               ]
             ]
           ]
         },
         {
-          "label": "Evidence",
+          "label": "Материалы",
           "blocks": [
             [
-              "Screenshots and video of the original implementation. The live site has since changed."
+              "Скриншоты и видео первоначальной реализации. С тех пор работающий сайт изменился."
             ]
           ]
         },
         {
-          "label": "What it shows",
+          "label": "Что показывает проект",
           "blocks": [
             [
-              "Faithful implementation of an existing design, end to end — the start of a longer working relationship with Brainstorm."
+              "Точная реализация сайта агентства с нуля — начало дальнейшего сотрудничества с Brainstorm."
             ]
           ]
         }
@@ -462,47 +462,47 @@
     },
     "myzcapital": {
       "roles": [
-        "Product Designer",
-        "Front-end Developer"
+        "Продуктовый дизайнер",
+        "Фронтенд-разработчик"
       ],
-      "title": "Gamified survey platform",
-      "description": "Original product design and the full front end for a US-focused survey platform, where people answered polls and earned Z coins.",
-      "field": "Surveys · Rewards",
+      "title": "Платформа опросов с вознаграждениями",
+      "description": "Полный дизайн продукта и фронтенд американской платформы опросов, где пользователи получали Z coins за ответы на вопросы. Реализовано на Shopware 5.",
+      "field": "Опросы · Награды",
       "story": [
         {
-          "label": "Relationship & role",
+          "label": "Формат сотрудничества и роль",
           "blocks": [
             [
-              "Designer and front-end developer. An early product, designed and built while I was at Apricode (2016–2018)."
+              "Дизайнер и фронтенд-разработчик. Один из моих первых продуктов, созданный во время работы в Apricode (2016–2018)."
             ]
           ]
         },
         {
-          "label": "Context",
+          "label": "Контекст",
           "blocks": [
             [
-              "A US-focused survey platform: people completed polls and questions and earned internal Z coins."
+              "Платформа опросов для рынка США: пользователи отвечали на вопросы и получали внутреннюю валюту Z coins."
             ]
           ]
         },
         {
-          "label": "What I did",
+          "label": "Что я сделал",
           "blocks": [
             [
               [
-                "The product design and the full front-end UI",
-                "Survey and poll screens",
-                "Points, rewards and membership views",
-                "A front end working with the backend platform"
+                "Дизайн продукта и весь фронтенд UI",
+                "Экраны опросов и голосований",
+                "Экраны баллов, наград и участия",
+                "Фронтенд на Shopware 5, связанный с серверной логикой продукта"
               ]
             ]
           ]
         },
         {
-          "label": "What it shows",
+          "label": "Что показывает проект",
           "blocks": [
             [
-              "The first product I designed and implemented end to end on the front end - an early example of owning an interface completely."
+              "Мой первый продукт, для которого я самостоятельно разработал дизайн и весь фронтенд, — ранний опыт полной ответственности за интерфейс."
             ]
           ]
         }
@@ -510,45 +510,45 @@
     },
     "solomoon": {
       "roles": [
-        "Brand Designer",
-        "UI/UX Designer"
+        "Бренд-дизайнер",
+        "UI/UX-дизайнер"
       ],
-      "title": "Digital keys store",
-      "description": "The logo, visual language and product UI/UX for an e-commerce platform selling activation keys for games and software.",
-      "field": "E-commerce · Games",
+      "title": "Магазин цифровых ключей",
+      "description": "Логотип, визуальный язык и полный UI/UX интернет-магазина ключей активации игр и программ.",
+      "field": "E-commerce · Игры",
       "story": [
         {
-          "label": "Relationship & role",
+          "label": "Формат сотрудничества и роль",
           "blocks": [
             [
-              "Brand and UI/UX designer. I designed the product; I didn’t build its front end."
+              "Бренд-дизайнер и UI/UX-дизайнер. Я создал дизайн продукта, но не разрабатывал фронтенд."
             ]
           ]
         },
         {
-          "label": "Context",
+          "label": "Контекст",
           "blocks": [
             [
-              "An e-commerce platform selling digital activation keys for games and software."
+              "Интернет-магазин цифровых ключей активации игр и программного обеспечения."
             ]
           ]
         },
         {
-          "label": "What I did",
+          "label": "Что я сделал",
           "blocks": [
             [
               [
-                "The logo and the complete visual language: typography, colour and interface",
-                "The UI/UX of the homepage, catalogue and product pages"
+                "Логотип и полный визуальный язык: типографика, цвета и интерфейсы",
+                "UI/UX главной страницы, каталога и карточек товаров"
               ]
             ]
           ]
         },
         {
-          "label": "What it shows",
+          "label": "Что показывает проект",
           "blocks": [
             [
-              "Ownership of an e-commerce visual system, from the brand identity to the key shopping screens."
+              "Разработку визуальной системы интернет-магазина — от айдентики до ключевых экранов покупки."
             ]
           ]
         }
@@ -556,54 +556,54 @@
     },
     "infinity-rings": {
       "roles": [
-        "UI Designer",
-        "Front-end Developer"
+        "UI-дизайнер",
+        "Фронтенд-разработчик"
       ],
-      "title": "Operations platform",
-      "description": "A refreshed design and the full UI for the internal administration system of an Australian ring manufacturer - not its public store.",
-      "field": "Jewellery · Internal tools",
+      "title": "Система управления операциями",
+      "description": "Обновление дизайна и полная UI-разработка внутренней админ-панели австралийского производителя колец, а не публичного магазина.",
+      "field": "Ювелирные изделия · Внутренние системы",
       "story": [
         {
-          "label": "Relationship & role",
+          "label": "Формат сотрудничества и роль",
           "blocks": [
             [
-              "Direct client, in Australia. I updated the existing visual design and implemented the entire UI of the administration system."
+              "Прямой клиент из Австралии. Обновил визуальный стиль и полностью реализовал UI административной системы."
             ]
           ]
         },
         {
-          "label": "Context",
+          "label": "Контекст",
           "blocks": [
             [
-              "An Australian manufacturer and seller of precious-metal rings, running its products and orders through an existing web application."
+              "Австралийский производитель и продавец колец из драгоценных металлов управлял товарами и заказами через существующее веб-приложение."
             ]
           ]
         },
         {
-          "label": "What I did",
+          "label": "Что я сделал",
           "blocks": [
             [
               [
-                "Product management: item creation and import, collections, materials and variants, pricing and thumbnails",
-                "Order management, with statuses through production to delivery",
-                "Data-heavy forms, filters, sidebars and drag-and-drop areas"
+                "Управление товарами: создание и импорт, коллекции, материалы, варианты, цены и миниатюры",
+                "Управление заказами и статусами от производства до доставки",
+                "Формы с большим объёмом данных, фильтры, боковые панели и drag-and-drop блоки"
               ]
             ]
           ]
         },
         {
-          "label": "The challenge",
+          "label": "Сложность",
           "blocks": [
             [
-              "Modernising an old application with a large existing data model, while keeping the workflows and integrations it already relied on. Adapting those structures was, in places, harder than starting from scratch."
+              "Нужно было обновить старое приложение с большим объёмом существующих данных, сохранив рабочие процессы и интеграции. Иногда адаптировать старую структуру было сложнее, чем создать её заново."
             ]
           ]
         },
         {
-          "label": "About the screens",
+          "label": "О скриншотах",
           "blocks": [
             [
-              "Order, store and customer details, model numbers and prices are blurred."
+              "Данные заказов, магазинов и клиентов, номера моделей и цены размыты."
             ]
           ]
         }
@@ -611,47 +611,47 @@
     },
     "panika": {
       "roles": [
-        "Designer",
-        "Media Projects Lead"
+        "Дизайнер",
+        "Руководитель медиапроектов"
       ],
-      "title": "Creative production",
-      "description": "Visual design and creative production for film, music and sound projects with Armenian and German artists.",
-      "field": "Media · Production",
+      "title": "Креативный продакшен",
+      "description": "Визуальный дизайн и креативный продакшен кино-, музыкальных и звуковых проектов с армянскими и немецкими артистами.",
+      "field": "Медиа · Продакшен",
       "story": [
         {
-          "label": "Relationship & role",
+          "label": "Формат сотрудничества и роль",
           "blocks": [
             [
-              "Designer, media projects lead and operations coordinator, December 2020 – February 2023."
+              "Дизайнер, руководитель медиапроектов и координатор процессов, декабрь 2020 — февраль 2023."
             ]
           ]
         },
         {
-          "label": "Context",
+          "label": "Контекст",
           "blocks": [
             [
-              "Creative and media production: a film, and music and sound for Armenian and German artists."
+              "Креативное и медиапроизводство: фильм, музыкальные и звуковые проекты для армянских и немецких артистов."
             ]
           ]
         },
         {
-          "label": "What I did",
+          "label": "Что я сделал",
           "blocks": [
             [
               [
-                "Visual identity and promotional materials",
-                "Website and social graphics",
-                "Media assets",
-                "Coordination across creative projects and offices"
+                "Айдентика и рекламные материалы",
+                "Графика для сайтов и социальных сетей",
+                "Материалы для медиапроектов",
+                "Координация творческих проектов и работы офисов"
               ]
             ]
           ]
         },
         {
-          "label": "What it shows",
+          "label": "Что показывает проект",
           "blocks": [
             [
-              "Cross-disciplinary creative and operational experience, beyond digital UI."
+              "Междисциплинарный опыт в дизайне, креативной работе и управлении процессами — за пределами цифровых интерфейсов."
             ]
           ]
         }
@@ -659,33 +659,33 @@
     },
     "by-robyn-blair": {
       "roles": [
-        "Front-end Developer"
+        "Фронтенд-разработчик"
       ],
-      "title": "Candy-art storefront",
-      "description": "The Shopify front end across the store’s pages, built at Brainstorm for an art and decor brand.",
-      "field": "E-commerce · Art",
+      "title": "Интернет-магазин candy art",
+      "description": "Shopify-фронтенд магазина арт-объектов и декора, разработанный в Brainstorm.",
+      "field": "E-commerce · Искусство",
       "story": [
         {
-          "label": "Relationship & role",
+          "label": "Формат сотрудничества и роль",
           "blocks": [
             [
-              "Front-end developer at Brainstorm, July–December 2018. By Robyn Blair was a Brainstorm client."
+              "Фронтенд-разработчик в Brainstorm, июль–декабрь 2018. By Robyn Blair был клиентом агентства."
             ]
           ]
         },
         {
-          "label": "Context",
+          "label": "Контекст",
           "blocks": [
             [
-              "By Robyn Blair sells decor and art products - original and custom works of candy art."
+              "By Robyn Blair продаёт художественный декор — готовые и созданные на заказ произведения из конфет."
             ]
           ]
         },
         {
-          "label": "What I did",
+          "label": "Что я сделал",
           "blocks": [
             [
-              "The Shopify front end across roughly five or six pages of the store."
+              "Фронтенд Shopify-магазина на примерно пяти-шести страницах."
             ]
           ]
         }
@@ -693,44 +693,44 @@
     },
     "off-my-case": {
       "roles": [
-        "Front-end Developer"
+        "Фронтенд-разработчик"
       ],
-      "title": "Custom phone-case store",
-      "description": "The full Shopify storefront UI, including a configurator for personalised phone cases.",
-      "field": "E-commerce · Accessories",
+      "title": "Магазин персонализированных чехлов",
+      "description": "Весь UI Shopify-магазина, включая конфигуратор персонализированных чехлов для телефонов.",
+      "field": "E-commerce · Аксессуары",
       "story": [
         {
-          "label": "Relationship & role",
+          "label": "Формат сотрудничества и роль",
           "blocks": [
             [
-              "Front-end developer at Brainstorm, July–December 2018. Off My Case was a Brainstorm client."
+              "Фронтенд-разработчик в Brainstorm, июль–декабрь 2018. Off My Case был клиентом агентства."
             ]
           ]
         },
         {
-          "label": "Context",
+          "label": "Контекст",
           "blocks": [
             [
-              "Off My Case sells phone cases that customers personalise themselves."
+              "Off My Case продаёт чехлы для телефонов, которые покупатели настраивают по своему вкусу."
             ]
           ]
         },
         {
-          "label": "What I did",
+          "label": "Что я сделал",
           "blocks": [
             [
               [
-                "The full Shopify storefront UI",
-                "A configurator for personalised cases: text, symbols, their placement and colours"
+                "Полный UI Shopify-магазина",
+                "Конфигуратор чехлов: надписи, символы, их расположение и цвета"
               ]
             ]
           ]
         },
         {
-          "label": "What it shows",
+          "label": "Что показывает проект",
           "blocks": [
             [
-              "The strongest interaction work among the Brainstorm stores - a customiser people use to design their own case."
+              "Один из наиболее интерактивных проектов среди магазинов Brainstorm — персональный конструктор дизайна чехлов."
             ]
           ]
         }
@@ -738,33 +738,33 @@
     },
     "gemmed": {
       "roles": [
-        "Front-end Developer"
+        "Фронтенд-разработчик"
       ],
-      "title": "Jewellery storefront",
-      "description": "The full Shopify storefront front end for a jewellery and accessories brand.",
-      "field": "E-commerce · Jewellery",
+      "title": "Ювелирный интернет-магазин",
+      "description": "Полный фронтенд Shopify-магазина бренда украшений и аксессуаров.",
+      "field": "E-commerce · Украшения",
       "story": [
         {
-          "label": "Relationship & role",
+          "label": "Формат сотрудничества и роль",
           "blocks": [
             [
-              "Front-end developer at Brainstorm, July–December 2018. Gemmed was a Brainstorm client."
+              "Фронтенд-разработчик в Brainstorm, июль–декабрь 2018. Gemmed был клиентом агентства."
             ]
           ]
         },
         {
-          "label": "Context",
+          "label": "Контекст",
           "blocks": [
             [
-              "Gemmed sells jewellery and accessories, with bundles and shop-the-look collections."
+              "Gemmed продаёт украшения и аксессуары, включая комплекты и тематические подборки."
             ]
           ]
         },
         {
-          "label": "What I did",
+          "label": "Что я сделал",
           "blocks": [
             [
-              "The full Shopify storefront front end."
+              "Весь фронтенд Shopify-магазина."
             ]
           ]
         }
@@ -772,33 +772,33 @@
     },
     "scunci": {
       "roles": [
-        "Front-end Developer"
+        "Фронтенд-разработчик"
       ],
-      "title": "Hair-accessories website",
-      "description": "Selected pages of Scunci’s Squarespace website, built at Brainstorm.",
-      "field": "Beauty · Accessories",
+      "title": "Сайт аксессуаров для волос",
+      "description": "Разработка отдельных страниц Squarespace-сайта Scunci в составе команды Brainstorm.",
+      "field": "Красота · Аксессуары",
       "story": [
         {
-          "label": "Relationship & role",
+          "label": "Формат сотрудничества и роль",
           "blocks": [
             [
-              "Front-end developer at Brainstorm, July–December 2018. Scunci was a Brainstorm client."
+              "Фронтенд-разработчик в Brainstorm, июль–декабрь 2018. Scunci был клиентом агентства."
             ]
           ]
         },
         {
-          "label": "Context",
+          "label": "Контекст",
           "blocks": [
             [
-              "Scunci makes hair accessories."
+              "Scunci выпускает аксессуары для волос."
             ]
           ]
         },
         {
-          "label": "What I did",
+          "label": "Что я сделал",
           "blocks": [
             [
-              "Selected pages of the website, on Squarespace - not the whole site."
+              "Отдельные страницы Squarespace-сайта — не весь сайт."
             ]
           ]
         }
@@ -910,51 +910,51 @@
     }
   },
   "contact": {
-    "heading": "Tell me what you’re working on",
-    "intentLabel": "What would you like to work on? (optional)",
+    "heading": "Расскажите, над чем Вы работаете",
+    "intentLabel": "Над чем Вы хотели бы поработать? (необязательно)",
     "intentOptions": [
-      "New website",
-      "Website redesign",
-      "Product or platform",
-      "Design system",
-      "Ongoing design & development",
-      "Not sure yet"
+      "Новый сайт",
+      "Редизайн сайта",
+      "Продукт или платформа",
+      "Дизайн-система",
+      "Постоянная поддержка дизайна и разработки",
+      "Пока не определился(ась)"
     ],
     "nameLabel": "Имя",
-    "namePlaceholder": "Your name",
-    "emailLabel": "Work email",
+    "namePlaceholder": "Ваше имя",
+    "emailLabel": "Рабочая почта",
     "emailPlaceholder": "you@company.com",
     "companyField": {
-      "label": "Company (optional)",
-      "placeholder": "Company name"
+      "label": "Компания (необязательно)",
+      "placeholder": "Название компании"
     },
     "websiteField": {
-      "label": "Website or product link (optional)",
+      "label": "Ссылка на сайт или продукт (необязательно)",
       "placeholder": "https://"
     },
-    "buildingLabel": "Tell me about the project",
-    "buildingPlaceholder": "What are you building, changing, or trying to solve?",
-    "timelineLabel": "What’s your timeline? (optional)",
+    "buildingLabel": "Расскажите о проекте",
+    "buildingPlaceholder": "Что Вы создаёте, хотите изменить или какую задачу нужно решить?",
+    "timelineLabel": "Какие у Вас сроки? (необязательно)",
     "timelineOptions": [
-      "Within a month",
-      "1–3 months",
-      "No fixed deadline"
+      "В течение месяца",
+      "1–3 месяца",
+      "Без конкретного срока"
     ],
-    "submit": "Send message",
+    "submit": "Отправить сообщение",
     "submitSending": "Отправляю…",
     "submitSuccess": "Thank you — your message has arrived. I’ll reply within 2 business days.",
     "errors": {
-      "validation": "Please check the highlighted fields.",
-      "rateLimited": "Too many messages in a short time. Please wait a little and try again, or email hello@torchyan.design.",
-      "delivery": "Your message didn’t send. Please try again, or email hello@torchyan.design directly."
+      "validation": "Проверьте выделенные поля.",
+      "rateLimited": "Слишком много сообщений за короткое время. Подождите немного и попробуйте снова или напишите на hello@torchyan.design.",
+      "delivery": "Не удалось отправить сообщение. Попробуйте снова или напишите напрямую на hello@torchyan.design."
     },
     "fieldErrors": {
-      "required": "This field is required.",
-      "email": "Enter a valid email address, like name@company.com.",
-      "url": "Enter a valid link, like company.com."
+      "required": "Обязательное поле.",
+      "email": "Укажите корректный email, например name@company.com.",
+      "url": "Укажите корректную ссылку, например company.com."
     },
-    "privacyNote": "Your details are used only to reply to this message. <link>Privacy notice</link>",
-    "trapLabel": "Leave this field empty"
+    "privacyNote": "Ваши данные используются только для ответа на это сообщение. <link>Политика конфиденциальности</link>",
+    "trapLabel": "Оставьте это поле пустым"
   },
   "footer": {
     "srName": "Torchyan — студия цифровых продуктов под руководством Степана Торчяна",
@@ -990,183 +990,183 @@
       ]
     },
     "showcase": {
-      "rolesLabel": "Role",
-      "stackLabel": "Built with",
-      "relationshipLabel": "Relationship",
-      "cta": "View case",
+      "rolesLabel": "Роль",
+      "stackLabel": "Технологии",
+      "relationshipLabel": "Формат сотрудничества",
+      "cta": "Смотреть проект",
       "items": {
         "picsart": {
           "title": "Picsart",
           "roles": [
             "Senior UI Engineer"
           ],
-          "relationship": "Employee · Oct 2021 – Feb 2024",
+          "relationship": "Сотрудник · октябрь 2021 — февраль 2024",
           "description": [
-            "Worked across Picsart’s Growth and Marketplace teams on production UI for picsart.com and related product surfaces.",
-            "On Growth, I focused on scalable front-end implementation, responsive behavior, accessibility and performance, including optimization work on Discovery pages.",
-            "Later, on Marketplace, I became the main Design System integration point for my team — integrating shared components, building missing product-specific UI, and implementing multilingual RTL/LTR support across my scope.",
-            "This period shaped a lot of how I think about UI today: design systems, accessibility, localization and production quality all have to work together."
+            "Работал в командах Growth и Marketplace над интерфейсами picsart.com и связанными продуктовыми разделами.",
+            "В Growth я занимался масштабируемым UI, адаптивностью, доступностью и производительностью, включая оптимизацию страниц Discovery.",
+            "Позже в Marketplace я стал одним из ключевых участников внедрения дизайн-системы в своей команде: интегрировал общие компоненты, создавал UI под задачи продукта и обеспечивал поддержку RTL/LTR в многоязычном интерфейсе в зоне своей ответственности.",
+            "Этот опыт во многом сформировал мой подход к UI: дизайн-системы, доступность, локализация и качество реализации должны работать вместе."
           ],
           "stack": [
             "React",
             "JSS",
             "Styled Components",
-            "Design Systems",
+            "Дизайн-системы",
             "RTL/LTR",
-            "Accessibility"
+            "Доступность"
           ]
         },
         "smartbet": {
           "title": "Smartbet",
           "roles": [
-            "UI Developer"
+            "UI-разработчик"
           ],
-          "relationship": "Employee · Aug–Oct 2021",
+          "relationship": "Сотрудник · август–октябрь 2021",
           "description": [
-            "Worked with Smartbet’s design and development team as UI Developer, turning approved layouts into an animated, responsive website.",
-            "I implemented the UI for every page, set up a reusable atomic/BEM-based SCSS structure with styling tokens, and built the JavaScript animations and transitions between pages and product sections.",
-            "A focused implementation role where precision, clean structure and collaboration with designers mattered most."
+            "Работал с дизайнерами и разработчиками Smartbet: превращал утверждённые макеты в адаптивный сайт с анимациями.",
+            "Реализовал UI всех страниц, выстроил переиспользуемую структуру SCSS на основе atomic-подхода и БЭМ с дизайн-токенами, написал JavaScript-анимации и переходы между страницами и продуктовыми разделами.",
+            "Здесь ключевыми были точность реализации, чистая структура кода и тесная работа с дизайнерами."
           ],
           "stack": [
-            "UI Development",
-            "Responsive UI",
-            "SCSS system",
-            "Animations"
+            "UI-разработка",
+            "Адаптивный UI",
+            "SCSS-система",
+            "Анимации"
           ]
         },
         "soulone": {
           "title": "SoulOne",
           "roles": [
-            "Web Designer",
-            "Product Owner"
+            "Веб-дизайнер",
+            "Владелец продукта"
           ],
-          "relationship": "Founding team · May–Oct 2025",
+          "relationship": "Команда проекта · май–октябрь 2025",
           "description": [
-            "SoulOne is an Armenian bakery making gluten-free cakes and dessert balls, already supplying several cafés when I joined.",
-            "As Web Designer and Product Owner, I set its brand direction - palette, typography and tone of voice - and designed an e-commerce website concept with interactive Figma prototypes, web copy and social visuals.",
-            "The website stayed a concept and wasn’t launched, but the work went well beyond screens: brand, product communication and prototyping together."
+            "SoulOne — армянская пекарня безглютеновых тортов и десертных шариков. Когда я присоединился, её продукция уже поставлялась в несколько кафе.",
+            "Как веб-дизайнер и Product Owner я разработал визуальное направление — цвета, типографику и tone of voice — а также концепт интернет-магазина с интерактивными прототипами в Figma, текстами сайта и графикой для соцсетей.",
+            "Владелец утвердил дизайн и визуальное направление, но сайт так и не был разработан и запущен. В работе объединились брендинг, продуктовая коммуникация и интерактивное прототипирование."
           ],
           "stack": [
-            "Brand Direction",
-            "Web Design",
-            "Prototyping",
-            "Product Ownership"
+            "Визуальное направление бренда",
+            "Веб-дизайн",
+            "Прототипирование",
+            "Управление продуктом"
           ]
         },
         "ginosi": {
           "title": "Ginosi Apartels & Hotels",
           "roles": [
-            "Front-end development"
+            "Фронтенд-разработка"
           ],
-          "relationship": "Direct client · Apr–May 2019",
+          "relationship": "Прямой клиент · апрель–май 2019",
           "description": [
-            "Built the website UI for Ginosi, an international serviced-apartment and hospitality business.",
-            "My work focused on translating the product and booking experience into a responsive front end, including apartment listings, search and property-related interface states."
+            "По готовому дизайну разработал весь фронтенд сайта Ginosi — международной компании, предлагающей апартаменты для бронирования.",
+            "Реализовал интерфейсы бронирования, каталога апартаментов, поиска и карточек объектов в сжатые сроки."
           ],
           "stack": [
-            "Hospitality",
-            "UI Development",
-            "Responsive Web",
-            "Client Work"
+            "Гостиничный бизнес",
+            "UI-разработка",
+            "Адаптивный сайт",
+            "Клиентский проект"
           ]
         },
         "brainstorm": {
           "title": "Brainstorm",
           "roles": [
-            "Front-end development"
+            "Фронтенд-разработка"
           ],
-          "relationship": "Outsourced project · May–Jul 2018",
+          "relationship": "Аутсорс-проект · май–июль 2018",
           "description": [
-            "My relationship with Brainstorm started with an outsourced assignment: building the agency’s own website while its design was still being developed.",
-            "I built the front end in HTML, CSS and JavaScript, with custom animation and hand-written scroll-driven interactions.",
-            "The project led Brainstorm to invite me onto its team; this case focuses on the original website."
+            "Моё сотрудничество с Brainstorm началось с аутсорс-проекта: я разрабатывал сайт агентства, пока дизайнеры параллельно работали над макетами.",
+            "Реализовал фронтенд на HTML, CSS и JavaScript, включая собственные анимации и вручную написанные scroll-интеракции.",
+            "После этого проекта Brainstorm пригласил меня в команду. Этот кейс посвящён первоначальной разработке сайта агентства."
           ],
           "stack": [
-            "Front-end",
-            "Custom Animation",
-            "Scroll Interactions",
-            "Responsive Web"
+            "Фронтенд",
+            "Кастомные анимации",
+            "Scroll-интеракции",
+            "Адаптивный сайт"
           ]
         },
         "benzeen": {
           "title": "Benzeen Auto Parts",
           "roles": [
-            "Front-end development"
+            "Фронтенд-разработка"
           ],
-          "relationship": "Via TCO · Mar–Aug 2019",
+          "relationship": "Через TCO · март–август 2019",
           "description": [
-            "Worked on Benzeen Auto Parts, a Los Angeles automotive e-commerce project delivered through TCO.",
-            "I implemented the UI across the website - responsive layouts, interactions, animations and selected JavaScript logic - and integrated Google AMP, in a custom Angular build rather than a CMS.",
-            "Designers kept adding and updating pages during development, so design and implementation moved forward together."
+            "Работал над Benzeen Auto Parts — e-commerce проектом по продаже автозапчастей в Лос-Анджелесе, выполняемым через TCO.",
+            "На Angular, HTML и SCSS/БЭМ реализовал UI сайта: адаптивные страницы, анимации и отдельную JavaScript-логику. Также внедрил Google AMP; проект не использовал CMS.",
+            "Дизайнеры продолжали добавлять и обновлять страницы, поэтому дизайн и реализация развивались параллельно."
           ],
           "stack": [
             "Angular",
-            "Animations",
+            "Анимации",
             "Google AMP",
-            "Automotive"
+            "Автомобильная тематика"
           ]
         },
         "worldEducation": {
           "title": "World Education",
           "roles": [
-            "UI Developer"
+            "UI-разработчик"
           ],
-          "relationship": "Direct client · Mar–May 2020",
+          "relationship": "Прямой клиент · март–май 2020",
           "description": [
-            "Built the interface for World Education as a direct client project.",
-            "I built most of the website’s front end - responsive layouts, animations and interaction work - with another contributor handling part of the JavaScript logic.",
-            "It was a compact project, but a good example of owning the presentation layer rather than only individual screens or components."
+            "Разработал интерфейс сайта World Education — платформы, объединяющей студентов, учебные заведения, родителей, агентов, преподавателей и поставщиков образовательных услуг.",
+            "Я реализовал большую часть фронтенда: адаптивные интерфейсы, анимации и интерактивные элементы. Часть JavaScript-логики выполнял другой разработчик.",
+            "Это был стандартный проект по разработке, в котором я отвечал за реализацию интерфейсной части сайта."
           ],
           "stack": [
-            "UI Development",
-            "Animation",
+            "UI-разработка",
+            "Анимации",
             "JavaScript",
-            "Education"
+            "Образование"
           ]
         }
       }
     },
     "perspective": {
-      "title": "Technology follows the problem",
-      "subtitle": "The platform is chosen in discovery, based on three questions:",
+      "title": "Технологии подбираются под задачу",
+      "subtitle": "Платформу выбираем после изучения задачи, ориентируясь на три вопроса:",
       "modes": [
         {
-          "title": "Content & workflow",
-          "body": "Who edits the site, how often, and in which languages."
+          "title": "Контент и процессы",
+          "body": "Кто и как часто обновляет сайт и на каких языках."
         },
         {
-          "title": "Integrations & scale",
-          "body": "Commerce, CRM, analytics, and what the product needs to connect to."
+          "title": "Интеграции и масштабирование",
+          "body": "Продажи, CRM, аналитика и системы, с которыми должен взаимодействовать продукт."
         },
         {
-          "title": "Performance & upkeep",
-          "body": "Speed, accessibility, and who maintains it after launch."
+          "title": "Производительность и поддержка",
+          "body": "Скорость, доступность и то, кто будет поддерживать продукт после запуска."
         }
       ]
     },
     "collaboration": {
-      "title": "Have something similar in mind?",
-      "subtitle": "Tell me what you’re building. I reply within 2 business days.",
+      "title": "Есть похожая задача?",
+      "subtitle": "Расскажите, что Вы создаёте. Я отвечу в течение двух рабочих дней.",
       "initiate": {
-        "title": "Start a project",
-        "body": "A new website, a product interface, a design system, or improving what’s already live.",
-        "cta": "Start a project"
+        "title": "Начать проект",
+        "body": "Новый сайт, интерфейс продукта, дизайн-система или улучшение существующего решения.",
+        "cta": "Начать проект"
       },
       "analyze": {
-        "title": "See what Torchyan takes on",
-        "body": "Four areas, each carried from direction to production.",
-        "cta": "See services"
+        "title": "Посмотреть услуги Torchyan",
+        "body": "Четыре взаимосвязанных направления — от планирования и дизайна до разработки и запуска.",
+        "cta": "Услуги"
       }
     },
     "pager": {
-      "title": "Keep exploring",
-      "body": "The project before this one, or the next.",
+      "title": "Продолжить просмотр",
+      "body": "Предыдущий и следующий проекты.",
       "previous": "← {name}",
       "next": "{name} →"
     },
     "more": {
-      "title": "More projects",
-      "subtitle": "Smaller pieces of work: stores, products and tools, each with a short write-up."
+      "title": "Другие проекты",
+      "subtitle": "Небольшие проекты: магазины, продукты и инструменты с кратким описанием каждого."
     }
   },
   "servicesPage": {
@@ -1363,122 +1363,122 @@
       },
       "analyze": {
         "title": "Не знаете, с чего начать?",
-        "body": "Опишите ситуацию и выберите «Пока не уверен». Диагностика может стать правильным первым шагом.",
+        "body": "Опишите ситуацию и выберите «Пока не определился(ась)». Диагностика может стать правильным первым шагом.",
         "cta": "Связаться"
       }
     }
   },
   "contactPage": {
     "hero": {
-      "title": "Start a project",
-      "lead": "Tell me what you’re building or what needs to change.",
-      "body": "You’ll get a reply from me directly, within 2 business days."
+      "title": "Начать проект",
+      "lead": "Расскажите, что Вы создаёте или что хотите изменить.",
+      "body": "Я лично отвечу Вам в течение двух рабочих дней."
     },
     "next": {
-      "title": "What happens next",
+      "title": "Что будет дальше",
       "steps": [
         {
-          "title": "A reply within 2 business days",
-          "body": "I read every message myself and reply with first thoughts or questions."
+          "title": "Ответ в течение двух рабочих дней",
+          "body": "Я лично читаю каждое сообщение и отвечаю с первыми мыслями или уточняющими вопросами."
         },
         {
-          "title": "A short conversation",
-          "body": "We talk through goals, constraints and timing."
+          "title": "Короткий разговор",
+          "body": "Обсудим цели, ограничения и сроки."
         },
         {
-          "title": "A clear proposal",
+          "title": "Понятное предложение",
           "body": "You receive a scope and approach — or, if the problem isn’t clear yet, a suggested diagnostic first."
         }
       ],
-      "subtitle": "From your message to a clear plan, in three steps.",
-      "question": "Just a question? <link>Send a quick message</link> instead."
+      "subtitle": "Три шага от Вашего сообщения до понятного плана.",
+      "question": "Есть только вопрос? <link>Напишите мне короткое сообщение</link>."
     }
   },
   "privacyPage": {
-    "title": "Privacy notice",
-    "updated": "Last updated: 1 October 2026",
+    "title": "Политика конфиденциальности",
+    "updated": "Последнее обновление: 1 октября 2026 г.",
     "sections": [
       {
-        "title": "Who is responsible",
+        "title": "Кто отвечает за обработку данных",
         "body": [
-          "Torchyan, led by Stepan Torchyan, Yerevan, Armenia, is responsible for the personal data described here.",
-          "Contact for anything about your data: hello@torchyan.design."
+          "За обработку персональных данных, описанных в этой политике, отвечает Torchyan под руководством Степана Торчяна (Ереван, Армения).",
+          "По вопросам персональных данных пишите на hello@torchyan.design."
         ]
       },
       {
-        "title": "What we collect",
+        "title": "Какие данные мы собираем",
         "body": [
           "What you enter in the contact form: your name and work email, and — if you choose to give them — your company, a website link, what you need, your timeline and your message.",
-          "Standard technical data needed to deliver the website, such as your browser type and the pages requested."
+          "Стандартные технические данные, необходимые для работы сайта, например тип браузера и запрошенные страницы."
         ]
       },
       {
-        "title": "Why we use it",
+        "title": "Для чего мы используем данные",
         "body": [
-          "To reply to your enquiry and to take the steps you ask for before any agreement. Your details are not used for marketing and are not sold."
+          "Для ответа на Ваш запрос и выполнения запрошенных Вами действий до заключения договора. Мы не используем Ваши данные для маркетинга и не продаём их."
         ]
       },
       {
-        "title": "Analytics",
+        "title": "Аналитика",
         "body": [
-          "Vercel Web Analytics measures visits in aggregate. It does not use cookies, and visitors are identified only by a temporary hash that is discarded after 24 hours. The site does not use Google Analytics or Yandex Metrica."
+          "Vercel Web Analytics собирает агрегированную статистику посещений без cookie-файлов. Для идентификации посетителя используется временный хеш, который удаляется через 24 часа. Сайт не использует Google Analytics или Yandex Metrica."
         ]
       },
       {
-        "title": "Who processes it",
+        "title": "Кто обрабатывает данные",
         "body": [
-          "Vercel hosts the website and provides the analytics. Resend delivers contact-form messages by email. ImprovMX forwards messages sent to hello@torchyan.design to our inbox."
+          "Vercel обеспечивает хостинг сайта и аналитику. Resend отправляет сообщения из контактных форм по email. ImprovMX перенаправляет письма, отправленные на hello@torchyan.design, в наш почтовый ящик."
         ]
       },
       {
-        "title": "How long we keep it",
+        "title": "Срок хранения",
         "body": [
-          "Enquiries are kept for 24 months, then deleted."
+          "Мы храним обращения 24 месяца, после чего удаляем их."
         ]
       },
       {
-        "title": "Your rights",
+        "title": "Ваши права",
         "body": [
-          "You can ask to see, correct or delete the data you sent, or object to its use, by writing to hello@torchyan.design. You can also complain to your data protection authority."
+          "Вы можете запросить доступ к отправленным данным, их исправление или удаление либо возразить против их использования, написав на hello@torchyan.design. Вы также можете обратиться с жалобой в компетентный орган по защите данных."
         ]
       },
       {
-        "title": "Changes",
+        "title": "Изменения",
         "body": [
-          "If this notice changes, the date above changes with it."
+          "Если политика изменится, мы обновим дату вверху страницы."
         ]
       }
     ]
   },
   "about": {
     "hero": {
-      "title": "Ten years between design and code",
+      "title": "Десять лет между дизайном и кодом",
       "basedIn": "Живу в Армении",
-      "workingGlobally": "Working internationally",
-      "cta": "See the work",
-      "intro": "I’m <name>Stepan Torchyan</name> — a designer and UI engineer based in Armenia, and the founder of Torchyan. I work on digital products, websites and interface systems, usually somewhere between design and implementation.",
-      "execution": "That’s also how I see Torchyan: design and development shouldn’t feel like two separate steps. I like keeping the whole process connected, from the first idea to the final build. If a project needs more people, I bring in specialists I trust and keep everything moving in the same direction.",
-      "resilience": "At the end, the goal is simple: make things that look right, work well, and are built to last.",
+      "workingGlobally": "Работаю с клиентами из разных стран",
+      "cta": "Смотреть проекты",
+      "intro": "Я <name>Степан Торчян</name> — дизайнер, UI-инженер и основатель Torchyan из Армении. Работаю над сайтами, цифровыми продуктами и интерфейсными системами, соединяя дизайн с реализацией.",
+      "execution": "Так я строю и работу Torchyan: дизайн и разработка должны быть единым процессом, а не двумя разрозненными этапами. Я остаюсь вовлечённым от первой идеи до реализации и при необходимости подключаю проверенных специалистов.",
+      "resilience": "В конечном счёте цель простая: создавать вещи, которые хорошо выглядят, правильно работают и служат долго.",
       "cards": [
-        "Product & web design",
-        "UI engineering",
-        "Design systems",
-        "Accessibility & localization",
-        "Launch & improvement"
+        "Дизайн продуктов и сайтов",
+        "UI-инжиниринг",
+        "Дизайн-системы",
+        "Доступность и локализация",
+        "Запуск и развитие"
       ],
-      "generate": "Generate random"
+      "generate": "Создать другой вариант"
     },
     "timeline": {
-      "title": "Experience",
+      "title": "Опыт",
       "subtitle": "Product companies, partner companies and direct clients — the roles behind Torchyan.",
-      "focus": "What I did",
-      "impact": "Result",
+      "focus": "Чем занимался",
+      "impact": "Результат",
       "entries": {
         "apricode": {
-          "stickyContent": "Foundation &\nStructure",
+          "stickyContent": "Основа и\nструктура",
           "role": "Фронтенд-разработчик",
-          "focus": "Hands-on web development across client and self-initiated projects, building responsive interfaces from Photoshop designs with HTML, CSS, LESS/SCSS, JavaScript and jQuery. Worked closely with PHP back-end development and e-commerce platforms including Shopware and Shopify.",
-          "impact": "Projects included Justus Brown, 6ics Sneakers and myZcapital.",
+          "focus": "Работал над клиентскими и собственными веб-проектами: создавал адаптивные интерфейсы по макетам Photoshop на HTML, CSS, LESS/SCSS, JavaScript и jQuery. Сотрудничал с бэкенд-разработчиками на PHP, работал с Shopware и Shopify.",
+          "impact": "Среди проектов — Justus Brown, 6ics Sneakers и myZcapital.",
           "coreGrowth": [
             "Точность",
             "Структура",
@@ -1486,20 +1486,20 @@
           ]
         },
         "brainstorm": {
-          "stickyContent": "Platforms &\nPerformance",
-          "role": "Front-end Developer",
-          "focus": "First built Brainstorm’s own website, then continued on commercial projects including Scunci, By Robyn Blair, Off My Case and Gemmed. Worked across Shopify, Squarespace and custom front-end workflows using Liquid, Gulp, Git, InVision and Zeplin.",
-          "impact": "Growing focus on performance and browser rendering.",
+          "stickyContent": "Платформы и\nпроизводительность",
+          "role": "Фронтенд-разработчик",
+          "focus": "Сначала сделал сайт агентства Brainstorm как внешний подрядчик, затем присоединился к команде и работал над Scunci, By Robyn Blair, Off My Case и Gemmed. Использовал Shopify, Squarespace, Liquid, Gulp, Git, InVision и Zeplin.",
+          "impact": "Углубил знания о производительности и отрисовке интерфейсов в браузере.",
           "coreGrowth": [
-            "Platform range",
-            "Performance"
+            "Разные платформы",
+            "Производительность"
           ]
         },
         "tco": {
-          "stickyContent": "Precision &\nDelivery",
+          "stickyContent": "Точность и\nреализация",
           "role": "UI-разработчик",
-          "focus": "Led UI implementation across internal and client projects, with strong focus on semantic HTML, structured SCSS, BEM/OOCSS, responsive interfaces, accessibility and pixel-accurate execution. Worked in PHP and Angular environments and contributed to UX discussions.",
-          "impact": "Taught HTML/CSS to two groups of around ten students each. Benzeen was one of the main projects.",
+          "focus": "Занимался UI-разработкой внутренних и клиентских проектов с акцентом на семантический HTML, структурированный SCSS, БЭМ/OOCSS, адаптивность, доступность и точность в деталях. Работал в окружениях PHP и Angular и участвовал в обсуждениях UX.",
+          "impact": "Преподавал HTML/CSS двум группам примерно по десять человек. Один из основных проектов — Benzeen.",
           "coreGrowth": [
             "Точность",
             "Структура",
@@ -1507,51 +1507,51 @@
           ]
         },
         "volo": {
-          "stickyContent": "Scale &\nConsistency",
+          "stickyContent": "Масштаб и\nединообразие",
           "role": "UI-разработчик",
-          "focus": "Went deeper into component-based UI development, translating Figma and InVision designs into production interfaces and working closely with designers. Built front-end components with Vue.js.",
-          "impact": "Projects remain under NDA.",
+          "focus": "Углубился в компонентную UI-разработку: переводил макеты Figma и InVision в рабочие интерфейсы, тесно сотрудничал с дизайнерами. Создавал фронтенд-компоненты на Vue.js.",
+          "impact": "Проекты остаются под NDA.",
           "coreGrowth": [
             "Точность",
             "Структура"
           ]
         },
         "softconstruct": {
-          "stickyContent": "Systems &\nProduct UI",
-          "role": "Senior UI Developer",
-          "focus": "Worked on SoftConstruct’s betting platform, building dynamic interfaces with React, JavaScript, SCSS and JSS.",
-          "impact": "Focused on responsive behavior, semantic HTML, accessibility and WCAG-aligned implementation across complex product UI.",
+          "stickyContent": "Системы и\nпродуктовый UI",
+          "role": "Старший UI-разработчик",
+          "focus": "Работал над беттинг-платформой SoftConstruct, создавая динамические интерфейсы на React, JavaScript, SCSS и JSS.",
+          "impact": "Уделял внимание адаптивности, семантическому HTML, доступности и реализации сложных интерфейсов с учётом WCAG.",
           "coreGrowth": [
-            "Precision",
-            "Structure",
-            "Accessibility"
+            "Точность",
+            "Структура",
+            "Доступность"
           ]
         },
         "panika": {
-          "stickyContent": "Design &\nOperations",
-          "role": "Designer / Media Projects Lead",
-          "focus": "A broader multidisciplinary role across design, media and operations. Worked on UI/UX, visual identities, logos, office and studio design, media projects and production coordination.",
-          "impact": "Helped manage an operational office supporting work across Germany, France and Spain, and a music studio.",
+          "stickyContent": "Дизайн и\nкоординация",
+          "role": "Дизайнер / руководитель медиапроектов",
+          "focus": "Многопрофильная роль на стыке дизайна, медиа и управления процессами. Работал над UI/UX, айдентикой, логотипами, оформлением офисов и студий, медиапроектами и координацией продакшена.",
+          "impact": "Помогал координировать офис, поддерживающий проекты в Германии, Франции и Испании, а также музыкальную студию.",
           "coreGrowth": [
-            "Multidisciplinary",
-            "Operations"
+            "Разные дисциплины",
+            "Операционные процессы"
           ]
         },
         "smartbet": {
-          "stickyContent": "Detail &\nDelivery",
-          "role": "UI Developer",
-          "focus": "Front-end implementation of the company website from the design team’s layouts. Responsive, cross-browser pages.",
-          "impact": "A faithful build of a design team’s work.",
+          "stickyContent": "Детали и\nреализация",
+          "role": "UI-разработчик",
+          "focus": "Реализовал весь UI сайта компании по макетам дизайнеров, включая адаптивные страницы и корректную работу в разных браузерах.",
+          "impact": "Создал кастомные JavaScript-анимации и переходы, сохранив единообразную структуру SCSS/БЭМ.",
           "coreGrowth": [
-            "Precision",
-            "Delivery"
+            "Точность",
+            "Реализация"
           ]
         },
         "picsart": {
-          "stickyContent": "Platform &\nScale",
+          "stickyContent": "Платформа и\nмасштаб",
           "role": "Senior UI-инженер",
-          "focus": "Worked across Growth and Marketplace on picsart.com. Built scalable UI with React, JSS and Styled Components, with a focus on accessibility, responsive behavior and performance.",
-          "impact": "Later became a key contributor to Marketplace Design System integration, multilingual RTL/LTR support and UI consistency across product surfaces.",
+          "focus": "Работал в командах Growth и Marketplace над picsart.com. Разрабатывал масштабируемый UI на React, JSS и Styled Components, уделяя внимание доступности, адаптивности и производительности.",
+          "impact": "Позже внёс значительный вклад во внедрение дизайн-системы Marketplace, поддержку многоязычных RTL/LTR-интерфейсов и единообразие UI в разных частях продукта.",
           "coreGrowth": [
             "Дизайн-системы",
             "Доступность",
@@ -1559,52 +1559,52 @@
           ]
         },
         "armenianCodeAcademy": {
-          "stickyContent": "Teaching &\nStructure",
-          "role": "Lecturer",
-          "focus": "Taught HTML, CSS and web fundamentals to a group of around 20 students through practical exercises and structured coursework.",
-          "impact": "Continued interviewing and evaluating lecturer candidates after the teaching period, through 2024.",
+          "stickyContent": "Преподавание и\nструктура",
+          "role": "Преподаватель",
+          "focus": "Преподавал HTML, CSS и основы веб-разработки группе примерно из 20 студентов, используя практические задания и структурированную программу.",
+          "impact": "После преподавания продолжал проводить собеседования и оценивать кандидатов на должность преподавателя до 2024 года.",
           "coreGrowth": [
             "От сырого воркшопа к чётко структурированным знаниям"
           ]
         },
         "brainrocket": {
-          "stickyContent": "Product &\nDelivery",
-          "role": "Senior UI Developer",
-          "focus": "Worked as a Senior UI Developer in a product environment, contributing to production UI.",
-          "impact": "Production front-end work for a product company.",
+          "stickyContent": "Продукт и\nреализация",
+          "role": "Старший UI-разработчик",
+          "focus": "Работал старшим UI-разработчиком в продуктовой компании, создавая интерфейсы для работающего продукта.",
+          "impact": "Фронтенд-разработка для работающего продукта.",
           "coreGrowth": [
-            "Precision",
-            "Delivery"
+            "Точность",
+            "Реализация"
           ]
         },
         "soulone": {
-          "stickyContent": "Brand &\nProduct",
-          "role": "Web Designer & Product Owner",
-          "focus": "Set the brand direction and designed an e-commerce website concept for an Armenian gluten-free bakery - palette, typography, tone of voice, web copy and interactive Figma prototypes.",
-          "impact": "Brand and product thinking for an existing business; the website stayed a concept.",
+          "stickyContent": "Бренд и\nпродукт",
+          "role": "Веб-дизайнер и Product Owner",
+          "focus": "Разработал визуальное направление и утверждённый концепт интернет-магазина для армянской пекарни безглютеновых десертов: цвета, типографику, tone of voice, тексты сайта и интерактивные прототипы Figma.",
+          "impact": "Владелец утвердил дизайн, но сайт не был разработан и запущен.",
           "coreGrowth": [
-            "Brand",
-            "Product"
+            "Бренд",
+            "Продукт"
           ]
         },
         "acentecom": {
-          "stickyContent": "Funnels &\nConversion",
-          "role": "Front-end Developer",
-          "focus": "Built and adapted e-commerce landing pages and sales funnels using Shopify and CheckoutChamp. Worked across checkout flows, product pages and campaign/funnel implementation.",
-          "impact": "Increasingly integrated AI tools into research, design and development workflows.",
+          "stickyContent": "Воронки и\nконверсия",
+          "role": "Фронтенд-разработчик",
+          "focus": "Разрабатывал и адаптировал e-commerce лендинги и воронки продаж на Shopify и CheckoutChamp. Работал со страницами товара, оформлением заказа и реализацией маркетинговых кампаний.",
+          "impact": "Всё активнее использовал AI-инструменты для исследований, дизайна и ускорения разработки.",
           "coreGrowth": [
             "E-commerce",
-            "AI tooling"
+            "AI-инструменты"
           ]
         },
         "torchyan": {
-          "stickyContent": "Studio &\nClients",
-          "role": "Founder",
-          "focus": "Building Torchyan as a founder-led digital product studio combining product and web design, UI engineering and production delivery.",
-          "impact": "Projects are led directly, with trusted specialists brought in when broader development, marketing or production expertise is needed.",
+          "stickyContent": "Студия и\nклиенты",
+          "role": "Основатель",
+          "focus": "Развиваю Torchyan как студию цифровых продуктов под личным руководством, объединяющую дизайн сайтов и продуктов, UI-инжиниринг и фронтенд-разработку.",
+          "impact": "Я лично веду проекты и подключаю проверенных специалистов, когда нужны бэкенд, маркетинг или другие компетенции.",
           "coreGrowth": [
-            "Studio",
-            "Accountability"
+            "Студия",
+            "Ответственность"
           ]
         }
       }
@@ -1613,90 +1613,90 @@
       "title": "Что я делаю на практике",
       "subtitle": "От архитектуры к логике взаимодействия и продакшн-коду.",
       "circles": [
-        "Information Architecture",
-        "UI Pattern Libraries",
-        "Dark Mode",
-        "WCAG Standards",
-        "React Components",
-        "Component Abstraction",
-        "Data Mapping",
-        "Mobile Optimization",
-        "UX Heuristics",
-        "Agile Collaboration",
-        "Production Deployment",
-        "User Flow Mapping",
-        "Responsive Layouts",
-        "Icon Design",
-        "Multilingual Interfaces",
-        "Component Reusability",
-        "Prop Architecture",
-        "Rendering Optimization",
-        "Design Handoff",
-        "Performance Tuning",
-        "Technical Documentation",
-        "Design Tokens",
-        "Wireframe Prototyping",
-        "Grid Systems",
-        "Interaction Design",
-        "RTL Support",
-        "Semantic HTML",
-        "State Management",
-        "System Migration",
-        "Code Splitting",
-        "Web Performance",
-        "Frontend Architecture",
-        "AI Tools",
-        "Microinteractions",
-        "High-Fidelity Mockups",
-        "Visual Hierarchy",
-        "SCSS Structuring",
-        "Motion Systems",
-        "UI Governance",
-        "Scalability Planning",
-        "UI Audits",
-        "Component Architecture",
-        "SSR Integration",
-        "UI Refactoring",
-        "Event Handling",
-        "Typography Systems",
-        "State Design",
-        "CSS Architecture",
-        "BEM Methodology",
-        "Dynamic Theming",
-        "Code Reviews",
-        "Cross-Browser Compatibility",
-        "Interaction Prototyping",
-        "Technical Strategy",
-        "Design Systems",
-        "Color Theming",
-        "Accessibility Compliance",
+        "Информационная архитектура",
+        "Библиотеки UI-паттернов",
+        "Тёмная тема",
+        "Стандарты WCAG",
+        "Компоненты React",
+        "Абстракция компонентов",
+        "Сопоставление данных",
+        "Оптимизация для мобильных устройств",
+        "UX-эвристики",
+        "Работа по Agile",
+        "Развёртывание в продакшене",
+        "Проектирование пользовательских сценариев",
+        "Адаптивные макеты",
+        "Дизайн иконок",
+        "Многоязычные интерфейсы",
+        "Переиспользование компонентов",
+        "Архитектура props",
+        "Оптимизация рендеринга",
+        "Передача макетов в разработку",
+        "Настройка производительности",
+        "Техническая документация",
+        "Дизайн-токены",
+        "Прототипирование вайрфреймов",
+        "Сеточные системы",
+        "Дизайн взаимодействий",
+        "Поддержка RTL",
+        "Семантический HTML",
+        "Управление состоянием",
+        "Миграция систем",
+        "Разделение кода",
+        "Производительность веб-сайтов",
+        "Архитектура фронтенда",
+        "AI-инструменты",
+        "Микровзаимодействия",
+        "Детализированные макеты",
+        "Визуальная иерархия",
+        "Структурирование SCSS",
+        "Системы анимации",
+        "Управление UI-стандартами",
+        "Планирование масштабирования",
+        "UI-аудиты",
+        "Архитектура компонентов",
+        "Интеграция SSR",
+        "Рефакторинг UI",
+        "Обработка событий",
+        "Типографические системы",
+        "Проектирование состояний",
+        "CSS-архитектура",
+        "Методология БЭМ",
+        "Динамические темы",
+        "Код-ревью",
+        "Кроссбраузерная совместимость",
+        "Интерактивное прототипирование",
+        "Техническая стратегия",
+        "Дизайн-системы",
+        "Цветовые темы",
+        "Соответствие требованиям доступности",
         "Styled Components",
-        "Animation Logic",
-        "Conditional Rendering",
-        "API Integration",
-        "Lazy Loading",
-        "Pixel Precision",
-        "Interactive Design",
-        "Semantic Structure",
-        "Visual QA"
+        "Логика анимаций",
+        "Условный рендеринг",
+        "Интеграция API",
+        "Ленивая загрузка",
+        "Пиксельная точность",
+        "Интерактивный дизайн",
+        "Семантическая структура",
+        "Визуальное тестирование качества"
       ]
     },
     "cta": {
       "intro": [
         "Torchyan started from a simple observation: digital projects lose quality at the handoffs — between strategy and design, design and code, launch and everything after.",
-        "So I run each project as one continuous chain, and stay responsible for all of it.",
-        "I use AI tools every day to research, prototype and build faster. The judgement, the design decisions and the accountability stay human.",
+        "Я связываю все этапы проекта — от первого разговора до результата — и отвечаю за работу, которую веду.",
+        "Каждый день использую AI-инструменты, чтобы быстрее исследовать, прототипировать и разрабатывать. Но оценка, дизайн-решения и ответственность остаются за мной.",
         "The goal: websites and products that work the way they were designed to — and keep improving after launch."
       ],
       "build": {
-        "title": "Start a project",
-        "body": "Tell me what you’re building or what needs to change. I reply within 2 business days.",
-        "cta": "Start a project"
+        "title": "Начать проект",
+        "body": "Расскажите, что Вы создаёте или хотите изменить. Я отвечу в течение двух рабочих дней.",
+        "cta": "Начать проект"
       },
       "practice": {
-        "title": "See the work",
-        "body": "Case studies with the exact role on every project.",
-        "cta": "See the work"
+        "title": "Смотреть проекты",
+        "body": "Реальные проекты с понятным описанием моего вклада в каждом из них.",
+        "cta": "Смотреть проекты"
       }
     }
   },
@@ -3055,8 +3055,8 @@
     "pause": "Поставить видео на паузу"
   },
   "talkPage": {
-    "title": "Let’s talk",
-    "subtitle": "Have a question, an idea, or just want to get in touch? Send me a message - I read everything myself.",
+    "title": "Давайте обсудим",
+    "subtitle": "Есть вопрос, идея или просто хотите связаться? Напишите мне — я лично читаю каждое сообщение.",
     "channels": {
       "label": "Как со мной связаться",
       "body": "Подходит для общих вопросов, предложений о сотрудничестве и всего, что не требует брифа по проекту.",
@@ -3079,16 +3079,16 @@
       }
     },
     "form": {
-      "label": "Send a message",
-      "nameLabel": "Name",
-      "namePlaceholder": "Your name",
+      "label": "Написать сообщение",
+      "nameLabel": "Имя",
+      "namePlaceholder": "Ваше имя",
       "emailLabel": "Email",
-      "emailPlaceholder": "Your email",
-      "messageLabel": "Message",
-      "messagePlaceholder": "What would you like to talk about?",
-      "submit": "Send message",
-      "submitSending": "Sending…",
-      "submitSuccess": "Thank you - your message has arrived. I’ll reply soon."
+      "emailPlaceholder": "Ваш email",
+      "messageLabel": "Сообщение",
+      "messagePlaceholder": "О чём Вы хотели бы поговорить?",
+      "submit": "Отправить сообщение",
+      "submitSending": "Отправка…",
+      "submitSuccess": "Спасибо! Сообщение отправлено. Скоро отвечу."
     }
   },
   "homeContact": {

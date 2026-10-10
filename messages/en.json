@@ -151,7 +151,7 @@
           "label": "Relationship & role",
           "blocks": [
             [
-              "Founding team, May–October 2025. Web designer and product owner."
+              "Project team, May–October 2025. Web designer and product owner."
             ]
           ]
         },
@@ -179,7 +179,7 @@
           "label": "Evidence",
           "blocks": [
             [
-              "Product and website screens from the project."
+              "Approved website designs and interactive Figma prototypes; the site was not launched."
             ]
           ]
         },
@@ -198,7 +198,7 @@
         "UI Developer"
       ],
       "title": "Animated company website",
-      "description": "The UI for every page of Smartbet’s animated company and product website, built from the design team’s layouts - with a reusable SCSS foundation and JavaScript transitions.",
+      "description": "I implemented the UI for every page of Smartbet’s animated website from the design team’s approved layouts, with reusable SCSS/BEM architecture and JavaScript transitions.",
       "field": "Website",
       "story": [
         {
@@ -224,7 +224,7 @@
               [
                 "Translating the design accurately into working pages",
                 "Responsive behavior across browsers and screen sizes",
-                "Consistent interface behavior across the site"
+                "JavaScript animations and consistent transitions between pages and product sections"
               ]
             ]
           ]
@@ -252,7 +252,7 @@
         "Front-end development"
       ],
       "title": "Website front end",
-      "description": "The website UI for a serviced-apartment and hotel business.",
+      "description": "Full website front-end implementation for an international serviced-apartment booking business, based on an existing design.",
       "field": "Hospitality",
       "story": [
         {
@@ -294,7 +294,7 @@
           "label": "What it shows",
           "blocks": [
             [
-              "Front-end delivery for an international hospitality website."
+              "End-to-end front-end delivery for an international hospitality website within a tight schedule."
             ]
           ]
         }
@@ -305,7 +305,7 @@
         "Front-end development"
       ],
       "title": "Website front end",
-      "description": "Full front-end implementation for an auto-parts business, delivered through TCO.",
+      "description": "Full Angular front-end implementation for an automotive e-commerce business, delivered through TCO.",
       "field": "Automotive",
       "story": [
         {
@@ -331,7 +331,7 @@
               [
                 "Front-end implementation across the website",
                 "Responsive UI, interactions and animations",
-                "Input into design decisions during development"
+                "Angular, SCSS/BEM, JavaScript logic and Google AMP integration"
               ]
             ]
           ]
@@ -374,7 +374,7 @@
           "label": "Context",
           "blocks": [
             [
-              "World Education came to me directly for its website."
+              "World Education connects students, parents, schools, agents, teachers and service providers around education opportunities."
             ]
           ]
         },
@@ -412,14 +412,14 @@
         "Front-end development"
       ],
       "title": "Company website",
-      "description": "Full front-end development from a ready-made design.",
+      "description": "Full front-end development of Brainstorm’s agency website while the design was evolving in parallel.",
       "field": "Company website",
       "story": [
         {
           "label": "Relationship & role",
           "blocks": [
             [
-              "Direct client, May–July 2018. Front-end development."
+              "Outsourced project, May–July 2018. Front-end developer; later invited to join the agency team."
             ]
           ]
         },
@@ -427,7 +427,7 @@
           "label": "Context",
           "blocks": [
             [
-              "Brainstorm’s own website, built from an existing design."
+              "Brainstorm’s own website, with design and development progressing side by side."
             ]
           ]
         },
@@ -437,7 +437,7 @@
             [
               [
                 "Front-end implementation end to end, from the supplied layouts",
-                "Working through the details needed for the design to behave correctly in the browser"
+                "Custom JavaScript animations and hand-built scroll interactions"
               ]
             ]
           ]
@@ -466,7 +466,7 @@
         "Front-end Developer"
       ],
       "title": "Gamified survey platform",
-      "description": "Original product design and the full front end for a US-focused survey platform, where people answered polls and earned Z coins.",
+      "description": "Original product design and full front-end implementation of a US-focused survey platform where users earned Z coins for answering questions. Built on Shopware 5.",
       "field": "Surveys · Rewards",
       "story": [
         {
@@ -493,7 +493,7 @@
                 "The product design and the full front-end UI",
                 "Survey and poll screens",
                 "Points, rewards and membership views",
-                "A front end working with the backend platform"
+                "A Shopware 5 front end connected to the product’s back-end logic"
               ]
             ]
           ]
@@ -560,7 +560,7 @@
         "Front-end Developer"
       ],
       "title": "Operations platform",
-      "description": "A refreshed design and the full UI for the internal administration system of an Australian ring manufacturer - not its public store.",
+      "description": "A design refresh and complete UI implementation for the internal administration system of an Australian ring manufacturer — not the public storefront.",
       "field": "Jewellery · Internal tools",
       "story": [
         {
@@ -953,7 +953,7 @@
       "email": "Enter a valid email address, like name@company.com.",
       "url": "Enter a valid link, like company.com."
     },
-    "privacyNote": "Your details are used only to reply to this message. <link>Privacy notice</link>",
+    "privacyNote": "Your details are used only to respond to this message. <link>Privacy notice</link>",
     "trapLabel": "Leave this field empty"
   },
   "footer": {
@@ -993,7 +993,7 @@
       "rolesLabel": "Role",
       "stackLabel": "Built with",
       "relationshipLabel": "Relationship",
-      "cta": "View case",
+      "cta": "View project",
       "items": {
         "picsart": {
           "title": "Picsart",
@@ -1003,8 +1003,8 @@
           "relationship": "Employee · Oct 2021 – Feb 2024",
           "description": [
             "Worked across Picsart’s Growth and Marketplace teams on production UI for picsart.com and related product surfaces.",
-            "On Growth, I focused on scalable front-end implementation, responsive behavior, accessibility and performance, including optimization work on Discovery pages.",
-            "Later, on Marketplace, I became the main Design System integration point for my team — integrating shared components, building missing product-specific UI, and implementing multilingual RTL/LTR support across my scope.",
+            "In Growth, I worked on scalable front-end UI, responsive behavior, accessibility and performance, including optimizations to Discovery pages.",
+            "Later, in Marketplace, I was a key Design System integration contributor for my team: bringing in shared components, building product-specific UI, and implementing multilingual RTL/LTR support within my scope.",
             "This period shaped a lot of how I think about UI today: design systems, accessibility, localization and production quality all have to work together."
           ],
           "stack": [
@@ -1024,7 +1024,7 @@
           "relationship": "Employee · Aug–Oct 2021",
           "description": [
             "Worked with Smartbet’s design and development team as UI Developer, turning approved layouts into an animated, responsive website.",
-            "I implemented the UI for every page, set up a reusable atomic/BEM-based SCSS structure with styling tokens, and built the JavaScript animations and transitions between pages and product sections.",
+            "I implemented the UI across every page, created a reusable atomic/BEM-based SCSS structure with design tokens, and wrote the JavaScript animations and transitions between pages and product sections.",
             "A focused implementation role where precision, clean structure and collaboration with designers mattered most."
           ],
           "stack": [
@@ -1043,8 +1043,8 @@
           "relationship": "Founding team · May–Oct 2025",
           "description": [
             "SoulOne is an Armenian bakery making gluten-free cakes and dessert balls, already supplying several cafés when I joined.",
-            "As Web Designer and Product Owner, I set its brand direction - palette, typography and tone of voice - and designed an e-commerce website concept with interactive Figma prototypes, web copy and social visuals.",
-            "The website stayed a concept and wasn’t launched, but the work went well beyond screens: brand, product communication and prototyping together."
+            "As Web Designer and Product Owner, I developed the visual direction — colours, typography and tone of voice — and designed an e-commerce website concept with interactive Figma prototypes, website copy and social media visuals.",
+            "The owner approved the design and brand direction, but the website was not developed or launched. The work brought together branding, product communication and interactive prototyping."
           ],
           "stack": [
             "Brand Direction",
@@ -1060,8 +1060,8 @@
           ],
           "relationship": "Direct client · Apr–May 2019",
           "description": [
-            "Built the website UI for Ginosi, an international serviced-apartment and hospitality business.",
-            "My work focused on translating the product and booking experience into a responsive front end, including apartment listings, search and property-related interface states."
+            "I built the full website front end for Ginosi, an international serviced-apartment and hospitality business, from the supplied design.",
+            "The work covered the booking experience, apartment listings, search and property interfaces, delivered within a tight schedule."
           ],
           "stack": [
             "Hospitality",
@@ -1096,7 +1096,7 @@
           "relationship": "Via TCO · Mar–Aug 2019",
           "description": [
             "Worked on Benzeen Auto Parts, a Los Angeles automotive e-commerce project delivered through TCO.",
-            "I implemented the UI across the website - responsive layouts, interactions, animations and selected JavaScript logic - and integrated Google AMP, in a custom Angular build rather than a CMS.",
+            "I built the site’s UI in Angular, HTML and SCSS/BEM, including responsive layouts, animations and selected JavaScript logic. I also implemented Google AMP; the project did not use a CMS.",
             "Designers kept adding and updating pages during development, so design and implementation moved forward together."
           ],
           "stack": [
@@ -1113,9 +1113,9 @@
           ],
           "relationship": "Direct client · Mar–May 2020",
           "description": [
-            "Built the interface for World Education as a direct client project.",
-            "I built most of the website’s front end - responsive layouts, animations and interaction work - with another contributor handling part of the JavaScript logic.",
-            "It was a compact project, but a good example of owning the presentation layer rather than only individual screens or components."
+            "I developed the website UI for World Education, a platform connecting students, schools, parents, agents, teachers and service providers around education opportunities.",
+            "I built most of the front end, including responsive layouts, animations and interactions; part of the JavaScript logic was handled by another developer.",
+            "It was a straightforward delivery project, showing end-to-end ownership of the site’s presentation layer."
           ],
           "stack": [
             "UI Development",
@@ -1128,7 +1128,7 @@
     },
     "perspective": {
       "title": "Technology follows the problem",
-      "subtitle": "The platform is chosen in discovery, based on three questions:",
+      "subtitle": "We choose the platform during discovery, guided by three questions:",
       "modes": [
         {
           "title": "Content & workflow",
@@ -1153,14 +1153,14 @@
         "cta": "Start a project"
       },
       "analyze": {
-        "title": "See what Torchyan takes on",
-        "body": "Four areas, each carried from direction to production.",
+        "title": "Explore what Torchyan does",
+        "body": "Four connected areas, from planning and design to development and launch.",
         "cta": "See services"
       }
     },
     "pager": {
       "title": "Keep exploring",
-      "body": "The project before this one, or the next.",
+      "body": "Previous and next projects.",
       "previous": "← {name}",
       "next": "{name} →"
     },
@@ -1372,7 +1372,7 @@
     "hero": {
       "title": "Start a project",
       "lead": "Tell me what you’re building or what needs to change.",
-      "body": "You’ll get a reply from me directly, within 2 business days."
+      "body": "I’ll reply personally within 2 business days."
     },
     "next": {
       "title": "What happens next",
@@ -1391,7 +1391,7 @@
         }
       ],
       "subtitle": "From your message to a clear plan, in three steps.",
-      "question": "Just a question? <link>Send a quick message</link> instead."
+      "question": "Just a question? <link>Send me a quick message</link> instead."
     }
   },
   "privacyPage": {
@@ -1401,7 +1401,7 @@
       {
         "title": "Who is responsible",
         "body": [
-          "Torchyan, led by Stepan Torchyan, Yerevan, Armenia, is responsible for the personal data described here.",
+          "Torchyan, led by Stepan Torchyan in Yerevan, Armenia, is responsible for the personal data described in this notice.",
           "Contact for anything about your data: hello@torchyan.design."
         ]
       },
@@ -1452,12 +1452,12 @@
   },
   "about": {
     "hero": {
-      "title": "Ten years between design and code",
+      "title": "A decade between design and code",
       "basedIn": "Based in Armenia",
       "workingGlobally": "Working internationally",
       "cta": "See the work",
-      "intro": "I’m <name>Stepan Torchyan</name> — a designer and UI engineer based in Armenia, and the founder of Torchyan. I work on digital products, websites and interface systems, usually somewhere between design and implementation.",
-      "execution": "That’s also how I see Torchyan: design and development shouldn’t feel like two separate steps. I like keeping the whole process connected, from the first idea to the final build. If a project needs more people, I bring in specialists I trust and keep everything moving in the same direction.",
+      "intro": "I’m <name>Stepan Torchyan</name> — a designer, UI engineer and founder of Torchyan, based in Armenia. I work on websites, digital products and interface systems, connecting design decisions with how things are built.",
+      "execution": "That’s how I approach Torchyan too: design and development should work as one process, not two disconnected stages. I stay involved from the first idea through implementation, bringing in trusted specialists when the project needs them.",
       "resilience": "At the end, the goal is simple: make things that look right, work well, and are built to last.",
       "cards": [
         "Product & web design",
@@ -1466,7 +1466,7 @@
         "Accessibility & localization",
         "Launch & improvement"
       ],
-      "generate": "Generate random"
+      "generate": "Generate another"
     },
     "timeline": {
       "title": "Experience",
@@ -1488,7 +1488,7 @@
         "brainstorm": {
           "stickyContent": "Platforms &\nPerformance",
           "role": "Front-end Developer",
-          "focus": "First built Brainstorm’s own website, then continued on commercial projects including Scunci, By Robyn Blair, Off My Case and Gemmed. Worked across Shopify, Squarespace and custom front-end workflows using Liquid, Gulp, Git, InVision and Zeplin.",
+          "focus": "First built Brainstorm’s agency website as an external project, then joined the team to work on Scunci, By Robyn Blair, Off My Case and Gemmed. Used Shopify, Squarespace, Liquid, Gulp, Git, InVision and Zeplin.",
           "impact": "Growing focus on performance and browser rendering.",
           "coreGrowth": [
             "Platform range",
@@ -1498,7 +1498,7 @@
         "tco": {
           "stickyContent": "Precision &\nDelivery",
           "role": "UI Developer",
-          "focus": "Led UI implementation across internal and client projects, with strong focus on semantic HTML, structured SCSS, BEM/OOCSS, responsive interfaces, accessibility and pixel-accurate execution. Worked in PHP and Angular environments and contributed to UX discussions.",
+          "focus": "Worked on UI implementation for internal and client projects, focusing on semantic HTML, structured SCSS, BEM/OOCSS, responsive layouts, accessibility and pixel accuracy. Worked in PHP and Angular environments and contributed to UX discussions.",
           "impact": "Taught HTML/CSS to two groups of around ten students each. Benzeen was one of the main projects.",
           "coreGrowth": [
             "Precision",
@@ -1540,8 +1540,8 @@
         "smartbet": {
           "stickyContent": "Detail &\nDelivery",
           "role": "UI Developer",
-          "focus": "Front-end implementation of the company website from the design team’s layouts. Responsive, cross-browser pages.",
-          "impact": "A faithful build of a design team’s work.",
+          "focus": "Implemented the full front-end UI of the company website from the design team’s layouts, including responsive pages and cross-browser behavior.",
+          "impact": "Implemented custom JavaScript animations and transitions while keeping the site’s SCSS/BEM structure consistent.",
           "coreGrowth": [
             "Precision",
             "Delivery"
@@ -1580,8 +1580,8 @@
         "soulone": {
           "stickyContent": "Brand &\nProduct",
           "role": "Web Designer & Product Owner",
-          "focus": "Set the brand direction and designed an e-commerce website concept for an Armenian gluten-free bakery - palette, typography, tone of voice, web copy and interactive Figma prototypes.",
-          "impact": "Brand and product thinking for an existing business; the website stayed a concept.",
+          "focus": "Set the visual direction and designed an approved e-commerce website concept for an Armenian gluten-free bakery — including colours, typography, tone of voice, website copy and interactive Figma prototypes.",
+          "impact": "The owner approved the design, but the website was not developed or launched.",
           "coreGrowth": [
             "Brand",
             "Product"
@@ -1600,8 +1600,8 @@
         "torchyan": {
           "stickyContent": "Studio &\nClients",
           "role": "Founder",
-          "focus": "Building Torchyan as a founder-led digital product studio combining product and web design, UI engineering and production delivery.",
-          "impact": "Projects are led directly, with trusted specialists brought in when broader development, marketing or production expertise is needed.",
+          "focus": "Building Torchyan as a founder-led Digital Product Studio combining product and web design, UI engineering and front-end implementation.",
+          "impact": "I lead projects directly and bring in trusted specialists when a broader scope calls for backend, marketing or other expertise.",
           "coreGrowth": [
             "Studio",
             "Accountability"
@@ -1684,8 +1684,8 @@
     "cta": {
       "intro": [
         "Torchyan started from a simple observation: digital projects lose quality at the handoffs - between strategy and design, design and code, launch and everything after.",
-        "So I run each project as one continuous chain, and stay responsible for all of it.",
-        "I use AI tools every day to research, prototype and build faster. The judgement, the design decisions and the accountability stay human.",
+        "I keep each project connected from the first conversation through delivery, and stay accountable for the work I lead.",
+        "I use AI tools every day to research, prototype and build faster. The judgement, design decisions and accountability remain mine.",
         "The goal: websites and products that work the way they were designed to - and keep improving after launch."
       ],
       "build": {
@@ -1695,7 +1695,7 @@
       },
       "practice": {
         "title": "See the work",
-        "body": "Case studies with the exact role on every project.",
+        "body": "Real projects, with my contribution clearly explained in each case.",
         "cta": "See the work"
       }
     }
@@ -3056,7 +3056,7 @@
   },
   "talkPage": {
     "title": "Let’s talk",
-    "subtitle": "Have a question, an idea, or just want to get in touch? Send me a message - I read everything myself.",
+    "subtitle": "Have a question or an idea, or just want to get in touch? Send me a message — I read every one myself.",
     "channels": {
       "label": "Ways to reach me",
       "body": "Best for general questions, collaborations and anything that doesn’t need a project brief.",
@@ -3088,7 +3088,7 @@
       "messagePlaceholder": "What would you like to talk about?",
       "submit": "Send message",
       "submitSending": "Sending…",
-      "submitSuccess": "Thank you - your message has arrived. I’ll reply soon."
+      "submitSuccess": "Thank you — your message has been sent. I’ll reply soon."
     }
   },
   "homeContact": {

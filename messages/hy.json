@@ -140,54 +140,54 @@
     },
     "soulone": {
       "roles": [
-        "Web Designer",
-        "Product Owner"
+        "Վեբ դիզայներ",
+        "Պրոդուկտի պատասխանատու"
       ],
-      "title": "Gluten-free bakery brand",
-      "description": "Brand direction and an interactive e-commerce website concept for an Armenian gluten-free bakery.",
-      "field": "Food · Bakery",
+      "title": "Առանց գլյուտենի դեսերտների բրենդ",
+      "description": "Հայկական առանց գլյուտենի դեսերտների բրենդի վիզուալ ուղղության և ինտերակտիվ օնլայն խանութի կոնցեպտի մշակում։",
+      "field": "Սնունդ · Հացաբուլկեղեն",
       "story": [
         {
-          "label": "Relationship & role",
+          "label": "Համագործակցության ձևաչափ և դեր",
           "blocks": [
             [
-              "Founding team, May–October 2025. Web designer and product owner."
+              "Նախագծի թիմ, մայիս–հոկտեմբեր 2025։ Վեբ դիզայներ և Product Owner։"
             ]
           ]
         },
         {
-          "label": "Context",
+          "label": "Համատեքստ",
           "blocks": [
             [
-              "SoulOne is an Armenian bakery brand focused on gluten-free, eco-oriented cakes and desserts."
+              "SoulOne-ը հայկական բրենդ է՝ առանց գլյուտենի տորթերով ու դեսերտներով, որի մոտեցման հիմքում բնական բաղադրիչներն են։"
             ]
           ]
         },
         {
-          "label": "What I did",
+          "label": "Ինչ եմ արել",
           "blocks": [
             [
               [
-                "Website, product presentation and visual direction",
-                "Product and business decisions, day to day — not only the visual layer",
-                "Outreach and execution"
+                "Կայքի դիզայն, պրոդուկտների ներկայացում և վիզուալ ուղղություն",
+                "Մասնակցություն պրոդուկտային և բիզնես որոշումներին՝ ոչ միայն վիզուալ մասում",
+                "Հաղորդակցություն և գործնական առաջադրանքների իրականացում"
               ]
             ]
           ]
         },
         {
-          "label": "Evidence",
+          "label": "Նյութեր",
           "blocks": [
             [
-              "Product and website screens from the project."
+              "Հաստատված կայքի մակետներ և ինտերակտիվ Figma նախատիպեր․ կայքը չի գործարկվել։"
             ]
           ]
         },
         {
-          "label": "What it shows",
+          "label": "Ինչ է ցույց տալիս նախագիծը",
           "blocks": [
             [
-              "Experience closer to building a business than delivering screens — design, product decisions, outreach and execution working together."
+              "Փորձ, որը չի սահմանափակվում էկրաններով․ բրենդի տեսք, պրոդուկտային որոշումներ, հաղորդակցություն և գործնական աշխատանք մեկ բիզնեսի շրջանակում։"
             ]
           ]
         }
@@ -195,53 +195,53 @@
     },
     "smartbet": {
       "roles": [
-        "UI Developer"
+        "UI ծրագրավորող"
       ],
-      "title": "Animated company website",
-      "description": "The UI for every page of Smartbet’s animated company and product website, built from the design team’s layouts - with a reusable SCSS foundation and JavaScript transitions.",
-      "field": "Website",
+      "title": "Ընկերության կայք՝ անիմացիաներով",
+      "description": "Դիզայնի թիմի հաստատված մակետների հիման վրա իրականացրել եմ Smartbet-ի անիմացիոն կայքի բոլոր էջերի UI-ը՝ բազմակի օգտագործման SCSS/BEM կառուցվածքով և JavaScript անցումներով։",
+      "field": "Կայք",
       "story": [
         {
-          "label": "Relationship & role",
+          "label": "Համագործակցության ձևաչափ և դեր",
           "blocks": [
             [
-              "Employee, August–October 2021. UI developer in a cross-functional team of designers and developers."
+              "Աշխատակից, օգոստոս–հոկտեմբեր 2021։ UI ծրագրավորող՝ դիզայներների և ծրագրավորողների թիմում։"
             ]
           ]
         },
         {
-          "label": "Context",
+          "label": "Համատեքստ",
           "blocks": [
             [
-              "Smartbet’s design and development team had approved layouts ready to become a responsive production website."
+              "Smartbet-ի դիզայնի և ծրագրավորման թիմը պատրաստել ու հաստատել էր հարմարվող կայքի մակետները։"
             ]
           ]
         },
         {
-          "label": "What I did",
+          "label": "Ինչ եմ արել",
           "blocks": [
             [
               [
-                "Translating the design accurately into working pages",
-                "Responsive behavior across browsers and screen sizes",
-                "Consistent interface behavior across the site"
+                "Մակետների ճշգրիտ իրականացում աշխատող էջերում",
+                "Հարմարվող աշխատանք տարբեր դիտարկիչներում և էկրանների չափերով",
+                "JavaScript անիմացիաներ և միասնական անցումներ էջերի ու պրոդուկտային բաժինների միջև"
               ]
             ]
           ]
         },
         {
-          "label": "Evidence",
+          "label": "Նյութեր",
           "blocks": [
             [
-              "Screens I implemented."
+              "Իմ իրականացրած էկրանները։"
             ]
           ]
         },
         {
-          "label": "What it shows",
+          "label": "Ինչ է ցույց տալիս նախագիծը",
           "blocks": [
             [
-              "A focused implementation role where precision, clean structure and collaboration with designers mattered most."
+              "UI իրականացման ճշգրտություն, մաքուր կառուցվածք և համագործակցություն դիզայներների հետ։"
             ]
           ]
         }
@@ -249,52 +249,52 @@
     },
     "ginosi": {
       "roles": [
-        "Front-end development"
+        "Front-end ծրագրավորում"
       ],
-      "title": "Website front end",
-      "description": "The website UI for a serviced-apartment and hotel business.",
-      "field": "Hospitality",
+      "title": "Կայքի Front-end",
+      "description": "Միջազգային բնակարանների ամրագրման ընկերության կայքի ամբողջ Front-end-ի իրականացում՝ պատրաստի դիզայնով։",
+      "field": "Հյուրընկալության ոլորտ",
       "story": [
         {
-          "label": "Relationship & role",
+          "label": "Համագործակցության ձևաչափ և դեր",
           "blocks": [
             [
-              "Direct client, April–May 2019. Front-end development — I built the website’s UI."
+              "Անմիջական հաճախորդ, ապրիլ–մայիս 2019։ Իրականացրել եմ կայքի ամբողջ Front-end-ը։"
             ]
           ]
         },
         {
-          "label": "Context",
+          "label": "Համատեքստ",
           "blocks": [
             [
-              "Ginosi is an international serviced-apartment and hospitality business."
+              "Ginosi-ն միջազգային ընկերություն է, որն առաջարկում է սպասարկվող բնակարաններ և կացության ծառայություններ։"
             ]
           ]
         },
         {
-          "label": "What I did",
+          "label": "Ինչ եմ արել",
           "blocks": [
             [
               [
-                "Responsive front end for the booking experience",
-                "Apartment listings, search and property-related interface states"
+                "Հարմարվող Front-end՝ ամրագրման համար",
+                "Բնակարանների ցանկ, որոնում և օբյեկտների էջերի ինտերֆեյսային վիճակներ"
               ]
             ]
           ]
         },
         {
-          "label": "Evidence",
+          "label": "Նյութեր",
           "blocks": [
             [
-              "The live website has changed since then, so the work shown here comes from archived screens of the original implementation."
+              "Գործող կայքն այդ ժամանակից ի վեր փոխվել է, ուստի այստեղ ներկայացված են սկզբնական իրականացման արխիվային էկրանները։"
             ]
           ]
         },
         {
-          "label": "What it shows",
+          "label": "Ինչ է ցույց տալիս նախագիծը",
           "blocks": [
             [
-              "Front-end delivery for an international hospitality website."
+              "Միջազգային ամրագրման կայքի ամբողջ Front-end-ի իրականացում՝ սեղմ ժամկետներում։"
             ]
           ]
         }
@@ -302,53 +302,53 @@
     },
     "benzeen": {
       "roles": [
-        "Front-end development"
+        "Front-end ծրագրավորում"
       ],
-      "title": "Website front end",
-      "description": "Full front-end implementation for an auto-parts business, delivered through TCO.",
-      "field": "Automotive",
+      "title": "Կայքի Front-end",
+      "description": "TCO-ի միջոցով ավտոպահեստամասերի օնլայն խանութի ամբողջ Front-end-ի իրականացում Angular-ով։",
+      "field": "Ավտոմոբիլային ոլորտ",
       "story": [
         {
-          "label": "Relationship & role",
+          "label": "Համագործակցության ձևաչափ և դեր",
           "blocks": [
             [
-              "Through TCO (then my employer), March–August 2019. Front-end development."
+              "TCO-ի (իմ գործատուի) միջոցով, մարտ–օգոստոս 2019։ Front-end ծրագրավորում։"
             ]
           ]
         },
         {
-          "label": "Context",
+          "label": "Համատեքստ",
           "blocks": [
             [
-              "Benzeen Auto Parts is an automotive e-commerce business in Los Angeles."
+              "Benzeen Auto Parts-ը Լոս Անջելեսում գործող ավտոպահեստամասերի օնլայն խանութ է։"
             ]
           ]
         },
         {
-          "label": "What I did",
+          "label": "Ինչ եմ արել",
           "blocks": [
             [
               [
-                "Front-end implementation across the website",
-                "Responsive UI, interactions and animations",
-                "Input into design decisions during development"
+                "Կայքի բոլոր էջերի Front-end-ի իրականացում",
+                "Հարմարվող UI, ինտերակտիվ տարրեր և անիմացիաներ",
+                "Angular, SCSS/BEM, JavaScript տրամաբանություն և Google AMP ինտեգրում"
               ]
             ]
           ]
         },
         {
-          "label": "Evidence",
+          "label": "Նյութեր",
           "blocks": [
             [
-              "Project screens and materials."
+              "Նախագծի էկրաններն ու նյութերը։"
             ]
           ]
         },
         {
-          "label": "What it shows",
+          "label": "Ինչ է ցույց տալիս նախագիծը",
           "blocks": [
             [
-              "Design and implementation evolving together — more than simply reproducing layouts."
+              "Դիզայնն ու իրականացումը զարգանում էին զուգահեռ․ աշխատանքը չէր սահմանափակվում պատրաստի մակետների փոխանցմամբ։"
             ]
           ]
         }
@@ -356,52 +356,52 @@
     },
     "world-education": {
       "roles": [
-        "UI Developer"
+        "UI ծրագրավորող"
       ],
-      "title": "Company website",
-      "description": "Full UI implementation, animations and interactive details.",
-      "field": "Education",
+      "title": "Ընկերության կայք",
+      "description": "Ամբողջ UI-ի իրականացում, անիմացիաներ և ինտերակտիվ մանրամասներ։",
+      "field": "Կրթություն",
       "story": [
         {
-          "label": "Relationship & role",
+          "label": "Համագործակցության ձևաչափ և դեր",
           "blocks": [
             [
-              "Direct client, March–May 2020. UI developer."
+              "Անմիջական հաճախորդ, մարտ–մայիս 2020։ UI ծրագրավորող։"
             ]
           ]
         },
         {
-          "label": "Context",
+          "label": "Համատեքստ",
           "blocks": [
             [
-              "World Education came to me directly for its website."
+              "World Education-ը միավորում է ուսանողներին, ծնողներին, դպրոցներին, գործակալներին, ուսուցիչներին և կրթական ծառայություններ մատուցողներին։"
             ]
           ]
         },
         {
-          "label": "What I did",
+          "label": "Ինչ եմ արել",
           "blocks": [
             [
               [
-                "Full UI implementation and responsive layouts",
-                "Animations and selected JavaScript interactions"
+                "UI-ի իրականացում և հարմարվող դասավորություններ",
+                "Անիմացիաներ և JavaScript-ով որոշ փոխազդեցություններ"
               ]
             ]
           ]
         },
         {
-          "label": "Evidence",
+          "label": "Նյութեր",
           "blocks": [
             [
-              "Screenshots of the build."
+              "Իրականացված կայքի սքրինշոթները։"
             ]
           ]
         },
         {
-          "label": "What it shows",
+          "label": "Ինչ է ցույց տալիս նախագիծը",
           "blocks": [
             [
-              "A compact project, and a good example of owning the complete presentation layer."
+              "Նախագծի օրինակ, որտեղ ես պատասխանատու էի ինտերֆեյսային մասի ամբողջական իրականացման համար։"
             ]
           ]
         }
@@ -409,52 +409,52 @@
     },
     "brainstorm": {
       "roles": [
-        "Front-end development"
+        "Front-end ծրագրավորում"
       ],
-      "title": "Company website",
-      "description": "Full front-end development from a ready-made design.",
-      "field": "Company website",
+      "title": "Գործակալության կայք",
+      "description": "Brainstorm գործակալության կայքի ամբողջ Front-end-ի մշակում՝ դիզայնի ստեղծմանը զուգահեռ։",
+      "field": "Ընկերության կայք",
       "story": [
         {
-          "label": "Relationship & role",
+          "label": "Համագործակցության ձևաչափ և դեր",
           "blocks": [
             [
-              "Direct client, May–July 2018. Front-end development."
+              "Արտաքին պատվեր, մայիս–հուլիս 2018։ Front-end ծրագրավորող․ հետո հրավիրվեցի գործակալության թիմ։"
             ]
           ]
         },
         {
-          "label": "Context",
+          "label": "Համատեքստ",
           "blocks": [
             [
-              "Brainstorm’s own website, built from an existing design."
+              "Brainstorm գործակալության կայքը, որի դիզայնն ու ծրագրավորումն ընթանում էին զուգահեռ։"
             ]
           ]
         },
         {
-          "label": "What I did",
+          "label": "Ինչ եմ արել",
           "blocks": [
             [
               [
-                "Front-end implementation end to end, from the supplied layouts",
-                "Working through the details needed for the design to behave correctly in the browser"
+                "Տրամադրված մակետների հիման վրա Front-end-ի ամբողջական իրականացում",
+                "Հատուկ JavaScript անիմացիաներ և ձեռքով իրականացված scroll փոխազդեցություններ"
               ]
             ]
           ]
         },
         {
-          "label": "Evidence",
+          "label": "Նյութեր",
           "blocks": [
             [
-              "Screenshots and video of the original implementation. The live site has since changed."
+              "Սկզբնական իրականացման սքրինշոթներն ու տեսանյութերը։ Գործող կայքն այդ ժամանակից ի վեր փոխվել է։"
             ]
           ]
         },
         {
-          "label": "What it shows",
+          "label": "Ինչ է ցույց տալիս նախագիծը",
           "blocks": [
             [
-              "Faithful implementation of an existing design, end to end — the start of a longer working relationship with Brainstorm."
+              "Գործակալության կայքի ճշգրիտ իրականացում սկզբից մինչև վերջ, որը դարձավ Brainstorm-ի հետ հետագա համագործակցության սկիզբը։"
             ]
           ]
         }
@@ -462,47 +462,47 @@
     },
     "myzcapital": {
       "roles": [
-        "Product Designer",
-        "Front-end Developer"
+        "Պրոդուկտի դիզայներ",
+        "Front-end ծրագրավորող"
       ],
-      "title": "Gamified survey platform",
-      "description": "Original product design and the full front end for a US-focused survey platform, where people answered polls and earned Z coins.",
-      "field": "Surveys · Rewards",
+      "title": "Հարցումների հարթակ՝ պարգևներով",
+      "description": "ԱՄՆ շուկայի համար հարցումների հարթակի ամբողջ դիզայնն ու Front-end-ը․ օգտատերերը հարցերին պատասխանելու դիմաց ստանում էին Z coins։ Իրականացվել է Shopware 5-ով։",
+      "field": "Հարցումներ · Պարգևներ",
       "story": [
         {
-          "label": "Relationship & role",
+          "label": "Համագործակցության ձևաչափ և դեր",
           "blocks": [
             [
-              "Designer and front-end developer. An early product, designed and built while I was at Apricode (2016–2018)."
+              "Դիզայներ և Front-end ծրագրավորող։ Իմ առաջին պրոդուկտներից մեկը՝ ստեղծված Apricode-ում աշխատելու ընթացքում (2016–2018)։"
             ]
           ]
         },
         {
-          "label": "Context",
+          "label": "Համատեքստ",
           "blocks": [
             [
-              "A US-focused survey platform: people completed polls and questions and earned internal Z coins."
+              "ԱՄՆ շուկայի համար հարցումների հարթակ․ օգտատերերը պատասխանում էին հարցերին և ստանում ներքին Z coins միավորներ։"
             ]
           ]
         },
         {
-          "label": "What I did",
+          "label": "Ինչ եմ արել",
           "blocks": [
             [
               [
-                "The product design and the full front-end UI",
-                "Survey and poll screens",
-                "Points, rewards and membership views",
-                "A front end working with the backend platform"
+                "Պրոդուկտի դիզայն և ամբողջ Front-end UI",
+                "Հարցումների և քվեարկությունների էկրաններ",
+                "Միավորների, պարգևների և մասնակցության էկրաններ",
+                "Shopware 5-ով Front-end՝ կապված պրոդուկտի սերվերային տրամաբանության հետ"
               ]
             ]
           ]
         },
         {
-          "label": "What it shows",
+          "label": "Ինչ է ցույց տալիս նախագիծը",
           "blocks": [
             [
-              "The first product I designed and implemented end to end on the front end - an early example of owning an interface completely."
+              "Իմ առաջին պրոդուկտը, որի ամբողջ դիզայնն ու Front-end-ը ինքնուրույն եմ իրականացրել․ ինտերֆեյսի ամբողջական պատասխանատվության վաղ փորձ։"
             ]
           ]
         }
@@ -510,45 +510,45 @@
     },
     "solomoon": {
       "roles": [
-        "Brand Designer",
-        "UI/UX Designer"
+        "Բրենդի դիզայներ",
+        "UI/UX դիզայներ"
       ],
-      "title": "Digital keys store",
-      "description": "The logo, visual language and product UI/UX for an e-commerce platform selling activation keys for games and software.",
-      "field": "E-commerce · Games",
+      "title": "Թվային բանալիների խանութ",
+      "description": "Խաղերի և ծրագրերի ակտիվացման բանալիների օնլայն խանութի լոգո, վիզուալ լեզու և ամբողջ UI/UX դիզայն։",
+      "field": "E-commerce · Խաղեր",
       "story": [
         {
-          "label": "Relationship & role",
+          "label": "Համագործակցության ձևաչափ և դեր",
           "blocks": [
             [
-              "Brand and UI/UX designer. I designed the product; I didn’t build its front end."
+              "Բրենդի և UI/UX դիզայներ։ Ես ստեղծել եմ պրոդուկտի դիզայնը, սակայն Front-end-ը չեմ ծրագրավորել։"
             ]
           ]
         },
         {
-          "label": "Context",
+          "label": "Համատեքստ",
           "blocks": [
             [
-              "An e-commerce platform selling digital activation keys for games and software."
+              "Խաղերի և ծրագրային ապահովման ակտիվացման թվային բանալիների օնլայն խանութ։"
             ]
           ]
         },
         {
-          "label": "What I did",
+          "label": "Ինչ եմ արել",
           "blocks": [
             [
               [
-                "The logo and the complete visual language: typography, colour and interface",
-                "The UI/UX of the homepage, catalogue and product pages"
+                "Լոգո և ամբողջ վիզուալ լեզուն՝ տառատեսակներ, գույներ և ինտերֆեյսներ",
+                "Գլխավոր էջի, կատալոգի և ապրանքների էջերի UI/UX"
               ]
             ]
           ]
         },
         {
-          "label": "What it shows",
+          "label": "Ինչ է ցույց տալիս նախագիծը",
           "blocks": [
             [
-              "Ownership of an e-commerce visual system, from the brand identity to the key shopping screens."
+              "Օնլայն խանութի վիզուալ համակարգի ստեղծում՝ ինքնությունից մինչև գնումների հիմնական էկրանները։"
             ]
           ]
         }
@@ -556,54 +556,54 @@
     },
     "infinity-rings": {
       "roles": [
-        "UI Designer",
-        "Front-end Developer"
+        "UI դիզայներ",
+        "Front-end ծրագրավորող"
       ],
-      "title": "Operations platform",
-      "description": "A refreshed design and the full UI for the internal administration system of an Australian ring manufacturer - not its public store.",
-      "field": "Jewellery · Internal tools",
+      "title": "Գործառնական կառավարման համակարգ",
+      "description": "Ավստրալական մատանիներ արտադրող ընկերության ներքին ադմին համակարգի դիզայնի թարմացում և ամբողջ UI-ի իրականացում, ոչ թե հանրային օնլայն խանութի։",
+      "field": "Զարդեր · Ներքին համակարգեր",
       "story": [
         {
-          "label": "Relationship & role",
+          "label": "Համագործակցության ձևաչափ և դեր",
           "blocks": [
             [
-              "Direct client, in Australia. I updated the existing visual design and implemented the entire UI of the administration system."
+              "Ավստրալիայից անմիջական հաճախորդ։ Թարմացրել եմ վիզուալ ոճն ու իրականացրել կառավարման համակարգի ամբողջ UI-ը։"
             ]
           ]
         },
         {
-          "label": "Context",
+          "label": "Համատեքստ",
           "blocks": [
             [
-              "An Australian manufacturer and seller of precious-metal rings, running its products and orders through an existing web application."
+              "Ավստրալական ընկերությունը արտադրում ու վաճառում էր թանկարժեք մետաղներից մատանիներ և կառավարում ապրանքներն ու պատվերները գործող վեբ հավելվածի միջոցով։"
             ]
           ]
         },
         {
-          "label": "What I did",
+          "label": "Ինչ եմ արել",
           "blocks": [
             [
               [
-                "Product management: item creation and import, collections, materials and variants, pricing and thumbnails",
-                "Order management, with statuses through production to delivery",
-                "Data-heavy forms, filters, sidebars and drag-and-drop areas"
+                "Ապրանքների կառավարում՝ ստեղծում և ներմուծում, հավաքածուներ, նյութեր, տարբերակներ, գներ և մանրապատկերներ",
+                "Պատվերների և դրանց կարգավիճակների կառավարում՝ արտադրությունից մինչև առաքում",
+                "Մեծ ծավալի տվյալներով ձևեր, զտիչներ, կողային վահանակներ և drag-and-drop հատվածներ"
               ]
             ]
           ]
         },
         {
-          "label": "The challenge",
+          "label": "Մարտահրավերը",
           "blocks": [
             [
-              "Modernising an old application with a large existing data model, while keeping the workflows and integrations it already relied on. Adapting those structures was, in places, harder than starting from scratch."
+              "Պետք էր արդիականացնել մեծ ծավալի տվյալներով հին հավելվածը՝ պահպանելով գործող գործընթացներն ու ինտեգրացիաները։ Որոշ դեպքերում հին կառուցվածքին հարմարվելը ավելի բարդ էր, քան զրոյից ստեղծելը։"
             ]
           ]
         },
         {
-          "label": "About the screens",
+          "label": "Էկրանների մասին",
           "blocks": [
             [
-              "Order, store and customer details, model numbers and prices are blurred."
+              "Պատվերների, խանութների և հաճախորդների տվյալները, մոդելների համարներն ու գները լղոզված են։"
             ]
           ]
         }
@@ -611,47 +611,47 @@
     },
     "panika": {
       "roles": [
-        "Designer",
-        "Media Projects Lead"
+        "Դիզայներ",
+        "Մեդիա նախագծերի ղեկավար"
       ],
-      "title": "Creative production",
-      "description": "Visual design and creative production for film, music and sound projects with Armenian and German artists.",
-      "field": "Media · Production",
+      "title": "Ստեղծագործական արտադրություն",
+      "description": "Վիզուալ դիզայն և ստեղծագործական արտադրություն՝ ֆիլմերի, երաժշտական և ձայնային նախագծերի համար հայ և գերմանացի արտիստների հետ։",
+      "field": "Մեդիա · Արտադրություն",
       "story": [
         {
-          "label": "Relationship & role",
+          "label": "Համագործակցության ձևաչափ և դեր",
           "blocks": [
             [
-              "Designer, media projects lead and operations coordinator, December 2020 – February 2023."
+              "Դիզայներ, մեդիա նախագծերի ղեկավար և աշխատանքների համակարգող, դեկտեմբեր 2020 – փետրվար 2023։"
             ]
           ]
         },
         {
-          "label": "Context",
+          "label": "Համատեքստ",
           "blocks": [
             [
-              "Creative and media production: a film, and music and sound for Armenian and German artists."
+              "Ստեղծագործական և մեդիա արտադրություն՝ ֆիլմ, երաժշտական ու ձայնային նախագծեր հայ և գերմանացի արտիստների համար։"
             ]
           ]
         },
         {
-          "label": "What I did",
+          "label": "Ինչ եմ արել",
           "blocks": [
             [
               [
-                "Visual identity and promotional materials",
-                "Website and social graphics",
-                "Media assets",
-                "Coordination across creative projects and offices"
+                "Վիզուալ ինքնություն և գովազդային նյութեր",
+                "Վեբ կայքերի և սոցիալական ցանցերի գրաֆիկա",
+                "Մեդիա նախագծերի նյութեր",
+                "Ստեղծագործական նախագծերի և գրասենյակների աշխատանքի համակարգում"
               ]
             ]
           ]
         },
         {
-          "label": "What it shows",
+          "label": "Ինչ է ցույց տալիս նախագիծը",
           "blocks": [
             [
-              "Cross-disciplinary creative and operational experience, beyond digital UI."
+              "Միջոլորտային փորձ դիզայնի, ստեղծագործական աշխատանքի և գործընթացների կառավարման մեջ՝ թվային ինտերֆեյսներից դուրս։"
             ]
           ]
         }
@@ -659,33 +659,33 @@
     },
     "by-robyn-blair": {
       "roles": [
-        "Front-end Developer"
+        "Front-end ծրագրավորող"
       ],
-      "title": "Candy-art storefront",
-      "description": "The Shopify front end across the store’s pages, built at Brainstorm for an art and decor brand.",
-      "field": "E-commerce · Art",
+      "title": "Քաղցրավենիքից արվեստի օնլայն խանութ",
+      "description": "Brainstorm-ում իրականացված Shopify խանութի Front-end՝ արվեստի և դեկորի բրենդի համար։",
+      "field": "E-commerce · Արվեստ",
       "story": [
         {
-          "label": "Relationship & role",
+          "label": "Համագործակցության ձևաչափ և դեր",
           "blocks": [
             [
-              "Front-end developer at Brainstorm, July–December 2018. By Robyn Blair was a Brainstorm client."
+              "Front-end ծրագրավորող Brainstorm-ում, հուլիս–դեկտեմբեր 2018։ By Robyn Blair-ը գործակալության հաճախորդն էր։"
             ]
           ]
         },
         {
-          "label": "Context",
+          "label": "Համատեքստ",
           "blocks": [
             [
-              "By Robyn Blair sells decor and art products - original and custom works of candy art."
+              "By Robyn Blair-ը վաճառում է քաղցրավենիքից պատրաստված դեկորատիվ արվեստի գործեր՝ պատրաստի և անհատական պատվերներով։"
             ]
           ]
         },
         {
-          "label": "What I did",
+          "label": "Ինչ եմ արել",
           "blocks": [
             [
-              "The Shopify front end across roughly five or six pages of the store."
+              "Shopify խանութի շուրջ հինգ-վեց էջերի Front-end-ի իրականացում։"
             ]
           ]
         }
@@ -693,44 +693,44 @@
     },
     "off-my-case": {
       "roles": [
-        "Front-end Developer"
+        "Front-end ծրագրավորող"
       ],
-      "title": "Custom phone-case store",
-      "description": "The full Shopify storefront UI, including a configurator for personalised phone cases.",
-      "field": "E-commerce · Accessories",
+      "title": "Անհատականացված պատյանների խանութ",
+      "description": "Shopify խանութի ամբողջ UI-ը, ներառյալ հեռախոսների անհատականացված պատյանների կարգավորիչը։",
+      "field": "E-commerce · Աքսեսուարներ",
       "story": [
         {
-          "label": "Relationship & role",
+          "label": "Համագործակցության ձևաչափ և դեր",
           "blocks": [
             [
-              "Front-end developer at Brainstorm, July–December 2018. Off My Case was a Brainstorm client."
+              "Front-end ծրագրավորող Brainstorm-ում, հուլիս–դեկտեմբեր 2018։ Off My Case-ը գործակալության հաճախորդն էր։"
             ]
           ]
         },
         {
-          "label": "Context",
+          "label": "Համատեքստ",
           "blocks": [
             [
-              "Off My Case sells phone cases that customers personalise themselves."
+              "Off My Case-ը վաճառում է հեռախոսի պատյաններ, որոնք գնորդները կարող են անհատականացնել։"
             ]
           ]
         },
         {
-          "label": "What I did",
+          "label": "Ինչ եմ արել",
           "blocks": [
             [
               [
-                "The full Shopify storefront UI",
-                "A configurator for personalised cases: text, symbols, their placement and colours"
+                "Shopify խանութի ամբողջ UI-ը",
+                "Պատյանների կարգավորիչ՝ գրություններ, նշաններ, դրանց տեղադրում և գույներ"
               ]
             ]
           ]
         },
         {
-          "label": "What it shows",
+          "label": "Ինչ է ցույց տալիս նախագիծը",
           "blocks": [
             [
-              "The strongest interaction work among the Brainstorm stores - a customiser people use to design their own case."
+              "Brainstorm-ի խանութներից առավել ինտերակտիվ նախագծերից մեկը՝ պատյանների անհատական դիզայնի գործիք։"
             ]
           ]
         }
@@ -738,33 +738,33 @@
     },
     "gemmed": {
       "roles": [
-        "Front-end Developer"
+        "Front-end ծրագրավորող"
       ],
-      "title": "Jewellery storefront",
-      "description": "The full Shopify storefront front end for a jewellery and accessories brand.",
-      "field": "E-commerce · Jewellery",
+      "title": "Զարդերի օնլայն խանութ",
+      "description": "Զարդերի և աքսեսուարների բրենդի Shopify խանութի ամբողջ Front-end-ը։",
+      "field": "E-commerce · Զարդեր",
       "story": [
         {
-          "label": "Relationship & role",
+          "label": "Համագործակցության ձևաչափ և դեր",
           "blocks": [
             [
-              "Front-end developer at Brainstorm, July–December 2018. Gemmed was a Brainstorm client."
+              "Front-end ծրագրավորող Brainstorm-ում, հուլիս–դեկտեմբեր 2018։ Gemmed-ը գործակալության հաճախորդն էր։"
             ]
           ]
         },
         {
-          "label": "Context",
+          "label": "Համատեքստ",
           "blocks": [
             [
-              "Gemmed sells jewellery and accessories, with bundles and shop-the-look collections."
+              "Gemmed-ը վաճառում է զարդեր և աքսեսուարներ՝ ներառյալ հավաքածուներն ու թեմատիկ ընտրանիները։"
             ]
           ]
         },
         {
-          "label": "What I did",
+          "label": "Ինչ եմ արել",
           "blocks": [
             [
-              "The full Shopify storefront front end."
+              "Shopify խանութի ամբողջ Front-end-ը։"
             ]
           ]
         }
@@ -772,33 +772,33 @@
     },
     "scunci": {
       "roles": [
-        "Front-end Developer"
+        "Front-end ծրագրավորող"
       ],
-      "title": "Hair-accessories website",
-      "description": "Selected pages of Scunci’s Squarespace website, built at Brainstorm.",
-      "field": "Beauty · Accessories",
+      "title": "Մազերի աքսեսուարների կայք",
+      "description": "Scunci-ի Squarespace կայքի առանձին էջերի իրականացում Brainstorm-ի թիմում։",
+      "field": "Գեղեցկություն · Աքսեսուարներ",
       "story": [
         {
-          "label": "Relationship & role",
+          "label": "Համագործակցության ձևաչափ և դեր",
           "blocks": [
             [
-              "Front-end developer at Brainstorm, July–December 2018. Scunci was a Brainstorm client."
+              "Front-end ծրագրավորող Brainstorm-ում, հուլիս–դեկտեմբեր 2018։ Scunci-ն գործակալության հաճախորդն էր։"
             ]
           ]
         },
         {
-          "label": "Context",
+          "label": "Համատեքստ",
           "blocks": [
             [
-              "Scunci makes hair accessories."
+              "Scunci-ն արտադրում է մազերի աքսեսուարներ։"
             ]
           ]
         },
         {
-          "label": "What I did",
+          "label": "Ինչ եմ արել",
           "blocks": [
             [
-              "Selected pages of the website, on Squarespace - not the whole site."
+              "Squarespace կայքի առանձին էջեր, ոչ ամբողջ կայքը։"
             ]
           ]
         }
@@ -910,51 +910,51 @@
     }
   },
   "contact": {
-    "heading": "Tell me what you’re working on",
-    "intentLabel": "What would you like to work on? (optional)",
+    "heading": "Պատմեք՝ ինչի վրա եք աշխատում",
+    "intentLabel": "Ինչի՞ վրա կցանկանայիք աշխատել (պարտադիր չէ)",
     "intentOptions": [
-      "New website",
-      "Website redesign",
-      "Product or platform",
-      "Design system",
-      "Ongoing design & development",
-      "Not sure yet"
+      "Նոր կայք",
+      "Կայքի վերանախագծում",
+      "Պրոդուկտ կամ հարթակ",
+      "Դիզայն համակարգ",
+      "Դիզայնի և ծրագրավորման շարունակական աջակցություն",
+      "Դեռ չեմ կողմնորոշվել"
     ],
     "nameLabel": "Անուն",
-    "namePlaceholder": "Your name",
-    "emailLabel": "Work email",
+    "namePlaceholder": "Ձեր անունը",
+    "emailLabel": "Աշխատանքային էլ. փոստ",
     "emailPlaceholder": "you@company.com",
     "companyField": {
-      "label": "Company (optional)",
-      "placeholder": "Company name"
+      "label": "Ընկերություն (պարտադիր չէ)",
+      "placeholder": "Ընկերության անվանումը"
     },
     "websiteField": {
-      "label": "Website or product link (optional)",
+      "label": "Կայքի կամ պրոդուկտի հղում (պարտադիր չէ)",
       "placeholder": "https://"
     },
-    "buildingLabel": "Tell me about the project",
-    "buildingPlaceholder": "What are you building, changing, or trying to solve?",
-    "timelineLabel": "What’s your timeline? (optional)",
+    "buildingLabel": "Պատմեք նախագծի մասին",
+    "buildingPlaceholder": "Ի՞նչ եք ստեղծում, ցանկանում փոխել կամ ի՞նչ խնդիր եք ուզում լուծել",
+    "timelineLabel": "Ի՞նչ ժամկետներ եք նախատեսում (պարտադիր չէ)",
     "timelineOptions": [
-      "Within a month",
-      "1–3 months",
-      "No fixed deadline"
+      "Մեկ ամսվա ընթացքում",
+      "1–3 ամիս",
+      "Հստակ ժամկետ չկա"
     ],
-    "submit": "Send message",
+    "submit": "Ուղարկել հաղորդագրություն",
     "submitSending": "Ուղարկվում է…",
     "submitSuccess": "Thank you — your message has arrived. I’ll reply within 2 business days.",
     "errors": {
-      "validation": "Please check the highlighted fields.",
-      "rateLimited": "Too many messages in a short time. Please wait a little and try again, or email hello@torchyan.design.",
-      "delivery": "Your message didn’t send. Please try again, or email hello@torchyan.design directly."
+      "validation": "Խնդրում ենք ստուգել ընդգծված դաշտերը։",
+      "rateLimited": "Կարճ ժամանակում չափազանց շատ հաղորդագրություններ եք ուղարկել։ Մի փոքր սպասեք և փորձեք կրկին կամ գրեք hello@torchyan.design հասցեին։",
+      "delivery": "Չհաջողվեց ուղարկել հաղորդագրությունը։ Փորձեք կրկին կամ գրեք անմիջապես hello@torchyan.design հասցեին։"
     },
     "fieldErrors": {
-      "required": "This field is required.",
-      "email": "Enter a valid email address, like name@company.com.",
-      "url": "Enter a valid link, like company.com."
+      "required": "Պարտադիր դաշտ է։",
+      "email": "Մուտքագրեք վավեր էլ. հասցե, օրինակ՝ name@company.com։",
+      "url": "Մուտքագրեք վավեր հղում, օրինակ՝ company.com։"
     },
-    "privacyNote": "Your details are used only to reply to this message. <link>Privacy notice</link>",
-    "trapLabel": "Leave this field empty"
+    "privacyNote": "Ձեր տվյալներն օգտագործվում են միայն այս հաղորդագրությանը պատասխանելու համար։ <link>Գաղտնիության քաղաքականություն</link>",
+    "trapLabel": "Այս դաշտը թողեք դատարկ"
   },
   "footer": {
     "srName": "Torchyan — թվային պրոդուկտների ստուդիա՝ Ստեփան Թոռչյանի ղեկավարությամբ",
@@ -990,183 +990,183 @@
       ]
     },
     "showcase": {
-      "rolesLabel": "Role",
-      "stackLabel": "Built with",
-      "relationshipLabel": "Relationship",
-      "cta": "View case",
+      "rolesLabel": "Դեր",
+      "stackLabel": "Տեխնոլոգիաներ",
+      "relationshipLabel": "Համագործակցության ձևաչափ",
+      "cta": "Դիտել նախագիծը",
       "items": {
         "picsart": {
           "title": "Picsart",
           "roles": [
             "Senior UI Engineer"
           ],
-          "relationship": "Employee · Oct 2021 – Feb 2024",
+          "relationship": "Աշխատակից · հոկտեմբեր 2021 – փետրվար 2024",
           "description": [
-            "Worked across Picsart’s Growth and Marketplace teams on production UI for picsart.com and related product surfaces.",
-            "On Growth, I focused on scalable front-end implementation, responsive behavior, accessibility and performance, including optimization work on Discovery pages.",
-            "Later, on Marketplace, I became the main Design System integration point for my team — integrating shared components, building missing product-specific UI, and implementing multilingual RTL/LTR support across my scope.",
-            "This period shaped a lot of how I think about UI today: design systems, accessibility, localization and production quality all have to work together."
+            "Աշխատել եմ Picsart-ի Growth և Marketplace թիմերում՝ picsart.com-ի և հարակից պրոդուկտային բաժինների ինտերֆեյսների վրա։",
+            "Growth թիմում զբաղվել եմ մասշտաբելի UI-ով, տարբեր էկրաններին հարմարվող ինտերֆեյսներով, հասանելիությամբ և արագագործությամբ՝ ներառյալ Discovery էջերի օպտիմալացումը։",
+            "Հետագայում Marketplace-ում իմ թիմի դիզայն համակարգի ներդրման հիմնական մասնակիցներից էի․ ինտեգրում էի ընդհանուր բաղադրիչները, ստեղծում պրոդուկտին հատուկ UI և իմ պատասխանատվության շրջանակում ապահովում բազմալեզու RTL/LTR աջակցություն։",
+            "Այս փորձը մեծապես ձևավորեց UI-ի նկատմամբ իմ մոտեցումը․ դիզայն համակարգերը, հասանելիությունը, տեղայնացումն ու իրականացման որակը պետք է գործեն միասին։"
           ],
           "stack": [
             "React",
             "JSS",
             "Styled Components",
-            "Design Systems",
+            "Դիզայն համակարգեր",
             "RTL/LTR",
-            "Accessibility"
+            "Հասանելիություն"
           ]
         },
         "smartbet": {
           "title": "Smartbet",
           "roles": [
-            "UI Developer"
+            "UI ծրագրավորող"
           ],
-          "relationship": "Employee · Aug–Oct 2021",
+          "relationship": "Աշխատակից · օգոստոս–հոկտեմբեր 2021",
           "description": [
-            "Worked with Smartbet’s design and development team as UI Developer, turning approved layouts into an animated, responsive website.",
-            "I implemented the UI for every page, set up a reusable atomic/BEM-based SCSS structure with styling tokens, and built the JavaScript animations and transitions between pages and product sections.",
-            "A focused implementation role where precision, clean structure and collaboration with designers mattered most."
+            "Smartbet-ի դիզայներների և ծրագրավորողների հետ հաստատված մակետները վերածել եմ անիմացիաներով հարմարվող կայքի։",
+            "Իրականացրել եմ բոլոր էջերի UI-ը, կառուցել բազմակի օգտագործման SCSS կառուցվածք՝ atomic մոտեցմամբ, BEM մեթոդաբանությամբ և դիզայն թոքեններով, ինչպես նաև գրել JavaScript անիմացիաներն ու էջերի և պրոդուկտային բաժինների միջև անցումները։",
+            "Այստեղ հիմնականը իրականացման ճշգրտությունը, կոդի հստակ կառուցվածքը և դիզայներների հետ սերտ համագործակցությունն էին։"
           ],
           "stack": [
-            "UI Development",
-            "Responsive UI",
-            "SCSS system",
-            "Animations"
+            "UI ծրագրավորում",
+            "Հարմարվող UI",
+            "SCSS համակարգ",
+            "Անիմացիաներ"
           ]
         },
         "soulone": {
           "title": "SoulOne",
           "roles": [
-            "Web Designer",
-            "Product Owner"
+            "Վեբ դիզայներ",
+            "Պրոդուկտի պատասխանատու"
           ],
-          "relationship": "Founding team · May–Oct 2025",
+          "relationship": "Նախագծի թիմ · մայիս–հոկտեմբեր 2025",
           "description": [
-            "SoulOne is an Armenian bakery making gluten-free cakes and dessert balls, already supplying several cafés when I joined.",
-            "As Web Designer and Product Owner, I set its brand direction - palette, typography and tone of voice - and designed an e-commerce website concept with interactive Figma prototypes, web copy and social visuals.",
-            "The website stayed a concept and wasn’t launched, but the work went well beyond screens: brand, product communication and prototyping together."
+            "SoulOne-ը հայկական բրենդ է, որը պատրաստում էր առանց գլյուտենի տորթեր և դեսերտային գնդիկներ։ Իմ միանալու պահին արտադրանքն արդեն մատակարարվում էր մի քանի սրճարանների։",
+            "Որպես վեբ դիզայներ և Product Owner՝ մշակել եմ վիզուալ ուղղությունը՝ գույները, տառատեսակներն ու հաղորդակցության ոճը, ինչպես նաև նախագծել օնլայն խանութի կոնցեպտ՝ ինտերակտիվ Figma նախատիպերով, կայքի տեքստերով և սոցիալական ցանցերի վիզուալներով։",
+            "Սեփականատերը հաստատել էր դիզայնն ու բրենդի վիզուալ ուղղությունը, սակայն կայքը չմշակվեց և չգործարկվեց։ Աշխատանքը միավորում էր բրենդինգը, պրոդուկտային հաղորդակցությունն ու ինտերակտիվ նախատիպավորումը։"
           ],
           "stack": [
-            "Brand Direction",
-            "Web Design",
-            "Prototyping",
-            "Product Ownership"
+            "Բրենդի վիզուալ ուղղություն",
+            "Վեբ դիզայն",
+            "Նախատիպավորում",
+            "Պրոդուկտի կառավարում"
           ]
         },
         "ginosi": {
           "title": "Ginosi Apartels & Hotels",
           "roles": [
-            "Front-end development"
+            "Front-end ծրագրավորում"
           ],
-          "relationship": "Direct client · Apr–May 2019",
+          "relationship": "Անմիջական հաճախորդ · ապրիլ–մայիս 2019",
           "description": [
-            "Built the website UI for Ginosi, an international serviced-apartment and hospitality business.",
-            "My work focused on translating the product and booking experience into a responsive front end, including apartment listings, search and property-related interface states."
+            "Պատրաստի դիզայնի հիման վրա իրականացրել եմ Ginosi-ի՝ բնակարանների ամրագրման միջազգային ընկերության կայքի ամբողջ Front-end-ը։",
+            "Սեղմ ժամկետներում իրականացրել եմ ամրագրման, բնակարանների ցանկի, որոնման և օբյեկտների էջերի ինտերֆեյսները։"
           ],
           "stack": [
-            "Hospitality",
-            "UI Development",
-            "Responsive Web",
-            "Client Work"
+            "Հյուրընկալության ոլորտ",
+            "UI ծրագրավորում",
+            "Հարմարվող կայք",
+            "Հաճախորդի նախագիծ"
           ]
         },
         "brainstorm": {
           "title": "Brainstorm",
           "roles": [
-            "Front-end development"
+            "Front-end ծրագրավորում"
           ],
-          "relationship": "Outsourced project · May–Jul 2018",
+          "relationship": "Արտաքին պատվեր · մայիս–հուլիս 2018",
           "description": [
-            "My relationship with Brainstorm started with an outsourced assignment: building the agency’s own website while its design was still being developed.",
-            "I built the front end in HTML, CSS and JavaScript, with custom animation and hand-written scroll-driven interactions.",
-            "The project led Brainstorm to invite me onto its team; this case focuses on the original website."
+            "Brainstorm-ի հետ համագործակցությունս սկսվեց արտաքին պատվերից․ ես ծրագրավորում էի գործակալության կայքը, մինչ դիզայներները զուգահեռ աշխատում էին մակետների վրա։",
+            "Իրականացրել եմ Front-end-ը HTML-ով, CSS-ով և JavaScript-ով՝ ներառյալ սեփական անիմացիաներն ու ձեռքով գրված scroll փոխազդեցությունները։",
+            "Այս նախագծից հետո Brainstorm-ը հրավիրեց ինձ միանալ թիմին։ Այս քեյսը վերաբերում է գործակալության կայքի սկզբնական մշակմանը։"
           ],
           "stack": [
             "Front-end",
-            "Custom Animation",
-            "Scroll Interactions",
-            "Responsive Web"
+            "Հատուկ անիմացիաներ",
+            "Scroll փոխազդեցություններ",
+            "Հարմարվող կայք"
           ]
         },
         "benzeen": {
           "title": "Benzeen Auto Parts",
           "roles": [
-            "Front-end development"
+            "Front-end ծրագրավորում"
           ],
-          "relationship": "Via TCO · Mar–Aug 2019",
+          "relationship": "TCO-ի միջոցով · մարտ–օգոստոս 2019",
           "description": [
-            "Worked on Benzeen Auto Parts, a Los Angeles automotive e-commerce project delivered through TCO.",
-            "I implemented the UI across the website - responsive layouts, interactions, animations and selected JavaScript logic - and integrated Google AMP, in a custom Angular build rather than a CMS.",
-            "Designers kept adding and updating pages during development, so design and implementation moved forward together."
+            "TCO-ի միջոցով աշխատել եմ Benzeen Auto Parts-ի՝ Լոս Անջելեսում ավտոպահեստամասեր վաճառող e-commerce նախագծի վրա։",
+            "Angular-ի, HTML-ի և SCSS/BEM-ի միջոցով իրականացրել եմ կայքի UI-ը՝ հարմարվող էջերը, անիմացիաներն ու JavaScript տրամաբանության որոշ հատվածներ։ Ներդրել եմ նաև Google AMP․ նախագիծը չէր օգտագործում CMS։",
+            "Դիզայներները շարունակաբար ավելացնում և թարմացնում էին էջերը, ուստի դիզայնն ու իրականացումն ընթանում էին զուգահեռ։"
           ],
           "stack": [
             "Angular",
-            "Animations",
+            "Անիմացիաներ",
             "Google AMP",
-            "Automotive"
+            "Ավտոմոբիլային ոլորտ"
           ]
         },
         "worldEducation": {
           "title": "World Education",
           "roles": [
-            "UI Developer"
+            "UI ծրագրավորող"
           ],
-          "relationship": "Direct client · Mar–May 2020",
+          "relationship": "Անմիջական հաճախորդ · մարտ–մայիս 2020",
           "description": [
-            "Built the interface for World Education as a direct client project.",
-            "I built most of the website’s front end - responsive layouts, animations and interaction work - with another contributor handling part of the JavaScript logic.",
-            "It was a compact project, but a good example of owning the presentation layer rather than only individual screens or components."
+            "Իրականացրել եմ World Education-ի կայքի UI-ը՝ կրթական հնարավորությունների շուրջ ուսանողներին, ուսումնական հաստատություններին, ծնողներին, գործակալներին, ուսուցիչներին և ծառայություն մատուցողներին միավորող հարթակի համար։",
+            "Իրականացրել եմ Front-end-ի մեծ մասը՝ հարմարվող դասավորություններ, անիմացիաներ և ինտերակտիվ տարրեր։ JavaScript տրամաբանության մի հատվածն իրականացրել է մեկ այլ ծրագրավորող։",
+            "Սա սովորական իրականացման նախագիծ էր, որտեղ ես պատասխանատու էի կայքի ինտերֆեյսային մասի համար։"
           ],
           "stack": [
-            "UI Development",
-            "Animation",
+            "UI ծրագրավորում",
+            "Անիմացիաներ",
             "JavaScript",
-            "Education"
+            "Կրթություն"
           ]
         }
       }
     },
     "perspective": {
-      "title": "Technology follows the problem",
-      "subtitle": "The platform is chosen in discovery, based on three questions:",
+      "title": "Տեխնոլոգիաներն ընտրվում են ըստ խնդրի",
+      "subtitle": "Հարթակն ընտրում ենք խնդիրը ուսումնասիրելու ընթացքում՝ առաջնորդվելով երեք հարցով։",
       "modes": [
         {
-          "title": "Content & workflow",
-          "body": "Who edits the site, how often, and in which languages."
+          "title": "Բովանդակություն և աշխատանքային գործընթացներ",
+          "body": "Ով, որքան հաճախ և որ լեզուներով է թարմացնում կայքը։"
         },
         {
-          "title": "Integrations & scale",
-          "body": "Commerce, CRM, analytics, and what the product needs to connect to."
+          "title": "Ինտեգրացիաներ և մասշտաբում",
+          "body": "Վաճառք, CRM, վերլուծություն և այն համակարգերը, որոնց հետ պրոդուկտը պետք է փոխգործակցի։"
         },
         {
-          "title": "Performance & upkeep",
-          "body": "Speed, accessibility, and who maintains it after launch."
+          "title": "Արագագործություն և սպասարկում",
+          "body": "Արագություն, հասանելիություն և ով է աջակցելու պրոդուկտին գործարկումից հետո։"
         }
       ]
     },
     "collaboration": {
-      "title": "Have something similar in mind?",
-      "subtitle": "Tell me what you’re building. I reply within 2 business days.",
+      "title": "Նմանատիպ խնդի՞ր ունեք",
+      "subtitle": "Պատմեք՝ ինչ եք ստեղծում։ Կպատասխանեմ երկու աշխատանքային օրվա ընթացքում։",
       "initiate": {
-        "title": "Start a project",
-        "body": "A new website, a product interface, a design system, or improving what’s already live.",
-        "cta": "Start a project"
+        "title": "Սկսել նախագիծ",
+        "body": "Նոր կայք, պրոդուկտի ինտերֆեյս, դիզայն համակարգ կամ գործող լուծման բարելավում։",
+        "cta": "Սկսել նախագիծ"
       },
       "analyze": {
-        "title": "See what Torchyan takes on",
-        "body": "Four areas, each carried from direction to production.",
-        "cta": "See services"
+        "title": "Տեսնել Torchyan-ի ծառայությունները",
+        "body": "Չորս փոխկապակցված ուղղություն՝ պլանավորումից և դիզայնից մինչև ծրագրավորում և գործարկում։",
+        "cta": "Ծառայություններ"
       }
     },
     "pager": {
-      "title": "Keep exploring",
-      "body": "The project before this one, or the next.",
+      "title": "Շարունակել դիտել",
+      "body": "Նախորդ և հաջորդ նախագծերը։",
       "previous": "← {name}",
       "next": "{name} →"
     },
     "more": {
-      "title": "More projects",
-      "subtitle": "Smaller pieces of work: stores, products and tools, each with a short write-up."
+      "title": "Այլ նախագծեր",
+      "subtitle": "Փոքր նախագծեր՝ խանութներ, պրոդուկտներ և գործիքներ, յուրաքանչյուրի մասին կարճ նկարագրությամբ։"
     }
   },
   "servicesPage": {
@@ -1363,122 +1363,122 @@
       },
       "analyze": {
         "title": "Չգիտե՞ք՝ որտեղից սկսել",
-        "body": "Նկարագրեք իրավիճակը և ընտրեք «Դեռ վստահ չեմ»։ Ախտորոշումը կարող է լինել ճիշտ առաջին քայլը։",
+        "body": "Նկարագրեք իրավիճակը և ընտրեք «Դեռ չեմ կողմնորոշվել»։ Ախտորոշումը կարող է լինել ճիշտ առաջին քայլը։",
         "cta": "Կապ հաստատել"
       }
     }
   },
   "contactPage": {
     "hero": {
-      "title": "Start a project",
-      "lead": "Tell me what you’re building or what needs to change.",
-      "body": "You’ll get a reply from me directly, within 2 business days."
+      "title": "Սկսել նախագիծ",
+      "lead": "Պատմեք՝ ինչ եք ստեղծում կամ ինչ եք ցանկանում փոխել։",
+      "body": "Ես անձամբ կպատասխանեմ Ձեզ երկու աշխատանքային օրվա ընթացքում։"
     },
     "next": {
-      "title": "What happens next",
+      "title": "Ինչ կլինի հետո",
       "steps": [
         {
-          "title": "A reply within 2 business days",
-          "body": "I read every message myself and reply with first thoughts or questions."
+          "title": "Պատասխան՝ երկու աշխատանքային օրվա ընթացքում",
+          "body": "Ես անձամբ կարդում եմ յուրաքանչյուր հաղորդագրություն և պատասխանում առաջին մտքերով կամ հստակեցնող հարցերով։"
         },
         {
-          "title": "A short conversation",
-          "body": "We talk through goals, constraints and timing."
+          "title": "Կարճ զրույց",
+          "body": "Կքննարկենք նպատակները, սահմանափակումներն ու ժամկետները։"
         },
         {
-          "title": "A clear proposal",
+          "title": "Հստակ առաջարկ",
           "body": "You receive a scope and approach — or, if the problem isn’t clear yet, a suggested diagnostic first."
         }
       ],
-      "subtitle": "From your message to a clear plan, in three steps.",
-      "question": "Just a question? <link>Send a quick message</link> instead."
+      "subtitle": "Երեք քայլ՝ Ձեր հաղորդագրությունից մինչև հստակ պլան։",
+      "question": "Պարզապես հա՞րց ունեք։ <link>Ուղարկեք ինձ կարճ հաղորդագրություն</link>։"
     }
   },
   "privacyPage": {
-    "title": "Privacy notice",
-    "updated": "Last updated: 1 October 2026",
+    "title": "Գաղտնիության քաղաքականություն",
+    "updated": "Վերջին թարմացումը՝ 2026 թ. հոկտեմբերի 1-ին",
     "sections": [
       {
-        "title": "Who is responsible",
+        "title": "Ով է պատասխանատու տվյալների մշակման համար",
         "body": [
-          "Torchyan, led by Stepan Torchyan, Yerevan, Armenia, is responsible for the personal data described here.",
-          "Contact for anything about your data: hello@torchyan.design."
+          "Սույն քաղաքականությունում նկարագրված անձնական տվյալների մշակման համար պատասխանատու է Torchyan-ը՝ Ստեփան Թորչյանի ղեկավարությամբ (Երևան, Հայաստան)։",
+          "Անձնական տվյալներին առնչվող հարցերով գրեք hello@torchyan.design հասցեին։"
         ]
       },
       {
-        "title": "What we collect",
+        "title": "Ինչ տվյալներ ենք հավաքում",
         "body": [
           "What you enter in the contact form: your name and work email, and — if you choose to give them — your company, a website link, what you need, your timeline and your message.",
-          "Standard technical data needed to deliver the website, such as your browser type and the pages requested."
+          "Կայքի աշխատանքի համար անհրաժեշտ սովորական տեխնիկական տվյալներ, օրինակ՝ դիտարկչի տեսակը և այցելած էջերը։"
         ]
       },
       {
-        "title": "Why we use it",
+        "title": "Ինչու ենք օգտագործում տվյալները",
         "body": [
-          "To reply to your enquiry and to take the steps you ask for before any agreement. Your details are not used for marketing and are not sold."
+          "Ձեր հարցմանը պատասխանելու և մինչև պայմանագիր կնքելը Ձեր խնդրած քայլերը կատարելու համար։ Ձեր տվյալները չենք օգտագործում մարքեթինգի նպատակներով և չենք վաճառում։"
         ]
       },
       {
-        "title": "Analytics",
+        "title": "Վերլուծական տվյալներ",
         "body": [
-          "Vercel Web Analytics measures visits in aggregate. It does not use cookies, and visitors are identified only by a temporary hash that is discarded after 24 hours. The site does not use Google Analytics or Yandex Metrica."
+          "Vercel Web Analytics-ը հավաքում է այցելությունների ամփոփ վիճակագրություն՝ առանց cookie-ների։ Այցելուն նույնականացվում է միայն ժամանակավոր հեշով, որը հեռացվում է 24 ժամ անց։ Կայքը չի օգտագործում Google Analytics կամ Yandex Metrica։"
         ]
       },
       {
-        "title": "Who processes it",
+        "title": "Ով է մշակում տվյալները",
         "body": [
-          "Vercel hosts the website and provides the analytics. Resend delivers contact-form messages by email. ImprovMX forwards messages sent to hello@torchyan.design to our inbox."
+          "Vercel-ը տրամադրում է կայքի հոսթինգն ու վերլուծական ծառայությունը։ Resend-ը էլ. փոստով ուղարկում է կոնտակտային ձևերից ստացված հաղորդագրությունները։ ImprovMX-ը hello@torchyan.design հասցեին ուղարկված նամակները փոխանցում է մեր փոստարկղ։"
         ]
       },
       {
-        "title": "How long we keep it",
+        "title": "Պահպանման ժամկետ",
         "body": [
-          "Enquiries are kept for 24 months, then deleted."
+          "Հարցումները պահպանում ենք 24 ամիս, այնուհետև ջնջում։"
         ]
       },
       {
-        "title": "Your rights",
+        "title": "Ձեր իրավունքները",
         "body": [
-          "You can ask to see, correct or delete the data you sent, or object to its use, by writing to hello@torchyan.design. You can also complain to your data protection authority."
+          "Դուք կարող եք hello@torchyan.design հասցեով դիմել՝ Ձեր ուղարկած տվյալներին ծանոթանալու, դրանք ուղղելու կամ ջնջելու, ինչպես նաև դրանց մշակման դեմ առարկելու համար։ Կարող եք նաև բողոք ներկայացնել տվյալների պաշտպանության իրավասու մարմին։"
         ]
       },
       {
-        "title": "Changes",
+        "title": "Փոփոխություններ",
         "body": [
-          "If this notice changes, the date above changes with it."
+          "Եթե այս քաղաքականությունը փոխվի, էջի վերևում կթարմացնենք ամսաթիվը։"
         ]
       }
     ]
   },
   "about": {
     "hero": {
-      "title": "Ten years between design and code",
+      "title": "Տասը տարի դիզայնի և կոդի միջև",
       "basedIn": "Ապրում եմ Հայաստանում",
-      "workingGlobally": "Working internationally",
-      "cta": "See the work",
-      "intro": "I’m <name>Stepan Torchyan</name> — a designer and UI engineer based in Armenia, and the founder of Torchyan. I work on digital products, websites and interface systems, usually somewhere between design and implementation.",
-      "execution": "That’s also how I see Torchyan: design and development shouldn’t feel like two separate steps. I like keeping the whole process connected, from the first idea to the final build. If a project needs more people, I bring in specialists I trust and keep everything moving in the same direction.",
-      "resilience": "At the end, the goal is simple: make things that look right, work well, and are built to last.",
+      "workingGlobally": "Աշխատում եմ միջազգային հաճախորդների հետ",
+      "cta": "Դիտել նախագծերը",
+      "intro": "Ես <name>Ստեփան Թորչյանն</name> եմ՝ դիզայներ, UI ինժեներ և Torchyan-ի հիմնադիր Հայաստանից։ Աշխատում եմ կայքերի, թվային պրոդուկտների և ինտերֆեյսային համակարգերի վրա՝ դիզայնի որոշումները կապելով դրանց իրականացման հետ։",
+      "execution": "Այդպես եմ մոտենում նաև Torchyan-ի աշխատանքին․ դիզայնն ու ծրագրավորումը պետք է լինեն մեկ գործընթաց, ոչ թե իրարից կտրված երկու փուլ։ Ես ներգրավված եմ առաջին գաղափարից մինչև իրականացում և անհրաժեշտության դեպքում միացնում եմ վստահելի մասնագետների։",
+      "resilience": "Վերջում նպատակը պարզ է՝ ստեղծել բաներ, որոնք լավ տեսք ունեն, ճիշտ են աշխատում և երկար են ծառայում։",
       "cards": [
-        "Product & web design",
-        "UI engineering",
-        "Design systems",
-        "Accessibility & localization",
-        "Launch & improvement"
+        "Պրոդուկտների և կայքերի դիզայն",
+        "UI ինժեներիա",
+        "Դիզայն համակարգեր",
+        "Հասանելիություն և տեղայնացում",
+        "Գործարկում և զարգացում"
       ],
-      "generate": "Generate random"
+      "generate": "Ստեղծել մեկ այլ տարբերակ"
     },
     "timeline": {
-      "title": "Experience",
+      "title": "Փորձ",
       "subtitle": "Product companies, partner companies and direct clients — the roles behind Torchyan.",
-      "focus": "What I did",
-      "impact": "Result",
+      "focus": "Ինչով եմ զբաղվել",
+      "impact": "Արդյունք",
       "entries": {
         "apricode": {
-          "stickyContent": "Foundation &\nStructure",
+          "stickyContent": "Հիմք և\nկառուցվածք",
           "role": "Ֆրոնտենդ ծրագրավորող",
-          "focus": "Hands-on web development across client and self-initiated projects, building responsive interfaces from Photoshop designs with HTML, CSS, LESS/SCSS, JavaScript and jQuery. Worked closely with PHP back-end development and e-commerce platforms including Shopware and Shopify.",
-          "impact": "Projects included Justus Brown, 6ics Sneakers and myZcapital.",
+          "focus": "Աշխատել եմ հաճախորդների և սեփական վեբ նախագծերի վրա՝ Photoshop մակետները վերածելով հարմարվող ինտերֆեյսների HTML-ով, CSS-ով, LESS/SCSS-ով, JavaScript-ով և jQuery-ով։ Համագործակցել եմ PHP Backend ծրագրավորողների հետ և աշխատել Shopware ու Shopify հարթակներով։",
+          "impact": "Նախագծերից էին Justus Brown-ը, 6ics Sneakers-ը և myZcapital-ը։",
           "coreGrowth": [
             "Ճշգրտություն",
             "Կառուցվածք",
@@ -1486,20 +1486,20 @@
           ]
         },
         "brainstorm": {
-          "stickyContent": "Platforms &\nPerformance",
-          "role": "Front-end Developer",
-          "focus": "First built Brainstorm’s own website, then continued on commercial projects including Scunci, By Robyn Blair, Off My Case and Gemmed. Worked across Shopify, Squarespace and custom front-end workflows using Liquid, Gulp, Git, InVision and Zeplin.",
-          "impact": "Growing focus on performance and browser rendering.",
+          "stickyContent": "Հարթակներ և\nարագագործություն",
+          "role": "Front-end ծրագրավորող",
+          "focus": "Սկզբում որպես արտաքին կատարող ստեղծել եմ Brainstorm գործակալության կայքը, ապա միացել թիմին և աշխատել Scunci-ի, By Robyn Blair-ի, Off My Case-ի ու Gemmed-ի վրա։ Օգտագործել եմ Shopify, Squarespace, Liquid, Gulp, Git, InVision և Zeplin։",
+          "impact": "Խորացրել եմ գիտելիքներս արագագործության և դիտարկչում ինտերֆեյսների արտապատկերման մասին։",
           "coreGrowth": [
-            "Platform range",
-            "Performance"
+            "Տարբեր հարթակներ",
+            "Արագագործություն"
           ]
         },
         "tco": {
-          "stickyContent": "Precision &\nDelivery",
+          "stickyContent": "Ճշգրտություն և\nիրականացում",
           "role": "UI ծրագրավորող",
-          "focus": "Led UI implementation across internal and client projects, with strong focus on semantic HTML, structured SCSS, BEM/OOCSS, responsive interfaces, accessibility and pixel-accurate execution. Worked in PHP and Angular environments and contributed to UX discussions.",
-          "impact": "Taught HTML/CSS to two groups of around ten students each. Benzeen was one of the main projects.",
+          "focus": "Իրականացրել եմ ներքին և հաճախորդների նախագծերի UI-ը՝ կենտրոնանալով սեմանտիկ HTML-ի, կառուցվածքային SCSS-ի, BEM/OOCSS-ի, հարմարվող դասավորությունների, հասանելիության և պիքսելային ճշգրտության վրա։ Աշխատել եմ PHP և Angular միջավայրերում և մասնակցել UX քննարկումներին։",
+          "impact": "HTML/CSS եմ դասավանդել երկու խմբի՝ յուրաքանչյուրում մոտ տասը ուսանող։ Հիմնական նախագծերից մեկը Benzeen-ն էր։",
           "coreGrowth": [
             "Ճշգրտություն",
             "Կառուցվածք",
@@ -1507,51 +1507,51 @@
           ]
         },
         "volo": {
-          "stickyContent": "Scale &\nConsistency",
+          "stickyContent": "Մասշտաբ և\nմիասնականություն",
           "role": "UI ծրագրավորող",
-          "focus": "Went deeper into component-based UI development, translating Figma and InVision designs into production interfaces and working closely with designers. Built front-end components with Vue.js.",
-          "impact": "Projects remain under NDA.",
+          "focus": "Ավելի խորությամբ աշխատել եմ բաղադրիչային UI ծրագրավորման վրա․ Figma և InVision մակետները վերածել եմ աշխատող ինտերֆեյսների՝ սերտորեն համագործակցելով դիզայներների հետ։ Ստեղծել եմ Front-end բաղադրիչներ Vue.js-ով։",
+          "impact": "Նախագծերը շարունակում են գտնվել NDA-ի ներքո։",
           "coreGrowth": [
             "Ճշգրտություն",
             "Կառուցվածք"
           ]
         },
         "softconstruct": {
-          "stickyContent": "Systems &\nProduct UI",
-          "role": "Senior UI Developer",
-          "focus": "Worked on SoftConstruct’s betting platform, building dynamic interfaces with React, JavaScript, SCSS and JSS.",
-          "impact": "Focused on responsive behavior, semantic HTML, accessibility and WCAG-aligned implementation across complex product UI.",
+          "stickyContent": "Համակարգեր և\nպրոդուկտի UI",
+          "role": "Ավագ UI ծրագրավորող",
+          "focus": "Աշխատել եմ SoftConstruct-ի բեթինգ հարթակի վրա՝ ստեղծելով դինամիկ ինտերֆեյսներ React-ով, JavaScript-ով, SCSS-ով և JSS-ով։",
+          "impact": "Կենտրոնացել եմ հարմարվող աշխատանքի, սեմանտիկ HTML-ի, հասանելիության և բարդ UI-ի՝ WCAG պահանջներին համապատասխան իրականացման վրա։",
           "coreGrowth": [
-            "Precision",
-            "Structure",
-            "Accessibility"
+            "Ճշգրտություն",
+            "Կառուցվածք",
+            "Հասանելիություն"
           ]
         },
         "panika": {
-          "stickyContent": "Design &\nOperations",
-          "role": "Designer / Media Projects Lead",
-          "focus": "A broader multidisciplinary role across design, media and operations. Worked on UI/UX, visual identities, logos, office and studio design, media projects and production coordination.",
-          "impact": "Helped manage an operational office supporting work across Germany, France and Spain, and a music studio.",
+          "stickyContent": "Դիզայն և\nհամակարգում",
+          "role": "Դիզայներ / մեդիա նախագծերի ղեկավար",
+          "focus": "Բազմակողմանի դեր՝ դիզայնի, մեդիայի և աշխատանքների կառավարման հատման կետում։ Աշխատել եմ UI/UX-ի, վիզուալ ինքնության, լոգոների, գրասենյակների ու ստուդիաների ձևավորման, մեդիա նախագծերի և արտադրական աշխատանքների համակարգման վրա։",
+          "impact": "Օգնել եմ համակարգել Գերմանիայի, Ֆրանսիայի և Իսպանիայի նախագծերի համար աշխատող գրասենյակը, ինչպես նաև երաժշտական ստուդիան։",
           "coreGrowth": [
-            "Multidisciplinary",
-            "Operations"
+            "Տարբեր ոլորտներ",
+            "Գործառնական գործընթացներ"
           ]
         },
         "smartbet": {
-          "stickyContent": "Detail &\nDelivery",
-          "role": "UI Developer",
-          "focus": "Front-end implementation of the company website from the design team’s layouts. Responsive, cross-browser pages.",
-          "impact": "A faithful build of a design team’s work.",
+          "stickyContent": "Մանրամասներ և\nիրականացում",
+          "role": "UI ծրագրավորող",
+          "focus": "Դիզայնի թիմի մակետներով իրականացրել եմ ընկերության կայքի ամբողջ UI-ը՝ ներառյալ հարմարվող էջերն ու աշխատանքը տարբեր դիտարկիչներում։",
+          "impact": "Իրականացրել եմ հատուկ JavaScript անիմացիաներ և անցումներ՝ պահպանելով կայքի միասնական SCSS/BEM կառուցվածքը։",
           "coreGrowth": [
-            "Precision",
-            "Delivery"
+            "Ճշգրտություն",
+            "Իրականացում"
           ]
         },
         "picsart": {
-          "stickyContent": "Platform &\nScale",
+          "stickyContent": "Հարթակ և\nմասշտաբ",
           "role": "Senior UI ինժեներ",
-          "focus": "Worked across Growth and Marketplace on picsart.com. Built scalable UI with React, JSS and Styled Components, with a focus on accessibility, responsive behavior and performance.",
-          "impact": "Later became a key contributor to Marketplace Design System integration, multilingual RTL/LTR support and UI consistency across product surfaces.",
+          "focus": "Աշխատել եմ Growth և Marketplace թիմերում՝ picsart.com-ի վրա։ React-ի, JSS-ի և Styled Components-ի միջոցով մշակել եմ մասշտաբելի UI՝ կենտրոնանալով հասանելիության, հարմարվող աշխատանքի և արագագործության վրա։",
+          "impact": "Հետագայում զգալի ներդրում եմ ունեցել Marketplace-ի դիզայն համակարգի ներդրման, բազմալեզու RTL/LTR ինտերֆեյսների աջակցության և պրոդուկտի տարբեր բաժինների UI միասնականության մեջ։",
           "coreGrowth": [
             "Դիզայն համակարգեր",
             "Հասանելիություն",
@@ -1559,52 +1559,52 @@
           ]
         },
         "armenianCodeAcademy": {
-          "stickyContent": "Teaching &\nStructure",
-          "role": "Lecturer",
-          "focus": "Taught HTML, CSS and web fundamentals to a group of around 20 students through practical exercises and structured coursework.",
-          "impact": "Continued interviewing and evaluating lecturer candidates after the teaching period, through 2024.",
+          "stickyContent": "Դասավանդում և\nկառուցվածք",
+          "role": "Դասախոս",
+          "focus": "HTML, CSS և վեբ ծրագրավորման հիմունքներ եմ դասավանդել մոտ 20 ուսանողի՝ գործնական առաջադրանքներով և կառուցվածքային ուսումնական ծրագրով։",
+          "impact": "Դասավանդման շրջանից հետո մինչև 2024 թվականը շարունակել եմ հարցազրույցներ անցկացնել և գնահատել դասախոսի թեկնածուներին։",
           "coreGrowth": [
             "Հում վորքշոփից մինչև մաքուր կառուցվածքային գիտելիք"
           ]
         },
         "brainrocket": {
-          "stickyContent": "Product &\nDelivery",
-          "role": "Senior UI Developer",
-          "focus": "Worked as a Senior UI Developer in a product environment, contributing to production UI.",
-          "impact": "Production front-end work for a product company.",
+          "stickyContent": "Պրոդուկտ և\nիրականացում",
+          "role": "Ավագ UI ծրագրավորող",
+          "focus": "Աշխատել եմ որպես ավագ UI ծրագրավորող պրոդուկտային ընկերությունում՝ իրականացնելով գործող պրոդուկտի ինտերֆեյսները։",
+          "impact": "Front-end ծրագրավորում գործող պրոդուկտի համար։",
           "coreGrowth": [
-            "Precision",
-            "Delivery"
+            "Ճշգրտություն",
+            "Իրականացում"
           ]
         },
         "soulone": {
-          "stickyContent": "Brand &\nProduct",
-          "role": "Web Designer & Product Owner",
-          "focus": "Set the brand direction and designed an e-commerce website concept for an Armenian gluten-free bakery - palette, typography, tone of voice, web copy and interactive Figma prototypes.",
-          "impact": "Brand and product thinking for an existing business; the website stayed a concept.",
+          "stickyContent": "Բրենդ և\nպրոդուկտ",
+          "role": "Վեբ դիզայներ և Product Owner",
+          "focus": "Մշակել եմ հայկական առանց գլյուտենի դեսերտների բրենդի վիզուալ ուղղությունն ու հաստատված օնլայն խանութի կոնցեպտը՝ գույները, տառատեսակները, հաղորդակցության ոճը, կայքի տեքստերն ու ինտերակտիվ Figma նախատիպերը։",
+          "impact": "Սեփականատերը հաստատել է դիզայնը, սակայն կայքը չի մշակվել և չի գործարկվել։",
           "coreGrowth": [
-            "Brand",
-            "Product"
+            "Բրենդ",
+            "Պրոդուկտ"
           ]
         },
         "acentecom": {
-          "stickyContent": "Funnels &\nConversion",
-          "role": "Front-end Developer",
-          "focus": "Built and adapted e-commerce landing pages and sales funnels using Shopify and CheckoutChamp. Worked across checkout flows, product pages and campaign/funnel implementation.",
-          "impact": "Increasingly integrated AI tools into research, design and development workflows.",
+          "stickyContent": "Վաճառքի ուղիներ և\nկոնվերսիա",
+          "role": "Front-end ծրագրավորող",
+          "focus": "Մշակել և հարմարեցրել եմ e-commerce լենդինգներ և վաճառքի ֆանելներ Shopify-ով ու CheckoutChamp-ով։ Աշխատել եմ ապրանքի էջերի, վճարման գործընթացների և մարքեթինգային արշավների իրականացման վրա։",
+          "impact": "Ավելի ակտիվ սկսել եմ օգտագործել AI գործիքներ՝ հետազոտության, դիզայնի և ծրագրավորման արագացման համար։",
           "coreGrowth": [
             "E-commerce",
-            "AI tooling"
+            "AI գործիքներ"
           ]
         },
         "torchyan": {
-          "stickyContent": "Studio &\nClients",
-          "role": "Founder",
-          "focus": "Building Torchyan as a founder-led digital product studio combining product and web design, UI engineering and production delivery.",
-          "impact": "Projects are led directly, with trusted specialists brought in when broader development, marketing or production expertise is needed.",
+          "stickyContent": "Ստուդիա և\nհաճախորդներ",
+          "role": "Հիմնադիր",
+          "focus": "Զարգացնում եմ Torchyan-ը՝ որպես իմ ղեկավարած թվային պրոդուկտների ստուդիա, որը միավորում է կայքերի և պրոդուկտների դիզայնը, UI ինժեներիան և Front-end ծրագրավորումը։",
+          "impact": "Ես անձամբ ղեկավարում եմ նախագծերը և ներգրավում վստահելի մասնագետների, երբ անհրաժեշտ է Backend, մարքեթինգ կամ այլ փորձառություն։",
           "coreGrowth": [
-            "Studio",
-            "Accountability"
+            "Ստուդիա",
+            "Պատասխանատվություն"
           ]
         }
       }
@@ -1613,90 +1613,90 @@
       "title": "Ինչ եմ անում գործնականում",
       "subtitle": "Ճարտարապետությունից մինչև փոխազդեցության տրամաբանություն և արտադրական կոդ։",
       "circles": [
-        "Information Architecture",
-        "UI Pattern Libraries",
-        "Dark Mode",
-        "WCAG Standards",
-        "React Components",
-        "Component Abstraction",
-        "Data Mapping",
-        "Mobile Optimization",
-        "UX Heuristics",
-        "Agile Collaboration",
-        "Production Deployment",
-        "User Flow Mapping",
-        "Responsive Layouts",
-        "Icon Design",
-        "Multilingual Interfaces",
-        "Component Reusability",
-        "Prop Architecture",
-        "Rendering Optimization",
-        "Design Handoff",
-        "Performance Tuning",
-        "Technical Documentation",
-        "Design Tokens",
-        "Wireframe Prototyping",
-        "Grid Systems",
-        "Interaction Design",
-        "RTL Support",
-        "Semantic HTML",
-        "State Management",
-        "System Migration",
-        "Code Splitting",
-        "Web Performance",
-        "Frontend Architecture",
-        "AI Tools",
-        "Microinteractions",
-        "High-Fidelity Mockups",
-        "Visual Hierarchy",
-        "SCSS Structuring",
-        "Motion Systems",
-        "UI Governance",
-        "Scalability Planning",
-        "UI Audits",
-        "Component Architecture",
-        "SSR Integration",
-        "UI Refactoring",
-        "Event Handling",
-        "Typography Systems",
-        "State Design",
-        "CSS Architecture",
-        "BEM Methodology",
-        "Dynamic Theming",
-        "Code Reviews",
-        "Cross-Browser Compatibility",
-        "Interaction Prototyping",
-        "Technical Strategy",
-        "Design Systems",
-        "Color Theming",
-        "Accessibility Compliance",
+        "Տեղեկատվական ճարտարապետություն",
+        "UI ձևանմուշների գրադարաններ",
+        "Մուգ թեմա",
+        "WCAG ստանդարտներ",
+        "React բաղադրիչներ",
+        "Բաղադրիչների աբստրակցիա",
+        "Տվյալների համապատասխանեցում",
+        "Օպտիմալացում բջջային սարքերի համար",
+        "UX էվրիստիկաներ",
+        "Agile համագործակցություն",
+        "Տեղակայում գործարկման միջավայրում",
+        "Օգտատիրոջ քայլերի նախագծում",
+        "Հարմարվող դասավորություններ",
+        "Պատկերակների դիզայն",
+        "Բազմալեզու ինտերֆեյսներ",
+        "Բաղադրիչների բազմակի օգտագործում",
+        "Props-ի ճարտարապետություն",
+        "Արտապատկերման օպտիմալացում",
+        "Դիզայնի փոխանցում ծրագրավորման թիմին",
+        "Արագագործության կարգավորում",
+        "Տեխնիկական փաստաթղթավորում",
+        "Դիզայն թոքեններ",
+        "Wireframe նախատիպավորում",
+        "Ցանցային համակարգեր",
+        "Փոխազդեցությունների դիզայն",
+        "RTL աջակցություն",
+        "Սեմանտիկ HTML",
+        "Վիճակի կառավարում",
+        "Համակարգերի միգրացիա",
+        "Կոդի բաժանում",
+        "Վեբ արագագործություն",
+        "Front-end ճարտարապետություն",
+        "AI գործիքներ",
+        "Միկրոփոխազդեցություններ",
+        "Բարձր ճշգրտությամբ մակետներ",
+        "Վիզուալ հիերարխիա",
+        "SCSS-ի կառուցվածք",
+        "Անիմացիոն համակարգեր",
+        "UI ստանդարտների կառավարում",
+        "Մասշտաբման պլանավորում",
+        "UI աուդիտներ",
+        "Բաղադրիչների ճարտարապետություն",
+        "SSR ինտեգրում",
+        "UI ռեֆակտորինգ",
+        "Իրադարձությունների մշակում",
+        "Տառատեսակային համակարգեր",
+        "Վիճակների դիզայն",
+        "CSS ճարտարապետություն",
+        "BEM մեթոդաբանություն",
+        "Դինամիկ թեմաներ",
+        "Կոդի վերանայում",
+        "Համատեղելիություն տարբեր դիտարկիչների հետ",
+        "Ինտերակտիվ նախատիպավորում",
+        "Տեխնիկական ռազմավարություն",
+        "Դիզայն համակարգեր",
+        "Գունային թեմաներ",
+        "Հասանելիության պահանջների պահպանում",
         "Styled Components",
-        "Animation Logic",
-        "Conditional Rendering",
-        "API Integration",
-        "Lazy Loading",
-        "Pixel Precision",
-        "Interactive Design",
-        "Semantic Structure",
-        "Visual QA"
+        "Անիմացիաների տրամաբանություն",
+        "Պայմանական արտապատկերում",
+        "API ինտեգրում",
+        "Հետաձգված բեռնում",
+        "Պիքսելային ճշգրտություն",
+        "Ինտերակտիվ դիզայն",
+        "Սեմանտիկ կառուցվածք",
+        "Վիզուալ որակի ստուգում"
       ]
     },
     "cta": {
       "intro": [
         "Torchyan started from a simple observation: digital projects lose quality at the handoffs — between strategy and design, design and code, launch and everything after.",
-        "So I run each project as one continuous chain, and stay responsible for all of it.",
-        "I use AI tools every day to research, prototype and build faster. The judgement, the design decisions and the accountability stay human.",
+        "Նախագծի բոլոր փուլերը պահում եմ փոխկապակցված՝ առաջին քննարկումից մինչև արդյունքի հանձնում, և պատասխանատու եմ իմ ղեկավարած աշխատանքի համար։",
+        "Ամեն օր օգտագործում եմ AI գործիքներ՝ հետազոտությունը, նախատիպավորումն ու ծրագրավորումն արագացնելու համար։ Սակայն գնահատականը, դիզայնի որոշումներն ու պատասխանատվությունն իմն են։",
         "The goal: websites and products that work the way they were designed to — and keep improving after launch."
       ],
       "build": {
-        "title": "Start a project",
-        "body": "Tell me what you’re building or what needs to change. I reply within 2 business days.",
-        "cta": "Start a project"
+        "title": "Սկսել նախագիծ",
+        "body": "Պատմեք՝ ինչ եք ստեղծում կամ ցանկանում փոխել։ Կպատասխանեմ երկու աշխատանքային օրվա ընթացքում։",
+        "cta": "Սկսել նախագիծ"
       },
       "practice": {
-        "title": "See the work",
-        "body": "Case studies with the exact role on every project.",
-        "cta": "See the work"
+        "title": "Դիտել նախագծերը",
+        "body": "Իրական նախագծեր՝ յուրաքանչյուրում իմ ներդրման հստակ նկարագրությամբ։",
+        "cta": "Դիտել նախագծերը"
       }
     }
   },
@@ -3055,8 +3055,8 @@
     "pause": "Դադարեցնել տեսանյութը"
   },
   "talkPage": {
-    "title": "Let’s talk",
-    "subtitle": "Have a question, an idea, or just want to get in touch? Send me a message - I read everything myself.",
+    "title": "Եկեք զրուցենք",
+    "subtitle": "Հարց կամ գաղափա՞ր ունեք, թե՞ պարզապես ցանկանում եք կապ հաստատել։ Գրեք ինձ. ես անձամբ կարդում եմ յուրաքանչյուր հաղորդագրություն։",
     "channels": {
       "label": "Ինչպես կապ հաստատել ինձ հետ",
       "body": "Հարմար է ընդհանուր հարցերի, համագործակցության առաջարկների և այն ամենի համար, ինչ նախագծի բրիֆ չի պահանջում։",
@@ -3079,16 +3079,16 @@
       }
     },
     "form": {
-      "label": "Send a message",
-      "nameLabel": "Name",
-      "namePlaceholder": "Your name",
-      "emailLabel": "Email",
-      "emailPlaceholder": "Your email",
-      "messageLabel": "Message",
-      "messagePlaceholder": "What would you like to talk about?",
-      "submit": "Send message",
-      "submitSending": "Sending…",
-      "submitSuccess": "Thank you - your message has arrived. I’ll reply soon."
+      "label": "Ուղարկել հաղորդագրություն",
+      "nameLabel": "Անուն",
+      "namePlaceholder": "Ձեր անունը",
+      "emailLabel": "Էլ. փոստ",
+      "emailPlaceholder": "Ձեր էլ. փոստը",
+      "messageLabel": "Հաղորդագրություն",
+      "messagePlaceholder": "Ինչի՞ մասին կցանկանայիք խոսել",
+      "submit": "Ուղարկել հաղորդագրություն",
+      "submitSending": "Ուղարկվում է…",
+      "submitSuccess": "Շնորհակալություն։ Ձեր հաղորդագրությունն ուղարկվել է։ Շուտով կպատասխանեմ։"
     }
   },
   "homeContact": {
