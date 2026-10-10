@@ -1171,207 +1171,200 @@
   },
   "servicesPage": {
     "hero": {
-      "title": "Design and engineering, under one accountable lead",
-      "lead": "Torchyan takes responsibility for websites and digital products from direction to production.",
-      "body": "You don’t have to coordinate separate strategists, designers, developers and specialists. One person leads the work, keeps every decision connected, and stays accountable from the first call to launch and beyond.",
+      "title": "Дизайн и разработка под единым руководством",
+      "lead": "Torchyan ведёт проекты по созданию сайтов и цифровых продуктов — от определения направления до запуска.",
+      "body": "Вам не нужно самостоятельно координировать дизайнеров, разработчиков и других специалистов. Я веду проект, слежу за согласованностью решений и при необходимости подключаю профильных специалистов — от первого обсуждения до запуска и дальнейшего развития.",
       "points": [
-        "Your website no longer matches your business",
-        "You’re launching a product, a service or a new market",
-        "Your product UI is inconsistent or slow to ship",
-        "You want design and build carried by one continuous process",
-        "You need a senior partner, not another vendor to manage"
+        "Ваш сайт больше не отражает уровень и возможности Вашего бизнеса",
+        "Вы запускаете новый продукт, услугу или выходите на новый рынок",
+        "Интерфейс Вашего продукта непоследователен, а изменения внедряются слишком медленно",
+        "Вы хотите, чтобы дизайн и разработка были частью единого процесса",
+        "Вам нужен опытный специалист, который возьмёт ответственность за реализацию"
       ],
       "team": {
-        "label": "The team",
-        "lead": "Stepan Torchyan, lead",
-        "member1": "Brand & Identity",
-        "member2": "Backend & APIs",
-        "aiAssistant": "AI Assistant",
-        "member3": "Marketing & SEO"
+        "label": "Команда",
+        "lead": "Степан Торчян, основатель и руководитель проектов",
+        "member1": "Брендинг и айдентика",
+        "member2": "Бэкенд и API",
+        "aiAssistant": "AI-ассистенты",
+        "member3": "Маркетинг и SEO"
       }
     },
     "areas": {
-      "title": "What Torchyan takes on",
-      "subtitle": "Four areas, each carried end to end. The exact scope depends on your project.",
-      "situationLabel": "When it fits",
-      "ownsLabel": "What Torchyan owns",
-      "outcomesLabel": "What you get",
+      "title": "Чем занимается Torchyan",
+      "subtitle": "Четыре взаимосвязанных направления. Состав работ определяется задачами Вашего проекта.",
+      "situationLabel": "Когда это актуально",
+      "ownsLabel": "За что отвечает Torchyan",
+      "outcomesLabel": "Что Вы получаете",
       "items": [
         {
-          "title": "Websites",
-          "situation": "Your site no longer reflects the business, is hard to update, or needs to support a launch or a new market.",
+          "title": "Сайты",
+          "situation": "Вам нужен новый сайт, существующий больше не отражает Ваш бизнес или Вы выходите на новый рынок.",
           "owns": [
-            "Direction, structure and content planning",
-            "Brand and visual direction — with brand specialists for full identity work",
-            "UX, interface and motion design",
-            "Front-end development and CMS setup",
-            "Platform choice: a custom build, a CMS or a commerce platform",
-            "SEO foundations, analytics and launch"
+            "Стратегия сайта",
+            "Структура контента",
+            "UX/UI-дизайн",
+            "Адаптивная фронтенд-разработка",
+            "Координация запуска"
           ],
           "outcomes": [
-            "A site that explains the business clearly",
-            "Fast, accessible and responsive on every device",
-            "A setup your team can update"
-          ]
+            "Понятный, целостный и удобный в поддержке сайт, который помогает решать задачи бизнеса."
+          ],
+          "summary": "Создаём сайты с учётом целей бизнеса, потребностей аудитории и содержания — от структуры и визуального дизайна до разработки и запуска."
         },
         {
-          "title": "Product interfaces",
-          "situation": "A product needs a usable, consistent interface — new, redesigned, or growing faster than its UI.",
+          "title": "Интерфейсы продуктов",
+          "situation": "Вы создаёте новый продукт, обновляете существующий или хотите улучшить сложный интерфейс.",
           "owns": [
-            "Product discovery and user flows",
-            "UX architecture and research",
-            "Interface design and prototyping",
-            "Front-end engineering in your stack",
-            "Localization, including right-to-left languages",
-            "Accessibility aligned with WCAG 2.1 AA",
-            "Backend and system architecture through trusted specialists"
+            "Пользовательские сценарии",
+            "Информационная архитектура",
+            "Дизайн интерфейсов",
+            "Интерактивные состояния",
+            "UI-разработка"
           ],
           "outcomes": [
-            "Interfaces people understand",
-            "UI your engineers can ship and extend"
-          ]
+            "Понятные, последовательные интерфейсы и готовые к использованию компоненты, учитывающие логику Вашего продукта."
+          ],
+          "summary": "Проектируем интерфейсы цифровых продуктов, панелей управления и сложных пользовательских сценариев — с учётом реальных задач и вниманием к деталям."
         },
         {
-          "title": "Design systems",
-          "situation": "Screens drift apart as the team grows, and every new feature restyles the same components.",
+          "title": "Дизайн-системы",
+          "situation": "Ваш продукт развивается, интерфейсы теряют единообразие или командам дизайна и разработки нужна общая система.",
           "owns": [
-            "UI review and gap analysis",
-            "Tokens and foundations",
-            "Component design and code",
-            "States, variants and theming",
-            "Integration into existing products",
-            "Documentation for design and engineering"
+            "Дизайн-токены",
+            "Архитектура компонентов",
+            "Переиспользуемые UI-компоненты",
+            "Интерактивные состояния",
+            "Рекомендации по внедрению"
           ],
           "outcomes": [
-            "One source of truth for design and code",
-            "Faster, more consistent delivery"
-          ]
+            "Практичную систему, которая повышает согласованность интерфейсов, упрощает поддержку и помогает развивать продукт."
+          ],
+          "summary": "Создаём переиспользуемую основу интерфейсов, которая объединяет дизайн и разработку и помогает командам работать последовательно, не решая одни и те же задачи заново."
         },
         {
-          "title": "Launch & improvement",
-          "situation": "Launch is the start, not the end: the product needs to perform, be found and keep improving.",
+          "title": "Запуск и развитие",
+          "situation": "Вы готовитесь к запуску, хотите улучшить существующий сайт или ищете постоянную поддержку для развивающегося бизнеса.",
           "owns": [
-            "Deployment and hosting setup",
-            "Performance and accessibility care",
-            "Analytics and conversion measurement",
-            "SEO, launch promotion and marketing — with specialists",
-            "Improvements based on real usage",
-            "Maintenance and ongoing support"
+            "Координация запуска",
+            "Оптимизация производительности фронтенда",
+            "Улучшение UX",
+            "Планирование аналитики",
+            "Взаимодействие со специалистами по SEO или маркетингу при необходимости"
           ],
           "outcomes": [
-            "A product that keeps pace with the business",
-            "Decisions based on data, not guesses"
-          ]
+            "Понятный процесс запуска и практический план дальнейшего развития сайта или продукта."
+          ],
+          "summary": "Работа не заканчивается после публикации сайта или запуска продукта. Мы можем продолжать улучшать производительность, контент, удобство использования и видимость проекта, опираясь на реальные задачи и измеримые результаты."
         }
       ]
     },
     "teamServices": {
-      "title": "More with the team",
-      "hint": "Tap a specialist to see what they take on.",
+      "title": "Больше с командой",
+      "hint": "Нажмите на специалиста, чтобы увидеть, чем он занимается.",
       "items": [
         {
-          "title": "Brand & identity",
-          "situation": "A new business, a rebrand, or a brand that doesn't hold together across channels.",
-          "outcome": "You get a brand people recognise everywhere, with guidelines your team can follow.",
+          "title": "Бренд и айдентика",
+          "situation": "Новый бизнес, ребрендинг или бренд, который не выглядит единым во всех каналах.",
+          "outcome": "Вы получаете бренд, узнаваемый везде, и гайдлайны, которым может следовать Ваша команда.",
           "owns": [
-            "Brand strategy and positioning",
-            "Logo and identity system",
-            "Typography and colour",
-            "Brand guidelines",
-            "Marketing and social assets"
+            "Бренд-стратегия и позиционирование",
+            "Логотип и система айдентики",
+            "Типографика и цвет",
+            "Гайдлайны бренда",
+            "Маркетинговые и соцсетевые материалы"
           ]
         },
         {
-          "title": "Backend & integrations",
-          "situation": "The product needs real data, accounts, payments or connections to other systems.",
-          "outcome": "You get a reliable system behind the interface, and one team for front and back end.",
+          "title": "Бэкенд и интеграции",
+          "situation": "Продукту нужны реальные данные, аккаунты, платежи или связь с другими системами.",
+          "outcome": "Вы получаете надёжную систему за интерфейсом и одну команду для фронтенда и бэкенда.",
           "owns": [
-            "API design and development",
-            "Databases and data models",
-            "Auth and payments",
-            "CRM, ERP and third-party integrations",
-            "Cloud infrastructure"
+            "Проектирование и разработка API",
+            "Базы данных и модели данных",
+            "Авторизация и платежи",
+            "CRM, ERP и сторонние интеграции",
+            "Облачная инфраструктура"
           ]
         },
         {
-          "title": "AI integration",
-          "situation": "Repetitive work, support load or content that AI could take on.",
-          "outcome": "You get AI that solves a defined problem, at a predictable cost.",
+          "title": "Интеграция ИИ",
+          "situation": "Рутинная работа, нагрузка на поддержку или контент, который может взять на себя ИИ.",
+          "outcome": "Вы получаете ИИ, который решает конкретную задачу, при предсказуемой стоимости.",
           "owns": [
-            "AI features in your product",
-            "Workflow automation",
-            "Content pipelines",
-            "Model and vendor choice",
-            "Privacy and cost guardrails"
+            "ИИ-функции в Вашем продукте",
+            "Автоматизация рабочих процессов",
+            "Контент-пайплайны",
+            "Выбор моделей и поставщиков",
+            "Приватность и контроль расходов"
           ]
         },
         {
-          "title": "Marketing & SEO",
-          "situation": "The product exists but isn't being found, or isn't converting.",
-          "outcome": "You get traffic you can measure, and growth decisions based on data.",
+          "title": "Маркетинг и SEO",
+          "situation": "Продукт есть, но его не находят или он не конвертирует.",
+          "outcome": "Вы получаете измеримый трафик и решения о росте на основе данных.",
           "owns": [
-            "Technical and content SEO",
-            "Launch campaigns",
-            "Landing pages",
-            "Paid and organic strategy",
-            "Analytics and conversion tracking"
+            "Техническое и контентное SEO",
+            "Кампании запуска",
+            "Лендинги",
+            "Платная и органическая стратегия",
+            "Аналитика и отслеживание конверсий"
           ]
         }
       ]
     },
     "start": {
-      "title": "How we can start",
-      "subtitle": "No fixed packages. Scope, timeline and cost are agreed once we understand the project.",
+      "title": "С чего можно начать",
+      "subtitle": "Без фиксированных пакетов. Сначала разбираемся в Вашей задаче, затем согласовываем объём работ, сроки и стоимость.",
       "items": [
         {
-          "title": "Defined project",
-          "body": "A clear goal with a clear end: a new website, a rebuild, a launch, a product interface or a design system. Scope, timeline and cost are agreed before work starts."
+          "title": "Проект с конкретным объёмом работ",
+          "body": "Определяем цель, задачи и план реализации. Подходит для создания сайтов, редизайна, разработки новых функций и интерфейсов."
         },
         {
-          "title": "Ongoing partnership",
-          "body": "Continued design and development after a first project — new pages and features, improvements, maintenance and support, with capacity agreed month by month."
+          "title": "Долгосрочное сотрудничество",
+          "body": "Постоянная поддержка дизайна и разработки для команд, которым нужны регулярные улучшения, новые функции и качественная UI-реализация."
         },
         {
-          "title": "Diagnostic",
-          "body": "Not sure what needs fixing first? A focused review of your website or product — clarity, UX, performance, accessibility and SEO foundations — that ends with clear priorities and a recommended next step."
+          "title": "Анализ и рекомендации",
+          "body": "Предметный анализ сайта или продукта: выявляем проблемы интерфейса, дизайна и фронтенда и определяем конкретные следующие шаги."
         }
       ]
     },
     "model": {
-      "title": "How Torchyan works",
-      "subtitle": "One accountable lead, specialists when the project needs them, and technology chosen for the problem."
+      "title": "Как работает Torchyan",
+      "subtitle": "Один ответственный лидер, специалисты — когда они нужны проекту, и технологии, выбранные под задачу."
     },
     "founder": {
-      "title": "You work with the person responsible",
-      "body": "Torchyan is led by Stepan Torchyan, a designer and UI engineer. I lead every engagement from the first call to launch and stay accountable for the result. There’s no account manager between you and the work."
+      "title": "Прямое взаимодействие",
+      "body": "Вы общаетесь напрямую с человеком, который ведёт проект. Решения остаются прозрачными, коммуникация — простой, а Вы участвуете в процессе на каждом этапе."
     },
     "specialists": {
-      "title": "Specialists, when the project needs them",
-      "body": "Some projects need more than design and front-end. I bring in trusted, paid specialists — backend and system architecture, additional design, QA, project management, photography, SEO and marketing — and run them within one plan. You still have one point of contact."
+      "title": "Специалисты под задачу",
+      "body": "Я веду основную работу и при необходимости привлекаю специалистов для конкретных задач: бэкенд-разработки, тестирования, SEO или маркетинга."
     },
     "technology": {
-      "title": "Technology follows the problem",
-      "body": "The platform is chosen during discovery, based on your content workflow, integrations, performance needs, budget and who will maintain it."
+      "title": "Технологии подбираются под задачу",
+      "body": "Инструменты и технологии выбираются исходя из требований проекта, а не наоборот."
     },
     "boundaries": {
-      "title": "What Torchyan doesn’t do",
+      "title": "Объём работ и сотрудничество",
       "items": [
-        "Guaranteed rankings, traffic or lead numbers",
-        "Native iOS and Android apps"
+        "У каждого проекта свои задачи. Я лично веду дизайн и фронтенд-разработку, а для задач за пределами моей основной специализации при необходимости подключаю профильных специалистов. Ответственность, результаты и сроки согласовываются до начала работы."
       ]
     },
     "cta": {
-      "title": "Ready when you are",
-      "subtitle": "Tell me what you’re building or what needs to change.",
+      "title": "Готов обсудить Ваш проект",
+      "subtitle": "Есть идея или задача? Расскажите, что хотите создать или улучшить.",
       "initiate": {
-        "title": "Start a project",
-        "body": "A website, a product interface, a design system, or improving what’s live. I reply within 2 business days.",
-        "cta": "Start a project"
+        "title": "Начать проект",
+        "body": "Сайт, интерфейс продукта, дизайн-система или улучшение того, что уже работает. Отвечаю в течение двух рабочих дней.",
+        "cta": "Начать проект"
       },
       "analyze": {
-        "title": "Not sure where to start?",
-        "body": "Describe the situation and choose “Not sure yet”. A diagnostic may be the right first step.",
-        "cta": "Get in touch"
+        "title": "Не знаете, с чего начать?",
+        "body": "Опишите ситуацию и выберите «Пока не уверен». Диагностика может стать правильным первым шагом.",
+        "cta": "Связаться"
       }
     }
   },
