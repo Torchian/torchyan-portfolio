@@ -285,7 +285,6 @@ PROJECTS.push(
       [
         ['panika-home', 1200, 1067],
         ['panika-films', 1200, 750],
-        ['panika-showreel', 1200, 683],
         ['panika-mobile', 1116, 1688],
         ['panika-contacts', 1200, 2063],
       ] as const
