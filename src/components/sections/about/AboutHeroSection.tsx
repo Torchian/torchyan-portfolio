@@ -276,6 +276,19 @@ const CharacterStage = styled.div`
     bottom: 0;
     height: min(60%, 112vw);
   }
+
+  /* From the tablet frame up it hangs off the measured title end, which the
+     server HTML can only guess (40%). Drawn there first and moved after
+     hydration, it was a layout shift of 0.3–0.7 (CLS) on every load, under the
+     page loader where nobody saw it. Kept unpainted until measured instead:
+     the loader still covers it, so nothing visible changes. */
+  ${media.up('m')} {
+    visibility: hidden;
+  }
+
+  [data-title-measured] & {
+    visibility: visible;
+  }
 `;
 
 const Footer = styled.div`
@@ -340,6 +353,7 @@ export function AboutHeroSection() {
     const measure = () => {
       const end = title.getBoundingClientRect().bottom - section.getBoundingClientRect().top;
       section.style.setProperty('--hero-title-end', `${Math.max(0, end)}px`);
+      section.dataset.titleMeasured = 'true';
     };
     measure();
     const resize = new ResizeObserver(measure);
