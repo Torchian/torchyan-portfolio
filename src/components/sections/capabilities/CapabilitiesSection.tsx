@@ -524,8 +524,8 @@ export function CapabilitiesSection() {
       </Frame>
 
       <Lines aria-hidden>
-        <img src="/vectors/section-lines/long.svg" alt="" />
-        <img src="/vectors/section-lines/short.svg" alt="" />
+        <img src="/vectors/section-lines/long.svg" alt="" loading="lazy" />
+        <img src="/vectors/section-lines/short.svg" alt="" loading="lazy" />
       </Lines>
     </Section>
   );

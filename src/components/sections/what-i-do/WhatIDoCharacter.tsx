@@ -89,7 +89,7 @@ export function WhatIDoCharacter({ boardRef, clipRef }: WhatIDoCharacterProps) {
       >
         <Image src={FACE.src} alt="" fill sizes={`${Math.ceil((MAX_WIDTH * FACE_BOX.width) / 100)}px`} />
       </ColorLayer>
-      <PencilLayer src="/character/character_head_sketch.webp" alt="" />
+      <PencilLayer src="/character/character_head_sketch.webp" alt="" loading="lazy" />
     </Wrapper>
   );
 }

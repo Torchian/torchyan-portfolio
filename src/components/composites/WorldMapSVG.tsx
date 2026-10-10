@@ -212,7 +212,7 @@ export function WorldMapSVG({ locations, alt, hub }: WorldMapSVGProps) {
           <line key={`p${y}`} x1={0} x2={VIEW.width} y1={y} y2={y} vectorEffect="non-scaling-stroke" />
         ))}
       </Graticule>
-      <MapImage src="/vectors/map.svg" alt={alt} />
+      <MapImage src="/vectors/map.svg" alt={alt} loading="lazy" />
       {home && (
         <Routes viewBox={`0 0 ${VIEW.width} ${VIEW.height}`} aria-hidden>
           <defs>

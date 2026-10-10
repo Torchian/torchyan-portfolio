@@ -57,6 +57,40 @@ const logo = (
   };
 };
 
+/**
+ * Each logo file's width / height. With it the <img> gets width and height
+ * attributes, so it has a box (and its final width) before the file arrives:
+ * that is what lets these load lazily. Without a box, an unsized SVG lays out
+ * 0px wide and a lazy image that size is never seen to enter the viewport.
+ * A logo missing here still works; it just loads eagerly, as before.
+ */
+const LOGO_ASPECT: Record<string, number> = {
+  'Adrasheg.svg': 1.139,
+  'ArmenianCodeAcademy.svg': 0.898,
+  'Benzeen.svg': 3.938,
+  'BrainRocket.svg': 7.000,
+  'Brainstorm.svg': 6.458,
+  'Fortinet.svg': 8.917,
+  'Gemmed.png': 7.896,
+  'Ginosi.svg': 4.582,
+  'IT365.svg': 0.981,
+  'InfinitiRings.svg': 1.000,
+  'OffMyCase.svg': 5.521,
+  'Panika.png': 0.854,
+  'Picsart.svg': 4.333,
+  'Rostelecom.svg': 4.558,
+  'Scunci.svg': 3.479,
+  'Smartbet.svg': 6.396,
+  'SoftConstruct.svg': 10.604,
+  'Solomoon.png': 6.537,
+  'SoulOne.svg': 5.125,
+  'TCO.svg': 1.312,
+  'Volo.svg': 2.224,
+  'WorldEdu.svg': 4.146,
+  'byRobinblair.svg': 5.188,
+  'myZcapital.png': 0.996,
+};
+
 export type RelationshipGroup = 'clients' | 'employers' | 'partners' | 'product' | 'teaching';
 
 /** The credibility set, by relationship. Shared with the Partners carousel on /projects. */
@@ -289,6 +323,26 @@ const Logo = styled.li<{ $height: number; $boxed: boolean }>`
   }
 `;
 
+/**
+ * Lazy where the file's proportions are known (LOGO_ASPECT). The section is far
+ * below the fold, and eager, its 25 files (~200 KB) shared a phone's first load
+ * with the hero image.
+ */
+function LogoImage({ src, name, height }: TrustedLogo) {
+  const aspect = LOGO_ASPECT[src.split('/').pop() ?? ''];
+  if (!aspect) return <img src={src} alt={name} decoding="async" fetchPriority="low" />;
+  return (
+    <img
+      src={src}
+      alt={name}
+      width={Math.round(height * aspect)}
+      height={height}
+      loading="lazy"
+      decoding="async"
+    />
+  );
+}
+
 export function TrustedBySection() {
   const t = useTranslations('trustedBy');
 
@@ -308,10 +362,7 @@ export function TrustedBySection() {
                 <LogoRow>
                   {group.logos.map((item) => (
                     <Logo key={item.name} $height={item.height} $boxed={item.boxed} {...SOFT_HOVER}>
-                      {/* Not lazy: an unsized SVG lays out 0px wide until it loads, and a
-                          0-wide lazy image is never seen to enter the viewport, so it never
-                          loads. Fifteen small SVGs, all below the fold. */}
-                      <img src={item.src} alt={item.name} decoding="async" />
+                      <LogoImage {...item} />
                     </Logo>
                   ))}
                 </LogoRow>

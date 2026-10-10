@@ -525,12 +525,14 @@ export function Footer() {
         <NameBlock aria-hidden>
           <Wordmark>
             <div>
-              <img {...WORDMARK} alt="" />
+              {/* The footer is never above the fold: lazy, so its artwork neither
+                  joins the first page load nor gets preloaded in the <head>. */}
+              <img {...WORDMARK} alt="" loading="lazy" />
             </div>
           </Wordmark>
           <Tagline>
-            <img {...TAGLINE} src={taglineFile(TAGLINE.src, locale)} alt="" />
-            <img {...TAGLINE_ROW} src={taglineFile(TAGLINE_ROW.src, locale)} alt="" />
+            <img {...TAGLINE} src={taglineFile(TAGLINE.src, locale)} alt="" loading="lazy" />
+            <img {...TAGLINE_ROW} src={taglineFile(TAGLINE_ROW.src, locale)} alt="" loading="lazy" />
           </Tagline>
         </NameBlock>
 
@@ -579,7 +581,7 @@ export function Footer() {
             </Group>
 
             <Location>
-              <img src="/footer/location-pin.svg" alt="" aria-hidden />
+              <img src="/footer/location-pin.svg" alt="" aria-hidden loading="lazy" />
               <span>{t('location')}</span>
             </Location>
           </Groups>

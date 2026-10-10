@@ -373,6 +373,7 @@ export function HeroSection() {
               alt=""
               sizes="705px"
               loading="lazy"
+              fetchPriority="high"
             />
           </CenterPortrait>
         </Body>
