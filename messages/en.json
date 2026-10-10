@@ -2,12 +2,12 @@
   "meta": {
     "siteName": "Torchyan",
     "titleTemplate": "%s | Torchyan",
-    "defaultTitle": "Torchyan - Digital Product Studio",
-    "description": "Founder-led studio for websites and digital products. Strategy, UX, design and engineering carried from first direction to production - then improved after launch.",
+    "defaultTitle": "Torchyan — Digital Product Studio",
+    "description": "Torchyan is a founder-led digital studio focused on websites, product interfaces and UI engineering — from design to production-ready development.",
     "jobTitle": "Founder, Torchyan",
     "about": {
       "title": "About",
-      "description": "Torchyan is led by Stepan Torchyan, a designer and UI engineer based in Armenia and working internationally."
+      "description": "Meet Stepan Torchyan, a designer, UI engineer and founder of Torchyan, based in Armenia and working internationally."
     },
     "projects": {
       "title": "Work",
@@ -23,7 +23,7 @@
     },
     "startProject": {
       "title": "Start a project",
-      "description": "Tell Torchyan what you’re building or what needs to change. You’ll get a reply within 2 business days."
+      "description": "Tell me what you’re building, changing or trying to solve. I’ll reply within 2 business days."
     },
     "privacy": {
       "title": "Privacy notice",
@@ -74,7 +74,7 @@
     "description": "Design and engineering for websites and digital products - from the first idea to a production-ready build.",
     "cta": "Start a project",
     "secondaryCta": "See the work",
-    "skillsLabel": "How a project moves",
+    "skillsLabel": "From idea to launch",
     "skills": [
       "Discovery",
       "Strategy",
@@ -86,28 +86,28 @@
     ]
   },
   "whatIDo": {
-    "title": "How the work moves",
-    "subtitle": "One continuous chain, from the first question to the live product - no handoffs where quality gets lost.",
+    "title": "How we work",
+    "subtitle": "From the first conversation to the final build, every step stays connected.",
     "steps": [
       {
         "title": "Understand the business",
-        "description": "We start with what the business needs to achieve, who it serves and what’s in the way - before anything is designed."
+        "description": "We start by understanding your goals, your audience and the challenges you’re facing."
       },
       {
         "title": "Shape the structure",
-        "description": "Content, flows, information architecture and scope before visual decisions get expensive."
+        "description": "We define the content, user flows and structure before moving into visual design."
       },
       {
         "title": "Design the experience",
-        "description": "Interfaces designed around real content and real users - clear, accessible and consistent."
+        "description": "We design clear, accessible and consistent interfaces around real users and their needs."
       },
       {
         "title": "Build for production",
-        "description": "The same decisions carried into code: responsive, fast, accessible and maintainable. Specialists join for backend, QA or SEO when the project needs them."
+        "description": "We turn the design into fast, responsive and maintainable code. When needed, trusted specialists join the project."
       },
       {
-        "title": "Launch, learn, improve",
-        "description": "Deployment, measurement and ongoing improvements after go-live, so the product keeps pace with the business."
+        "title": "Launch and improve",
+        "description": "We launch, measure what works and keep improving the product as your business grows."
       }
     ]
   },
@@ -125,8 +125,8 @@
         "Websites"
       ],
       "title": "Commercial websites",
-      "description": "Front-end builds for hospitality, automotive and education businesses - Ginosi, Benzeen Auto Parts, World Education and Brainstorm.",
-      "field": "Websites · 2018–now"
+      "description": "UI design and front-end work for hospitality, automotive, education and technology businesses — including Ginosi, Benzeen Auto Parts, World Education and Brainstorm.",
+      "field": "Websites · 2018–2020"
     }
   },
   "projects": {
@@ -894,8 +894,8 @@
     }
   },
   "yearsMap": {
-    "title": "Based in Armenia. Working across markets.",
-    "subtitle": "A snapshot of the places connected to the work.",
+    "title": "Based in Armenia. Working internationally.",
+    "subtitle": "A snapshot of the places connected to my work.",
     "mapAlt": "World map of places where Torchyan’s founder has worked with clients and teams",
     "listLabel": "Places of past work",
     "locations": {
@@ -3104,7 +3104,7 @@
     "cta": "Start a project"
   },
   "platforms": {
-    "label": "Platforms I’ve built on:",
+    "label": "Platforms & technologies I’ve worked with",
     "items": [
       "React",
       "Next.js",

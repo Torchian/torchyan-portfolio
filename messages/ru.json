@@ -2,34 +2,34 @@
   "meta": {
     "siteName": "Torchyan",
     "titleTemplate": "%s | Torchyan",
-    "defaultTitle": "Torchyan — Digital Product Studio",
-    "description": "Founder-led studio for websites and digital products. Strategy, UX, design and engineering carried from first direction to production — then improved after launch.",
-    "jobTitle": "Founder, Torchyan",
+    "defaultTitle": "Torchyan — студия цифровых продуктов",
+    "description": "Torchyan — студия дизайна и разработки сайтов и цифровых продуктов. UX/UI, фронтенд, дизайн-системы и реализация проектов от идеи до запуска.",
+    "jobTitle": "Основатель, Torchyan",
     "about": {
-      "title": "About",
-      "description": "Torchyan is led by Stepan Torchyan, a designer and UI engineer based in Armenia and working internationally."
+      "title": "Обо мне",
+      "description": "Степан Торчян — дизайнер, UI-инженер и основатель Torchyan. Работает из Армении над сайтами и цифровыми продуктами для международных клиентов."
     },
     "projects": {
-      "title": "Work",
-      "description": "Website and product interface work with Picsart, SoulOne, Smartbet, Ginosi, Benzeen Auto Parts, World Education and Brainstorm — each with the exact role and relationship."
+      "title": "Проекты",
+      "description": "Сайты и интерфейсы продуктов для Picsart, SoulOne, Smartbet, Ginosi, Benzeen Auto Parts, World Education и Brainstorm — с точной ролью и форматом сотрудничества в каждом."
     },
     "services": {
-      "title": "Services",
-      "description": "Websites, product interfaces, design systems and launch support — owned from direction to production by one accountable lead, with specialists when needed."
+      "title": "Услуги",
+      "description": "Сайты, интерфейсы продуктов, дизайн-системы и поддержка запуска — от направления до продакшена под ответственностью одного лидера, со специалистами, когда они нужны."
     },
     "contact": {
-      "title": "Contact",
-      "description": "Questions, collaborations or just saying hello: email, WhatsApp, Telegram, LinkedIn or Instagram, or a short message."
+      "title": "Контакты",
+      "description": "Вопросы, сотрудничество или просто привет: email, WhatsApp, Telegram, LinkedIn, Instagram или короткое сообщение."
     },
     "startProject": {
-      "title": "Start a project",
-      "description": "Tell Torchyan what you’re building or what needs to change. You’ll get a reply within 2 business days."
+      "title": "Начать проект",
+      "description": "Расскажите о проекте, который хотите создать или улучшить. Я отвечу в течение двух рабочих дней."
     },
     "privacy": {
-      "title": "Privacy notice",
-      "description": "How Torchyan handles the personal data you send through this website."
+      "title": "Политика конфиденциальности",
+      "description": "Как Torchyan обрабатывает персональные данные, которые Вы отправляете через этот сайт."
     },
-    "projectNotFound": "Project not found"
+    "projectNotFound": "Проект не найден"
   },
   "common": {
     "skipToContent": "Перейти к содержимому",
@@ -42,10 +42,10 @@
   },
   "nav": {
     "home": "Главная",
-    "services": "Services",
-    "projects": "Work",
+    "services": "Услуги",
+    "projects": "Проекты",
     "about": "Обо мне",
-    "contact": "Contact",
+    "contact": "Контакты",
     "mainLabel": "Основная навигация",
     "menuLabel": "Меню",
     "openMenu": "Открыть меню",
@@ -70,63 +70,63 @@
   },
   "hero": {
     "name": "Torchyan",
-    "role": "Digital Product Studio",
-    "description": "Design & engineering for websites and digital products — from first direction to production code, led by one accountable founder.",
-    "cta": "Start a project",
-    "secondaryCta": "See the work",
-    "skillsLabel": "How a project moves",
+    "role": "Студия цифровых продуктов",
+    "description": "Дизайн и разработка сайтов и цифровых продуктов — от первой идеи до полноценной реализации.",
+    "cta": "Начать проект",
+    "secondaryCta": "Смотреть проекты",
+    "skillsLabel": "От идеи до запуска",
     "skills": [
-      "Discovery",
-      "Strategy",
+      "Исследование",
+      "Стратегия",
       "UX",
-      "Design",
-      "Engineering",
-      "Launch",
-      "Improvement"
+      "Дизайн",
+      "Разработка",
+      "Запуск",
+      "Развитие"
     ]
   },
   "whatIDo": {
-    "title": "How a project runs",
-    "subtitle": "One continuous chain, from the first question to the live product — no handoffs where quality gets lost.",
+    "title": "Как мы работаем",
+    "subtitle": "От первого разговора до готового продукта — все этапы связаны между собой.",
     "steps": [
       {
-        "title": "Understand the business",
-        "description": "We start with what the business needs to achieve, who it serves and what’s in the way — before anything is designed."
+        "title": "Разобраться в бизнесе",
+        "description": "Сначала разбираемся в ваших целях, аудитории и задачах, которые предстоит решить."
       },
       {
-        "title": "Shape the structure",
-        "description": "Content, user flows and information architecture are set up so the product can grow without losing clarity."
+        "title": "Выстроить структуру",
+        "description": "Продумываем контент, пользовательские сценарии и структуру, прежде чем переходить к визуальному дизайну."
       },
       {
-        "title": "Design the experience",
-        "description": "Interfaces designed around real content and real users — clear, accessible and consistent."
+        "title": "Спроектировать интерфейс",
+        "description": "Создаём понятные, доступные и последовательные интерфейсы с учётом реальных потребностей пользователей."
       },
       {
-        "title": "Build for production",
-        "description": "The same decisions carried into code: responsive, fast, accessible and maintainable. Specialists join for backend, QA or SEO when the project needs them."
+        "title": "Реализовать в коде",
+        "description": "Превращаем дизайн в быстрый, адаптивный и удобный в поддержке продукт. При необходимости подключаем профильных специалистов."
       },
       {
-        "title": "Launch and improve",
-        "description": "Deployment, measurement and ongoing improvements after go-live, so the product keeps pace with the business."
+        "title": "Запустить и развивать",
+        "description": "Запускаем продукт, анализируем результаты и продолжаем его улучшать по мере развития бизнеса."
       }
     ]
   },
   "selectedWork": {
-    "title": "Selected work",
-    "subtitle": "Product companies, a brand I helped build and direct clients — each with the exact role.",
-    "viewCase": "View case",
-    "viewAllCases": "View all work",
+    "title": "Избранные проекты",
+    "subtitle": "Продуктовая разработка, проекты для клиентов и бренды, в развитии которых я участвовал.",
+    "viewCase": "Смотреть кейс",
+    "viewAllCases": "Все проекты",
     "allProjects": {
-      "company": "All work",
+      "company": "Все проекты",
       "roles": [
-        "Design",
-        "UI development",
+        "Дизайн",
+        "UI-разработка",
         "Front-end",
-        "Websites"
+        "Сайты"
       ],
-      "title": "Commercial websites",
-      "description": "Front-end builds for hospitality, automotive and education businesses — Ginosi, Benzeen Auto Parts, World Education and Brainstorm.",
-      "field": "Websites · 2018–now"
+      "title": "Дизайн и разработка",
+      "description": "Дизайн интерфейсов и фронтенд-разработка для компаний в сфере гостеприимства, автомобилей, образования и технологий — включая Ginosi, Benzeen Auto Parts, World Education и Brainstorm.",
+      "field": "Сайты · 2018–2020"
     }
   },
   "projects": {
@@ -883,28 +883,28 @@
     ]
   },
   "trustedBy": {
-    "title": "Who I’ve worked with",
-    "subtitle": "Direct clients, employers and projects through partner companies — every relationship shown as it was.",
+    "title": "С кем я работал",
+    "subtitle": "Опыт работы в компаниях, проекты для клиентов, собственные инициативы и сотрудничество с командами.",
     "groups": {
-      "clients": "Direct clients",
-      "employers": "Employers",
-      "partners": "Through partner companies",
-      "product": "Product",
-      "teaching": "Teaching"
+      "clients": "Прямые клиенты",
+      "employers": "Работодатели",
+      "partners": "Через партнёров",
+      "product": "Продуктовые проекты",
+      "teaching": "Преподавание"
     }
   },
   "yearsMap": {
-    "title": "Based in Armenia. Working across markets.",
-    "subtitle": "Places I’ve worked with, for or through — not offices.",
-    "mapAlt": "World map of places where Torchyan’s founder has worked with clients and teams",
-    "listLabel": "Places of past work",
+    "title": "Работаю из Армении. Сотрудничаю с клиентами по всему миру.",
+    "subtitle": "География проектов и профессионального сотрудничества.",
+    "mapAlt": "Карта мира с местами, где основатель Torchyan работал с клиентами и командами",
+    "listLabel": "Места прошлых работ",
     "locations": {
       "yerevan": "Ереван, Армения",
       "sanFrancisco": "Сан-Франциско, США",
       "newYork": "Нью-Йорк, США",
-      "miami": "Miami, USA",
-      "dortmund": "Dortmund, Germany",
-      "australia": "Australia",
+      "miami": "Майами, США",
+      "dortmund": "Дортмунд, Германия",
+      "australia": "Австралия",
       "moscow": "Москва, Россия",
       "cyprus": "Кипр"
     }
@@ -957,19 +957,19 @@
     "trapLabel": "Leave this field empty"
   },
   "footer": {
-    "srName": "Torchyan — Digital Product Studio, led by Stepan Torchyan",
-    "primary": "Studio",
+    "srName": "Torchyan — студия цифровых продуктов под руководством Степана Торчяна",
+    "primary": "Студия",
     "social": "Соцсети",
-    "contacts": "Contact",
+    "contacts": "Контакты",
     "location": "Ереван, Армения",
-    "copyright": "© {year} Torchyan",
+    "copyright": "© {year} Torchyan. Все права защищены",
     "links": {
-      "services": "Services",
-      "projects": "Work",
+      "services": "Услуги",
+      "projects": "Проекты",
       "about": "Обо мне",
-      "startProject": "Start a project",
-      "contact": "Contact",
-      "privacy": "Privacy"
+      "startProject": "Начать проект",
+      "contact": "Контакты",
+      "privacy": "Политика конфиденциальности"
     }
   },
   "partners": {
@@ -3058,8 +3058,8 @@
     }
   },
   "caseMedia": {
-    "play": "Play video",
-    "pause": "Pause video"
+    "play": "Воспроизвести видео",
+    "pause": "Поставить видео на паузу"
   },
   "talkPage": {
     "title": "Let’s talk",
@@ -3104,7 +3104,7 @@
     "cta": "Start a project"
   },
   "platforms": {
-    "label": "Platforms I’ve built on:",
+    "label": "Платформы и технологии, с которыми я работал",
     "items": [
       "React",
       "Next.js",
