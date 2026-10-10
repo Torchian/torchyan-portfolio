@@ -321,10 +321,12 @@ function startMusic() {
   const source = ctx.createBufferSource();
   source.buffer = sound.buffer;
   source.loop = true;
-  source.loopStart = sound.offset;
   /* Safari keeps the AAC priming silence, so the loop is measured from the first
-     audible sample; clamped in case a decoder hands back a shorter buffer. */
-  source.loopEnd = Math.min(sound.offset + MUSIC.loopSeconds, sound.buffer.duration);
+     audible sample, past the file's pre-roll; clamped in case a decoder hands
+     back a shorter buffer. */
+  const from = sound.offset + MUSIC.loopStart;
+  source.loopStart = from;
+  source.loopEnd = Math.min(from + MUSIC.loopSeconds, sound.buffer.duration);
 
   const gain = ctx.createGain();
   gain.gain.value = 0;
@@ -332,7 +334,7 @@ function startMusic() {
   gain.connect(channel);
 
   music = { source, gain };
-  source.start(ctx.currentTime, sound.offset);
+  source.start(ctx.currentTime, from);
   rampMusic(MUSIC.volume, MUSIC_FADE_IN_S);
 }
 
