@@ -2,34 +2,34 @@
   "meta": {
     "siteName": "Torchyan",
     "titleTemplate": "%s | Torchyan",
-    "defaultTitle": "Torchyan — Digital Product Studio",
-    "description": "Founder-led studio for websites and digital products. Strategy, UX, design and engineering carried from first direction to production — then improved after launch.",
-    "jobTitle": "Founder, Torchyan",
+    "defaultTitle": "Torchyan — թվային պրոդուկտների ստուդիա",
+    "description": "Torchyan-ը կայքերի և թվային պրոդուկտների դիզայնի ու մշակման ստուդիա է։ UX/UI, Front-end, դիզայն համակարգեր և նախագծերի իրականացում՝ գաղափարից մինչև գործարկում։",
+    "jobTitle": "Հիմնադիր, Torchyan",
     "about": {
       "title": "Իմ մասին",
-      "description": "Torchyan is led by Stepan Torchyan, a designer and UI engineer based in Armenia and working internationally."
+      "description": "Ստեփան Թոռչյանը դիզայներ, UI ինժեներ և Torchyan-ի հիմնադիրն է։ Հայաստանից աշխատում է կայքերի և թվային պրոդուկտների վրա՝ համագործակցելով միջազգային հաճախորդների հետ։"
     },
     "projects": {
-      "title": "Work",
-      "description": "Website and product interface work with Picsart, SoulOne, Smartbet, Ginosi, Benzeen Auto Parts, World Education and Brainstorm — each with the exact role and relationship."
+      "title": "Նախագծեր",
+      "description": "Կայքեր և պրոդուկտների ինտերֆեյսներ Picsart-ի, SoulOne-ի, Smartbet-ի, Ginosi-ի, Benzeen Auto Parts-ի, World Education-ի և Brainstorm-ի համար՝ յուրաքանչյուրում ճշգրիտ դերով և համագործակցության ձևաչափով։"
     },
     "services": {
-      "title": "Services",
-      "description": "Websites, product interfaces, design systems and launch support — owned from direction to production by one accountable lead, with specialists when needed."
+      "title": "Ծառայություններ",
+      "description": "Կայքեր, պրոդուկտների ինտերֆեյսներ, դիզայն համակարգեր և գործարկման աջակցություն՝ ուղղությունից մինչև պրոդակշն, մեկ պատասխանատու ղեկավարի ներքո, անհրաժեշտության դեպքում՝ մասնագետների հետ։"
     },
     "contact": {
-      "title": "Contact",
-      "description": "Questions, collaborations or just saying hello: email, WhatsApp, Telegram, LinkedIn or Instagram, or a short message."
+      "title": "Կապ",
+      "description": "Հարցեր, համագործակցություն կամ պարզապես ողջույն՝ email, WhatsApp, Telegram, LinkedIn, Instagram կամ կարճ հաղորդագրություն։"
     },
     "startProject": {
-      "title": "Start a project",
-      "description": "Tell Torchyan what you’re building or what needs to change. You’ll get a reply within 2 business days."
+      "title": "Սկսել նախագիծ",
+      "description": "Պատմեք, թե ինչ եք ցանկանում ստեղծել կամ բարելավել։ Կպատասխանեմ երկու աշխատանքային օրվա ընթացքում։"
     },
     "privacy": {
-      "title": "Privacy notice",
-      "description": "How Torchyan handles the personal data you send through this website."
+      "title": "Գաղտնիության քաղաքականություն",
+      "description": "Ինչպես է Torchyan-ը մշակում այն անձնական տվյալները, որոնք Դուք ուղարկում եք այս կայքի միջոցով։"
     },
-    "projectNotFound": "Project not found"
+    "projectNotFound": "Նախագիծը չի գտնվել"
   },
   "common": {
     "skipToContent": "Անցնել բովանդակությանը",
@@ -42,10 +42,10 @@
   },
   "nav": {
     "home": "Գլխավոր",
-    "services": "Services",
-    "projects": "Work",
+    "services": "Ծառայություններ",
+    "projects": "Նախագծեր",
     "about": "Իմ մասին",
-    "contact": "Contact",
+    "contact": "Կապ",
     "mainLabel": "Հիմնական նավիգացիա",
     "menuLabel": "Մենյու",
     "openMenu": "Բացել մենյուն",
@@ -70,63 +70,63 @@
   },
   "hero": {
     "name": "Torchyan",
-    "role": "Digital Product Studio",
-    "description": "Design & engineering for websites and digital products — from first direction to production code, led by one accountable founder.",
-    "cta": "Start a project",
-    "secondaryCta": "See the work",
-    "skillsLabel": "How a project moves",
+    "role": "Թվային պրոդուկտների ստուդիա",
+    "description": "Կայքերի և թվային պրոդուկտների դիզայն ու մշակում՝ առաջին գաղափարից մինչև գործարկման պատրաստ արդյունք։",
+    "cta": "Սկսել նախագիծ",
+    "secondaryCta": "Տեսնել նախագծերը",
+    "skillsLabel": "Գաղափարից մինչև գործարկում",
     "skills": [
-      "Discovery",
-      "Strategy",
+      "Հետազոտություն",
+      "Ռազմավարություն",
       "UX",
-      "Design",
-      "Engineering",
-      "Launch",
-      "Improvement"
+      "Դիզայն",
+      "Ծրագրավորում",
+      "Գործարկում",
+      "Բարելավում"
     ]
   },
   "whatIDo": {
-    "title": "How a project runs",
-    "subtitle": "One continuous chain, from the first question to the live product — no handoffs where quality gets lost.",
+    "title": "Ինչպես ենք աշխատում",
+    "subtitle": "Առաջին քննարկումից մինչև պատրաստի պրոդուկտ՝ բոլոր փուլերը փոխկապակցված են։",
     "steps": [
       {
-        "title": "Understand the business",
-        "description": "We start with what the business needs to achieve, who it serves and what’s in the way — before anything is designed."
+        "title": "Հասկանալ բիզնեսը",
+        "description": "Սկզբում հասկանում ենք ձեր նպատակները, լսարանը և այն խնդիրները, որոնք պետք է լուծել։"
       },
       {
-        "title": "Shape the structure",
-        "description": "Content, user flows and information architecture are set up so the product can grow without losing clarity."
+        "title": "Մշակել կառուցվածքը",
+        "description": "Մշակում ենք բովանդակությունը, օգտատիրոջ քայլերի հաջորդականությունն ու կառուցվածքը՝ նախքան վիզուալ դիզայնին անցնելը։"
       },
       {
-        "title": "Design the experience",
-        "description": "Interfaces designed around real content and real users — clear, accessible and consistent."
+        "title": "Նախագծել ինտերֆեյսը",
+        "description": "Ստեղծում ենք հասկանալի, հասանելի և հետևողական ինտերֆեյսներ՝ հաշվի առնելով օգտատերերի իրական կարիքները։"
       },
       {
-        "title": "Build for production",
-        "description": "The same decisions carried into code: responsive, fast, accessible and maintainable. Specialists join for backend, QA or SEO when the project needs them."
+        "title": "Իրականացնել ծրագրային լուծումը",
+        "description": "Դիզայնը վերածում ենք արագ, հարմարվող և հեշտ սպասարկվող ծրագրային լուծման։ Անհրաժեշտության դեպքում նախագծին միանում են համապատասխան մասնագետներ։"
       },
       {
-        "title": "Launch and improve",
-        "description": "Deployment, measurement and ongoing improvements after go-live, so the product keeps pace with the business."
+        "title": "Գործարկել և զարգացնել",
+        "description": "Գործարկում ենք պրոդուկտը, վերլուծում արդյունքները և շարունակում բարելավել այն՝ բիզնեսի զարգացմանը զուգընթաց։"
       }
     ]
   },
   "selectedWork": {
-    "title": "Selected work",
-    "subtitle": "Product companies, a brand I helped build and direct clients — each with the exact role.",
-    "viewCase": "View case",
-    "viewAllCases": "View all work",
+    "title": "Ընտրված նախագծեր",
+    "subtitle": "Աշխատանք թվային պրոդուկտների վրա, հաճախորդների նախագծեր և բրենդներ, որոնց զարգացմանը մասնակցել եմ։",
+    "viewCase": "Դիտել քեյսը",
+    "viewAllCases": "Բոլոր նախագծերը",
     "allProjects": {
-      "company": "All work",
+      "company": "Բոլոր նախագծերը",
       "roles": [
-        "Design",
-        "UI development",
+        "Դիզայն",
+        "UI ծրագրավորում",
         "Front-end",
-        "Websites"
+        "Կայքեր"
       ],
-      "title": "Commercial websites",
-      "description": "Front-end builds for hospitality, automotive and education businesses — Ginosi, Benzeen Auto Parts, World Education and Brainstorm.",
-      "field": "Websites · 2018–now"
+      "title": "Դիզայն և ծրագրավորում",
+      "description": "Ինտերֆեյսների դիզայն և Front-end ծրագրավորում՝ հյուրընկալության, ավտոմոբիլային, կրթության և տեխնոլոգիաների ոլորտների ընկերությունների համար, այդ թվում՝ Ginosi, Benzeen Auto Parts, World Education և Brainstorm։",
+      "field": "Կայքեր · 2018–2020"
     }
   },
   "projects": {
@@ -883,28 +883,28 @@
     ]
   },
   "trustedBy": {
-    "title": "Who I’ve worked with",
-    "subtitle": "Direct clients, employers and projects through partner companies — every relationship shown as it was.",
+    "title": "Ում հետ եմ աշխատել",
+    "subtitle": "Աշխատանք տարբեր ընկերություններում, հաճախորդների նախագծեր, սեփական նախաձեռնություններ և համագործակցություն թիմերի հետ։",
     "groups": {
-      "clients": "Direct clients",
-      "employers": "Employers",
-      "partners": "Through partner companies",
-      "product": "Product",
-      "teaching": "Teaching"
+      "clients": "Անմիջական հաճախորդներ",
+      "employers": "Գործատուներ",
+      "partners": "Գործընկեր ընկերությունների միջոցով",
+      "product": "Պրոդուկտային նախագծեր",
+      "teaching": "Դասավանդում"
     }
   },
   "yearsMap": {
-    "title": "Based in Armenia. Working across markets.",
-    "subtitle": "Places I’ve worked with, for or through — not offices.",
-    "mapAlt": "World map of places where Torchyan’s founder has worked with clients and teams",
-    "listLabel": "Places of past work",
+    "title": "Աշխատում եմ Հայաստանից։ Համագործակցում եմ հաճախորդների հետ ամբողջ աշխարհում։",
+    "subtitle": "Իմ նախագծերի և մասնագիտական համագործակցությունների աշխարհագրությունը։",
+    "mapAlt": "Աշխարհի քարտեզ՝ այն վայրերով, որտեղ Torchyan-ի հիմնադիրն աշխատել է հաճախորդների և թիմերի հետ",
+    "listLabel": "Նախկին աշխատանքների վայրեր",
     "locations": {
       "yerevan": "Երևան, Հայաստան",
       "sanFrancisco": "Սան Ֆրանցիսկո, ԱՄՆ",
       "newYork": "Նյու Յորք, ԱՄՆ",
-      "miami": "Miami, USA",
-      "dortmund": "Dortmund, Germany",
-      "australia": "Australia",
+      "miami": "Մայամի, ԱՄՆ",
+      "dortmund": "Դորտմունդ, Գերմանիա",
+      "australia": "Ավստրալիա",
       "moscow": "Մոսկվա, Ռուսաստան",
       "cyprus": "Կիպրոս"
     }
@@ -957,19 +957,19 @@
     "trapLabel": "Leave this field empty"
   },
   "footer": {
-    "srName": "Torchyan — Digital Product Studio, led by Stepan Torchyan",
-    "primary": "Studio",
+    "srName": "Torchyan — թվային պրոդուկտների ստուդիա՝ Ստեփան Թոռչյանի ղեկավարությամբ",
+    "primary": "Ստուդիա",
     "social": "Սոցիալական ցանցեր",
-    "contacts": "Contact",
+    "contacts": "Կապ",
     "location": "Երևան, Հայաստան",
-    "copyright": "© {year} Torchyan",
+    "copyright": "© {year} Torchyan. Բոլոր իրավունքները պաշտպանված են",
     "links": {
-      "services": "Services",
-      "projects": "Work",
+      "services": "Ծառայություններ",
+      "projects": "Նախագծեր",
       "about": "Իմ մասին",
-      "startProject": "Start a project",
-      "contact": "Contact",
-      "privacy": "Privacy"
+      "startProject": "Սկսել նախագիծ",
+      "contact": "Կապ",
+      "privacy": "Գաղտնիության քաղաքականություն"
     }
   },
   "partners": {
@@ -3058,8 +3058,8 @@
     }
   },
   "caseMedia": {
-    "play": "Play video",
-    "pause": "Pause video"
+    "play": "Միացնել տեսանյութը",
+    "pause": "Դադարեցնել տեսանյութը"
   },
   "talkPage": {
     "title": "Let’s talk",
@@ -3104,7 +3104,7 @@
     "cta": "Start a project"
   },
   "platforms": {
-    "label": "Platforms I’ve built on:",
+    "label": "Հարթակներ և տեխնոլոգիաներ, որոնցով աշխատել եմ",
     "items": [
       "React",
       "Next.js",

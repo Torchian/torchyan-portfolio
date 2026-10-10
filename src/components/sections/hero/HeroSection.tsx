@@ -147,11 +147,10 @@ const Role = styled.p`
   letter-spacing: ${letterSpacing.xs}px;
   color: ${accents.primary};
 
-  /* "Digital Product Studio" is wider than the old role line: let it wrap on
-     the narrowest phones rather than run off the screen. */
-  ${media.up('s')} {
-    white-space: nowrap;
-  }
+  /* Wraps, evenly, when the line is wider than the screen: "Digital Product
+     Studio" fits on one line at every width, but the Russian and Armenian
+     taglines don't below about 1300px. */
+  text-wrap: balance;
 
   ${media.up('m')} {
     margin: ${spacing[400]}px 0 ${spacing[300]}px;
