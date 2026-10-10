@@ -1,5 +1,6 @@
 'use client';
 
+import { preload } from 'react-dom';
 import styled, { keyframes } from 'styled-components';
 import { media } from '@/styles/media';
 
@@ -32,7 +33,8 @@ import { media } from '@/styles/media';
  * instead of twenty, and nothing to lay out at runtime.
  */
 
-const GRID_SRC = "url('/projects/logo-scroll/grid.webp')";
+const GRID = '/projects/logo-scroll/grid.webp';
+const GRID_SRC = `url('${GRID}')`;
 const MASK_SRC = "url('/projects/logo-scroll/mask.svg')";
 
 const TOUCH = '@media (hover: none), (pointer: coarse)';
@@ -125,6 +127,11 @@ const Pan = styled.div`
 `;
 
 export function LogoScroll() {
+  // The grid is the Work page's largest paint, but as a CSS background the
+  // browser only finds it once styles apply. Asking for it in the <head> starts
+  // it with the HTML.
+  preload(GRID, { as: 'image', fetchPriority: 'high' });
+
   return (
     <Wrapper aria-hidden>
       <Pan />

@@ -353,17 +353,19 @@ export function WhatIDoSection() {
             </StickyCharacterWrapper2>
 
             <EllipseGlow />
+            {/* Below the hero: low priority, so React doesn't preload them in the
+                <head> ahead of it. They still load straight away, not lazily. */}
             <GridBackground>
-              <img src={WHATIDO_GRID} alt="" />
+              <img src={WHATIDO_GRID} alt="" fetchPriority="low" />
             </GridBackground>
             <Bg1 ref={boardRef}>
-              <img src={STEP_BACKGROUNDS[0]} alt="" />
+              <img src={STEP_BACKGROUNDS[0]} alt="" fetchPriority="low" />
             </Bg1>
             <Bg2>
-              <img src={STEP_BACKGROUNDS[1]} alt="" />
+              <img src={STEP_BACKGROUNDS[1]} alt="" fetchPriority="low" />
             </Bg2>
             <Bg3 ref={squareRef}>
-              <img src={STEP_BACKGROUNDS[2]} alt="" />
+              <img src={STEP_BACKGROUNDS[2]} alt="" fetchPriority="low" />
             </Bg3>
             <Bg4Glass />
           </VisualsColumn>

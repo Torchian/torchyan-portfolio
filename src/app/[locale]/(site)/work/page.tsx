@@ -8,6 +8,10 @@ import { PerspectiveSection } from '@/components/sections/projects-page/Perspect
 import { CollaborationSection } from '@/components/sections/projects-page/CollaborationSection';
 import { resolveLocale, type LocaleParams } from '@/i18n/server';
 import { generatePageMetadata } from '@/lib/seo/metadata';
+import { PageMessages } from '@/i18n/ClientMessages';
+
+/** The translations this page's client components read (see ClientMessages.tsx). */
+const MESSAGES = ['projectsPage', 'projects'] as const;
 
 export async function generateMetadata({ params }: LocaleParams): Promise<Metadata> {
   const locale = await resolveLocale(params);
@@ -25,17 +29,20 @@ export async function generateMetadata({ params }: LocaleParams): Promise<Metada
  * Figma: Projects Page (section 3155:8425) — Desktop 1920 (3155:9789), Desktop
  * 1440 (3753:11170), Tablet 1024 (3753:14691), Mobile 480 (3753:17708).
  */
+
 export default async function ProjectsPage({ params }: LocaleParams) {
   await resolveLocale(params);
 
   return (
-    <main id="main-content">
-      <ProjectsHeroSection />
-      <ProjectsListSection />
-      <MoreProjectsSection />
-      <PartnersCarousel />
-      <PerspectiveSection />
-      <CollaborationSection tight />
-    </main>
+    <PageMessages namespaces={MESSAGES}>
+      <main id="main-content">
+        <ProjectsHeroSection />
+        <ProjectsListSection />
+        <MoreProjectsSection />
+        <PartnersCarousel />
+        <PerspectiveSection />
+        <CollaborationSection tight />
+      </main>
+    </PageMessages>
   );
 }

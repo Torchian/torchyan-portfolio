@@ -525,12 +525,14 @@ export function Footer() {
         <NameBlock aria-hidden>
           <Wordmark>
             <div>
-              <img {...WORDMARK} alt="" />
+              {/* The footer is never above the fold: low priority keeps React from
+                  preloading its artwork in every page's <head>. */}
+              <img {...WORDMARK} alt="" fetchPriority="low" />
             </div>
           </Wordmark>
           <Tagline>
-            <img {...TAGLINE} src={taglineFile(TAGLINE.src, locale)} alt="" />
-            <img {...TAGLINE_ROW} src={taglineFile(TAGLINE_ROW.src, locale)} alt="" />
+            <img {...TAGLINE} src={taglineFile(TAGLINE.src, locale)} alt="" fetchPriority="low" />
+            <img {...TAGLINE_ROW} src={taglineFile(TAGLINE_ROW.src, locale)} alt="" fetchPriority="low" />
           </Tagline>
         </NameBlock>
 
@@ -579,7 +581,7 @@ export function Footer() {
             </Group>
 
             <Location>
-              <img src="/footer/location-pin.svg" alt="" aria-hidden />
+              <img src="/footer/location-pin.svg" alt="" aria-hidden fetchPriority="low" />
               <span>{t('location')}</span>
             </Location>
           </Groups>

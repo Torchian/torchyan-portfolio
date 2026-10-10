@@ -549,22 +549,30 @@ export function installSound(): () => void {
   };
   for (const type of NUDGES) window.addEventListener(type, onNudge, { capture: true, passive: true, once: true });
 
-  resumeFromPreference();
-
-  // Have the bytes ready before the first gesture, so unlocking only has to decode.
-  const prefetch = () => {
+  // Sound is on by default, so this is every visitor's first page: ~1.3 MB of
+  // audio. None of it can play before a gesture anyway, so it waits for the
+  // page's own load (images, the LCP among them) and then for an idle moment,
+  // instead of competing with them for the connection. A gesture before then
+  // builds the graph straight away (onGesture), which starts the decodes.
+  const settle = () => {
+    // Have the bytes ready before the first gesture, so unlocking only has to decode.
     for (const src of wantedFiles()) void download(src);
+    resumeFromPreference();
   };
   const hasIdleCallback = typeof window.requestIdleCallback === 'function';
-  const handle = hasIdleCallback
-    ? window.requestIdleCallback(prefetch)
-    : window.setTimeout(prefetch, IDLE_FALLBACK_MS);
+  let handle = 0;
+  const schedule = () => {
+    handle = hasIdleCallback ? window.requestIdleCallback(settle) : window.setTimeout(settle, IDLE_FALLBACK_MS);
+  };
+  if (document.readyState === 'complete') schedule();
+  else window.addEventListener('load', schedule, { once: true });
 
   return () => {
     for (const type of GESTURES) window.removeEventListener(type, onGesture, { capture: true });
     dropNudges();
     document.removeEventListener('visibilitychange', onVisibilityChange);
     window.removeEventListener('pageshow', onPageShow);
+    window.removeEventListener('load', schedule);
     if (hasIdleCallback) window.cancelIdleCallback(handle);
     else window.clearTimeout(handle);
     teardownAudio();

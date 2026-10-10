@@ -310,8 +310,10 @@ export function TrustedBySection() {
                     <Logo key={item.name} $height={item.height} $boxed={item.boxed} {...SOFT_HOVER}>
                       {/* Not lazy: an unsized SVG lays out 0px wide until it loads, and a
                           0-wide lazy image is never seen to enter the viewport, so it never
-                          loads. Fifteen small SVGs, all below the fold. */}
-                      <img src={item.src} alt={item.name} decoding="async" />
+                          loads. Fifteen small SVGs, all below the fold, so low priority:
+                          without it React preloads every one of them in the <head>,
+                          ahead of the hero. */}
+                      <img src={item.src} alt={item.name} decoding="async" fetchPriority="low" />
                     </Logo>
                   ))}
                 </LogoRow>
