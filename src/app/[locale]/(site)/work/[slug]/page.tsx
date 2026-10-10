@@ -53,6 +53,14 @@ export default async function ProjectPage({ params }: PageProps) {
   // (caseStudyConfig.ts) and copy (caseStudy.<slug>) — Picsart today. Every
   // other project gets the short case: hero, a labelled story
   // (projects.<slug>.story) and its screenshots.
+  // The second closing card steps through the work, wrapping at either end.
+  const at = PROJECTS.findIndex((p) => p.slug === project.slug);
+  const step = (offset: number) => {
+    const p = PROJECTS[(at + offset + PROJECTS.length) % PROJECTS.length];
+    return { name: p.company, href: `/work/${p.slug}` };
+  };
+  const pager = { previous: step(-1), next: step(1) };
+
   const imagery = CASE_STUDIES[project.slug];
   const caseCopies = (await getMessages({ locale })).caseStudy as Record<string, CaseStudyCopy> | undefined;
   const copy = caseCopies?.[project.slug];
@@ -63,7 +71,7 @@ export default async function ProjectPage({ params }: PageProps) {
         <CaseStudyTimeline copy={copy.timeline} gallery={imagery.timeline} />
         {copy.blueprint && <CaseStudyBlueprint copy={copy.blueprint} />}
         {copy.architecture && <CaseStudyArchitecture copy={copy.architecture} images={imagery.useCases} />}
-        <CollaborationSection ctaId={`case-${project.slug}`} tight />
+        <CollaborationSection ctaId={`case-${project.slug}`} tight pager={pager} />
         <TrackCaseView slug={project.slug} />
       </main>
     );
@@ -73,7 +81,7 @@ export default async function ProjectPage({ params }: PageProps) {
     <main id="main-content">
       <CaseStudyHeroSection project={project} />
       <CaseStudyBodySection project={project} />
-      <CollaborationSection ctaId={`case-${project.slug}`} tight />
+      <CollaborationSection ctaId={`case-${project.slug}`} tight pager={pager} />
       <TrackCaseView slug={project.slug} />
     </main>
   );

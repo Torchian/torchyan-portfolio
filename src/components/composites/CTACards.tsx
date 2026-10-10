@@ -96,6 +96,25 @@ const CardBody = styled.p`
   }
 `;
 
+/** A row of CTAs, side by side and wrapping; each takes the full width on a phone. */
+const CtaRow = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: ${spacing[200]}px;
+  width: 100%;
+
+  ${media.down('m')} {
+    flex-direction: column;
+    align-items: center;
+
+    && > a {
+      width: 100%;
+      max-width: 320px;
+    }
+  }
+`;
+
 /** The pink card's CTA is a fixed 250px wide in the design. */
 const FixedCta = styled.div`
   display: flex;
@@ -114,6 +133,13 @@ const FixedCta = styled.div`
   }
 `;
 
+export interface CTACardLink {
+  label: string;
+  href: string;
+  /** Names the click in analytics (`cta_click` location). */
+  ctaId?: string;
+}
+
 export interface CTACardContent {
   tone: CTATone;
   title: string;
@@ -122,6 +148,8 @@ export interface CTACardContent {
   href: string;
   /** Names the click in analytics (`cta_click` location). */
   ctaId?: string;
+  /** In place of the one CTA: a row of them (a case's previous and next project). */
+  links?: CTACardLink[];
 }
 
 export function CTACards({ cards, className }: { cards: CTACardContent[]; className?: string }) {
@@ -144,7 +172,25 @@ export function CTACards({ cards, className }: { cards: CTACardContent[]; classN
               <CardTitle $tone={card.tone}>{card.title}</CardTitle>
               <CardBody>{card.body}</CardBody>
             </CardText>
-            {card.tone === 'pink' ? <FixedCta>{button}</FixedCta> : button}
+            {card.links ? (
+              <CtaRow>
+                {card.links.map((link, i) => (
+                  <Button
+                    key={link.href}
+                    as={Link}
+                    href={link.href}
+                    $variant={i === card.links!.length - 1 ? (card.tone === 'green' ? 'secondary' : 'secondaryPink') : 'primary'}
+                    data-cta={link.ctaId}
+                  >
+                    {link.label}
+                  </Button>
+                ))}
+              </CtaRow>
+            ) : card.tone === 'pink' ? (
+              <FixedCta>{button}</FixedCta>
+            ) : (
+              button
+            )}
           </Card>
         );
       })}

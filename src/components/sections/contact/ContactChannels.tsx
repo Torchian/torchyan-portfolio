@@ -8,7 +8,8 @@ import { VisuallyHidden } from '@/components/primitives';
 import { usePauseOffscreen } from '@/hooks';
 import { Character } from '@/components/composites/character/Character';
 import { useLookAtPointer } from '@/components/composites/character/useLookAtPointer';
-import { fontFamily, fontWeight, fontSize, letterSpacing } from '@/styles/tokens/typography';
+import { fontFamily, fontWeight, fontSize, lineHeight, letterSpacing } from '@/styles/tokens/typography';
+import { spacing } from '@/styles/tokens/spacing';
 import { accents, neutrals } from '@/styles/tokens/colors';
 import { media } from '@/styles/media';
 
@@ -408,12 +409,45 @@ const Body = styled.p`
 `;
 
 const Detail = styled.div`
-  gap: calc(24 * var(--u));
+  gap: max(6px, calc(24 * var(--u)));
 `;
 
 const Qr = styled.img`
   width: calc(110 * var(--u));
   height: calc(110 * var(--u));
+`;
+
+/**
+ * The chosen channel's own link, in the middle. On a touch screen the icons
+ * have no hover, so the first tap on one shows it here instead of leaving the
+ * page; this is what opens it. Only the shown one takes the pointer.
+ */
+const Open = styled.a`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  padding: ${spacing[50]}px ${spacing[200]}px;
+  border-radius: 999px;
+  background: ${accents.primary};
+  font-family: ${fontFamily.heading};
+  font-weight: ${fontWeight.semibold};
+  font-size: ${fontSize.body.m}px;
+  line-height: ${lineHeight.body.m}px;
+  letter-spacing: ${letterSpacing.s}px;
+  color: ${neutrals[100]};
+  text-decoration: none;
+  white-space: nowrap;
+  pointer-events: none;
+
+  [data-shown='true'] > & {
+    pointer-events: auto;
+  }
+
+  @container (width >= 560px) {
+    font-size: ${fontSize.body.l}px;
+    line-height: ${lineHeight.body.l}px;
+  }
 `;
 
 const Handle = styled.p`
@@ -549,9 +583,44 @@ export function ContactChannels({ titleAs = 'h2' }: ContactChannelsProps) {
     setActive(id);
   };
 
+  // Focus moving on to the middle's link keeps the channel: that's where it's going.
+  const frameRef = useRef<HTMLDivElement>(null);
   const onBlur = (event: FocusEvent<HTMLUListElement>) => {
-    if (!event.currentTarget.contains(event.relatedTarget as Node | null)) choose(null);
+    if (!frameRef.current?.contains(event.relatedTarget as Node | null)) choose(null);
   };
+
+  /*
+   * A tap is not a hover. With a mouse, pointing at an icon shows the channel
+   * and a click opens it; on a touch screen the first tap on an icon does what
+   * pointing does — lights it and shows it in the middle, with its link — and
+   * only a second tap on the same icon opens it. Whether it was already shown
+   * is read when the finger comes down, before the focus that the tap also
+   * brings has had a chance to show it.
+   */
+  const tapRef = useRef<{ touch: boolean; shown: boolean } | null>(null);
+  const onIconDown = (id: ChannelId) => (e: React.PointerEvent) => {
+    tapRef.current = { touch: e.pointerType !== 'mouse', shown: active === id };
+  };
+  const onIconClick = (id: ChannelId) => (e: React.MouseEvent) => {
+    const tap = tapRef.current;
+    tapRef.current = null;
+    if (!tap?.touch || tap.shown) return;
+    e.preventDefault();
+    choose(id);
+  };
+
+  // A tap anywhere off the icons and the middle's link puts the circle back to rest.
+  useEffect(() => {
+    if (!active) return;
+    const away = (e: PointerEvent) => {
+      if (e.pointerType === 'mouse') return;
+      const target = e.target as Element | null;
+      if (target?.closest('[data-outbound], [data-channel-open]')) return;
+      choose(null);
+    };
+    document.addEventListener('pointerdown', away);
+    return () => document.removeEventListener('pointerdown', away);
+  });
 
   const stageRef = usePauseOffscreen<HTMLDivElement>();
   const lit = CHANNELS.find((c) => c.id === active);
@@ -573,6 +642,7 @@ export function ContactChannels({ titleAs = 'h2' }: ContactChannelsProps) {
         ))}
       </Waves>
       <Frame
+        ref={frameRef}
         data-active={active !== null}
         onPointerLeave={(e) => {
           if (e.pointerType === 'mouse' && !e.currentTarget.contains(document.activeElement)) choose(null);
@@ -593,6 +663,15 @@ export function ContactChannels({ titleAs = 'h2' }: ContactChannelsProps) {
               <Title>{t(`items.${c.id}`)}</Title>
               <Qr src={`/contact/qr-${c.id}.svg`} alt="" width={110} height={110} loading="lazy" />
               <Handle>{c.handle}</Handle>
+              {/* The icons are the accessible links; this one is for the pointer. */}
+              <Open
+                href={c.href}
+                {...(c.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                tabIndex={-1}
+                data-channel-open={c.id}
+              >
+                {t(`actions.${c.id}`)}
+              </Open>
             </Detail>
           ))}
         </Middle>
@@ -620,6 +699,8 @@ export function ContactChannels({ titleAs = 'h2' }: ContactChannelsProps) {
                   data-on={active === c.id}
                   style={{ ...place(c.angle), '--icon-w': c.icon.width } as React.CSSProperties}
                   onPointerEnter={(e) => e.pointerType === 'mouse' && choose(c.id)}
+                  onPointerDown={onIconDown(c.id)}
+                  onClick={onIconClick(c.id)}
                   onFocus={() => choose(c.id)}
                 >
                   <img src={`/contact/${c.id}.svg`} alt="" width={c.icon.width} height={c.icon.height} />

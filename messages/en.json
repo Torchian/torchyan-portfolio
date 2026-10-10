@@ -1202,6 +1202,12 @@
         "cta": "See services"
       }
     },
+    "pager": {
+      "title": "Keep exploring",
+      "body": "The project before this one, or the next.",
+      "previous": "← {name}",
+      "next": "{name} →"
+    },
     "more": {
       "title": "More projects",
       "subtitle": "Smaller pieces of work: stores, products and tools, each with a short write-up."
@@ -3114,6 +3120,13 @@
         "telegram": "Telegram",
         "whatsapp": "WhatsApp",
         "email": "Email"
+      },
+      "actions": {
+        "instagram": "Open Instagram",
+        "linkedin": "Open LinkedIn",
+        "telegram": "Message on Telegram",
+        "whatsapp": "Message on WhatsApp",
+        "email": "Write an email"
       }
     },
     "form": {

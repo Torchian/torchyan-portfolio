@@ -226,6 +226,8 @@ const WORDS_FALLBACK = 248;
  */
 const WORDS_BELOW = spacing[600];
 const WORDS_GAP = spacing[100];
+/** How far the words travel as one step hands over to the next. */
+const WORDS_TRAVEL = spacing[300];
 
 const Figure = styled.div`
   position: relative;
@@ -505,13 +507,28 @@ export function WhatIDoMobileStage({ steps, hostRef }: WhatIDoMobileStageProps) 
           written.glow = glow;
         }
 
-        // The words leave and arrive on the same curve the drawing moves on.
+        /*
+         * The words hand over rather than cross-fade: the step that's leaving
+         * fades and lifts away in the first half of the change, and the next
+         * one rises into its place in the second, so the two are never on
+         * screen together. (A cross-fade laid both texts over each other.)
+         */
         for (let i = 0; i < stepRefs.current.length; i++) {
-          const next = i === index ? 1 - blend : i === index + 1 ? blend : 0;
+          const next =
+            i === index
+              ? -Math.min(1, blend * 2)
+              : i === index + 1
+                ? 1 - Math.max(0, blend * 2 - 1)
+                : i < index
+                  ? -1
+                  : 1;
           if (Math.abs(next - opacities[i]) < 0.005) continue;
           opacities[i] = next;
           const el = stepRefs.current[i];
-          if (el) el.style.opacity = next.toFixed(3);
+          if (!el) continue;
+          // 0 is in place; −1 has left upwards, 1 is still waiting below.
+          el.style.opacity = (1 - Math.abs(next)).toFixed(3);
+          el.style.transform = `translateY(${(next * WORDS_TRAVEL).toFixed(1)}px)`;
         }
       },
     });
