@@ -25,10 +25,11 @@ const Section = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: ${spacing[1000]}px 0;
+  /* Nothing under it of its own: the page's section gap alone leads on to the closing CTA. */
+  padding: ${spacing[1000]}px 0 0;
 
   ${media.down('m')} {
-    padding: ${spacing[600]}px 0;
+    padding: ${spacing[600]}px 0 0;
   }
 `;
 

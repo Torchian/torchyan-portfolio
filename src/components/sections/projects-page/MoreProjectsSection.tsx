@@ -1,23 +1,38 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import styled from 'styled-components';
-import { useMessages, useTranslations } from 'next-intl';
-import { SectionHeading } from '@/components/composites';
-import { Link } from '@/i18n/navigation';
-import { MORE_PROJECTS } from '@/components/sections/selected-work/projectsConfig';
-import { spacing } from '@/styles/tokens/spacing';
-import { fontFamily, fontSize, fontWeight, letterSpacing, lineHeight } from '@/styles/tokens/typography';
-import { accents, neutrals } from '@/styles/tokens/colors';
-import { radius } from '@/styles/tokens/radius';
-import { grid } from '@/styles/tokens/grid';
-import { media } from '@/styles/media';
+import Image from "next/image";
+import styled from "styled-components";
+import { useMessages, useTranslations } from "next-intl";
+import { SectionHeading } from "@/components/composites";
+import { Badge } from "@/components/primitives";
+import { Link } from "@/i18n/navigation";
+import { MORE_PROJECTS } from "@/components/sections/selected-work/projectsConfig";
+import { spacing } from "@/styles/tokens/spacing";
+import {
+  fontFamily,
+  fontSize,
+  fontWeight,
+  letterSpacing,
+  lineHeight,
+} from "@/styles/tokens/typography";
+import { accents, neutrals } from "@/styles/tokens/colors";
+import { radius } from "@/styles/tokens/radius";
+import { grid } from "@/styles/tokens/grid";
+import { media } from "@/styles/media";
 
 /*
  * The Work page's second tier: smaller projects with a short write-up each
- * (/work/<slug>, the short case). A card per project: its first screen, the
- * company, what it was, and its field.
+ * (/work/<slug>, the short case). Figma: Card Project (4215:13023) — the
+ * brand's mark and the year over its first screen; pointing at it, the screen
+ * draws back and the company, what it was and its field come up underneath
+ * (State3). Without hover (a touch screen) that is how it always reads.
+ * Three to a row on a desktop, two on a tablet, one on a phone.
  */
+
+/** Pointing devices get the reveal; everything else shows the card opened. */
+const HOVER = "@media (hover: hover) and (pointer: fine)";
+const EASE = "cubic-bezier(0.65, 0, 0.35, 1)";
+const DURATION = 500;
 
 const Section = styled.section`
   display: flex;
@@ -33,11 +48,11 @@ const Container = styled.div`
   max-width: ${grid.maxWidth}px;
   padding: 0 ${spacing[400]}px;
 
-  ${media.down('xl')} {
+  ${media.down("xl")} {
     padding: 0 ${spacing[300]}px;
   }
 
-  ${media.down('m')} {
+  ${media.down("m")} {
     gap: ${spacing[600]}px;
     padding: 0 ${spacing[200]}px;
   }
@@ -45,14 +60,19 @@ const Container = styled.div`
 
 const Cards = styled.ul`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: ${spacing[400]}px;
   margin: 0;
   padding: 0;
   list-style: none;
 
-  ${media.down('m')} {
+  ${media.down("xl")} {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: ${spacing[300]}px;
+  }
+
+  ${media.down("m")} {
+    grid-template-columns: minmax(0, 1fr);
   }
 `;
 
@@ -60,15 +80,18 @@ const Card = styled(Link)`
   display: flex;
   flex-direction: column;
   height: 100%;
-  overflow: hidden;
-  border-radius: ${radius.xl}px;
-  background: ${neutrals[800]};
+  padding: ${spacing[400]}px;
+  border-radius: ${radius.xxl}px;
+  background: ${neutrals[900]};
   color: inherit;
   text-decoration: none;
-  transition: transform 0.25s ease;
+  overflow: hidden;
 
-  &:hover {
-    transform: translateY(-4px);
+  /* A fixed shape, so the screen gives up its room to the text on hover. Figma
+     draws it 654 × 592; at a third of the page it's 437 wide, and that shape
+     would leave the screen a sliver once the text is up, so it's square. */
+  ${HOVER} {
+    aspect-ratio: 1;
   }
 
   &:focus-visible {
@@ -76,60 +99,183 @@ const Card = styled(Link)`
     outline-offset: 3px;
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
+  ${media.down("xl")} {
+    padding: ${spacing[300]}px;
+  }
 
-    &:hover {
-      transform: none;
+  ${media.down("m")} {
+    padding: ${spacing[200]}px;
+    border-radius: ${radius.xl}px;
+  }
+`;
+
+const Top = styled.div`
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: ${spacing[200]}px;
+  margin-bottom: ${spacing[400]}px;
+
+  img {
+    display: block;
+    width: auto;
+    max-width: 70%;
+    height: 48px;
+    object-fit: contain;
+    object-position: left center;
+  }
+
+  ${media.down("xl")} {
+    margin-bottom: ${spacing[300]}px;
+
+    img {
+      height: 40px;
+    }
+  }
+
+  ${media.down("m")} {
+    margin-bottom: ${spacing[200]}px;
+
+    img {
+      height: 32px;
     }
   }
 `;
 
-const Cover = styled.div`
+/** The first screen, read from its top-left corner; held a little close until the card is pointed at. */
+const Shot = styled.div`
   position: relative;
+  flex: none;
   aspect-ratio: 16 / 10;
   overflow: hidden;
+  border-radius: ${radius.l}px;
 
-  /* A screen reads from its top-left corner, where its logo and headline sit. */
   img {
     object-fit: cover;
     object-position: left top;
+    transform-origin: left top;
+    transition: transform ${DURATION}ms ${EASE};
+  }
+
+  ${HOVER} {
+    flex: 1 1 0;
+    min-height: 0;
+    aspect-ratio: auto;
+
+    img {
+      transform: scale(1.12);
+    }
+
+    a:hover > &,
+    a:focus-visible > & {
+      img {
+        transform: none;
+      }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    img {
+      transition: none;
+    }
   }
 `;
 
-const Text = styled.div`
+/** The text under the screen: always there without hover; with it, it opens (0fr → 1fr) and takes the screen's room. */
+const Reveal = styled.div`
+  display: grid;
+  grid-template-rows: 1fr;
+
+  ${HOVER} {
+    grid-template-rows: 0fr;
+    transition: grid-template-rows ${DURATION}ms ${EASE};
+
+    a:hover > &,
+    a:focus-visible > & {
+      grid-template-rows: 1fr;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+`;
+
+/** What collapses: nothing of its own, so closed it takes no room at all. */
+const Fold = styled.div`
+  min-height: 0;
+  overflow: hidden;
+`;
+
+const Info = styled.div`
   display: flex;
-  flex: 1;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: ${spacing[200]}px;
+  padding-top: ${spacing[400]}px;
+
+  ${media.down("xl")} {
+    padding-top: ${spacing[300]}px;
+  }
+
+  ${media.down("m")} {
+    padding-top: ${spacing[200]}px;
+  }
+`;
+
+const Heading = styled.div`
+  display: flex;
   flex-direction: column;
-  gap: ${spacing[100]}px;
-  padding: ${spacing[300]}px ${spacing[300]}px ${spacing[400]}px;
+  gap: ${spacing[200]}px;
+  min-width: 0;
+  font-family: ${fontFamily.heading};
+  font-weight: ${fontWeight.semibold};
+
+  ${media.down("m")} {
+    gap: ${spacing[100]}px;
+  }
 `;
 
 const Company = styled.h3`
   margin: 0;
-  font-family: ${fontFamily.heading};
-  font-weight: ${fontWeight.semibold};
-  font-size: ${fontSize.heading.s}px;
-  line-height: ${lineHeight.heading.s}px;
+  font: inherit;
+  font-size: ${fontSize.heading.l}px;
+  line-height: ${lineHeight.heading.l}px;
   letter-spacing: ${letterSpacing.xs}px;
-  color: ${neutrals[100]};
+  color: ${accents.primary};
+
+  ${media.down("xxl")} {
+    font-size: ${fontSize.heading.m}px;
+    line-height: ${lineHeight.heading.m}px;
+  }
+
+  ${media.down("m")} {
+    font-size: ${fontSize.heading.s}px;
+    line-height: ${lineHeight.heading.s}px;
+  }
 `;
 
 const Title = styled.p`
   margin: 0;
-  font-family: ${fontFamily.body};
-  font-size: ${fontSize.body.l}px;
-  line-height: ${lineHeight.body.l}px;
-  color: ${neutrals[100]};
+  font-size: ${fontSize.body.xl}px;
+  line-height: ${lineHeight.body.xl}px;
+  letter-spacing: ${letterSpacing.s}px;
+  color: ${neutrals[500]};
+
+  ${media.down("m")} {
+    font-size: ${fontSize.body.l}px;
+    line-height: ${lineHeight.body.l}px;
+  }
 `;
 
-const Field = styled.p`
-  margin: auto 0 0;
-  padding-top: ${spacing[200]}px;
-  font-family: ${fontFamily.body};
-  font-size: ${fontSize.body.m}px;
-  line-height: ${lineHeight.body.m}px;
-  color: ${neutrals[500]};
+const Fields = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  gap: ${spacing[150]}px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 `;
 
 interface ShortContent {
@@ -138,26 +284,70 @@ interface ShortContent {
 }
 
 export function MoreProjectsSection() {
-  const t = useTranslations('projectsPage.more');
-  const projects = useMessages().projects as unknown as Record<string, ShortContent>;
+  const t = useTranslations("projectsPage.more");
+  const projects = useMessages().projects as unknown as Record<
+    string,
+    ShortContent
+  >;
 
   return (
     <Section aria-labelledby="more-projects-title">
       <Container>
-        <SectionHeading id="more-projects-title" title={t('title')} subtitle={t('subtitle')} size="large" />
+        <SectionHeading
+          id="more-projects-title"
+          title={t("title")}
+          subtitle={t("subtitle")}
+          size="large"
+        />
         <Cards>
           {MORE_PROJECTS.map((project) => {
             const content = projects[project.slug];
             const cover = project.images[0];
             return (
               <li key={project.slug}>
-                <Card href={`/work/${project.slug}`} data-cta={`more-${project.slug}`}>
-                  <Cover>{cover && <Image src={cover.src} alt="" fill sizes="(max-width: 480px) 100vw, 33vw" />}</Cover>
-                  <Text>
-                    <Company>{project.company}</Company>
-                    <Title>{content.title}</Title>
-                    <Field>{project.year ? `${content.field} · ${project.year}` : content.field}</Field>
-                  </Text>
+                <Card
+                  href={`/work/${project.slug}`}
+                  data-cta={`more-${project.slug}`}
+                >
+                  <Top>
+                    {project.logo ? (
+                      // A brand's own mark, SVG or a small PNG: next/image adds nothing.
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={project.logo} alt="" />
+                    ) : (
+                      <span />
+                    )}
+                    {project.year && (
+                      <Badge $size="large">{project.year}</Badge>
+                    )}
+                  </Top>
+                  <Shot>
+                    {cover && (
+                      <Image
+                        src={cover.src}
+                        alt=""
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                      />
+                    )}
+                  </Shot>
+                  <Reveal>
+                    <Fold>
+                      <Info>
+                        <Heading>
+                          <Company>{project.company}</Company>
+                          <Title>{content.title}</Title>
+                        </Heading>
+                        <Fields aria-label={content.field}>
+                          {content.field.split(" · ").map((field) => (
+                            <li key={field}>
+                              <Badge>{field}</Badge>
+                            </li>
+                          ))}
+                        </Fields>
+                      </Info>
+                    </Fold>
+                  </Reveal>
                 </Card>
               </li>
             );

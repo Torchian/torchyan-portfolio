@@ -35,7 +35,7 @@ export default async function ProjectsPage({ params }: LocaleParams) {
       <MoreProjectsSection />
       <PartnersCarousel />
       <PerspectiveSection />
-      <CollaborationSection />
+      <CollaborationSection tight />
     </main>
   );
 }
