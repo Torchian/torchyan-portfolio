@@ -1429,7 +1429,7 @@
       {
         "title": "Who processes it",
         "body": [
-          "Vercel hosts the website and provides the analytics. Resend delivers contact-form messages by email. ImprovMX forwards messages sent to hello@torchyan.design to our inbox, which is held with an email provider.",
+          "Vercel hosts the website and provides analytics. Resend delivers contact-form submissions to a Gmail inbox provided by Google. ImprovMX forwards emails sent to hello@torchyan.design to the same inbox.",
           "Some of these providers operate outside Armenia, including in the United States, so your data may be processed there."
         ]
       },
