@@ -213,3 +213,33 @@ the audio still downloads, after `load` instead of during it.
   Harmless; noted because Lighthouse's Best Practices counts it.
 - **Pre-existing lint warnings:** unused imports in `about/page.tsx`
   (`AboutPracticeSection`), `PartnersCarousel.tsx`, `TrustedBySection.tsx`.
+
+---
+
+## Addendum — production PageSpeed run, same day
+
+The owner's PageSpeed Insights run on `https://torchyan.design/` (mobile: 69,
+LCP 5.4 s, TBT 320 ms, Speed Index 5.1 s) was of `main`, without this branch:
+its waterfall still shows eight Gilroy files and `/vectors/background.svg`.
+
+Running Lighthouse against production from here showed the mobile hero
+portrait (the LCP) downloading alongside ~60 other images that start at the
+same moment: Trusted By's 25 logos, What I Do, the map, the footer artwork.
+`fetchPriority="low"` stops React preloading them, but they still start with
+the page. They are now **lazy**:
+
+- **Footer lettering, What I Do images, the sketch head, Capabilities lines and
+  the world map:** `loading="lazy"`.
+- **Trusted By logos:** each `<img>` now gets `width`/`height` attributes from
+  its file's proportions (`LOGO_ASPECT`). That gives a logo its box before it
+  loads, which is what had stopped lazy loading working for them.
+
+Home on a phone, first load: **132 → 97 requests and 1360 → 645 KB of images**.
+The logos render at the same widths as before (checked at 390 and 1440).
+
+Mobile LCP on Home in this container stays around 6 s (three runs: 6.28,
+6.18, 6.20 s) with the image itself loaded by about 2 s. The remainder is
+"render delay" from main-thread work, which this GPU-less container inflates.
+A <picture>-based eager portrait was tried and measured no better, so it was
+not kept. Re-run PageSpeed on production after merging: that is the number to
+judge.
