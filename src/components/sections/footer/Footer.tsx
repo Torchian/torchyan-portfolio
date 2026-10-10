@@ -40,6 +40,8 @@ const NAME_LENGTH = 'var(--footer-name-length, 624px)';
  */
 const WORDMARK = { src: '/footer/name-wordmark.svg', width: 540, height: 77.2426 } as const;
 const TAGLINE = { src: '/footer/name-tagline.svg', width: 51, height: 540 } as const;
+/** The same words laid out as a row, for the phone, where they sit under the wordmark. */
+const TAGLINE_ROW = { src: '/footer/name-tagline-row.svg', width: 540, height: 51 } as const;
 
 const LINK_TRANSITION = `${duration.slower} ${easing.spring}`;
 
@@ -162,43 +164,40 @@ const Wordmark = styled.div`
 
 /**
  * Digital Product Studio. Drawn vertical — the opposite of the wordmark, so it
- * stands upright already beside it at 769px and up, and is turned onto its
- * side under the wordmark on a phone.
+ * stands upright already beside it at 769px and up. On a phone, where it sits
+ * under the wordmark, a second file has the same words laid out as a row, shown
+ * like the wordmark: full width, height from its own proportions.
  *
- * The phone case reuses the same technique the old "Designer × Engineer" slot
- * used (not 100cqw): a wrapper sized by aspect-ratio from its own width, then
- * a percentage height on the absolutely-positioned image, resolved against
- * that now-definite height. iOS Safari does not re-resolve a container query
- * unit after the screen turns back to the orientation that first measured it;
- * a percentage carries no such state to go stale.
+ * Nothing on the phone is turned or sized from a measured box. It used to be
+ * (the upright file, turned, at a percentage of an aspect-ratio box), and iOS
+ * Safari kept that size from the side-by-side layout after the screen turned
+ * back from landscape: the words came back hundreds of pixels tall.
  */
 const Tagline = styled.div`
-  position: relative;
   width: 100%;
-  aspect-ratio: ${TAGLINE.height} / ${TAGLINE.width};
 
   img {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: auto;
-    max-width: none;
-    height: ${((TAGLINE.height / TAGLINE.width) * 100).toFixed(4)}%;
-    transform: translate(-50%, -50%) rotate(90deg);
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  img:first-child {
+    display: none;
   }
 
   ${media.up('l')} {
     flex: none;
     width: calc(${NAME_LENGTH} * ${(TAGLINE.width / TAGLINE.height).toFixed(6)});
     height: ${NAME_LENGTH};
-    aspect-ratio: auto;
 
-    img {
-      position: static;
-      width: 100%;
+    img:first-child {
+      display: block;
       height: 100%;
-      max-width: none;
-      transform: none;
+    }
+
+    img:last-child {
+      display: none;
     }
   }
 `;
@@ -522,6 +521,7 @@ export function Footer() {
           </Wordmark>
           <Tagline>
             <img {...TAGLINE} alt="" />
+            <img {...TAGLINE_ROW} alt="" />
           </Tagline>
         </NameBlock>
 
