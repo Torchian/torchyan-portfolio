@@ -157,36 +157,45 @@ const sb = at('/projects/collages/smartbet');
 const sbDesk = (name: string) => sb(name, 1280, 709);
 const sbPhone = (name: string) => mobile(sb(name, 486, 864));
 
-/* SoulOne: the concept's screens, from the About timeline and the homepage card. */
-const so = at('/about/timeline/soulone');
-const soGrid = at('/selected-work/soulone/grid');
-const soPhones = at('/projects/collages/soulone');
+/*
+ * SoulOne: its Figma board (4205:34708), every screen once — sixteen desktop
+ * pages and fifteen phone screens, each framed from its full capture, in
+ * public/projects/sets/soulone.
+ */
+const sos = at('/projects/sets/soulone');
+const soPhone = (name: string, width: number, height: number) => mobile(sos(name, width, height));
 const SO = {
-  hero: so('hero', 1200, 858),
-  home: so('home', 1200, 1347),
-  product: so('product', 1200, 3469),
-  body: so('body', 1200, 917),
-  cakes: so('cakes', 837, 1200),
-  yinYang: so('yin-yang', 1200, 642),
-  guidance: so('guidance', 1200, 2419),
-  plans: so('plans', 1200, 995),
-  pageA: soGrid('s-a1-v2', 1180, 4096),
-  pageB: soGrid('s-a2-v2', 1366, 1533),
-  pageC: soGrid('s-c1-v2', 1366, 3949),
-  pageD: soGrid('s-c2-v2', 1333, 4096),
-  pageE: soGrid('s-c3-v2', 1366, 2754),
-  // Pages and screens the case hadn't shown yet.
-  pageF: soGrid('s-d1-v3', 1728, 2657),
-  pageG: soGrid('s-d2-v3', 1728, 2627),
-  planDiet: soPhones('plan-diet', 803, 4096),
-  phoneA: mobile(soGrid('s-b1-v2', 415, 3618)),
-  phoneB: mobile(soGrid('s-b2-v2', 410, 4096)),
-  phoneC: mobile(soGrid('s-b3-v2', 415, 3559)),
-  phoneD: mobile(soGrid('s-b4-v3', 402, 1544)),
-  phoneHome: mobile(soPhones('iphone-home', 142, 4096)),
-  phoneProduct: mobile(soPhones('iphone-product-2', 212, 4096)),
-  phoneProduct2: mobile(soPhones('iphone-product-3', 185, 4096)),
-  tabletHome: mobile(soPhones('ipad-home', 455, 4096)),
+  hero: sos('hero', 1600, 1128),
+  cakes: sos('cakes-1', 1024, 880),
+  chocoFit: sos('cakes-3', 1024, 623),
+  honey: sos('cakes-4', 1024, 837),
+  catalogue: sos('catalogue', 1600, 2460),
+  product: sos('product', 1600, 2432),
+  story: sos('story', 1600, 2372),
+  balls: sos('balls', 1024, 1300),
+  bodyPlan: sos('body-plan', 1600, 1301),
+  nutritionist: sos('nutritionist', 1600, 1205),
+  locations: sos('locations', 1600, 1037),
+  experts: sos('experts', 1600, 1012),
+  guidance: sos('guidance', 1600, 968),
+  customize: sos('customize', 1600, 966),
+  yinYang: sos('yin-yang', 1600, 854),
+  footer: sos('footer', 1600, 500),
+  mCakes: soPhone('m-cakes', 402, 3701),
+  mHome: soPhone('m-home', 402, 3509),
+  mProduct: soPhone('m-product', 402, 2774),
+  mStory: soPhone('m-story', 402, 2564),
+  mBalls: soPhone('m-balls', 402, 1626),
+  mCakeDetail: soPhone('m-cake-detail', 402, 1544),
+  mHero: soPhone('m-hero', 402, 1343),
+  mCakesCard: soPhone('m-cakes-card', 421, 1327),
+  mCustomize: soPhone('m-customize', 402, 1245),
+  mMenu: soPhone('m-menu', 402, 1142),
+  mExperts: soPhone('m-experts', 402, 1083),
+  mLocations: soPhone('m-locations', 402, 969),
+  mPlans: soPhone('m-plans', 402, 915),
+  mGuidance: soPhone('m-guidance', 402, 880),
+  mFooter: soPhone('m-footer', 402, 833),
 };
 
 /*
@@ -344,24 +353,26 @@ export const MORE_CASE_STUDIES: Partial<Record<ProjectSlug, CaseStudyImagery>> =
     ],
   },
   soulone: {
+    // No screen twice in the rows: twelve pages and twelve phone screens.
     carousel: [
-      [p(SO.phoneA), SO.hero, p(SO.phoneB), d(SO.home), p(SO.phoneC), SO.yinYang, p(SO.phoneProduct), SO.plans],
-      [d(SO.pageB), p(SO.phoneHome), SO.body, p(SO.phoneA), d(SO.product), p(SO.phoneProduct2), d(SO.pageC), SO.cakes],
-      [p(SO.phoneD), d(SO.guidance), d(SO.pageF), p(SO.tabletHome), d(SO.pageE), p(SO.phoneProduct), d(SO.pageG), d(SO.planDiet)],
+      [p(SO.mHero), SO.hero, p(SO.mCakes), SO.cakes, p(SO.mBalls), SO.balls, p(SO.mCustomize), SO.customize],
+      [d(SO.story), p(SO.mStory), d(SO.product), p(SO.mProduct), SO.nutritionist, p(SO.mHome), SO.locations, p(SO.mCakeDetail)],
+      [p(SO.mCakesCard), SO.experts, p(SO.mExperts), SO.guidance, p(SO.mLocations), d(SO.catalogue), p(SO.mGuidance), SO.yinYang],
     ],
     // Context, brand foundations, messaging, homepage, product pages, prototype and social, what changed, what it shows.
+    // Every page once, each with its own phone screen.
     timeline: [
-      set(SO.phoneA, SO.hero, SO.yinYang),
-      set(SO.phoneB, SO.body, SO.plans),
-      set(SO.phoneC, SO.home, SO.guidance),
-      set(SO.phoneHome, SO.pageA, SO.cakes),
-      set(SO.phoneProduct, SO.product, SO.pageC),
-      set(SO.phoneProduct2, SO.pageD, SO.pageE),
-      set(SO.phoneD, SO.pageF, SO.pageB),
-      set(SO.tabletHome, SO.pageG, SO.planDiet),
+      set(SO.mHome, SO.hero, SO.nutritionist),
+      set(SO.mMenu, SO.yinYang, SO.footer),
+      set(SO.mGuidance, SO.guidance, SO.bodyPlan),
+      set(SO.mCakesCard, SO.cakes, SO.chocoFit),
+      set(SO.mProduct, SO.product, SO.honey),
+      set(SO.mCustomize, SO.customize, SO.balls),
+      set(SO.mPlans, SO.catalogue, SO.locations),
+      set(SO.mFooter, SO.story, SO.experts),
     ],
     // Brand presentation, cakes and balls together, product detail, prototype, logo.
-    useCases: [SO.hero, SO.home, SO.product, SO.pageC, SO.yinYang],
+    useCases: [SO.hero, SO.balls, SO.product, SO.catalogue, SO.yinYang],
   },
   ginosi: {
     // Every screen of the board once across the three rows.

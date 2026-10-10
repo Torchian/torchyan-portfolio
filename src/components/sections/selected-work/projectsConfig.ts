@@ -131,8 +131,11 @@ const SMARTBET_IMAGES = [
   'Smart Sports.webp',
 ];
 
-/** Soulone images by height: 4 (1728), 0/1/2 (1200), 6 (837) */
-const SOULONE_IMAGES = ['4.webp', '0.webp', '1.webp', '2.webp', '6.webp'];
+/** SoulOne: screens from its Figma board (public/projects/sets/soulone). */
+const SOULONE_IMAGES = ['hero', 'cakes-1', 'product', 'story', 'yin-yang'].map((name) => ({
+  src: `/projects/sets/soulone/${name}.webp`,
+  alt: 'SoulOne',
+}));
 
 function toImages(folder: string, files: string[], alt: string) {
   return files.map((f) => ({ src: `/selected-work/${folder}/${f}`, alt }));
@@ -168,7 +171,7 @@ export const PROJECTS: ProjectConfig[] = [
     company: 'SoulOne',
     year: '2025',
     gradient: SOULONE_GRADIENT,
-    images: toImages('soulone', SOULONE_IMAGES, 'SoulOne'),
+    images: SOULONE_IMAGES,
     card: { grid: SOULONE_GRID, ctaFill: SOULONE_GRADIENT },
   },
   {
