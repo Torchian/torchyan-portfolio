@@ -22,7 +22,6 @@ import { media } from '@/styles/media';
 import {
   LanguageSwitcher,
   LogoMark,
-  MusicToggle,
   SoundToggle,
 } from '@/components/primitives';
 import { useTranslations } from 'next-intl';
@@ -658,14 +657,12 @@ export function NavBar() {
       <HeaderControls>
         <LanguageSwitcher />
         <SoundToggle />
-        <MusicToggle />
       </HeaderControls>
 
       <HeaderEnd>
         <CompactControls>
           <SoundToggle />
-          <MusicToggle />
-        </CompactControls>
+          </CompactControls>
         <MenuButton
           ref={menuButtonRef}
           type="button"

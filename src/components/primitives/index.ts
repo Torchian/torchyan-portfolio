@@ -1,14 +1,12 @@
 export { Button } from './Button';
 export type { ButtonProps } from './Button';
 export { SoundToggle } from './SoundToggle';
-export { MusicToggle } from './MusicToggle';
 export { AudioToggle } from './AudioToggle';
 export { LanguageSwitcher } from './LanguageSwitcher';
 export { LogoMark } from './LogoMark';
 export type { LogoMarkProps } from './LogoMark';
 export type { LanguageSwitcherProps } from './LanguageSwitcher';
 export type { SoundToggleProps } from './SoundToggle';
-export type { MusicToggleProps } from './MusicToggle';
 export type { AudioToggleProps } from './AudioToggle';
 export { TextInput } from './TextInput';
 export type { TextInputProps } from './TextInput';

@@ -11,6 +11,10 @@ import { media } from '@/styles/media';
 import { useTranslations } from 'next-intl';
 import type { Capability } from './capabilitiesConfig';
 import { notchedCardShape, type NotchCorner } from './notchedCardShape';
+import { soundTriggers } from '@/lib/sound';
+
+/** Hovering these isn't an action, so it gets the soft cue rather than the site-wide hover. */
+const SOFT_HOVER = soundTriggers({ hover: 'softHover' });
 
 /** Hover crossfade, measured from the Figma prototype recording. */
 export const HOVER_TRANSITION = '200ms cubic-bezier(0.4, 0, 0.2, 1)';
@@ -350,7 +354,7 @@ export function CapabilityCard({ capability, index, notch }: CapabilityCardProps
 
   return (
     // Focusable so keyboard users can reveal the skills in the centre circle too.
-    <Card data-capability={index} $alignEnd={notch.endsWith('left')} tabIndex={0}>
+    <Card data-capability={index} $alignEnd={notch.endsWith('left')} tabIndex={0} {...SOFT_HOVER}>
       {/* viewBox and d are rewritten to the measured size by the section. */}
       <Shape
         aria-hidden

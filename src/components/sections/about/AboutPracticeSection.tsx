@@ -16,6 +16,10 @@ import { media } from '@/styles/media';
 import { useTranslations } from 'next-intl';
 import { SectionHeading } from '@/components/composites';
 import { VisuallyHidden } from '@/components/primitives';
+import { soundTriggers } from '@/lib/sound';
+
+/** Hovering these isn't an action, so it gets the soft cue rather than the site-wide hover. */
+const SOFT_HOVER = soundTriggers({ hover: 'softHover' });
 
 /*
  * Figma: What I Do In Practice — 1920 (2973:16256), 1024 (3960:15416),
@@ -317,7 +321,7 @@ export function AboutPracticeSection() {
       <Field>
         <Grid>
           {circles.map((label) => (
-            <Circle key={label}>
+            <Circle key={label} {...SOFT_HOVER}>
               <span>{label}</span>
             </Circle>
           ))}

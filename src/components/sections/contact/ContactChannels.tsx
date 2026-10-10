@@ -12,6 +12,10 @@ import { fontFamily, fontWeight, fontSize, lineHeight, letterSpacing } from '@/s
 import { spacing } from '@/styles/tokens/spacing';
 import { accents, neutrals } from '@/styles/tokens/colors';
 import { media } from '@/styles/media';
+import { soundTriggers } from '@/lib/sound';
+
+/** Hovering these isn't an action, so it gets the soft cue rather than the site-wide hover. */
+const SOFT_HOVER = soundTriggers({ hover: 'softHover' });
 
 /*
  * Figma: Contacts (4183:14298) — State=Default (4183:13142) and State2
@@ -706,6 +710,7 @@ export function ContactChannels({ titleAs = 'h2' }: ContactChannelsProps) {
                   {...(c.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                   aria-label={`${name}: ${c.handle}${c.external ? ` (${t('opensInNewTab')})` : ''}`}
                   data-outbound={c.id}
+                  {...SOFT_HOVER}
                   data-on={active === c.id}
                   style={{ ...place(c.angle), '--icon-w': c.icon.width } as React.CSSProperties}
                   onPointerEnter={(e) => e.pointerType === 'mouse' && choose(c.id)}

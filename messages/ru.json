@@ -57,9 +57,6 @@
   "sound": {
     "label": "Звук"
   },
-  "music": {
-    "label": "Музыка"
-  },
   "language": {
     "label": "Язык: {language}",
     "names": {

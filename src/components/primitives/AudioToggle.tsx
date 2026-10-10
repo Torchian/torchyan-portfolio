@@ -1,17 +1,17 @@
 'use client';
 
 import styled from 'styled-components';
-import { useAudioEnabled, type AudioKind } from '@/lib/sound';
+import { useSoundEnabled } from '@/lib/sound';
 import { duration, easing } from '@/styles/tokens/motion';
 import { glassCircle } from '@/styles/mixins';
 import { accents } from '@/styles/tokens/colors';
 import { media } from '@/styles/media';
 
 /*
- * Figma: Sound CTA (3690:10694) and Music CTA (3734:8436) — the same control
- * twice, one for the interface sounds and one for the background music. A 48px
- * glass circle holding SOUND / MUSIC and OFF in red or ON in green, on a wash of
- * the same colour; hovering drops the wash and leaves the glass.
+ * Figma: Sound CTA (3690:10694). One control for everything audible, the
+ * interface sounds and the background music together. A 48px glass circle
+ * holding SOUND and OFF in red or ON in green, on a wash of the same colour;
+ * hovering drops the wash and leaves the glass.
  *
  * The words are Figma's own artwork: two type sizes and their own kerning.
  */
@@ -53,8 +53,6 @@ const Badge = styled.img<{ $visible: boolean }>`
 
 export interface AudioToggleProps
   extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'type' | 'onClick' | 'aria-pressed' | 'children'> {
-  /** Which switch this is: the interface sounds, or the music bed. */
-  kind: AudioKind;
   label: string;
   /** The badge artwork for each state. */
   off: string;
@@ -63,8 +61,8 @@ export interface AudioToggleProps
   onWash: string;
 }
 
-export function AudioToggle({ kind, label, off, on, offWash, onWash, ...props }: AudioToggleProps) {
-  const [enabled, setEnabled] = useAudioEnabled(kind);
+export function AudioToggle({ label, off, on, offWash, onWash, ...props }: AudioToggleProps) {
+  const [enabled, setEnabled] = useSoundEnabled();
 
   return (
     <Toggle

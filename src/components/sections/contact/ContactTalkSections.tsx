@@ -6,6 +6,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { Button, TextInput } from '@/components/primitives';
 import { Link, usePathname } from '@/i18n/navigation';
 import { trackEvent } from '@/lib/analytics/track';
+import { playSound } from '@/lib/sound';
 import { spacing } from '@/styles/tokens/spacing';
 import { fontFamily, fontWeight, fontSize, lineHeight, letterSpacing } from '@/styles/tokens/typography';
 import { accents, neutrals } from '@/styles/tokens/colors';
@@ -310,6 +311,7 @@ function ContactForm() {
     } catch {
       setState('delivery');
       trackEvent('contact_form_error', { kind: 'delivery' });
+      playSound('messageFailed');
       return;
     }
 
@@ -320,6 +322,7 @@ function ContactForm() {
         setIssues(fields);
         setState('validation');
         trackEvent('contact_form_error', { kind: 'validation' });
+        playSound('messageFailed');
         const first = FIELDS.find((field) => fields[field]);
         if (first) form.querySelector<HTMLElement>(`#${id(first)}`)?.focus();
         return;
@@ -327,11 +330,13 @@ function ContactForm() {
       const kind = response.status === 429 ? 'rate_limited' : 'delivery';
       setState(kind);
       trackEvent('contact_form_error', { kind });
+      playSound('messageFailed');
       return;
     }
 
     setState('sent');
     trackEvent('contact_form_submit', { area: 'message', page: pathname });
+    playSound('messageSent');
     form.reset();
   };
 

@@ -29,20 +29,21 @@ import {
  *  - The music bed is one looping voice on the ambient channel, fading in with
  *    the mix and out again when music is switched off.
  *
- * Effects and music are two separate switches, each with its own control in the
- * header. Either one holds the audio graph open; with both off it sleeps.
+ * Effects and music are two switches inside the engine, but the visitor sees
+ * one: the header's sound button sets both together (see useSoundEnabled).
+ * Either one holds the audio graph open; with both off it sleeps.
  */
 
 /**
- * Every visit starts silent — a site that starts talking because of something
- * you clicked last week is worse than one you switch on again, and browsers
- * block audio before a gesture anyway, so an "on" button on arrival would be a
- * lie. The choice does follow you through this tab, though (session storage):
+ * Sound is on by default. Browsers keep audio locked until the first press,
+ * tap or key, so nothing is heard on arrival; the music and the cues start on
+ * that first gesture. The visitor's choice then follows them through this tab
+ * (session storage):
  * switching language reloads the page, and sound cutting out there would be a
  * bug, not a fresh visit.
  */
-const STORAGE_KEYS = { effects: 'sound.effects', music: 'sound.music' } as const;
-const DEFAULT_ENABLED = false;
+const STORAGE_KEYS = { effects: 'sound.on', music: 'sound.on' } as const;
+const DEFAULT_ENABLED = true;
 
 /** The two switches: interface sounds, and the music bed. */
 export type AudioKind = keyof typeof STORAGE_KEYS;
@@ -128,7 +129,8 @@ function wantedFiles() {
 
 function readStoredPreference(kind: AudioKind) {
   try {
-    return sessionStorage.getItem(STORAGE_KEYS[kind]) === 'on';
+    const stored = sessionStorage.getItem(STORAGE_KEYS[kind]);
+    return stored === null ? DEFAULT_ENABLED : stored === 'on';
   } catch {
     return DEFAULT_ENABLED;
   }
