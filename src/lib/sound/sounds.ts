@@ -101,18 +101,35 @@ export const SOUND_CUES = {
 
 /**
  * The background bed: one looping track under everything, low enough to leave
- * every cue in front of it. The track keeps its own arrangement and level —
- * only its silent head is trimmed, with a short fade in and out at the ends, so
- * each pass round the loop eases rather than cuts. `loopSeconds` is that
- * length, which keeps whatever the decoder pads on (AAC priming) out of it.
+ * every cue in front of it.
+ *
+ * The file is the loop itself, cut from the full track (80 bpm): 24 bars from
+ * 15.51 s, after its intro has built, to 87.51 s, before its fade-out — the
+ * pair of points where the music matches itself most closely. Its last bar is
+ * cross-faded (equal power) into the bar that leads into its first, so the end
+ * runs straight on into the start: no gap, no click, no change in level.
+ *
+ * Half a second of the loop's own music is laid either side of it in the file
+ * (its end before, its start after), so the encoder's first and last frames —
+ * where AAC smears — fall outside the loop and the seam decodes as cleanly as
+ * the source. `loopStart` skips that pre-roll; `loopSeconds` is the loop's
+ * length. Starting on full music also keeps the engine's leading-silence
+ * measure to the decoder's own priming.
  */
 export const MUSIC = {
-  src: '/sounds/ambient-theme.m4a',
+  src: '/sounds/background-music.m4a',
   channel: 'ambient',
-  /* −26 dBFS peak: 0.62 (the track's own peak) × 0.29 × 0.35 × 0.8. */
-  volume: 0.29,
-  loopSeconds: 45.124,
-} as const satisfies { src: string; channel: SoundChannel; volume: number; loopSeconds: number };
+  /* The old bed's loudness: its RMS × 0.29, over this track's RMS (0.181 / 0.194). */
+  volume: 0.27,
+  loopStart: 0.5,
+  loopSeconds: 71.9993,
+} as const satisfies {
+  src: string;
+  channel: SoundChannel;
+  volume: number;
+  loopStart: number;
+  loopSeconds: number;
+};
 
 export type SoundCueId = keyof typeof SOUND_CUES;
 
