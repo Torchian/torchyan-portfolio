@@ -269,8 +269,12 @@ const SOULONE = tiltedCollage(
  */
 const GINOSI = twoColumns(
   'Ginosi',
-  [work('ginosi', 'hero', 1064, 498), work('ginosi', 'blog', 1296, 1656), work('ginosi', 'careers', 1296, 2198)],
-  [work('ginosi', 'gallery', 1284, 610), work('ginosi', 'search', 1296, 1542), work('ginosi', 'locations', 1294, 1754)],
+  [work('ginosi', 'apartel', 1296, 780), work('ginosi', 'home', 1064, 498), work('ginosi', 'castelldefels', 1296, 1876)],
+  [
+    work('ginosi', 'location-list', 1294, 1754),
+    work('ginosi', 'downtown-search', 1296, 1542),
+    work('ginosi', 'news', 1294, 854),
+  ],
 );
 
 const BRAINSTORM = twoColumns(
@@ -281,8 +285,8 @@ const BRAINSTORM = twoColumns(
 
 const BENZEEN = twoColumns(
   'Benzeen',
-  [work('benzeen', 'home', 1356, 970), work('benzeen', 'listing', 1356, 1688), work('benzeen', 'cutsheets', 1358, 1156)],
-  [work('benzeen', 'product', 1356, 1452), work('benzeen', 'quote', 1354, 1466), work('benzeen', 'categories', 1356, 876)],
+  [work('benzeen', 'about', 793, 1084), work('benzeen', 'contact', 1358, 1150), work('benzeen', 'recent-arrivals', 1084, 1206)],
+  [work('benzeen', 'homepage', 1356, 970), work('benzeen', 'cut-sheets', 1358, 1156), work('benzeen', 'wheel', 1188, 1272)],
 );
 
 const WORLD_EDUCATION = threeColumns(
@@ -360,7 +364,7 @@ export const SHOWCASE_PROJECTS: ShowcaseProject[] = [
     href: '/projects/benzeen',
     collage: BENZEEN,
     background: band('#DE9E3C', '#927F3D'),
-    tone: 'light',
+    tone: 'dark',
   },
   {
     id: 'world-education',
@@ -368,6 +372,6 @@ export const SHOWCASE_PROJECTS: ShowcaseProject[] = [
     href: '/projects/world-education',
     collage: WORLD_EDUCATION,
     background: band('#927F3D', '#B6955F'),
-    tone: 'light',
+    tone: 'dark',
   },
 ];

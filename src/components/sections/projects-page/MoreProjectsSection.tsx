@@ -1,24 +1,18 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import styled from "styled-components";
-import { useMessages, useTranslations } from "next-intl";
-import { SectionHeading } from "@/components/composites";
-import { Badge } from "@/components/primitives";
-import { Link } from "@/i18n/navigation";
-import { MORE_PROJECTS } from "@/components/sections/selected-work/projectsConfig";
-import { spacing } from "@/styles/tokens/spacing";
-import {
-  fontFamily,
-  fontSize,
-  fontWeight,
-  letterSpacing,
-  lineHeight,
-} from "@/styles/tokens/typography";
-import { accents, neutrals } from "@/styles/tokens/colors";
-import { radius } from "@/styles/tokens/radius";
-import { grid } from "@/styles/tokens/grid";
-import { media } from "@/styles/media";
+import Image from 'next/image';
+import styled from 'styled-components';
+import { useMessages, useTranslations } from 'next-intl';
+import { SectionHeading } from '@/components/composites';
+import { Badge } from '@/components/primitives';
+import { Link } from '@/i18n/navigation';
+import { MORE_PROJECTS } from '@/components/sections/selected-work/projectsConfig';
+import { spacing } from '@/styles/tokens/spacing';
+import { fontFamily, fontSize, fontWeight, letterSpacing, lineHeight } from '@/styles/tokens/typography';
+import { accents, neutrals } from '@/styles/tokens/colors';
+import { radius } from '@/styles/tokens/radius';
+import { grid } from '@/styles/tokens/grid';
+import { media } from '@/styles/media';
 
 /*
  * The Work page's second tier: smaller projects with a short write-up each
@@ -26,12 +20,12 @@ import { media } from "@/styles/media";
  * brand's mark and the year over its first screen; pointing at it, the screen
  * draws back and the company, what it was and its field come up underneath
  * (State3). Without hover (a touch screen) that is how it always reads.
- * Three to a row on a desktop, two on a tablet, one on a phone.
+ * Two to a row on a desktop and a tablet, one on a phone.
  */
 
 /** Pointing devices get the reveal; everything else shows the card opened. */
-const HOVER = "@media (hover: hover) and (pointer: fine)";
-const EASE = "cubic-bezier(0.65, 0, 0.35, 1)";
+const HOVER = '@media (hover: hover) and (pointer: fine)';
+const EASE = 'cubic-bezier(0.65, 0, 0.35, 1)';
 const DURATION = 500;
 
 const Section = styled.section`
@@ -48,11 +42,11 @@ const Container = styled.div`
   max-width: ${grid.maxWidth}px;
   padding: 0 ${spacing[400]}px;
 
-  ${media.down("xl")} {
+  ${media.down('xl')} {
     padding: 0 ${spacing[300]}px;
   }
 
-  ${media.down("m")} {
+  ${media.down('m')} {
     gap: ${spacing[600]}px;
     padding: 0 ${spacing[200]}px;
   }
@@ -60,18 +54,13 @@ const Container = styled.div`
 
 const Cards = styled.ul`
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: ${spacing[400]}px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: ${spacing[200]}px;
   margin: 0;
   padding: 0;
   list-style: none;
 
-  ${media.down("xl")} {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: ${spacing[300]}px;
-  }
-
-  ${media.down("m")} {
+  ${media.down('m')} {
     grid-template-columns: minmax(0, 1fr);
   }
 `;
@@ -80,18 +69,16 @@ const Card = styled(Link)`
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: ${spacing[400]}px;
+  padding: ${spacing[300]}px;
   border-radius: ${radius.xxl}px;
   background: ${neutrals[900]};
   color: inherit;
   text-decoration: none;
   overflow: hidden;
 
-  /* A fixed shape, so the screen gives up its room to the text on hover. Figma
-     draws it 654 × 592; at a third of the page it's 437 wide, and that shape
-     would leave the screen a sliver once the text is up, so it's square. */
+  /* A fixed shape, Figma's 654 × 592, so the screen gives up its room to the text on hover. */
   ${HOVER} {
-    aspect-ratio: 1;
+    aspect-ratio: 654 / 592;
   }
 
   &:focus-visible {
@@ -99,11 +86,7 @@ const Card = styled(Link)`
     outline-offset: 3px;
   }
 
-  ${media.down("xl")} {
-    padding: ${spacing[300]}px;
-  }
-
-  ${media.down("m")} {
+  ${media.down('m')} {
     padding: ${spacing[200]}px;
     border-radius: ${radius.xl}px;
   }
@@ -114,31 +97,15 @@ const Top = styled.div`
   align-items: flex-start;
   justify-content: space-between;
   gap: ${spacing[200]}px;
-  margin-bottom: ${spacing[400]}px;
+  margin-bottom: ${spacing[200]}px;
 
   img {
     display: block;
     width: auto;
     max-width: 70%;
-    height: 48px;
+    height: 32px;
     object-fit: contain;
     object-position: left center;
-  }
-
-  ${media.down("xl")} {
-    margin-bottom: ${spacing[300]}px;
-
-    img {
-      height: 40px;
-    }
-  }
-
-  ${media.down("m")} {
-    margin-bottom: ${spacing[200]}px;
-
-    img {
-      height: 32px;
-    }
   }
 `;
 
@@ -213,44 +180,27 @@ const Info = styled.div`
   align-items: flex-end;
   justify-content: space-between;
   gap: ${spacing[200]}px;
-  padding-top: ${spacing[400]}px;
-
-  ${media.down("xl")} {
-    padding-top: ${spacing[300]}px;
-  }
-
-  ${media.down("m")} {
-    padding-top: ${spacing[200]}px;
-  }
+  padding-top: ${spacing[200]}px;
 `;
 
 const Heading = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${spacing[200]}px;
+  gap: ${spacing[100]}px;
   min-width: 0;
   font-family: ${fontFamily.heading};
   font-weight: ${fontWeight.semibold};
-
-  ${media.down("m")} {
-    gap: ${spacing[100]}px;
-  }
 `;
 
 const Company = styled.h3`
   margin: 0;
   font: inherit;
-  font-size: ${fontSize.heading.l}px;
-  line-height: ${lineHeight.heading.l}px;
+  font-size: ${fontSize.heading.m}px;
+  line-height: ${lineHeight.heading.m}px;
   letter-spacing: ${letterSpacing.xs}px;
   color: ${accents.primary};
 
-  ${media.down("xxl")} {
-    font-size: ${fontSize.heading.m}px;
-    line-height: ${lineHeight.heading.m}px;
-  }
-
-  ${media.down("m")} {
+  ${media.down('m')} {
     font-size: ${fontSize.heading.s}px;
     line-height: ${lineHeight.heading.s}px;
   }
@@ -258,14 +208,15 @@ const Company = styled.h3`
 
 const Title = styled.p`
   margin: 0;
-  font-size: ${fontSize.body.xl}px;
-  line-height: ${lineHeight.body.xl}px;
-  letter-spacing: ${letterSpacing.s}px;
+  font-size: ${fontSize.body.l}px;
+  line-height: ${lineHeight.body.l}px;
+  letter-spacing: ${letterSpacing.m}px;
   color: ${neutrals[500]};
 
-  ${media.down("m")} {
-    font-size: ${fontSize.body.l}px;
-    line-height: ${lineHeight.body.l}px;
+  ${media.down('m')} {
+    font-size: ${fontSize.body.m}px;
+    line-height: ${lineHeight.body.m}px;
+    letter-spacing: ${letterSpacing.s}px;
   }
 `;
 
@@ -284,31 +235,20 @@ interface ShortContent {
 }
 
 export function MoreProjectsSection() {
-  const t = useTranslations("projectsPage.more");
-  const projects = useMessages().projects as unknown as Record<
-    string,
-    ShortContent
-  >;
+  const t = useTranslations('projectsPage.more');
+  const projects = useMessages().projects as unknown as Record<string, ShortContent>;
 
   return (
     <Section aria-labelledby="more-projects-title">
       <Container>
-        <SectionHeading
-          id="more-projects-title"
-          title={t("title")}
-          subtitle={t("subtitle")}
-          size="large"
-        />
+        <SectionHeading id="more-projects-title" title={t('title')} subtitle={t('subtitle')} size="large" />
         <Cards>
           {MORE_PROJECTS.map((project) => {
             const content = projects[project.slug];
             const cover = project.images[0];
             return (
               <li key={project.slug}>
-                <Card
-                  href={`/work/${project.slug}`}
-                  data-cta={`more-${project.slug}`}
-                >
+                <Card href={`/work/${project.slug}`} data-cta={`more-${project.slug}`}>
                   <Top>
                     {project.logo ? (
                       // A brand's own mark, SVG or a small PNG: next/image adds nothing.
@@ -317,9 +257,7 @@ export function MoreProjectsSection() {
                     ) : (
                       <span />
                     )}
-                    {project.year && (
-                      <Badge $size="large">{project.year}</Badge>
-                    )}
+                    {project.year && <Badge $size="medium">{project.year}</Badge>}
                   </Top>
                   <Shot>
                     {cover && (
@@ -327,7 +265,7 @@ export function MoreProjectsSection() {
                         src={cover.src}
                         alt=""
                         fill
-                        sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                        sizes="(max-width: 768px) 100vw, 50vw"
                       />
                     )}
                   </Shot>
@@ -339,7 +277,7 @@ export function MoreProjectsSection() {
                           <Title>{content.title}</Title>
                         </Heading>
                         <Fields aria-label={content.field}>
-                          {content.field.split(" · ").map((field) => (
+                          {content.field.split(' · ').map((field) => (
                             <li key={field}>
                               <Badge>{field}</Badge>
                             </li>

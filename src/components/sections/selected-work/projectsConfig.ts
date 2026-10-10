@@ -216,7 +216,7 @@ PROJECTS.push(
   {
     slug: 'myzcapital',
     company: 'myZcapital',
-    year: '2016–2018',
+    year: '2016–2017',
     gradient: 'linear-gradient(180deg, #14325C 0%, #23707F 100%)',
     more: true,
     logo: '/logo/companies/myZcapital.png',
@@ -235,7 +235,7 @@ PROJECTS.push(
   {
     slug: 'solomoon',
     company: 'Solomoon',
-    year: '',
+    year: '2022',
     gradient: 'linear-gradient(180deg, #120E22 0%, #5B2A86 100%)',
     more: true,
     logo: '/logo/companies/Solomoon.png',
@@ -254,7 +254,7 @@ PROJECTS.push(
   {
     slug: 'infinity-rings',
     company: 'Infinity Rings',
-    year: '',
+    year: '2023',
     gradient: 'linear-gradient(180deg, #151515 0%, #6E5A38 100%)',
     more: true,
     logo: '/logo/companies/InfinitiRings.svg',
@@ -273,7 +273,7 @@ PROJECTS.push(
   {
     slug: 'panika',
     company: 'Panika Production',
-    year: '2020–2023',
+    year: '2021',
     gradient: 'linear-gradient(180deg, #161616 0%, #7A1E2C 100%)',
     more: true,
     logo: '/logo/companies/Panika.png',
