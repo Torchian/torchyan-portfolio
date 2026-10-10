@@ -26,6 +26,13 @@ export interface CaseImage {
   aspect: number;
   /** Shown instead of the screenshot where the slot can play it (not in the hero carousel). */
   video?: CaseVideo;
+  /**
+   * A phone's screen. Its captures are narrow, so a gallery whose tall image is
+   * one gives it 30% of the width rather than half, where it would be blown up
+   * past its own pixels. Marked, not guessed from the shape: a desktop page
+   * captured whole is as tall and narrow as a phone screen.
+   */
+  phone?: boolean;
 }
 
 /** What the sticky Timeline gallery shows for one step: a tall image, and two beside it. */
@@ -55,7 +62,7 @@ const picsart = (name: string, aspect: number): CaseImage => ({
   aspect,
 });
 const desk = (name: string) => picsart(name, DESKTOP);
-const phone = (name: string) => picsart(name, PHONE);
+const phone = (name: string) => ({ ...picsart(name, PHONE), phone: true });
 
 const gallery = (main: string, a: string, b: string): GallerySet => ({
   main: phone(main),
@@ -139,13 +146,16 @@ const at =
 const frame = (image: CaseImage, shape: 'desktop' | 'phone'): CaseImage => ({
   ...image,
   aspect: shape === 'desktop' ? DESKTOP : PHONE,
+  ...(shape === 'phone' ? { phone: true } : {}),
 });
+/** A phone's screen (CaseImage.phone). */
+const mobile = (image: CaseImage): CaseImage => ({ ...image, phone: true });
 const set = (main: CaseImage, a: CaseImage, b: CaseImage): GallerySet => ({ main, side: [a, b] });
 
 /* Smartbet: the Selected Work collage's screens. */
 const sb = at('/projects/collages/smartbet');
 const sbDesk = (name: string) => sb(name, 1280, 709);
-const sbPhone = (name: string) => sb(name, 486, 864);
+const sbPhone = (name: string) => mobile(sb(name, 486, 864));
 
 /* SoulOne: the concept's screens, from the About timeline and the homepage card. */
 const so = at('/about/timeline/soulone');
@@ -165,20 +175,48 @@ const SO = {
   pageC: soGrid('s-c1-v2', 1366, 3949),
   pageD: soGrid('s-c2-v2', 1333, 4096),
   pageE: soGrid('s-c3-v2', 1366, 2754),
-  phoneA: soGrid('s-b1-v2', 415, 3618),
-  phoneB: soGrid('s-b2-v2', 410, 4096),
-  phoneC: soGrid('s-b3-v2', 415, 3559),
-  phoneHome: soPhones('iphone-home', 142, 4096),
-  phoneProduct: soPhones('iphone-product-2', 212, 4096),
-  phoneProduct2: soPhones('iphone-product-3', 185, 4096),
+  // Pages and screens the case hadn't shown yet.
+  pageF: soGrid('s-d1-v3', 1728, 2657),
+  pageG: soGrid('s-d2-v3', 1728, 2627),
+  planDiet: soPhones('plan-diet', 803, 4096),
+  phoneA: mobile(soGrid('s-b1-v2', 415, 3618)),
+  phoneB: mobile(soGrid('s-b2-v2', 410, 4096)),
+  phoneC: mobile(soGrid('s-b3-v2', 415, 3559)),
+  phoneD: mobile(soGrid('s-b4-v3', 402, 1544)),
+  phoneHome: mobile(soPhones('iphone-home', 142, 4096)),
+  phoneProduct: mobile(soPhones('iphone-product-2', 212, 4096)),
+  phoneProduct2: mobile(soPhones('iphone-product-3', 185, 4096)),
+  tabletHome: mobile(soPhones('ipad-home', 455, 4096)),
 };
 
-/* Ginosi: archived screens of the original build. */
+/*
+ * Ginosi: archived screens of the original build — its whole Figma board
+ * (4205:18814), each framed there from its full capture, in
+ * public/projects/sets/ginosi.
+ */
+const gi = at('/projects/sets/ginosi');
 const GI = {
-  search: at('/selected-work/various')('ginosi-search', 1920, 1265),
-  apartel: at('/selected-work/various')('ginosi-apartel', 1903, 903),
-  downtown: at('/projects/collages/websites')('ginosi-downtown', 673, 319),
-  searchCrop: at('/projects/collages/websites')('ginosi-search', 673, 443),
+  home: gi('home-1', 1064, 498),
+  homeOffers: gi('home-2', 1064, 1046),
+  homeCities: gi('home-3', 1064, 1157),
+  apartel: gi('downtown-apartel', 1284, 610),
+  additional: gi('additional', 1294, 898),
+  blog: gi('blog', 1296, 1656),
+  guide: gi('guide-1', 1121, 1337),
+  guideMore: gi('guide-2', 1121, 1114),
+  careers: gi('careers', 1296, 2198),
+  job: gi('careers-job', 1296, 2300),
+  castelldefels: gi('castelldefels-1', 1296, 780),
+  castelldefelsRooms: gi('castelldefels-2', 1296, 1068),
+  castelldefelsNearby: gi('castelldefels-3', 1296, 1153),
+  downtown: gi('downtown-search', 1296, 1542),
+  faq: gi('faq', 1294, 2006),
+  locations: gi('locations', 1294, 1753),
+  location: gi('location', 1296, 1876),
+  news: gi('news', 1292, 1202),
+  newsArticle: gi('news-article', 1294, 854),
+  reservation: gi('reservation', 1294, 998),
+  search: gi('search', 1294, 854),
 };
 
 const bz = at('/projects/cases/benzeen');
@@ -203,6 +241,9 @@ const BZ = {
   footer: bz('footer', 1356, 930),
   vision: bz('vision', 1356, 1854),
   facility: bz('facility', 1356, 936),
+  // The About page's top and its values, from the Figma board (4193:15299, 15302).
+  aboutTop: bz('about-top', 793, 722),
+  aboutValues: bz('about-values', 793, 944),
 };
 
 const bs = at('/projects/cases/brainstorm');
@@ -231,17 +272,19 @@ const WE = {
   insights: we('insights', 2478, 1162),
   partners: we('partners', 2476, 978),
   blog: we('blog', 2480, 1268),
-  mHero: we('m-hero', 342, 590),
-  mAbout: we('m-about', 342, 1124),
-  mPricing: we('m-pricing', 342, 1188),
-  mSignIn: we('m-sign-in', 342, 742),
-  mCommunities: we('m-communities', 342, 980),
-  mUniversities: we('m-universities', 342, 1052),
-  mServices: we('m-services', 342, 686),
-  mPartners: we('m-partners', 342, 1070),
-  mInsights: we('m-insights', 342, 860),
-  mGrants: we('m-grants', 652, 1380),
-  mBenefits: we('m-benefits', 650, 1316),
+  mHero: mobile(we('m-hero', 342, 590)),
+  mAbout: mobile(we('m-about', 342, 1124)),
+  mPricing: mobile(we('m-pricing', 342, 1188)),
+  mSignIn: mobile(we('m-sign-in', 342, 742)),
+  mCommunities: mobile(we('m-communities', 342, 980)),
+  mUniversities: mobile(we('m-universities', 342, 1052)),
+  mServices: mobile(we('m-services', 342, 686)),
+  mPartners: mobile(we('m-partners', 342, 1070)),
+  mInsights: mobile(we('m-insights', 342, 860)),
+  mGrants: mobile(we('m-grants', 652, 1380)),
+  mBenefits: mobile(we('m-benefits', 650, 1316)),
+  /** The app's screens side by side: wide enough for a desktop slot. */
+  app: we('m-app', 650, 668),
 };
 
 const d = (image: CaseImage) => frame(image, 'desktop');
@@ -304,7 +347,7 @@ export const MORE_CASE_STUDIES: Partial<Record<ProjectSlug, CaseStudyImagery>> =
     carousel: [
       [p(SO.phoneA), SO.hero, p(SO.phoneB), d(SO.home), p(SO.phoneC), SO.yinYang, p(SO.phoneProduct), SO.plans],
       [d(SO.pageB), p(SO.phoneHome), SO.body, p(SO.phoneA), d(SO.product), p(SO.phoneProduct2), d(SO.pageC), SO.cakes],
-      [p(SO.phoneC), d(SO.guidance), SO.hero, p(SO.phoneB), d(SO.pageE), p(SO.phoneProduct), d(SO.pageD), SO.yinYang],
+      [p(SO.phoneD), d(SO.guidance), d(SO.pageF), p(SO.tabletHome), d(SO.pageE), p(SO.phoneProduct), d(SO.pageG), d(SO.planDiet)],
     ],
     // Context, brand foundations, messaging, homepage, product pages, prototype and social, what changed, what it shows.
     timeline: [
@@ -314,26 +357,27 @@ export const MORE_CASE_STUDIES: Partial<Record<ProjectSlug, CaseStudyImagery>> =
       set(SO.phoneHome, SO.pageA, SO.cakes),
       set(SO.phoneProduct, SO.product, SO.pageC),
       set(SO.phoneProduct2, SO.pageD, SO.pageE),
-      set(SO.phoneA, SO.pageB, SO.hero),
-      set(SO.phoneB, SO.home, SO.cakes),
+      set(SO.phoneD, SO.pageF, SO.pageB),
+      set(SO.tabletHome, SO.pageG, SO.planDiet),
     ],
     // Brand presentation, cakes and balls together, product detail, prototype, logo.
     useCases: [SO.hero, SO.home, SO.product, SO.pageC, SO.yinYang],
   },
   ginosi: {
+    // Every screen of the board once across the three rows.
     carousel: [
-      [GI.search, GI.downtown, GI.apartel, GI.searchCrop, GI.search, GI.downtown],
-      [GI.apartel, GI.searchCrop, GI.search, GI.downtown, GI.apartel, GI.searchCrop],
-      [GI.downtown, GI.search, GI.searchCrop, GI.apartel, GI.downtown, GI.search],
+      [GI.home, d(GI.blog), GI.apartel, d(GI.locations), GI.search, d(GI.downtown), GI.castelldefels],
+      [d(GI.location), GI.reservation, d(GI.careers), GI.newsArticle, d(GI.faq), GI.additional, d(GI.guide)],
+      [GI.castelldefelsRooms, d(GI.homeCities), GI.guideMore, d(GI.job), GI.castelldefelsNearby, d(GI.news), GI.homeOffers],
     ],
     // Context, designs into structure, search and properties, responsive, what changed, what it shows.
     timeline: [
-      set(GI.search, GI.apartel, GI.downtown),
-      set(GI.apartel, GI.search, GI.searchCrop),
-      set(GI.searchCrop, GI.search, GI.apartel),
-      set(GI.downtown, GI.apartel, GI.search),
-      set(GI.search, GI.downtown, GI.searchCrop),
-      set(GI.apartel, GI.searchCrop, GI.downtown),
+      set(GI.blog, GI.home, GI.apartel),
+      set(GI.locations, GI.castelldefels, GI.homeOffers),
+      set(GI.downtown, GI.search, GI.reservation),
+      set(GI.location, GI.castelldefelsRooms, GI.castelldefelsNearby),
+      set(GI.careers, GI.news, GI.additional),
+      set(GI.faq, GI.newsArticle, GI.guide),
     ],
     useCases: [],
   },
@@ -341,13 +385,13 @@ export const MORE_CASE_STUDIES: Partial<Record<ProjectSlug, CaseStudyImagery>> =
     carousel: [
       [BZ.home, d(BZ.arrivals), BZ.categories, d(BZ.wheel), BZ.cutSheets, d(BZ.usedParts), BZ.search, d(BZ.quote)],
       [d(BZ.stock), BZ.makeFilter, d(BZ.lexus), BZ.partModal, d(BZ.moreParts), BZ.saved, d(BZ.vision), BZ.facility],
-      [BZ.categories, d(BZ.contact), BZ.shipping, d(BZ.vision), BZ.home, d(BZ.wheel), BZ.settings, d(BZ.arrivals)],
+      [BZ.categories, d(BZ.contact), BZ.shipping, d(BZ.aboutValues), BZ.aboutTop, d(BZ.wheel), BZ.settings, d(BZ.arrivals)],
     ],
     // Context, structure and styling, alongside the designers, the storefront, interaction and AMP, what changed, what it shows.
     timeline: [
       set(BZ.arrivals, BZ.home, BZ.categories),
       set(BZ.usedParts, BZ.footer, BZ.cutSheets),
-      set(BZ.vision, BZ.cutSheets, BZ.facility),
+      set(BZ.vision, BZ.aboutTop, BZ.aboutValues),
       set(BZ.wheel, BZ.stock, BZ.moreParts),
       set(BZ.lexus, BZ.makeFilter, BZ.partModal),
       set(BZ.quote, BZ.saved, BZ.shipping),
@@ -388,7 +432,7 @@ export const MORE_CASE_STUDIES: Partial<Record<ProjectSlug, CaseStudyImagery>> =
         WE.prices,
       ],
       [WE.about, p(WE.mUniversities), WE.article, p(WE.mPricing), WE.howTo, p(WE.mSignIn), WE.insights, p(WE.mAbout)],
-      [p(WE.mPartners), WE.blog, WE.partners, p(WE.mGrants), WE.hero, p(WE.mBenefits), WE.connect, p(WE.mHero)],
+      [p(WE.mPartners), WE.blog, WE.partners, p(WE.mGrants), WE.app, p(WE.mBenefits), WE.connect, p(WE.mHero)],
     ],
     // Context, responsive pages, content and services, animation and interaction, what changed, what it shows.
     timeline: [
@@ -397,7 +441,7 @@ export const MORE_CASE_STUDIES: Partial<Record<ProjectSlug, CaseStudyImagery>> =
       set(WE.mServices, WE.servicesMap, WE.article),
       set(WE.mInsights, WE.howTo, WE.insights),
       set(WE.mGrants, WE.blog, WE.partners),
-      set(WE.mUniversities, WE.hero, WE.servicesMap),
+      set(WE.mUniversities, WE.app, WE.servicesMap),
     ],
     useCases: [],
   },
