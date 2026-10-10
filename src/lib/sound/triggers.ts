@@ -26,9 +26,11 @@ import { isSoundCue, type SoundCueId } from './sounds';
  *               phone made no sound at all — it is in neither PRESSABLE nor,
  *               there, the focus path. Change is the one signal every browser
  *               agrees on, by tap, click or arrow key.
- *  - press:     a primary press, or Enter / Space, on it — the :active moment.
- *               Like hover, every link and button plays DEFAULT_PRESS without
- *               asking; the attribute is only for playing something else.
+ *  - press:     a click, or Enter / Space, on it. A pointer press sounds when it
+ *               is released over the same element it began on — the click, not
+ *               the push — and a key at once. Like hover, every link and button
+ *               plays DEFAULT_PRESS without asking; the attribute is only for
+ *               playing something else.
  *  - animation: a CSS animation starts on the element itself — fade-ins,
  *               fade-outs, random motion. Fires after any animation-delay.
  */
@@ -57,6 +59,8 @@ const LISTENER_OPTIONS = { capture: true, passive: true } as const;
 const DEFAULT_HOVER: SoundCueId = 'uiHover';
 const DEFAULT_PRESS: SoundCueId = 'uiPress';
 const FIELD_CUE: SoundCueId = 'fieldFocus';
+/** Choosing a radio, a checkbox or an option. */
+const OPTION_CUE: SoundCueId = 'optionSelect';
 
 /** What a press sounds on: the things you click to go somewhere or do something. */
 const PRESSABLE = 'a[href], button:not([disabled]), [role="button"], summary';
@@ -114,12 +118,30 @@ function onFocusIn(e: FocusEvent) {
 /** Choosing a radio, a checkbox or an option: the moment it answers. */
 function onChange(e: Event) {
   if (!isSoundReady() || !(e.target instanceof Element)) return;
-  if (e.target.matches(VALUE_FIELD)) playSound(FIELD_CUE, { origin: e.target });
+  if (e.target.matches(VALUE_FIELD)) playSound(OPTION_CUE, { origin: e.target });
+}
+
+/** What a pointer press began on, so a release elsewhere (a drag off the button) isn't a click. */
+let pressStart: Element | null = null;
+
+function pressHostOf(target: EventTarget | null) {
+  if (!(target instanceof Element)) return null;
+  return hostOf(target, ATTRIBUTES.press) ?? target.closest(PRESSABLE);
 }
 
 function onPointerDown(e: PointerEvent) {
-  if (e.button !== 0 || !isSoundReady()) return;
-  playPress(e.target);
+  pressStart = e.button === 0 ? pressHostOf(e.target) : null;
+}
+
+function onPointerUp(e: PointerEvent) {
+  const started = pressStart;
+  pressStart = null;
+  if (e.button !== 0 || !started || !isSoundReady()) return;
+  if (pressHostOf(e.target) === started) playPress(e.target);
+}
+
+function onPointerCancel() {
+  pressStart = null;
 }
 
 function onKeyDown(e: KeyboardEvent) {
@@ -152,6 +174,8 @@ export function installSoundTriggers(): () => void {
   document.addEventListener('focusin', onFocusIn, LISTENER_OPTIONS);
   document.addEventListener('change', onChange, LISTENER_OPTIONS);
   document.addEventListener('pointerdown', onPointerDown, LISTENER_OPTIONS);
+  document.addEventListener('pointerup', onPointerUp, LISTENER_OPTIONS);
+  document.addEventListener('pointercancel', onPointerCancel, LISTENER_OPTIONS);
   document.addEventListener('keydown', onKeyDown, LISTENER_OPTIONS);
   document.addEventListener('animationstart', onAnimationStart, LISTENER_OPTIONS);
   return () => {
@@ -159,6 +183,8 @@ export function installSoundTriggers(): () => void {
     document.removeEventListener('focusin', onFocusIn, LISTENER_OPTIONS);
     document.removeEventListener('change', onChange, LISTENER_OPTIONS);
     document.removeEventListener('pointerdown', onPointerDown, LISTENER_OPTIONS);
+    document.removeEventListener('pointerup', onPointerUp, LISTENER_OPTIONS);
+    document.removeEventListener('pointercancel', onPointerCancel, LISTENER_OPTIONS);
     document.removeEventListener('keydown', onKeyDown, LISTENER_OPTIONS);
     document.removeEventListener('animationstart', onAnimationStart, LISTENER_OPTIONS);
   };

@@ -12,6 +12,10 @@ import { accents, neutrals } from '@/styles/tokens/colors';
 import { grid } from '@/styles/tokens/grid';
 import { media } from '@/styles/media';
 import { HEADER_HEIGHT } from '@/components/layouts/NavBar';
+import { soundTriggers } from '@/lib/sound';
+
+/** Hovering these isn't an action, so it gets the soft cue rather than the site-wide hover. */
+const SOFT_HOVER = soundTriggers({ hover: 'softHover' });
 
 /*
  * Figma: New Services (4105:15024) — Position=Default and one state per
@@ -591,7 +595,7 @@ export function ServicesSpecialists() {
                 <List data-shown={active === null}>
                   {SPECIALISTS.map((s, i) => (
                     <li key={s.id}>
-                      <button type="button" tabIndex={-1} onPointerEnter={point(s.id)} onClick={toggle(s.id)}>
+                      <button type="button" tabIndex={-1} onPointerEnter={point(s.id)} onClick={toggle(s.id)} {...SOFT_HOVER}>
                         {items[i]?.title}
                       </button>
                     </li>
@@ -628,6 +632,7 @@ export function ServicesSpecialists() {
                     tabIndex={-1}
                     onPointerEnter={point(s.id)}
                     onClick={toggle(s.id)}
+                    {...SOFT_HOVER}
                   >
                     <Image src={s.src} alt="" fill sizes="(max-width: 1024px) 32vw, 320px" />
                   </Portrait>

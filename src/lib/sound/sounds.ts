@@ -16,18 +16,19 @@ export type SoundChannel = 'hover' | 'interaction' | 'transition' | 'ambient';
 export const MASTER_LEVEL = 0.8;
 
 /**
- * Every interface sound sits at the same level, −14 dBFS peak, so nothing in
- * front jumps out; the bed sits 12 dB under it at −26. The cue files are all
- * peak-normalised, so a shared channel level and a shared cue volume is all it
- * takes: 0.9 × 0.4 × 0.7 × 0.8 = 0.20 (−13.9 dBFS).
+ * The cue files are levelled to a common loudness (RMS) with their peaks held
+ * under −0.9 dBFS, so a shared channel level and a shared cue volume balances
+ * them. The three channels that carry interface sounds sit 10% under their
+ * earlier level (0.7 → 0.63); the bed's channel and the master are unchanged,
+ * so the music keeps exactly the loudness it had.
  */
 export const CHANNEL_LEVELS: Record<SoundChannel, number> = {
   /** Pointer hovers. */
-  hover: 0.7,
+  hover: 0.63,
   /** Keyboard focus and presses (:focus-visible, :active). */
-  interaction: 0.7,
+  interaction: 0.63,
   /** Things fading or sliding in and out. */
-  transition: 0.7,
+  transition: 0.63,
   /** Idle and random motion: the bed, well under everything else. */
   ambient: 0.35,
 };
@@ -55,7 +56,7 @@ export interface SoundCue {
 export const SOUND_CUES = {
   /** Any link or button under the pointer: the site-wide hover cue (see triggers.ts). */
   uiHover: {
-    src: '/sounds/ui-hover.wav',
+    src: '/sounds/hover.wav',
     channel: 'hover',
     /* No detune or jitter: every link and button sounds exactly the same. */
     volume: CUE_VOLUME,
@@ -72,7 +73,45 @@ export const SOUND_CUES = {
     maxVoices: 2,
     spatial: true,
   },
-  /** A form field taking focus: a radio, a text field or a select (see triggers.ts). */
+  /**
+   * Hovering something that isn't an action: a circle's items, a logo, a card.
+   * Opt in with `soundTriggers({ hover: 'softHover' })`; it replaces the
+   * site-wide hover on that element.
+   */
+  softHover: {
+    src: '/sounds/hover-soft.wav',
+    channel: 'hover',
+    volume: CUE_VOLUME,
+    cooldownMs: 90,
+    maxVoices: 2,
+    spatial: true,
+  },
+  /** Choosing a radio, a checkbox or an option in a select (see triggers.ts). */
+  optionSelect: {
+    src: '/sounds/option-select.wav',
+    channel: 'interaction',
+    volume: CUE_VOLUME,
+    cooldownMs: 60,
+    maxVoices: 2,
+    spatial: true,
+  },
+  /** The contact form's message went through. */
+  messageSent: {
+    src: '/sounds/message-sent.wav',
+    channel: 'interaction',
+    volume: CUE_VOLUME,
+    cooldownMs: 300,
+    maxVoices: 1,
+  },
+  /** …and when it didn't: a validation, rate-limit or delivery error. */
+  messageFailed: {
+    src: '/sounds/message-failed.wav',
+    channel: 'interaction',
+    volume: CUE_VOLUME,
+    cooldownMs: 300,
+    maxVoices: 1,
+  },
+  /** A text field taking focus (see triggers.ts). */
   fieldFocus: {
     src: '/sounds/field.wav',
     channel: 'interaction',

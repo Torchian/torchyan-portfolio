@@ -8,6 +8,10 @@ import { Badge, VisuallyHidden } from '@/components/primitives';
 import { Character } from '@/components/composites/character/Character';
 import { useLookAtPointer } from '@/components/composites/character/useLookAtPointer';
 import { media } from '@/styles/media';
+import { soundTriggers } from '@/lib/sound';
+
+/** Hovering these isn't an action, so it gets the soft cue rather than the site-wide hover. */
+const SOFT_HOVER = soundTriggers({ hover: 'softHover' });
 
 /*
  * Figma: Team (4064:14658) — State=Default (4064:14657) and one hover state per
@@ -464,12 +468,14 @@ export function ServicesTeam() {
         ))}
 
         <Hit
+          {...SOFT_HOVER}
           onPointerEnter={point('lead')}
           style={{ left: pctX(LEAD.x), width: pctX(LEAD.size * HIT_WIDTH), height: '100%' }}
         />
         {MEMBERS.map((m) => (
           <Hit
             key={m.id}
+            {...SOFT_HOVER}
             onPointerEnter={point(m.id)}
             style={{ left: pctX(m.x), width: pctX(m.width * HIT_WIDTH), height: pctY(m.height) }}
           />

@@ -10,6 +10,10 @@ import { fontFamily, fontWeight, fontSize, lineHeight, letterSpacing } from '@/s
 import { duration, easing } from '@/styles/tokens/motion';
 import { grid } from '@/styles/tokens/grid';
 import { media } from '@/styles/media';
+import { soundTriggers } from '@/lib/sound';
+
+/** Hovering these isn't an action, so it gets the soft cue rather than the site-wide hover. */
+const SOFT_HOVER = soundTriggers({ hover: 'softHover' });
 
 /*
  * Figma: Credibility — Desktop 1920 (2670:10613), 1440 (2670:10970), Tablet 1024 (2670:11664),
@@ -303,7 +307,7 @@ export function TrustedBySection() {
                 <GroupLabel id={labelId}>{t(`groups.${group.id}`)}</GroupLabel>
                 <LogoRow>
                   {group.logos.map((item) => (
-                    <Logo key={item.name} $height={item.height} $boxed={item.boxed}>
+                    <Logo key={item.name} $height={item.height} $boxed={item.boxed} {...SOFT_HOVER}>
                       {/* Not lazy: an unsized SVG lays out 0px wide until it loads, and a
                           0-wide lazy image is never seen to enter the viewport, so it never
                           loads. Fifteen small SVGs, all below the fold. */}

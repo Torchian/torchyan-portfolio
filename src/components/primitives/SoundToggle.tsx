@@ -3,8 +3,8 @@
 import { useTranslations } from 'next-intl';
 import { AudioToggle, type AudioToggleProps } from './AudioToggle';
 
-/** Figma: Sound CTA (3690:10694) — the interface sounds, on a 6% wash. */
-export type SoundToggleProps = Omit<AudioToggleProps, 'kind' | 'label' | 'off' | 'on' | 'offWash' | 'onWash'>;
+/** Figma: Sound CTA (3690:10694) — all sound, interface and music, on a 6% wash. */
+export type SoundToggleProps = Omit<AudioToggleProps, 'label' | 'off' | 'on' | 'offWash' | 'onWash'>;
 
 export function SoundToggle(props: SoundToggleProps) {
   const t = useTranslations('sound');
@@ -12,7 +12,6 @@ export function SoundToggle(props: SoundToggleProps) {
   return (
     <AudioToggle
       {...props}
-      kind="effects"
       label={t('label')}
       off="/vectors/sound/sound-off.svg"
       on="/vectors/sound/sound-on.svg"

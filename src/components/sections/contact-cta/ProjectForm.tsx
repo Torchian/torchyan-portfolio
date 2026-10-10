@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import { TextInput, RadioInput, Button } from '@/components/primitives';
 import { accents } from '@/styles/tokens/colors';
 import { trackEvent } from '@/lib/analytics/track';
+import { playSound } from '@/lib/sound';
 import { Link } from '@/i18n/navigation';
 import { useLocale } from 'next-intl';
 import { spacing } from '@/styles/tokens/spacing';
@@ -312,6 +313,7 @@ export function ProjectForm() {
       // Offline, or the request never reached the server.
       setState('delivery');
       trackEvent('contact_form_error', { kind: 'delivery' });
+      playSound('messageFailed');
       return;
     }
 
@@ -322,6 +324,7 @@ export function ProjectForm() {
         setIssues(fields);
         setState('validation');
         trackEvent('contact_form_error', { kind: 'validation' });
+        playSound('messageFailed');
         // Take the reader to the first field that needs attention.
         const first = FIELD_ORDER.find((field) => fields[field]);
         if (first) form.querySelector<HTMLElement>(`#${FIELD_INPUT_ID[first]}`)?.focus();
@@ -330,6 +333,7 @@ export function ProjectForm() {
       const kind = response.status === 429 ? 'rate_limited' : 'delivery';
       setState(kind);
       trackEvent('contact_form_error', { kind });
+      playSound('messageFailed');
       return;
     }
 
@@ -338,6 +342,7 @@ export function ProjectForm() {
     // happened.
     setState('sent');
     trackEvent('contact_form_submit', { area: area(), page: pathname });
+    playSound('messageSent');
     form.reset();
     setIntent(null);
     setTimeline(null);
