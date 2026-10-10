@@ -143,6 +143,17 @@ const Stage = styled.div`
   container-type: inline-size;
 `;
 
+/**
+ * The circle's own square, which the orbit scene is centred on. Not the Stage:
+ * below 720px the details hang under the circle inside the Stage, and the
+ * scene, sized from the Stage's height, sat centred far above the circle.
+ */
+const Circle = styled.div`
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+`;
+
 const Frame = styled.div`
   position: relative;
   width: 100%;
@@ -565,63 +576,65 @@ export function ServicesSpecialists() {
           {t('title')}
         </VisuallyHidden>
         <Stage>
-          <SpecialistScene
-            axes={AXES}
-            labels={NUMBERS}
-            active={active ? SPECIALISTS.findIndex((s) => s.id === active) : null}
-          />
-          {/* The circle is a picture of the list below it, which is what assistive tech reads. */}
-          <Frame aria-hidden onPointerLeave={(e) => e.pointerType === 'mouse' && choose(null)}>
-            <Ring ref={ringRef} data-on={active !== null} />
-            <Disc data-on={active !== null} />
+          <Circle>
+            <SpecialistScene
+              axes={AXES}
+              labels={NUMBERS}
+              active={active ? SPECIALISTS.findIndex((s) => s.id === active) : null}
+            />
+            {/* The circle is a picture of the list below it, which is what assistive tech reads. */}
+            <Frame aria-hidden onPointerLeave={(e) => e.pointerType === 'mouse' && choose(null)}>
+              <Ring ref={ringRef} data-on={active !== null} />
+              <Disc data-on={active !== null} />
 
-            <Middle>
-              <List data-shown={active === null}>
-                {SPECIALISTS.map((s, i) => (
-                  <li key={s.id}>
-                    <button type="button" tabIndex={-1} onPointerEnter={point(s.id)} onClick={toggle(s.id)}>
-                      {items[i]?.title}
-                    </button>
-                  </li>
-                ))}
-              </List>
-              {SPECIALISTS.map((s, i) => {
-                const copy = items[i];
-                if (!copy) return null;
-                return (
-                  <Service key={s.id} data-shown={active === s.id}>
-                    <ServiceTitle>{copy.title}</ServiceTitle>
-                    <Details>
-                      <Paragraphs>
-                        <p>{copy.situation}</p>
-                        <p>{copy.outcome}</p>
-                      </Paragraphs>
-                      <Bullets>
-                        {copy.owns.map((line) => (
-                          <li key={line}>{line}</li>
-                        ))}
-                      </Bullets>
-                    </Details>
-                  </Service>
-                );
-              })}
-            </Middle>
+              <Middle>
+                <List data-shown={active === null}>
+                  {SPECIALISTS.map((s, i) => (
+                    <li key={s.id}>
+                      <button type="button" tabIndex={-1} onPointerEnter={point(s.id)} onClick={toggle(s.id)}>
+                        {items[i]?.title}
+                      </button>
+                    </li>
+                  ))}
+                </List>
+                {SPECIALISTS.map((s, i) => {
+                  const copy = items[i];
+                  if (!copy) return null;
+                  return (
+                    <Service key={s.id} data-shown={active === s.id}>
+                      <ServiceTitle>{copy.title}</ServiceTitle>
+                      <Details>
+                        <Paragraphs>
+                          <p>{copy.situation}</p>
+                          <p>{copy.outcome}</p>
+                        </Paragraphs>
+                        <Bullets>
+                          {copy.owns.map((line) => (
+                            <li key={line}>{line}</li>
+                          ))}
+                        </Bullets>
+                      </Details>
+                    </Service>
+                  );
+                })}
+              </Middle>
 
-            {SPECIALISTS.map((s) => (
-              <Side key={s.id} style={{ transform: `rotate(${s.angle - 180}deg)` }}>
-                <Portrait
-                  type="button"
-                  data-state={active === s.id ? 'on' : active ? 'away' : 'rest'}
-                  data-mirror={s.mirror || undefined}
-                  tabIndex={-1}
-                  onPointerEnter={point(s.id)}
-                  onClick={toggle(s.id)}
-                >
-                  <Image src={s.src} alt="" fill sizes="(max-width: 1024px) 32vw, 320px" />
-                </Portrait>
-              </Side>
-            ))}
-          </Frame>
+              {SPECIALISTS.map((s) => (
+                <Side key={s.id} style={{ transform: `rotate(${s.angle - 180}deg)` }}>
+                  <Portrait
+                    type="button"
+                    data-state={active === s.id ? 'on' : active ? 'away' : 'rest'}
+                    data-mirror={s.mirror || undefined}
+                    tabIndex={-1}
+                    onPointerEnter={point(s.id)}
+                    onClick={toggle(s.id)}
+                  >
+                    <Image src={s.src} alt="" fill sizes="(max-width: 1024px) 32vw, 320px" />
+                  </Portrait>
+                </Side>
+              ))}
+            </Frame>
+          </Circle>
 
           <Below aria-hidden>
             <BelowText data-shown={active === null}>

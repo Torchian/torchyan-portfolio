@@ -95,6 +95,13 @@ let ctx: AudioContext | null = null;
 let master: GainNode | null = null;
 let suspendTimer: ReturnType<typeof setTimeout> | undefined;
 let music: Voice | null = null;
+/**
+ * The context can't be trusted to play: the page came back from the
+ * background and its clock hasn't moved since. iOS leaves a context like that
+ * after an app switch — "interrupted", or even "running" — and no resume brings
+ * it back; the next gesture builds a fresh one (recover).
+ */
+let stalled = false;
 
 const channels = new Map<SoundChannel, GainNode>();
 const downloads = new Map<string, Promise<ArrayBuffer | null>>();
@@ -411,10 +418,58 @@ export function playSound(id: SoundCueId, { origin, volume = 1 }: PlayOptions = 
 
 /* ---------- Page wiring ---------- */
 
+/** How long a resumed context gets to show its clock moving. */
+const CLOCK_CHECK_MS = 400;
+
+/**
+ * After the page comes back, see whether the context's clock actually runs.
+ * When it doesn't, the context is dead, whatever its state says: mark it, and
+ * let the next gesture replace it.
+ */
+function checkClock() {
+  const watched = ctx;
+  if (!watched) return;
+  const from = watched.currentTime;
+  setTimeout(() => {
+    if (ctx !== watched || document.hidden || !anyEnabled()) return;
+    if (watched.state !== 'running' || watched.currentTime === from) stalled = true;
+  }, CLOCK_CHECK_MS);
+}
+
+/**
+ * Swap a dead context for a new one, inside a gesture so the browser lets it
+ * start. The decoded sounds carry over — an AudioBuffer isn't tied to the
+ * context that decoded it — so nothing downloads or decodes again; the music
+ * starts over from the top of its loop, fading in.
+ */
+function recover() {
+  stalled = false;
+  const dead = ctx;
+  if (!dead) return;
+  try {
+    music?.source.stop();
+  } catch {
+    // Already stopped with its context.
+  }
+  music = null;
+  ctx = null;
+  master = null;
+  channels.clear();
+  voices.clear();
+  clearTimeout(suspendTimer);
+  dead.close().catch(() => {});
+}
+
 /** Unlock on a gesture. Stays attached: iOS can interrupt a running context, and only a gesture restarts it. */
 function onGesture() {
-  if (document.hidden || !anyEnabled() || ctx?.state === 'running') return;
-  if (ensureContext()) wake();
+  if (document.hidden || !anyEnabled()) return;
+  // "interrupted" is Safari's own state, outside the standard's list.
+  if (stalled || (ctx?.state as string) === 'interrupted' || ctx?.state === 'closed') recover();
+  if (ctx?.state === 'running') return;
+  if (ensureContext()) {
+    wake();
+    checkClock();
+  }
 }
 
 /**
@@ -429,10 +484,25 @@ function resumeFromPreference() {
   if (ensureContext()) wake();
 }
 
+/**
+ * Back on the page: pick the sound up where it was — the full wake, so the mix
+ * and the music come back up, not just the clock — then check it really runs.
+ * Where the browser won't resume without a gesture, or the context died while
+ * the page was away, the next gesture takes it (onGesture).
+ */
 function onVisibilityChange() {
   if (!ctx) return;
-  if (document.hidden) ctx.suspend().catch(() => {});
-  else if (anyEnabled()) ctx.resume().catch(() => {});
+  if (document.hidden) {
+    ctx.suspend().catch(() => {});
+  } else if (anyEnabled()) {
+    wake();
+    checkClock();
+  }
+}
+
+/** A page restored from the back/forward cache comes back without a visibility change. */
+function onPageShow(event: PageTransitionEvent) {
+  if (event.persisted) onVisibilityChange();
 }
 
 /**
@@ -454,6 +524,7 @@ function teardownAudio() {
   downloads.clear();
   voices.clear();
   clearTimeout(suspendTimer);
+  stalled = false;
   dying.close().catch(() => {});
 }
 
@@ -461,6 +532,7 @@ function teardownAudio() {
 export function installSound(): () => void {
   for (const type of GESTURES) window.addEventListener(type, onGesture, { capture: true, passive: true });
   document.addEventListener('visibilitychange', onVisibilityChange);
+  window.addEventListener('pageshow', onPageShow);
 
   // One attempt per movement kind, then they're done: mousemove fires far too
   // often to be asking the browser for audio each time.
@@ -488,6 +560,7 @@ export function installSound(): () => void {
     for (const type of GESTURES) window.removeEventListener(type, onGesture, { capture: true });
     dropNudges();
     document.removeEventListener('visibilitychange', onVisibilityChange);
+    window.removeEventListener('pageshow', onPageShow);
     if (hasIdleCallback) window.cancelIdleCallback(handle);
     else window.clearTimeout(handle);
     teardownAudio();

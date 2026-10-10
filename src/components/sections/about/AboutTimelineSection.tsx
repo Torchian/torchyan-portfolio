@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type RefObject } from 'react';
 import styled from 'styled-components';
 import { SectionHeading } from '@/components/composites';
 import { spacing } from '@/styles/tokens/spacing';
@@ -355,7 +355,13 @@ const GalleryColumn = styled.div`
     left: ${CARDS.tablet}px;
   }
 
+  /*
+   * The year marker starts level with the first card, in this same gutter, so
+   * the box starts under it — 24px below the marker's own bottom edge, as it
+   * docks once both are pinned — rather than over the year.
+   */
   ${TABLET} {
+    top: calc(var(--marker-height, 120px) + 24px);
     left: -${GUTTER.xxl}px;
     right: auto;
     width: ${GUTTER.xxl - RAIL_CLEAR}px;
@@ -366,6 +372,9 @@ const GalleryColumn = styled.div`
     width: ${GUTTER.stacked - RAIL_CLEAR}px;
   }
 `;
+
+/** The tablet box's ceiling: under the marker, clear of the screen's bottom. */
+const ROOM = `min(640px, 100svh - ${spacing[1500]}px - var(--marker-height, 120px) - 24px - ${spacing[600]}px)`;
 
 const Sticky = styled.div`
   position: sticky;
@@ -384,11 +393,33 @@ const Sticky = styled.div`
   ${TABLET} {
     top: calc(${spacing[1500]}px + var(--marker-height, 120px) + 24px);
     z-index: 2;
-    height: min(
-      640px,
-      100svh - ${spacing[1500]}px - var(--marker-height, 120px) - 24px - ${spacing[600]}px
-    );
+    /* Down to the last screen that fits whole (--fit, useFitGallery). */
+    height: min(var(--fit, 100vh), ${ROOM});
     background: var(--color-bg-primary, #0b0915);
+    transition: height 400ms ease-out;
+
+    /* A screen runs past the room: it fades out rather than ending on a cut. */
+    &[data-cropped='true'] {
+      mask-image: linear-gradient(to bottom, #000 80%, transparent);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
+  }
+`;
+
+/** The most the tablet box may take: the room a probe of this height measures. */
+const Room = styled.div`
+  display: none;
+
+  ${TABLET} {
+    display: block;
+    position: absolute;
+    top: 0;
+    width: 0;
+    height: ${ROOM};
+    visibility: hidden;
   }
 `;
 
@@ -420,11 +451,24 @@ const Column = styled.div`
     margin-top: -${spacing[1000]}px;
   }
 
-  /* The tablet frame's gallery is a single column. */
   ${TABLET} {
-    &:nth-child(2) {
-      display: none;
-    }
+    display: none;
+  }
+`;
+
+/**
+ * The tablet frame's gallery: one column with each of the entry's screens
+ * once, in order. The box is cut to the last one that fits whole (useFitGallery),
+ * so it never shows a bare stretch under the screens or half of one.
+ */
+const Single = styled.div`
+  display: none;
+
+  ${TABLET} {
+    display: flex;
+    flex: 1 1 0;
+    flex-direction: column;
+    gap: ${spacing[200]}px;
   }
 `;
 
@@ -490,8 +534,58 @@ function GallerySet({ entry, active }: { entry: TimelineEntry; active: boolean }
           ))}
         </Column>
       ))}
+      <Single data-single>
+        {entry.gallery.flat().map((image) => (
+          <Shot key={image.src} style={{ aspectRatio: String(image.aspect) }}>
+            <Image src={image.src} alt="" fill sizes="200px" />
+          </Shot>
+        ))}
+      </Single>
     </Set>
   );
+}
+
+/**
+ * Cuts the tablet box to the active entry's screens: down to the bottom of the
+ * last one that fits in the room (Room), or the whole room, faded, when the
+ * screens that fit whole would fill less than half of it. Off the tablet frame it leaves the box alone.
+ */
+function useFitGallery(
+  boxRef: RefObject<HTMLDivElement | null>,
+  roomRef: RefObject<HTMLDivElement | null>,
+  shown: number,
+) {
+  useEffect(() => {
+    const box = boxRef.current;
+    const room = roomRef.current;
+    if (!box || !room) return;
+    const fit = () => {
+      const single = box.querySelector<HTMLElement>('[data-active="true"] [data-single]');
+      const max = room.getBoundingClientRect().height;
+      if (!single || !max || getComputedStyle(single).display === 'none') {
+        box.style.removeProperty('--fit');
+        box.removeAttribute('data-cropped');
+        return;
+      }
+      let bottom = 0;
+      for (const shot of single.children) {
+        const end = (shot as HTMLElement).offsetTop + (shot as HTMLElement).offsetHeight;
+        if (end > max + 0.5) break;
+        bottom = end;
+      }
+      // A short screen followed by a long one would leave a sliver of a box:
+      // there, the long one runs on into the room and fades instead.
+      if (bottom < max / 2) bottom = 0;
+      box.style.setProperty('--fit', `${bottom || max}px`);
+      if (bottom) box.removeAttribute('data-cropped');
+      else box.setAttribute('data-cropped', 'true');
+    };
+    fit();
+    const observer = new ResizeObserver(fit);
+    observer.observe(room);
+    for (const single of box.querySelectorAll('[data-single]')) observer.observe(single);
+    return () => observer.disconnect();
+  }, [boxRef, roomRef, shown]);
 }
 
 export function AboutTimelineSection() {
@@ -547,6 +641,9 @@ export function AboutTimelineSection() {
   // The gallery stays on the latest workplace that has screens.
   let shown = active;
   while (shown > 0 && entries[shown].gallery.every((column) => column.length === 0)) shown -= 1;
+  const stickyRef = useRef<HTMLDivElement>(null);
+  const roomRef = useRef<HTMLDivElement>(null);
+  useFitGallery(stickyRef, roomRef, shown);
 
   return (
     <Section ref={sectionRef}>
@@ -600,7 +697,8 @@ export function AboutTimelineSection() {
               ))}
             </Cards>
             <GalleryColumn aria-hidden>
-              <Sticky>
+              <Room ref={roomRef} />
+              <Sticky ref={stickyRef}>
                 {entries.map((entry, index) => (
                   <GallerySet key={entry.id} entry={entry} active={index === shown} />
                 ))}
