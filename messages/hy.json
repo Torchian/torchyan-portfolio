@@ -1707,9 +1707,9 @@
     "picsart": {
       "hero": {
         "title": "Picsart",
-        "subtitle": "Growth & Marketplace — UI engineering at product scale",
+        "subtitle": "Growth և Marketplace — խոշոր թվային պրոդուկտի UI-ի մշակում",
         "description": [
-          "From October 2021 to February 2024, I worked as a Senior UI Engineer on picsart.com — first with the Growth team, then with Marketplace.",
+          "2021 թվականի հոկտեմբերից մինչև 2024 թվականի փետրվարը ես աշխատել եմ picsart.com-ի վրա՝ որպես Senior UI Engineer․ սկզբում Growth թիմում, ապա Marketplace-ում։",
           "Իմ աշխատանքը ներառում էր Picsart-ի դիզայն համակարգի ներդրումը, համակարգում բացակայող բաղադրիչների ստեղծումը, աջից ձախ գրությամբ լեզուների աջակցության իրականացումը զրոյից և հասանելիության աշխատանքների զգալի մասը՝ իմ պատասխանատվության շրջանակում։"
         ],
         "meta": [
@@ -1768,7 +1768,7 @@
                   ]
                 ],
                 [
-                  "Many teams ship to picsart.com at once. Each team has one person responsible for Design System integration — in my team’s scope, that was me."
+                  "picsart.com-ի վրա միաժամանակ աշխատում են բազմաթիվ թիմեր։ Յուրաքանչյուր թիմում կա Design System-ի ինտեգրման պատասխանատու․ իմ թիմում այդ դերը կատարում էի ես։"
                 ]
               ]
             }
@@ -1794,7 +1794,7 @@
               "title": "Ad Wizard",
               "blocks": [
                 [
-                  "A separate Growth product where people create visual and social content and adapt it to the formats each platform needs — text, imagery, titles and emoji in one editor."
+                  "Growth թիմի առանձին պրոդուկտ, որտեղ օգտատերերը ստեղծում են տեսողական և սոցիալական մեդիայի բովանդակություն ու հարմարեցնում այն տարբեր հարթակների ձևաչափերին՝ տեքստ, պատկերներ, վերնագրեր և էմոջիներ՝ մեկ խմբագրիչում։"
                 ],
                 [
                   "Որպես Growth թիմի հիմնական UI ծրագրավորող՝ իրականացրել եմ դրա ինտերֆեյսը React, HTML/CSS, JSS և Styled Components տեխնոլոգիաներով։"
@@ -1834,7 +1834,7 @@
                   "Իմ պատասխանատվության շրջանակում զրոյից իրականացրել եմ բազմալեզու աջակցություն՝ ներառյալ RTL/LTR-ը։"
                 ],
                 [
-                  "Instead of fixing left and right values page by page, I reworked layout direction around logical properties — inline and block, start and end — so a change of direction carries through the structure."
+                  "Յուրաքանչյուր էջում left և right արժեքներն առանձին ուղղելու փոխարեն դասավորության ուղղության տրամաբանությունը կառուցեցի CSS-ի տրամաբանական հատկությունների վրա՝ inline և block, start և end։ Այդպես ուղղության փոփոխությունը կիրառվում է ամբողջ կառուցվածքում։"
                 ]
               ]
             },
