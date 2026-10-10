@@ -80,10 +80,10 @@ const LOCATIONS: (Omit<MapLocation, 'label'> & { id: LocationId })[] = [
   { id: 'sanFrancisco', year: '2021–2024', x: 9, y: 31, bow: 0.38 },
   // Brainstorm, direct client, 2018.
   { id: 'newYork', year: 2018, x: 24, y: 23, bow: 0.08 },
-  // myZcapital, through Apricode, 2016–2018.
-  { id: 'miami', year: '2016–2018', x: 22, y: 39, bow: -0.14 },
-  // Infinity Rings, direct client; no city on record, so the label is the country.
-  { id: 'australia', x: 92, y: 84, bow: 0.18 },
+  // myZcapital, through Apricode, 2016–2017.
+  { id: 'miami', year: '2016–2017', x: 22, y: 39, bow: -0.14 },
+  // Infinity Rings, direct client, 2023; no city on record, so the label is the country.
+  { id: 'australia', year: 2023, x: 92, y: 84, bow: 0.18 },
   // Rostelecom, client.
   { id: 'moscow', x: 58, y: 18 },
   // BrainRocket, employer.
