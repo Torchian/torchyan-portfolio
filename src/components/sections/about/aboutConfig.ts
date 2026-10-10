@@ -133,7 +133,6 @@ export const TIMELINE_ENTRIES: TimelineEntryConfig[] = [
       [shot('/about/timeline/panika/panika-contacts.webp', 1200 / 2063), shot('/about/timeline/panika/panika-mobile.webp', 1116 / 1688)],
       [
         shot('/about/timeline/panika/panika-films.webp', 1200 / 750),
-        shot('/about/timeline/panika/panika-showreel.webp', 1200 / 683),
         shot('/about/timeline/panika/panika-home.webp', 1200 / 1067),
       ],
     ],
