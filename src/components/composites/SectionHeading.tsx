@@ -36,6 +36,8 @@ const Wrapper = styled.div<{ $align?: 'center' | 'left' }>`
 const Title = styled(Display)<{ $heading: SectionHeadingSize }>`
   /* A title that wraps onto two lines keeps the heading's alignment. */
   text-align: inherit;
+  /* A word longer than the screen (Armenian) breaks instead of widening the page. */
+  max-width: 100%;
   font-family: ${fontFamily.heading};
   font-size: ${fontSize.heading.l}px;
   line-height: ${lineHeight.heading.l}px;

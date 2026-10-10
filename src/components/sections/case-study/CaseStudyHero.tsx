@@ -188,12 +188,13 @@ const MetaItems = styled.dd`
   flex-wrap: wrap;
   justify-content: center;
   gap: ${spacing[200]}px;
+  min-width: 0;
   margin: 0;
 
   span {
     display: flex;
     align-items: center;
-    height: 28px;
+    min-height: 28px;
     padding: ${spacing[50]}px ${spacing[250]}px;
     border-radius: 24px;
     background: ${neutrals[100]};
@@ -202,13 +203,16 @@ const MetaItems = styled.dd`
     font-size: ${fontSize.body.xl}px;
     line-height: ${lineHeight.body.xl}px;
     letter-spacing: ${letterSpacing.s}px;
-    white-space: nowrap;
+    max-width: 100%;
+    text-align: center;
+    /* Russian and Armenian badges can be longer than a phone is wide. */
+    overflow-wrap: anywhere;
     color: ${neutrals[900]};
   }
 
   ${media.down('xl')} {
     span {
-      height: 24px;
+      min-height: 24px;
       padding: ${spacing[50]}px ${spacing[200]}px;
       font-size: ${fontSize.body.l}px;
       line-height: ${lineHeight.body.l}px;
@@ -222,7 +226,7 @@ const MetaItems = styled.dd`
     gap: ${spacing[100]}px;
 
     span {
-      height: 22px;
+      min-height: 22px;
       padding: ${spacing[50]}px ${spacing[150]}px;
       font-size: ${fontSize.body.m}px;
       line-height: ${lineHeight.body.m}px;
