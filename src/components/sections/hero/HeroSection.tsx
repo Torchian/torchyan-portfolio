@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import { getImageProps } from 'next/image';
 import styled from 'styled-components';
 import { Button, VisuallyHidden } from '@/components/primitives';
 import { Link } from '@/i18n/navigation';
@@ -14,7 +14,7 @@ import {
 } from '@/styles/tokens/typography';
 import { accents, neutrals } from '@/styles/tokens/colors';
 import { grid } from '@/styles/tokens/grid';
-import { media } from '@/styles/media';
+import { media, mediaQueries } from '@/styles/media';
 import { useTranslations } from 'next-intl';
 
 /*
@@ -34,6 +34,24 @@ import { useTranslations } from 'next-intl';
 
 /** Baked with scripts/bake-character.py (Big Lebowski, no cap or glasses); see ADR 0005. */
 const PORTRAIT = { src: '/hero/character-portrait-v3.webp', width: 1024, height: 1024 } as const;
+
+/*
+ * The portrait is the LCP on a phone, so it loads eagerly at high priority.
+ * From the 1024 frame up (768.02px) it is display: none, and an eager <img> downloads even then,
+ * so above that width a <picture> source swaps it for a 1×1 GIF. (React also
+ * skips its automatic image preload for an <img> inside <picture>, which
+ * would have fetched the portrait on desktop all the same.)
+ */
+const { props: portraitProps } = getImageProps({
+  src: PORTRAIT.src,
+  width: PORTRAIT.width,
+  height: PORTRAIT.height,
+  alt: '',
+  sizes: '705px',
+  loading: 'eager',
+  fetchPriority: 'high',
+});
+const BLANK_GIF = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 
 const Section = styled.section`
   position: relative;
@@ -366,14 +384,10 @@ export function HeroSection() {
             </Button>
           </CtaSlot>
           <CenterPortrait aria-hidden>
-            <Image
-              src={PORTRAIT.src}
-              width={PORTRAIT.width}
-              height={PORTRAIT.height}
-              alt=""
-              sizes="705px"
-              loading="lazy"
-            />
+            <picture>
+              <source media={mediaQueries.up('l')} srcSet={BLANK_GIF} />
+              <img {...portraitProps} alt="" />
+            </picture>
           </CenterPortrait>
         </Body>
 

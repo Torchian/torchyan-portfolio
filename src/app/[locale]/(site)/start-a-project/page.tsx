@@ -6,6 +6,10 @@ import { NextStepsSection } from '@/components/sections/contact-page/ContactPage
 import { YearsMapSection } from '@/components/sections/years-map/YearsMapSection';
 import { resolveLocale, type LocaleParams } from '@/i18n/server';
 import { generatePageMetadata } from '@/lib/seo/metadata';
+import { PageMessages } from '@/i18n/ClientMessages';
+
+/** The translations this page's client components read (see ClientMessages.tsx). */
+const MESSAGES = ['contact', 'contactPage', 'talkPage', 'yearsMap'] as const;
 
 export async function generateMetadata({ params }: LocaleParams): Promise<Metadata> {
   const locale = await resolveLocale(params);
@@ -24,17 +28,20 @@ export async function generateMetadata({ params }: LocaleParams): Promise<Metada
  * same opener as /contact; then what happens once it's sent; then the reach
  * map, trust that supports the form rather than competing with it.
  */
+
 export default async function StartProjectPage({ params }: LocaleParams) {
   const locale = await resolveLocale(params);
   const t = await getTranslations({ locale, namespace: 'contactPage.hero' });
 
   return (
-    <main id="main-content">
-      <TalkOpener titleId="start-project-title" title={t('title')} lead={`${t('lead')} ${t('body')}`}>
-        <ProjectForm />
-      </TalkOpener>
-      <NextStepsSection />
-      <YearsMapSection id="reach" />
-    </main>
+    <PageMessages namespaces={MESSAGES}>
+      <main id="main-content">
+        <TalkOpener titleId="start-project-title" title={t('title')} lead={`${t('lead')} ${t('body')}`}>
+          <ProjectForm />
+        </TalkOpener>
+        <NextStepsSection />
+        <YearsMapSection id="reach" />
+      </main>
+    </PageMessages>
   );
 }

@@ -7,6 +7,10 @@ import { ServicesSpecialists } from '@/components/sections/services/ServicesSpec
 import { CollaborationSection } from '@/components/sections/projects-page/CollaborationSection';
 import { resolveLocale, type LocaleParams } from '@/i18n/server';
 import { generatePageMetadata } from '@/lib/seo/metadata';
+import { PageMessages } from '@/i18n/ClientMessages';
+
+/** The translations this page's client components read (see ClientMessages.tsx). */
+const MESSAGES = ['servicesPage', 'projectsPage'] as const;
 
 export async function generateMetadata({ params }: LocaleParams): Promise<Metadata> {
   const locale = await resolveLocale(params);
@@ -25,25 +29,28 @@ export async function generateMetadata({ params }: LocaleParams): Promise<Metada
  * engagement can begin, who does the work, and what Torchyan doesn't do.
  * Assembled from existing sections; see docs/adr/0008-studio-pages.md.
  */
+
 export default async function ServicesPage({ params }: LocaleParams) {
   await resolveLocale(params);
 
   return (
-    <main id="main-content">
-      <PageHeroSection namespace="servicesPage.hero" id="services" points={false}>
-        <ServicesTeam />
-      </PageHeroSection>
-      <AreasSection headless />
-      <ServicesSpecialists />
-      <StartSection />
-      <ModelSection />
-      <CollaborationSection
-        namespace="servicesPage.cta"
-        initiateHref="/start-a-project"
-        analyzeHref="/contact"
-        ctaId="services"
-        compact
-      />
-    </main>
+    <PageMessages namespaces={MESSAGES}>
+      <main id="main-content">
+        <PageHeroSection namespace="servicesPage.hero" id="services" points={false}>
+          <ServicesTeam />
+        </PageHeroSection>
+        <AreasSection headless />
+        <ServicesSpecialists />
+        <StartSection />
+        <ModelSection />
+        <CollaborationSection
+          namespace="servicesPage.cta"
+          initiateHref="/start-a-project"
+          analyzeHref="/contact"
+          ctaId="services"
+          compact
+        />
+      </main>
+    </PageMessages>
   );
 }

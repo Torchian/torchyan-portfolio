@@ -184,7 +184,7 @@ export function PartnersCarousel({ direction = 'ltr', seconds = 80, logos = PART
           $boxed={partner.boxed !== false}
           style={{ '--logo-height': `${partner.height ?? 48}px` } as React.CSSProperties}
         >
-          <img src={partner.src} alt={copy ? '' : partner.name} />
+          <img src={partner.src} alt={copy ? '' : partner.name} fetchPriority="low" />
         </Item>
       ))}
     </Row>

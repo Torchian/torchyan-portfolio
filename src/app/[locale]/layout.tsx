@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import { Suspense } from 'react';
-import { NextIntlClientProvider } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import { StyledComponentsRegistry } from '@/lib/styled-registry';
 import { Analytics } from '@vercel/analytics/next';
@@ -10,21 +9,9 @@ import { SoundProvider } from '@/lib/sound/provider';
 import { routing } from '@/i18n/routing';
 import { PageLoader } from '@/components/layouts/PageLoader';
 import { resolveLocale, type LocaleParams } from '@/i18n/server';
-
-const gilroy = localFont({
-  src: [
-    { path: '../../../public/fonts/gilroy-thin.woff2', weight: '100' },
-    { path: '../../../public/fonts/gilroy-ultralight.woff2', weight: '200' },
-    { path: '../../../public/fonts/gilroy-regular.woff2', weight: '400' },
-    { path: '../../../public/fonts/gilroy-medium.woff2', weight: '500' },
-    { path: '../../../public/fonts/gilroy-semibold.woff2', weight: '600' },
-    { path: '../../../public/fonts/gilroy-bold.woff2', weight: '700' },
-    { path: '../../../public/fonts/gilroy-heavy.woff2', weight: '800' },
-    { path: '../../../public/fonts/gilroy-black.woff2', weight: '900' },
-  ],
-  variable: '--font-gilroy',
-  display: 'swap',
-});
+import { SiteMessages } from '@/i18n/ClientMessages';
+import { gilroy } from '@/styles/fonts/gilroy-first-paint';
+import { gilroyLater } from '@/styles/fonts/gilroy-later';
 
 /*
  * Armenian: Bainsley (400 and 700 only). Gilroy has no Armenian glyphs, so the
@@ -87,17 +74,17 @@ export default async function LocaleLayout({ children, params }: LocaleParams & 
     // switching language re-renders <html>, and React drops attributes it didn't render —
     // every theme colour (text, accents) then fell back to black.
     <html lang={locale} data-theme="dark" suppressHydrationWarning>
-      <body className={`${gilroy.variable} ${armenianLabel.variable} ${armenian.variable}`}>
+      <body className={`${gilroy.variable} ${gilroyLater.variable} ${armenianLabel.variable} ${armenian.variable}`}>
         <a id="skip-to-content" href="#main-content">
           {t('skipToContent')}
         </a>
-        <NextIntlClientProvider>
+        <SiteMessages>
           <StyledComponentsRegistry>
             <PageLoader />
             {children}
           </StyledComponentsRegistry>
           <SoundProvider />
-        </NextIntlClientProvider>
+        </SiteMessages>
         {/*
           Vercel Web Analytics only: cookieless, so no consent banner is needed.
           GA4 and Yandex Metrica (src/lib/analytics/provider.tsx) are not

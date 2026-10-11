@@ -353,17 +353,19 @@ export function WhatIDoSection() {
             </StickyCharacterWrapper2>
 
             <EllipseGlow />
+            {/* Below the hero: lazy, so on a phone they don't share the first
+                load with the hero (they still load well before they're reached). */}
             <GridBackground>
-              <img src={WHATIDO_GRID} alt="" />
+              <img src={WHATIDO_GRID} alt="" loading="lazy" />
             </GridBackground>
             <Bg1 ref={boardRef}>
-              <img src={STEP_BACKGROUNDS[0]} alt="" />
+              <img src={STEP_BACKGROUNDS[0]} alt="" loading="lazy" />
             </Bg1>
             <Bg2>
-              <img src={STEP_BACKGROUNDS[1]} alt="" />
+              <img src={STEP_BACKGROUNDS[1]} alt="" loading="lazy" />
             </Bg2>
             <Bg3 ref={squareRef}>
-              <img src={STEP_BACKGROUNDS[2]} alt="" />
+              <img src={STEP_BACKGROUNDS[2]} alt="" loading="lazy" />
             </Bg3>
             <Bg4Glass />
           </VisualsColumn>

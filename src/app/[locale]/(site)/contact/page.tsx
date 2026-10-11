@@ -3,6 +3,10 @@ import { getTranslations } from 'next-intl/server';
 import { ContactHeroSection } from '@/components/sections/contact/ContactTalkSections';
 import { resolveLocale, type LocaleParams } from '@/i18n/server';
 import { generatePageMetadata } from '@/lib/seo/metadata';
+import { PageMessages } from '@/i18n/ClientMessages';
+
+/** The translations this page's client components read (see ClientMessages.tsx). */
+const MESSAGES = ['contact', 'talkPage'] as const;
 
 export async function generateMetadata({ params }: LocaleParams): Promise<Metadata> {
   const locale = await resolveLocale(params);
@@ -20,12 +24,15 @@ export async function generateMetadata({ params }: LocaleParams): Promise<Metada
  * For everything that isn't a project brief: a short message, then the ways
  * to reach me directly. A project goes to /start-a-project.
  */
+
 export default async function ContactPage({ params }: LocaleParams) {
   await resolveLocale(params);
 
   return (
-    <main id="main-content">
-      <ContactHeroSection />
-    </main>
+    <PageMessages namespaces={MESSAGES}>
+      <main id="main-content">
+        <ContactHeroSection />
+      </main>
+    </PageMessages>
   );
 }

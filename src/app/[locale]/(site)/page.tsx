@@ -9,6 +9,10 @@ import { YearsMapSection } from '@/components/sections/years-map/YearsMapSection
 import { HomeContactSection } from '@/components/sections/contact/HomeContactSection';
 import { resolveLocale, type LocaleParams } from '@/i18n/server';
 import { generatePageMetadata } from '@/lib/seo/metadata';
+import { PageMessages } from '@/i18n/ClientMessages';
+
+/** The translations this page's client components read (see ClientMessages.tsx). */
+const MESSAGES = ['hero', 'whatIDo', 'selectedWork', 'projects', 'capabilities', 'trustedBy', 'yearsMap', 'homeContact', 'talkPage'] as const;
 
 export async function generateMetadata({ params }: LocaleParams): Promise<Metadata> {
   const locale = await resolveLocale(params);
@@ -27,14 +31,16 @@ export default async function HomePage({ params }: LocaleParams) {
   await resolveLocale(params);
 
   return (
-    <main id="main-content">
-      <HeroSection />
-      <WhatIDoSection />
-      <SelectedWorkSection />
-      <CapabilitiesSection />
-      <TrustedBySection />
-      <YearsMapSection />
-      <HomeContactSection />
-    </main>
+    <PageMessages namespaces={MESSAGES}>
+      <main id="main-content">
+        <HeroSection />
+        <WhatIDoSection />
+        <SelectedWorkSection />
+        <CapabilitiesSection />
+        <TrustedBySection />
+        <YearsMapSection />
+        <HomeContactSection />
+      </main>
+    </PageMessages>
   );
 }

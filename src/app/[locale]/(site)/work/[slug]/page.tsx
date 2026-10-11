@@ -13,6 +13,10 @@ import { CASE_STUDIES, type CaseStudyCopy } from '@/components/sections/case-stu
 import { resolveLocale } from '@/i18n/server';
 import { TrackCaseView } from '@/lib/analytics/TrackView';
 import { generatePageMetadata } from '@/lib/seo/metadata';
+import { PageMessages } from '@/i18n/ClientMessages';
+
+/** The translations this page's client components read (see ClientMessages.tsx). */
+const MESSAGES = ['projects', 'projectsPage', 'caseMedia'] as const;
 
 interface PageProps {
   params: Promise<{ locale: string; slug: string }>;
@@ -66,23 +70,27 @@ export default async function ProjectPage({ params }: PageProps) {
   const copy = caseCopies?.[project.slug];
   if (imagery && copy) {
     return (
-      <main id="main-content">
-        <CaseStudyHero copy={copy.hero} carousel={imagery.carousel} />
-        <CaseStudyTimeline copy={copy.timeline} gallery={imagery.timeline} />
-        {copy.blueprint && <CaseStudyBlueprint copy={copy.blueprint} />}
-        {copy.architecture && <CaseStudyArchitecture copy={copy.architecture} images={imagery.useCases} />}
-        <CollaborationSection ctaId={`case-${project.slug}`} tight pager={pager} />
-        <TrackCaseView slug={project.slug} />
-      </main>
+      <PageMessages namespaces={MESSAGES}>
+        <main id="main-content">
+          <CaseStudyHero copy={copy.hero} carousel={imagery.carousel} />
+          <CaseStudyTimeline copy={copy.timeline} gallery={imagery.timeline} />
+          {copy.blueprint && <CaseStudyBlueprint copy={copy.blueprint} />}
+          {copy.architecture && <CaseStudyArchitecture copy={copy.architecture} images={imagery.useCases} />}
+          <CollaborationSection ctaId={`case-${project.slug}`} tight pager={pager} />
+          <TrackCaseView slug={project.slug} />
+        </main>
+      </PageMessages>
     );
   }
 
   return (
-    <main id="main-content">
-      <CaseStudyHeroSection project={project} />
-      <CaseStudyBodySection project={project} />
-      <CollaborationSection ctaId={`case-${project.slug}`} tight pager={pager} />
-      <TrackCaseView slug={project.slug} />
-    </main>
+    <PageMessages namespaces={MESSAGES}>
+      <main id="main-content">
+        <CaseStudyHeroSection project={project} />
+        <CaseStudyBodySection project={project} />
+        <CollaborationSection ctaId={`case-${project.slug}`} tight pager={pager} />
+        <TrackCaseView slug={project.slug} />
+      </main>
+    </PageMessages>
   );
 }

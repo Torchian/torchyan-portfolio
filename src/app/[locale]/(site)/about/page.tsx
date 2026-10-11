@@ -7,6 +7,10 @@ import { AboutPracticeSection } from '@/components/sections/about/AboutPracticeS
 import { AboutPositioningSection } from '@/components/sections/about/AboutPositioningSection';
 import { resolveLocale, type LocaleParams } from '@/i18n/server';
 import { generatePageMetadata } from '@/lib/seo/metadata';
+import { PageMessages } from '@/i18n/ClientMessages';
+
+/** The translations this page's client components read (see ClientMessages.tsx). */
+const MESSAGES = ['about'] as const;
 
 export async function generateMetadata({ params }: LocaleParams): Promise<Metadata> {
   const locale = await resolveLocale(params);
@@ -24,16 +28,19 @@ export async function generateMetadata({ params }: LocaleParams): Promise<Metada
  * Figma: About (section 2973:9261) — Desktop 2973:16130, Tablet 3960:15294,
  * Mobile 3983:10975. See docs/adr/0007-about-page.md.
  */
+
 export default async function AboutPage({ params }: LocaleParams) {
   await resolveLocale(params);
 
   return (
-    <main id="main-content">
-      <AboutHeroSection />
-      <AboutIntroSection />
-      <AboutTimelineSection />
-      {/* <AboutPracticeSection /> */}
-      <AboutPositioningSection />
-    </main>
+    <PageMessages namespaces={MESSAGES}>
+      <main id="main-content">
+        <AboutHeroSection />
+        <AboutIntroSection />
+        <AboutTimelineSection />
+        {/* <AboutPracticeSection /> */}
+        <AboutPositioningSection />
+      </main>
+    </PageMessages>
   );
 }
