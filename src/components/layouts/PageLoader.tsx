@@ -6,7 +6,8 @@ import styled, { keyframes } from 'styled-components';
 import { useTranslations } from 'next-intl';
 import { VisuallyHidden } from '@/components/primitives';
 import { requestScrollFrame } from '@/lib/scroll-driver';
-import { accents, neutrals } from '@/styles/tokens/colors';
+import { media } from '@/styles/media';
+import { accents, neutrals, palette } from '@/styles/tokens/colors';
 import { zIndex } from '@/styles/tokens/z-index';
 
 /*
@@ -20,30 +21,39 @@ import { zIndex } from '@/styles/tokens/z-index';
  * state, and a new page was seen scrolling to its top and filling in. Under the
  * cover the page settles, goes back to its top, and only then is uncovered.
  *
- * The mark: the logo in white, half the screen's height, filling with green
- * from the foot of its stem, up and round the ring to its end, and last the
- * leaf inside it. The fill creeps while the page loads and runs to 100% once
- * it has.
+ * The scene, in the site's own language: the hero's purple and pink glows and
+ * its wireframe floor running to a horizon, two orbits (the Services circle's)
+ * crossing in front of and behind the mark, and the mark itself — the logo,
+ * white and extruded, half the screen's height. Green runs into it from the
+ * foot of the stem, up and round the ring to its end, and last into the leaf,
+ * led by a glowing head with a short tail; a counter below keeps pace. At 100%
+ * the mark sends out a pulse, and the page opens through a widening circle
+ * from its centre. On a page change the cover is there at once, and a ring
+ * draws in on the spot that was clicked as the mark comes up.
  *
  * The overlay is part of the server HTML, so it's there from the first paint.
  * It lifts once the page has loaded, its fonts and first-screen images are in
  * and its height has held still — capped, so a slow network never leaves
- * anyone staring at it.
+ * anyone staring at it. Everything that moves for the whole visit is a
+ * transform or opacity; the per-frame work is a few attributes on the mark.
  */
 
-/** Longest the loader stays up, however slow the network. */
+/** Longest the loader waits for the page to settle, however slow the network. */
 const MAX_WAIT_MS = 4000;
-/** The layout counts as settled once the page height has held still this long. */
-const STABLE_MS = 150;
 /** Longest a page change waits for its new page before the cover lifts anyway. */
 const NAV_TIMEOUT_MS = 8000;
+/** The layout counts as settled once the page height has held still this long. */
+const STABLE_MS = 150;
 /** Shortest time the mark is on screen for a page change, so the fill can be seen. */
-const MIN_SHOW_MS = 450;
+const MIN_SHOW_MS = 600;
+/** The ring drawing in on a click, and the mark coming up. */
+const ENTER_MS = 280;
 /** The run from wherever the fill is to 100%, once the page is ready. */
-const FINISH_MS = 320;
-/** The full mark holds this long before the overlay fades. */
-const HOLD_MS = 120;
-const FADE_MS = 350;
+const FINISH_MS = 380;
+/** The full mark holds, pulsing, this long before the page opens. */
+const HOLD_MS = 260;
+/** The circle opening onto the page. */
+const IRIS_MS = 720;
 /** Without JavaScript nothing would lift the overlay, so CSS lifts it on its own after this. */
 const FAILSAFE_S = 6;
 
@@ -53,6 +63,8 @@ const CREEP_MAX = 0.85;
 const CREEP_TAU_MS = 900;
 /** The share of the fill that is the ring; the leaf takes the rest. */
 const RING_SHARE = 0.86;
+/** How far behind the head each point of its tail runs, as a share of the track. */
+const TAIL = [0.018, 0.036, 0.054] as const;
 
 const failsafe = keyframes`
   to {
@@ -61,29 +73,295 @@ const failsafe = keyframes`
   }
 `;
 
-const Overlay = styled.div<{ $leaving: boolean }>`
+const breathe = keyframes`
+  from {
+    transform: rotate(0deg) scale(1);
+  }
+  to {
+    transform: rotate(10deg) scale(1.12);
+  }
+`;
+
+const drift = keyframes`
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(80px);
+  }
+`;
+
+const spin = keyframes`
+  from {
+    transform: rotateX(var(--rx)) rotateY(var(--ry)) rotateZ(0deg);
+  }
+  to {
+    transform: rotateX(var(--rx)) rotateY(var(--ry)) rotateZ(360deg);
+  }
+`;
+
+const rise = keyframes`
+  from {
+    opacity: 0;
+    transform: scale(0.82);
+  }
+`;
+
+const pulse = keyframes`
+  from {
+    opacity: 0.9;
+    transform: scale(0.7);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.9);
+  }
+`;
+
+const Overlay = styled.div`
+  --hole: 0px;
+  --hx: 50%;
+  --hy: 50%;
+  --fill: 0;
+
   position: fixed;
   inset: 0;
   z-index: ${zIndex.modal};
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: clamp(16px, 4vh, 40px);
+  overflow: hidden;
   background: ${neutrals[900]};
-  opacity: ${(p) => (p.$leaving ? 0 : 1)};
-  pointer-events: ${(p) => (p.$leaving ? 'none' : 'auto')};
-  transition: opacity ${FADE_MS}ms ease-out;
   animation: ${failsafe} 0s linear ${FAILSAFE_S}s forwards;
+
+  /* The hero's glows, slowly turning. */
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -25%;
+    background:
+      radial-gradient(38% 34% at 26% 30%, rgba(138, 56, 245, 0.3), transparent 70%),
+      radial-gradient(34% 30% at 76% 72%, rgba(198, 20, 230, 0.22), transparent 70%),
+      radial-gradient(26% 26% at 50% 48%, rgba(12, 175, 10, 0.07), transparent 70%);
+    animation: ${breathe} 9s ease-in-out infinite alternate;
+    pointer-events: none;
+  }
+
+  /* The page shows through a circle: closing in on a click, opening at the end. */
+  &[data-iris] {
+    mask-image: radial-gradient(circle at var(--hx) var(--hy), transparent var(--hole), #000 calc(var(--hole) + 1px));
+  }
+
+  &[data-phase='leaving'] {
+    pointer-events: none;
+  }
 
   &[data-hidden] {
     display: none;
     animation: none;
   }
 
-  svg {
-    /* Half the screen's height; on a phone held upright that is wider than the screen, so capped. */
-    width: min(50vh, 80vw);
-    height: min(50vh, 80vw);
+  ${media.reducedMotion} {
+    &::before {
+      animation: none;
+    }
+
+    &[data-phase='leaving'] {
+      opacity: 0;
+      transition: opacity 300ms ease-out;
+    }
   }
+`;
+
+/** The hero's wireframe floor, running towards the viewer under the mark. */
+const Floor = styled.div`
+  position: absolute;
+  top: 60%;
+  left: -50%;
+  width: 200%;
+  height: 70%;
+  overflow: hidden;
+  transform-origin: 50% 0;
+  transform: perspective(520px) rotateX(74deg);
+  mask-image: linear-gradient(to bottom, transparent, #000 30%, #000 60%, transparent);
+  pointer-events: none;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -80px 0 0;
+    background-image:
+      linear-gradient(to bottom, rgba(12, 175, 10, 0.16) 1px, transparent 1px),
+      linear-gradient(to right, rgba(12, 175, 10, 0.16) 1px, transparent 1px);
+    background-size: 80px 80px;
+    animation: ${drift} 2.4s linear infinite;
+  }
+
+  ${media.reducedMotion} {
+    &::before {
+      animation: none;
+    }
+  }
+`;
+
+const Stage = styled.div`
+  /* Half the screen's height; on a phone held upright that is wider than the screen, so capped. */
+  --size: min(50vh, 72vw);
+
+  position: relative;
+  width: var(--size);
+  height: var(--size);
+  perspective: 1100px;
+  transform-style: preserve-3d;
+  transition:
+    transform ${IRIS_MS * 0.7}ms cubic-bezier(0.5, 0, 0.2, 1),
+    opacity ${IRIS_MS * 0.5}ms ease-in;
+
+  [data-entering] & {
+    animation: ${rise} ${ENTER_MS + 120}ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+
+  [data-phase='leaving'] & {
+    opacity: 0;
+    transform: scale(1.18);
+  }
+
+  ${media.reducedMotion} {
+    [data-entering] & {
+      animation: none;
+    }
+  }
+
+  svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    transform: translateZ(0);
+  }
+`;
+
+/** A soft light behind the mark that gathers as it fills, and flares green when it's full. */
+const Halo = styled.div`
+  position: absolute;
+  inset: -35%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(138, 56, 245, 0.45), rgba(198, 20, 230, 0.12) 55%, transparent);
+  opacity: calc(0.35 + var(--fill) * 0.65);
+  transform: translateZ(-60px) scale(calc(0.85 + var(--fill) * 0.15));
+  pointer-events: none;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(12, 175, 10, 0.5), rgba(12, 175, 10, 0.1) 55%, transparent);
+    opacity: 0;
+    transition: opacity 260ms ease-out;
+  }
+
+  [data-phase='finishing'] &::after,
+  [data-phase='leaving'] &::after {
+    opacity: 1;
+  }
+`;
+
+const Orbit = styled.div<{ $rx: number; $ry: number; $seconds: number; $dot: string; $reverse?: boolean }>`
+  --rx: ${(p) => p.$rx}deg;
+  --ry: ${(p) => p.$ry}deg;
+
+  position: absolute;
+  inset: -17%;
+  border: 1px solid rgba(246, 246, 246, 0.24);
+  box-shadow: 0 0 18px rgba(138, 56, 245, 0.25);
+  border-radius: 50%;
+  transform: rotateX(var(--rx)) rotateY(var(--ry));
+  animation: ${spin} ${(p) => p.$seconds}s linear infinite ${(p) => (p.$reverse ? 'reverse' : 'normal')};
+  pointer-events: none;
+
+  /* A moon on the orbit. */
+  &::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: calc(50% - 5px);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: ${(p) => p.$dot};
+    box-shadow: 0 0 16px 4px ${(p) => p.$dot};
+  }
+
+  ${media.reducedMotion} {
+    animation: none;
+  }
+`;
+
+/** Rings sent out by the mark at 100%. */
+const Pulse = styled.div<{ $delay: number }>`
+  position: absolute;
+  inset: 0;
+  border: 2px solid ${accents.primary};
+  border-radius: 50%;
+  box-shadow:
+    0 0 24px rgba(12, 175, 10, 0.6),
+    inset 0 0 24px rgba(12, 175, 10, 0.35);
+  opacity: 0;
+  pointer-events: none;
+
+  [data-phase='finishing'] &,
+  [data-phase='leaving'] & {
+    animation: ${pulse} 900ms cubic-bezier(0.2, 0.6, 0.3, 1) ${(p) => FINISH_MS * 0.75 + p.$delay}ms both;
+  }
+
+  ${media.reducedMotion} {
+    display: none;
+  }
+`;
+
+const Counter = styled.p`
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+  margin: 0;
+  color: ${neutrals[500]};
+  font-weight: 600;
+  font-size: clamp(14px, 1.6vh, 18px);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.24em;
+  transition: opacity 240ms ease-in;
+
+  span:first-child {
+    color: ${neutrals[100]};
+  }
+
+  [data-phase='leaving'] & {
+    opacity: 0;
+  }
+`;
+
+/** The circle's edge, a green ring riding it as it closes and opens. */
+const IrisEdge = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: ${zIndex.modal};
+  width: 200px;
+  height: 200px;
+  margin: -100px 0 0 -100px;
+  border: 1.5px solid ${accents.primary};
+  border-radius: 50%;
+  box-shadow:
+    0 0 30px rgba(12, 175, 10, 0.55),
+    inset 0 0 30px rgba(12, 175, 10, 0.25);
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform, opacity;
 `;
 
 /*
@@ -103,12 +381,48 @@ const LEAF =
 const RING_TRACK = 'M5.333 66V32A26.667 26.667 0 1 1 32 58.667H19';
 /** The leaf's, from its bottom-left corner to its tip. */
 const LEAF_TRACK = 'M20 52Q27 31 50 21';
+/** The two tracks the glowing head follows: the ring's centre line, then the leaf's. */
+const HEAD_RING = 'M5.333 64V32A26.667 26.667 0 1 1 32 58.667H21.5';
+const HEAD_LEAF = 'M24 47Q30 32 47 25';
+
+/** Layers under the mark, each a little further down and right: it reads as a solid object. */
+const EXTRUDE = [
+  { dx: 0.5, dy: 0.7, fill: '#3a2f5c' },
+  { dx: 1, dy: 1.4, fill: '#2a2145' },
+  { dx: 1.5, dy: 2.1, fill: '#1c1631' },
+] as const;
+
+interface MarkRefs {
+  ringTrack: React.RefObject<SVGPathElement | null>;
+  leafTrack: React.RefObject<SVGPathElement | null>;
+  head: React.RefObject<SVGGElement | null>;
+}
 
 /** The mark; its fill is set by the --ring and --leaf custom properties (0–1). */
-function FillingMark() {
+function FillingMark({ ringTrack, leafTrack, head }: MarkRefs) {
   return (
     <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
       <defs>
+        <g id="page-loader-logo">
+          <path d={RING} />
+          <path d={LEAF} />
+        </g>
+        <linearGradient id="page-loader-white" x1="8" y1="2" x2="58" y2="62" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stopColor="#ffffff" />
+          <stop offset="0.55" stopColor={neutrals[100]} />
+          <stop offset="1" stopColor="#c9c4dc" />
+        </linearGradient>
+        <linearGradient id="page-loader-green" x1="0" y1="64" x2="64" y2="0" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stopColor="#068f04" />
+          <stop offset="0.5" stopColor={accents.primary} />
+          <stop offset="1" stopColor="#4dff4a" />
+        </linearGradient>
+        <radialGradient id="page-loader-glow">
+          <stop offset="0" stopColor="#ffffff" />
+          <stop offset="0.25" stopColor="#b6ffb4" />
+          <stop offset="0.55" stopColor={accents.primary} stopOpacity="0.55" />
+          <stop offset="1" stopColor={accents.primary} stopOpacity="0" />
+        </radialGradient>
         <mask id="page-loader-ring" maskUnits="userSpaceOnUse" x="-2" y="-2" width="68" height="68">
           <path
             d={RING_TRACK}
@@ -130,15 +444,39 @@ function FillingMark() {
           />
         </mask>
       </defs>
-      <path d={RING} fill={neutrals[100]} />
-      <path d={LEAF} fill={neutrals[100]} />
-      <path d={RING} fill={accents.primary} mask="url(#page-loader-ring)" />
-      <path d={LEAF} fill={accents.primary} mask="url(#page-loader-leaf)" />
+
+      {EXTRUDE.map(({ dx, dy, fill }) => (
+        <use key={dx} href="#page-loader-logo" fill={fill} transform={`translate(${dx} ${dy})`} />
+      ))}
+      <use href="#page-loader-logo" fill="url(#page-loader-white)" />
+      <path d={RING} fill="url(#page-loader-green)" mask="url(#page-loader-ring)" />
+      <path d={LEAF} fill="url(#page-loader-green)" mask="url(#page-loader-leaf)" />
+
+      {/* Measured, never drawn. */}
+      <path ref={ringTrack} d={HEAD_RING} visibility="hidden" />
+      <path ref={leafTrack} d={HEAD_LEAF} visibility="hidden" />
+
+      {/* The head and its tail, placed every frame. */}
+      <g ref={head} opacity="0">
+        {TAIL.map((lag, i) => (
+          <circle key={lag} r={2.4 - i * 0.6} fill="url(#page-loader-glow)" opacity={0.7 - i * 0.2} />
+        ))}
+        <circle r="7" fill="url(#page-loader-glow)" />
+      </g>
     </svg>
   );
 }
 
 type Phase = 'loading' | 'finishing' | 'leaving' | 'done';
+
+const easeOut = (k: number) => 1 - (1 - k) ** 3;
+const easeInOut = (k: number) => (k < 0.5 ? 4 * k * k * k : 1 - (-2 * k + 2) ** 3 / 2);
+const clamp01 = (k: number) => Math.min(1, Math.max(0, k));
+
+/** Far enough from (x, y) to clear every corner of the screen. */
+function coverRadius(x: number, y: number) {
+  return Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y)) + 40;
+}
 
 const nextFrame = () => new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
 const delay = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
@@ -212,6 +550,7 @@ function internalDestination(event: MouseEvent): URL | null {
   return url;
 }
 
+
 /**
  * Where a page change left off. A language switch replaces the whole tree this
  * loader lives in, so the new copy picks the fill up where the old one was.
@@ -223,11 +562,18 @@ export function PageLoader() {
   const pathname = usePathname();
   const [phase, setPhase] = useState<Phase>('loading');
   const overlayRef = useRef<HTMLDivElement>(null);
+  const edgeRef = useRef<HTMLDivElement>(null);
+  const countRef = useRef<HTMLSpanElement>(null);
+  const ringTrack = useRef<SVGPathElement>(null);
+  const leafTrack = useRef<SVGPathElement>(null);
+  const head = useRef<SVGGElement>(null);
 
   // Animation state, read by the frame loop; refs, so a frame never re-renders.
   const fill = useRef(carried?.fill ?? 0);
   const shownAt = useRef(0);
   const finishFrom = useRef<{ at: number; fill: number } | null>(null);
+  /** The circle: where it's centred, and when it started closing (a click) or opening (the end). */
+  const iris = useRef({ x: 0, y: 0, enterAt: 0, leaveAt: 0 });
   const hash = useRef(carried?.hash ?? '');
   /** The page change in flight: the path it is going to. */
   const targetPath = useRef<string | null>(null);
@@ -241,12 +587,36 @@ export function PageLoader() {
   /** Whether this load is a page change, which starts at the top of the new page. */
   const toStart = useRef(carried !== null);
 
-  // Paint the fill, every frame the overlay is up.
+  // Paint the scene, every frame the overlay is up.
   const visible = phase !== 'done';
   useEffect(() => {
     if (!visible) return;
     if (!shownAt.current) shownAt.current = performance.now();
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let frame = 0;
+    let shownCount = -1;
+
+    const placeHead = (f: number) => {
+      const g = head.current;
+      const ringPath = ringTrack.current;
+      const leafPath = leafTrack.current;
+      if (!g || !ringPath || !leafPath) return;
+      const onLeaf = f > RING_SHARE;
+      const path = onLeaf ? leafPath : ringPath;
+      const along = onLeaf ? (f - RING_SHARE) / (1 - RING_SHARE) : f / RING_SHARE;
+      const length = path.getTotalLength();
+      const at = (k: number) => path.getPointAtLength(clamp01(k) * length);
+      const circles = g.children;
+      TAIL.forEach((lag, i) => {
+        const point = at(along - lag * (onLeaf ? 3 : 1));
+        circles[i].setAttribute('transform', `translate(${point.x} ${point.y})`);
+      });
+      const point = at(along);
+      circles[TAIL.length].setAttribute('transform', `translate(${point.x} ${point.y})`);
+      // In as the fill starts, out as it completes.
+      g.setAttribute('opacity', String(Math.min(1, f * 25, (1 - f) * 25)));
+    };
+
     const paint = (now: number) => {
       const finish = finishFrom.current;
       if (finish) {
@@ -256,11 +626,50 @@ export function PageLoader() {
         const creep = CREEP_MAX * (1 - Math.exp(-(now - shownAt.current) / CREEP_TAU_MS));
         fill.current = Math.max(fill.current, creep);
       }
+      const f = fill.current;
       const el = overlayRef.current;
       if (el) {
-        el.style.setProperty('--ring', String(Math.min(1, fill.current / RING_SHARE)));
-        el.style.setProperty('--leaf', String(Math.max(0, (fill.current - RING_SHARE) / (1 - RING_SHARE))));
+        el.style.setProperty('--fill', f.toFixed(3));
+        el.style.setProperty('--ring', String(Math.min(1, f / RING_SHARE)));
+        el.style.setProperty('--leaf', String(Math.max(0, (f - RING_SHARE) / (1 - RING_SHARE))));
       }
+      placeHead(f);
+      const count = Math.round(f * 100);
+      if (count !== shownCount && countRef.current) {
+        shownCount = count;
+        countRef.current.textContent = String(count).padStart(3, '0');
+      }
+
+      // The circle. A page change covers at once — the old page must not be
+      // seen changing — and the ring only draws in on the click; at the end
+      // the page opens through the circle from the centre of the mark.
+      const { x, y, enterAt, leaveAt } = iris.current;
+      let hole = 0;
+      let edgeRadius = 0;
+      let edge = 0;
+      if (!reduced && enterAt && now - enterAt < ENTER_MS) {
+        const k = (now - enterAt) / ENTER_MS;
+        edgeRadius = coverRadius(x, y) * (1 - easeOut(k));
+        edge = 1 - k;
+      } else if (!reduced && leaveAt) {
+        const k = clamp01((now - leaveAt) / IRIS_MS);
+        hole = coverRadius(x, y) * easeInOut(k);
+        edgeRadius = hole;
+        edge = 1 - k;
+      }
+      if (el) {
+        el.toggleAttribute('data-iris', hole > 0);
+        el.toggleAttribute('data-entering', Boolean(enterAt) && now - enterAt < ENTER_MS + 120);
+        el.style.setProperty('--hole', `${hole.toFixed(1)}px`);
+        el.style.setProperty('--hx', `${x}px`);
+        el.style.setProperty('--hy', `${y}px`);
+      }
+      const ring = edgeRef.current;
+      if (ring) {
+        ring.style.opacity = edgeRadius > 0 ? String(edge) : '0';
+        ring.style.transform = `translate(${x}px, ${y}px) scale(${edgeRadius / 100})`;
+      }
+
       frame = requestAnimationFrame(paint);
     };
     frame = requestAnimationFrame(paint);
@@ -304,31 +713,41 @@ export function PageLoader() {
   useEffect(() => {
     // Timers, not frames: a page opened in a background tab gets no frames.
     if (phase === 'finishing') {
-      const timer = setTimeout(() => setPhase('leaving'), FINISH_MS + HOLD_MS);
+      const timer = setTimeout(() => {
+        // The page opens from the centre of the mark.
+        iris.current = { x: window.innerWidth / 2, y: window.innerHeight / 2, enterAt: 0, leaveAt: performance.now() };
+        setPhase('leaving');
+      }, FINISH_MS + HOLD_MS);
       return () => clearTimeout(timer);
     }
     if (phase === 'leaving') {
-      const timer = setTimeout(() => setPhase('done'), FADE_MS);
+      const timer = setTimeout(() => setPhase('done'), IRIS_MS);
       return () => clearTimeout(timer);
     }
   }, [phase]);
 
   // Cover the page the moment a page change starts.
   useEffect(() => {
-    const begin = (to: URL) => {
+    const begin = (to: URL, from?: { x: number; y: number }) => {
       targetPath.current = to.pathname;
       toStart.current = true;
       hash.current = to.hash;
       fill.current = 0;
       shownAt.current = performance.now();
       finishFrom.current = null;
-      // Straight back to opaque, without the fade-in: the old page shouldn't be seen changing.
+      iris.current = {
+        x: from?.x ?? window.innerWidth / 2,
+        y: from?.y ?? window.innerHeight / 2,
+        enterAt: performance.now(),
+        leaveAt: 0,
+      };
       setPhase('loading');
       setRun((n) => n + 1);
     };
     const onClick = (event: MouseEvent) => {
       const to = internalDestination(event);
-      if (to) begin(to);
+      // A keyboard "click" has no position; the circle then closes on the centre.
+      if (to) begin(to, event.detail > 0 ? { x: event.clientX, y: event.clientY } : undefined);
     };
     // Back and forward: the address has already changed when this fires; the page hasn't yet.
     // A step back or forward between #links on the page on screen isn't a page change.
@@ -352,16 +771,31 @@ export function PageLoader() {
   }, []);
 
   return (
-    <Overlay
-      ref={overlayRef}
-      $leaving={phase === 'leaving'}
-      role="status"
-      aria-live="polite"
-      data-page-loader
-      data-hidden={phase === 'done' ? '' : undefined}
-    >
-      <FillingMark />
-      <VisuallyHidden>{t('loading')}</VisuallyHidden>
-    </Overlay>
+    <>
+      <Overlay
+        ref={overlayRef}
+        role="status"
+        aria-live="polite"
+        data-page-loader
+        data-phase={phase}
+        data-hidden={phase === 'done' ? '' : undefined}
+      >
+        <Floor aria-hidden />
+        <Stage aria-hidden>
+          <Halo />
+          <Orbit $rx={74} $ry={-16} $seconds={7} $dot={accents.primary} />
+          <Orbit $rx={68} $ry={24} $seconds={11} $dot={palette.pink} $reverse />
+          <Pulse $delay={0} />
+          <Pulse $delay={180} />
+          <FillingMark ringTrack={ringTrack} leafTrack={leafTrack} head={head} />
+        </Stage>
+        <Counter aria-hidden>
+          <span ref={countRef}>000</span>
+          <span>%</span>
+        </Counter>
+        <VisuallyHidden>{t('loading')}</VisuallyHidden>
+      </Overlay>
+      <IrisEdge ref={edgeRef} aria-hidden />
+    </>
   );
 }
