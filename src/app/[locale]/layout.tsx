@@ -73,7 +73,7 @@ export default async function LocaleLayout({ children, params }: LocaleParams & 
     // The site only has a dark design. data-theme is rendered here, not set by a <head> script:
     // switching language re-renders <html>, and React drops attributes it didn't render —
     // every theme colour (text, accents) then fell back to black.
-    <html lang={locale} data-theme="dark" suppressHydrationWarning>
+    <html lang={locale} data-theme="dark" data-scroll-behavior="smooth" suppressHydrationWarning>
       <body className={`${gilroy.variable} ${gilroyLater.variable} ${armenianLabel.variable} ${armenian.variable}`}>
         <a id="skip-to-content" href="#main-content">
           {t('skipToContent')}
