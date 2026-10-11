@@ -42,13 +42,20 @@ export function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <PageBackground />
-      {isHomepage && <SideCharacters />}
+      {/* data-page-content: what PageTransition fades between pages; the backgrounds and header stay. */}
+      {isHomepage && (
+        <div data-page-content>
+          <SideCharacters />
+        </div>
+      )}
       <NavBar />
       <CustomCursor />
       <Page>
         <LowerPageBackground />
-        <Main>{children}</Main>
-        <Footer />
+        <Main data-page-content="main">{children}</Main>
+        <div data-page-content>
+          <Footer />
+        </div>
       </Page>
     </>
   );

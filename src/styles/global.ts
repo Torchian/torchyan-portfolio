@@ -35,6 +35,44 @@ export const GlobalStyle = createGlobalStyle`
     scroll-padding-top: ${spacing[1000]}px;
   }
 
+  /*
+   * PageTransition: between pages the content leaves and the next page's
+   * arrives; the backgrounds and the header stay. Opacity only on these
+   * containers — a transform would make them the containing block of the
+   * fixed-position pieces inside (the About year rail) — and the rise on the
+   * page's first section alone.
+   */
+  html[data-page-transition='out'] [data-page-content] {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 280ms ease-in;
+  }
+
+  html[data-page-transition='hold'] [data-page-content] {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  html[data-page-transition='in'] [data-page-content] {
+    animation: page-in-fade 650ms ease-out both;
+  }
+
+  html[data-page-transition='in'] [data-page-content='main'] > :first-child {
+    animation: page-in-rise 650ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+
+  @keyframes page-in-fade {
+    from {
+      opacity: 0;
+    }
+  }
+
+  @keyframes page-in-rise {
+    from {
+      transform: translateY(32px);
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;

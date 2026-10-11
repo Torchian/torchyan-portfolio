@@ -8,6 +8,7 @@ import { ClickTracker } from '@/lib/analytics/ClickTracker';
 import { SoundProvider } from '@/lib/sound/provider';
 import { routing } from '@/i18n/routing';
 import { PageLoader } from '@/components/layouts/PageLoader';
+import { PageTransition } from '@/components/layouts/PageTransition';
 import { resolveLocale, type LocaleParams } from '@/i18n/server';
 import { SiteMessages } from '@/i18n/ClientMessages';
 import { gilroy } from '@/styles/fonts/gilroy-first-paint';
@@ -81,6 +82,7 @@ export default async function LocaleLayout({ children, params }: LocaleParams & 
         <SiteMessages>
           <StyledComponentsRegistry>
             <PageLoader />
+            <PageTransition />
             {children}
           </StyledComponentsRegistry>
           <SoundProvider />
