@@ -10,23 +10,8 @@ import { routing } from '@/i18n/routing';
 import { PageLoader } from '@/components/layouts/PageLoader';
 import { resolveLocale, type LocaleParams } from '@/i18n/server';
 import { SiteMessages } from '@/i18n/ClientMessages';
-
-/*
- * Gilroy in the five weights the design tokens use (typography.ts: 400, 500,
- * 600, 700, 900). next/font preloads every face it declares, so a weight
- * nothing asks for still costs every page a ~25 KB download.
- */
-const gilroy = localFont({
-  src: [
-    { path: '../../../public/fonts/gilroy-regular.woff2', weight: '400' },
-    { path: '../../../public/fonts/gilroy-medium.woff2', weight: '500' },
-    { path: '../../../public/fonts/gilroy-semibold.woff2', weight: '600' },
-    { path: '../../../public/fonts/gilroy-bold.woff2', weight: '700' },
-    { path: '../../../public/fonts/gilroy-black.woff2', weight: '900' },
-  ],
-  variable: '--font-gilroy',
-  display: 'swap',
-});
+import { gilroy } from '@/styles/fonts/gilroy-first-paint';
+import { gilroyLater } from '@/styles/fonts/gilroy-later';
 
 /*
  * Armenian: Bainsley (400 and 700 only). Gilroy has no Armenian glyphs, so the
@@ -89,7 +74,7 @@ export default async function LocaleLayout({ children, params }: LocaleParams & 
     // switching language re-renders <html>, and React drops attributes it didn't render —
     // every theme colour (text, accents) then fell back to black.
     <html lang={locale} data-theme="dark" suppressHydrationWarning>
-      <body className={`${gilroy.variable} ${armenianLabel.variable} ${armenian.variable}`}>
+      <body className={`${gilroy.variable} ${gilroyLater.variable} ${armenianLabel.variable} ${armenian.variable}`}>
         <a id="skip-to-content" href="#main-content">
           {t('skipToContent')}
         </a>

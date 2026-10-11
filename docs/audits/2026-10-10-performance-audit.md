@@ -240,6 +240,29 @@ The logos render at the same widths as before (checked at 390 and 1440).
 Mobile LCP on Home in this container stays around 6 s (three runs: 6.28,
 6.18, 6.20 s) with the image itself loaded by about 2 s. The remainder is
 "render delay" from main-thread work, which this GPU-less container inflates.
-A <picture>-based eager portrait was tried and measured no better, so it was
-not kept. Re-run PageSpeed on production after merging: that is the number to
-judge.
+Re-run PageSpeed on production after merging: that is the number to judge.
+
+## Addendum 2 (2026-10-11): after the production PageSpeed run
+
+PageSpeed on production (main, without this branch) scored mobile 72 with LCP
+5.2 s and flagged the LCP image: lazy, no `fetchpriority`. Three changes:
+
+- **Mobile hero portrait:** now an eager `<img fetchpriority="high">` inside a
+  `<picture>` whose `(min-width: 768.02px)` source is a 1×1 GIF, so phones
+  request it with the first resources (74 ms after navigation locally, was
+  after layout) and desktop, where it is hidden, never downloads it. All three
+  "LCP request discovery" checks now pass. The grey character was considered
+  as a lighter replacement, but its file (`character-right-v3.webp`) is half a
+  face cropped for the desktop layout, so it can't stand in without new art;
+  at 182 KB it would also save little.
+- **Fonts:** only Gilroy 600 and 900 are preloaded: 600 is the only weight in
+  a phone's first viewport on any page, 900 the desktop page titles. 400, 500
+  and 700 are the same `gilroy` family, declared without a preload
+  (`src/styles/fonts/`), and load from the stylesheet when text uses them.
+- **Music:** the 0.9 MB track waits 4 s after the cues are fetched, or for the
+  first gesture, whichever comes first; a gesture starts it immediately as
+  before.
+
+Lighthouse (mobile, Home, this container, 3 runs): 49/61/58, LCP 6.0/5.9/6.3 s.
+The simulated LCP stays CPU-bound here (TBT 0.6–1.5 s); the observed breakdown
+is TTFB 28 ms, load delay 40 ms, load 38 ms, render delay 177 ms.

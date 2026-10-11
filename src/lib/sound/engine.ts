@@ -63,6 +63,8 @@ const MAX_TRIM_S = 0.1;
 const SPATIAL_SPREAD = 0.35;
 /** Browsers without requestIdleCallback prefetch after this delay instead. */
 const IDLE_FALLBACK_MS = 1500;
+/** How long after the cues the music track (~0.9 MB) waits before downloading, unless a gesture asks for it first. */
+const MUSIC_DELAY_MS = 4000;
 /** Browsers only let audio start inside one of these. */
 const GESTURES = ['pointerdown', 'keydown', 'touchend'] as const;
 /**
@@ -111,6 +113,12 @@ const decoded = new Map<string, Decoded>();
 const voices = new Map<SoundCueId, Voice[]>();
 const lastPlayed = new Map<SoundCueId, number>();
 const listeners = new Set<() => void>();
+/**
+ * The music holds back until MUSIC_DELAY_MS after the cues, or the first
+ * gesture. It is the largest file on the page by far, and on a phone it shared
+ * the connection with the page's own late requests for a few seconds after load.
+ */
+let musicHeld = true;
 
 /** The files each switch needs: cue files once each, and the bed's own track. */
 function soundFiles(kind?: AudioKind) {
@@ -122,7 +130,10 @@ function soundFiles(kind?: AudioKind) {
 
 /** What's worth downloading and decoding right now. */
 function wantedFiles() {
-  return [...(isEnabled('effects') ? soundFiles('effects') : []), ...(isEnabled('music') ? soundFiles('music') : [])];
+  return [
+    ...(isEnabled('effects') ? soundFiles('effects') : []),
+    ...(isEnabled('music') && !musicHeld ? soundFiles('music') : []),
+  ];
 }
 
 /* ---------- Preference ---------- */
@@ -304,7 +315,7 @@ function rampMusic(level: number, seconds: number) {
  * never heard.
  */
 function startMusic() {
-  if (!ctx || !isEnabled('music')) return;
+  if (!ctx || !isEnabled('music') || musicHeld) return;
   if (music) {
     rampMusic(MUSIC.volume, MUSIC_FADE_IN_S);
     return;
@@ -345,6 +356,15 @@ function startMusic() {
 }
 
 /** Fade the bed down. The voice keeps running, silent, ready for the next wake. */
+/** Let the music in: start it if the mix is already playing, otherwise just fetch it for the next wake. */
+function releaseMusic() {
+  if (!musicHeld) return;
+  musicHeld = false;
+  if (!isEnabled('music')) return;
+  if (ctx?.state === 'running') startMusic();
+  else void download(MUSIC.src);
+}
+
 function stopMusic() {
   rampMusic(0, MUSIC_FADE_OUT_S);
 }
@@ -471,6 +491,7 @@ function recover() {
 /** Unlock on a gesture. Stays attached: iOS can interrupt a running context, and only a gesture restarts it. */
 function onGesture() {
   if (document.hidden || !anyEnabled()) return;
+  releaseMusic();
   // "interrupted" is Safari's own state, outside the standard's list.
   if (stalled || (ctx?.state as string) === 'interrupted' || ctx?.state === 'closed') recover();
   if (ctx?.state === 'running') return;
@@ -558,10 +579,13 @@ export function installSound(): () => void {
   // page's own load (images, the LCP among them) and then for an idle moment,
   // instead of competing with them for the connection. A gesture before then
   // builds the graph straight away (onGesture), which starts the decodes.
+  // The music waits a few seconds more (musicHeld).
+  let musicTimer = 0;
   const settle = () => {
     // Have the bytes ready before the first gesture, so unlocking only has to decode.
     for (const src of wantedFiles()) void download(src);
     resumeFromPreference();
+    musicTimer = window.setTimeout(releaseMusic, MUSIC_DELAY_MS);
   };
   const hasIdleCallback = typeof window.requestIdleCallback === 'function';
   let handle = 0;
@@ -579,6 +603,7 @@ export function installSound(): () => void {
     window.removeEventListener('load', schedule);
     if (hasIdleCallback) window.cancelIdleCallback(handle);
     else window.clearTimeout(handle);
+    window.clearTimeout(musicTimer);
     teardownAudio();
   };
 }
