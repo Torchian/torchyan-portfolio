@@ -4,6 +4,7 @@ import { Link } from '@/i18n/navigation';
 import styled, { css } from 'styled-components';
 import { Badge, Button, VisuallyHidden } from '@/components/primitives';
 import { spacing } from '@/styles/tokens/spacing';
+import { grid } from '@/styles/tokens/grid';
 import { fontFamily, fontWeight, fontSize, lineHeight, letterSpacing } from '@/styles/tokens/typography';
 import { neutrals } from '@/styles/tokens/colors';
 import { radius } from '@/styles/tokens/radius';
@@ -190,6 +191,17 @@ const Row = styled.article<{ $side: MediaSide; $background: string; $light: bool
   }
 `;
 
+/**
+ * How far the page's centred container (grid.maxWidth) is inset from the screen
+ * edge, written for a text column's padding. A padding percentage is the width of
+ * the column's own grid area, and the two columns are equal halves with `gap`
+ * between them, so the row's width is 2 * 100% + gap and the inset
+ * (row - maxWidth) / 2 comes to 100% + gap / 2 - maxWidth / 2. It reads off the
+ * row rather than 100vw, so a classic scrollbar can't push it off.
+ */
+const containerInset = (gap: number) =>
+  `max(0px, calc(100% + ${gap / 2}px - ${grid.maxWidth / 2}px))`;
+
 /** The text and its CTA; on mobile it dissolves so the CTA can move onto the collage. */
 const TextColumn = styled.div<{ $side: MediaSide }>`
   ${(p) => stageHalf(p.$side, 'slide', stageSplit)}
@@ -211,6 +223,21 @@ const TextColumn = styled.div<{ $side: MediaSide }>`
     display: contents;
   }
 
+  /* Above 1440 the container stops growing while the screen does, so the text
+     follows it in, like the hero, the cards and the CTA around it. The collage
+     keeps running out to the page edge. Up to 1440 the container and the
+     header's inset are the same line, so nothing changes there. */
+  ${media.up('xxl')} {
+    ${(p) =>
+      p.$side === 'left'
+        ? css`
+            padding-left: calc(${HEADER_INLINE.base}px + ${containerInset(spacing[400])});
+          `
+        : css`
+            padding-right: calc(${HEADER_INLINE.base}px + ${containerInset(spacing[400])});
+          `}
+  }
+
   /* The text at the top of its half and the CTA at the bottom. */
   ${stageDesktop} {
     ${STAGED} & {
@@ -230,6 +257,26 @@ const TextColumn = styled.div<{ $side: MediaSide }>`
         }
       }
     `}
+
+  /* On the stage the halves are further apart, which moves the container's edge
+     in the column's own percentages; the dots' clearance still applies. */
+  ${media.up('xxl')} {
+    ${stageDesktop} {
+      ${STAGED} & {
+        ${(p) =>
+          p.$side === 'left'
+            ? css`
+                padding-left: calc(${HEADER_INLINE.base}px + ${containerInset(spacing[1000])});
+              `
+            : css`
+                padding-right: max(
+                  ${HEADER_INLINE.base + spacing[600] + spacing[400]}px,
+                  calc(${HEADER_INLINE.base}px + ${containerInset(spacing[1000])})
+                );
+              `}
+      }
+    }
+  }
 `;
 
 const Info = styled.div`
