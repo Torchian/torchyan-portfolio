@@ -1,20 +1,20 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { useTranslations } from 'next-intl';
 import { LogoMark, VisuallyHidden } from '@/components/primitives';
 import { requestScrollFrame } from '@/lib/scroll-driver';
 import { media } from '@/styles/media';
-import { accents, neutrals } from '@/styles/tokens/colors';
-import { glass } from '@/styles/tokens/effects';
-import { radius } from '@/styles/tokens/radius';
-import { spacing } from '@/styles/tokens/spacing';
+import { neutrals } from '@/styles/tokens/colors';
 import { zIndex } from '@/styles/tokens/z-index';
+import { delay, layoutSettled } from './page-settle';
 
 /*
- * Covers the page on a full document load (not on client-side navigation, where
- * the root layout stays mounted). Provisional design — not in Figma yet.
+ * Covers the page on a full document load — the first page of a visit, or a
+ * reload. Moves between pages inside the site are PageTransition's: there is
+ * no loader for those. Provisional design — not in Figma yet: the white logo
+ * over the hero's glows, with a percentage under it as wide as the logo.
  *
  * Why: several sections are drawn from values only the browser can measure —
  * the What I Do character reveals, Selected Work's magnification, the
@@ -24,17 +24,28 @@ import { zIndex } from '@/styles/tokens/z-index';
  * position settle, a visitor saw half-drawn faces and sections jumping past.
  *
  * The overlay is part of the server HTML, so it's there from the first paint.
- * It lifts once the page has loaded, its fonts are in and its height has held
- * still — capped, so a slow network never leaves anyone staring at it.
+ * It lifts once the page has loaded, its fonts and first-screen images are in
+ * and its height has held still — capped, so a slow network never leaves
+ * anyone staring at it. The percentage creeps while the page loads and runs to
+ * 100 once it has.
  */
 
-/** Longest the loader stays up, however slow the network. */
+/** Longest the loader waits for the page to settle, however slow the network. */
 const MAX_WAIT_MS = 4000;
-/** The layout counts as settled once the page height has held still this long. */
-const STABLE_MS = 150;
-const FADE_MS = 400;
+/** The run from wherever the count is to 100, once the page is ready. */
+const FINISH_MS = 320;
+/** 100 holds this long before the overlay fades. */
+const HOLD_MS = 120;
+const FADE_MS = 350;
 /** Without JavaScript nothing would lift the overlay, so CSS lifts it on its own after this. */
 const FAILSAFE_S = 6;
+/** The logo's size; the percentage is set to the same width. */
+const MARK_PX = 128;
+
+/** While loading the count creeps towards this, never past it… */
+const CREEP_MAX = 0.85;
+/** …at this rate (ms to cover ~63% of the way). */
+const CREEP_TAU_MS = 900;
 
 const failsafe = keyframes`
   to {
@@ -43,12 +54,12 @@ const failsafe = keyframes`
   }
 `;
 
-const sweep = keyframes`
+const breathe = keyframes`
   from {
-    transform: translateX(-100%);
+    transform: rotate(0deg) scale(1);
   }
   to {
-    transform: translateX(250%);
+    transform: rotate(10deg) scale(1.12);
   }
 `;
 
@@ -60,108 +71,135 @@ const Overlay = styled.div<{ $leaving: boolean }>`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: ${spacing[300]}px;
+  gap: 24px;
+  overflow: hidden;
   background: ${neutrals[900]};
+  color: ${neutrals[100]};
   opacity: ${(p) => (p.$leaving ? 0 : 1)};
   pointer-events: ${(p) => (p.$leaving ? 'none' : 'auto')};
   transition: opacity ${FADE_MS}ms ease-out;
   animation: ${failsafe} 0s linear ${FAILSAFE_S}s forwards;
 
-  svg {
-    width: 64px;
-    height: 64px;
-  }
-
-  ${media.down('m')} {
-    svg {
-      width: 48px;
-      height: 48px;
-    }
-  }
-`;
-
-/** A thin track with a green glint sweeping across — the nav glow's colour. */
-const Track = styled.div`
-  position: relative;
-  width: 120px;
-  height: 2px;
-  overflow: hidden;
-  border-radius: ${radius.round}px;
-  background: ${glass.border};
-
-  &::after {
+  /* The hero's glows, slowly turning. */
+  &::before {
     content: '';
     position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: 40%;
-    background: linear-gradient(90deg, transparent, ${accents.primary}, transparent);
-    animation: ${sweep} 1.1s ease-in-out infinite;
+    inset: -25%;
+    background:
+      radial-gradient(38% 34% at 26% 30%, rgba(138, 56, 245, 0.3), transparent 70%),
+      radial-gradient(34% 30% at 76% 72%, rgba(198, 20, 230, 0.22), transparent 70%),
+      radial-gradient(26% 26% at 50% 48%, rgba(12, 175, 10, 0.07), transparent 70%);
+    animation: ${breathe} 9s ease-in-out infinite alternate;
+    pointer-events: none;
+  }
+
+  svg {
+    position: relative;
+    width: ${MARK_PX}px;
+    height: ${MARK_PX}px;
   }
 
   ${media.reducedMotion} {
-    &::after {
-      left: 30%;
+    &::before {
       animation: none;
     }
   }
 `;
 
-type Phase = 'loading' | 'leaving' | 'done';
-
-const nextFrame = () => new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
-const delay = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
+/** Gilroy semibold at this size sets "000%" to the logo's 128px (measured in the browser: 98.9px at 40px). */
+const COUNTER_PX = 51.5;
 
 /**
- * Resolves once the page has loaded, its fonts are in, and both its height and
- * the scroll position have stopped changing — on a reload the browser keeps
- * nudging the restored position while the page grows.
+ * "000%" as wide as the logo. Gilroy's tabular figures keep every count the
+ * same width, so one size fits all of them: see COUNTER_PX.
  */
-async function layoutSettled(stopped: () => boolean) {
-  if (document.readyState !== 'complete') {
-    await new Promise<void>((resolve) => window.addEventListener('load', () => resolve(), { once: true }));
-  }
-  await document.fonts.ready;
+const Counter = styled.p`
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: ${MARK_PX}px;
+  margin: 0;
+  color: ${neutrals[100]};
+  font-weight: 600;
+  font-size: ${COUNTER_PX}px;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
 
-  let snapshot = '';
-  let stableSince = 0;
-  while (!stopped()) {
-    await nextFrame();
-    const now = performance.now();
-    const current = `${document.documentElement.scrollHeight}:${Math.round(window.scrollY)}`;
-    if (current !== snapshot) {
-      snapshot = current;
-      stableSince = now;
-    } else if (now - stableSince >= STABLE_MS) {
-      return;
-    }
+  span:last-child {
+    color: ${neutrals[500]};
   }
-}
+`;
+
+type Phase = 'loading' | 'finishing' | 'leaving' | 'done';
+
+/**
+ * Set once the first page has been uncovered. A language switch remounts the
+ * whole tree this loader lives in; the new copy must not cover the page again.
+ */
+let documentShown = false;
 
 export function PageLoader() {
   const t = useTranslations('common');
-  const [phase, setPhase] = useState<Phase>('loading');
+  const [phase, setPhase] = useState<Phase>(() => (documentShown ? 'done' : 'loading'));
+  const countRef = useRef<HTMLSpanElement>(null);
+  const fill = useRef(0);
+  const finishFrom = useRef<{ at: number; fill: number } | null>(null);
 
+  // Count, every frame the overlay is up.
+  const visible = phase !== 'done';
   useEffect(() => {
+    if (!visible) return;
+    const shownAt = performance.now();
+    let frame = 0;
+    let shownCount = -1;
+    const paint = (now: number) => {
+      const finish = finishFrom.current;
+      if (finish) {
+        const k = Math.min(1, (now - finish.at) / FINISH_MS);
+        fill.current = finish.fill + (1 - finish.fill) * (1 - (1 - k) ** 3);
+      } else {
+        const creep = CREEP_MAX * (1 - Math.exp(-(now - shownAt) / CREEP_TAU_MS));
+        fill.current = Math.max(fill.current, creep);
+      }
+      const count = Math.round(fill.current * 100);
+      if (count !== shownCount && countRef.current) {
+        shownCount = count;
+        countRef.current.textContent = String(count).padStart(3, '0');
+      }
+      frame = requestAnimationFrame(paint);
+    };
+    frame = requestAnimationFrame(paint);
+    return () => cancelAnimationFrame(frame);
+  }, [visible]);
+
+  // Wait for the page under the cover, then run the count to 100 and lift it.
+  useEffect(() => {
+    if (phase !== 'loading') return;
     let finished = false;
     Promise.race([layoutSettled(() => finished), delay(MAX_WAIT_MS)]).then(() => {
       if (finished) return;
       finished = true;
       // Have every scroll-driven effect measure the final layout before it's uncovered.
       requestScrollFrame();
-      // A timer, not a frame: a page opened in a background tab gets no frames.
-      setTimeout(() => setPhase('leaving'), 50);
+      finishFrom.current = { at: performance.now(), fill: fill.current };
+      setPhase('finishing');
     });
     return () => {
       finished = true;
     };
-  }, []);
+  }, [phase]);
 
   useEffect(() => {
-    if (phase !== 'leaving') return;
-    const timer = setTimeout(() => setPhase('done'), FADE_MS);
-    return () => clearTimeout(timer);
+    // Timers, not frames: a page opened in a background tab gets no frames.
+    if (phase === 'finishing') {
+      const timer = setTimeout(() => setPhase('leaving'), FINISH_MS + HOLD_MS);
+      return () => clearTimeout(timer);
+    }
+    if (phase === 'leaving') {
+      documentShown = true;
+      const timer = setTimeout(() => setPhase('done'), FADE_MS);
+      return () => clearTimeout(timer);
+    }
   }, [phase]);
 
   if (phase === 'done') return null;
@@ -169,7 +207,10 @@ export function PageLoader() {
   return (
     <Overlay $leaving={phase === 'leaving'} role="status" aria-live="polite" data-page-loader>
       <LogoMark />
-      <Track aria-hidden />
+      <Counter aria-hidden>
+        <span ref={countRef}>000</span>
+        <span>%</span>
+      </Counter>
       <VisuallyHidden>{t('loading')}</VisuallyHidden>
     </Overlay>
   );

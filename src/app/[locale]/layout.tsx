@@ -8,6 +8,7 @@ import { ClickTracker } from '@/lib/analytics/ClickTracker';
 import { SoundProvider } from '@/lib/sound/provider';
 import { routing } from '@/i18n/routing';
 import { PageLoader } from '@/components/layouts/PageLoader';
+import { PageTransition } from '@/components/layouts/PageTransition';
 import { resolveLocale, type LocaleParams } from '@/i18n/server';
 import { SiteMessages } from '@/i18n/ClientMessages';
 import { gilroy } from '@/styles/fonts/gilroy-first-paint';
@@ -73,7 +74,7 @@ export default async function LocaleLayout({ children, params }: LocaleParams & 
     // The site only has a dark design. data-theme is rendered here, not set by a <head> script:
     // switching language re-renders <html>, and React drops attributes it didn't render —
     // every theme colour (text, accents) then fell back to black.
-    <html lang={locale} data-theme="dark" suppressHydrationWarning>
+    <html lang={locale} data-theme="dark" data-scroll-behavior="smooth" suppressHydrationWarning>
       <body className={`${gilroy.variable} ${gilroyLater.variable} ${armenianLabel.variable} ${armenian.variable}`}>
         <a id="skip-to-content" href="#main-content">
           {t('skipToContent')}
@@ -81,6 +82,7 @@ export default async function LocaleLayout({ children, params }: LocaleParams & 
         <SiteMessages>
           <StyledComponentsRegistry>
             <PageLoader />
+            <PageTransition />
             {children}
           </StyledComponentsRegistry>
           <SoundProvider />
