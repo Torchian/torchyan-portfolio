@@ -65,7 +65,7 @@ const PRIMARY_LINKS = [
 /** `channel` names the outbound_contact analytics event (src/lib/analytics/track.ts). */
 const SOCIAL_LINKS = [
   { label: 'Instagram', href: 'https://www.instagram.com/torchian_/', channel: 'instagram' },
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/torchian/', channel: 'linkedin' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/torchyan/', channel: 'linkedin' },
 ];
 
 const CONTACT_LINKS = [

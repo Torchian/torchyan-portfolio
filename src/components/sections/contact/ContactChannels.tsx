@@ -92,7 +92,7 @@ const CHANNELS: Channel[] = [
   {
     id: 'linkedin',
     angle: 60,
-    href: 'https://www.linkedin.com/in/torchian/',
+    href: 'https://www.linkedin.com/in/torchyan/',
     handle: 'in/torchian',
     icon: { width: 48, height: 48 },
     external: true,
