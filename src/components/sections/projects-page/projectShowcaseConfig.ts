@@ -321,7 +321,7 @@ export const SHOWCASE_PROJECTS: ShowcaseProject[] = [
   {
     id: 'picsart',
     content: 'picsart',
-    href: '/projects/picsart',
+    href: '/work/picsart',
     collage: PICSART,
     background: band('#920792', '#1C014A'),
     tone: 'dark',
@@ -329,7 +329,7 @@ export const SHOWCASE_PROJECTS: ShowcaseProject[] = [
   {
     id: 'smartbet',
     content: 'smartbet',
-    href: '/projects/smartbet',
+    href: '/work/smartbet',
     collage: SMARTBET,
     background: band('#1C014A', '#20520F'),
     tone: 'dark',
@@ -337,7 +337,7 @@ export const SHOWCASE_PROJECTS: ShowcaseProject[] = [
   {
     id: 'soulone',
     content: 'soulone',
-    href: '/projects/soulone',
+    href: '/work/soulone',
     collage: SOULONE,
     background: band('#20520F', '#102649'),
     tone: 'dark',
@@ -345,7 +345,7 @@ export const SHOWCASE_PROJECTS: ShowcaseProject[] = [
   {
     id: 'ginosi',
     content: 'ginosi',
-    href: '/projects/ginosi',
+    href: '/work/ginosi',
     collage: GINOSI,
     background: band('#102649', '#5C4AC0'),
     tone: 'dark',
@@ -353,7 +353,7 @@ export const SHOWCASE_PROJECTS: ShowcaseProject[] = [
   {
     id: 'brainstorm',
     content: 'brainstorm',
-    href: '/projects/brainstorm',
+    href: '/work/brainstorm',
     collage: BRAINSTORM,
     background: band('#5C4AC0', '#DE9E3C'),
     tone: 'dark',
@@ -361,7 +361,7 @@ export const SHOWCASE_PROJECTS: ShowcaseProject[] = [
   {
     id: 'benzeen',
     content: 'benzeen',
-    href: '/projects/benzeen',
+    href: '/work/benzeen',
     collage: BENZEEN,
     background: band('#DE9E3C', '#927F3D'),
     tone: 'dark',
@@ -369,7 +369,7 @@ export const SHOWCASE_PROJECTS: ShowcaseProject[] = [
   {
     id: 'world-education',
     content: 'worldEducation',
-    href: '/projects/world-education',
+    href: '/work/world-education',
     collage: WORLD_EDUCATION,
     background: band('#927F3D', '#B6955F'),
     tone: 'dark',

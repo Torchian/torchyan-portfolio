@@ -24,10 +24,15 @@ import { delay, internalDestination, jumpToStart, layoutSettled } from './page-s
 const OUT_MS = 280;
 /** The new page coming in (matches the global stylesheet's pageIn animation). */
 const IN_MS = 650;
-/** Longest the view holds for the new page to settle, however slow the network. */
-const MAX_WAIT_MS = 4000;
-/** Longest it waits for the new page at all (a redirect elsewhere, a failed fetch). */
-const NAV_TIMEOUT_MS = 8000;
+/**
+ * Longest the view holds, once the new page is there, for its fonts, its
+ * first-screen images and its height to settle. Short: a page that keeps
+ * changing height (a carousel, a late image) would otherwise hold the blank
+ * view for the whole of it — better a picture that finishes loading in view.
+ */
+const MAX_WAIT_MS = 1200;
+/** Longest it waits for the new page at all (a slow fetch, a failed one). */
+const NAV_TIMEOUT_MS = 5000;
 
 type Stage = 'out' | 'hold' | 'in';
 
@@ -38,8 +43,13 @@ function setStage(stage: Stage | null) {
 }
 
 interface Flight {
-  /** The path being moved to. */
-  target: string;
+  /**
+   * The path being moved away from. The move has arrived once the page on
+   * screen is any other path — not one particular one: a link can redirect
+   * (the old /projects/… URLs land on /work/…), and waiting for the address in
+   * the link then held the blank view until the timeout.
+   */
+  from: string;
   hash: string;
   startedAt: number;
 }
@@ -82,7 +92,7 @@ export function PageTransition() {
 
     const start = (to: URL, stage: Stage) => {
       window.clearTimeout(clearInTimer);
-      flight = { target: to.pathname, hash: to.hash, startedAt: performance.now() };
+      flight = { from: shownPath.current, hash: to.hash, startedAt: performance.now() };
       setStage(stage);
       setRun((n) => n + 1);
     };
@@ -107,12 +117,31 @@ export function PageTransition() {
       if (window.location.pathname !== shownPath.current) start(new URL(window.location.href), 'hold');
     };
 
+    /*
+     * Every page opens at its top, back and forward included, so the browser
+     * mustn't restore the old position itself: it did, as a smooth scroll under
+     * the hidden content, and the page counted as still moving until the cap.
+     * Back to "auto" as the document unloads, so a reload keeps its place.
+     */
+    history.scrollRestoration = 'manual';
+    const onPageHide = () => {
+      history.scrollRestoration = 'auto';
+    };
+    const onPageShow = () => {
+      history.scrollRestoration = 'manual';
+    };
+
     document.addEventListener('click', onClick, { capture: true });
     window.addEventListener('popstate', onPopState);
+    window.addEventListener('pagehide', onPageHide);
+    window.addEventListener('pageshow', onPageShow);
     return () => {
       document.removeEventListener('click', onClick, { capture: true });
       window.removeEventListener('popstate', onPopState);
+      window.removeEventListener('pagehide', onPageHide);
+      window.removeEventListener('pageshow', onPageShow);
       window.clearTimeout(navigateTimer);
+      history.scrollRestoration = 'auto';
     };
   }, [router]);
 
@@ -120,9 +149,9 @@ export function PageTransition() {
   useEffect(() => {
     const current = currentFlight();
     if (!current) return;
-    if (current.target !== pathname) {
+    if (current.from === pathname) {
       const timer = setTimeout(() => {
-        current.target = pathname;
+        current.from = '';
         setRun((n) => n + 1);
       }, NAV_TIMEOUT_MS);
       return () => clearTimeout(timer);
@@ -130,7 +159,12 @@ export function PageTransition() {
     let cancelled = false;
     // To the top first, while nothing is shown: the images worth waiting for are the top's.
     jumpToStart(current.hash);
-    Promise.race([layoutSettled(() => cancelled), delay(MAX_WAIT_MS)])
+    let waited = false;
+    Promise.race([layoutSettled(() => cancelled || waited), delay(MAX_WAIT_MS)])
+      .then(() => {
+        // Whichever won, stop the settle check's frame loop.
+        waited = true;
+      })
       // Never cut the fade out short.
       .then(() => delay(Math.max(0, OUT_MS - (performance.now() - current.startedAt))))
       .then(() => {
