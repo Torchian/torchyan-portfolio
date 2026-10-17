@@ -31,15 +31,14 @@ export async function layoutSettled(stopped: () => boolean) {
     await new Promise<void>((resolve) => window.addEventListener('load', () => resolve(), { once: true }));
   }
   await document.fonts.ready;
-  await Promise.all(
-    firstScreenImages().map(
-      (img) =>
-        new Promise<void>((resolve) => {
-          img.addEventListener('load', () => resolve(), { once: true });
-          img.addEventListener('error', () => resolve(), { once: true });
-        }),
-    ),
-  );
+  // Checked every frame rather than waited on by event: React can replace an
+  // image while it loads, and the replaced one never fires its load event —
+  // that held a page change at its cap with everything long since in.
+  let pending = firstScreenImages();
+  while (pending.length && !stopped()) {
+    await nextFrame();
+    pending = pending.filter((img) => img.isConnected && !img.complete);
+  }
 
   let snapshot = '';
   let stableSince = 0;
