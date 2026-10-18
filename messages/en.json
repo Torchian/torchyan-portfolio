@@ -3107,5 +3107,200 @@
       "Shopware",
       "CheckoutChamp"
     ]
+  },
+  "paintings": {
+    "meta": {
+      "siteName": "Torchyan Paintings",
+      "titleTemplate": "%s — Torchyan Paintings",
+      "home": {
+        "title": "Torchyan — Paintings",
+        "description": "Oil paintings by the artist: landscapes, the old town and quiet still lifes. See the collection, read about the artist, or commission a painting."
+      },
+      "painting": {
+        "description": "{title} ({year}), {medium}. From the collection of paintings by the artist."
+      },
+      "commissions": {
+        "title": "Commission a painting",
+        "description": "A painting made for you: a portrait from a photograph, a place you love, or a still life. How it works, and how to start."
+      }
+    },
+    "artist": {
+      "name": "[Artist name]",
+      "shortName": "Torchyan"
+    },
+    "nav": {
+      "gallery": "Gallery",
+      "artist": "The artist",
+      "commissions": "Commissions",
+      "home": "Paintings home",
+      "studio": "Torchyan Design"
+    },
+    "sample": "Preview: these are sample images and placeholder text, until the paintings are photographed.",
+    "hero": {
+      "eyebrow": "Paintings",
+      "intro": "Landscapes in the last hour of light, streets of the old town, quiet still lifes. Decades of work in oil, gathered in one place.",
+      "viewGallery": "View the gallery",
+      "commission": "Commission a painting",
+      "featured": "Featured work"
+    },
+    "gallery": {
+      "title": "The collection",
+      "lead": "{count, plural, one {# painting} other {# paintings}}, newest first. Choose one to see it closer.",
+      "filterLabel": "Show",
+      "all": "All",
+      "empty": "No paintings in this group yet."
+    },
+    "themes": {
+      "landscape": "Landscapes",
+      "portrait": "Portraits",
+      "stillLife": "Still life",
+      "city": "Town",
+      "other": "Other"
+    },
+    "media": {
+      "oilOnCanvas": "Oil on canvas",
+      "oilOnBoard": "Oil on board",
+      "acrylic": "Acrylic",
+      "watercolour": "Watercolour",
+      "pastel": "Pastel",
+      "mixed": "Mixed media"
+    },
+    "status": {
+      "available": "Available",
+      "privateCollection": "In a private collection",
+      "notForSale": "Not for sale"
+    },
+    "artistSection": {
+      "eyebrow": "The artist",
+      "title": "A life spent at the easel",
+      "portraitAlt": "Portrait of the artist",
+      "portraitPlaceholder": "Photo of the artist",
+      "paragraphs": [
+        "[Placeholder biography.] Where he was born and grew up, and how painting began: the first teacher, the first paints, the first picture he kept.",
+        "[Placeholder.] What he paints and why: the hills he returns to, the light he waits for, the streets he has painted for years.",
+        "[Placeholder.] Exhibitions, collections the paintings have gone to, and the work he is doing now."
+      ],
+      "quote": "[A sentence in his own words about painting.]",
+      "facts": {
+        "years": "years painting",
+        "works": "paintings here",
+        "since": "painting since"
+      }
+    },
+    "commissionBand": {
+      "title": "A painting made for you",
+      "text": "A portrait from a photograph, a place that matters to you, a still life for a particular wall. Tell him what you have in mind.",
+      "cta": "How commissions work"
+    },
+    "painting": {
+      "back": "All paintings",
+      "year": "Year",
+      "medium": "Medium",
+      "size": "Size",
+      "sizeValue": "{width} × {height} cm",
+      "status": "Status",
+      "enquire": "Ask about this painting",
+      "commissionSimilar": "Commission something similar",
+      "view": "View larger",
+      "close": "Close",
+      "zoomHint": "Click to zoom, move to look around",
+      "details": "Up close",
+      "detailsLead": "Parts of the painting at a size you can see the brushwork.",
+      "detailAlt": "Detail {number} of {title}",
+      "about": "About the painting",
+      "previous": "Previous",
+      "next": "Next",
+      "more": "More paintings"
+    },
+    "commissions": {
+      "eyebrow": "Commissions",
+      "title": "A painting made for you",
+      "lead": "He paints to order: from a photograph, from a place, or from an idea you describe. Every commission is one painting, made by hand in oil, signed and dated.",
+      "kindsTitle": "What he paints",
+      "kinds": [
+        {
+          "title": "Portraits",
+          "text": "A person, a couple, a family, painted from your photographs."
+        },
+        {
+          "title": "Places",
+          "text": "A house, a village, a view that means something to you."
+        },
+        {
+          "title": "Still life",
+          "text": "Flowers, fruit, objects from a home, arranged and painted."
+        },
+        {
+          "title": "Your idea",
+          "text": "Something described in words. He'll suggest how it could be painted."
+        }
+      ],
+      "processTitle": "How it works",
+      "steps": [
+        {
+          "title": "Tell him about it",
+          "text": "Send the form below: what to paint, roughly what size, and any photographs."
+        },
+        {
+          "title": "Sketch and price",
+          "text": "He replies with questions, a price and a time frame, and a small sketch of the composition."
+        },
+        {
+          "title": "Painting",
+          "text": "Once you agree, he paints. You'll get photos along the way."
+        },
+        {
+          "title": "Delivery",
+          "text": "The finished painting is varnished, signed and delivered or shipped to you."
+        }
+      ],
+      "termsTitle": "Good to know",
+      "terms": [
+        "[Placeholder] Typical sizes run from 30 × 40 cm to 100 × 80 cm.",
+        "[Placeholder] A painting usually takes three to eight weeks.",
+        "[Placeholder] Prices depend on size and complexity; ask for a quote."
+      ],
+      "form": {
+        "title": "Start a commission",
+        "lead": "A few lines are enough to begin. You'll hear back within a few days.",
+        "name": "Your name",
+        "email": "Email",
+        "phone": "Phone or messenger (optional)",
+        "kind": "What should he paint?",
+        "kindOptions": [
+          "A portrait",
+          "A place",
+          "A still life",
+          "Something else"
+        ],
+        "size": "Size, if you know (optional)",
+        "sizePlaceholder": "e.g. about 50 × 70 cm",
+        "deadline": "Is there a date? (optional)",
+        "deadlinePlaceholder": "e.g. a birthday in March",
+        "message": "Tell him about it",
+        "messagePlaceholder": "What the painting is for, who or what is in it, colours you like… Links to photos welcome.",
+        "about": "This painting",
+        "submit": "Send request",
+        "sending": "Sending…",
+        "privacy": "Your details are used only to reply to you.",
+        "success": "Thank you. Your request has been sent; you'll hear back soon.",
+        "error": "It didn't send. Please try again in a moment, or write to {email}.",
+        "required": "Please fill this in.",
+        "invalidEmail": "This doesn't look like an email address."
+      }
+    },
+    "footer": {
+      "rights": "All paintings © {artist}. Please ask before reproducing them.",
+      "madeBy": "Site by",
+      "studio": "Torchyan Design"
+    },
+    "language": {
+      "label": "Language"
+    },
+    "notFound": {
+      "title": "This painting isn't here",
+      "text": "It may have moved, or the address is mistyped.",
+      "back": "See all paintings"
+    }
   }
 }

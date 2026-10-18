@@ -5,10 +5,7 @@ import { getTranslations } from 'next-intl/server';
 import { StyledComponentsRegistry } from '@/lib/styled-registry';
 import { Analytics } from '@vercel/analytics/next';
 import { ClickTracker } from '@/lib/analytics/ClickTracker';
-import { SoundProvider } from '@/lib/sound/provider';
 import { routing } from '@/i18n/routing';
-import { PageLoader } from '@/components/layouts/PageLoader';
-import { PageTransition } from '@/components/layouts/PageTransition';
 import { resolveLocale, type LocaleParams } from '@/i18n/server';
 import { SiteMessages } from '@/i18n/ClientMessages';
 import { gilroy } from '@/styles/fonts/gilroy-first-paint';
@@ -80,12 +77,8 @@ export default async function LocaleLayout({ children, params }: LocaleParams & 
           {t('skipToContent')}
         </a>
         <SiteMessages>
-          <StyledComponentsRegistry>
-            <PageLoader />
-            <PageTransition />
-            {children}
-          </StyledComponentsRegistry>
-          <SoundProvider />
+          {/* The main site's loader, transitions and sound live in (site)/layout; the paintings site has its own. */}
+          <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
         </SiteMessages>
         {/*
           Vercel Web Analytics only: cookieless, so no consent banner is needed.
