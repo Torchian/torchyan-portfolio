@@ -8,6 +8,14 @@
 
 /** The layout counts as settled once the page height has held still this long. */
 const STABLE_MS = 150;
+/**
+ * The longest the window's load event is waited for. It fires only once every
+ * resource the browser chose to fetch is in, below-the-fold images included —
+ * on a case page, a whole carousel of screenshots under the first screen — and
+ * nothing the first screen needs is in that wait that the checks after it
+ * don't cover.
+ */
+const LOAD_WAIT_MS = 1200;
 
 const nextFrame = () => new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
 export const delay = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
@@ -22,13 +30,16 @@ function firstScreenImages() {
 }
 
 /**
- * Resolves once the page has loaded, its fonts and first-screen images are in,
+ * Resolves once the page has loaded (or LOAD_WAIT_MS has passed), its fonts and first-screen images are in,
  * and both its height and the scroll position have stopped changing — on a
  * reload the browser keeps nudging the restored position while the page grows.
  */
 export async function layoutSettled(stopped: () => boolean) {
   if (document.readyState !== 'complete') {
-    await new Promise<void>((resolve) => window.addEventListener('load', () => resolve(), { once: true }));
+    await Promise.race([
+      new Promise<void>((resolve) => window.addEventListener('load', () => resolve(), { once: true })),
+      delay(LOAD_WAIT_MS),
+    ]);
   }
   await document.fonts.ready;
   // Checked every frame rather than waited on by event: React can replace an

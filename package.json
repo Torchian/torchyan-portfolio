@@ -10,7 +10,8 @@
     "lint": "eslint",
     "tokens": "tsx scripts/generate-tokens.ts",
     "push": "git -c http.postBuffer=524288000 push",
-    "images": "tsx scripts/optimize-images.ts"
+    "images": "tsx scripts/optimize-images.ts",
+    "images:carousel": "tsx scripts/carousel-images.ts"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",

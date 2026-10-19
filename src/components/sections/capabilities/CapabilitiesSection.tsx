@@ -28,6 +28,13 @@ import { notchedCardShape, type NotchCorner } from './notchedCardShape';
 /** The grid's width in the 1440 frame; narrower grids scale the whole layout down, wider ones (1920 frame) keep 1. */
 const DESIGN_WIDTH = 1372;
 const DESIGN_HEIGHT = 957;
+/**
+ * The least the screen's height may scale the layout to. Fitting a short
+ * screen whole (a laptop's 720–800px) took it to under half size, where the
+ * cards' text came out at 6–7px; below this the section is simply taller than
+ * the screen and scrolls, as any other section does.
+ */
+const MIN_HEIGHT_SCALE = 0.8;
 const CIRCLE_SIZE = 448;
 
 /** Cards in DOM order (top-left, top-right, bottom-left, bottom-right) and where each is cut. */
@@ -429,7 +436,8 @@ function useCapabilityGeometry(
         (section.firstElementChild?.getBoundingClientRect().height ?? 0) +
         (frame ? frame.getBoundingClientRect().height - grid.getBoundingClientRect().height : 0);
       const room = window.innerHeight - chrome;
-      const scale = Math.min(1, grid.clientWidth / DESIGN_WIDTH, room > 0 ? room / DESIGN_HEIGHT : 1);
+      const fitHeight = room > 0 ? room / DESIGN_HEIGHT : 1;
+      const scale = Math.min(1, grid.clientWidth / DESIGN_WIDTH, Math.max(fitHeight, MIN_HEIGHT_SCALE));
       section.style.setProperty('--capabilities-scale', scale.toFixed(4));
 
       // Measured after the scale is applied: it changes the gaps, and so the cards.

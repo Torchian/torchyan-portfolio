@@ -10,6 +10,7 @@ import { grid } from '@/styles/tokens/grid';
 import { media } from '@/styles/media';
 import { createInViewGate, subscribeScroll } from '@/lib/scroll-driver';
 import type { CaseImage, CaseStudyCopy } from './caseStudyConfig';
+import { carouselRows, carouselSize, carouselSrc } from './carousel';
 
 /*
  * Figma: hero_container — 1920 (3155:10963), 1024 (3920:8940), 480 (3921:10853);
@@ -20,9 +21,10 @@ import type { CaseImage, CaseStudyCopy } from './caseStudyConfig';
  * desktop, sit on one centred line on tablet, and on a phone read from the left
  * with the badges wrapping.
  *
- * Under it, the carousel: rows of screenshots that drift sideways with the
- * scroll, alternating direction — Figma's Start state as the carousel comes up
- * the screen, its End state as it leaves.
+ * Under it, the carousel: two rows of screenshots that drift sideways with the
+ * scroll in opposite directions — Figma's Start state as the carousel comes up
+ * the screen, its End state as it leaves. Its images are made ahead of time at
+ * the size they're shown (carousel.ts).
  */
 
 /* 80 clear at the top for the fixed header, as the Figma frame has it. */
@@ -257,23 +259,15 @@ const Carousel = styled.div`
 
   ${media.down('m')} {
     --row: ${ROW.mobile}px;
-
-    & > :nth-child(n + 3) {
-      display: none;
-    }
   }
 `;
 
 /**
  * How far along its run each row is at scroll progress --p (0 → 1): the first
- * row goes from its left edge to its right, the second the other way, the third
- * covers the second half only (Figma's Start and End states).
+ * row goes from its left edge to its right, the second the other way (Figma's
+ * Start and End states).
  */
-const ROW_TRAVEL = [
-  'var(--p, 0.5)',
-  'calc(1 - var(--p, 0.5))',
-  'calc(0.5 + var(--p, 0.5) * 0.5)',
-];
+const ROW_TRAVEL = ['var(--p, 0.5)', 'calc(1 - var(--p, 0.5))'];
 
 const Row = styled.ul<{ $row: number }>`
   display: flex;
@@ -285,8 +279,8 @@ const Row = styled.ul<{ $row: number }>`
   list-style: none;
   transform: translateX(calc(${(p) => ROW_TRAVEL[p.$row % ROW_TRAVEL.length]} * (100cqw - 100%)));
 
-  /* A GPU layer only while it's moving on screen: three rows this wide hold
-     tens of megabytes of texture. */
+  /* A GPU layer only while it's moving on screen: rows this wide hold tens of
+     megabytes of texture. */
   [data-live='true'] > & {
     will-change: transform;
   }
@@ -298,8 +292,11 @@ const Shot = styled.li`
   height: var(--row);
   overflow: hidden;
 
-  /* A long page capture is framed from its top. */
+  /* Made at this shape already; cover only absorbs rounding. */
   img {
+    display: block;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     object-position: top;
   }
@@ -344,13 +341,8 @@ function CaseCarousel({ rows }: { rows: CaseImage[][] }) {
         <Row key={r} $row={r}>
           {row.map((image, i) => (
             <Shot key={`${image.src}-${i}`} style={{ aspectRatio: String(image.aspect) }}>
-              <Image
-                src={image.src}
-                alt=""
-                fill
-                sizes={`${Math.ceil(ROW.desktop * image.aspect)}px`}
-                draggable={false}
-              />
+              {/* Already the size it's drawn at (carousel.ts): straight from the CDN, no encoding. */}
+              <Image src={carouselSrc(image)} alt="" {...carouselSize(image)} unoptimized draggable={false} />
             </Shot>
           ))}
         </Row>
@@ -383,7 +375,7 @@ export function CaseStudyHero({ copy, carousel }: { copy: CaseStudyCopy['hero'];
           ))}
         </MetaList>
       </Container>
-      <CaseCarousel rows={carousel} />
+      <CaseCarousel rows={carouselRows(carousel)} />
     </Section>
   );
 }

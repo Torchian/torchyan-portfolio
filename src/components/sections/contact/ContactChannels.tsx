@@ -2,6 +2,7 @@
 
 /* eslint-disable @next/next/no-img-element -- small decorative SVGs; next/image adds nothing here */
 import { useEffect, useMemo, useRef, useState, type FocusEvent } from 'react';
+import { HEADER_HEIGHT } from '@/components/layouts/NavBar';
 import styled, { createGlobalStyle, keyframes } from 'styled-components';
 import { useTranslations } from 'next-intl';
 import { VisuallyHidden } from '@/components/primitives';
@@ -167,6 +168,17 @@ const Stage = styled.div`
   position: relative;
   width: min(100%, ${FRAME}px);
   aspect-ratio: 1;
+
+  /*
+   * On a laptop the circle at full size is taller than the screen: its edge
+   * and the button under it went off the bottom, and on a 720px screen the
+   * longer Russian and Armenian text ran into the portrait. It shrinks to fit
+   * the screen under the header with room for the button (everything inside
+   * is drawn in --u, so it scales as a whole).
+   */
+  ${media.up('xl')} {
+    width: min(100%, ${FRAME}px, max(420px, calc(100svh - ${HEADER_HEIGHT}px - ${spacing[1000] + spacing[300]}px)));
+  }
 `;
 
 const WAVES = 5;
@@ -389,11 +401,23 @@ const Middle = styled.div`
   }
 `;
 
+/*
+ * Russian and Armenian say the same at greater length: their title wraps to
+ * two or three lines and the text under it to five, and the block, centred in
+ * the circle, reached down into the portrait. A step smaller there, it ends
+ * where the English does.
+ */
+const LONG_SCRIPT = 'html:lang(ru) &, html:lang(hy) &';
+
 const Title = styled.p`
   margin: 0;
   font-size: max(16px, calc(${fontSize.heading.l} * var(--u)));
   line-height: 1.33;
   letter-spacing: ${letterSpacing.xs}px;
+
+  ${LONG_SCRIPT} {
+    font-size: max(16px, calc(${fontSize.heading.l} * 0.8 * var(--u)));
+  }
 `;
 
 const Rest = styled.div`
@@ -405,6 +429,10 @@ const Body = styled.p`
   font-size: calc(${fontSize.body.xl} * var(--u));
   line-height: 1.33;
   letter-spacing: ${letterSpacing.s}px;
+
+  ${LONG_SCRIPT} {
+    font-size: calc(${fontSize.body.xl} * 0.86 * var(--u));
+  }
 
   /* Too small to read on a small circle: the links still name each channel. */
   @container (width < 560px) {
