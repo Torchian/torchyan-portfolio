@@ -39,6 +39,18 @@ const DESIGN_CARD = { width: 708, height: 467, gap: 24, notchRadius: 248 } as co
  * itself); 40px is the card padding plus the few pixels Figma lets the fillet
  * overlap the text box.
  */
+/*
+ * Desktop type, [size, line height] in design pixels (scaled with the layout).
+ * A step under what the frames were drawn at: at those sizes the Russian and
+ * Armenian copy, a third longer than the English, ran into the circle and out
+ * of the cards, and the longer titles into the cut-out.
+ */
+const DESKTOP_TYPE = {
+  title: [48, 56],
+  text: [fontSize.heading.s, lineHeight.heading.s],
+  footnote: [20, 28],
+} as const;
+
 const BESIDE_NOTCH = `calc(100% + ${scaled(spacing[500])} - var(--notch-span, 256px))`;
 
 /** A 1px edge that's brighter at the top, as on the Figma cards. */
@@ -132,7 +144,7 @@ const Body = styled.div`
  * and at 390px the cards read as blown up rather than as themselves. Tablet
  * and desktop keep what Figma gave them.
  */
-const Title = styled.h3`
+const Title = styled.h3<{ $besideNotch: boolean }>`
   margin: 0;
   font-family: ${fontFamily.heading};
   font-weight: ${fontWeight.semibold};
@@ -142,20 +154,23 @@ const Title = styled.h3`
   color: ${accents.primary};
   pointer-events: auto;
 
-  /*
-   * One step up on real desktop — Heading L is the top of the heading scale,
-   * so the step up crosses into the bottom of the display one, Display S.
-   * Tablet keeps Heading L, the size Figma drew it at.
-   */
   ${media.up('xl')} {
-    font-size: ${scaled(fontSize.display.s)};
-    line-height: ${scaled(lineHeight.display.s)};
+    font-size: ${scaled(DESKTOP_TYPE.title[0])};
+    line-height: ${scaled(DESKTOP_TYPE.title[1])};
     transition: color ${HOVER_TRANSITION};
 
     ${ACTIVE_CARD} & {
       color: ${neutrals[100]};
     }
   }
+
+  ${(p) =>
+    p.$besideNotch &&
+    css`
+      ${media.up('xl')} {
+        max-width: ${BESIDE_NOTCH};
+      }
+    `}
 
   ${media.down('m')} {
     font-weight: ${fontWeight.medium};
@@ -195,10 +210,9 @@ const MainText = styled.div<{ $besideNotch: boolean }>`
       }
     `}
 
-  /* One step up on real desktop, Heading S to Heading M; tablet keeps Heading S. */
   ${media.up('xl')} {
-    font-size: ${scaled(fontSize.heading.m)};
-    line-height: ${scaled(lineHeight.heading.m)};
+    font-size: ${scaled(DESKTOP_TYPE.text[0])};
+    line-height: ${scaled(DESKTOP_TYPE.text[1])};
   }
 
   ${media.between('m', 'xl')} {
@@ -310,14 +324,9 @@ const Footnote = styled.p<{ $besideNotch: boolean }>`
       }
     `}
 
-  /*
-   * One step up on real desktop — Body XL is the top of the body scale, so
-   * the step up crosses into the bottom of the heading one, Heading S.
-   * Tablet keeps Body XL, the size Figma drew it at.
-   */
   ${media.up('xl')} {
-    font-size: ${scaled(fontSize.heading.s)};
-    line-height: ${scaled(lineHeight.heading.s)};
+    font-size: ${scaled(DESKTOP_TYPE.footnote[0])};
+    line-height: ${scaled(DESKTOP_TYPE.footnote[1])};
   }
 
   ${media.down('xl')} {
@@ -371,13 +380,13 @@ export function CapabilityCard({ capability, index, notch }: CapabilityCardProps
       </Shape>
 
       <Body>
-        <Title>{title}</Title>
+        <Title $besideNotch={notchOnTop}>{title}</Title>
         {typeof text === 'string' ? (
-          <MainText as="p" $besideNotch={notchOnTop}>
+          <MainText as="p" $besideNotch>
             {text}
           </MainText>
         ) : (
-          <ListText $besideNotch={notchOnTop}>
+          <ListText $besideNotch>
             <p>{text.lead}</p>
             <ul>
               {text.items.map((item) => (
