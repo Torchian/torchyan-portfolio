@@ -81,6 +81,18 @@ const SectionTitle = styled(SectionHeading)`
     }
   }
 
+  /*
+   * In Armenian the title is half as long again and its capitals wider: at
+   * Display XL it took three lines, most of a laptop screen. Display M keeps
+   * it to two.
+   */
+  ${media.up('xl')} {
+    html:lang(hy) & h2 {
+      font-size: ${fontSize.display.m}px;
+      line-height: ${lineHeight.display.m}px;
+    }
+  }
+
   ${media.down('m')} {
     h2 {
       font-size: ${fontSize.heading.m}px;
@@ -375,7 +387,7 @@ function fitCenterPanels(grid: HTMLDivElement) {
   const r = circle.width / 2;
   const range = document.createRange();
 
-  panels.forEach((panel) => {
+  const fit = (panel: HTMLElement) => {
     let factor = 1;
     panel.querySelectorAll<HTMLElement>('p, li').forEach((el) => {
       range.selectNodeContents(el);
@@ -386,6 +398,17 @@ function fitCenterPanels(grid: HTMLDivElement) {
         if (halfWidth > 0 && clearance > 0) factor = Math.min(factor, clearance / halfWidth);
       }
     });
+    return factor;
+  };
+
+  // The skill lists share one size: each fitted on its own, the four cards
+  // showed four different sizes. The title panel fits on its own.
+  const lists = [...panels].filter((panel) => panel.dataset.centerPanel !== 'default');
+  const shared = Math.min(1, ...lists.map(fit));
+  if (shared < 1) lists.forEach((panel) => panel.style.setProperty('--panel-fit-scale', shared.toFixed(4)));
+  panels.forEach((panel) => {
+    if (panel.dataset.centerPanel !== 'default') return;
+    const factor = fit(panel);
     if (factor < 1) panel.style.setProperty('--panel-fit-scale', factor.toFixed(4));
   });
 }

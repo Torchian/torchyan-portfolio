@@ -815,13 +815,11 @@
         "footnote": "A site that explains the business clearly - and that your team can update with confidence.",
         "skills": [
           "Direction & structure",
-          "Content direction",
           "Brand & visual direction",
           "UX & interface design",
           "Motion & interaction",
           "Front-end & CMS build",
-          "SEO foundations",
-          "Launch & handover"
+          "SEO foundations"
         ]
       },
       {
@@ -832,11 +830,9 @@
           "Discovery & user flows",
           "UX architecture",
           "Interface design",
-          "Prototyping",
           "Front-end engineering",
           "Localization / RTL / TTB",
-          "WCAG AA-aligned accessibility",
-          "Backend with specialists"
+          "WCAG AA accessibility"
         ]
       },
       {
@@ -847,11 +843,9 @@
           "UI review",
           "Tokens & foundations",
           "Component library",
-          "States & variants",
           "Theming",
           "Code integration",
-          "Documentation",
-          "Adoption support"
+          "Documentation"
         ]
       },
       {
@@ -870,11 +864,9 @@
           "Deployment",
           "Performance",
           "Analytics setup",
-          "Conversion improvements",
           "SEO",
           "Launch promotion",
-          "Maintenance",
-          "Ongoing support"
+          "Maintenance"
         ]
       }
     ]
