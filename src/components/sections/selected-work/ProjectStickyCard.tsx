@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { useMessages, useTranslations } from 'next-intl';
-import styled, { css, type RuleSet } from 'styled-components';
+import styled, { css } from 'styled-components';
 import { CTASecondary, type CTASecondaryProps } from '@/components/primitives';
 import { media, mediaQueries } from '@/styles/media';
 import { neutrals } from '@/styles/tokens/colors';
@@ -48,20 +48,11 @@ const ONLY_ON: Record<GridScreen, string> = {
   mobile: media.down('m'),
 };
 
-/** Desktop only (tablet and mobile have no hover design): while the media is hovered, or its CTA has focus. */
-const onDesktopHover = (styles: RuleSet) => css`
-  @media ${mediaQueries.up('xl')} and (hover: hover) and (pointer: fine) {
-    [data-cta-trigger]:hover & {
-      ${styles}
-    }
-  }
-
-  ${media.up('xl')} {
-    [data-cta-trigger]:focus-within & {
-      ${styles}
-    }
-  }
-`;
+/*
+ * The grid stays still under the pointer: hovering the media only brings up
+ * its CTA (CTASecondary's own [data-cta-trigger] hover). The columns used to
+ * slide to their Figma hover positions as well.
+ */
 
 /**
  * Bottom padding that clears the phone's browser toolbar.
@@ -345,10 +336,6 @@ const IsometricColumnBox = styled.div`
   ${columnSize('')}
   transform: ${isometricAt('')};
 
-  ${onDesktopHover(css`
-    transform: ${isometricAt('-hover')};
-  `)}
-
   ${media.down('xl')} {
     ${columnSize('-tablet')}
     transform: ${isometricAt('-tablet')};
@@ -387,10 +374,6 @@ const FlatColumnBox = styled.div`
   ${columnBase}
   ${columnSize('')}
   transform: ${flatAt('')};
-
-  ${onDesktopHover(css`
-    transform: ${flatAt('-hover')};
-  `)}
 
   ${media.down('xl')} {
     ${columnSize('-tablet')}

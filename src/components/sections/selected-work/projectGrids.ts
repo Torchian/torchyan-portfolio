@@ -37,7 +37,7 @@ export interface IsometricColumn {
   /** Desktop width in px, before projection; tablet and mobile scale it by the grid's `scale`. */
   width: number;
   images: GridImage[];
-  /** Centre per screen, plus `hover`: where the column slides to while the desktop grid is hovered. */
+  /** Centre per screen, plus `hover`: Figma's hover position — kept for reference, the grid no longer moves on hover. */
   center: Record<GridScreen | 'hover', FramePoint>;
 }
 
@@ -50,7 +50,7 @@ export interface IsometricGrid {
   columns: IsometricColumn[];
 }
 
-/** An upright column: top-left corner and width per screen; on desktop hover it slides to `hoverTop`. */
+/** An upright column: top-left corner and width per screen; `hoverTop` is Figma's hover position, kept for reference (unused). */
 export interface FlatColumn {
   images: GridImage[];
   frame: Record<GridScreen, { left: number; top: number; width: number }>;
