@@ -20,9 +20,18 @@ const ProjectsStack = styled.div`
 `;
 
 /**
+ * How near (in cards) a card's traversal has to be for its grid to hold its own
+ * compositor layer. Promoting a grid is a re-raster of every tilted screenshot
+ * in it; done the moment its card started moving (as it was), that landed as a
+ * dropped frame at every card. A card and a half ahead it happens off screen,
+ * and only the cards around the viewport hold the memory.
+ */
+const LAYER_REACH = 1.5;
+
+/**
  * Drives each card's `--card-progress` (its own 0 → 1 traversal) for the
  * organic magnification in ProjectStickyCard, writing only when the value
- * changes, and flags the cards mid-traversal with `data-magnifying`. The
+ * changes, and flags the cards near their traversal with `data-magnifying`. The
  * stack is a plain sticky-card scroll — each card pins while the next one
  * covers it — rather than stepped: nothing here takes the gesture away from
  * the browser, on any device.
@@ -52,13 +61,14 @@ function useCardProgress(stackRef: React.RefObject<HTMLDivElement | null>) {
       write: (frame, { top: stackTop, card }) => {
         const progress = (frame.y - stackTop) / card;
         for (let i = 0; i < cards.length; i++) {
-          const p = Math.min(1, Math.max(0, progress - i));
+          const raw = progress - i;
+          const p = Math.min(1, Math.max(0, raw));
           const value = p.toFixed(3);
           if (value !== lastProgress[i]) {
             cards[i].style.setProperty('--card-progress', value);
             lastProgress[i] = value;
           }
-          const magnifying = p > 0 && p < 1;
+          const magnifying = raw > -LAYER_REACH && raw < 1 + LAYER_REACH;
           if (magnifying !== lastMagnifying[i]) {
             cards[i].toggleAttribute('data-magnifying', magnifying);
             lastMagnifying[i] = magnifying;

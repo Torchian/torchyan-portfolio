@@ -5,6 +5,7 @@ import styled, { keyframes } from 'styled-components';
 import { fontFamily, fontWeight } from '@/styles/tokens/typography';
 import { accents, neutrals } from '@/styles/tokens/colors';
 import { media } from '@/styles/media';
+import { usePauseOffscreen } from '@/hooks';
 
 /*
  * The scene the site sets its centrepieces in: a soft glow, three orbits (dots
@@ -200,11 +201,13 @@ export function OrbitScene({
 }: OrbitSceneProps) {
   // Each scene's gradients get their own ids: several scenes share a page.
   const id = useId().replace(/:/g, '');
+  // The travellers circle forever; only while the scene is in view.
+  const pauseRef = usePauseOffscreen<HTMLDivElement>();
   const fade = `orbit-fade-${id}`;
   const lit = `orbit-lit-${id}`;
 
   return (
-    <Scene className={className} data-on={active !== null} data-glow={glow} aria-hidden>
+    <Scene ref={pauseRef} className={className} data-on={active !== null} data-glow={glow} aria-hidden>
       <svg viewBox={`${-3 * R} ${-3 * R} ${3 * SIZE} ${3 * SIZE}`}>
         <defs>
           <linearGradient id={fade} gradientUnits="userSpaceOnUse" x1={R + 144} x2={R * 3} y1="0" y2="0">
