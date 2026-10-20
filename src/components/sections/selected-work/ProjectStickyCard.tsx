@@ -83,6 +83,10 @@ const CardWrapper = styled.article<{ $background?: string }>`
   padding: ${spacing[1500]}px ${spacing[400]}px ${spacing[500]}px;
   overflow: hidden;
   background: ${(p) => p.$background ?? `linear-gradient(180deg, ${neutrals[900]} 0%, ${neutrals[800]} 100%)`};
+  /* Never seen (every gradient here is opaque), but it tells the browser so. A
+     gradient alone doesn't: it then drew every card pinned under this one, on
+     every frame, as if it might show through. */
+  background-color: ${neutrals[900]};
   isolation: isolate;
   /* Already clipped (overflow: hidden) and its own stacking context; this makes
      that explicit to the browser, so layout and paint inside one card can never
@@ -273,6 +277,10 @@ const Stage = styled.div`
   width: calc(var(--frame-w) * var(--u));
   height: calc(var(--frame-h) * var(--u));
   transform: translate(-50%, -50%) scale(calc(1 + ${MAGNIFY} * var(--card-progress, 0)));
+  /* Decoration: the media box under it takes the hover and the link. Left
+     hit-testable, its forty-odd tilted tiles were walked again on every
+     scrolled frame to find what the pointer is over. */
+  pointer-events: none;
 
   ${media.down('xl')} {
     --frame-w: ${GRID_FRAMES.tablet.width};
@@ -284,8 +292,8 @@ const Stage = styled.div`
     --frame-h: ${GRID_FRAMES.mobile.height};
   }
 
-  /* A compositor layer only while its card is being scrolled through (the
-     Selected Work hook sets data-magnifying), never on every card at once. */
+  /* A compositor layer only while its card is near its push-in (the Selected
+     Work hook sets data-magnifying), never on every card at once. */
   [data-magnifying] & {
     will-change: transform;
   }

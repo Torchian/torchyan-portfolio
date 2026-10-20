@@ -1,6 +1,7 @@
 'use client';
 
 import styled, { keyframes } from 'styled-components';
+import { usePauseOffscreen } from '@/hooks';
 import { media } from '@/styles/media';
 import { zIndex } from '@/styles/tokens/z-index';
 
@@ -11,10 +12,19 @@ import { zIndex } from '@/styles/tokens/z-index';
  *
  * The floor is one CSS grid laid flat in 3D (rotateX under a perspective), so
  * the browser draws the convergence; the drift is its background sliding by
- * one cell, over and over. Under reduced motion it stands still.
+ * one cell, over and over. Under reduced motion, and while it's off screen, it
+ * stands still.
+ *
+ * A sliding background is repainted, not handed to the compositor, so the
+ * drift moves on 30 times a second rather than on every frame: under half a
+ * pixel a step, which nobody can see, for half the repaints at 60Hz and a
+ * quarter at 120Hz. (Sliding the grid as a transform instead, on its own layer,
+ * measured slower: the floor's fade then had to be composited on every frame.)
  */
 
 const CELL = 80;
+const DRIFT_S = 6;
+const DRIFT_STEPS = DRIFT_S * 30;
 /** Where the horizon sits, down the section: between the description and the buttons. */
 const HORIZON = '12%';
 
@@ -49,7 +59,7 @@ const Floor = styled.div`
     0 0;
   /* Gone at the horizon, strongest close up. */
   mask-image: linear-gradient(to bottom, transparent, #000 35%, #000 70%, transparent);
-  animation: ${drift} 6s linear infinite;
+  animation: ${drift} ${DRIFT_S}s steps(${DRIFT_STEPS}) infinite;
 
   ${media.reducedMotion} {
     animation: none;
@@ -57,8 +67,9 @@ const Floor = styled.div`
 `;
 
 export function HeroFloor() {
+  const ref = usePauseOffscreen<HTMLDivElement>();
   return (
-    <Ground aria-hidden>
+    <Ground ref={ref} aria-hidden>
       <Floor />
     </Ground>
   );

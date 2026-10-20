@@ -133,6 +133,8 @@ export const GlobalStyle = createGlobalStyle`
 
   /* usePauseOffscreen: infinite animations rest while out of view. */
   [data-offscreen='true'],
+  [data-offscreen='true']::before,
+  [data-offscreen='true']::after,
   [data-offscreen='true'] *,
   [data-offscreen='true'] *::before,
   [data-offscreen='true'] *::after {

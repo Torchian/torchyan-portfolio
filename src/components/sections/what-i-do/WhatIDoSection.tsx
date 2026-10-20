@@ -8,7 +8,7 @@ import { Container } from '@/components/primitives';
 import { spacing } from '@/styles/tokens/spacing';
 import { media } from '@/styles/media';
 import { zIndex } from '@/styles/tokens/z-index';
-import { useWhatIDoScroll } from '@/hooks';
+import { usePauseOffscreen, useWhatIDoScroll } from '@/hooks';
 import { SectionHeading } from '@/components/composites';
 import { WhatidoStep } from './WhatidoStep';
 import { WhatIDoCharacter } from './WhatIDoCharacter';
@@ -16,7 +16,6 @@ import { WhatIDoCharacterWaiting } from './WhatIDoCharacterWaiting';
 import { WhatIDoMobileStage } from './WhatIDoMobileStage';
 import { Bg4Glass } from './Bg4Glass';
 import { WHATIDO_GRID, STEP_BACKGROUNDS } from './config';
-import { easing } from '@/styles/tokens';
 
 
 /** Figma: whatido_sticky_image - main container */
@@ -249,7 +248,9 @@ const Bg3 = styled.div`
     width: 66%;
     height: 56.7%;
     z-index: ${zIndex.whatidoBgForeground};
-    animation: sepiaToInvert 800ms ${easing.linear} infinite alternate;
+    /* 30 changes a second rather than one per frame: each one re-filters
+       what's behind the square, and a flicker reads the same either way. */
+    animation: sepiaToInvert 800ms steps(24) infinite alternate;
   }
 
   @keyframes sepiaToInvert {
@@ -320,6 +321,8 @@ export function WhatIDoSection() {
   const boardRef = useRef<HTMLDivElement>(null);
   // Bg3 is the "Design with intent" square; a line across it gates the beard's fade-in.
   const squareRef = useRef<HTMLDivElement>(null);
+  // The square's flicker (a backdrop-filter, every frame) rests while it's out of view.
+  usePauseOffscreen('25%', squareRef);
 
   return (
     <Section id="about" ref={sectionRef}>

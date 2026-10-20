@@ -3,7 +3,7 @@
 /* eslint-disable @next/next/no-img-element -- small decorative SVGs; next/image adds nothing here */
 import { useEffect, useMemo, useRef, useState, type FocusEvent } from 'react';
 import { HEADER_HEIGHT } from '@/components/layouts/NavBar';
-import styled, { createGlobalStyle, keyframes } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import { useTranslations } from 'next-intl';
 import { VisuallyHidden } from '@/components/primitives';
 import { usePauseOffscreen } from '@/hooks';
@@ -14,6 +14,7 @@ import { spacing } from '@/styles/tokens/spacing';
 import { accents, neutrals } from '@/styles/tokens/colors';
 import { media } from '@/styles/media';
 import { soundTriggers } from '@/lib/sound';
+import { ContactWaves } from './ContactWaves';
 
 /** Hovering these isn't an action, so it gets the soft cue rather than the site-wide hover. */
 const SOFT_HOVER = soundTriggers({ hover: 'softHover' });
@@ -128,6 +129,9 @@ const CHANNELS: Channel[] = [
   },
 ];
 
+/** The ripples' colours at rest, round the brands and ending on the site's green. */
+const WAVE_COLORS = CHANNELS.map((c) => c.tint[1]);
+
 /** Registered, so the arc's angle and width transition as numbers. */
 const ArcProperties = createGlobalStyle`
   @property --arc-at {
@@ -178,93 +182,6 @@ const Stage = styled.div`
    */
   ${media.up('xl')} {
     width: min(100%, ${FRAME}px, max(420px, calc(100svh - ${HEADER_HEIGHT}px - ${spacing[1000] + spacing[300]}px)));
-  }
-`;
-
-const WAVES = 5;
-/** One ripple's whole life, and the gap between one ripple and the next. */
-const WAVE_PERIOD = 10;
-const WAVE_GAP = WAVE_PERIOD / WAVES;
-
-/** A ripple leaves the circle's edge, thins and slows as it spreads, and is gone by the time it reaches the glow's rim. */
-const ripple = keyframes`
-  0% {
-    opacity: 0;
-    transform: scale(var(--from));
-  }
-  12% {
-    opacity: 0.9;
-  }
-  100% {
-    opacity: 0;
-    transform: scale(1);
-  }
-`;
-
-/** The glow under it breathes once per ripple. */
-const breathe = keyframes`
-  0%, 100% {
-    opacity: 0.55;
-  }
-  50% {
-    opacity: 1;
-  }
-`;
-
-/**
- * Box is the circle plus 30% all round; --from is the circle's own edge within
- * it. The colours go round the brands (Instagram, LinkedIn, Telegram, WhatsApp,
- * the site's green); pointing at a channel turns every ripple that channel's
- * colour. Under reduced motion they stand still as faint rings.
- */
-const Waves = styled.div`
-  --from: ${1 / 1.6};
-  position: absolute;
-  inset: -30%;
-  pointer-events: none;
-  /* Whole near the circle, gone before the box's edge. */
-  mask-image: radial-gradient(closest-side, #000 45%, transparent 100%);
-
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 22%;
-    border-radius: 50%;
-    background: radial-gradient(
-      closest-side,
-      color-mix(in srgb, var(--wave-tint, ${accents.primary}) 22%, transparent),
-      transparent 70%
-    );
-    animation: ${breathe} ${WAVE_GAP * 2}s ease-in-out infinite;
-    transition: background 0.6s ease;
-  }
-
-  span {
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    border: 1px solid var(--wave-tint, var(--ring));
-    box-shadow:
-      0 0 32px color-mix(in srgb, var(--wave-tint, var(--ring)) 50%, transparent),
-      inset 0 0 32px color-mix(in srgb, var(--wave-tint, var(--ring)) 26%, transparent);
-    opacity: 0;
-    transform: scale(var(--from));
-    animation: ${ripple} ${WAVE_PERIOD}s cubic-bezier(0.2, 0.6, 0.3, 1) infinite;
-    transition: border-color 0.6s ease;
-    will-change: transform, opacity;
-  }
-
-  ${media.reducedMotion} {
-    &::before {
-      animation: none;
-    }
-
-    span {
-      animation: none;
-      opacity: 0.22;
-      transform: scale(calc(var(--from) + (1 - var(--from)) * var(--rest)));
-      will-change: auto;
-    }
   }
 `;
 
@@ -669,21 +586,8 @@ export function ContactChannels({ titleAs = 'h2' }: ContactChannelsProps) {
   const lit = CHANNELS.find((c) => c.id === active);
 
   return (
-    <Stage ref={stageRef} style={lit ? ({ '--wave-tint': lit.tint[1] } as React.CSSProperties) : undefined}>
-      <Waves aria-hidden>
-        {CHANNELS.map((c, i) => (
-          <span
-            key={c.id}
-            style={
-              {
-                '--ring': c.tint[1],
-                '--rest': (i + 1) / WAVES,
-                animationDelay: `${-i * WAVE_GAP}s`,
-              } as React.CSSProperties
-            }
-          />
-        ))}
-      </Waves>
+    <Stage ref={stageRef}>
+      <ContactWaves colors={WAVE_COLORS} tint={lit?.tint[1] ?? null} />
       <Frame
         ref={frameRef}
         data-active={active !== null}

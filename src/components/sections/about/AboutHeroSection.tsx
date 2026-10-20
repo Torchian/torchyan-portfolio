@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { Character, characterFade } from '@/components/composites/character/Character';
 import { useLookAtPointer } from '@/components/composites/character/useLookAtPointer';
+import { usePauseOffscreen } from '@/hooks';
 import { spacing } from '@/styles/tokens/spacing';
 import {
   fontFamily,
@@ -67,7 +68,13 @@ const swirl = keyframes`
  * included, centred on the character's head and reaching far out past the
  * section. A mint-to-pink radial glow that slowly breathes, and over it a
  * blurred colour wheel turning very slowly, so the light drifts round the
- * character. Only transforms and opacity animate, so it stays cheap.
+ * character. Only transforms and opacity animate, and both rest while the hero
+ * is off screen.
+ *
+ * The wheel is blurred and masked once, on a still layer inside the one that
+ * turns. With the blur on the turning layer itself, the browser re-blurred the
+ * whole wheel (about ten megapixels at 2×) on every frame; a blur looks the
+ * same at any angle, so turning the finished picture is the same picture.
  */
 const Aura = styled.div`
   position: absolute;
@@ -77,19 +84,14 @@ const Aura = styled.div`
   height: 0;
   pointer-events: none;
 
-  &::before,
-  &::after {
+  &::before {
     content: '';
     position: absolute;
     left: 0;
     top: 0;
-    border-radius: 50%;
-    will-change: transform;
-  }
-
-  &::before {
     width: 170vmax;
     height: 170vmax;
+    border-radius: 50%;
     background: radial-gradient(
       closest-side,
       rgba(${GLOW}, 0.16),
@@ -97,12 +99,37 @@ const Aura = styled.div`
       rgba(198, 20, 230, 0.06) 45%,
       transparent 75%
     );
+    will-change: transform;
     animation: ${breathe} 9s ease-in-out infinite alternate;
   }
 
-  &::after {
-    width: 110vmax;
-    height: 110vmax;
+  ${media.reducedMotion} {
+    &::before {
+      animation: none;
+      transform: translate(-50%, -50%);
+    }
+  }
+`;
+
+/** The turning layer: only a transform changes, so its picture is drawn once. */
+const Swirl = styled.div`
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 110vmax;
+  height: 110vmax;
+  transform: translate(-50%, -50%);
+  will-change: transform;
+  /* Stepped 30 times a second: a fraction of a degree a step, on a glow too
+     soft to show it, and a 120Hz screen redraws it a quarter as often. */
+  animation: ${swirl} 60s steps(1800) infinite;
+
+  /* The wheel itself: blurred and masked as it's painted, never per frame. */
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
     background: conic-gradient(
       from 0deg,
       rgba(${GLOW}, 0.1),
@@ -113,16 +140,10 @@ const Aura = styled.div`
     );
     filter: blur(60px);
     mask-image: radial-gradient(closest-side, #000 20%, transparent);
-    transform: translate(-50%, -50%);
-    animation: ${swirl} 60s linear infinite;
   }
 
   ${media.reducedMotion} {
-    &::before,
-    &::after {
-      animation: none;
-      transform: translate(-50%, -50%);
-    }
+    animation: none;
   }
 `;
 
@@ -341,6 +362,8 @@ export function AboutHeroSection() {
   const [live, setLive] = useState(false);
   const stageRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
+  // The aura's breathing and turning rest while the hero is out of view.
+  const auraRef = usePauseOffscreen<HTMLDivElement>('100%');
   const titleRef = useRef<HTMLHeadingElement>(null);
   const targets = useMemo(() => [stageRef], []);
 
@@ -379,7 +402,9 @@ export function AboutHeroSection() {
 
   return (
     <Section id="about" ref={sectionRef}>
-      <Aura aria-hidden />
+      <Aura ref={auraRef} aria-hidden>
+        <Swirl />
+      </Aura>
       <CharacterStage ref={stageRef} aria-hidden>
         <Character
           clothes={look.clothes}
