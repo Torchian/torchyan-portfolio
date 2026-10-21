@@ -444,8 +444,25 @@ const List = styled.ul`
   list-style: none;
 `;
 
-/** A channel's link: a round hit area round its icon, centred on its place in the ring. */
+/**
+ * A channel's link: its whole slice of the ring, the 60° that lights up for it
+ * (see slice), not only the icon. Pointing anywhere on the coloured part is
+ * pointing at the channel, and a click or tap there opens it. The link fills
+ * the frame and is clipped to its slice, which is also where it takes the
+ * pointer; the icon sits inside it at its place on the ring.
+ */
 const ChannelLink = styled.a`
+  position: absolute;
+  inset: 0;
+  -webkit-tap-highlight-color: transparent;
+
+  &:focus-visible {
+    outline: none;
+  }
+`;
+
+/** The icon, centred on its place in the ring, with a round hit area of its own size. */
+const Icon = styled.span`
   position: absolute;
   display: grid;
   place-items: center;
@@ -462,16 +479,17 @@ const ChannelLink = styled.a`
     transition: opacity ${DURATION / 2}ms ease-out;
   }
 
-  &[data-on='true'] {
+  [data-on='true'] > & {
     transform: translate(-50%, -50%) scale(1.12);
   }
 
   /* While one channel is chosen, the others step back. */
-  [data-active='true'] &:not([data-on='true']) img {
+  [data-active='true'] a:not([data-on='true']) > & img {
     opacity: 0.55;
   }
 
-  &:focus-visible {
+  /* The link is the whole slice, clipped; the focus ring goes round the icon. */
+  a:focus-visible > & {
     outline: 2px solid ${neutrals[100]};
     outline-offset: 2px;
   }
@@ -484,6 +502,28 @@ const ChannelLink = styled.a`
     }
   }
 `;
+
+/** Degrees between the points along a slice's arcs. */
+const SLICE_STEP = 5;
+
+/**
+ * A channel's slice of the ring: ARC degrees centred on its angle, between the
+ * ring's hole and its outer edge, as a polygon in % of the frame so it scales
+ * with it. The slices meet edge to edge and stop at the opening at the bottom.
+ */
+function slice(angle: number) {
+  const point = (deg: number, radius: number) => {
+    const rad = (deg * Math.PI) / 180;
+    return `${(50 + Math.sin(rad) * radius).toFixed(2)}% ${(50 - Math.cos(rad) * radius).toFixed(2)}%`;
+  };
+  const outer: string[] = [];
+  const inner: string[] = [];
+  for (let deg = angle - ARC / 2; deg <= angle + ARC / 2 + 0.001; deg += SLICE_STEP) {
+    outer.push(point(deg, 50));
+    inner.unshift(point(deg, HOLE * 50));
+  }
+  return `polygon(${[...outer, ...inner].join(', ')})`;
+}
 
 /** The short way round from one angle to the next, as a running total. */
 function towards(from: number, to: number) {
@@ -644,13 +684,15 @@ export function ContactChannels({ titleAs = 'h2' }: ContactChannelsProps) {
                   data-outbound={c.id}
                   {...SOFT_HOVER}
                   data-on={active === c.id}
-                  style={{ ...place(c.angle), '--icon-w': c.icon.width } as React.CSSProperties}
+                  style={{ clipPath: slice(c.angle) }}
                   onPointerEnter={(e) => e.pointerType === 'mouse' && choose(c.id)}
                   onPointerDown={onIconDown(c.id)}
                   onClick={onIconClick(c.id)}
                   onFocus={() => choose(c.id)}
                 >
-                  <img src={`/contact/${c.id}.svg`} alt="" width={c.icon.width} height={c.icon.height} />
+                  <Icon style={{ ...place(c.angle), '--icon-w': c.icon.width } as React.CSSProperties}>
+                    <img src={`/contact/${c.id}.svg`} alt="" width={c.icon.width} height={c.icon.height} />
+                  </Icon>
                 </ChannelLink>
               </li>
             );
