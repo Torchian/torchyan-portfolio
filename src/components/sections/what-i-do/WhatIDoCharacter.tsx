@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { useRef, type RefObject } from 'react';
 import { FACE_ASPECT, headImage, partBox } from '@/components/composites/character/characterLayout';
 import { useBoardClip } from './useBoardClip';
+import { useNearViewport } from '@/hooks';
 
 /** The colour face, from the shared Character parts, placed in the face frame. */
 const FACE = headImage('face');
@@ -76,6 +77,8 @@ export function WhatIDoCharacter({ boardRef, clipRef }: WhatIDoCharacterProps) {
   const ownRef = useRef<HTMLDivElement>(null);
   const wrapperRef = clipRef ?? ownRef;
   useBoardClip(wrapperRef, boardRef, !clipRef);
+  // The face comes in once the section is near (see useNearViewport), not with the first screen.
+  const near = useNearViewport(wrapperRef);
 
   return (
     <Wrapper ref={wrapperRef} aria-hidden>
@@ -87,9 +90,9 @@ export function WhatIDoCharacter({ boardRef, clipRef }: WhatIDoCharacterProps) {
           height: `${FACE_BOX.height}%`,
         }}
       >
-        <Image src={FACE.src} alt="" fill sizes={`${Math.ceil((MAX_WIDTH * FACE_BOX.width) / 100)}px`} />
+        {near && <Image src={FACE.src} alt="" fill sizes={`${Math.ceil((MAX_WIDTH * FACE_BOX.width) / 100)}px`} />}
       </ColorLayer>
-      <PencilLayer src="/character/character_head_sketch.webp" alt="" loading="lazy" />
+      {near && <PencilLayer src="/character/character_head_sketch.webp" alt="" />}
     </Wrapper>
   );
 }

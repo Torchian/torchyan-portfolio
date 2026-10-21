@@ -44,6 +44,12 @@ export interface CharacterProps {
   headOnly?: boolean;
   /** Widest the character renders, in CSS px; picks each layer's download size. */
   width?: number;
+  /**
+   * Where the character renders narrower than `width`, as a share of the
+   * viewport: below that media query each layer downloads for that width
+   * instead. Without it a phone fetched every layer at the desktop size.
+   */
+  fluid?: Fluid;
   /** Above the fold: load eagerly and at high priority. */
   priority?: boolean;
   /** Load straight away (no lazy loading) without a preload: for parts wanted the moment they mount. */
@@ -62,6 +68,18 @@ export interface CharacterProps {
 }
 
 const FADE_MS = 200;
+
+/** A media query, and the character's width under it in vw. */
+export interface Fluid {
+  query: string;
+  vw: number;
+}
+
+/** A layer's `sizes`: its share of the frame, in vw under the fluid query and in px otherwise. */
+function layerSizes(frameWidth: number, boxWidth: number, fluid?: Fluid) {
+  const px = `${Math.ceil((frameWidth * boxWidth) / 100)}px`;
+  return fluid ? `${fluid.query} ${((fluid.vw * boxWidth) / 100).toFixed(1)}vw, ${px}` : px;
+}
 
 /** Which prop hides which head parts. */
 const PART_TOGGLE: Record<HeadPart, 'ears' | 'eyes' | 'eyebrows' | 'face' | 'cap' | 'beard'> = {
@@ -192,6 +210,8 @@ interface LayerProps {
   priority?: boolean;
   /** Names the slot (`data-layer`), so a parent can style one part, e.g. the glasses. */
   name?: string;
+  /** The frame's width under a media query, in vw (see Character's `fluid`). */
+  fluid?: Fluid;
 }
 
 /**
@@ -199,7 +219,7 @@ interface LayerProps {
  * the one it's replacing: the newcomer mounts hidden (`entering`), and once it
  * has loaded it fades in while the old one fades out (`leaving`) and is dropped.
  */
-function Layer({ shot, frameWidth, priority, depth, gaze, eager, onFirstLoad, name }: LayerProps) {
+function Layer({ shot, frameWidth, fluid, priority, depth, gaze, eager, onFirstLoad, name }: LayerProps) {
   const src = shot?.src ?? null;
   const [current, setCurrent] = useState(src);
   // The first paint (including the server HTML) shows its image straight away.
@@ -243,7 +263,7 @@ function Layer({ shot, frameWidth, priority, depth, gaze, eager, onFirstLoad, na
         src={e.src}
         alt=""
         fill
-        sizes={`${Math.ceil((frameWidth * e.box.width) / 100)}px`}
+        sizes={layerSizes(frameWidth, e.box.width, fluid)}
         priority={priority}
         loading={eager && !priority ? 'eager' : undefined}
         draggable={false}
@@ -265,6 +285,7 @@ export function Character({
   face = true,
   headOnly = false,
   width = 512,
+  fluid,
   priority = false,
   eager = false,
   motion = false,
@@ -277,6 +298,7 @@ export function Character({
   const pending = useRef<Set<string> | null>(null);
   // CSS px of the head frame, for sizing each head layer's download.
   const headWidth = headOnly ? width : (width * HEAD.width) / FRAME.width;
+  const headFluid = fluid && !headOnly ? { ...fluid, vw: (fluid.vw * HEAD.width) / FRAME.width } : fluid;
 
   const shots = HEAD_ORDER.map((layer) => {
     // Glasses are one slot for every style, so a style change crossfades in place.
@@ -305,6 +327,7 @@ export function Character({
       name={layer}
       shot={shot}
       frameWidth={headWidth}
+      fluid={headFluid}
       priority={priority}
       eager={eager}
       depth={DEPTH[layer]}
@@ -338,6 +361,7 @@ export function Character({
         name="body"
         shot={bodyShot}
         frameWidth={width}
+        fluid={fluid}
         priority={priority}
         eager={eager}
         depth={DEPTH.body}

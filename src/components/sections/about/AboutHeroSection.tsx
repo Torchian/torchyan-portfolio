@@ -15,7 +15,7 @@ import {
 } from '@/styles/tokens/typography';
 import { neutrals } from '@/styles/tokens/colors';
 import { grid } from '@/styles/tokens/grid';
-import { media } from '@/styles/media';
+import { media, mediaQueries } from '@/styles/media';
 import { zIndex } from '@/styles/tokens/z-index';
 import { useTranslations } from 'next-intl';
 import { DEFAULT_LOOK, type CharacterLook } from './aboutConfig';
@@ -42,6 +42,12 @@ import { DEFAULT_LOOK, type CharacterLook } from './aboutConfig';
 const CHARACTER = 902;
 /** How much bigger than the frame the character renders, both mobile and up. */
 const GROW = 1.1;
+/**
+ * On a phone the stage is at most 112vw square (see CharacterStage): the layers
+ * download for that, not for CHARACTER. The body layer, the page's LCP there,
+ * came at 1920px wide for a 460px figure.
+ */
+const PHONE_FLUID = { query: mediaQueries.down('m'), vw: 112 };
 
 /** The glow's green: a softer mint than the site's accent, as r, g, b. */
 const GLOW = '64, 214, 160';
@@ -411,6 +417,7 @@ export function AboutHeroSection() {
           glasses={look.glasses}
           cap={look.cap}
           width={CHARACTER}
+          fluid={PHONE_FLUID}
           priority
           motion={live}
         />

@@ -42,12 +42,21 @@ const PORTRAIT = { src: '/hero/character-portrait-v3.webp', width: 1024, height:
  * skips its automatic image preload for an <img> inside <picture>, which
  * would have fetched the portrait on desktop all the same.)
  */
+/*
+ * How wide the portrait is drawn (CenterPortrait's --portrait-size), except on
+ * a phone: there it is 150vw, centred, so a third of it is always off the
+ * screen's sides, and the download is sized for the screen's width it can
+ * actually show. That puts a 1.75x Android at the 828px file (117 KB) rather
+ * than the full 1024 (195 KB), on the request that decides the phone LCP.
+ */
+const PORTRAIT_SIZES = '(max-width: 480px) 100vw, (max-width: 678px) 705px, 104vw';
+
 const { props: portraitProps } = getImageProps({
   src: PORTRAIT.src,
   width: PORTRAIT.width,
   height: PORTRAIT.height,
   alt: '',
-  sizes: '705px',
+  sizes: PORTRAIT_SIZES,
   loading: 'eager',
   fetchPriority: 'high',
 });

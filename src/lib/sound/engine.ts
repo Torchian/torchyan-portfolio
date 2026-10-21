@@ -63,8 +63,6 @@ const MAX_TRIM_S = 0.1;
 const SPATIAL_SPREAD = 0.35;
 /** Browsers without requestIdleCallback prefetch after this delay instead. */
 const IDLE_FALLBACK_MS = 1500;
-/** How long after the cues the music track (~0.9 MB) waits before downloading, unless a gesture asks for it first. */
-const MUSIC_DELAY_MS = 4000;
 /** Browsers only let audio start inside one of these. */
 const GESTURES = ['pointerdown', 'keydown', 'touchend'] as const;
 /**
@@ -114,9 +112,11 @@ const voices = new Map<SoundCueId, Voice[]>();
 const lastPlayed = new Map<SoundCueId, number>();
 const listeners = new Set<() => void>();
 /**
- * The music holds back until MUSIC_DELAY_MS after the cues, or the first
- * gesture. It is the largest file on the page by far, and on a phone it shared
- * the connection with the page's own late requests for a few seconds after load.
+ * The music holds back until the first gesture, the earliest it could play.
+ * It is the largest file on the page by far (~0.9 MB): fetched a few seconds
+ * after load, as it was, every visit paid for it, on a phone's data too,
+ * whether or not anyone ever tapped. It fades in over two seconds, which
+ * covers most of the download.
  */
 let musicHeld = true;
 
@@ -574,18 +574,16 @@ export function installSound(): () => void {
   };
   for (const type of NUDGES) window.addEventListener(type, onNudge, { capture: true, passive: true, once: true });
 
-  // Sound is on by default, so this is every visitor's first page: ~1.3 MB of
-  // audio. None of it can play before a gesture anyway, so it waits for the
-  // page's own load (images, the LCP among them) and then for an idle moment,
-  // instead of competing with them for the connection. A gesture before then
-  // builds the graph straight away (onGesture), which starts the decodes.
-  // The music waits a few seconds more (musicHeld).
-  let musicTimer = 0;
+  // Sound is on by default, so this is every visitor's first page. None of it
+  // can play before a gesture anyway, so the cues (~75 KB) wait for the page's
+  // own load (images, the LCP among them) and then for an idle moment, instead
+  // of competing with them for the connection. A gesture before then builds
+  // the graph straight away (onGesture), which starts the decodes. The music
+  // waits for that gesture (musicHeld).
   const settle = () => {
     // Have the bytes ready before the first gesture, so unlocking only has to decode.
     for (const src of wantedFiles()) void download(src);
     resumeFromPreference();
-    musicTimer = window.setTimeout(releaseMusic, MUSIC_DELAY_MS);
   };
   const hasIdleCallback = typeof window.requestIdleCallback === 'function';
   let handle = 0;
@@ -603,7 +601,6 @@ export function installSound(): () => void {
     window.removeEventListener('load', schedule);
     if (hasIdleCallback) window.cancelIdleCallback(handle);
     else window.clearTimeout(handle);
-    window.clearTimeout(musicTimer);
     teardownAudio();
   };
 }

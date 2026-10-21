@@ -224,7 +224,7 @@ PROJECTS.push(
     year: '2016–2017',
     gradient: 'linear-gradient(180deg, #14325C 0%, #23707F 100%)',
     more: true,
-    logo: '/logo/companies/myZcapital.png',
+    logo: '/logo/companies/myZcapital.webp',
     images: cases('myzcapital', 'myZcapital', [
       ['home', 2512, 1416],
       ['poll', 2560, 1442],
@@ -288,7 +288,7 @@ PROJECTS.push(
     gradient: 'linear-gradient(180deg, #161616 0%, #7A1E2C 100%)',
     more: true,
     cover: '/projects/covers/panika.webp',
-    logo: '/logo/companies/Panika.png',
+    logo: '/logo/companies/Panika.webp',
     images: (
       [
         ['panika-home', 1200, 1067],
@@ -345,7 +345,7 @@ PROJECTS.push(
     year: '2018',
     gradient: 'linear-gradient(180deg, #2E241A 0%, #7D6142 100%)',
     more: true,
-    logo: '/logo/companies/Gemmed.png',
+    logo: '/logo/companies/Gemmed.webp',
     images: cases('gemmed', 'Gemmed', [
       ['home', 1506, 936],
       ['bundles', 1508, 1002],

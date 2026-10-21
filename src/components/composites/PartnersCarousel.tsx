@@ -30,7 +30,7 @@ export interface PartnerLogo {
 const logo = (
   name: string,
   file: string,
-  options: Omit<PartnerLogo, 'name' | 'src'> & { ext?: 'svg' | 'png' } = {},
+  options: Omit<PartnerLogo, 'name' | 'src'> & { ext?: 'svg' | 'png' | 'webp' } = {},
 ): PartnerLogo => {
   const { ext = 'svg', ...rest } = options;
   return {
@@ -56,7 +56,7 @@ export const PARTNERS: PartnerLogo[] = [
   logo('Brainstorm', 'Brainstorm'),
   logo('SoulOne', 'SoulOne'),
   logo('Solomoon', 'Solomoon', { ext: 'png' }),
-  logo('Panika', 'Panika', { ext: 'png' }),
+  logo('Panika', 'Panika', { ext: 'webp' }),
   logo('Benzeen', 'Benzeen'),
   logo('Infinity Rings', 'InfinitiRings'),
   logo('TCO', 'TCO', { boxed: false }),
@@ -67,9 +67,9 @@ export const PARTNERS: PartnerLogo[] = [
   logo('BrainRocket', 'BrainRocket'),
   logo('Scunci', 'Scunci'),
   logo('Armenian Code Academy', 'ArmenianCodeAcademy'),
-  logo('Gemmed', 'Gemmed', { ext: 'png' }),
+  logo('Gemmed', 'Gemmed', { ext: 'webp' }),
   logo('Off My Case', 'OffMyCase'),
-  logo('myZcapital', 'myZcapital', { ext: 'png', height: 40 }),
+  logo('myZcapital', 'myZcapital', { ext: 'webp', height: 40 }),
   logo('Fortinet', 'Fortinet'),
   logo('Adrasheg', 'Adrasheg'),
 ];

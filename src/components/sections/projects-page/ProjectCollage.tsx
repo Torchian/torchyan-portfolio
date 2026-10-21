@@ -132,6 +132,11 @@ const MIRROR: Record<CollageTilt, CollageTilt> = {
  * column sits outside that box, clipped, and the browser counts a clipped image
  * as never visible: its lazy loading never fires, and the screens at a column's
  * ends stayed empty. Once the box is near, every screen loads.
+ *
+ * Not before the page's own load, though: the first collage is within a
+ * screen of the top on a phone, and its dozen screenshots (~700 KB) used to
+ * start with the page and share the connection with the logo grid, the Work
+ * page's LCP. Until then nothing is rendered in the shots.
  */
 function useNear() {
   const sentinel = useRef<HTMLSpanElement>(null);
@@ -142,8 +147,9 @@ function useNear() {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return;
-        setNear(true);
         observer.disconnect();
+        if (document.readyState === 'complete') setNear(true);
+        else window.addEventListener('load', () => setNear(true), { once: true });
       },
       { rootMargin: '100% 0px' },
     );
@@ -187,7 +193,7 @@ export function ProjectCollage({ collage, mirrored = false }: ProjectCollageProp
               $outlined={image.outlined}
               style={{ aspectRatio: `${image.width} / ${image.height}` }}
             >
-              <img src={image.src} alt="" loading={near ? 'eager' : 'lazy'} decoding="async" />
+              {near && <img src={image.src} alt="" decoding="async" />}
             </Shot>
           ))}
         </Stack>

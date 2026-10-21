@@ -12,6 +12,7 @@ import {
   type PartImage,
 } from '@/components/composites/character/characterLayout';
 import { media } from '@/styles/media';
+import { useNearViewport } from '@/hooks';
 import { createInViewGate, subscribeScroll } from '@/lib/scroll-driver';
 
 /** Where the beard's reveal line crosses Bg3 (whatido_bg_3, 1074×1210 in Figma), as
@@ -166,8 +167,12 @@ export function WhatIDoCharacterWaiting({ squareRef }: WhatIDoCharacterWaitingPr
     };
   }, [squareRef]);
 
+  // The parts come in once the section is near (see useNearViewport), not with the first screen.
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const near = useNearViewport(wrapperRef);
+
   return (
-    <Wrapper aria-hidden>
+    <Wrapper ref={wrapperRef} aria-hidden>
       {PARTS.map((name) => {
         const image = imageOf(name);
         const box = partBox(image, 'face');
@@ -192,13 +197,15 @@ export function WhatIDoCharacterWaiting({ squareRef }: WhatIDoCharacterWaitingPr
               height: `${box.height}%`,
             }}
           >
-            <Image
-              src={image.src}
-              alt=""
-              fill
-              sizes={`${Math.ceil((MAX_WIDTH * box.width) / 100)}px`}
-              draggable={false}
-            />
+            {near && (
+              <Image
+                src={image.src}
+                alt=""
+                fill
+                sizes={`${Math.ceil((MAX_WIDTH * box.width) / 100)}px`}
+                draggable={false}
+              />
+            )}
           </Part>
         );
       })}
