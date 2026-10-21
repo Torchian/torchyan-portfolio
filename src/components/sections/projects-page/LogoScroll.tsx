@@ -2,7 +2,7 @@
 
 import { preload } from 'react-dom';
 import styled, { keyframes } from 'styled-components';
-import { media } from '@/styles/media';
+import { media, mediaQueries } from '@/styles/media';
 
 /*
  * Figma: Logo scroll (4043:10874) on the Projects hero — Desktop 1920
@@ -35,6 +35,22 @@ import { media } from '@/styles/media';
 
 const GRID = '/projects/logo-scroll/grid.webp';
 const GRID_SRC = `url('${GRID}')`;
+/**
+ * The same grid at 640px wide for the phone frame's 320px box (2x there), at a
+ * third the bytes: the full one is the Work page's LCP, and on a phone it
+ * shared the first second with everything else.
+ */
+const GRID_PHONE = '/projects/logo-scroll/grid-640.webp';
+const GRID_PHONE_SRC = `url('${GRID_PHONE}')`;
+/**
+ * For the preload: a phone (≤480px) always resolves to the 640 file and
+ * anything wider to the 960 one, whatever its pixel density (200px at up to 3x
+ * is still under 640w), so it fetches the file the styles below then use.
+ */
+const GRID_PRELOAD = {
+  imageSrcSet: `${GRID_PHONE} 640w, ${GRID} 960w`,
+  imageSizes: `${mediaQueries.down('m')} 200px, 960px`,
+};
 const MASK_SRC = "url('/projects/logo-scroll/mask.svg')";
 
 const TOUCH = '@media (hover: none), (pointer: coarse)';
@@ -80,12 +96,6 @@ const Wrapper = styled.div`
     background-attachment: scroll;
   }
 
-  ${SCROLL_DRIVEN} {
-    ${TOUCH} {
-      background-image: none;
-    }
-  }
-
   ${media.down('xl')} {
     --size: 420px;
     width: 420px;
@@ -97,7 +107,15 @@ const Wrapper = styled.div`
     --size: 320px;
     width: 320px;
     height: 320px;
+    background-image: ${GRID_PHONE_SRC};
     background-size: 320px auto;
+  }
+
+  /* After the phone rule: where Pan draws the grid, the box itself doesn't. */
+  ${SCROLL_DRIVEN} {
+    ${TOUCH} {
+      background-image: none;
+    }
   }
 `;
 
@@ -116,6 +134,11 @@ const Pan = styled.div`
       background-image: ${GRID_SRC};
       background-size: 100% auto;
       will-change: transform;
+
+      ${media.down('m')} {
+        background-image: ${GRID_PHONE_SRC};
+      }
+
       animation: ${pan} linear both;
       animation-timeline: --logo-scroll;
 
@@ -130,7 +153,7 @@ export function LogoScroll() {
   // The grid is the Work page's largest paint, but as a CSS background the
   // browser only finds it once styles apply. Asking for it in the <head> starts
   // it with the HTML.
-  preload(GRID, { as: 'image', fetchPriority: 'high' });
+  preload(GRID, { as: 'image', fetchPriority: 'high', ...GRID_PRELOAD });
 
   return (
     <Wrapper aria-hidden>

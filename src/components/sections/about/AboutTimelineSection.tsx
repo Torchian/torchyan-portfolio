@@ -18,6 +18,7 @@ import { media } from '@/styles/media';
 import { useMessages, useTranslations } from 'next-intl';
 import { TIMELINE_ENTRIES, type GalleryImage, type TimelineEntry, type TimelineEntryContent } from './aboutConfig';
 import { AboutYearRail, RAIL_CLEAR, RAIL_SPACE } from './AboutYearRail';
+import { useNearViewport } from '@/hooks';
 
 /*
  * Figma: Timeline — 1920 (2973:16245), 1024 (3960:15405), 480 (3983:11086);
@@ -521,7 +522,17 @@ function fillColumns(gallery: TimelineEntry['gallery']) {
   return columns;
 }
 
-function GallerySet({ entry, active }: { entry: TimelineEntry; active: boolean }) {
+/**
+ * A set's screenshots download once it is wanted (the timeline is near and the
+ * set is the one shown or next to it), and stay once they have. All thirteen
+ * sets sit stacked in one sticky box, so to the browser's lazy loading every
+ * one of them was on screen together: on a phone the About page fetched about
+ * twenty of them alongside its first screen, ahead of anyone reaching the
+ * timeline.
+ */
+function GallerySet({ entry, active, wanted }: { entry: TimelineEntry; active: boolean; wanted: boolean }) {
+  const [load, setLoad] = useState(wanted);
+  if (wanted && !load) setLoad(true);
   const columns = fillColumns(entry.gallery);
   return (
     <Set data-active={active} aria-hidden>
@@ -529,7 +540,9 @@ function GallerySet({ entry, active }: { entry: TimelineEntry; active: boolean }
         <Column key={c}>
           {column.map(({ image, key }) => (
             <Shot key={key} style={{ aspectRatio: String(image.aspect) }}>
-              <Image src={image.src} alt="" fill sizes="(max-width: 1024px) 200px, (max-width: 1920px) 40vw, 50vw" />
+              {load && (
+                <Image src={image.src} alt="" fill sizes="(max-width: 1024px) 200px, (max-width: 1920px) 40vw, 50vw" />
+              )}
             </Shot>
           ))}
         </Column>
@@ -537,7 +550,7 @@ function GallerySet({ entry, active }: { entry: TimelineEntry; active: boolean }
       <Single data-single>
         {entry.gallery.flat().map((image) => (
           <Shot key={image.src} style={{ aspectRatio: String(image.aspect) }}>
-            <Image src={image.src} alt="" fill sizes="200px" />
+            {load && <Image src={image.src} alt="" fill sizes="200px" />}
           </Shot>
         ))}
       </Single>
@@ -644,6 +657,7 @@ export function AboutTimelineSection() {
   const stickyRef = useRef<HTMLDivElement>(null);
   const roomRef = useRef<HTMLDivElement>(null);
   useFitGallery(stickyRef, roomRef, shown);
+  const near = useNearViewport(sectionRef);
 
   return (
     <Section ref={sectionRef}>
@@ -700,7 +714,12 @@ export function AboutTimelineSection() {
               <Room ref={roomRef} />
               <Sticky ref={stickyRef}>
                 {entries.map((entry, index) => (
-                  <GallerySet key={entry.id} entry={entry} active={index === shown} />
+                  <GallerySet
+                    key={entry.id}
+                    entry={entry}
+                    active={index === shown}
+                    wanted={near && Math.abs(index - shown) <= 1}
+                  />
                 ))}
               </Sticky>
             </GalleryColumn>

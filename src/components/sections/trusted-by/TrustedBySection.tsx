@@ -45,7 +45,7 @@ interface TrustedLogo {
 const logo = (
   name: string,
   file: string,
-  options: Partial<Pick<TrustedLogo, 'height' | 'boxed'>> & { ext?: 'svg' | 'png' } = {},
+  options: Partial<Pick<TrustedLogo, 'height' | 'boxed'>> & { ext?: 'svg' | 'png' | 'webp' } = {},
 ): TrustedLogo => {
   const { ext = 'svg', ...rest } = options;
   return {
@@ -71,12 +71,12 @@ const LOGO_ASPECT: Record<string, number> = {
   'BrainRocket.svg': 7.000,
   'Brainstorm.svg': 6.458,
   'Fortinet.svg': 8.917,
-  'Gemmed.png': 7.896,
+  'Gemmed.webp': 7.896,
   'Ginosi.svg': 4.582,
   'IT365.svg': 0.981,
   'InfinitiRings.svg': 1.000,
   'OffMyCase.svg': 5.521,
-  'Panika.png': 0.854,
+  'Panika.webp': 0.854,
   'Picsart.svg': 4.333,
   'Rostelecom.svg': 4.558,
   'Scunci.svg': 3.479,
@@ -88,7 +88,7 @@ const LOGO_ASPECT: Record<string, number> = {
   'Volo.svg': 2.224,
   'WorldEdu.svg': 4.146,
   'byRobinblair.svg': 5.188,
-  'myZcapital.png': 0.996,
+  'myZcapital.webp': 0.996,
 };
 
 export type RelationshipGroup = 'clients' | 'employers' | 'partners' | 'product' | 'teaching';
@@ -124,15 +124,15 @@ export const TRUSTED_GROUPS: { id: RelationshipGroup; logos: TrustedLogo[] }[] =
       logo('Benzeen Auto Parts', 'Benzeen'),
       logo('By Robyn Blair', 'byRobinblair'),
       logo('Scunci', 'Scunci'),
-      logo('Gemmed', 'Gemmed', { ext: 'png' }),
+      logo('Gemmed', 'Gemmed', { ext: 'webp' }),
       logo('Off My Case', 'OffMyCase'),
-      logo('myZcapital', 'myZcapital', { ext: 'png', height: 40 }),
+      logo('myZcapital', 'myZcapital', { ext: 'webp', height: 40 }),
       logo('Fortinet', 'Fortinet'),
     ],
   },
   {
     id: 'product',
-    logos: [logo('SoulOne', 'SoulOne'), logo('Solomoon', 'Solomoon', { ext: 'png' }), logo('Panika', 'Panika', { ext: 'png' })],
+    logos: [logo('SoulOne', 'SoulOne'), logo('Solomoon', 'Solomoon', { ext: 'png' }), logo('Panika', 'Panika', { ext: 'webp' })],
   },
   {
     id: 'teaching',

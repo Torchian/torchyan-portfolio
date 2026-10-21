@@ -56,7 +56,7 @@ export interface SoundCue {
 export const SOUND_CUES = {
   /** Any link or button under the pointer: the site-wide hover cue (see triggers.ts). */
   uiHover: {
-    src: '/sounds/hover.wav',
+    src: '/sounds/hover.mp3',
     channel: 'hover',
     /* No detune or jitter: every link and button sounds exactly the same. */
     volume: CUE_VOLUME,
@@ -66,7 +66,7 @@ export const SOUND_CUES = {
   },
   /** Pressing a link, button, radio or select: the click itself, pointer or keyboard (see triggers.ts). */
   uiPress: {
-    src: '/sounds/click.wav',
+    src: '/sounds/click.mp3',
     channel: 'interaction',
     volume: CUE_VOLUME,
     cooldownMs: 60,
@@ -79,7 +79,7 @@ export const SOUND_CUES = {
    * site-wide hover on that element.
    */
   softHover: {
-    src: '/sounds/hover-soft.wav',
+    src: '/sounds/hover-soft.mp3',
     channel: 'hover',
     volume: CUE_VOLUME,
     cooldownMs: 90,
@@ -88,7 +88,7 @@ export const SOUND_CUES = {
   },
   /** Choosing a radio, a checkbox or an option in a select (see triggers.ts). */
   optionSelect: {
-    src: '/sounds/option-select.wav',
+    src: '/sounds/option-select.mp3',
     channel: 'interaction',
     volume: CUE_VOLUME,
     cooldownMs: 60,
@@ -97,7 +97,7 @@ export const SOUND_CUES = {
   },
   /** The contact form's message went through. */
   messageSent: {
-    src: '/sounds/message-sent.wav',
+    src: '/sounds/message-sent.mp3',
     channel: 'interaction',
     volume: CUE_VOLUME,
     cooldownMs: 300,
@@ -105,7 +105,7 @@ export const SOUND_CUES = {
   },
   /** …and when it didn't: a validation, rate-limit or delivery error. */
   messageFailed: {
-    src: '/sounds/message-failed.wav',
+    src: '/sounds/message-failed.mp3',
     channel: 'interaction',
     volume: CUE_VOLUME,
     cooldownMs: 300,
@@ -113,7 +113,7 @@ export const SOUND_CUES = {
   },
   /** A text field taking focus (see triggers.ts). */
   fieldFocus: {
-    src: '/sounds/field.wav',
+    src: '/sounds/field.mp3',
     channel: 'interaction',
     volume: CUE_VOLUME,
     cooldownMs: 60,
@@ -122,7 +122,7 @@ export const SOUND_CUES = {
   },
   /** The language list opening under the switcher. */
   languageOpen: {
-    src: '/sounds/language-open.wav',
+    src: '/sounds/language-open.mp3',
     channel: 'interaction',
     volume: CUE_VOLUME,
     cooldownMs: 120,
@@ -130,7 +130,7 @@ export const SOUND_CUES = {
   },
   /** …and closing again. */
   languageClose: {
-    src: '/sounds/language-close.wav',
+    src: '/sounds/language-close.mp3',
     channel: 'interaction',
     volume: CUE_VOLUME,
     cooldownMs: 120,
