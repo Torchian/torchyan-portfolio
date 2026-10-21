@@ -5,7 +5,7 @@ import styled, { keyframes } from 'styled-components';
 import { useTranslations } from 'next-intl';
 import { LogoMark, VisuallyHidden } from '@/components/primitives';
 import { requestScrollFrame } from '@/lib/scroll-driver';
-import { media } from '@/styles/media';
+import { media, mediaQueries } from '@/styles/media';
 import { neutrals } from '@/styles/tokens/colors';
 import { zIndex } from '@/styles/tokens/z-index';
 import { delay, layoutSettled } from './page-settle';
@@ -28,6 +28,12 @@ import { delay, layoutSettled } from './page-settle';
  * and its height has held still — capped, so a slow network never leaves
  * anyone staring at it. The percentage creeps while the page loads and runs to
  * 100 once it has.
+ *
+ * Not on a phone (the 480 frame and below): there the cover only fades away
+ * as the page is drawn, with no logo, count or wait. A phone loads the slowest,
+ * so the wait was longest there; and the page under the cover counts as drawn
+ * either way (a fade on the page itself would not), so the browser's own
+ * measure of when it showed is untouched by the fade.
  */
 
 /** Longest the loader waits for the page to settle, however slow the network. */
@@ -39,6 +45,10 @@ const HOLD_MS = 120;
 const FADE_MS = 350;
 /** Without JavaScript nothing would lift the overlay, so CSS lifts it on its own after this. */
 const FAILSAFE_S = 6;
+/** A phone has no loader: the cover just fades out over this long. */
+const PHONE_FADE_MS = 400;
+const PHONE = mediaQueries.down('m');
+
 /** The logo's size; the percentage is set to the same width. */
 const MARK_PX = 128;
 
@@ -60,6 +70,13 @@ const breathe = keyframes`
   }
   to {
     transform: rotate(10deg) scale(1.12);
+  }
+`;
+
+const phoneReveal = keyframes`
+  to {
+    opacity: 0;
+    visibility: hidden;
   }
 `;
 
@@ -102,6 +119,22 @@ const Overlay = styled.div<{ $leaving: boolean }>`
   ${media.reducedMotion} {
     &::before {
       animation: none;
+    }
+  }
+
+  /* A phone: no logo, count or glows, nothing to wait for. The bare cover
+     fades straight away, so the page comes in as it is drawn. */
+  ${media.down('m')} {
+    pointer-events: none;
+    animation: ${phoneReveal} ${PHONE_FADE_MS}ms ease-out forwards;
+
+    &::before,
+    > * {
+      display: none;
+    }
+
+    ${media.reducedMotion} {
+      display: none;
     }
   }
 `;
@@ -148,7 +181,7 @@ export function PageLoader() {
   // Count, every frame the overlay is up.
   const visible = phase !== 'done';
   useEffect(() => {
-    if (!visible) return;
+    if (!visible || window.matchMedia(PHONE).matches) return;
     const shownAt = performance.now();
     let frame = 0;
     let shownCount = -1;
@@ -172,9 +205,18 @@ export function PageLoader() {
     return () => cancelAnimationFrame(frame);
   }, [visible]);
 
+  // A phone waits for nothing: the cover's own fade (CSS) is all there is.
+  useEffect(() => {
+    if (phase !== 'loading' || !window.matchMedia(PHONE).matches) return;
+    documentShown = true;
+    requestScrollFrame();
+    const timer = setTimeout(() => setPhase('done'), PHONE_FADE_MS);
+    return () => clearTimeout(timer);
+  }, [phase]);
+
   // Wait for the page under the cover, then run the count to 100 and lift it.
   useEffect(() => {
-    if (phase !== 'loading') return;
+    if (phase !== 'loading' || window.matchMedia(PHONE).matches) return;
     let finished = false;
     Promise.race([layoutSettled(() => finished), delay(MAX_WAIT_MS)]).then(() => {
       if (finished) return;
