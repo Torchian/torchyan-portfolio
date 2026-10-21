@@ -5,7 +5,7 @@ export const siteMetadata: SiteMetadata = {
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://torchyan.design',
   // Pages read their titles and descriptions from messages/*.json (meta.*);
   // these two are the English fallbacks and must say the same thing.
-  defaultTitle: 'Torchyan — Digital Product Studio',
+  defaultTitle: 'Torchyan — Digital Studio',
   defaultDescription:
     'Founder-led studio for websites and digital products. Strategy, UX, design and engineering carried from first direction to production — then improved after launch.',
   // 1200x630, the size every social platform crops from. JPEG rather than PNG:
