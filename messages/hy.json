@@ -127,6 +127,63 @@
     }
   },
   "projects": {
+    "acentecom": {
+      "roles": [
+        "Senior E-commerce Developer"
+      ],
+      "title": "Direct-to-consumer sales funnels",
+      "description": "Landing pages, sales pages, checkout, upsells and post-purchase pages for wellness brands in Acentecom’s portfolio.",
+      "field": "E-commerce · Funnels",
+      "story": [
+        {
+          "label": "Relationship & role",
+          "blocks": [
+            [
+              "Remote contract, March–July 2026. Senior E-commerce Developer in Acentecom’s Product & Tech team."
+            ]
+          ]
+        },
+        {
+          "label": "Context",
+          "blocks": [
+            [
+              "Acentecom builds and runs its own direct-to-consumer wellness brands, with every layer in-house: brand and creative, product, media and technology. Each brand sells through its own funnels, so pages are built, tested and replaced often."
+            ]
+          ]
+        },
+        {
+          "label": "What I did",
+          "blocks": [
+            [
+              [
+                "Complete customer journeys: landing and sales pages, checkout, upsells and post-purchase pages",
+                "Responsive pages from Figma designs, copy and templates, on Shopify and CheckoutChamp",
+                "Custom quizzes and interactive funnel steps",
+                "A/B tests and funnel experiments",
+                "QA of responsiveness, checkout behaviour and funnel logic before each release",
+                "AI tools in daily development, with every change reviewed and tested by hand"
+              ]
+            ]
+          ]
+        },
+        {
+          "label": "Evidence",
+          "blocks": [
+            [
+              "The screens shown here are pages from these funnels, on desktop and phone. Sales and conversion figures belong to the brands and aren’t shown."
+            ]
+          ]
+        },
+        {
+          "label": "What it shows",
+          "blocks": [
+            [
+              "Fast, careful front-end delivery where the page itself is the product: one layout system across many brands, built to sell and to be tested."
+            ]
+          ]
+        }
+      ]
+    },
     "picsart": {
       "roles": [
         "Senior UI Engineer"
@@ -984,6 +1041,25 @@
       "relationshipLabel": "Համագործակցության ձևաչափ",
       "cta": "Դիտել նախագիծը",
       "items": {
+        "acentecom": {
+          "title": "Acentecom",
+          "roles": [
+            "Senior E-commerce Developer"
+          ],
+          "relationship": "Contract · Mar–Jul 2026",
+          "description": [
+            "Acentecom builds and runs its own direct-to-consumer wellness brands. In its Product & Tech team I built the front end of their sales funnels: landing and sales pages, checkout, upsells and post-purchase pages.",
+            "I turned Figma designs and templates into responsive pages on Shopify and CheckoutChamp, built quizzes and interactive funnel steps, set up A/B tests, and checked every release on phone and desktop.",
+            "Pages here are judged by whether they sell, so speed and precision had to come together, with AI tools speeding up the work and every change still reviewed by hand."
+          ],
+          "stack": [
+            "Shopify",
+            "CheckoutChamp",
+            "Funnels & Checkout",
+            "A/B Testing",
+            "AI-assisted development"
+          ]
+        },
         "picsart": {
           "title": "Picsart",
           "roles": [
@@ -1578,7 +1654,7 @@
         },
         "acentecom": {
           "stickyContent": "Վաճառքի ուղիներ և\nկոնվերսիա",
-          "role": "Front-end ծրագրավորող",
+          "role": "Senior E-commerce ծրագրավորող",
           "focus": "Մշակել և հարմարեցրել եմ e-commerce լենդինգներ և վաճառքի ֆանելներ Shopify-ով ու CheckoutChamp-ով։ Աշխատել եմ ապրանքի էջերի, վճարման գործընթացների և մարքեթինգային արշավների իրականացման վրա։",
           "impact": "Ավելի ակտիվ սկսել եմ օգտագործել AI գործիքներ՝ հետազոտության, դիզայնի և ծրագրավորման արագացման համար։",
           "coreGrowth": [
@@ -1690,6 +1766,241 @@
     }
   },
   "caseStudy": {
+    "acentecom": {
+      "hero": {
+        "title": "Acentecom",
+        "subtitle": "Sales funnels for a house of direct-to-consumer wellness brands",
+        "description": [
+          "From March to July 2026 I worked in Acentecom’s Product & Tech team as a Senior E-commerce Developer. Acentecom builds and runs its own wellness brands, and every brand sells through its own funnels.",
+          "I built the front end of those funnels: landing and sales pages, checkout, upsells and post-purchase pages, from Figma designs and templates, on Shopify and CheckoutChamp."
+        ],
+        "meta": [
+          {
+            "label": "Role:",
+            "items": [
+              "Senior E-commerce Developer",
+              "Contract"
+            ]
+          },
+          {
+            "label": "Scope:",
+            "items": [
+              "Landing & sales pages",
+              "Checkout & upsells",
+              "Quizzes",
+              "A/B tests",
+              "QA"
+            ]
+          },
+          {
+            "label": "Team:",
+            "items": [
+              "Product & Tech",
+              "Creative",
+              "CRO"
+            ]
+          },
+          {
+            "label": "Stack:",
+            "items": [
+              "Shopify",
+              "CheckoutChamp",
+              "HTML",
+              "CSS",
+              "JavaScript",
+              "AI tools"
+            ]
+          }
+        ]
+      },
+      "timeline": {
+        "title": "What the work involved",
+        "subtitle": [
+          "Each brand – hair care, a GLP-1 patch, drainage drops, a gut cleanse, joint chews for dogs, skin balms – sells through its own funnel.",
+          "Pages are built, tested and replaced often, so speed mattered as much as precision."
+        ],
+        "steps": [
+          [
+            {
+              "title": "Context",
+              "blocks": [
+                [
+                  "Acentecom is a house of brands, not an agency: brand, creative, product, media and technology are all in-house. The funnels are where its brands make their sales."
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "The funnel, end to end",
+              "blocks": [
+                [
+                  "Complete customer journeys, page by page:",
+                  [
+                    "Landing and sales pages",
+                    "Checkout",
+                    "Upsells",
+                    "Post-purchase pages"
+                  ]
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "From Figma to page",
+              "blocks": [
+                [
+                  "Figma designs, copy, images and templates turned into responsive pages, on phone first, since most visitors arrive there."
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "Checkout and offers",
+              "blocks": [
+                [
+                  "Offer blocks with bundles, subscriptions and limited-time discounts, wired into the checkout on CheckoutChamp so each choice reaches the cart correctly."
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "Quizzes and interactive steps",
+              "blocks": [
+                [
+                  "Custom quizzes and interactive funnel steps where a brand needed them, so a visitor’s answers shape what they’re offered."
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "Testing and QA",
+              "blocks": [
+                [
+                  "A/B tests and funnel experiments set up and supported. Before every release, responsiveness, checkout behaviour and funnel logic checked on phone and desktop."
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "title": "What this shows",
+              "blocks": [
+                [
+                  [
+                    "Front-end delivery where the page itself is the product",
+                    "One layout system carried across many brands",
+                    "AI tools used daily, with every change reviewed and tested by hand"
+                  ]
+                ]
+              ]
+            }
+          ]
+        ]
+      },
+      "blueprint": {
+        "title": "Principles",
+        "subtitle": "What every funnel page held to.",
+        "cards": [
+          {
+            "title": "Phone first",
+            "body": "Most visitors arrive on a phone; every page was built and checked there first."
+          },
+          {
+            "title": "Checkout you can trust",
+            "body": "Every offer and option reaches the cart exactly as shown."
+          },
+          {
+            "title": "Reusable sections",
+            "body": "Offer, journey, comparison, proof and FAQ blocks shared across brands."
+          },
+          {
+            "title": "Built to be tested",
+            "body": "Pages structured so sections and variants can be swapped for A/B tests."
+          },
+          {
+            "title": "Reviewed, not just generated",
+            "body": "AI speeds up the work; a person still reads, tests and fixes the code."
+          }
+        ]
+      },
+      "architecture": {
+        "title": "In detail",
+        "subtitle": "Six parts of the work, and how each was approached.",
+        "useCases": [
+          {
+            "title": "1. One page system, many brands",
+            "blocks": [
+              [
+                "Hair care, patches, drops, chews and balms share the same funnel sections: offer, journey, comparison, reviews and FAQ."
+              ],
+              [
+                "Each brand changes the colours, type and imagery; the structure underneath stays the same, so a new brand page starts from working parts."
+              ]
+            ]
+          },
+          {
+            "title": "2. The offer block",
+            "blocks": [
+              [
+                "The part of the page that sells: bundle sizes with per-unit prices, subscribe-and-save, a discount deadline and the add-to-cart button."
+              ],
+              [
+                "Built to read at a glance on a phone and to pass the chosen bundle straight into checkout."
+              ]
+            ]
+          },
+          {
+            "title": "3. Choices that change the offer",
+            "blocks": [
+              [
+                "On the dog chews, the visitor picks their dog’s weight and a plan, and the offer updates to match."
+              ],
+              [
+                "The same pattern carries over to quizzes: a few questions, then the product and plan that fit."
+              ]
+            ]
+          },
+          {
+            "title": "4. Long stories, made scannable",
+            "blocks": [
+              [
+                "Week-by-week journeys, ingredient lists and how-to steps carry a lot of copy."
+              ],
+              [
+                "Laid out as timelines and steps with images beside them, so they read in seconds on a phone."
+              ]
+            ]
+          },
+          {
+            "title": "5. Proof sections",
+            "blocks": [
+              [
+                "Comparison tables, survey results, expert quotes and customer reviews, built as modules a page can add, remove or reorder."
+              ],
+              [
+                "Each one lays out cleanly from desktop down to the narrowest phone."
+              ]
+            ]
+          },
+          {
+            "title": "6. Test, check, release",
+            "blocks": [
+              [
+                "Variants of headlines and sections set up for A/B tests, and every release checked for responsiveness, checkout behaviour and funnel logic."
+              ],
+              [
+                "AI tools drafted code faster; every change was still reviewed and tested by hand before it went live."
+              ]
+            ]
+          }
+        ]
+      }
+    },
     "picsart": {
       "hero": {
         "title": "Picsart",

@@ -228,7 +228,22 @@ export const TIMELINE_ENTRIES: TimelineEntryConfig[] = [
     year: '2026',
     railYear: '2026',
     company: 'Acentecom',
-    gallery: NONE,
+    gallery: [
+      [
+        shot('/projects/cases/acentecom/blueforce-journey.webp', 1800 / 1002),
+        shot('/projects/cases/acentecom/ledisa-patch.webp', 1800 / 1002),
+        shot('/projects/cases/acentecom/cleantra-offer.webp', 1800 / 1002),
+        shot('/projects/cases/acentecom/paravanish-cleanse.webp', 1800 / 1001),
+        shot('/projects/cases/acentecom/serabel-glow-up.webp', 1800 / 1002),
+      ],
+      [
+        shot('/projects/cases/acentecom/paravanish-family.webp', 1800 / 970),
+        shot('/projects/cases/acentecom/celmor-stories.webp', 1800 / 1002),
+        shot('/projects/cases/acentecom/rejuvapaw-journey.webp', 1800 / 1002),
+        shot('/projects/cases/acentecom/serabel-how-to.webp', 1800 / 892),
+        shot('/projects/cases/acentecom/celmor-science.webp', 1800 / 994),
+      ],
+    ],
   },
   {
     id: 'torchyan',
