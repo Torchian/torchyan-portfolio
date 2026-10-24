@@ -13,6 +13,7 @@ import { PICSART_GRID, SMARTBET_GRID, SOULONE_GRID, type IsometricGrid } from '.
  */
 
 export type ProjectSlug =
+  | 'acentecom'
   | 'picsart'
   | 'smartbet'
   | 'soulone'
@@ -149,7 +150,49 @@ const WORLD_EDUCATION_GRADIENT = 'linear-gradient(180deg, #5E5128 0%, #927F3D 10
 
 const various = (files: string[], alt: string) => files.map((f) => ({ src: `/selected-work/various/${f}`, alt }));
 
+/**
+ * Acentecom: funnel pages for its wellness brands (public/projects/cases/acentecom),
+ * desktop captures plus the phone screens three to a panel.
+ */
+const ACENTECOM_IMAGES = (
+  [
+    ['blueforce-journey', 1800, 1002],
+    ['phones-blueforce', 1800, 1272],
+    ['blueforce-compare', 1800, 1002],
+    ['ledisa-offer', 1800, 841],
+    ['ledisa-patch', 1800, 1002],
+    ['phones-ledisa-cleantra', 1800, 1272],
+    ['cleantra-offer', 1800, 1002],
+    ['cleantra-benefits', 1800, 1002],
+    ['cleantra-journey', 1800, 1002],
+    ['paravanish-offer', 1800, 1002],
+    ['paravanish-cleanse', 1800, 1001],
+    ['phones-paravanish-rejuvapaw', 1800, 1272],
+    ['paravanish-ingredients', 1800, 1001],
+    ['rejuvapaw-offer', 1800, 916],
+    ['rejuvapaw-science', 1800, 1002],
+    ['rejuvapaw-reviews', 1800, 1002],
+    ['phones-rejuvapaw-serabel', 1800, 1272],
+    ['serabel-offer', 1800, 1002],
+    ['serabel-before-after', 1800, 1001],
+    ['serabel-glow-up', 1800, 1002],
+    ['celmor-science', 1800, 994],
+    ['celmor-reviews', 1800, 1002],
+  ] as const
+).map(([name, width, height]) => ({
+  src: `/projects/cases/acentecom/${name}.webp`,
+  alt: 'Acentecom sales funnel page',
+  aspect: width / height,
+}));
+
 export const PROJECTS: ProjectConfig[] = [
+  {
+    slug: 'acentecom',
+    company: 'Acentecom',
+    year: '2026',
+    gradient: 'linear-gradient(180deg, #0F4C5C 0%, #920792 100%)',
+    images: ACENTECOM_IMAGES,
+  },
   {
     slug: 'picsart',
     company: 'Picsart',

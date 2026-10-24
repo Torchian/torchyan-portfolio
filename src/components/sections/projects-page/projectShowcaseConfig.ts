@@ -2,7 +2,7 @@
  * Projects page (Figma section 3155:8425 — frames 1920 / 1440 / 1024 / 480):
  * the "Single Project" rows and the screenshot collages beside them.
  *
- * Seven rows, one per project in the approved proof inventory, each with its
+ * Eight rows, one per project in the approved proof inventory, each with its
  * own copy (messages/*.json, projectsPage.showcase.items.<key>) and its own
  * screenshots. Every collage uses the Picsart row's geometry (Figma 3011:9178):
  * up to three tilted columns — wide desktop shots, a narrow phone column, wide
@@ -84,6 +84,7 @@ export interface Collage {
 
 /** Which copy a row shows, from messages/*.json under projectsPage.showcase.items. */
 export type ShowcaseContentKey =
+  | 'acentecom'
   | 'picsart'
   | 'smartbet'
   | 'soulone'
@@ -314,10 +315,46 @@ const WORLD_EDUCATION = threeColumns(
   ],
 );
 
+/** Acentecom's funnel pages: desktop captures and phone screens, each shown once. */
+const ac = (name: string, width: number, height: number) => img(`/projects/cases/acentecom/${name}.webp`, width, height);
+const acPhone = (name: string, height: number) => work('acentecom', `m-${name}`, 786, height);
+const ACENTECOM = threeColumns(
+  'Acentecom',
+  [
+    ac('blueforce-journey', 1800, 1002),
+    ac('ledisa-patch', 1800, 1002),
+    ac('cleantra-offer', 1800, 1002),
+    ac('paravanish-cleanse', 1800, 1001),
+    ac('rejuvapaw-science', 1800, 1002),
+  ],
+  [
+    acPhone('blueforce-offer', 1704),
+    acPhone('ledisa-hero', 1706),
+    acPhone('cleantra-offer', 1704),
+    acPhone('rejuvapaw-offer', 1704),
+    acPhone('serabel-offer', 1704),
+  ],
+  [
+    ac('serabel-glow-up', 1800, 1002),
+    ac('rejuvapaw-journey', 1800, 1002),
+    ac('cleantra-journey', 1800, 1002),
+    ac('blueforce-compare', 1800, 1002),
+    ac('paravanish-offer', 1800, 1002),
+  ],
+);
+
 /** Each row hands its closing colour to the next, so the list reads as one gradient. */
 const band = (from: string, to: string) => `linear-gradient(180deg, ${from} 0%, ${to} 100%)`;
 
 export const SHOWCASE_PROJECTS: ShowcaseProject[] = [
+  {
+    id: 'acentecom',
+    content: 'acentecom',
+    href: '/work/acentecom',
+    collage: ACENTECOM,
+    background: band('#0F4C5C', '#920792'),
+    tone: 'dark',
+  },
   {
     id: 'picsart',
     content: 'picsart',

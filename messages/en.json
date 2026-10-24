@@ -127,6 +127,63 @@
     }
   },
   "projects": {
+    "acentecom": {
+      "roles": [
+        "Senior E-commerce Developer"
+      ],
+      "title": "Direct-to-consumer sales funnels",
+      "description": "Landing pages, sales pages, checkout, upsells and post-purchase pages for wellness brands in Acentecom’s portfolio.",
+      "field": "E-commerce · Funnels",
+      "story": [
+        {
+          "label": "Relationship & role",
+          "blocks": [
+            [
+              "Remote contract, March–July 2026. Senior E-commerce Developer in Acentecom’s Product & Tech team."
+            ]
+          ]
+        },
+        {
+          "label": "Context",
+          "blocks": [
+            [
+              "Acentecom builds and runs its own direct-to-consumer wellness brands, with every layer in-house: brand and creative, product, media and technology. Each brand sells through its own funnels, so pages are built, tested and replaced often."
+            ]
+          ]
+        },
+        {
+          "label": "What I did",
+          "blocks": [
+            [
+              [
+                "Complete customer journeys: landing and sales pages, checkout, upsells and post-purchase pages",
+                "Responsive pages from Figma designs, copy and templates, on Shopify and CheckoutChamp",
+                "Custom quizzes and interactive funnel steps",
+                "A/B tests and funnel experiments",
+                "QA of responsiveness, checkout behaviour and funnel logic before each release",
+                "AI tools in daily development, with every change reviewed and tested by hand"
+              ]
+            ]
+          ]
+        },
+        {
+          "label": "Evidence",
+          "blocks": [
+            [
+              "The screens shown here are pages from these funnels, on desktop and phone. Sales and conversion figures belong to the brands and aren’t shown."
+            ]
+          ]
+        },
+        {
+          "label": "What it shows",
+          "blocks": [
+            [
+              "Fast, careful front-end delivery where the page itself is the product: one layout system across many brands, built to sell and to be tested."
+            ]
+          ]
+        }
+      ]
+    },
     "picsart": {
       "roles": [
         "Senior UI Engineer"
@@ -984,6 +1041,25 @@
       "relationshipLabel": "Relationship",
       "cta": "View project",
       "items": {
+        "acentecom": {
+          "title": "Acentecom",
+          "roles": [
+            "Senior E-commerce Developer"
+          ],
+          "relationship": "Contract · Mar–Jul 2026",
+          "description": [
+            "Acentecom builds and runs its own direct-to-consumer wellness brands. In its Product & Tech team I built the front end of their sales funnels: landing and sales pages, checkout, upsells and post-purchase pages.",
+            "I turned Figma designs and templates into responsive pages on Shopify and CheckoutChamp, built quizzes and interactive funnel steps, set up A/B tests, and checked every release on phone and desktop.",
+            "Pages here are judged by whether they sell, so speed and precision had to come together, with AI tools speeding up the work and every change still reviewed by hand."
+          ],
+          "stack": [
+            "Shopify",
+            "CheckoutChamp",
+            "Funnels & Checkout",
+            "A/B Testing",
+            "AI-assisted development"
+          ]
+        },
         "picsart": {
           "title": "Picsart",
           "roles": [
@@ -1578,7 +1654,7 @@
         },
         "acentecom": {
           "stickyContent": "Funnels &\nConversion",
-          "role": "Front-end Developer",
+          "role": "Senior E-commerce Developer",
           "focus": "Built and adapted e-commerce landing pages and sales funnels using Shopify and CheckoutChamp. Worked across checkout flows, product pages and campaign/funnel implementation.",
           "impact": "Increasingly integrated AI tools into research, design and development workflows.",
           "coreGrowth": [
