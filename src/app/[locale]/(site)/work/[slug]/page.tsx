@@ -72,7 +72,7 @@ export default async function ProjectPage({ params }: PageProps) {
     return (
       <PageMessages namespaces={MESSAGES}>
         <main id="main-content">
-          <CaseStudyHero copy={copy.hero} carousel={imagery.carousel} />
+          <CaseStudyHero copy={copy.hero} carousel={imagery.carousel} colors={project.colors} />
           <CaseStudyTimeline copy={copy.timeline} gallery={imagery.timeline} />
           {copy.blueprint && <CaseStudyBlueprint copy={copy.blueprint} />}
           {copy.architecture && <CaseStudyArchitecture copy={copy.architecture} images={imagery.useCases} />}

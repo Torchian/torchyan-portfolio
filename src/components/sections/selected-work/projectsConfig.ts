@@ -51,6 +51,8 @@ export interface ProjectConfig {
   /** As shown on the card and the case page: a year or a span; empty when it isn't confirmed. */
   year: string;
   gradient: string;
+  /** The project's own colour, top and bottom: the case hero's background (Work rows' order and tops). */
+  colors?: { from: string; to: string };
   /**
    * Screenshots for the short case, shown at their own shape (`aspect`, width ÷
    * height; 4:3 when absent). One with a `video` plays that recording instead (CaseMedia).
@@ -142,42 +144,27 @@ function toImages(folder: string, files: string[], alt: string) {
   return files.map((f) => ({ src: `/selected-work/${folder}/${f}`, alt }));
 }
 
-/** Ginosi, Benzeen, World Education, Brainstorm: case-page colours, from their Work rows. */
-const GINOSI_GRADIENT = 'linear-gradient(180deg, #102649 0%, #5C4AC0 100%)';
-const BRAINSTORM_GRADIENT = 'linear-gradient(180deg, #5C4AC0 0%, #8A5FA0 100%)';
-const BENZEEN_GRADIENT = 'linear-gradient(180deg, #6B4A12 0%, #927F3D 100%)';
-const WORLD_EDUCATION_GRADIENT = 'linear-gradient(180deg, #5E5128 0%, #927F3D 100%)';
+/** A project's own colour, top to bottom, as the case hero and the short hero both use it. */
+const own = (from: string, to: string) => ({
+  colors: { from, to },
+  gradient: `linear-gradient(180deg, ${from} 0%, ${to} 100%)`,
+});
 
 const various = (files: string[], alt: string) => files.map((f) => ({ src: `/selected-work/various/${f}`, alt }));
 
 /**
- * Acentecom: funnel pages for its wellness brands (public/projects/cases/acentecom),
- * desktop captures plus the phone screens three to a panel.
+ * Acentecom: funnel pages for its wellness brands (public/projects/cases/acentecom).
+ * It has the full case (caseStudyConfig.ts); these are its pages for anything
+ * that lists a project's screens.
  */
 const ACENTECOM_IMAGES = (
   [
     ['blueforce-journey', 1800, 1002],
-    ['phones-blueforce', 1800, 1272],
-    ['blueforce-compare', 1800, 1002],
-    ['ledisa-offer', 1800, 841],
     ['ledisa-patch', 1800, 1002],
-    ['phones-ledisa-cleantra', 1800, 1272],
     ['cleantra-offer', 1800, 1002],
-    ['cleantra-benefits', 1800, 1002],
-    ['cleantra-journey', 1800, 1002],
-    ['paravanish-offer', 1800, 1002],
-    ['paravanish-cleanse', 1800, 1001],
-    ['phones-paravanish-rejuvapaw', 1800, 1272],
-    ['paravanish-ingredients', 1800, 1001],
-    ['rejuvapaw-offer', 1800, 916],
-    ['rejuvapaw-science', 1800, 1002],
-    ['rejuvapaw-reviews', 1800, 1002],
-    ['phones-rejuvapaw-serabel', 1800, 1272],
-    ['serabel-offer', 1800, 1002],
-    ['serabel-before-after', 1800, 1001],
+    ['rejuvapaw-journey', 1800, 1002],
     ['serabel-glow-up', 1800, 1002],
-    ['celmor-science', 1800, 994],
-    ['celmor-reviews', 1800, 1002],
+    ['celmor-stories', 1800, 1002],
   ] as const
 ).map(([name, width, height]) => ({
   src: `/projects/cases/acentecom/${name}.webp`,
@@ -187,16 +174,11 @@ const ACENTECOM_IMAGES = (
 
 export const PROJECTS: ProjectConfig[] = [
   {
-    slug: 'acentecom',
-    company: 'Acentecom',
-    year: '2026',
-    gradient: 'linear-gradient(180deg, #0F4C5C 0%, #920792 100%)',
-    images: ACENTECOM_IMAGES,
-  },
-  {
     slug: 'picsart',
     company: 'Picsart',
     year: '2021–2024',
+    ...own('#920792', '#5E1690'),
+    // The homepage card keeps its own fill.
     gradient: PICSART_GRADIENT,
     images: toImages('picsart', PICSART_IMAGES, 'Picsart'),
     card: { grid: PICSART_GRID, ctaFill: PICSART_GRADIENT },
@@ -205,45 +187,56 @@ export const PROJECTS: ProjectConfig[] = [
     slug: 'smartbet',
     company: 'Smartbet',
     year: '2021',
+    ...own('#30155E', '#1C014A'),
+    // The homepage card keeps its own fill.
     gradient: SMARTBET_GRADIENT,
     images: toImages('smartbet', SMARTBET_IMAGES, 'Smartbet'),
     card: { grid: SMARTBET_GRID, ctaFill: SMARTBET_GRADIENT },
   },
   {
-    slug: 'soulone',
-    company: 'SoulOne',
-    year: '2025',
-    gradient: SOULONE_GRADIENT,
-    images: SOULONE_IMAGES,
-    card: { grid: SOULONE_GRID, ctaFill: SOULONE_GRADIENT },
+    slug: 'acentecom',
+    company: 'Acentecom',
+    year: '2026',
+    ...own('#3448FF', '#1A238C'),
+    images: ACENTECOM_IMAGES,
   },
   {
     slug: 'ginosi',
     company: 'Ginosi Apartels & Hotels',
     year: '2019',
-    gradient: GINOSI_GRADIENT,
+    ...own('#1F4C8C', '#102649'),
     images: various(['ginosi-search.webp', 'ginosi-apartel.webp'], 'Ginosi website'),
-  },
-  {
-    slug: 'benzeen',
-    company: 'Benzeen Auto Parts',
-    year: '2019',
-    gradient: BENZEEN_GRADIENT,
-    images: various(['benzeen-alfa.webp', 'benzeen-wheel.webp'], 'Benzeen Auto Parts website'),
-  },
-  {
-    slug: 'world-education',
-    company: 'World Education',
-    year: '2020',
-    gradient: WORLD_EDUCATION_GRADIENT,
-    images: various(['world-services.webp', 'world-study.webp'], 'World Education website'),
   },
   {
     slug: 'brainstorm',
     company: 'Brainstorm',
     year: '2018',
-    gradient: BRAINSTORM_GRADIENT,
+    ...own('#5C4AC0', '#2F2370'),
     images: various(['brainstormtech.webp'], 'Brainstorm website'),
+  },
+  {
+    slug: 'soulone',
+    company: 'SoulOne',
+    year: '2025',
+    ...own('#2E6B18', '#143A09'),
+    // The homepage card keeps its own fill.
+    gradient: SOULONE_GRADIENT,
+    images: SOULONE_IMAGES,
+    card: { grid: SOULONE_GRID, ctaFill: SOULONE_GRADIENT },
+  },
+  {
+    slug: 'world-education',
+    company: 'World Education',
+    year: '2020',
+    ...own('#927F3D', '#4F431F'),
+    images: various(['world-services.webp', 'world-study.webp'], 'World Education website'),
+  },
+  {
+    slug: 'benzeen',
+    company: 'Benzeen Auto Parts',
+    year: '2019',
+    ...own('#DE9E3C', '#8F5B14'),
+    images: various(['benzeen-alfa.webp', 'benzeen-wheel.webp'], 'Benzeen Auto Parts website'),
   },
 ];
 

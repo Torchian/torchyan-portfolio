@@ -10,9 +10,10 @@
  * screens simply has no middle column.
  *
  * The rows carry the page's colour: each one is a vertical gradient that ends
- * where the next begins, so the list reads as a single wash. The order keeps
- * the colour sequence that was measured and tuned on the 1440 frame
- * (magenta → violet → green → navy → indigo → amber → sand).
+ * where the next begins, so the list reads as a single wash. Each row starts on
+ * its project's own colour (the case hero uses the same one): Picsart magenta,
+ * Smartbet violet, Acentecom blue, Ginosi navy, Brainstorm indigo, SoulOne
+ * green, World Education sand, Benzeen amber.
  */
 
 /**
@@ -317,29 +318,29 @@ const WORLD_EDUCATION = threeColumns(
 
 /** Acentecom's funnel pages: desktop captures and phone screens, each shown once. */
 const ac = (name: string, width: number, height: number) => img(`/projects/cases/acentecom/${name}.webp`, width, height);
-const acPhone = (name: string, height: number) => work('acentecom', `m-${name}`, 786, height);
+const acPhone = (name: string, height: number) => ac(`m-${name}`, 786, height);
 const ACENTECOM = threeColumns(
   'Acentecom',
   [
     ac('blueforce-journey', 1800, 1002),
     ac('ledisa-patch', 1800, 1002),
+    ac('rejuvapaw-journey', 1800, 1002),
+    ac('celmor-science', 1800, 994),
     ac('cleantra-offer', 1800, 1002),
-    ac('paravanish-cleanse', 1800, 1001),
-    ac('rejuvapaw-science', 1800, 1002),
   ],
   [
-    acPhone('blueforce-offer', 1704),
-    acPhone('ledisa-hero', 1706),
-    acPhone('cleantra-offer', 1704),
-    acPhone('rejuvapaw-offer', 1704),
     acPhone('serabel-offer', 1704),
+    acPhone('rejuvapaw-dog', 1670),
+    acPhone('ledisa-hero', 1706),
+    acPhone('blueforce-journey', 1706),
+    acPhone('cleantra-offer', 1704),
   ],
   [
     ac('serabel-glow-up', 1800, 1002),
-    ac('rejuvapaw-journey', 1800, 1002),
-    ac('cleantra-journey', 1800, 1002),
-    ac('blueforce-compare', 1800, 1002),
-    ac('paravanish-offer', 1800, 1002),
+    ac('paravanish-family', 1800, 970),
+    ac('celmor-stories', 1800, 1002),
+    ac('rejuvapaw-offer', 1800, 916),
+    ac('ledisa-why', 1800, 777),
   ],
 );
 
@@ -347,14 +348,6 @@ const ACENTECOM = threeColumns(
 const band = (from: string, to: string) => `linear-gradient(180deg, ${from} 0%, ${to} 100%)`;
 
 export const SHOWCASE_PROJECTS: ShowcaseProject[] = [
-  {
-    id: 'acentecom',
-    content: 'acentecom',
-    href: '/work/acentecom',
-    collage: ACENTECOM,
-    background: band('#0F4C5C', '#920792'),
-    tone: 'dark',
-  },
   {
     id: 'picsart',
     content: 'picsart',
@@ -368,15 +361,15 @@ export const SHOWCASE_PROJECTS: ShowcaseProject[] = [
     content: 'smartbet',
     href: '/work/smartbet',
     collage: SMARTBET,
-    background: band('#1C014A', '#20520F'),
+    background: band('#1C014A', '#3448FF'),
     tone: 'dark',
   },
   {
-    id: 'soulone',
-    content: 'soulone',
-    href: '/work/soulone',
-    collage: SOULONE,
-    background: band('#20520F', '#102649'),
+    id: 'acentecom',
+    content: 'acentecom',
+    href: '/work/acentecom',
+    collage: ACENTECOM,
+    background: band('#3448FF', '#102649'),
     tone: 'dark',
   },
   {
@@ -392,15 +385,15 @@ export const SHOWCASE_PROJECTS: ShowcaseProject[] = [
     content: 'brainstorm',
     href: '/work/brainstorm',
     collage: BRAINSTORM,
-    background: band('#5C4AC0', '#DE9E3C'),
+    background: band('#5C4AC0', '#20520F'),
     tone: 'dark',
   },
   {
-    id: 'benzeen',
-    content: 'benzeen',
-    href: '/work/benzeen',
-    collage: BENZEEN,
-    background: band('#DE9E3C', '#927F3D'),
+    id: 'soulone',
+    content: 'soulone',
+    href: '/work/soulone',
+    collage: SOULONE,
+    background: band('#20520F', '#927F3D'),
     tone: 'dark',
   },
   {
@@ -408,7 +401,15 @@ export const SHOWCASE_PROJECTS: ShowcaseProject[] = [
     content: 'worldEducation',
     href: '/work/world-education',
     collage: WORLD_EDUCATION,
-    background: band('#927F3D', '#B6955F'),
+    background: band('#927F3D', '#DE9E3C'),
+    tone: 'dark',
+  },
+  {
+    id: 'benzeen',
+    content: 'benzeen',
+    href: '/work/benzeen',
+    collage: BENZEEN,
+    background: band('#DE9E3C', '#8F5B14'),
     tone: 'dark',
   },
 ];

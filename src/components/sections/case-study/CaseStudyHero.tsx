@@ -27,12 +27,28 @@ import { carouselRows, carouselSize, carouselSrc } from './carousel';
  * the size they're shown (carousel.ts).
  */
 
-/* 80 clear at the top for the fixed header, as the Figma frame has it. */
-const Section = styled.section`
+/*
+ * 80 clear at the top for the fixed header, as the Figma frame has it.
+ * The background is the project's own colour (its Work row), deepening down the
+ * text and fading into the page behind the carousel. On that colour the title
+ * and the description are white, not the page's green and grey.
+ */
+const Section = styled.section<{ $from?: string; $to?: string }>`
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: ${spacing[1000]}px;
+  background: ${(p) =>
+    p.$from
+      ? `linear-gradient(180deg, ${p.$from} 0%, ${p.$to} 62%, transparent 100%)`
+      : 'none'};
+
+  ${(p) =>
+    p.$from &&
+    `
+    h1 { color: ${neutrals[100]}; }
+    dt, h1 + p + div { color: rgba(255, 255, 255, 0.8); }
+  `}
 `;
 
 const Container = styled.div`
@@ -351,9 +367,18 @@ function CaseCarousel({ rows }: { rows: CaseImage[][] }) {
   );
 }
 
-export function CaseStudyHero({ copy, carousel }: { copy: CaseStudyCopy['hero']; carousel: CaseImage[][] }) {
+export function CaseStudyHero({
+  copy,
+  carousel,
+  colors,
+}: {
+  copy: CaseStudyCopy['hero'];
+  carousel: CaseImage[][];
+  /** The project's colour, top and bottom of the gradient. */
+  colors?: { from: string; to: string };
+}) {
   return (
-    <Section>
+    <Section $from={colors?.from} $to={colors?.to}>
       <Container>
         <Title>{copy.title}</Title>
         <Subtitle>{copy.subtitle}</Subtitle>
