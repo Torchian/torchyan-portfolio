@@ -34,7 +34,9 @@ const Wrapper = styled.label`
   display: inline-flex;
   align-items: center;
   gap: ${spacing[200]}px;
-  height: ${spacing[600]}px;
+  /* min-height, not height: a label too long for one line wraps to a second
+     line instead of being clipped (long ru/hy options on narrow screens). */
+  min-height: ${spacing[600]}px;
   min-width: 140px;
   padding: ${spacing[75]}px ${spacing[250]}px;
   border: ${border.medium}px solid ${glass.border};
@@ -116,7 +118,7 @@ const Label = styled.span`
   line-height: ${lineHeight.body.l}px;
   letter-spacing: ${letterSpacing.m}px;
   color: ${neutrals[700]};
-  white-space: nowrap;
+  text-wrap: balance;
   transition: ${TRANSITION};
 
   ${HOVER} & {

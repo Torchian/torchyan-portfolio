@@ -154,12 +154,12 @@ const IntentOption = styled(RadioInput)`
   }
 `;
 
-/** Timeline options share the row equally; two per line on mobile. */
+/** Timeline options share the row equally; one per line on mobile, like the intents. */
 const StretchedOption = styled(RadioInput)`
   flex: 1 0 0;
 
   ${media.down('m')} {
-    flex: 0 0 calc(50% - ${spacing[100]}px);
+    flex: 1 0 100%;
   }
 `;
 

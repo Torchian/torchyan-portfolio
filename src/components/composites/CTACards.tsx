@@ -13,7 +13,7 @@ import {
 } from '@/styles/tokens/typography';
 import { accents, neutrals } from '@/styles/tokens/colors';
 import { radius } from '@/styles/tokens/radius';
-import { media } from '@/styles/media';
+import { media, mediaQueries } from '@/styles/media';
 
 /*
  * The pair of closing cards from Figma's "Positioning / Role Definition" (the
@@ -76,6 +76,16 @@ const CardTitle = styled.h3<{ $tone: CTATone }>`
   line-height: ${lineHeight.heading.l}px;
   color: ${(p) => (p.$tone === 'green' ? accents.primary : accents.secondary)};
 
+  /* Two cards side by side on a tablet leave Armenian words
+     ("ծառայությունները") too little room at Heading L: Heading S there, and the
+     body a step down to match. */
+  &:lang(hy) {
+    @media ${mediaQueries.up('m')} and ${mediaQueries.down('xl')} {
+      font-size: ${fontSize.heading.s}px;
+      line-height: ${lineHeight.heading.s}px;
+    }
+  }
+
   ${media.down('m')} {
     font-weight: ${fontWeight.medium};
     font-size: ${fontSize.heading.s}px;
@@ -88,6 +98,13 @@ const CardBody = styled.p`
   font-size: ${fontSize.heading.s}px;
   line-height: ${lineHeight.heading.s}px;
   color: ${neutrals[500]};
+
+  &:lang(hy) {
+    @media ${mediaQueries.up('m')} and ${mediaQueries.down('xl')} {
+      font-size: ${fontSize.body.xl}px;
+      line-height: ${lineHeight.body.xl}px;
+    }
+  }
 
   ${media.down('m')} {
     font-size: ${fontSize.body.l}px;

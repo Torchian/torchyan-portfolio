@@ -15,7 +15,7 @@
     },
     "services": {
       "title": "Services",
-      "description": "Websites, product interfaces, design systems and launch support - owned from direction to production by one accountable lead, with specialists when needed."
+      "description": "Websites, product interfaces, design systems and launch support - owned from direction to production by one lead, with specialists when needed."
     },
     "contact": {
       "title": "Contact",
@@ -1236,7 +1236,7 @@
   },
   "servicesPage": {
     "hero": {
-      "title": "Design and engineering, under one accountable lead",
+      "title": "Design and engineering, under one lead",
       "lead": "Torchyan takes responsibility for websites and digital products from direction to production.",
       "body": "You don’t need to coordinate separate strategists, designers and developers. I lead the project, keep the decisions connected and bring in specialists when needed — from our first conversation through launch and beyond.",
       "points": [
@@ -1398,7 +1398,7 @@
     },
     "model": {
       "title": "How Torchyan works",
-      "subtitle": "One accountable lead, specialists when the project needs them, and technology chosen for the problem."
+      "subtitle": "One lead, specialists when the project needs them, and technology chosen for the problem."
     },
     "founder": {
       "title": "Direct collaboration",

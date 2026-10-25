@@ -225,6 +225,16 @@ const BadgeSlot = styled.div`
 
     &[data-outer='true'] {
       top: 24%;
+
+      /* The outer badges sit near the screen edges: a longer label (ru, hy)
+         wraps onto two lines instead of running off the screen. */
+      > span {
+        height: auto;
+        min-height: 20px;
+        max-width: 104px;
+        white-space: normal;
+        text-align: center;
+      }
     }
   }
 `;

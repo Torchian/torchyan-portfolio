@@ -177,7 +177,8 @@ const Node = styled.span`
   font-weight: ${fontWeight.heading};
   font-size: ${fontSize.body.xl}px;
   line-height: 1;
-  color: ${neutrals[100]};
+  /* Dark on the green, as the primary badge: white on #0caf0a is 2.7:1. */
+  color: ${neutrals[900]};
   font-variant-numeric: tabular-nums;
   animation: ${flare} ${CYCLE}s ease-out infinite;
 

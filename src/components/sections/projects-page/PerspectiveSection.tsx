@@ -64,6 +64,16 @@ const Cards = styled.ul`
 
   ${media.down('xl')} {
     gap: ${spacing[300]}px;
+
+    /* Three columns leave about 180px of text at tablet widths, narrower than
+       Russian and Armenian titles ("Производительность"): stack them there. */
+    &:is(:lang(ru), :lang(hy)) {
+      flex-direction: column;
+
+      > li {
+        flex: none;
+      }
+    }
   }
 
   ${media.down('m')} {

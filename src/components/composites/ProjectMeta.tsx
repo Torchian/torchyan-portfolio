@@ -18,10 +18,11 @@ const CompanyName = styled(Display)`
   text-transform: uppercase;
   letter-spacing: ${letterSpacing.xxs}px;
 
-  /* A phone is too narrow for a long name at the desktop size: it ran off the edge. */
+  /* A phone is too narrow for a long name at the desktop size: it ran off the
+     edge. 80% of Display S, so the longest single word ("PRODUCTION") fits 358px. */
   ${media.down('m')} {
-    font-size: ${fontSize.display.s}px;
-    line-height: ${lineHeight.display.s}px;
+    font-size: ${Math.round(fontSize.display.s * 0.8)}px;
+    line-height: ${Math.round(lineHeight.display.s * 0.8)}px;
   }
 `;
 

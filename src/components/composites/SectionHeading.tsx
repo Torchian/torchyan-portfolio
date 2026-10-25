@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components';
 import { Display, Text } from '@/components/primitives';
 import { spacing } from '@/styles/tokens/spacing';
 import { fontFamily, fontSize, lineHeight, fontWeight, letterSpacing } from '@/styles/tokens/typography';
-import { media } from '@/styles/media';
+import { media, mediaQueries } from '@/styles/media';
 
 /**
  * Figma Section Heading (2647:3287 desktop, 2647:3292 tablet, 2647:3295 mobile):
@@ -61,6 +61,23 @@ const Title = styled(Display)<{ $heading: SectionHeadingSize }>`
         text-transform: uppercase;
         letter-spacing: ${letterSpacing.xxs}px;
       `}
+  }
+
+  /*
+   * Armenian runs long words in wide glyphs ("Համագործակցում",
+   * "առաջնահերթությունները") that break mid-word at the phone and tablet sizes:
+   * one step smaller there. Desktop keeps the design's size.
+   */
+  &:lang(hy) {
+    ${media.down('m')} {
+      font-size: ${fontSize.heading.m}px;
+      line-height: ${lineHeight.heading.m}px;
+    }
+
+    @media ${mediaQueries.up('m')} and ${mediaQueries.down('xl')} {
+      font-size: ${Math.round(fontSize.display.s * 0.8)}px;
+      line-height: ${Math.round(lineHeight.display.s * 0.8)}px;
+    }
   }
 `;
 

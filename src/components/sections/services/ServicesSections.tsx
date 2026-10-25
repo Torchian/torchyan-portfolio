@@ -3,6 +3,7 @@
 import styled from 'styled-components';
 import { useTranslations } from 'next-intl';
 import { InfoCard, InfoCardBody, InfoCardTitle, PlatformList, SectionHeading } from '@/components/composites';
+import { VisuallyHidden } from '@/components/primitives';
 import { spacing } from '@/styles/tokens/spacing';
 import { fontFamily, fontWeight, fontSize, lineHeight, letterSpacing } from '@/styles/tokens/typography';
 import { neutrals, transparents } from '@/styles/tokens/colors';
@@ -76,7 +77,20 @@ const CardRow = styled.ul`
 
   ${media.down('l')} {
     flex-direction: column;
+  }
 
+  /* Russian and Armenian titles don't fit three columns at tablet widths. */
+  &:is(:lang(ru), :lang(hy)) {
+    ${media.down('xl')} {
+      flex-direction: column;
+
+      > li {
+        flex: none;
+      }
+    }
+  }
+
+  ${media.down('l')} {
     /* Stacked, each card takes its content's height: InfoCard's flex-basis of 0
        with its phone min-height would otherwise cap it and let the text spill. */
     > li {
@@ -200,9 +214,15 @@ export function AreasSection({ headless = false }: { headless?: boolean }) {
   const items = t.raw('items') as AreaCopy[];
 
   return (
-    <Section data-headless={headless || undefined} data-joined={headless || undefined} aria-label={headless ? t('title') : undefined}>
+    <Section data-headless={headless || undefined} data-joined={headless || undefined}>
       <Container>
-        {!headless && <SectionHeading title={t('title')} subtitle={t('subtitle')} />}
+        {/* Headless, the title is still the section's H2 for screen readers, so
+            the area cards' H3s don't jump straight from the page's H1. */}
+        {headless ? (
+          <VisuallyHidden as="h2">{t('title')}</VisuallyHidden>
+        ) : (
+          <SectionHeading title={t('title')} subtitle={t('subtitle')} />
+        )}
         <AreaGrid>
           {AREAS.map((area, i) => {
             const copy = items[i];

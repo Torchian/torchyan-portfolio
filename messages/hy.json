@@ -15,7 +15,7 @@
     },
     "services": {
       "title": "Ծառայություններ",
-      "description": "Կայքեր, պրոդուկտների ինտերֆեյսներ, դիզայն համակարգեր և գործարկման աջակցություն՝ ուղղությունից մինչև պրոդակշն, մեկ պատասխանատու ղեկավարի ներքո, անհրաժեշտության դեպքում՝ մասնագետների հետ։"
+      "description": "Կայքեր, պրոդուկտների ինտերֆեյսներ, դիզայն համակարգեր և գործարկման աջակցություն՝ ուղղությունից մինչև պրոդակշն, մեկ ղեկավարի ներքո, անհրաժեշտության դեպքում՝ մասնագետների հետ։"
     },
     "contact": {
       "title": "Կապ",
@@ -131,54 +131,54 @@
       "roles": [
         "Senior E-commerce Developer"
       ],
-      "title": "Direct-to-consumer sales funnels",
-      "description": "Landing pages, sales pages, checkout, upsells and post-purchase pages for wellness brands in Acentecom’s portfolio.",
-      "field": "E-commerce · Funnels",
+      "title": "Վաճառքի ձագարներ D2C բրենդների համար",
+      "description": "Լենդինգ էջեր, վաճառքի էջեր, պատվերի ձևակերպում, լրացուցիչ առաջարկներ և գնումից հետո էջեր Acentecom-ի պորտֆելի առողջ ապրելակերպի բրենդների համար։",
+      "field": "E-commerce · Ձագարներ",
       "story": [
         {
-          "label": "Relationship & role",
+          "label": "Համագործակցության ձևաչափ և դեր",
           "blocks": [
             [
-              "Remote contract, March–July 2026. Senior E-commerce Developer in Acentecom’s Product & Tech team."
+              "Հեռավար պայմանագիր, մարտ–հուլիս 2026։ Senior E-commerce Developer Acentecom-ի Product & Tech թիմում։"
             ]
           ]
         },
         {
-          "label": "Context",
+          "label": "Համատեքստ",
           "blocks": [
             [
-              "Acentecom builds and runs its own direct-to-consumer wellness brands, with every layer in-house: brand and creative, product, media and technology. Each brand sells through its own funnels, so pages are built, tested and replaced often."
+              "Acentecom-ը ստեղծում և զարգացնում է առողջ ապրելակերպի սեփական բրենդներ, որոնք վաճառում են ուղիղ գնորդներին, և բոլոր ուղղությունները՝ բրենդ և կրեատիվ, պրոդուկտ, մեդիա և տեխնոլոգիաներ, ընկերության ներսում են։ Յուրաքանչյուր բրենդ վաճառում է իր ձագարներով, ուստի էջերը հաճախ են ստեղծվում, թեստավորվում և փոխարինվում։"
             ]
           ]
         },
         {
-          "label": "What I did",
+          "label": "Ինչ եմ արել",
           "blocks": [
             [
               [
-                "Complete customer journeys: landing and sales pages, checkout, upsells and post-purchase pages",
-                "Responsive pages from Figma designs, copy and templates, on Shopify and CheckoutChamp",
-                "Custom quizzes and interactive funnel steps",
-                "A/B tests and funnel experiments",
-                "QA of responsiveness, checkout behaviour and funnel logic before each release",
-                "AI tools in daily development, with every change reviewed and tested by hand"
+                "Գնորդի ամբողջական ճանապարհը՝ լենդինգ և վաճառքի էջեր, պատվերի ձևակերպում, լրացուցիչ առաջարկներ և գնումից հետո էջեր",
+                "Հարմարվող էջեր Figma մակետներից, տեքստերից և շաբլոններից՝ Shopify և CheckoutChamp հարթակներում",
+                "Անհատական քվիզներ և ձագարի ինտերակտիվ քայլեր",
+                "A/B թեստեր և ձագարի փորձարկումներ",
+                "Հարմարվողականության, պատվերի ձևակերպման և ձագարի տրամաբանության QA յուրաքանչյուր թողարկումից առաջ",
+                "AI գործիքներ ամենօրյա աշխատանքում՝ յուրաքանչյուր փոփոխության ձեռքով ստուգմամբ և թեստավորմամբ"
               ]
             ]
           ]
         },
         {
-          "label": "Evidence",
+          "label": "Նյութեր",
           "blocks": [
             [
-              "The screens shown here are pages from these funnels, on desktop and phone. Sales and conversion figures belong to the brands and aren’t shown."
+              "Ցուցադրված էկրանները այդ ձագարների էջերն են՝ համակարգչում և հեռախոսում։ Վաճառքի և կոնվերսիայի տվյալները պատկանում են բրենդներին և չեն ներկայացվում։"
             ]
           ]
         },
         {
-          "label": "What it shows",
+          "label": "Ինչ է ցույց տալիս նախագիծը",
           "blocks": [
             [
-              "Fast, careful front-end delivery where the page itself is the product: one layout system across many brands, built to sell and to be tested."
+              "Արագ և ուշադիր ֆրոնտենդ այնտեղ, որտեղ էջն ինքն է պրոդուկտը․ մեկ դասավորության համակարգ բազմաթիվ բրենդների համար՝ ստեղծված վաճառելու և թեստավորվելու համար։"
             ]
           ]
         }
@@ -1046,18 +1046,18 @@
           "roles": [
             "Senior E-commerce Developer"
           ],
-          "relationship": "Contract · Mar–Jul 2026",
+          "relationship": "Պայմանագիր · մարտ–հուլիս 2026",
           "description": [
-            "Acentecom builds and runs its own direct-to-consumer wellness brands. In its Product & Tech team I built the front end of their sales funnels: landing and sales pages, checkout, upsells and post-purchase pages.",
-            "I turned Figma designs and templates into responsive pages on Shopify and CheckoutChamp, built quizzes and interactive funnel steps, set up A/B tests, and checked every release on phone and desktop.",
-            "Pages here are judged by whether they sell, so speed and precision had to come together, with AI tools speeding up the work and every change still reviewed by hand."
+            "Acentecom-ը ստեղծում և զարգացնում է առողջ ապրելակերպի սեփական բրենդներ, որոնք վաճառում են ուղիղ գնորդներին։ Product & Tech թիմում ստեղծել եմ նրանց վաճառքի ձագարների ֆրոնտենդը՝ լենդինգ և վաճառքի էջեր, պատվերի ձևակերպում, լրացուցիչ առաջարկներ և գնումից հետո էջեր։",
+            "Figma մակետներն ու շաբլոնները վերածել եմ հարմարվող էջերի Shopify և CheckoutChamp հարթակներում, ստեղծել եմ քվիզներ և ձագարի ինտերակտիվ քայլեր, կարգավորել A/B թեստեր և ստուգել յուրաքանչյուր թողարկում հեռախոսում և համակարգչում։",
+            "Այստեղ էջերը գնահատվում են ըստ այն բանի, թե արդյոք դրանք վաճառում են, ուստի արագությունն ու ճշգրտությունը պետք է միասին լինեին․ AI գործիքներն արագացնում էին աշխատանքը, իսկ յուրաքանչյուր փոփոխություն դեռ ստուգվում էր ձեռքով։"
           ],
           "stack": [
             "Shopify",
             "CheckoutChamp",
-            "Funnels & Checkout",
-            "A/B Testing",
-            "AI-assisted development"
+            "Ձագարներ և պատվեր",
+            "A/B թեստավորում",
+            "Մշակում AI գործիքներով"
           ]
         },
         "picsart": {
@@ -1236,7 +1236,7 @@
   },
   "servicesPage": {
     "hero": {
-      "title": "Դիզայն և ծրագրավորում՝ մեկ պատասխանատուի ղեկավարությամբ",
+      "title": "Դիզայն և ծրագրավորում՝ մեկ ղեկավարի ներքո",
       "lead": "Torchyan-ը ստանձնում է կայքերի և թվային պրոդուկտների նախագծերի իրականացումը՝ ուղղության ընտրությունից մինչև գործարկում։",
       "body": "Ձեզ հարկավոր չէ ինքնուրույն համակարգել դիզայներների, ծրագրավորողների և այլ մասնագետների աշխատանքը։ Ես ղեկավարում եմ նախագիծը, ապահովում որոշումների փոխկապակցվածությունը և անհրաժեշտության դեպքում ներգրավում համապատասխան մասնագետների՝ առաջին քննարկումից մինչև գործարկում և հետագա զարգացում։",
       "points": [
@@ -1249,7 +1249,7 @@
       "team": {
         "label": "Թիմ",
         "lead": "Ստեփան Թոռչյան, հիմնադիր և նախագծերի ղեկավար",
-        "member1": "Բրենդինգ և վիզուալ ինքնություն",
+        "member1": "Բրենդինգ",
         "member2": "Backend և API",
         "aiAssistant": "AI օգնականներ",
         "member3": "Մարքեթինգ և SEO"
@@ -1398,7 +1398,7 @@
     },
     "model": {
       "title": "Ինչպես է աշխատում Torchyan-ը",
-      "subtitle": "Մեկ պատասխանատու ղեկավար, մասնագետներ՝ երբ նախագծին պետք են, և տեխնոլոգիաներ՝ ընտրված խնդրի համար։"
+      "subtitle": "Մեկ ղեկավար, մասնագետներ՝ երբ նախագծին պետք են, և տեխնոլոգիաներ՝ ընտրված խնդրի համար։"
     },
     "founder": {
       "title": "Անմիջական համագործակցություն",
@@ -1769,78 +1769,78 @@
     "acentecom": {
       "hero": {
         "title": "Acentecom",
-        "subtitle": "Sales funnels for a house of direct-to-consumer wellness brands",
+        "subtitle": "Վաճառքի ձագարներ առողջ ապրելակերպի սեփական բրենդների համար",
         "description": [
-          "From March to July 2026 I worked in Acentecom’s Product & Tech team as a Senior E-commerce Developer. Acentecom builds and runs its own wellness brands, and every brand sells through its own funnels.",
-          "I built the front end of those funnels: landing and sales pages, checkout, upsells and post-purchase pages, from Figma designs and templates, on Shopify and CheckoutChamp."
+          "2026 թ. մարտից հուլիս աշխատել եմ Acentecom-ի Product & Tech թիմում՝ որպես Senior E-commerce Developer։ Acentecom-ը ստեղծում և զարգացնում է առողջ ապրելակերպի սեփական բրենդներ, և յուրաքանչյուր բրենդ վաճառում է իր ձագարներով։",
+          "Ես ստեղծել եմ այդ ձագարների ֆրոնտենդը՝ լենդինգ և վաճառքի էջեր, պատվերի ձևակերպում, լրացուցիչ առաջարկներ և գնումից հետո էջեր՝ Figma մակետներից և շաբլոններից, Shopify և CheckoutChamp հարթակներում։"
         ],
         "meta": [
           {
-            "label": "Role:",
+            "label": "Դերը՝",
             "items": [
               "Senior E-commerce Developer",
-              "Contract"
+              "Պայմանագիր"
             ]
           },
           {
-            "label": "Scope:",
+            "label": "Աշխատանքների շրջանակը՝",
             "items": [
-              "Landing & sales pages",
-              "Checkout & upsells",
-              "Quizzes",
-              "A/B tests",
+              "Լենդինգ և վաճառքի էջեր",
+              "Պատվեր և լրացուցիչ առաջարկներ",
+              "Քվիզներ",
+              "A/B թեստեր",
               "QA"
             ]
           },
           {
-            "label": "Team:",
+            "label": "Թիմ՝",
             "items": [
               "Product & Tech",
-              "Creative",
+              "Կրեատիվ",
               "CRO"
             ]
           },
           {
-            "label": "Stack:",
+            "label": "Տեխնոլոգիաներ՝",
             "items": [
               "Shopify",
               "CheckoutChamp",
               "HTML",
               "CSS",
               "JavaScript",
-              "AI tools"
+              "AI գործիքներ"
             ]
           }
         ]
       },
       "timeline": {
-        "title": "What the work involved",
+        "title": "Ինչ էր ներառում աշխատանքը",
         "subtitle": [
-          "Each brand – hair care, a GLP-1 patch, drainage drops, a gut cleanse, joint chews for dogs, skin balms – sells through its own funnel.",
-          "Pages are built, tested and replaced often, so speed mattered as much as precision."
+          "Յուրաքանչյուր բրենդ՝ մազերի խնամք, GLP-1 պատչ, դրենաժային կաթիլներ, աղիքների մաքրում, շների հոդերի համար ծամվող հավելումներ, մաշկի բալզամներ, վաճառում է իր ձագարով։",
+          "Էջերը հաճախ են ստեղծվում, թեստավորվում և փոխարինվում, ուստի արագությունը նույնքան կարևոր էր, որքան ճշգրտությունը։"
         ],
         "steps": [
           [
             {
-              "title": "Context",
+              "title": "Համատեքստ",
               "blocks": [
                 [
-                  "Acentecom is a house of brands, not an agency: brand, creative, product, media and technology are all in-house. The funnels are where its brands make their sales."
+                  "Acentecom-ը բրենդների խումբ է, ոչ թե գործակալություն․ բրենդը, կրեատիվը, պրոդուկտը, մեդիան և տեխնոլոգիաները ընկերության ներսում են։ Ձագարներն այն տեղն են, որտեղ նրա բրենդները վաճառում են։"
                 ]
               ]
             }
           ],
           [
             {
-              "title": "The funnel, end to end",
+              "title": "Ձագարը՝ ամբողջությամբ",
               "blocks": [
                 [
-                  "Complete customer journeys, page by page:",
+                  "Գնորդի ամբողջական ճանապարհը՝ էջ առ էջ․",
                   [
-                    "Landing and sales pages",
-                    "Checkout",
-                    "Upsells",
-                    "Post-purchase pages"
+                    "Լենդինգ և վաճառքի էջեր",
+                    "Պատվերի ձևակերպում",
+                    "Լրացուցիչ առաջարկներ",
+                    "Գնումից հետո էջեր"
                   ]
                 ]
               ]
@@ -1848,53 +1848,53 @@
           ],
           [
             {
-              "title": "From Figma to page",
+              "title": "Figma-ից մինչև էջ",
               "blocks": [
                 [
-                  "Figma designs, copy, images and templates turned into responsive pages, on phone first, since most visitors arrive there."
+                  "Figma մակետները, տեքստերը, պատկերները և շաբլոնները վերածվում էին հարմարվող էջերի՝ նախ հեռախոսի համար, քանի որ այցելուների մեծ մասը գալիս է հենց հեռախոսից։"
                 ]
               ]
             }
           ],
           [
             {
-              "title": "Checkout and offers",
+              "title": "Պատվեր և առաջարկներ",
               "blocks": [
                 [
-                  "Offer blocks with bundles, subscriptions and limited-time discounts, wired into the checkout on CheckoutChamp so each choice reaches the cart correctly."
+                  "Առաջարկի բլոկներ՝ փաթեթներով, բաժանորդագրություններով և ժամանակավոր զեղչերով, կապված CheckoutChamp-ի պատվերի ձևակերպման հետ, որպեսզի յուրաքանչյուր ընտրություն ճիշտ հասնի զամբյուղ։"
                 ]
               ]
             }
           ],
           [
             {
-              "title": "Quizzes and interactive steps",
+              "title": "Քվիզներ և ինտերակտիվ քայլեր",
               "blocks": [
                 [
-                  "Custom quizzes and interactive funnel steps where a brand needed them, so a visitor’s answers shape what they’re offered."
+                  "Անհատական քվիզներ և ձագարի ինտերակտիվ քայլեր այնտեղ, որտեղ բրենդին պետք էին․ այցելուի պատասխաններից է կախված, թե ինչ կառաջարկվի նրան։"
                 ]
               ]
             }
           ],
           [
             {
-              "title": "Testing and QA",
+              "title": "Թեստավորում և QA",
               "blocks": [
                 [
-                  "A/B tests and funnel experiments set up and supported. Before every release, responsiveness, checkout behaviour and funnel logic checked on phone and desktop."
+                  "A/B թեստերի և ձագարի փորձարկումների կարգավորում և աջակցում։ Յուրաքանչյուր թողարկումից առաջ՝ հարմարվողականության, պատվերի ձևակերպման և ձագարի տրամաբանության ստուգում հեռախոսում և համակարգչում։"
                 ]
               ]
             }
           ],
           [
             {
-              "title": "What this shows",
+              "title": "Ինչ է ցույց տալիս նախագիծը",
               "blocks": [
                 [
                   [
-                    "Front-end delivery where the page itself is the product",
-                    "One layout system carried across many brands",
-                    "AI tools used daily, with every change reviewed and tested by hand"
+                    "Ֆրոնտենդ, որտեղ էջն ինքն է պրոդուկտը",
+                    "Մեկ դասավորության համակարգ բազմաթիվ բրենդների համար",
+                    "AI գործիքներ ամեն օր, բայց յուրաքանչյուր փոփոխություն ստուգված և թեստավորված ձեռքով"
                   ]
                 ]
               ]
@@ -1903,98 +1903,98 @@
         ]
       },
       "blueprint": {
-        "title": "Principles",
-        "subtitle": "What every funnel page held to.",
+        "title": "Սկզբունքներ",
+        "subtitle": "Ինչին էր հետևում ձագարի յուրաքանչյուր էջ։",
         "cards": [
           {
-            "title": "Phone first",
-            "body": "Most visitors arrive on a phone; every page was built and checked there first."
+            "title": "Նախ՝ հեռախոս",
+            "body": "Այցելուների մեծ մասը գալիս է հեռախոսից, ուստի յուրաքանչյուր էջ նախ այնտեղ էր ստեղծվում և ստուգվում։"
           },
           {
-            "title": "Checkout you can trust",
-            "body": "Every offer and option reaches the cart exactly as shown."
+            "title": "Վստահելի պատվեր",
+            "body": "Յուրաքանչյուր առաջարկ և տարբերակ զամբյուղ է հասնում ճիշտ այնպես, ինչպես ցուցադրված է։"
           },
           {
-            "title": "Reusable sections",
-            "body": "Offer, journey, comparison, proof and FAQ blocks shared across brands."
+            "title": "Կրկնակի օգտագործվող բաժիններ",
+            "body": "Առաջարկի, գնորդի ճանապարհի, համեմատության, ապացույցների և FAQ բլոկները ընդհանուր են բոլոր բրենդների համար։"
           },
           {
-            "title": "Built to be tested",
-            "body": "Pages structured so sections and variants can be swapped for A/B tests."
+            "title": "Պատրաստ թեստերի",
+            "body": "Էջերը կառուցված են այնպես, որ բաժիններն ու տարբերակները հնարավոր լինի փոխել A/B թեստերի համար։"
           },
           {
-            "title": "Reviewed, not just generated",
-            "body": "AI speeds up the work; a person still reads, tests and fixes the code."
+            "title": "Ստուգված, ոչ թե պարզապես գեներացված",
+            "body": "AI-ն արագացնում է աշխատանքը, բայց կոդը դեռ կարդում, թեստավորում և ուղղում է մարդը։"
           }
         ]
       },
       "architecture": {
-        "title": "In detail",
-        "subtitle": "Six parts of the work, and how each was approached.",
+        "title": "Մանրամասն",
+        "subtitle": "Աշխատանքի վեց մաս և դրանցից յուրաքանչյուրի մոտեցումը։",
         "useCases": [
           {
-            "title": "1. One page system, many brands",
+            "title": "1. Մեկ էջային համակարգ, բազմաթիվ բրենդներ",
             "blocks": [
               [
-                "Hair care, patches, drops, chews and balms share the same funnel sections: offer, journey, comparison, reviews and FAQ."
+                "Մազերի խնամքը, պատչերը, կաթիլները, ծամվող հավելումներն ու բալզամներն օգտագործում են ձագարի նույն բաժինները՝ առաջարկ, գնորդի ճանապարհ, համեմատություն, կարծիքներ և FAQ։"
               ],
               [
-                "Each brand changes the colours, type and imagery; the structure underneath stays the same, so a new brand page starts from working parts."
+                "Յուրաքանչյուր բրենդ փոխում է գույները, տառատեսակը և պատկերները, իսկ կառուցվածքը մնում է նույնը, ուստի նոր բրենդի էջը սկսվում է պատրաստի մասերից։"
               ]
             ]
           },
           {
-            "title": "2. The offer block",
+            "title": "2. Առաջարկի բլոկը",
             "blocks": [
               [
-                "The part of the page that sells: bundle sizes with per-unit prices, subscribe-and-save, a discount deadline and the add-to-cart button."
+                "Էջի այն մասը, որը վաճառում է․ փաթեթների չափսեր՝ միավորի գնով, բաժանորդագրություն զեղչով, զեղչի վերջնաժամկետ և զամբյուղ ավելացնելու կոճակ։"
               ],
               [
-                "Built to read at a glance on a phone and to pass the chosen bundle straight into checkout."
+                "Ստեղծված է այնպես, որ հեռախոսում ընթերցվի մեկ հայացքով և ընտրված փաթեթը փոխանցի ուղիղ պատվերի ձևակերպմանը։"
               ]
             ]
           },
           {
-            "title": "3. Choices that change the offer",
+            "title": "3. Ընտրություններ, որոնք փոխում են առաջարկը",
             "blocks": [
               [
-                "On the dog chews, the visitor picks their dog’s weight and a plan, and the offer updates to match."
+                "Շների ծամվող հավելումների էջում այցելուն ընտրում է շան քաշը և պլանը, և առաջարկը թարմացվում է ըստ ընտրության։"
               ],
               [
-                "The same pattern carries over to quizzes: a few questions, then the product and plan that fit."
+                "Նույն սկզբունքն աշխատում է քվիզներում․ մի քանի հարց, ապա համապատասխան պրոդուկտն ու պլանը։"
               ]
             ]
           },
           {
-            "title": "4. Long stories, made scannable",
+            "title": "4. Երկար պատմություններ՝ հեշտ ընթերցվող",
             "blocks": [
               [
-                "Week-by-week journeys, ingredient lists and how-to steps carry a lot of copy."
+                "Շաբաթական պլանները, բաղադրիչների ցանկերը և քայլ առ քայլ հրահանգները շատ տեքստ են պարունակում։"
               ],
               [
-                "Laid out as timelines and steps with images beside them, so they read in seconds on a phone."
+                "Դրանք դասավորված են որպես թայմլայններ և քայլեր՝ կողքին պատկերներով, որպեսզի հեռախոսում ընթերցվեն վայրկյանների ընթացքում։"
               ]
             ]
           },
           {
-            "title": "5. Proof sections",
+            "title": "5. Ապացույցների բաժիններ",
             "blocks": [
               [
-                "Comparison tables, survey results, expert quotes and customer reviews, built as modules a page can add, remove or reorder."
+                "Համեմատական աղյուսակներ, հարցումների արդյունքներ, փորձագետների մեջբերումներ և հաճախորդների կարծիքներ՝ որպես մոդուլներ, որոնք էջը կարող է ավելացնել, հեռացնել կամ վերադասավորել։"
               ],
               [
-                "Each one lays out cleanly from desktop down to the narrowest phone."
+                "Յուրաքանչյուրը կոկիկ է դասավորվում՝ համակարգչից մինչև ամենանեղ հեռախոսը։"
               ]
             ]
           },
           {
-            "title": "6. Test, check, release",
+            "title": "6. Թեստ, ստուգում, թողարկում",
             "blocks": [
               [
-                "Variants of headlines and sections set up for A/B tests, and every release checked for responsiveness, checkout behaviour and funnel logic."
+                "Վերնագրերի և բաժինների տարբերակներ A/B թեստերի համար, և յուրաքանչյուր թողարկում ստուգված է հարմարվողականության, պատվերի ձևակերպման և ձագարի տրամաբանության տեսանկյունից։"
               ],
               [
-                "AI tools drafted code faster; every change was still reviewed and tested by hand before it went live."
+                "AI գործիքներն արագացնում էին կոդ գրելը, բայց յուրաքանչյուր փոփոխություն հրապարակումից առաջ դեռ ստուգվում և թեստավորվում էր ձեռքով։"
               ]
             ]
           }
@@ -2665,7 +2665,7 @@
         ]
       },
       "blueprint": {
-        "title": "Դիզայնի առաջնահերթությունները",
+        "title": "Ինչն էր կարևոր դիզայնում",
         "subtitle": "Որոշումներ, որոնք միավորում են ամբողջ կոնցեպտը։",
         "cards": [
           {
@@ -2725,7 +2725,7 @@
             ]
           },
           {
-            "title": "4. Փոխազդեցությունները՝ ծրագրավորումից առաջ",
+            "title": "4. Ինտերակցիաները՝ մինչև ծրագրավորումը",
             "blocks": [
               [
                 "Figma նախատիպի վիճակներն ու անցումները ցույց են տալիս, թե ինչպես պետք է աշխատի կայքը՝ նախքան ծրագրավորման մեկնարկը։"
@@ -2875,7 +2875,7 @@
     "benzeen": {
       "hero": {
         "title": "Benzeen Auto Parts",
-        "subtitle": "UI և ինտերակտիվ տարրերի ծրագրավորում ավտոպահեստամասերի առցանց խանութի համար՝ զուգահեռ զարգացող դիզայնով",
+        "subtitle": "UI և ինտերակտիվ տարրերի ծրագրավորում ավտոմասերի առցանց խանութի համար՝ զուգահեռ զարգացող դիզայնով",
         "description": [
           "Benzeen Auto Parts-ը Լոս Անջելեսում գործող ավտոպահեստամասերի առցանց վաճառքի բիզնեսի նախագիծ էր, որի վրա 2019 թվականին աշխատել եմ TCO-ի միջոցով։ Դիզայներները շարունակում էին նոր էջեր պատրաստել և գործողները թարմացնել ծրագրավորման ընթացքում։",
           "Իրականացրել եմ ամբողջ կայքի ինտերֆեյսը՝ ներառյալ ինտերակտիվ վարքը, անիմացիաները և JavaScript տրամաբանության մի մասը, ինչպես նաև ներդրել եմ Google AMP։ Սա իմ առաջին e-commerce նախագիծն էր՝ առանց ավանդական CMS-ի։"

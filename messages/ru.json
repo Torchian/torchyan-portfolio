@@ -15,7 +15,7 @@
     },
     "services": {
       "title": "Услуги",
-      "description": "Сайты, интерфейсы продуктов, дизайн-системы и поддержка запуска — от направления до продакшена под ответственностью одного лидера, со специалистами, когда они нужны."
+      "description": "Сайты, интерфейсы продуктов, дизайн-системы и поддержка запуска — от направления до продакшена под руководством одного лидера, со специалистами, когда они нужны."
     },
     "contact": {
       "title": "Контакты",
@@ -131,54 +131,54 @@
       "roles": [
         "Senior E-commerce Developer"
       ],
-      "title": "Direct-to-consumer sales funnels",
-      "description": "Landing pages, sales pages, checkout, upsells and post-purchase pages for wellness brands in Acentecom’s portfolio.",
-      "field": "E-commerce · Funnels",
+      "title": "Воронки продаж для D2C-брендов",
+      "description": "Лендинги, продающие страницы, оформление заказа, апселлы и страницы после покупки для wellness-брендов из портфеля Acentecom.",
+      "field": "E-commerce · Воронки",
       "story": [
         {
-          "label": "Relationship & role",
+          "label": "Формат сотрудничества и роль",
           "blocks": [
             [
-              "Remote contract, March–July 2026. Senior E-commerce Developer in Acentecom’s Product & Tech team."
+              "Удалённый контракт, март–июль 2026. Senior E-commerce Developer в команде Product & Tech компании Acentecom."
             ]
           ]
         },
         {
-          "label": "Context",
+          "label": "Контекст",
           "blocks": [
             [
-              "Acentecom builds and runs its own direct-to-consumer wellness brands, with every layer in-house: brand and creative, product, media and technology. Each brand sells through its own funnels, so pages are built, tested and replaced often."
+              "Acentecom создаёт и развивает собственные wellness-бренды, и все направления — бренд и креатив, продукт, медиа и технологии — внутри компании. Каждый бренд продаёт через свои воронки, поэтому страницы часто создаются, тестируются и заменяются."
             ]
           ]
         },
         {
-          "label": "What I did",
+          "label": "Что я сделал",
           "blocks": [
             [
               [
-                "Complete customer journeys: landing and sales pages, checkout, upsells and post-purchase pages",
-                "Responsive pages from Figma designs, copy and templates, on Shopify and CheckoutChamp",
-                "Custom quizzes and interactive funnel steps",
-                "A/B tests and funnel experiments",
-                "QA of responsiveness, checkout behaviour and funnel logic before each release",
-                "AI tools in daily development, with every change reviewed and tested by hand"
+                "Полный путь покупателя: лендинги и продающие страницы, оформление заказа, апселлы и страницы после покупки",
+                "Адаптивные страницы по макетам Figma, текстам и шаблонам на Shopify и CheckoutChamp",
+                "Собственные квизы и интерактивные шаги воронки",
+                "A/B-тесты и эксперименты с воронками",
+                "QA адаптивности, оформления заказа и логики воронки перед каждым релизом",
+                "AI-инструменты в ежедневной разработке, с ручной проверкой и тестированием каждого изменения"
               ]
             ]
           ]
         },
         {
-          "label": "Evidence",
+          "label": "Материалы",
           "blocks": [
             [
-              "The screens shown here are pages from these funnels, on desktop and phone. Sales and conversion figures belong to the brands and aren’t shown."
+              "Показанные экраны — страницы из этих воронок на десктопе и телефоне. Данные о продажах и конверсии принадлежат брендам и не приводятся."
             ]
           ]
         },
         {
-          "label": "What it shows",
+          "label": "Что показывает проект",
           "blocks": [
             [
-              "Fast, careful front-end delivery where the page itself is the product: one layout system across many brands, built to sell and to be tested."
+              "Быстрый и аккуратный фронтенд там, где сама страница и есть продукт: одна система вёрстки для многих брендов, созданная, чтобы продавать и тестироваться."
             ]
           ]
         }
@@ -1046,18 +1046,18 @@
           "roles": [
             "Senior E-commerce Developer"
           ],
-          "relationship": "Contract · Mar–Jul 2026",
+          "relationship": "Контракт · март–июль 2026",
           "description": [
-            "Acentecom builds and runs its own direct-to-consumer wellness brands. In its Product & Tech team I built the front end of their sales funnels: landing and sales pages, checkout, upsells and post-purchase pages.",
-            "I turned Figma designs and templates into responsive pages on Shopify and CheckoutChamp, built quizzes and interactive funnel steps, set up A/B tests, and checked every release on phone and desktop.",
-            "Pages here are judged by whether they sell, so speed and precision had to come together, with AI tools speeding up the work and every change still reviewed by hand."
+            "Acentecom создаёт и развивает собственные wellness-бренды, продающие напрямую покупателям. В команде Product & Tech я разрабатывал фронтенд их воронок продаж: лендинги и продающие страницы, оформление заказа, апселлы и страницы после покупки.",
+            "Я превращал макеты Figma и шаблоны в адаптивные страницы на Shopify и CheckoutChamp, делал квизы и интерактивные шаги воронки, настраивал A/B-тесты и проверял каждый релиз на телефоне и десктопе.",
+            "Здесь страницы оценивают по тому, продают ли они, поэтому скорость и точность должны были идти вместе: AI-инструменты ускоряли работу, а каждое изменение всё равно проверялось вручную."
           ],
           "stack": [
             "Shopify",
             "CheckoutChamp",
-            "Funnels & Checkout",
-            "A/B Testing",
-            "AI-assisted development"
+            "Воронки и оформление заказа",
+            "A/B-тестирование",
+            "Разработка с AI-инструментами"
           ]
         },
         "picsart": {
@@ -1249,7 +1249,7 @@
       "team": {
         "label": "Команда",
         "lead": "Степан Торчян, основатель и руководитель проектов",
-        "member1": "Брендинг и айдентика",
+        "member1": "Брендинг",
         "member2": "Бэкенд и API",
         "aiAssistant": "AI-ассистенты",
         "member3": "Маркетинг и SEO"
@@ -1398,7 +1398,7 @@
     },
     "model": {
       "title": "Как работает Torchyan",
-      "subtitle": "Один ответственный лидер, специалисты — когда они нужны проекту, и технологии, выбранные под задачу."
+      "subtitle": "Один лидер, специалисты — когда они нужны проекту, и технологии, выбранные под задачу."
     },
     "founder": {
       "title": "Прямое взаимодействие",
@@ -1769,78 +1769,78 @@
     "acentecom": {
       "hero": {
         "title": "Acentecom",
-        "subtitle": "Sales funnels for a house of direct-to-consumer wellness brands",
+        "subtitle": "Воронки продаж для группы собственных wellness-брендов",
         "description": [
-          "From March to July 2026 I worked in Acentecom’s Product & Tech team as a Senior E-commerce Developer. Acentecom builds and runs its own wellness brands, and every brand sells through its own funnels.",
-          "I built the front end of those funnels: landing and sales pages, checkout, upsells and post-purchase pages, from Figma designs and templates, on Shopify and CheckoutChamp."
+          "С марта по июль 2026 года я работал в команде Product & Tech компании Acentecom как Senior E-commerce Developer. Acentecom создаёт и развивает собственные wellness-бренды, и каждый бренд продаёт через свои воронки.",
+          "Я разрабатывал фронтенд этих воронок: лендинги и продающие страницы, оформление заказа, апселлы и страницы после покупки — по макетам Figma и шаблонам, на Shopify и CheckoutChamp."
         ],
         "meta": [
           {
-            "label": "Role:",
+            "label": "Роль:",
             "items": [
               "Senior E-commerce Developer",
-              "Contract"
+              "Контракт"
             ]
           },
           {
-            "label": "Scope:",
+            "label": "Объём работ:",
             "items": [
-              "Landing & sales pages",
-              "Checkout & upsells",
-              "Quizzes",
-              "A/B tests",
+              "Лендинги и продающие страницы",
+              "Оформление заказа и апселлы",
+              "Квизы",
+              "A/B-тесты",
               "QA"
             ]
           },
           {
-            "label": "Team:",
+            "label": "Команда:",
             "items": [
               "Product & Tech",
-              "Creative",
+              "Креатив",
               "CRO"
             ]
           },
           {
-            "label": "Stack:",
+            "label": "Стек:",
             "items": [
               "Shopify",
               "CheckoutChamp",
               "HTML",
               "CSS",
               "JavaScript",
-              "AI tools"
+              "AI-инструменты"
             ]
           }
         ]
       },
       "timeline": {
-        "title": "What the work involved",
+        "title": "Из чего состояла работа",
         "subtitle": [
-          "Each brand – hair care, a GLP-1 patch, drainage drops, a gut cleanse, joint chews for dogs, skin balms – sells through its own funnel.",
-          "Pages are built, tested and replaced often, so speed mattered as much as precision."
+          "Каждый бренд — уход за волосами, GLP-1 патч, дренажные капли, очищение кишечника, жевательные добавки для суставов собак, бальзамы для кожи — продаёт через собственную воронку.",
+          "Страницы часто создаются, тестируются и заменяются, поэтому скорость была так же важна, как точность."
         ],
         "steps": [
           [
             {
-              "title": "Context",
+              "title": "Контекст",
               "blocks": [
                 [
-                  "Acentecom is a house of brands, not an agency: brand, creative, product, media and technology are all in-house. The funnels are where its brands make their sales."
+                  "Acentecom — группа брендов, а не агентство: бренд, креатив, продукт, медиа и технологии — всё внутри компании. Воронки — это место, где её бренды продают."
                 ]
               ]
             }
           ],
           [
             {
-              "title": "The funnel, end to end",
+              "title": "Воронка целиком",
               "blocks": [
                 [
-                  "Complete customer journeys, page by page:",
+                  "Полный путь покупателя, страница за страницей:",
                   [
-                    "Landing and sales pages",
-                    "Checkout",
-                    "Upsells",
-                    "Post-purchase pages"
+                    "Лендинги и продающие страницы",
+                    "Оформление заказа",
+                    "Апселлы",
+                    "Страницы после покупки"
                   ]
                 ]
               ]
@@ -1848,53 +1848,53 @@
           ],
           [
             {
-              "title": "From Figma to page",
+              "title": "От Figma до страницы",
               "blocks": [
                 [
-                  "Figma designs, copy, images and templates turned into responsive pages, on phone first, since most visitors arrive there."
+                  "Макеты Figma, тексты, изображения и шаблоны превращались в адаптивные страницы — сначала для телефона, ведь большинство посетителей приходит именно с него."
                 ]
               ]
             }
           ],
           [
             {
-              "title": "Checkout and offers",
+              "title": "Оформление заказа и предложения",
               "blocks": [
                 [
-                  "Offer blocks with bundles, subscriptions and limited-time discounts, wired into the checkout on CheckoutChamp so each choice reaches the cart correctly."
+                  "Блоки предложений с наборами, подписками и ограниченными по времени скидками, связанные с оформлением заказа в CheckoutChamp так, чтобы каждый выбор корректно попадал в корзину."
                 ]
               ]
             }
           ],
           [
             {
-              "title": "Quizzes and interactive steps",
+              "title": "Квизы и интерактивные шаги",
               "blocks": [
                 [
-                  "Custom quizzes and interactive funnel steps where a brand needed them, so a visitor’s answers shape what they’re offered."
+                  "Собственные квизы и интерактивные шаги воронки там, где они были нужны бренду: ответы посетителя определяют, что ему предложат."
                 ]
               ]
             }
           ],
           [
             {
-              "title": "Testing and QA",
+              "title": "Тестирование и QA",
               "blocks": [
                 [
-                  "A/B tests and funnel experiments set up and supported. Before every release, responsiveness, checkout behaviour and funnel logic checked on phone and desktop."
+                  "Настройка и поддержка A/B-тестов и экспериментов с воронками. Перед каждым релизом — проверка адаптивности, оформления заказа и логики воронки на телефоне и десктопе."
                 ]
               ]
             }
           ],
           [
             {
-              "title": "What this shows",
+              "title": "Что показывает проект",
               "blocks": [
                 [
                   [
-                    "Front-end delivery where the page itself is the product",
-                    "One layout system carried across many brands",
-                    "AI tools used daily, with every change reviewed and tested by hand"
+                    "Фронтенд, где сама страница и есть продукт",
+                    "Одна система вёрстки для многих брендов",
+                    "AI-инструменты каждый день, но каждое изменение проверено и протестировано вручную"
                   ]
                 ]
               ]
@@ -1903,98 +1903,98 @@
         ]
       },
       "blueprint": {
-        "title": "Principles",
-        "subtitle": "What every funnel page held to.",
+        "title": "Принципы",
+        "subtitle": "Чему следовала каждая страница воронки.",
         "cards": [
           {
-            "title": "Phone first",
-            "body": "Most visitors arrive on a phone; every page was built and checked there first."
+            "title": "Сначала телефон",
+            "body": "Большинство посетителей приходит с телефона, поэтому каждая страница сначала создавалась и проверялась там."
           },
           {
-            "title": "Checkout you can trust",
-            "body": "Every offer and option reaches the cart exactly as shown."
+            "title": "Надёжное оформление заказа",
+            "body": "Каждое предложение и вариант попадают в корзину ровно так, как показаны."
           },
           {
-            "title": "Reusable sections",
-            "body": "Offer, journey, comparison, proof and FAQ blocks shared across brands."
+            "title": "Переиспользуемые секции",
+            "body": "Блоки предложения, пути клиента, сравнения, доказательств и FAQ — общие для всех брендов."
           },
           {
-            "title": "Built to be tested",
-            "body": "Pages structured so sections and variants can be swapped for A/B tests."
+            "title": "Готово к тестам",
+            "body": "Страницы устроены так, что секции и варианты можно менять для A/B-тестов."
           },
           {
-            "title": "Reviewed, not just generated",
-            "body": "AI speeds up the work; a person still reads, tests and fixes the code."
+            "title": "Проверено, а не просто сгенерировано",
+            "body": "AI ускоряет работу, но код всё равно читает, тестирует и исправляет человек."
           }
         ]
       },
       "architecture": {
-        "title": "In detail",
-        "subtitle": "Six parts of the work, and how each was approached.",
+        "title": "Подробности",
+        "subtitle": "Шесть частей работы и подход к каждой.",
         "useCases": [
           {
-            "title": "1. One page system, many brands",
+            "title": "1. Одна система страниц, много брендов",
             "blocks": [
               [
-                "Hair care, patches, drops, chews and balms share the same funnel sections: offer, journey, comparison, reviews and FAQ."
+                "Уход за волосами, патчи, капли, жевательные добавки и бальзамы используют одни и те же секции воронки: предложение, путь клиента, сравнение, отзывы и FAQ."
               ],
               [
-                "Each brand changes the colours, type and imagery; the structure underneath stays the same, so a new brand page starts from working parts."
+                "Каждый бренд меняет цвета, шрифты и изображения, а структура остаётся прежней — страница нового бренда начинается с готовых частей."
               ]
             ]
           },
           {
-            "title": "2. The offer block",
+            "title": "2. Блок предложения",
             "blocks": [
               [
-                "The part of the page that sells: bundle sizes with per-unit prices, subscribe-and-save, a discount deadline and the add-to-cart button."
+                "Часть страницы, которая продаёт: размеры наборов с ценой за единицу, подписка со скидкой, срок действия скидки и кнопка добавления в корзину."
               ],
               [
-                "Built to read at a glance on a phone and to pass the chosen bundle straight into checkout."
+                "Сделан так, чтобы читаться с одного взгляда на телефоне и передавать выбранный набор прямо в оформление заказа."
               ]
             ]
           },
           {
-            "title": "3. Choices that change the offer",
+            "title": "3. Выбор, который меняет предложение",
             "blocks": [
               [
-                "On the dog chews, the visitor picks their dog’s weight and a plan, and the offer updates to match."
+                "В жевательных добавках для собак посетитель выбирает вес собаки и план, и предложение обновляется под этот выбор."
               ],
               [
-                "The same pattern carries over to quizzes: a few questions, then the product and plan that fit."
+                "Тот же принцип работает в квизах: несколько вопросов, затем подходящий продукт и план."
               ]
             ]
           },
           {
-            "title": "4. Long stories, made scannable",
+            "title": "4. Длинные истории, которые легко просмотреть",
             "blocks": [
               [
-                "Week-by-week journeys, ingredient lists and how-to steps carry a lot of copy."
+                "Понедельные планы, списки ингредиентов и пошаговые инструкции содержат много текста."
               ],
               [
-                "Laid out as timelines and steps with images beside them, so they read in seconds on a phone."
+                "Они оформлены как таймлайны и шаги с изображениями рядом, поэтому читаются за секунды на телефоне."
               ]
             ]
           },
           {
-            "title": "5. Proof sections",
+            "title": "5. Секции доказательств",
             "blocks": [
               [
-                "Comparison tables, survey results, expert quotes and customer reviews, built as modules a page can add, remove or reorder."
+                "Сравнительные таблицы, результаты опросов, цитаты экспертов и отзывы клиентов — модули, которые страница может добавить, убрать или переставить."
               ],
               [
-                "Each one lays out cleanly from desktop down to the narrowest phone."
+                "Каждый аккуратно выстраивается от десктопа до самого узкого телефона."
               ]
             ]
           },
           {
-            "title": "6. Test, check, release",
+            "title": "6. Тест, проверка, релиз",
             "blocks": [
               [
-                "Variants of headlines and sections set up for A/B tests, and every release checked for responsiveness, checkout behaviour and funnel logic."
+                "Варианты заголовков и секций для A/B-тестов, а каждый релиз проверен на адаптивность, оформление заказа и логику воронки."
               ],
               [
-                "AI tools drafted code faster; every change was still reviewed and tested by hand before it went live."
+                "AI-инструменты ускоряли написание кода, но каждое изменение всё равно проверялось и тестировалось вручную перед публикацией."
               ]
             ]
           }

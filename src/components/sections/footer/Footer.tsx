@@ -282,6 +282,15 @@ const LinkList = styled.ul<{ $stacked?: boolean }>`
   li {
     display: flex;
   }
+
+  /* Touch screens: the 20px-tall links get a 24px tap area (WCAG 2.5.8)
+     without moving anything — the padding is taken back by the margin. */
+  ${media.down('xl')} {
+    a {
+      padding-block: 2px;
+      margin-block: -2px;
+    }
+  }
 `;
 
 /** Figma Navigation Link Hover / Active Tablet: the word stays, the brackets turn green and open out by 6px. */

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { Button } from '@/components/primitives';
+import { SiteLayout } from '@/components/layouts';
 import { spacing } from '@/styles/tokens/spacing';
 import { fontFamily, fontSize, fontWeight, lineHeight } from '@/styles/tokens/typography';
 import { neutrals } from '@/styles/tokens/colors';
@@ -39,13 +40,17 @@ const Main = styled.main`
 export default function LocaleNotFound() {
   const t = useTranslations('notFound');
 
+  /* The site's header and footer stay, so a lost visitor can still reach
+     Services, Work or Contact from here — not only the home page. */
   return (
-    <Main id="main-content">
-      <h1>{t('title')}</h1>
-      <p>{t('description')}</p>
-      <Button as={Link} href="/" $variant="primary">
-        {t('home')}
-      </Button>
-    </Main>
+    <SiteLayout>
+      <Main id="main-content">
+        <h1>{t('title')}</h1>
+        <p>{t('description')}</p>
+        <Button as={Link} href="/" $variant="primary">
+          {t('home')}
+        </Button>
+      </Main>
+    </SiteLayout>
   );
 }
