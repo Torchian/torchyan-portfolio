@@ -1050,7 +1050,7 @@
           "description": [
             "Acentecom builds and runs its own direct-to-consumer wellness brands. In its Product & Tech team I built the front end of their sales funnels: landing and sales pages, checkout, upsells and post-purchase pages.",
             "I turned Figma designs and templates into responsive pages on Shopify and CheckoutChamp, built quizzes and interactive funnel steps, set up A/B tests, and checked every release on phone and desktop.",
-            "Pages here are judged by whether they sell, so speed and precision had to come together, with AI tools speeding up the work and every change still reviewed by hand."
+            "Pages here are judged by whether they sell, so speed and precision had to come together."
           ],
           "stack": [
             "Shopify",
@@ -1067,10 +1067,9 @@
           ],
           "relationship": "Employee · Oct 2021 – Feb 2024",
           "description": [
-            "Worked across Picsart’s Growth and Marketplace teams on production UI for picsart.com and related product surfaces.",
-            "In Growth, I worked on scalable front-end UI, responsive behavior, accessibility and performance, including optimizations to Discovery pages.",
-            "Later, in Marketplace, I was a key Design System integration contributor for my team: bringing in shared components, building product-specific UI, and implementing multilingual RTL/LTR support within my scope.",
-            "This period shaped a lot of how I think about UI today: design systems, accessibility, localization and production quality all have to work together."
+            "Worked across Picsart’s Growth and Marketplace teams on production UI for picsart.com.",
+            "In Growth: scalable front-end UI, responsiveness, accessibility and performance, including Discovery pages. In Marketplace: Design System integration for my team, product UI and multilingual RTL/LTR support.",
+            "It shaped how I work today: design systems, accessibility, localization and quality, together."
           ],
           "stack": [
             "React",
@@ -1109,7 +1108,7 @@
           "description": [
             "SoulOne is an Armenian bakery making gluten-free cakes and dessert balls, already supplying several cafés when I joined.",
             "As Web Designer and Product Owner, I developed the visual direction — colours, typography and tone of voice — and designed an e-commerce website concept with interactive Figma prototypes, website copy and social media visuals.",
-            "The owner approved the design and brand direction, but the website was not developed or launched. The work brought together branding, product communication and interactive prototyping."
+            "The owner approved the design and brand direction; the website itself was not built or launched."
           ],
           "stack": [
             "Brand Direction",
