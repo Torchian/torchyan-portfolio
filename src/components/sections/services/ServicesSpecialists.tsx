@@ -543,6 +543,8 @@ const SpecialistScene = styled(OrbitScene)`
 `;
 
 const AXES = SPECIALISTS.map((s) => s.angle);
+/** Space left between the header and the stage's top after a tap scrolls it up. */
+const REVEAL_GAP = spacing[200];
 const NUMBERS = SPECIALISTS.map((_, i) => String(i + 1).padStart(2, '0'));
 
 export function ServicesSpecialists() {
@@ -550,6 +552,8 @@ export function ServicesSpecialists() {
   const items = t.raw('items') as ServiceCopy[];
   const [active, setActive] = useState<ServiceId | null>(null);
   const ringRef = useRef<HTMLDivElement>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
+  const belowRef = useRef<HTMLDivElement>(null);
   // The cut's angle, never wrapped, so each move turns the short way.
   const atRef = useRef(0);
 
@@ -567,7 +571,29 @@ export function ServicesSpecialists() {
     setActive(id);
   };
 
-  const toggle = (id: ServiceId) => () => choose(active === id ? null : id);
+  /*
+   * On a narrow screen the chosen specialist's text appears under the circle,
+   * often below the fold: a tap seemed to do nothing. After a tap that opens a
+   * specialist, bring the section's top up under the header so the circle and
+   * the start of its text are on screen together. Only when the text is shown
+   * below (Below is display: none on wider stages) and only if the stage is not
+   * already there.
+   */
+  const revealBelow = () => {
+    const stage = stageRef.current;
+    const below = belowRef.current;
+    if (!stage || !below || getComputedStyle(below).display === 'none') return;
+    const target = stage.getBoundingClientRect().top + window.scrollY - HEADER_HEIGHT - REVEAL_GAP;
+    if (Math.abs(window.scrollY - target) < 8) return;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top: Math.max(0, target), behavior: reduce ? 'auto' : 'smooth' });
+  };
+
+  const toggle = (id: ServiceId) => () => {
+    const next = active === id ? null : id;
+    choose(next);
+    if (next) revealBelow();
+  };
   const point = (id: ServiceId) => (e: React.PointerEvent) => {
     if (e.pointerType === 'mouse') choose(id);
   };
@@ -579,7 +605,7 @@ export function ServicesSpecialists() {
         <VisuallyHidden as="h2" id="team-services-title">
           {t('title')}
         </VisuallyHidden>
-        <Stage>
+        <Stage ref={stageRef}>
           <Circle>
             <SpecialistScene
               axes={AXES}
@@ -641,7 +667,7 @@ export function ServicesSpecialists() {
             </Frame>
           </Circle>
 
-          <Below aria-hidden>
+          <Below ref={belowRef} aria-hidden>
             <BelowText data-shown={active === null}>
               <p>{t('hint')}</p>
             </BelowText>
