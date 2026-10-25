@@ -113,6 +113,20 @@ const Subtitle = styled.p`
     font-size: ${fontSize.heading.l}px;
     line-height: ${lineHeight.heading.l}px;
   }
+
+  /* Armenian words are long and its glyphs wide: one step smaller below
+     desktop so a word like "ավտոպահեստամասերի" fits on its line. */
+  &:lang(hy) {
+    ${media.down('xl')} {
+      font-size: ${fontSize.display.s * 0.75}px;
+      line-height: ${lineHeight.display.s * 0.75}px;
+    }
+
+    ${media.down('m')} {
+      font-size: ${fontSize.heading.m}px;
+      line-height: ${lineHeight.heading.m}px;
+    }
+  }
 `;
 
 const Description = styled.div`
@@ -175,6 +189,12 @@ const MetaRow = styled.div`
 
   ${media.down('m')} {
     justify-content: flex-start;
+
+    /* Russian and Armenian labels ("Формат сотрудничества:") take most of a
+       phone's width beside the badges; put them above the badges instead. */
+    &:is(:lang(ru), :lang(hy)) {
+      flex-direction: column;
+    }
   }
 `;
 
@@ -223,8 +243,9 @@ const MetaItems = styled.dd`
     letter-spacing: ${letterSpacing.s}px;
     max-width: 100%;
     text-align: center;
-    /* Russian and Armenian badges can be longer than a phone is wide. */
-    overflow-wrap: anywhere;
+    /* A Russian or Armenian badge can be longer than a phone is wide: it may
+       break between words, and inside a word only as a last resort. */
+    overflow-wrap: break-word;
     color: ${neutrals[900]};
   }
 

@@ -302,6 +302,14 @@ const Info = styled.div`
       gap: ${spacing[800]}px;
     }
   }
+
+  /* A small laptop (720–820px tall) can't fit the 64px gaps around a long
+     description: the text ran out above and below its half. Half the gap. */
+  ${stageDesktop} and (max-height: 820px) {
+    ${STAGED} & {
+      gap: ${spacing[400]}px;
+    }
+  }
 `;
 
 const Heading = styled.div`

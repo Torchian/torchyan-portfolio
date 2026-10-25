@@ -124,6 +124,15 @@ const CardHeading = styled.h3`
     font-size: ${fontSize.heading.s}px;
     line-height: ${lineHeight.heading.s}px;
   }
+
+  /* Single Armenian words ("Նախապատմություն") are wider than the text column
+     below desktop: one step smaller there. */
+  &:lang(hy) {
+    ${media.down('xl')} {
+      font-size: ${fontSize.heading.m}px;
+      line-height: ${lineHeight.heading.m}px;
+    }
+  }
 `;
 
 const CardBody = styled(CaseBlocks)`

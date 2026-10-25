@@ -154,6 +154,17 @@ const Form = styled.form`
   width: 100%;
   /* #message lands below the fixed header. */
   scroll-margin-top: ${spacing[1500]}px;
+  /* Twice the section's gap before the channel ring: the form and the ring
+     read as two separate ways to get in touch, not one block. */
+  margin-bottom: ${spacing[1000]}px;
+
+  ${media.down('xl')} {
+    margin-bottom: ${spacing[800]}px;
+  }
+
+  ${media.down('m')} {
+    margin-bottom: ${spacing[600]}px;
+  }
 
   /* Figma's CTA Primary runs the form's full width. */
   > button[type='submit'] {
