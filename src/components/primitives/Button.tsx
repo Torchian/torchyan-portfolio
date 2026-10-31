@@ -48,6 +48,21 @@ const hoverOrTouchRest = (look: RuleSet<object>) => css`
   }
 `;
 
+/**
+ * The hover look on hover only. For the filled buttons, whose hover is a
+ * darker body: worn at rest on a phone or tablet (hoverOrTouchRest), it turned
+ * every green and pink button there into its dark shade, and the site's brand
+ * green read as a muddy one. They keep their own colour on touch; a press
+ * (:active) still shows the dark one.
+ */
+const hoverOnly = (look: RuleSet<object>) => css`
+  @media (hover: hover) and (pointer: fine) {
+    &:hover:not(:disabled) {
+      ${look}
+    }
+  }
+`;
+
 /** The primary and tertiary look: the wedges widen and take the accent. */
 const wedgeLook = (accent: string) => css`
   color: ${accent};
@@ -288,7 +303,7 @@ const secondaryStyles = css`
   }
 
   /* Figma CTA Primary "Secondary Hover": darker body, ring unchanged. */
-  ${hoverOrTouchRest(css`
+  ${hoverOnly(css`
     background: ${accents.primaryDark};
   `)}
 
@@ -353,7 +368,7 @@ const secondaryPinkStyles = css`
   }
 
   /* Figma CTA Tertiary "Secondary Hover": darker body, ring unchanged. */
-  ${hoverOrTouchRest(css`
+  ${hoverOnly(css`
     background: ${accents.secondaryDark};
   `)}
 
